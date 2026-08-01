@@ -30,28 +30,40 @@ The release admits bounded results about:
 
 The raw inventory-loop magnitude is monotone in release time at fixed forcing frequency; only the release-normalized loop peaks at `omega*tau = 1`. Topology-changing dynamics are a proposed syntax, not a general existence, uniqueness, reset-closure, simultaneous-guard, or non-Zeno theorem. Electrochemical conversion is labeled supplied free-energy conversion, not latent heat or spontaneous planetary sequestration.
 
+## Typed-layer outlook and provenance boundary
+
+The preprint includes a proposed-only ASTRA outlook prompted by four 2026 studies. A mixed iron-oxyhydroxide inclusion in one Juína diamond has no observed present fracture or exterior connection and is admitted as a qualified example of present isolation; permeability, past exchange, and its inferred deep history remain unmeasured or source-author hypotheses. Moonlight/animal spectroscopy, error-detected quantum sampling, and xenophagocytosis are admitted only as observation, certificate, and active-control analogies. None validates SPPT, changes its physical flux graph, or establishes a universal cross-domain law. No article text, third-party figure, collage, or chat transcript is redistributed.
+
+The acknowledgments record the author-reported dream/collage/ChatGPT origin of the cold-trap/Saturn idea and later OpenAI language-model assistance. The unprovided collage is excluded because its component-image identities and publication rights were not established. This is conceptual provenance, not evidence. Every admitted evidentiary statement is bound to a primary source, calculation, data set, or test in `CLAIM_MATRIX.json`; proposed and deferred statements are labeled separately.
+
 ## Synthetic benchmark boundary
 
 Across 64 frozen Gaussian-noise realizations, training BIC selects the minimum generating chain in 64/64 runs. The held-out forcing comparison occurs after selection and preserves a negative result: the overconnected triangle has lower held-out RMSE in 23/64 runs. Its added edge reaches the declared lower bound in 29/64 runs, so the shortcut distribution is censored. These are mechanically replayed synthetic outcomes, not proof, external validation, or a general false-positive-rate estimate.
+
+The release-frozen 20-start design was adopted during release audit after replay of this same benchmark exposed a missed endpoint under the earlier 12-start design. The added unit and coordinate-wise decade anchors were therefore informed by benchmark behavior. These reruns are regression evidence for the repaired implementation, not untouched, blinded, or external evaluation. Both data serializations preserve every start vector, solver disposition, endpoint, convergence diagnostic, active bound, and failed outcome; CSV and JSON remain duplicate representations of one evidence source.
 
 ## Reproduce
 
 Requirements:
 
-- CPython **3.12.13** (`.python-version`)
+- CPython **3.12.10** (`.python-version` and `RUNTIME.json`; do not accept another 3.12 microrelease)
+- Git for Windows **2.55.0.windows.3**, using the exact installer, build commit, and executable identity in `RUNTIME.json`
 - dependencies from `requirements-lock.txt`, installed with hashes
+- a Haswell-compatible Windows x86-64 CPU with AVX2 and FMA3; the canonical verifier forces and probes the NumPy and SciPy OpenBLAS Haswell kernels with one thread and disables NumPy AVX-512 dispatch
 - Playwright Chromium **151.0.7922.34**, revision **1234**, installed by Playwright 1.62.0 for tagged PDF generation
+- the exact Cambria Math and Times New Roman source-font bytes recorded in `RUNTIME.json` when their permitted embedded subsets appear in the PDFs
 
 On Windows PowerShell:
 
 ```powershell
+py -3.12 -c "import platform; assert platform.python_version() == '3.12.10', platform.python_version()"
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --require-hashes -r requirements-lock.txt
 .\.venv\Scripts\python.exe -m playwright install chromium
 .\.venv\Scripts\python.exe tools\verify.py --all
 ```
 
-On another supported shell, activate an equivalent Python 3.12.13 environment and run the same Python module commands. `tools/verify.py --all` performs complete test discovery, lint and type checks, metadata/schema checks, privacy and path scans, scientific replay, figure regeneration, document rebuild, deterministic-output comparison, PDF inspection, manifest checks, and release-integrity negative tests.
+On another Windows shell, first verify that the selected interpreter is exactly CPython 3.12.10 and that the selected Git matches `RUNTIME.json`, then run the same Python module commands. The canonical runtime and distribution archives are identified by hash in `RUNTIME.json`. `tools/verify.py --all` overrides hostile inherited thread or OpenBLAS-core values, verifies Git and the actual NumPy and SciPy kernels, and performs complete test discovery, lint and type checks, metadata/schema checks, privacy and path scans, scientific replay, figure regeneration, document rebuild, deterministic-output comparison, PDF inspection, manifest checks, and release-integrity negative tests.
 
 Focused commands:
 
@@ -62,7 +74,7 @@ python tools/build_documents.py
 python tools/verify.py
 ```
 
-Builds write only beneath the repository or a disposable output root. Seeds, multistart points, optimizer convergence diagnostics, bound flags, and all negative outcomes are preserved in `data/`.
+Builds write only beneath the repository or a disposable output root. Seeds, the 20 distinct fixed generic multistart points, every start and endpoint, optimizer convergence diagnostics, bound flags, and all negative outcomes are preserved in `data/`. The byte-identity claim is limited to the exercised release-artifact paths under the complete frozen runtime; it is not a claim of universal floating-point identity for future numerical code.
 
 ## Repository map
 
@@ -75,7 +87,7 @@ Builds write only beneath the repository or a disposable output root. Seeds, mul
 | `data/` | Generated CSV and JSON outputs, including all negative outcomes |
 | `figures/` | Generated manuscript and supplement figures |
 | `tools/` | Canonical verification, document, manifest, and release-identity tooling |
-| `SOURCE_INVENTORY.json` | Hash, media, attribution, rights, and alias inventory for every supplied source artifact |
+| `SOURCE_INVENTORY.json` | Hash, media, attribution, rights, alias, and excluded/deferred status for every supplied source artifact |
 | `CLAIM_MATRIX.json` | Consequential claims, hypotheses, evidence classes, limitations, and dispositions |
 
 ## Citation
@@ -91,3 +103,5 @@ The post-release documentation commit will add the verified version DOI, concept
 Original software is MIT licensed. Original manuscript text, documentation, figures, generated data, and results are CC BY 4.0. See [`LICENSE_MAP.md`](LICENSE_MAP.md) and [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md). Cited works remain under their own terms.
 
 Use [GitHub Issues](https://github.com/jkolantree/astra/issues) for public correspondence. No private email, location, institution, ORCID, or legal identity is published.
+
+The tracked `.mailmap` maps the already-public GitHub-handle author label used by early bootstrap commits to the release pseudonym Jacko T.; raw historical commit objects are not rewritten.

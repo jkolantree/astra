@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import ctypes
 import hashlib
 import importlib.metadata
 import json
@@ -14,8 +15,6 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import Any
-
-from packaging.utils import canonicalize_name
 
 ROOT = Path(__file__).resolve().parents[1]
 TEMP_ROOT = ROOT / "tmp" / "verification"
@@ -41,6 +40,11 @@ def sha256(path: Path) -> str:
 
 
 def configure_environment() -> dict[str, str]:
+    runtime = json.loads(RUNTIME_PATH.read_text(encoding="utf-8"))
+    numeric_kernel = runtime["numeric_kernel"]
+    core_type = str(numeric_kernel["core_type"])
+    threads = str(numeric_kernel["threads"])
+    disabled_numpy_features = ",".join(numeric_kernel["numpy_disabled_cpu_features"])
     TEMP_ROOT.mkdir(parents=True, exist_ok=True)
     tempfile.tempdir = str(TEMP_ROOT)
     environment = os.environ.copy()
@@ -48,12 +52,15 @@ def configure_environment() -> dict[str, str]:
         {
             "PYTHONHASHSEED": "0",
             "PYTHONDONTWRITEBYTECODE": "1",
+            "PYTHONPYCACHEPREFIX": str(ROOT / "tmp" / "pycache"),
             "TZ": "UTC",
             "SOURCE_DATE_EPOCH": "1785542400",
-            "OMP_NUM_THREADS": "1",
-            "OPENBLAS_NUM_THREADS": "1",
-            "MKL_NUM_THREADS": "1",
-            "NUMEXPR_NUM_THREADS": "1",
+            "OPENBLAS_CORETYPE": core_type,
+            "OMP_NUM_THREADS": threads,
+            "OPENBLAS_NUM_THREADS": threads,
+            "MKL_NUM_THREADS": threads,
+            "NUMEXPR_NUM_THREADS": threads,
+            "NPY_DISABLE_CPU_FEATURES": disabled_numpy_features,
             "MPLBACKEND": "Agg",
             "MPLCONFIGDIR": str(ROOT / "tmp" / "matplotlib"),
             "TEMP": str(TEMP_ROOT),
@@ -71,6 +78,8 @@ def run(command: list[str], *, environment: dict[str, str]) -> None:
 
 
 def locked_distributions() -> dict[str, str]:
+    from packaging.utils import canonicalize_name
+
     matches = re.findall(
         r"(?m)^([A-Za-z0-9_.-]+)==([^\s\\]+)", LOCK_PATH.read_text(encoding="utf-8")
     )
@@ -97,6 +106,115 @@ def verify_installed_distributions() -> None:
             )
 
 
+def observe_numeric_kernel(runtime: dict[str, Any]) -> dict[str, Any]:
+    import numpy
+    import scipy
+
+    packages = {"numpy": numpy, "scipy": scipy}
+    cpu_module = importlib.import_module("numpy._core._multiarray_umath")
+    cpu_features = dict(cpu_module.__cpu_features__)
+    libraries: list[dict[str, Any]] = []
+    for specification in runtime["numeric_kernel"]["libraries"]:
+        distribution = str(specification["distribution"])
+        package = packages[distribution]
+        package_file = package.__file__
+        if package_file is None:
+            raise RuntimeError(f"Cannot locate the {distribution} package")
+        library_directory = Path(package_file).resolve().parent.parent / str(
+            specification["library_directory"]
+        )
+        matches = sorted(library_directory.glob(str(specification["library_glob"])))
+        if len(matches) != 1:
+            raise RuntimeError(
+                f"Expected one {distribution} OpenBLAS library, observed {len(matches)}"
+            )
+        library = ctypes.CDLL(str(matches[0]))
+        core_function = getattr(library, str(specification["corename_symbol"]))
+        core_function.restype = ctypes.c_char_p
+        thread_function = getattr(library, str(specification["num_threads_symbol"]))
+        thread_function.restype = ctypes.c_int
+        core_bytes = core_function()
+        if core_bytes is None:
+            raise RuntimeError(f"{distribution} OpenBLAS returned no core name")
+        configuration = package.__config__.CONFIG
+        blas_configuration = configuration["Build Dependencies"]["blas"]
+        libraries.append(
+            {
+                "distribution": distribution,
+                "distribution_version": importlib.metadata.version(distribution),
+                "blas_provider": blas_configuration["name"],
+                "openblas_version": blas_configuration["version"],
+                "core_type": core_bytes.decode("ascii"),
+                "threads": int(thread_function()),
+            }
+        )
+    return {"cpu_features": cpu_features, "libraries": libraries}
+
+
+def validate_numeric_kernel_observation(
+    runtime: dict[str, Any], observation: dict[str, Any]
+) -> None:
+    numeric_kernel = runtime["numeric_kernel"]
+    missing_features = [
+        feature
+        for feature in numeric_kernel["required_cpu_features"]
+        if not observation["cpu_features"].get(feature, False)
+    ]
+    if missing_features:
+        raise RuntimeError(
+            "The deterministic numeric kernel requires CPU features: "
+            + ", ".join(missing_features)
+        )
+    enabled_forbidden = [
+        feature
+        for feature in numeric_kernel["numpy_disabled_cpu_features"]
+        if observation["cpu_features"].get(feature, False)
+    ]
+    if enabled_forbidden:
+        raise RuntimeError(
+            "NumPy CPU-feature disabling failed for: " + ", ".join(enabled_forbidden)
+        )
+    observed_libraries = {
+        item["distribution"]: item for item in observation["libraries"]
+    }
+    for specification in numeric_kernel["libraries"]:
+        distribution = specification["distribution"]
+        observed = observed_libraries.get(distribution)
+        if observed is None:
+            raise RuntimeError(f"Missing numeric-kernel observation for {distribution}")
+        expected = {
+            "distribution": distribution,
+            "distribution_version": specification["distribution_version"],
+            "blas_provider": "scipy-openblas",
+            "openblas_version": specification["openblas_version"],
+            "core_type": str(numeric_kernel["core_type"]).title(),
+            "threads": numeric_kernel["threads"],
+        }
+        if observed != expected:
+            raise RuntimeError(
+                f"Numeric-kernel drift for {distribution}: expected {expected}, observed {observed}"
+            )
+
+
+def verify_numeric_kernel(runtime: dict[str, Any]) -> None:
+    numeric_kernel = runtime["numeric_kernel"]
+    expected_environment = {
+        "OPENBLAS_CORETYPE": str(numeric_kernel["core_type"]),
+        "OPENBLAS_NUM_THREADS": str(numeric_kernel["threads"]),
+        "OMP_NUM_THREADS": str(numeric_kernel["threads"]),
+        "MKL_NUM_THREADS": str(numeric_kernel["threads"]),
+        "NUMEXPR_NUM_THREADS": str(numeric_kernel["threads"]),
+        "NPY_DISABLE_CPU_FEATURES": ",".join(numeric_kernel["numpy_disabled_cpu_features"]),
+    }
+    observed_environment = {name: os.environ.get(name) for name in expected_environment}
+    if observed_environment != expected_environment:
+        raise RuntimeError(
+            f"Numeric-kernel environment drift: expected {expected_environment}, "
+            f"observed {observed_environment}"
+        )
+    validate_numeric_kernel_observation(runtime, observe_numeric_kernel(runtime))
+
+
 def verify_runtime(environment: dict[str, str]) -> None:
     runtime = json.loads(RUNTIME_PATH.read_text(encoding="utf-8"))
     observed_python = platform.python_version()
@@ -110,7 +228,28 @@ def verify_runtime(environment: dict[str, str]) -> None:
     if lock_identity != {"file": LOCK_PATH.name, "sha256": sha256(LOCK_PATH)}:
         raise RuntimeError("Dependency-lock identity drift")
 
+    git_process = subprocess.run(
+        ["git", "version", "--build-options"],
+        check=True,
+        capture_output=True,
+        text=True,
+        env=environment,
+    )
+    git_lines = git_process.stdout.splitlines()
+    git_version = git_lines[0].removeprefix("git version ") if git_lines else ""
+    git_build = re.search(r"(?m)^built from commit: ([0-9a-f]{40})$", git_process.stdout)
+    git_executable = shutil.which("git", path=environment.get("PATH"))
+    observed_git = {
+        "version": git_version,
+        "build_commit": git_build.group(1) if git_build else "",
+        "executable_sha256": sha256(Path(git_executable)) if git_executable else "",
+    }
+    expected_git = {key: runtime["git"][key] for key in observed_git}
+    if observed_git != expected_git:
+        raise RuntimeError(f"Git runtime drift: expected {expected_git}, observed {observed_git}")
+
     verify_installed_distributions()
+    verify_numeric_kernel(runtime)
     run([sys.executable, "-m", "pip", "check"], environment=environment)
 
     import playwright
@@ -146,23 +285,29 @@ def cffconvert_command() -> list[str]:
     if not executable.is_file():
         located = shutil.which("cffconvert")
         if located is None:
-            raise RuntimeError("cffconvert executable is missing from the locked environment")
+            return [
+                sys.executable,
+                "-c",
+                "from cffconvert.cli.cli import cli; cli()",
+                "--validate",
+            ]
         executable = Path(located)
     return [str(executable), "--validate"]
 
 
 def verify_focused(environment: dict[str, str]) -> None:
     verify_runtime(environment)
+    run([sys.executable, "tools/check_repository.py"], environment=environment)
     commands = (
         [sys.executable, "-m", "pytest", "-q"],
         [sys.executable, "-m", "ruff", "check", "."],
         [sys.executable, "-m", "mypy", "src"],
         cffconvert_command(),
-        [sys.executable, "tools/check_repository.py"],
         [sys.executable, "tools/inspect_pdf.py"],
     )
     for command in commands:
         run(command, environment=environment)
+    run([sys.executable, "tools/check_repository.py"], environment=environment)
     if (ROOT / ".git").exists():
         run(["git", "diff", "--check"], environment=environment)
         run(["git", "diff", "--cached", "--check"], environment=environment)
@@ -209,6 +354,7 @@ def identity_difference(
 
 
 def verify_full_replay(environment: dict[str, str], workers: int) -> None:
+    verify_focused(environment)
     science_before = identity(scientific_outputs())
     run(
         [sys.executable, "scripts/make_figures.py", "--workers", str(workers)],

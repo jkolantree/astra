@@ -6,6 +6,8 @@ import gzip
 import hashlib
 import io
 import json
+import os
+import re
 import shutil
 import subprocess
 import tarfile
@@ -21,6 +23,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 MANIFEST = ROOT / "MANIFEST.sha256"
 SPEC_PATH = ROOT / "RELEASE_SPEC.json"
+RUNTIME_PATH = ROOT / "RUNTIME.json"
+IDENTITY_SCHEMA = "https://github.com/jkolantree/astra/schemas/release-identity-v1"
 
 
 def sha256_bytes(value: bytes) -> str:
@@ -36,14 +40,37 @@ def sha256(path: Path) -> str:
 
 
 def git(arguments: list[str], *, cwd: Path | None = None, binary: bool = False) -> str | bytes:
+    environment = os.environ.copy()
+    environment.update({"GIT_CONFIG_NOSYSTEM": "1", "GIT_CONFIG_GLOBAL": os.devnull})
     completed = subprocess.run(
         ["git", *arguments],
         cwd=cwd or ROOT,
+        env=environment,
         check=True,
         capture_output=True,
         text=not binary,
     )
     return completed.stdout
+
+
+def verify_git_runtime() -> None:
+    runtime = json.loads(RUNTIME_PATH.read_text(encoding="utf-8"))
+    expected = runtime["git"]
+    completed = subprocess.run(
+        ["git", "version", "--build-options"], check=True, capture_output=True, text=True
+    )
+    lines = completed.stdout.splitlines()
+    version = lines[0].removeprefix("git version ") if lines else ""
+    build_match = re.search(r"(?m)^built from commit: ([0-9a-f]{40})$", completed.stdout)
+    executable = shutil.which("git")
+    observed = {
+        "version": version,
+        "build_commit": build_match.group(1) if build_match else "",
+        "executable_sha256": sha256(Path(executable)) if executable else "",
+    }
+    required = {key: expected[key] for key in observed}
+    if observed != required:
+        raise RuntimeError(f"Git runtime drift: expected {required}, observed {observed}")
 
 
 def release_spec() -> dict[str, Any]:
@@ -198,6 +225,7 @@ def verify_archive(path: Path, *, commit: str, prefix: str) -> None:
 
 
 def verify_git_archive_inventory() -> None:
+    verify_git_runtime()
     verify_manifest(require_tracked=True)
     destination = ROOT / "tmp" / "git-archive-inventory.tar.gz"
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -227,6 +255,7 @@ def clear_dist(allowlist: set[str]) -> None:
 
 
 def build_release_assets() -> None:
+    verify_git_runtime()
     spec = release_spec()
     allowlist = list(spec["release_asset_allowlist"])
     allowset = set(allowlist)
@@ -262,12 +291,26 @@ def build_release_assets() -> None:
     checksum_path = DIST / "SHA256SUMS"
     checksum_path.write_text(checksum_text, encoding="utf-8", newline="\n")
 
-    bound_assets = []
-    for name in allowlist[:6]:
-        path = DIST / name
-        bound_assets.append({"name": name, "bytes": path.stat().st_size, "sha256": sha256(path)})
-    detached = {
-        "schema": "https://github.com/jkolantree/astra/schemas/release-identity-v1",
+    detached = expected_detached_identity(spec, identity, allowlist)
+    identity_path = DIST / allowlist[6]
+    identity_path.write_bytes(canonical_json_bytes(detached))
+    verify_release_assets()
+    print("Built and verified the exact seven-asset release roster.")
+
+
+def canonical_json_bytes(value: dict[str, Any]) -> bytes:
+    return (json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n").encode("utf-8")
+
+
+def expected_detached_identity(
+    spec: dict[str, Any], identity: dict[str, str], allowlist: list[str]
+) -> dict[str, Any]:
+    bound_assets = [
+        {"name": name, "bytes": (DIST / name).stat().st_size, "sha256": sha256(DIST / name)}
+        for name in allowlist[:6]
+    ]
+    return {
+        "schema": IDENTITY_SCHEMA,
         "version": spec["version"],
         "tag": spec["tag"],
         "annotated_tag_object": identity["tag_object"],
@@ -280,15 +323,9 @@ def build_release_assets() -> None:
         },
         "build_epoch": spec["build_epoch"],
         "assets": bound_assets,
-        "sha256sums_sha256": sha256(checksum_path),
+        "sha256sums_sha256": sha256(DIST / "SHA256SUMS"),
         "identity_excludes_self": True,
     }
-    identity_path = DIST / allowlist[6]
-    identity_path.write_text(
-        json.dumps(detached, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n"
-    )
-    verify_release_assets()
-    print("Built and verified the exact seven-asset release roster.")
 
 
 def verify_release_assets() -> None:
@@ -297,9 +334,11 @@ def verify_release_assets() -> None:
     roster = sorted(path.name for path in DIST.iterdir() if path.is_file())
     if roster != sorted(allowlist):
         raise RuntimeError(f"Release asset roster mismatch: {roster}")
-    detached = json.loads((DIST / allowlist[6]).read_text(encoding="utf-8"))
+    identity_path = DIST / allowlist[6]
+    detached = json.loads(identity_path.read_text(encoding="utf-8"))
     identity = tag_identity(spec["tag"], require_head=True)
     for key, expected in (
+        ("schema", IDENTITY_SCHEMA),
         ("version", spec["version"]),
         ("tag", spec["tag"]),
         ("annotated_tag_object", identity["tag_object"]),
@@ -333,6 +372,9 @@ def verify_release_assets() -> None:
     ]
     if detached.get("assets") != expected_records:
         raise RuntimeError("Detached identity asset records mismatch")
+    expected_detached = expected_detached_identity(spec, identity, allowlist)
+    if identity_path.read_bytes() != canonical_json_bytes(expected_detached):
+        raise RuntimeError("Detached release identity is not the exact canonical expected object")
     verify_archive(
         DIST / allowlist[4],
         commit=identity["commit"],

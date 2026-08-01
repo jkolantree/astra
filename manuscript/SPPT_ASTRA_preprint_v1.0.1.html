@@ -143,6 +143,9 @@ body { max-width: none; margin: 0; padding: 0; box-shadow: none; font-size: 10.2
 nav#TOC { break-after: page; }
 h1 { break-before: page; }
 h1:first-of-type { break-before: auto; }
+#dimensionless-regime-coordinates,
+#frequency-domain-identifiability-demonstration,
+#numerical-implementation-validation { break-before: auto; }
 h1, h2, h3, h4 { break-after: avoid-page; }
 p, li { orphans: 3; widows: 3; }
 table, figure, blockquote, pre { break-inside: avoid-page; }
@@ -300,6 +303,8 @@ Laboratory program</a></li>
 Computational program</a></li>
 <li><a href="#observational-program" id="toc-observational-program">12.3
 Observational program</a></li>
+<li><a href="#typed-auxiliary-layers-proposed-astra-research-outlook" id="toc-typed-auxiliary-layers-proposed-astra-research-outlook">12.4
+Typed auxiliary layers: proposed ASTRA research outlook</a></li>
 </ul></li>
 <li><a href="#limitations-and-no-go-conditions" id="toc-limitations-and-no-go-conditions">13. Limitations and no-go
 conditions</a></li>
@@ -376,7 +381,12 @@ Neptunian deep-to-surface connectivity.</p>
 topology to vary in planetary forward models and Bayesian retrievals,
 then ask whether it improves calibrated predictions of independent
 observables over conventional fixed-layer and smooth-gradient models. If
-it does not, the topological extension should be removed.</p>
+it does not, the topological extension should be removed. Four newly
+assessed studies motivate a separately labeled ASTRA research outlook in
+which physical flux, active control, observation, archival preservation,
+and verification are typed separately. Only a sealed deep-diamond
+inclusion bears direct planetary relevance; none of the four studies
+validates SPPT.</p>
 <h1 class="unnumbered" id="abstract">Abstract</h1>
 <p>Planetary evolution depends on more than bulk composition and total
 energy. The phase identity, physical connectivity, interfacial kinetics,
@@ -1234,24 +1244,36 @@ is interfacial free energy and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><msub><mi>g</mi><mi>α</mi></msub><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Delta g_\alpha&lt;0</annotation></semantics></math>
 is the bulk driving free-energy density. Classical homogeneous
 nucleation gives</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>r</mi><mi>α</mi><mo>*</mo></msubsup><mo>=</mo><mi>−</mi><mfrac><mrow><mn>2</mn><msub><mi>γ</mi><mrow><mi>α</mi><mi>β</mi></mrow></msub></mrow><mrow><mi>Δ</mi><msub><mi>g</mi><mi>α</mi></msub></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>Δ</mi><msubsup><mi>G</mi><mrow><mrow><mi mathvariant="normal">h</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi></mrow><mo>,</mo><mi>α</mi></mrow><mo>*</mo></msubsup><mo>=</mo><mfrac><mrow><mn>16</mn><mi>π</mi><msubsup><mi>γ</mi><mrow><mi>α</mi><mi>β</mi></mrow><mn>3</mn></msubsup></mrow><mrow><mn>3</mn><mi>Δ</mi><msubsup><mi>g</mi><mi>α</mi><mn>2</mn></msubsup></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>Δ</mi><msubsup><mi>G</mi><mrow><mrow><mi mathvariant="normal">h</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi></mrow><mo>,</mo><mi>α</mi></mrow><mo>*</mo></msubsup><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>ϑ</mi><mi>I</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>Δ</mi><msubsup><mi>G</mi><mrow><mrow><mi mathvariant="normal">h</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi></mrow><mo>,</mo><mi>α</mi></mrow><mo>*</mo></msubsup><mo>,</mo><mspace width="1.0em"></mspace><mn>0</mn><mo>≤</mo><mi>f</mi><mo>≤</mo><mn>1</mn><mi>.</mi><mspace width="2.0em"></mspace><mtext mathvariant="normal">(35)</mtext></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>r</mi><mi>α</mi><mo>*</mo></msubsup><mo>=</mo><mi>−</mi><mfrac><mrow><mn>2</mn><msub><mi>γ</mi><mrow><mi>α</mi><mi>β</mi></mrow></msub></mrow><mrow><mi>Δ</mi><msub><mi>g</mi><mi>α</mi></msub></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>Δ</mi><msubsup><mi>G</mi><mrow><mrow><mi mathvariant="normal">h</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi></mrow><mo>,</mo><mi>α</mi></mrow><mo>*</mo></msubsup><mo>=</mo><mfrac><mrow><mn>16</mn><mi>π</mi><msubsup><mi>γ</mi><mrow><mi>α</mi><mi>β</mi></mrow><mn>3</mn></msubsup></mrow><mrow><mn>3</mn><mi>Δ</mi><msubsup><mi>g</mi><mi>α</mi><mn>2</mn></msubsup></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>Δ</mi><msubsup><mi>G</mi><mrow><mrow><mi mathvariant="normal">h</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi></mrow><mo>,</mo><mi>α</mi></mrow><mo>*</mo></msubsup><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>ϑ</mi><mi>I</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>Δ</mi><msubsup><mi>G</mi><mrow><mrow><mi mathvariant="normal">h</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi></mrow><mo>,</mo><mi>α</mi></mrow><mo>*</mo></msubsup><mo>,</mo><mspace width="1.0em"></mspace><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>ϑ</mi><mi>I</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo>+</mo><mo>cos</mo><msub><mi>ϑ</mi><mi>I</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mo>cos</mo><msub><mi>ϑ</mi><mi>I</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow><mn>4</mn></mfrac><mo>,</mo><mspace width="1.0em"></mspace><mn>0</mn><mo>≤</mo><msub><mi>ϑ</mi><mi>I</mi></msub><mo>≤</mo><mi>π</mi><mi>.</mi><mspace width="2.0em"></mspace><mtext mathvariant="normal">(35)</mtext></mrow><annotation encoding="application/x-tex">
 r_\alpha^*=-\frac{2\gamma_{\alpha\beta}}{\Delta g_\alpha},
 \qquad
 \Delta G_{\mathrm{hom},\alpha}^*=\frac{16\pi\gamma_{\alpha\beta}^3}{3\Delta g_\alpha^2},
 \qquad
 \Delta G_{\mathrm{het},\alpha}^*=f(\vartheta_I)\Delta G_{\mathrm{hom},\alpha}^*,
-\quad 0\le f\le1.
+\quad
+f(\vartheta_I)=\frac{(2+\cos\vartheta_I)(1-\cos\vartheta_I)^2}{4},
+\quad 0\le\vartheta_I\le\pi.
 \qquad\text{(35)}
 </annotation></semantics></math></p>
 <p>Here
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>ϑ</mi><mi>I</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(\vartheta_I)</annotation></semantics></math>
-is the substrate-dependent wetting factor for an idealized spherical
-cap. The phase with the lowest bulk free energy need not nucleate first.
-Mineral substrate, metal activity, alkali intercalation, cooling rate,
-and electron transfer can select amorphous carbon, graphite, diamond
-precursor, or carbide. Carbon microstructure can therefore be a record
-of an ancient interface only when metamorphism, impact processing,
-oxidation, and later transport are independently constrained.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ϑ</mi><mi>I</mi></msub><annotation encoding="application/x-tex">\vartheta_I</annotation></semantics></math>
+is the contact angle measured through the nucleating phase and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f(0)=0</annotation></semantics></math>,
+while
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>π</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">f(\pi)=1</annotation></semantics></math>.
+This classical substrate-dependent wetting factor assumes a
+spherical-cap nucleus on a planar substrate, isotropic interfacial
+tensions, and negligible line tension <span class="citation" data-cites="fitzner2017">(<a href="#ref-fitzner2017" role="doc-biblioref">Fitzner et al. 2017</a>)</span>. Anisotropy,
+curvature, nonclassical pathways, and substrate-dependent polymorph
+selection can invalidate that reduction. The phase with the lowest bulk
+free energy need not nucleate first. Whether mineral substrate, metal
+activity, alkali intercalation, cooling rate, or electron-transfer
+regime selects among particular carbon phases remains to be established;
+these variables are candidate controls for future experiments, not
+admitted phase-selection mechanisms. Carbon microstructure can therefore
+be a record of an ancient interface only when metamorphism, impact
+processing, oxidation, and later transport are independently
+constrained.</p>
 <h2 id="natural-geoelectrochemistry">7.5 Natural
 geoelectrochemistry</h2>
 <p>A second 2026 study showed that trace Cu or Zn adsorbed on common
@@ -1552,10 +1574,16 @@ choose a graph. The overconnected triangle can attain a nearly identical
 training residual by shrinking its additional shortcut conductance
 toward zero, but loses after the BIC parameter penalty; the two
 incorrect star families produce substantially larger held-out errors.
-Every fit uses the same predeclared 12-start log-conductance design and
-rejects solver terminations that fail the declared first-order
-optimality threshold. Across 64 independent noise realizations at
-standard deviation
+Every fit uses the same release-frozen 20-start generic log-conductance
+design, rejects solver terminations that fail the declared first-order
+optimality threshold, and fails closed if a non-admitted endpoint
+produces a materially lower cost. The 20-start design was adopted during
+release audit after replay of this same synthetic benchmark exposed a
+missed endpoint under the earlier 12-start design. The added unit and
+coordinate-wise decade anchors were therefore informed by benchmark
+behavior. These reruns are regression evidence for the repaired
+implementation, not untouched, blinded, or external evaluation. Across
+64 independent noise realizations at standard deviation
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2.5</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.5\times10^{-3}</annotation></semantics></math>,
 the minimum chain is selected in 64 cases, with median</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">I</mi><mi mathvariant="normal">C</mi></mrow><mo>=</mo><msub><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">I</mi><mi mathvariant="normal">C</mi></mrow><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi></mrow></msub><mo>−</mo><msub><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">I</mi><mi mathvariant="normal">C</mi></mrow><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mrow></msub><mo>=</mo><mn>5.85</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
@@ -1827,6 +1855,139 @@ ratios, and condensable abundances. A flagship orbiter and probe would
 provide the highest-value topology discrimination.</p>
 <p>For the Moon and Mercury, thermal mapping plus in-situ mineralogy can
 directly test geometric trapping and carbon partitioning.</p>
+<h2 id="typed-auxiliary-layers-proposed-astra-research-outlook">12.4
+Typed auxiliary layers: proposed ASTRA research outlook</h2>
+<p>This subsection is a proposed methods extension, not part of the
+admitted physical SPPT core and not an implemented feature of the
+released ASTRA code. It was prompted by four 2026 studies that address
+different kinds of boundary information. Their evidence does not
+transfer across fields.</p>
+<p>Camarda et al. mapped more than 100 inclusions in an unpolished Juína
+diamond and report that an approximately
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>35</mn><mspace width="0.167em"></mspace><mi>μ</mi><mi mathvariant="normal">m</mi></mrow><annotation encoding="application/x-tex">35\,\mu\mathrm m</annotation></semantics></math>
+mixed goethite–hematite–magnetite inclusion is completely encapsulated,
+with no observed present connection to fractures or the exterior <span class="citation" data-cites="camarda2026feooh">(<a href="#ref-camarda2026feooh" role="doc-biblioref">Camarda et al.
+2026</a>)</span>. That observation is evidence for present isolation and
+qualifies the inclusion for consideration as a physically sealed
+reservoir; permeability and past exchange were not measured. The
+proposed history—retrogression from high-pressure
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>-FeOOH
+after transport in a cold slab, partial decomposition, and later
+preservation in diamond—is explicitly a hypothesis based on one specimen
+and experimental analogues, not a unique inversion or a measurement of
+global deep-water flux. A future <strong>ASTRA-Archive</strong> analysis
+could compare that path against later infiltration, epigenetic
+alteration, multi-stage encapsulation, and syn-growth alternatives using
+tomography, diffraction, valence, isotope, trace-element, stress, and
+co-inclusion data.</p>
+<p>The other three studies supply structural analogies only. Dominy and
+Hobaiter report spectral-profile similarity between moonlight, grizzled
+<em>Papio hamadryas</em> hair, and sacred-ibis plumage, and propose that
+coloration may have contributed to their association with Thoth <span class="citation" data-cites="dominy2026moonlight">(<a href="#ref-dominy2026moonlight" role="doc-biblioref">Dominy and Hobaiter
+2026</a>)</span>. Comparing an irradiance spectrum with reflectance
+spectra does not reconstruct appearance under historical illumination,
+human adaptation, or cultural causation; it offers only an analogy for
+observational equivalence. In an arXiv preprint, Martiel et al. report a
+device-dependent, error-detected fidelity certificate for a 70-qubit,
+depth-70 doped-Clifford sampling experiment encoded in 97 physical
+qubits, with a reported state-fidelity lower bound of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.284</mn><annotation encoding="application/x-tex">0.284</annotation></semantics></math>
+at 95% confidence under the declared circuit and noise assumptions <span class="citation" data-cites="martiel2026sampling">(<a href="#ref-martiel2026sampling" role="doc-biblioref">Martiel et al.
+2026</a>)</span>. That result motivates failure-typed computational
+certificates, not a planetary result or an unconditional proof of every
+output. Wang et al. identify phosphatidylserine–Axl-mediated clearance
+of viable xenogeneic donor cells by primitive host macrophages and
+report interventions through host macrophage or Axl disruption and donor
+CD47 or ATP11C overexpression <span class="citation" data-cites="wang2026xenophagocytosis">(<a href="#ref-wang2026xenophagocytosis" role="doc-biblioref">S. Wang et al.
+2026</a>)</span>. That work motivates an active-control graph for a
+specified biological system; it does not establish a universal
+biological gate or a physical planetary edge.</p>
+<p>A future typed ASTRA state could therefore be declared as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝔄</mi><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">k</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>h</mi><mo>,</mo><msub><mi>𝒢</mi><mi>F</mi></msub><mo>,</mo><msub><mi>𝒢</mi><mi>C</mi></msub><mo>,</mo><msub><mi>𝒢</mi><mi>O</mi></msub><mo>,</mo><msub><mi>𝒢</mi><mi>V</mi></msub><mo>,</mo><mi>θ</mi><mo>,</mo><mi>u</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">(43a)</mtext></mrow><annotation encoding="application/x-tex">
+\mathfrak A_{\mathrm{outlook}}(t)
+=
+\left(x,h,\mathcal G_F,\mathcal G_C,\mathcal G_O,\mathcal G_V,\theta,u\right),
+\qquad\text{(43a)}
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝒢</mi><mi>F</mi></msub><annotation encoding="application/x-tex">\mathcal G_F</annotation></semantics></math>
+is a physical flux-and-transformation graph,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝒢</mi><mi>C</mi></msub><annotation encoding="application/x-tex">\mathcal G_C</annotation></semantics></math>
+is an active control or recognition graph,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝒢</mi><mi>O</mi></msub><annotation encoding="application/x-tex">\mathcal G_O</annotation></semantics></math>
+is an observation graph,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝒢</mi><mi>V</mi></msub><annotation encoding="application/x-tex">\mathcal G_V</annotation></semantics></math>
+is a verification-dependency graph, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+denotes explicitly retained history. Only
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝒢</mi><mi>F</mi></msub><annotation encoding="application/x-tex">\mathcal G_F</annotation></semantics></math>
+corresponds to the physical matter-and-energy topology used in the
+present SPPT equations. Domain-specific constitutive bridges would be
+required before any auxiliary edge could affect it. Define the graph
+collection
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐆</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝒢</mi><mi>F</mi></msub><mo>,</mo><msub><mi>𝒢</mi><mi>C</mi></msub><mo>,</mo><msub><mi>𝒢</mi><mi>O</mi></msub><mo>,</mo><msub><mi>𝒢</mi><mi>V</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf G=(\mathcal G_F,\mathcal G_C,\mathcal G_O,\mathcal G_V)</annotation></semantics></math>.
+A possible future syntax is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtable><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>x</mi><mo accent="true">̇</mo></mover></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>f</mi><msub><mi>𝒢</mi><mi>F</mi></msub></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>a</mi><mi>e</mi></msub><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mi>u</mi><mo>,</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mtd><mtd columnalign="right" style="text-align: right"><msub><mi>a</mi><mi>e</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>σ</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>g</mi><mi>e</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><msub><mi>𝒢</mi><mi>C</mi></msub><mo>,</mo><mi>u</mi><mo>,</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>y</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>H</mi><msub><mi>𝒢</mi><mi>O</mi></msub></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>h</mi><mo>,</mo><mi>u</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>ϵ</mi><mo>,</mo></mtd><mtd columnalign="right" style="text-align: right"><mi>z</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>C</mi><msub><mi>𝒢</mi><mi>V</mi></msub></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>,</mo><mi>u</mi><mo>,</mo><mi>θ</mi><mo>,</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><mspace width="2.0em"></mspace><mtext mathvariant="normal">(43b)</mtext></mrow><annotation encoding="application/x-tex">
+\begin{aligned}
+\dot x &amp;= f_{\mathcal G_F}(x,\{a_e\},u,\theta),
+&amp;
+a_e &amp;= \sigma\!\left(g_e(x,\mathcal G_C,u,\theta)\right),\\
+y &amp;= H_{\mathcal G_O}(x,h,u)+\epsilon,
+&amp;
+z &amp;= C_{\mathcal G_V}(y,u,\theta,r).
+\end{aligned}
+\qquad\text{(43b)}
+</annotation></semantics></math></p>
+<p>Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>e</mi></msub><annotation encoding="application/x-tex">a_e</annotation></semantics></math>
+is an edge-availability variable only after its domain, units, kinetics,
+and interpretation are supplied. The gate argument
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>g</mi><mi>e</mi></msub><annotation encoding="application/x-tex">g_e</annotation></semantics></math>
+must be dimensionless or carry a declared nondimensionalization, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>
+must be a declared map into
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math>.
+The record
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+contains observable or auditable execution and measurement information
+rather than inaccessible hidden truth;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>
+is a certificate only for the failure classes it can actually detect.
+Conservation cannot certify an equation of state, numerical convergence
+cannot certify a topology, and synthetic recovery cannot certify a
+planet.</p>
+<p>This typing suggests a prospective experiment-design rule,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>u</mi><mo>*</mo></msup><mo>∈</mo><mo>arg</mo><munder><mo>max</mo><mrow><mi>u</mi><mo>∈</mo><mi>𝒰</mi></mrow></munder><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐆</mi><mo>,</mo><mi>h</mi><mo>;</mo><msub><mi>Y</mi><mi>u</mi></msub><mo>,</mo><msub><mi>Z</mi><mi>u</mi></msub><mo>∣</mo><mi>u</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>λ</mi><mo>Cost</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">(43c)</mtext></mrow><annotation encoding="application/x-tex">
+u^*\in\arg\max_{u\in\mathcal U}
+I(\mathbf G,h;Y_u,Z_u\mid u)-\lambda\operatorname{Cost}(u),
+\qquad\text{(43c)}
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Y</mi><mi>u</mi></msub><annotation encoding="application/x-tex">Y_u</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mi>u</mi></msub><annotation encoding="application/x-tex">Z_u</annotation></semantics></math>
+denote the random future observation and certificate outcomes under
+intervention
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>.
+Equation (43c) is only a design template. Every application would
+require a declared intervention set, likelihood, utility, cost, safety
+boundary, and independent evaluation. The four studies exemplify
+different interrogations—spectroscopy, syndrome-preserving circuit
+construction, tomography, and molecular or cellular intervention—but do
+not establish one cross-domain law.</p>
+<p>The quantum experiment specifically reports a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>29</mn><mo>×</mo></mrow><annotation encoding="application/x-tex">29\times</annotation></semantics></math>
+increase in state fidelity relative to the unencoded Clifford circuit,
+at the cost of an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>860</mn><mo>×</mo></mrow><annotation encoding="application/x-tex">860\times</annotation></semantics></math>
+decrease in effective sampling rate <span class="citation" data-cites="martiel2026sampling">(<a href="#ref-martiel2026sampling" role="doc-biblioref">Martiel et al. 2026</a>)</span>. The biological
+paper shows that relaxing one recognition pathway can increase donor
+chimerism <span class="citation" data-cites="wang2026xenophagocytosis">(<a href="#ref-wang2026xenophagocytosis" role="doc-biblioref">S. Wang et al.
+2026</a>)</span>. These observations motivate, but do not establish, a
+general monotone selectivity–throughput law. Counterexamples are
+possible when specificity, repair, parallelism, or resource allocation
+changes with the selection parameter; the general law is therefore
+deferred.</p>
 <h1 id="limitations-and-no-go-conditions">13. Limitations and no-go
 conditions</h1>
 <p>SPPT does not claim:</p>
@@ -1867,20 +2028,20 @@ observability is deficient.</p>
 mechanism.</strong> A visual or linguistic resemblance cannot establish
 a physical edge in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝒢</mi><annotation encoding="application/x-tex">\mathcal G</annotation></semantics></math>.</p>
+<p><strong>No-go condition N6 — edge-type substitution.</strong> An
+observational resemblance, semantic association, biological recognition
+signal, or computational certificate cannot be treated as a physical
+matter-or-energy transport edge without an explicit constitutive
+bridge.</p>
 <h1 id="conclusion">14. Conclusion</h1>
 <p>The proposed SPPT state representation is</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><menclose notation="box"><mrow><mtext mathvariant="normal">planetary state</mtext><mo>=</mo><mtext mathvariant="normal">continuous thermodynamic fields</mtext><mo>+</mo><mtext mathvariant="normal">phase-reservoir topology</mtext><mo>+</mo><mtext mathvariant="normal">history-dependent transport</mtext></mrow></menclose><mspace width="2.0em"></mspace><mtext mathvariant="normal">(44)</mtext></mrow><annotation encoding="application/x-tex">
-\boxed{
-\text{planetary state}
-=
-\text{continuous thermodynamic fields}
-+
-\text{phase-reservoir topology}
-+
-\text{history-dependent transport}
-}
-\qquad\text{(44)}
-</annotation></semantics></math></p>
+<blockquote>
+<p><strong>State representation (44)</strong></p>
+<p><strong>planetary state</strong><br />
+= continuous thermodynamic fields<br />
++ phase-reservoir topology<br />
++ history-dependent transport</p>
+</blockquote>
 <p>subject to conservation, nonnegative entropy production, legal phase
 domains, and predictive testing.</p>
 <p>Three analytic results give the framework concrete content. First,
@@ -1904,15 +2065,28 @@ connected, not only how much material exists.</p>
 <p>The theory advances only if that hidden topology pays predictive
 rent. ASTRA supplies the corresponding operational test: promote only
 the minimum physically admissible topology that remains calibrated and
-predictively superior on unseen information.</p>
+predictively superior on unseen information. The proposed typed-layer
+outlook strengthens this discipline by keeping what crosses a boundary,
+what is observed there, what controls passage, what history is
+preserved, and what is certified as distinct scientific questions.</p>
 <h1 class="unnumbered" id="acknowledgments">Acknowledgments</h1>
-<p>The author acknowledges the use of OpenAI language-model assistance
-for literature organization, equation checking, code drafting,
-synthetic-benchmark implementation, and document production. All claims,
-interpretations, and release decisions remain the author’s
-responsibility. No model-generated statement is treated as evidence.
-ASTRA is the working name for the framework’s inference and validation
-layer.</p>
+<p>The author reports that the initial cold-trap/Saturn idea arose in a
+dream while dozing off during reading about Saturn and cold traps. After
+waking, the author assembled a quick three-diagram collage juxtaposing
+latent heat, a cold trap, and Saturn, and used an OpenAI ChatGPT
+conversation to explore Saturn’s possible role. The collage is not
+included because the component-image identities and publication rights
+were not established. This origin story records conceptual provenance;
+it is not scientific support.</p>
+<p>OpenAI language-model assistance was subsequently used for literature
+organization, equation checking, code drafting, synthetic-benchmark
+implementation, document production, and development of the
+cross-disciplinary research outlook. The author selected the public
+wording and is responsible for every claim, interpretation, and release
+decision. Primary sources, calculations, data, and tests—not model
+output—supply the evidence. Neither the dream, the collage, nor model
+output is scientific evidence. ASTRA is the working name for the
+framework’s inference and validation layer.</p>
 <h1 class="unnumbered" id="data-and-code-availability">Data and code
 availability</h1>
 <p>The release package accompanying this preprint contains the complete
@@ -2035,7 +2209,9 @@ yr<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><
 <td style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2.8391</mn><mo>×</mo><msup><mn>10</mn><mn>11</mn></msup><mspace width="0.222em"></mspace><mi mathvariant="normal">W</mi></mrow><annotation encoding="application/x-tex">2.8391\times10^{11}\ \mathrm W</annotation></semantics></math></td>
 </tr>
 <tr>
-<td>Example memory-loop area for
+<td>Signed release-normalized area
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∮</mo><msub><mi>q</mi><mi>r</mi></msub><mspace width="0.167em"></mspace><mi>d</mi><mi>c</mi></mrow><annotation encoding="application/x-tex">\oint q_r\,dc</annotation></semantics></math>
+for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mn>1</mn></msub><mo>=</mo><mn>0.75</mn></mrow><annotation encoding="application/x-tex">c_1=0.75</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi><msub><mi>τ</mi><mi>r</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\omega\tau_r=1</annotation></semantics></math></td>
 <td style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0.8836</mn></mrow><annotation encoding="application/x-tex">-0.8836</annotation></semantics></math>
@@ -2074,6 +2250,12 @@ otherwise demote.</li>
 Black, Joseph. 1803. <em>Lectures on the Elements of Chemistry</em>.
 Philadelphia: Mathew Carey.
 </div>
+<div id="ref-camarda2026feooh" class="csl-entry" role="listitem">
+Camarda, Carolina, Fernanda Gervasoni, Tiago Jalowitzki, Francisco M. C.
+da Silva, Antonio C. Piccino-Neto, Paola Ferraz, João F. G. A. Oliveira,
+et al. 2026. <span>“Iron Oxyhydroxide as Water Carrier to the Earth’s
+Mantle.”</span> <em>Scientific Reports</em> 16: 23034. <a href="https://doi.org/10.1038/s41598-026-46683-8">https://doi.org/10.1038/s41598-026-46683-8</a>.
+</div>
 <div id="ref-carnot1824" class="csl-entry" role="listitem">
 Carnot, Sadi. 1824. <em>Réflexions Sur La Puissance Motrice Du Feu Et
 Sur Les Machines Propres à Développer Cette Puissance</em>. Paris:
@@ -2094,10 +2276,21 @@ Deng, J., H. Gou, and Q. Hu. 2026. <span>“Hydrogen-Carbon Doubly
 Superionic Conduits of Carbonic Acids in Planetary Ices.”</span>
 <em>Science Advances</em> 12: eaeb9271. <a href="https://doi.org/10.1126/sciadv.aeb9271">https://doi.org/10.1126/sciadv.aeb9271</a>.
 </div>
+<div id="ref-dominy2026moonlight" class="csl-entry" role="listitem">
+Dominy, Nathaniel J., and Catherine Hobaiter. 2026. <span>“Moonlight and
+the Apotheosis of Sacred Baboons.”</span> <em>Time and Mind</em>, 1–12.
+<a href="https://doi.org/10.1080/1751696X.2026.2696260">https://doi.org/10.1080/1751696X.2026.2696260</a>.
+</div>
 <div id="ref-eberlein2025" class="csl-entry" role="listitem">
 Eberlein, Mark, and Ravit Helled. 2025. <span>“The Evolution and
 Internal Structure of Neptunes and Sub-Neptunes.”</span> <em>Astronomy
 &amp; Astrophysics</em> 703: A72. <a href="https://doi.org/10.1051/0004-6361/202556526">https://doi.org/10.1051/0004-6361/202556526</a>.
+</div>
+<div id="ref-fitzner2017" class="csl-entry" role="listitem">
+Fitzner, Martin, Gabriele C. Sosso, Fabio Pietrucci, Silvio Pipolo, and
+Angelos Michaelides. 2017. <span>“Pre-Critical Fluctuations and What
+They Disclose about Heterogeneous Crystal Nucleation.”</span> <em>Nature
+Communications</em> 8: 2257. <a href="https://doi.org/10.1038/s41467-017-02300-x">https://doi.org/10.1038/s41467-017-02300-x</a>.
 </div>
 <div id="ref-formisano2025" class="csl-entry" role="listitem">
 Formisano, M., A. Raponi, M. Teodori, S. Bertoli, et al. 2025.
@@ -2152,6 +2345,12 @@ Sanan, Shang-Min Tsai, and Raymond T. Pierrehumbert. 2021.
 H2O, CO2, CH4, CO, O2, and N2 as Primary Absorbers.”</span> <em>Journal
 of Geophysical Research: Planets</em> 126 (2): e2020JE006711. <a href="https://doi.org/10.1029/2020JE006711">https://doi.org/10.1029/2020JE006711</a>.
 </div>
+<div id="ref-martiel2026sampling" class="csl-entry" role="listitem">
+Martiel, Simon, Jay-U Chung, Alireza Seif, Soumik Ghosh, Ian Hincks,
+Abhinav Deshpande, Bill Fefferman, Jay M. Gambetta, and Ali
+Javadi-Abhari. 2026. <span>“Sampling Hard Circuits with Verifiably High
+Fidelity.”</span> arXiv:2607.25941v1. <a href="https://arxiv.org/abs/2607.25941">https://arxiv.org/abs/2607.25941</a>.
+</div>
 <div id="ref-militzer2024" class="csl-entry" role="listitem">
 Militzer, Burkhard. 2024. <span>“Phase Separation of Planetary Ices
 Explains Nondipolar Magnetic Fields of Uranus and Neptune.”</span>
@@ -2165,9 +2364,10 @@ State.”</span> <em>Journal of Geophysical Research: Planets</em> 129
 (12): e2024JE008576. <a href="https://doi.org/10.1029/2024JE008576">https://doi.org/10.1029/2024JE008576</a>.
 </div>
 <div id="ref-nicholls2026retrieval" class="csl-entry" role="listitem">
-Nicholls, Harrison, Tim Lichtenberg, Benjamin Riegler, R. Calder, and V.
-Fortuin. 2026. <span>“Constraining the Lives and Times of Exoplanets
-Through Evolutionary Bayesian Retrievals.”</span> arXiv:2607.25845. <a href="https://doi.org/10.48550/arXiv.2607.25845">https://doi.org/10.48550/arXiv.2607.25845</a>.
+Nicholls, Harrison, Tim Lichtenberg, Ben Riegler, Robb Calder, and
+Vincent Fortuin. 2026. <span>“Constraining the Lives and Times of
+Exoplanets Through Evolutionary Bayesian Retrievals.”</span>
+arXiv:2607.25845. <a href="https://doi.org/10.48550/arXiv.2607.25845">https://doi.org/10.48550/arXiv.2607.25845</a>.
 </div>
 <div id="ref-onsager1931a" class="csl-entry" role="listitem">
 Onsager, Lars. 1931a. <span>“Reciprocal Relations in Irreversible
@@ -2226,6 +2426,12 @@ WAIC.”</span> <em>Statistics and Computing</em> 27: 1413–32. <a href="https:
 Virtanen, Pauli, Ralf Gommers, Travis E. Oliphant, et al. 2020.
 <span>“SciPy 1.0: Fundamental Algorithms for Scientific Computing in
 Python.”</span> <em>Nature Methods</em> 17: 261–72. <a href="https://doi.org/10.1038/s41592-019-0686-2">https://doi.org/10.1038/s41592-019-0686-2</a>.
+</div>
+<div id="ref-wang2026xenophagocytosis" class="csl-entry" role="listitem">
+Wang, Sicong, Kouta Niizuma, Daniel Dan Liu, Fabian P. Suchy, Alyssa H.
+Chang, Saman Tabatabaee, Hideyuki Sato, et al. 2026.
+<span>“Xenophagocytosis Blockade Enhances Interspecies
+Chimerism.”</span> <em>Cell</em>. <a href="https://doi.org/10.1016/j.cell.2026.05.016">https://doi.org/10.1016/j.cell.2026.05.016</a>.
 </div>
 <div id="ref-wang2025uranus" class="csl-entry" role="listitem">
 Wang, X. et al. 2025. <span>“Internal Heat Flux and Energy Imbalance of

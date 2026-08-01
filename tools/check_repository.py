@@ -1,10 +1,12 @@
 """Fail-closed repository, metadata, accessibility, privacy, and license checks."""
 from __future__ import annotations
 
+import fnmatch
 import hashlib
 import json
 import os
 import re
+import tomllib
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
@@ -20,6 +22,7 @@ FORBIDDEN_CACHE_NAMES = {".pytest_cache", ".mypy_cache", ".ruff_cache", "__pycac
 ROOT_ALLOWLIST = {
     ".gitattributes",
     ".gitignore",
+    ".mailmap",
     ".python-version",
     "CHANGELOG.md",
     "CITATION.cff",
@@ -51,10 +54,15 @@ DIRECTORY_RULES = {
 }
 TEXT_SUFFIXES = {"", ".bib", ".cff", ".css", ".csv", ".in", ".json", ".md", ".py", ".toml", ".txt", ".yaml", ".yml"}
 PRIVATE_PATTERNS = {
-    "local Windows path": re.compile(r"(?:[A-Za-z]:\\|Pirate Dude)", re.IGNORECASE),
+    "local Windows path": re.compile(r"[A-Za-z]:\\", re.IGNORECASE),
     "local POSIX path": re.compile(r"(?:/Users/|/home/|/usr/share/)", re.IGNORECASE),
-    "private location": re.compile(r"Kansas, USA", re.IGNORECASE),
-    "placeholder contact": re.compile(r"author contact to be supplied", re.IGNORECASE),
+    "private location": re.compile(
+        r"\b[A-Z][A-Za-z .'-]+,\s*(?:USA|United States)\b"
+    ),
+    "placeholder contact": re.compile(
+        r"^\s*(?:contact|correspondence)\s*[:=]\s*(?:TBD|TODO|pending|placeholder)\b",
+        re.IGNORECASE | re.MULTILINE,
+    ),
     "credential marker": re.compile(
         r"(?:ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----|AKIA[0-9A-Z]{16})"
     ),
@@ -253,10 +261,59 @@ def check_text_privacy(paths: list[Path]) -> None:
             continue
         if path.relative_to(ROOT).as_posix() in PATTERN_FIXTURE_FILES:
             continue
-        text = path.read_text(encoding="utf-8")
+        text = path.read_text(encoding="utf-8").replace(
+            "307349551+jkolantree@users.noreply.github.com", "PUBLIC_GITHUB_NOREPLY"
+        )
         for label, pattern in PRIVATE_PATTERNS.items():
             if pattern.search(text):
                 raise RuntimeError(f"{label} in {path.relative_to(ROOT).as_posix()}")
+
+
+def check_license_map(paths: list[Path]) -> None:
+    license_map = (ROOT / "LICENSE_MAP.md").read_text(encoding="utf-8")
+    if "CC0-like" in license_map:
+        raise RuntimeError("License map contains an undefined CC0-like label")
+    for required_embedded_rights_statement in (
+        "The `manuscript/**` CC BY 4.0 mapping applies only to original authored content.",
+        "Embedded DejaVu, Bitstream Vera, and Arev components retain the third-party terms",
+        "No standalone Microsoft font files are distributed",
+        "OS/2 `fsType=8` editable document-embedding permission",
+    ):
+        if required_embedded_rights_statement not in license_map:
+            raise RuntimeError(
+                "License map omits embedded-font rights qualification: "
+                f"{required_embedded_rights_statement}"
+            )
+    rows: list[tuple[list[str], str]] = []
+    for line in license_map.splitlines():
+        if not line.startswith("| `"):
+            continue
+        cells = line.split("|")
+        if len(cells) < 4:
+            raise RuntimeError(f"Malformed license-map row: {line}")
+        patterns = re.findall(r"`([^`]+)`", cells[1])
+        license_label = cells[2].strip()
+        if not patterns or not license_label:
+            raise RuntimeError(f"Incomplete license-map row: {line}")
+        rows.append((patterns, license_label))
+
+    def matches(relative: str, pattern: str) -> bool:
+        if pattern.endswith("/**"):
+            return relative.startswith(pattern[:-3] + "/")
+        return fnmatch.fnmatchcase(relative, pattern)
+
+    for path in paths:
+        relative = path.relative_to(ROOT).as_posix()
+        matched = [
+            license_label
+            for patterns, license_label in rows
+            if any(matches(relative, pattern) for pattern in patterns)
+        ]
+        if len(matched) != 1:
+            raise RuntimeError(
+                f"Public file must have exactly one explicit license mapping: {relative}; "
+                f"observed {matched}"
+            )
 
 
 def check_metadata_agreement() -> None:
@@ -328,7 +385,7 @@ def check_claim_matrix() -> None:
         "SPPT-C005": ("strictly positive", "connected", "nonempty proper"),
         "SPPT-C008": ("K>0", "injective", "equilibrium exists"),
         "SPPT-C006": ("dTu/dTd", "differentiable"),
-        "ASTRA-C013": ("12 generic starts", "acceptance gate"),
+        "ASTRA-C013": ("20 distinct generic starts", "acceptance gate"),
     }
     for identifier, phrases in required_hypotheses.items():
         claim = indexed.get(identifier)
@@ -343,8 +400,8 @@ def check_claim_matrix() -> None:
 def check_source_inventory() -> None:
     inventory = json.loads((ROOT / "SOURCE_INVENTORY.json").read_text(encoding="utf-8"))
     artifacts = inventory.get("artifacts", [])
-    if len(artifacts) != 15:
-        raise RuntimeError(f"Expected 15 supplied artifacts, found {len(artifacts)}")
+    if len(artifacts) != 16:
+        raise RuntimeError(f"Expected 16 supplied artifacts, found {len(artifacts)}")
     required = {
         "canonical_relative_path",
         "bytes",
@@ -372,6 +429,11 @@ def check_source_inventory() -> None:
     ]
     if len(ensemble_relationships) != 2 or not all("not independent evidence" in value for value in ensemble_relationships):
         raise RuntimeError("Duplicate CSV/JSON evidence is not explicitly deduplicated")
+    synthesis = next(
+        item for item in artifacts if item["canonical_relative_path"] == "pasted-text.txt"
+    )
+    if "not independent evidence" not in synthesis["relationship"] or "not redistributed verbatim" not in synthesis["rights_status"]:
+        raise RuntimeError("Author-supplied synthesis must remain excluded as independent or verbatim evidence")
 
 
 def check_dependency_lock() -> None:
@@ -397,12 +459,34 @@ def check_runtime_identity() -> None:
         raise RuntimeError("Runtime identity dependency-lock digest mismatch")
     if runtime.get("python") != (ROOT / ".python-version").read_text(encoding="utf-8").strip():
         raise RuntimeError("Runtime identity and .python-version disagree")
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    if project["project"].get("requires-python") != f"=={runtime.get('python')}":
+        raise RuntimeError("Runtime identity and pyproject.toml Python requirement disagree")
+    git_identity = runtime.get("git", {})
+    required_git_fields = {
+        "provider",
+        "version",
+        "build_commit",
+        "asset",
+        "source",
+        "sha256",
+        "executable_sha256",
+    }
+    if set(git_identity) != required_git_fields:
+        raise RuntimeError("Runtime identity has incomplete Git for Windows provenance")
+    expected_mailmap = (
+        "Jacko T. <307349551+jkolantree@users.noreply.github.com> "
+        "<307349551+jkolantree@users.noreply.github.com>\n"
+    )
+    if (ROOT / ".mailmap").read_text(encoding="utf-8") != expected_mailmap:
+        raise RuntimeError("Public pseudonym mailmap drift")
 
 
 def main() -> None:
     check_cache_boundaries()
     paths = public_files()
     check_text_privacy(paths)
+    check_license_map(paths)
     check_png_metadata(paths)
     check_metadata_agreement()
     check_claim_matrix()

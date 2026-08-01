@@ -9,26 +9,48 @@ SUPPLEMENT = (ROOT / "manuscript" / "supplement.md").read_text(encoding="utf-8")
 BIBLIOGRAPHY = (ROOT / "manuscript" / "references.bib").read_text(encoding="utf-8")
 
 
+def test_released_bibliography_entry_count_is_frozen() -> None:
+    assert len(re.findall(r"(?m)^@", BIBLIOGRAPHY)) == 42
+
+
+def test_current_arxiv_author_spellings_are_canonical() -> None:
+    assert "Delaye, Lukas" in BIBLIOGRAPHY
+    assert (
+        "Riegler, Ben and Calder, Robb and Fortuin, Vincent" in BIBLIOGRAPHY
+    )
+
+
 def test_private_and_machine_local_metadata_are_absent() -> None:
     public_text = "\n".join((MANUSCRIPT, SUPPLEMENT, BIBLIOGRAPHY))
-    for forbidden in (
-        "Kansas, USA",
-        "author contact to be supplied",
-        "/usr/share/",
-        "Pirate Dude",
-        "C:\\Users\\",
+    for forbidden_pattern in (
+        r"^\s*(?:contact|correspondence)\s*[:=]\s*(?:TBD|TODO|pending|placeholder)\b",
+        r"/usr/share/",
+        r"[A-Za-z]:\\",
+        r"\b[A-Z][A-Za-z .'-]+,\s*(?:USA|United States)\b",
     ):
-        assert forbidden not in public_text
+        assert (
+            re.search(
+                forbidden_pattern,
+                public_text,
+                flags=re.IGNORECASE | re.MULTILINE,
+            )
+            is None
+        )
     assert "https://github.com/jkolantree/astra/issues" in MANUSCRIPT
 
 
 def test_unsupported_blinding_claim_is_absent() -> None:
-    assert "A blinded three-reservoir" not in MANUSCRIPT
-    assert "a blinded three-reservoir" not in SUPPLEMENT
+    for unsupported in (
+        "A blinded three-reservoir",
+        "a blinded three-reservoir",
+        "blinded validation establishes",
+        "blinded benchmark establishes",
+    ):
+        assert unsupported not in MANUSCRIPT
+        assert unsupported not in SUPPLEMENT
     assert "neither blind nor external validation" in MANUSCRIPT
+    assert "not untouched, blinded, or external evaluation" in MANUSCRIPT
     assert "not blinded or external validation" in SUPPLEMENT
-    assert MANUSCRIPT.count("blinded") == 0
-    assert SUPPLEMENT.count("blinded") == 3  # one explicit nonclaim and two future milestones
 
 
 def test_required_mathematical_hypotheses_are_explicit() -> None:
@@ -56,6 +78,9 @@ def test_required_scientific_qualifications_are_explicit() -> None:
         "not latent heat",
         "neither blind nor external validation",
         "triangle also attains a smaller held-out RMSE",
+        "none of the four studies validates SPPT",
+        "edge-type substitution",
+        "Neither the dream, the collage, nor model output is scientific evidence",
     ):
         assert phrase in MANUSCRIPT
 
@@ -68,4 +93,13 @@ def test_citation_keys_resolve_and_known_failures_are_removed() -> None:
     assert "Delaye, Lukas" in BIBLIOGRAPHY
     assert "van den Berg, Arie" in BIBLIOGRAPHY
     assert "Kaare, Kätlin and Scarlat, Raluca O." in BIBLIOGRAPHY
+    for doi in (
+        "10.1080/1751696X.2026.2696260",
+        "10.1038/s41598-026-46683-8",
+        "10.1016/j.cell.2026.05.016",
+    ):
+        assert doi in BIBLIOGRAPHY
+    assert "arXiv:2607.25941v1" in BIBLIOGRAPHY
+    assert "https://arxiv.org/abs/2607.25941" in BIBLIOGRAPHY
+    assert "10.48550/arXiv.2607.25941" not in BIBLIOGRAPHY
     assert "Nature Communications 15, 5169" not in BIBLIOGRAPHY

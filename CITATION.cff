@@ -7,8 +7,13 @@ abstract: >-
   (SPPT) and its Astronomical State-Topology and Reservoir Analysis (ASTRA)
   inference layer. It contains a not-peer-reviewed mathematical framework,
   reduced synthetic demonstrations, tests, data, figures, and synchronized
-  accessible reading editions. Synthetic results are not empirical planetary
-  validation.
+  accessible reading editions. A proposed typed-layer outlook separates
+  physical flux, active control, observation, archival preservation, and
+  verification without transferring evidence across fields. Synthetic results
+  and cross-domain analogies are not empirical planetary validation. Software
+  is MIT licensed; manuscript, documentation, figures,
+  data, and generated results are CC BY 4.0 under the file-level mapping in
+  LICENSE_MAP.md.
 authors:
   - name: "Jacko T."
 version: 1.0.1

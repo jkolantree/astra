@@ -1,7 +1,16 @@
 {
   "schema": "https://github.com/jkolantree/astra/schemas/runtime-identity-v1",
-  "reference_platform": "Windows x86-64",
+  "reference_platform": "Haswell-compatible Windows x86-64 with AVX2 and FMA3",
   "python": "3.12.10",
+  "git": {
+    "provider": "Git for Windows",
+    "version": "2.55.0.windows.3",
+    "build_commit": "52ca1113d651127f89477a8763f86ab20f645e1d",
+    "asset": "Git-2.55.0.3-64-bit.exe",
+    "source": "https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.3/Git-2.55.0.3-64-bit.exe",
+    "sha256": "af12577d0fdff74243a5988197aa49b957d5044edc17004f6ddf0768996f1dca",
+    "executable_sha256": "7b7971dd13f0c3a284e538601f2f9770b3a87dfaccb5fb52d68141c67ed22364"
+  },
   "reference_distribution": {
     "provider": "CPython",
     "asset": "python-3.12.10-embed-amd64.zip",
@@ -18,6 +27,47 @@
     "file": "requirements-lock.txt",
     "sha256": "69b83ca86466525e912ea7c2d4a614d426ab44411ccc2789febc32f54c255721"
   },
+  "numeric_kernel": {
+    "provider": "OpenBLAS",
+    "core_type": "HASWELL",
+    "threads": 1,
+    "required_cpu_features": [
+      "AVX2",
+      "FMA3"
+    ],
+    "numpy_disabled_cpu_features": [
+      "AVX512F",
+      "AVX512CD",
+      "AVX512_SKX",
+      "AVX512_CLX",
+      "AVX512_CNL",
+      "AVX512_ICL"
+    ],
+    "libraries": [
+      {
+        "consumer": "NumPy",
+        "distribution": "numpy",
+        "distribution_version": "2.3.5",
+        "openblas_version": "0.3.30",
+        "interface": "ILP64",
+        "library_directory": "numpy.libs",
+        "library_glob": "libscipy_openblas64_*.dll",
+        "corename_symbol": "scipy_openblas_get_corename64_",
+        "num_threads_symbol": "scipy_openblas_get_num_threads64_"
+      },
+      {
+        "consumer": "SciPy",
+        "distribution": "scipy",
+        "distribution_version": "1.18.0",
+        "openblas_version": "0.3.31.dev",
+        "interface": "LP64",
+        "library_directory": "scipy.libs",
+        "library_glob": "libscipy_openblas-*.dll",
+        "corename_symbol": "scipy_openblas_get_corename",
+        "num_threads_symbol": "scipy_openblas_get_num_threads"
+      }
+    ]
+  },
   "pandoc": {
     "version": "3.6.1",
     "provider": "pypandoc-binary 1.15"
@@ -26,7 +76,23 @@
     "provider": "playwright 1.62.0",
     "browser": "Chromium",
     "revision": "1234",
-    "version": "151.0.7922.34"
+    "version": "151.0.7922.34",
+    "system_fonts": [
+      {
+        "postscript_name": "CambriaMath",
+        "file": "cambria.ttc",
+        "bytes": 1792664,
+        "sha256": "84e70ccc1664482f4a960442c7a166c91a1b2cf98ff88c33cb73f79403f66d7b",
+        "embedding_fs_type": 8
+      },
+      {
+        "postscript_name": "TimesNewRomanPSMT",
+        "file": "times.ttf",
+        "bytes": 1190736,
+        "sha256": "931c5de5c70401d9324d5014c123802b4fb753000360ceb2f56c589403cd58c5",
+        "embedding_fs_type": 8
+      }
+    ]
   },
-  "determinism_scope": "Byte identity is required when replayed with this frozen reference runtime, dependency lock, source tree, seeds, worker count, and build epoch."
+  "determinism_scope": "Byte identity is required for the exercised release-artifact paths when replayed with this frozen reference runtime, dependency lock, Git build, verified single-thread Haswell OpenBLAS kernels, recorded PDF source-font bytes, source tree, seeds, worker count, and build epoch. This scope does not claim universal cross-platform floating-point identity for unexercised numerical code."
 }

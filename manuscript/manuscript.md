@@ -73,7 +73,7 @@ This paper proposes treating that physical connectivity as an explicit hidden st
 
 The framework is called **Solar–Planetary Phase-Partition Theory (SPPT)**. Its inference and validation layer is called **ASTRA — Astronomical State-Topology and Reservoir Analysis**. SPPT specifies the physical state and admissibility rules; ASTRA compares candidate reservoir graphs against observations and simpler baselines. Neither name implies that heat moves through the Solar System from planet to planet. Each planet remains an independent open system subject to stellar forcing, internal heat, tides, escape, and radiation to space. The planetary names are comparative examples of regimes: lunar geometric trapping, Mercurian carbon partitioning, Saturnian hydrogen–helium separation, Uranian inhibited transport, and Neptunian deep-to-surface connectivity.
 
-The central astronomical proposal is testable: allow phase-reservoir topology to vary in planetary forward models and Bayesian retrievals, then ask whether it improves calibrated predictions of independent observables over conventional fixed-layer and smooth-gradient models. If it does not, the topological extension should be removed.
+The central astronomical proposal is testable: allow phase-reservoir topology to vary in planetary forward models and Bayesian retrievals, then ask whether it improves calibrated predictions of independent observables over conventional fixed-layer and smooth-gradient models. If it does not, the topological extension should be removed. Four newly assessed studies motivate a separately labeled ASTRA research outlook in which physical flux, active control, observation, archival preservation, and verification are typed separately. Only a sealed deep-diamond inclusion bears direct planetary relevance; none of the four studies validates SPPT.
 
 # Abstract {.unnumbered}
 
@@ -638,11 +638,13 @@ r_\alpha^*=-\frac{2\gamma_{\alpha\beta}}{\Delta g_\alpha},
 \Delta G_{\mathrm{hom},\alpha}^*=\frac{16\pi\gamma_{\alpha\beta}^3}{3\Delta g_\alpha^2},
 \qquad
 \Delta G_{\mathrm{het},\alpha}^*=f(\vartheta_I)\Delta G_{\mathrm{hom},\alpha}^*,
-\quad 0\le f\le1.
+\quad
+f(\vartheta_I)=\frac{(2+\cos\vartheta_I)(1-\cos\vartheta_I)^2}{4},
+\quad 0\le\vartheta_I\le\pi.
 \qquad\text{(35)}
 $$
 
-Here $f(\vartheta_I)$ is the substrate-dependent wetting factor for an idealized spherical cap. The phase with the lowest bulk free energy need not nucleate first. Mineral substrate, metal activity, alkali intercalation, cooling rate, and electron transfer can select amorphous carbon, graphite, diamond precursor, or carbide. Carbon microstructure can therefore be a record of an ancient interface only when metamorphism, impact processing, oxidation, and later transport are independently constrained.
+Here $\vartheta_I$ is the contact angle measured through the nucleating phase and $f(0)=0$, while $f(\pi)=1$. This classical substrate-dependent wetting factor assumes a spherical-cap nucleus on a planar substrate, isotropic interfacial tensions, and negligible line tension [@fitzner2017]. Anisotropy, curvature, nonclassical pathways, and substrate-dependent polymorph selection can invalidate that reduction. The phase with the lowest bulk free energy need not nucleate first. Whether mineral substrate, metal activity, alkali intercalation, cooling rate, or electron-transfer regime selects among particular carbon phases remains to be established; these variables are candidate controls for future experiments, not admitted phase-selection mechanisms. Carbon microstructure can therefore be a record of an ancient interface only when metamorphism, impact processing, oxidation, and later transport are independently constrained.
 
 ## 7.5 Natural geoelectrochemistry
 
@@ -802,7 +804,7 @@ A candidate topology is promoted only if all six conditions hold:
 
 The reference release includes a transparent three-reservoir model-selection benchmark. Four connected graph families — a serial chain, two distinct stars, and an overconnected triangle — are fitted only to noisy observations of the surface node. All generation and evaluation constants are public; this is neither blind nor external validation. All four families can be assigned the same static surface equilibrium, while their hidden deep equilibria differ. The generating graph is a two-edge chain with conductances $0.22$ and $1.40$ in normalized units.
 
-Graph selection uses training-set Bayesian information criterion only. The held-out forcing is evaluated afterward and is not used to choose a graph. The overconnected triangle can attain a nearly identical training residual by shrinking its additional shortcut conductance toward zero, but loses after the BIC parameter penalty; the two incorrect star families produce substantially larger held-out errors. Every fit uses the same predeclared 12-start log-conductance design and rejects solver terminations that fail the declared first-order optimality threshold. Across 64 independent noise realizations at standard deviation $2.5\times10^{-3}$, the minimum chain is selected in 64 cases, with median
+Graph selection uses training-set Bayesian information criterion only. The held-out forcing is evaluated afterward and is not used to choose a graph. The overconnected triangle can attain a nearly identical training residual by shrinking its additional shortcut conductance toward zero, but loses after the BIC parameter penalty; the two incorrect star families produce substantially larger held-out errors. Every fit uses the same release-frozen 20-start generic log-conductance design, rejects solver terminations that fail the declared first-order optimality threshold, and fails closed if a non-admitted endpoint produces a materially lower cost. The 20-start design was adopted during release audit after replay of this same synthetic benchmark exposed a missed endpoint under the earlier 12-start design. The added unit and coordinate-wise decade anchors were therefore informed by benchmark behavior. These reruns are regression evidence for the repaired implementation, not untouched, blinded, or external evaluation. Across 64 independent noise realizations at standard deviation $2.5\times10^{-3}$, the minimum chain is selected in 64 cases, with median
 
 $$
 \Delta\mathrm{BIC}
@@ -950,6 +952,51 @@ For Uranus and Neptune, decisive measurements include high-order gravity and mag
 
 For the Moon and Mercury, thermal mapping plus in-situ mineralogy can directly test geometric trapping and carbon partitioning.
 
+## 12.4 Typed auxiliary layers: proposed ASTRA research outlook
+
+This subsection is a proposed methods extension, not part of the admitted physical SPPT core and not an implemented feature of the released ASTRA code. It was prompted by four 2026 studies that address different kinds of boundary information. Their evidence does not transfer across fields.
+
+Camarda et al. mapped more than 100 inclusions in an unpolished Juína diamond and report that an approximately $35\,\mu\mathrm m$ mixed goethite--hematite--magnetite inclusion is completely encapsulated, with no observed present connection to fractures or the exterior [@camarda2026feooh]. That observation is evidence for present isolation and qualifies the inclusion for consideration as a physically sealed reservoir; permeability and past exchange were not measured. The proposed history---retrogression from high-pressure $\varepsilon$-FeOOH after transport in a cold slab, partial decomposition, and later preservation in diamond---is explicitly a hypothesis based on one specimen and experimental analogues, not a unique inversion or a measurement of global deep-water flux. A future **ASTRA-Archive** analysis could compare that path against later infiltration, epigenetic alteration, multi-stage encapsulation, and syn-growth alternatives using tomography, diffraction, valence, isotope, trace-element, stress, and co-inclusion data.
+
+The other three studies supply structural analogies only. Dominy and Hobaiter report spectral-profile similarity between moonlight, grizzled *Papio hamadryas* hair, and sacred-ibis plumage, and propose that coloration may have contributed to their association with Thoth [@dominy2026moonlight]. Comparing an irradiance spectrum with reflectance spectra does not reconstruct appearance under historical illumination, human adaptation, or cultural causation; it offers only an analogy for observational equivalence. In an arXiv preprint, Martiel et al. report a device-dependent, error-detected fidelity certificate for a 70-qubit, depth-70 doped-Clifford sampling experiment encoded in 97 physical qubits, with a reported state-fidelity lower bound of $0.284$ at 95% confidence under the declared circuit and noise assumptions [@martiel2026sampling]. That result motivates failure-typed computational certificates, not a planetary result or an unconditional proof of every output. Wang et al. identify phosphatidylserine--Axl-mediated clearance of viable xenogeneic donor cells by primitive host macrophages and report interventions through host macrophage or Axl disruption and donor CD47 or ATP11C overexpression [@wang2026xenophagocytosis]. That work motivates an active-control graph for a specified biological system; it does not establish a universal biological gate or a physical planetary edge.
+
+A future typed ASTRA state could therefore be declared as
+
+$$
+\mathfrak A_{\mathrm{outlook}}(t)
+=
+\left(x,h,\mathcal G_F,\mathcal G_C,\mathcal G_O,\mathcal G_V,\theta,u\right),
+\qquad\text{(43a)}
+$$
+
+where $\mathcal G_F$ is a physical flux-and-transformation graph, $\mathcal G_C$ is an active control or recognition graph, $\mathcal G_O$ is an observation graph, $\mathcal G_V$ is a verification-dependency graph, and $h$ denotes explicitly retained history. Only $\mathcal G_F$ corresponds to the physical matter-and-energy topology used in the present SPPT equations. Domain-specific constitutive bridges would be required before any auxiliary edge could affect it. Define the graph collection $\mathbf G=(\mathcal G_F,\mathcal G_C,\mathcal G_O,\mathcal G_V)$. A possible future syntax is
+
+$$
+\begin{aligned}
+\dot x &= f_{\mathcal G_F}(x,\{a_e\},u,\theta),
+&
+a_e &= \sigma\!\left(g_e(x,\mathcal G_C,u,\theta)\right),\\
+y &= H_{\mathcal G_O}(x,h,u)+\epsilon,
+&
+z &= C_{\mathcal G_V}(y,u,\theta,r).
+\end{aligned}
+\qquad\text{(43b)}
+$$
+
+Here $a_e$ is an edge-availability variable only after its domain, units, kinetics, and interpretation are supplied. The gate argument $g_e$ must be dimensionless or carry a declared nondimensionalization, and $\sigma$ must be a declared map into $[0,1]$. The record $r$ contains observable or auditable execution and measurement information rather than inaccessible hidden truth; $z$ is a certificate only for the failure classes it can actually detect. Conservation cannot certify an equation of state, numerical convergence cannot certify a topology, and synthetic recovery cannot certify a planet.
+
+This typing suggests a prospective experiment-design rule,
+
+$$
+u^*\in\arg\max_{u\in\mathcal U}
+I(\mathbf G,h;Y_u,Z_u\mid u)-\lambda\operatorname{Cost}(u),
+\qquad\text{(43c)}
+$$
+
+where $Y_u$ and $Z_u$ denote the random future observation and certificate outcomes under intervention $u$. Equation (43c) is only a design template. Every application would require a declared intervention set, likelihood, utility, cost, safety boundary, and independent evaluation. The four studies exemplify different interrogations---spectroscopy, syndrome-preserving circuit construction, tomography, and molecular or cellular intervention---but do not establish one cross-domain law.
+
+The quantum experiment specifically reports a $29\times$ increase in state fidelity relative to the unencoded Clifford circuit, at the cost of an $860\times$ decrease in effective sampling rate [@martiel2026sampling]. The biological paper shows that relaxing one recognition pathway can increase donor chimerism [@wang2026xenophagocytosis]. These observations motivate, but do not establish, a general monotone selectivity--throughput law. Counterexamples are possible when specificity, repair, parallelism, or resource allocation changes with the selection parameter; the general law is therefore deferred.
+
 # 13. Limitations and no-go conditions
 
 SPPT does not claim:
@@ -976,22 +1023,18 @@ The framework must be demoted from “candidate predictive model” to “organi
 
 **No-go condition N5 — metaphor substituted for mechanism.** A visual or linguistic resemblance cannot establish a physical edge in $\mathcal G$.
 
+**No-go condition N6 — edge-type substitution.** An observational resemblance, semantic association, biological recognition signal, or computational certificate cannot be treated as a physical matter-or-energy transport edge without an explicit constitutive bridge.
+
 # 14. Conclusion
 
 The proposed SPPT state representation is
 
-$$
-\boxed{
-\text{planetary state}
-=
-\text{continuous thermodynamic fields}
-+
-\text{phase-reservoir topology}
-+
-\text{history-dependent transport}
-}
-\qquad\text{(44)}
-$$
+> **State representation (44)**
+>
+> **planetary state**  
+> = continuous thermodynamic fields  
+> + phase-reservoir topology  
+> + history-dependent transport
 
 subject to conservation, nonnegative entropy production, legal phase domains, and predictive testing.
 
@@ -999,11 +1042,13 @@ Three analytic results give the framework concrete content. First, internal tran
 
 The 2026 graphite work sharpens rather than mystifies the theory. It shows that interface and intermediate chemistry can control solid-carbon production, while energy and circuit closure prevent a spontaneous-sequestration interpretation. Combined with emerging evidence for composition gradients, phase separation, superionic candidates, conductivity sensitivity, and evolutionary retrieval, it motivates a focused astronomical program: infer which phases are connected, not only how much material exists.
 
-The theory advances only if that hidden topology pays predictive rent. ASTRA supplies the corresponding operational test: promote only the minimum physically admissible topology that remains calibrated and predictively superior on unseen information.
+The theory advances only if that hidden topology pays predictive rent. ASTRA supplies the corresponding operational test: promote only the minimum physically admissible topology that remains calibrated and predictively superior on unseen information. The proposed typed-layer outlook strengthens this discipline by keeping what crosses a boundary, what is observed there, what controls passage, what history is preserved, and what is certified as distinct scientific questions.
 
 # Acknowledgments {.unnumbered}
 
-The author acknowledges the use of OpenAI language-model assistance for literature organization, equation checking, code drafting, synthetic-benchmark implementation, and document production. All claims, interpretations, and release decisions remain the author's responsibility. No model-generated statement is treated as evidence. ASTRA is the working name for the framework's inference and validation layer.
+The author reports that the initial cold-trap/Saturn idea arose in a dream while dozing off during reading about Saturn and cold traps. After waking, the author assembled a quick three-diagram collage juxtaposing latent heat, a cold trap, and Saturn, and used an OpenAI ChatGPT conversation to explore Saturn's possible role. The collage is not included because the component-image identities and publication rights were not established. This origin story records conceptual provenance; it is not scientific support.
+
+OpenAI language-model assistance was subsequently used for literature organization, equation checking, code drafting, synthetic-benchmark implementation, document production, and development of the cross-disciplinary research outlook. The author selected the public wording and is responsible for every claim, interpretation, and release decision. Primary sources, calculations, data, and tests---not model output---supply the evidence. Neither the dream, the collage, nor model output is scientific evidence. ASTRA is the working name for the framework's inference and validation layer.
 
 # Data and code availability {.unnumbered}
 
@@ -1068,7 +1113,7 @@ The executable reference implementation reproduces the following idealized quant
 | Reversible minimum energy from $\Delta G^\circ=394.3$ kJ mol$^{-1}$ | $8.959\ \mathrm{MJ\,kg^{-1}_{CO2}}$ |
 | Current for 1 Gt CO2 yr$^{-1}$, ideal | $2.7789\times10^{11}\ \mathrm A$ |
 | Reversible minimum mean power for 1 Gt CO2 yr$^{-1}$ | $2.8391\times10^{11}\ \mathrm W$ |
-| Example memory-loop area for $c_1=0.75$, $\omega\tau_r=1$ | $-0.8836$ normalized units |
+| Signed release-normalized area $\oint q_r\,dc$ for $c_1=0.75$, $\omega\tau_r=1$ | $-0.8836$ normalized units |
 
 Numerical functions were implemented with NumPy and SciPy, and figures with Matplotlib [@harris2020; @virtanen2020; @hunter2007].
 

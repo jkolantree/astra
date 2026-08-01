@@ -127,7 +127,7 @@ The training window contains 361 samples over $0\le t\le36$; the held-out window
 
 ## Fitting and selection
 
-Positive conductances are parameterized as $k_e=\exp\eta_e$ and fitted by nonlinear least squares using only the noisy training surface series. All generation constants, seeds, candidates, and evaluation code are public; the benchmark is not blinded or external validation. Each fit uses a predeclared 12-start low-discrepancy design spanning the interior of the log-conductance bounds and exact forward sensitivities of the implemented propagator to log conductance. A solver result is eligible only when it reports positive termination status, finite parameters and objective, and cost-scaled first-order optimality $\lVert g\rVert_\infty/\max(1,C)\le10^{-4}$; the lowest-cost eligible start is retained. With residual sum of squares $\mathrm{RSS}$, sample count $n$, and free-conductance count $p$, the benchmark reports
+Positive conductances are parameterized as $k_e=\exp\eta_e$ and fitted by nonlinear least squares using only the noisy training surface series. All generation constants, seeds, candidates, and evaluation code are public; the benchmark is not blinded or external validation. Each fit uses a release-frozen 20-start generic design combining low-discrepancy coverage with unit and coordinate-wise decade anchors, together with exact forward sensitivities of the implemented propagator to log conductance. The 20-start design was adopted during release audit after replay of this same synthetic benchmark exposed a missed endpoint under the earlier 12-start design. The added anchors were therefore informed by benchmark behavior, and the reported reruns are regression evidence for the repaired implementation rather than untouched evaluation. A solver result is eligible only when it reports positive termination status, finite parameters and objective, and cost-scaled first-order optimality $\lVert g\rVert_\infty/\max(1,C)\le10^{-4}$; the lowest-cost eligible start is retained. If a non-eligible endpoint has a cost lower by more than $10^{-4}$ of the retained cost scale, the fit fails closed as insufficient optimizer coverage. Every start vector, solver disposition, endpoint, cost, optimality diagnostic, and active-bound mask is retained in both duplicate machine-readable serializations. With residual sum of squares $\mathrm{RSS}$, sample count $n$, and free-conductance count $p$, the benchmark reports
 
 $$
 \mathrm{BIC}=n\ln\left(\frac{\mathrm{RSS}}{n}\right)+p\ln n.
@@ -163,11 +163,11 @@ The released realization uses seed 20260801. Results ranked by BIC are:
 | Rank | Graph | Fitted conductances | Training RMSE | BIC | Held-out RMSE |
 |---:|---|---|---:|---:|---:|
 | 1 | Chain | 0.228876; 1.393863 | 0.002500 | -4314.159 | 0.000474 |
-| 2 | Triangle | 0.225048; 1.390031; 0.001864 | 0.002499 | -4308.513 | 0.000452 |
-| 3 | Surface star | 0.087329; 1.196997 | 0.005059 | -3805.155 | 0.006720 |
-| 4 | Deep star | 0.045814; 1.084790 | 0.019802 | -2819.876 | 0.025147 |
+| 2 | Triangle | 0.225037; 1.390020; 0.001869 | 0.002499 | -4308.513 | 0.000452 |
+| 3 | Surface star | 0.087328; 1.196997 | 0.005059 | -3805.156 | 0.006720 |
+| 4 | Deep star | 0.045813; 1.084790 | 0.019802 | -2819.876 | 0.025147 |
 
-The overconnected triangle has a slightly smaller held-out RMSE than the chain in this one noise realization. That does **not** identify the triangle. Its extra shortcut is fitted at $0.001864$, approximately 0.85% of the weaker true chain edge, and the training-BIC penalty selects the two-edge chain. The correct interpretation is minimum-family selection with an overconnected control that collapses toward the generating graph.
+The overconnected triangle has a slightly smaller held-out RMSE than the chain in this one noise realization. That does **not** identify the triangle. Its extra shortcut is fitted at $0.001869$, approximately 0.85% of the weaker true chain edge, and the training-BIC penalty selects the two-edge chain. The correct interpretation is minimum-family selection with an overconnected control that collapses toward the generating graph.
 
 # Monte Carlo robustness ensemble
 
@@ -185,7 +185,7 @@ $$
 The median triangle shortcut conductance was
 
 $$
-7.6486\times10^{-4},
+7.6485\times10^{-4},
 $$
 
 showing systematic shrinkage of the unnecessary edge toward zero under the released optimization and noise scale. The shortcut reaches the declared lower bound $\exp(-8)$ in 29 of 64 realizations, so the distribution is censored. The full output preserves these bound-active fits and does not treat them as interior measurements.
@@ -257,7 +257,7 @@ The demonstration does not imply that astronomical observations can freely choos
 
 # Numerical implementation validation
 
-The single-run benchmark uses `scipy.integrate.solve_ivp` with maximum step 0.05, relative tolerance $10^{-9}$, and absolute tolerance $10^{-11}$. The 64-seed ensemble uses exact matrix-exponential propagation under a four-substep zero-order-hold approximation to the time-dependent forcing.
+The single-run benchmark uses `scipy.integrate.solve_ivp` with maximum step 0.05, relative tolerance $10^{-9}$, and absolute tolerance $10^{-11}$. The 64-seed ensemble uses exact matrix-exponential propagation under a four-substep zero-order-hold approximation to the time-dependent forcing. Every fitted family is evaluated from 20 distinct, fixed, graph-independent multistarts combining low-discrepancy coverage with unit and coordinate-wise decade anchors. A retained fit is rejected if a non-admitted endpoint produces a materially lower cost. As disclosed above, this strengthened start design and its reruns are post-audit regression evidence. Release generation uses CPython 3.12.10, Git for Windows 2.55.0.windows.3, and probed single-thread NumPy and SciPy OpenBLAS Haswell kernels on compatible Windows x86-64 hardware; the byte-identity claim is limited to the exercised release outputs under that complete frozen runtime.
 
 The fast propagator was compared with the high-accuracy solver at the generating parameters:
 
@@ -284,7 +284,7 @@ The release's complete discovered test suite covers:
 - fast-propagator agreement with the high-accuracy benchmark;
 - minimum-chain selection in the released seed.
 - the complete state-dependent derivative, including $K(1-dT_u/dT_d)$;
-- frozen multistart design, convergence rejection, active-bound reporting, and negative release-integrity checks.
+- frozen multistart design, convergence and materially-better-endpoint rejection, active-bound reporting, numeric-kernel override and probe checks, and negative release-integrity checks.
 
 Passing tests establish consistency with the implemented equations. They do not establish that the equations are sufficient for a specific planet.
 

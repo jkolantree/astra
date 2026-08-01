@@ -14,6 +14,21 @@ def test_multistart_design_is_frozen_and_spans_log_box() -> None:
     assert first.shape == (optimization.N_STARTS, 3)
     assert np.array_equal(first, second)
     assert np.all(np.ptp(first, axis=0) > 8.0)
+    assert any(np.array_equal(row, np.zeros(3)) for row in first)
+    for column in range(3):
+        low = np.zeros(3)
+        high = np.zeros(3)
+        low[column] = np.log(0.1)
+        high[column] = np.log(10.0)
+        assert any(np.array_equal(row, low) for row in first)
+        assert any(np.array_equal(row, high) for row in first)
+
+
+@pytest.mark.parametrize("n_parameters", [1, 2, 3])
+def test_multistart_design_contains_twenty_distinct_points(n_parameters: int) -> None:
+    starts = optimization.deterministic_log_starts(n_parameters)
+    assert starts.shape == (optimization.N_STARTS, n_parameters)
+    assert np.unique(starts, axis=0).shape[0] == optimization.N_STARTS
 
 
 def test_multistart_solves_simple_problem() -> None:
@@ -27,6 +42,8 @@ def test_multistart_solves_simple_problem() -> None:
     )
     assert result.x == pytest.approx([-2.0, 1.0])
     assert any(item.accepted for item in diagnostics)
+    assert all(len(item.start_log_conductance) == 2 for item in diagnostics)
+    assert all(len(item.endpoint_log_conductance) == 2 for item in diagnostics)
 
 
 def test_success_flag_without_adequate_optimality_is_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -41,6 +58,46 @@ def test_success_flag_without_adequate_optimality_is_rejected(monkeypatch: pytes
     )
     monkeypatch.setattr(optimization, "least_squares", lambda *args, **kwargs: fake)
     with pytest.raises(RuntimeError, match="No multistart fit"):
+        optimization.solve_multistart(
+            lambda value: value,
+            1,
+            xtol=1e-12,
+            ftol=1e-12,
+            gtol=1e-12,
+            max_nfev=10,
+        )
+
+
+def test_materially_better_unaccepted_endpoint_blocks_retained_fit(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls = 0
+
+    def fake_solver(*args: object, **kwargs: object) -> SimpleNamespace:
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            return SimpleNamespace(
+                success=True,
+                status=3,
+                x=np.array([0.0]),
+                cost=1.0,
+                optimality=1.0,
+                nfev=1,
+                active_mask=np.array([0]),
+            )
+        return SimpleNamespace(
+            success=True,
+            status=3,
+            x=np.array([0.0]),
+            cost=100.0,
+            optimality=1.0e-3,
+            nfev=1,
+            active_mask=np.array([0]),
+        )
+
+    monkeypatch.setattr(optimization, "least_squares", fake_solver)
+    with pytest.raises(RuntimeError, match="materially lower cost"):
         optimization.solve_multistart(
             lambda value: value,
             1,

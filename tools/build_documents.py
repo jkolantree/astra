@@ -120,7 +120,13 @@ def build_html(source: Path, output: Path, title: str) -> None:
         # Replacing the inode/file with a sandbox-owned temporary file can make
         # the generated HTML unreadable to the host-side Git process.
         output.write_bytes(temporary_output.read_bytes())
-    if re.search(r"(?:[A-Za-z]:\\|/Users/|/home/|Pirate Dude|nature\.csl)", html, re.IGNORECASE):
+    if re.search(
+        r"(?:^\s*(?:contact|correspondence)\s*[:=]\s*(?:TBD|TODO|pending|placeholder)\b|"
+        r"[A-Za-z]:\\|/Users/|/home/|nature\.csl|"
+        r"\b[A-Z][A-Za-z .'-]+,\s*(?:USA|United States)\b)",
+        html,
+        re.IGNORECASE | re.MULTILINE,
+    ):
         raise RuntimeError(f"Private or machine-local path leaked into {output.name}.")
     if "data:image/" not in html:
         raise RuntimeError(f"Expected embedded figure resources in {output.name}.")
@@ -182,6 +188,13 @@ def build_pdf(html: Path, output: Path, title: str) -> None:
                 prefer_css_page_size=True,
                 tagged=True,
                 outline=True,
+                display_header_footer=True,
+                header_template="<span></span>",
+                footer_template=(
+                    '<div style="box-sizing:border-box;width:100%;padding:0 0.72in;'
+                    "font-family:'Times New Roman',serif;font-size:8pt;color:#52606d;"
+                    'text-align:center;"><span class="pageNumber"></span></div>'
+                ),
             )
             browser.close()
         if not raw_pdf.is_file() or raw_pdf.stat().st_size == 0:

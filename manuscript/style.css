@@ -111,6 +111,9 @@ math { overflow-x: auto; font-family: "SPPT DejaVu Serif", serif; }
   nav#TOC { break-after: page; }
   h1 { break-before: page; }
   h1:first-of-type { break-before: auto; }
+  #dimensionless-regime-coordinates,
+  #frequency-domain-identifiability-demonstration,
+  #numerical-implementation-validation { break-before: auto; }
   h1, h2, h3, h4 { break-after: avoid-page; }
   p, li { orphans: 3; widows: 3; }
   table, figure, blockquote, pre { break-inside: avoid-page; }

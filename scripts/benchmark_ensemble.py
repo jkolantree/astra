@@ -197,6 +197,7 @@ class SeedResult:
     optimizer_max_optimality: float
     optimizer_max_scaled_optimality: float
     triangle_shortcut_at_lower_bound: bool
+    optimizer_diagnostics: dict[str, dict[str, object]]
 
 
 def run_seed(arguments: tuple[int, float]) -> SeedResult:
@@ -266,6 +267,19 @@ def run_seed(arguments: tuple[int, float]) -> SeedResult:
             "accepted_starts": sum(item.accepted for item in diagnostics),
             "optimality": float(result.optimality),
             "scaled_optimality": float(result.optimality) / max(1.0, float(result.cost)),
+            "diagnostics": {
+                "best_start": best_start,
+                "accepted_starts": sum(item.accepted for item in diagnostics),
+                "selected_nfev": int(result.nfev),
+                "selected_cost": float(result.cost),
+                "selected_optimality": float(result.optimality),
+                "selected_scaled_optimality": float(result.optimality)
+                / max(1.0, float(result.cost)),
+                "selected_active_mask": [
+                    int(value) for value in np.asarray(result.active_mask, dtype=int)
+                ],
+                "starts": [item.to_dict() for item in diagnostics],
+            },
         }
 
     winner = min(records, key=lambda name: float(records[name]["bic"]))
@@ -288,6 +302,9 @@ def run_seed(arguments: tuple[int, float]) -> SeedResult:
             float(record["scaled_optimality"]) for record in records.values()
         ),
         triangle_shortcut_at_lower_bound=bool(np.isclose(np.log(triangle_k[2]), -8.0, atol=1e-7)),
+        optimizer_diagnostics={
+            name: dict(record["diagnostics"]) for name, record in records.items()
+        },
     )
 
 
@@ -350,7 +367,14 @@ def main() -> None:
         writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for result in results:
-            writer.writerow(asdict(result))
+            row = asdict(result)
+            row["optimizer_diagnostics"] = json.dumps(
+                result.optimizer_diagnostics,
+                allow_nan=False,
+                separators=(",", ":"),
+                sort_keys=True,
+            )
+            writer.writerow(row)
 
     delta_bic = np.array([r.delta_bic_triangle_minus_chain for r in results])
     shortcut = np.array([r.triangle_shortcut_conductance for r in results])

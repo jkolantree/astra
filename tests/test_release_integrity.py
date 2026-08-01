@@ -44,6 +44,7 @@ def configure_release_fixture(
         for name in names[:6]
     ]
     identity = {
+        "schema": release.IDENTITY_SCHEMA,
         "version": "1.0.1",
         "tag": "v1.0.1",
         "annotated_tag_object": tag["tag_object"],
@@ -59,7 +60,7 @@ def configure_release_fixture(
         "sha256sums_sha256": digest(dist / names[5]),
         "identity_excludes_self": True,
     }
-    (dist / names[6]).write_text(json.dumps(identity), encoding="utf-8")
+    (dist / names[6]).write_bytes(release.canonical_json_bytes(identity))
     monkeypatch.setattr(release, "ROOT", tmp_path)
     monkeypatch.setattr(release, "DIST", dist)
     monkeypatch.setattr(release, "MANIFEST", manifest)
@@ -89,6 +90,25 @@ def test_detached_identity_commit_or_tree_mismatch_is_rejected(
     identity["tree"] = "d" * 40
     path.write_text(json.dumps(identity), encoding="utf-8")
     with pytest.raises(RuntimeError, match="identity mismatch for tree"):
+        release.verify_release_assets()
+
+
+@pytest.mark.parametrize("mutation", ["whitespace", "schema", "extra-field"])
+def test_any_detached_identity_byte_or_shape_mutation_is_rejected(
+    mutation: str, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    names, _ = configure_release_fixture(tmp_path, monkeypatch)
+    path = release.DIST / names[6]
+    if mutation == "whitespace":
+        path.write_bytes(path.read_bytes() + b" ")
+    else:
+        identity = json.loads(path.read_text(encoding="utf-8"))
+        if mutation == "schema":
+            identity["schema"] = "https://example.invalid/wrong-schema"
+        else:
+            identity["unexpected"] = True
+        path.write_bytes(release.canonical_json_bytes(identity))
+    with pytest.raises(RuntimeError, match="identity mismatch|exact canonical"):
         release.verify_release_assets()
 
 
@@ -213,6 +233,56 @@ def test_missing_or_drifting_installed_dependency_is_rejected(
         verifier.verify_installed_distributions()
 
 
+def test_hostile_inherited_numeric_kernel_environment_is_overridden(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    variable_names = (
+        "OPENBLAS_CORETYPE",
+        "OPENBLAS_NUM_THREADS",
+        "OMP_NUM_THREADS",
+        "MKL_NUM_THREADS",
+        "NUMEXPR_NUM_THREADS",
+        "NPY_DISABLE_CPU_FEATURES",
+    )
+    for name in variable_names:
+        monkeypatch.setenv(name, "hostile")
+    monkeypatch.setattr(verifier, "TEMP_ROOT", tmp_path / "verification")
+    environment = verifier.configure_environment()
+    assert environment["OPENBLAS_CORETYPE"] == "HASWELL"
+    assert all(environment[name] == "1" for name in variable_names[1:5])
+    runtime = json.loads((PROJECT_ROOT / "RUNTIME.json").read_text(encoding="utf-8"))
+    assert environment["NPY_DISABLE_CPU_FEATURES"] == ",".join(
+        runtime["numeric_kernel"]["numpy_disabled_cpu_features"]
+    )
+
+
+@pytest.mark.parametrize(
+    ("field", "wrong_value"),
+    [("core_type", "SkylakeX"), ("threads", 2)],
+)
+def test_wrong_numeric_kernel_observation_is_rejected(
+    field: str, wrong_value: str | int
+) -> None:
+    runtime = json.loads((PROJECT_ROOT / "RUNTIME.json").read_text(encoding="utf-8"))
+    observation = {
+        "cpu_features": {"AVX2": True, "FMA3": True},
+        "libraries": [
+            {
+                "distribution": item["distribution"],
+                "distribution_version": item["distribution_version"],
+                "blas_provider": "scipy-openblas",
+                "openblas_version": item["openblas_version"],
+                "core_type": "Haswell",
+                "threads": 1,
+            }
+            for item in runtime["numeric_kernel"]["libraries"]
+        ],
+    }
+    observation["libraries"][0][field] = wrong_value
+    with pytest.raises(RuntimeError, match="Numeric-kernel drift"):
+        verifier.validate_numeric_kernel_observation(runtime, observation)
+
+
 def test_duplicate_evidence_cannot_be_double_counted(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -257,6 +327,12 @@ def test_private_metadata_and_nonallowlisted_files_are_rejected(
     private.write_text("C:\\Users\\Private\\secret\n", encoding="utf-8")
     monkeypatch.setattr(repository, "ROOT", tmp_path)
     with pytest.raises(RuntimeError, match="local Windows path"):
+        repository.check_text_privacy([private])
+    private.write_text("Example City, USA\n", encoding="utf-8")
+    with pytest.raises(RuntimeError, match="private location"):
+        repository.check_text_privacy([private])
+    private.write_text("Correspondence: TBD\n", encoding="utf-8")
+    with pytest.raises(RuntimeError, match="placeholder contact"):
         repository.check_text_privacy([private])
     (tmp_path / "unexpected.exe").write_bytes(b"x")
     with pytest.raises(RuntimeError, match="Unexpected root file"):

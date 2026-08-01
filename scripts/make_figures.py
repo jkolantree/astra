@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -23,6 +24,10 @@ def main() -> None:
         raise ValueError("workers must be positive")
 
     environment = os.environ.copy()
+    runtime = json.loads((ROOT / "RUNTIME.json").read_text(encoding="utf-8"))
+    numeric_kernel = runtime["numeric_kernel"]
+    core_type = str(numeric_kernel["core_type"])
+    threads = str(numeric_kernel["threads"])
     python_path = [str(ROOT / "src"), str(ROOT)]
     if environment.get("PYTHONPATH"):
         python_path.append(environment["PYTHONPATH"])
@@ -31,16 +36,21 @@ def main() -> None:
             "PYTHONHASHSEED": "0",
             "TZ": "UTC",
             "SOURCE_DATE_EPOCH": "1785542400",
-            "OMP_NUM_THREADS": "1",
-            "OPENBLAS_NUM_THREADS": "1",
-            "MKL_NUM_THREADS": "1",
-            "NUMEXPR_NUM_THREADS": "1",
+            "OPENBLAS_CORETYPE": core_type,
+            "OMP_NUM_THREADS": threads,
+            "OPENBLAS_NUM_THREADS": threads,
+            "MKL_NUM_THREADS": threads,
+            "NUMEXPR_NUM_THREADS": threads,
+            "NPY_DISABLE_CPU_FEATURES": ",".join(
+                runtime["numeric_kernel"]["numpy_disabled_cpu_features"]
+            ),
             "MPLBACKEND": "Agg",
             "MPLCONFIGDIR": str(ROOT / "tmp" / "matplotlib"),
             "TEMP": str(ROOT / "tmp"),
             "TMP": str(ROOT / "tmp"),
             "TMPDIR": str(ROOT / "tmp"),
             "PYTHONDONTWRITEBYTECODE": "1",
+            "PYTHONPYCACHEPREFIX": str(ROOT / "tmp" / "pycache"),
             "PYTHONPATH": os.pathsep.join(python_path),
         }
     )

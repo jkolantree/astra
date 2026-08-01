@@ -6,7 +6,7 @@
     "inference_layer": "Astronomical State-Topology and Reservoir Analysis (ASTRA)",
     "version": "1.0.1",
     "public_author": "Jacko T.",
-    "selection": "The synchronized manuscript.md and supplement.md supplied together are the sole authoritative textual source candidate. DOCX and PDF files are generated presentations; code, data, results, and figures are supporting artifacts."
+    "selection": "The synchronized manuscript.md and supplement.md, as revised under the explicit 2026-08-01 author direction, are the sole authoritative textual release sources. The later pasted-text.txt is an author-supplied reasoning and provenance input, not independent evidence or verbatim release authority. DOCX and PDF files are generated presentations; code, data, results, and figures are supporting artifacts."
   },
   "hash_algorithm": "SHA-256",
   "artifacts": [
@@ -40,7 +40,7 @@
       "displayed_attribution": null,
       "embedded_attribution": null,
       "license": "CC-BY-4.0",
-      "rights_status": "treated as an original supplied transcript under the manuscript's generated-results grant",
+      "rights_status": "publication and CC BY 4.0 treatment were explicitly authorized for this supplied original transcript in the release instruction; it is not execution evidence",
       "relationship": "saved transcript only; retained as source history and never counted as execution evidence"
     },
     {
@@ -106,7 +106,7 @@
       "displayed_attribution": null,
       "embedded_attribution": null,
       "license": "CC-BY-4.0",
-      "rights_status": "authoritative manuscript expressly licenses original generated results",
+      "rights_status": "original factual result serialization; CC BY 4.0 publication was explicitly authorized for generated results in the release instruction",
       "relationship": "alternate serialization of the same 64 runs as synthetic_topology_ensemble.json; not independent evidence; superseded by a fresh deterministic replay"
     },
     {
@@ -117,7 +117,7 @@
       "displayed_attribution": null,
       "embedded_attribution": null,
       "license": "CC-BY-4.0",
-      "rights_status": "authoritative manuscript expressly licenses original generated results",
+      "rights_status": "original factual result serialization; CC BY 4.0 publication was explicitly authorized for generated results in the release instruction",
       "relationship": "alternate serialization of the same 64 runs as synthetic_topology_ensemble.csv; not independent evidence; superseded by a fresh deterministic replay"
     },
     {
@@ -174,6 +174,17 @@
       "license": "CC-BY-4.0",
       "rights_status": "explicit original-figure license statement in the manuscript",
       "relationship": "byte-identical to the S6 image embedded in the supplied supplement DOCX; not independent evidence; superseded by a fresh deterministic replay that exposes the lower-bound pile-up"
+    },
+    {
+      "canonical_relative_path": "pasted-text.txt",
+      "bytes": 27496,
+      "sha256": "d5780e8ec084d51cbb7c454bf6b6e935f4620b4d80723fa30084b3da429ae711",
+      "media_type": "text/plain; charset=utf-8",
+      "displayed_attribution": "no byline in the file; supplied by Jacko T. as an authorial reasoning input",
+      "embedded_attribution": null,
+      "license": "source input only; admitted original paraphrase is CC-BY-4.0",
+      "rights_status": "publication of the framework update and provenance record was explicitly authorized; the raw synthesis is not redistributed verbatim, and no linked article text, third-party figure, collage, or chat transcript is included",
+      "relationship": "author-supplied synthesis and provenance prompt audited against four canonical primary records; broken markup and overbroad claims rejected; bounded proposed-only wording incorporated; not independent evidence"
     }
   ],
   "discovered_aliases": [
@@ -188,6 +199,7 @@
     "Identical SHA-256 values are aliases.",
     "CSV and JSON serializations of the same run set are one evidence source.",
     "Rendered DOCX, PDF, and HTML presentations do not multiply the authority of their Markdown source.",
-    "A saved test transcript is not actual execution."
+    "A saved test transcript is not actual execution.",
+    "An author-supplied synthesis is a reasoning input, not external validation or independent evidence."
   ]
 }

@@ -61,6 +61,7 @@ class FitRecord:
     optimizer_optimality: float
     optimizer_scaled_optimality: float
     optimizer_active_mask: list[int]
+    optimizer_diagnostics: list[dict[str, object]]
 
 
 def train_forcing(t: float) -> float:
@@ -262,6 +263,7 @@ def main() -> None:
                 optimizer_optimality=float(optimizer["optimality"]),
                 optimizer_scaled_optimality=float(optimizer["scaled_optimality"]),
                 optimizer_active_mask=list(optimizer["active_mask"]),
+                optimizer_diagnostics=list(optimizer["diagnostics"]),
             )
         )
 
@@ -303,6 +305,12 @@ def main() -> None:
             row["conductance"] = ";".join(f"{value:.8g}" for value in record.conductance)
             row["optimizer_active_mask"] = ";".join(
                 str(value) for value in record.optimizer_active_mask
+            )
+            row["optimizer_diagnostics"] = json.dumps(
+                record.optimizer_diagnostics,
+                allow_nan=False,
+                separators=(",", ":"),
+                sort_keys=True,
             )
             writer.writerow(row)
 
