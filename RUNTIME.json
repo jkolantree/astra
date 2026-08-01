@@ -77,22 +77,52 @@
     "browser": "Chromium",
     "revision": "1234",
     "version": "151.0.7922.34",
-    "system_fonts": [
-      {
-        "postscript_name": "CambriaMath",
-        "file": "cambria.ttc",
-        "bytes": 1792664,
-        "sha256": "84e70ccc1664482f4a960442c7a166c91a1b2cf98ff88c33cb73f79403f66d7b",
-        "embedding_fs_type": 8
-      },
-      {
-        "postscript_name": "TimesNewRomanPSMT",
-        "file": "times.ttf",
-        "bytes": 1190736,
-        "sha256": "931c5de5c70401d9324d5014c123802b4fb753000360ceb2f56c589403cd58c5",
-        "embedding_fs_type": 8
-      }
-    ]
+    "font_sources": {
+      "provider": "matplotlib 3.11.1",
+      "directory": "mpl-data/fonts/ttf",
+      "files": [
+        {
+          "file": "DejaVuSerif.ttf",
+          "bytes": 379740,
+          "sha256": "107244956e9962b9e96faccdc551825e0ae0898ae13737133e1b921a2fd35ffa"
+        },
+        {
+          "file": "DejaVuSerif-Bold.ttf",
+          "bytes": 355692,
+          "sha256": "c3753f2ed6bc673f15846dc45addbeb3b9c872f32fb18fd53a21f1bef1ed7676"
+        },
+        {
+          "file": "DejaVuSerif-Italic.ttf",
+          "bytes": 345612,
+          "sha256": "3e7994fbc54fa10ce3352a42d548fadd7d9cadb69cb1109bc9d960f6dac57f04"
+        },
+        {
+          "file": "DejaVuSerif-BoldItalic.ttf",
+          "bytes": 347064,
+          "sha256": "d93efec7a9d2e826768d1a2ee95b95870e15e29599a84f3484af1de1cec2e181"
+        },
+        {
+          "file": "DejaVuSans.ttf",
+          "bytes": 756072,
+          "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22"
+        },
+        {
+          "file": "DejaVuSans-Bold.ttf",
+          "bytes": 704128,
+          "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167"
+        },
+        {
+          "file": "DejaVuSansMono.ttf",
+          "bytes": 340240,
+          "sha256": "602ec86b8948cfcd956482fe64f94c36c867770149ef2f791d4613f443bcecb3"
+        },
+        {
+          "file": "STIXGeneral.ttf",
+          "bytes": 448228,
+          "sha256": "167378031e2dddc6216d67819c9260e9a06ffc4c478e4e23cb98a6fd44b183c2"
+        }
+      ]
+    }
   },
   "determinism_scope": "Byte identity is required for the exercised release-artifact paths when replayed with this frozen reference runtime, dependency lock, Git build, verified single-thread Haswell OpenBLAS kernels, recorded PDF source-font bytes, source tree, seeds, worker count, and build epoch. This scope does not claim universal cross-platform floating-point identity for unexercised numerical code."
 }

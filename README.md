@@ -51,7 +51,7 @@ Requirements:
 - dependencies from `requirements-lock.txt`, installed with hashes
 - a Haswell-compatible Windows x86-64 CPU with AVX2 and FMA3; the canonical verifier forces and probes the NumPy and SciPy OpenBLAS Haswell kernels with one thread and disables NumPy AVX-512 dispatch
 - Playwright Chromium **151.0.7922.34**, revision **1234**, installed by Playwright 1.62.0 for tagged PDF generation
-- the exact Cambria Math and Times New Roman source-font bytes recorded in `RUNTIME.json` when their permitted embedded subsets appear in the PDFs
+- the exact Matplotlib-distributed DejaVu and STIX source-font bytes recorded in `RUNTIME.json`; the document build does not use machine-installed fonts
 
 On Windows PowerShell:
 

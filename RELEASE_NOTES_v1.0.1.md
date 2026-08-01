@@ -18,7 +18,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe tools\verify.py --all --workers 4
 ```
 
-The release gate executes 67 discovered unit, invariant, evidence-boundary, document-contract, optimizer, runtime-identity, and negative release-integrity tests; strict Ruff and mypy checks; CFF schema validation; privacy, path, metadata, citation-key, license, HTML, PDF, cache-boundary, and archive checks; the complete frozen numerical replay; figure regeneration; two byte-identity document builds; and fresh-clone, linked-worktree, and extracted-git-archive verification. The 64-seed ensemble uses frozen seeds, 20 distinct generic multistarts per fitted family, full per-start and per-endpoint convergence diagnostics, a fail-closed materially-better-endpoint check, bound flags, and preserved negative outcomes. The 20-start design was strengthened during release audit after this same benchmark exposed a missed endpoint under the earlier 12-start design, so the reruns are regression evidence rather than untouched evaluation. Byte identity is scoped to the exercised outputs under CPython 3.12.10, Git for Windows 2.55.0.windows.3, the probed single-thread NumPy and SciPy OpenBLAS Haswell kernels, and the recorded PDF font inputs on compatible Windows x86-64 hardware.
+The release gate executes 69 discovered unit, invariant, evidence-boundary, document-contract, optimizer, runtime-identity, and negative release-integrity tests; strict Ruff and mypy checks; CFF schema validation; privacy, path, metadata, citation-key, license, HTML, PDF, cache-boundary, and archive checks; the complete frozen numerical replay; figure regeneration; two byte-identity document builds; and fresh-clone, linked-worktree, and extracted-git-archive verification. The 64-seed ensemble uses frozen seeds, 20 distinct generic multistarts per fitted family, full per-start and per-endpoint convergence diagnostics, a fail-closed materially-better-endpoint check, bound flags, and preserved negative outcomes. The 20-start design was strengthened during release audit after this same benchmark exposed a missed endpoint under the earlier 12-start design, so the reruns are regression evidence rather than untouched evaluation. Byte identity is scoped to the exercised outputs under CPython 3.12.10, Git for Windows 2.55.0.windows.3, the probed single-thread NumPy and SciPy OpenBLAS Haswell kernels, and the recorded Matplotlib-distributed DejaVu/STIX font inputs on compatible Windows x86-64 hardware.
 
 ## Synthetic-data status and limitations
 
@@ -32,7 +32,7 @@ Conceptual provenance records the author-reported dream/collage/ChatGPT origin o
 
 ## Licensing
 
-Original software is MIT licensed. Original manuscript text, documentation, figures, and generated results are CC BY 4.0. Bibliographic references and third-party components retain their own terms. See `LICENSE_MAP.md` and `THIRD_PARTY_NOTICES.md` in the source archive.
+Original software is MIT licensed. Original manuscript text, documentation, figures, and generated results are CC BY 4.0. Bibliographic references and third-party components retain their own terms, including the DejaVu/Bitstream/Arev font terms and the SIL Open Font License 1.1 for STIX. See `LICENSE_MAP.md` and `THIRD_PARTY_NOTICES.md` in the source archive.
 
 ## Preservation
 

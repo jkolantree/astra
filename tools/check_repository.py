@@ -276,8 +276,8 @@ def check_license_map(paths: list[Path]) -> None:
     for required_embedded_rights_statement in (
         "The `manuscript/**` CC BY 4.0 mapping applies only to original authored content.",
         "Embedded DejaVu, Bitstream Vera, and Arev components retain the third-party terms",
-        "No standalone Microsoft font files are distributed",
-        "OS/2 `fsType=8` editable document-embedding permission",
+        "embedded STIX components retain the SIL Open Font License 1.1 terms",
+        "No proprietary or machine-installed font file or subset is distributed",
     ):
         if required_embedded_rights_statement not in license_map:
             raise RuntimeError(

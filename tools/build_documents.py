@@ -48,7 +48,7 @@ def sha256(path: Path) -> str:
 
 
 def embedded_font_css() -> str:
-    """Return deterministic data-URI declarations for Matplotlib's DejaVu fonts."""
+    """Return deterministic data-URI declarations for Matplotlib's bundled fonts."""
     font_dir = Path(matplotlib.get_data_path()) / "fonts" / "ttf"
     declarations = []
     variants = (
@@ -59,6 +59,7 @@ def embedded_font_css() -> str:
         ("DejaVuSans.ttf", "SPPT DejaVu Sans", "normal", "400"),
         ("DejaVuSans-Bold.ttf", "SPPT DejaVu Sans", "normal", "700"),
         ("DejaVuSansMono.ttf", "SPPT DejaVu Sans Mono", "normal", "400"),
+        ("STIXGeneral.ttf", "SPPT STIX General", "normal", "400"),
     )
     for filename, family, style, weight in variants:
         encoded = base64.b64encode((font_dir / filename).read_bytes()).decode("ascii")
@@ -188,13 +189,6 @@ def build_pdf(html: Path, output: Path, title: str) -> None:
                 prefer_css_page_size=True,
                 tagged=True,
                 outline=True,
-                display_header_footer=True,
-                header_template="<span></span>",
-                footer_template=(
-                    '<div style="box-sizing:border-box;width:100%;padding:0 0.72in;'
-                    "font-family:'Times New Roman',serif;font-size:8pt;color:#52606d;"
-                    'text-align:center;"><span class="pageNumber"></span></div>'
-                ),
             )
             browser.close()
         if not raw_pdf.is_file() or raw_pdf.stat().st_size == 0:

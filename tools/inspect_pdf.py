@@ -4,13 +4,12 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import re
 from pathlib import Path
 from typing import Any
 
+import matplotlib
 import pikepdf
-from fontTools.ttLib import TTCollection, TTFont
 from pypdf import PdfReader
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,59 +62,49 @@ def font_record(name: Any, font_reference: Any) -> dict[str, Any]:
     }
 
 
-def verify_windows_font_embedding_permissions(
+def verify_bundled_font_sources(
     font_records: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     runtime = json.loads((ROOT / "RUNTIME.json").read_text(encoding="utf-8"))
-    specifications = {
-        item["postscript_name"]: item for item in runtime["pdf_renderer"]["system_fonts"]
-    }
-    windows_root = os.environ.get("WINDIR")
-    if not windows_root:
-        raise RuntimeError("WINDIR is required to audit embedded Windows font sources")
+    source_specification = runtime["pdf_renderer"]["font_sources"]
+    expected_provider = f"matplotlib {matplotlib.__version__}"
+    if source_specification["provider"] != expected_provider:
+        raise RuntimeError(
+            f"PDF font provider drift: expected {source_specification['provider']}, "
+            f"observed {expected_provider}"
+        )
+    font_dir = Path(matplotlib.get_data_path()) / "fonts" / "ttf"
     observed: list[dict[str, Any]] = []
+    for specification in source_specification["files"]:
+        font_path = font_dir / specification["file"]
+        if not font_path.is_file():
+            raise RuntimeError(f"Pinned PDF font source is missing: {font_path}")
+        identity = {
+            "file": specification["file"],
+            "bytes": font_path.stat().st_size,
+            "sha256": sha256_path(font_path),
+        }
+        expected = {key: specification[key] for key in identity}
+        if identity != expected:
+            raise RuntimeError(f"Bundled PDF source-font identity drift: {identity}")
+        observed.append(identity)
     base_fonts = " ".join(record["base_font"] for record in font_records)
-    if "CambriaMath" in base_fonts:
-        specification = specifications["CambriaMath"]
-        collection_path = Path(windows_root) / "Fonts" / specification["file"]
-        if not collection_path.is_file():
-            raise RuntimeError("Cambria Math was embedded but its source font cannot be audited")
-        identity = {
-            "postscript_name": "CambriaMath",
-            "file": specification["file"],
-            "bytes": collection_path.stat().st_size,
-            "sha256": sha256_path(collection_path),
-        }
-        if identity != {key: specification[key] for key in identity}:
-            raise RuntimeError(f"Cambria Math source-font identity drift: {identity}")
-        collection = TTCollection(collection_path)
-        permissions = {
-            font["name"].getDebugName(6): int(font["OS/2"].fsType)
-            for font in collection.fonts
-        }
-        if permissions.get("CambriaMath") != 8:
-            raise RuntimeError(f"Cambria Math embedding flag is not editable (8): {permissions}")
-        identity["embedding_fs_type"] = 8
-        observed.append(identity)
-    if "TimesNewRomanPSMT" in base_fonts:
-        specification = specifications["TimesNewRomanPSMT"]
-        times_path = Path(windows_root) / "Fonts" / specification["file"]
-        if not times_path.is_file():
-            raise RuntimeError("Times New Roman was embedded but its source font cannot be audited")
-        identity = {
-            "postscript_name": "TimesNewRomanPSMT",
-            "file": specification["file"],
-            "bytes": times_path.stat().st_size,
-            "sha256": sha256_path(times_path),
-        }
-        if identity != {key: specification[key] for key in identity}:
-            raise RuntimeError(f"Times New Roman source-font identity drift: {identity}")
-        times = TTFont(times_path)
-        if int(times["OS/2"].fsType) != 8:
-            raise RuntimeError("Times New Roman embedding flag is not editable (8)")
-        identity["embedding_fs_type"] = 8
-        observed.append(identity)
+    if "DejaVu" not in base_fonts or "STIXGeneral" not in base_fonts:
+        raise RuntimeError(f"Expected bundled DejaVu and STIX PDF fonts: {font_records}")
     return observed
+
+
+def validate_pdf_font_records(font_records: list[dict[str, Any]]) -> None:
+    if not font_records or any(not record["embedded"] for record in font_records):
+        raise RuntimeError(f"Every PDF font must be embedded: {font_records}")
+    allowed_font_fragments = ("DejaVu", "STIXGeneral")
+    if any(
+        not any(fragment in record["base_font"] for fragment in allowed_font_fragments)
+        for record in font_records
+    ):
+        raise RuntimeError(f"Unexpected PDF font: {font_records}")
+    if any(record["subtype"] == "/Type0" and not record["to_unicode"] for record in font_records):
+        raise RuntimeError(f"Every Type0 PDF font needs ToUnicode: {font_records}")
 
 
 def inspect(path: Path) -> dict[str, Any]:
@@ -127,7 +116,7 @@ def inspect(path: Path) -> dict[str, Any]:
     if not page_text or any(not text for text in page_text):
         raise RuntimeError(f"Every page of {path.name} must have extractable text")
     for page_number, text in enumerate(page_text, start=1):
-        if text.splitlines()[-1].strip() != str(page_number):
+        if text.splitlines()[0].strip() != str(page_number):
             raise RuntimeError(
                 f"Page {page_number} of {path.name} is missing its visible page number"
             )
@@ -186,17 +175,8 @@ def inspect(path: Path) -> dict[str, Any]:
                     links.append(uri)
 
         font_records = sorted(fonts.values(), key=lambda item: (item["base_font"], item["subtype"]))
-        if not font_records or any(not record["embedded"] for record in font_records):
-            raise RuntimeError(f"Every font must be embedded in {path.name}: {font_records}")
-        allowed_font_fragments = ("DejaVu", "CambriaMath", "TimesNewRomanPSMT")
-        if any(
-            not any(fragment in record["base_font"] for fragment in allowed_font_fragments)
-            for record in font_records
-        ):
-            raise RuntimeError(f"Unexpected font in {path.name}: {font_records}")
-        if any(record["subtype"] == "/Type0" and not record["to_unicode"] for record in font_records):
-            raise RuntimeError(f"Every Type0 font needs ToUnicode in {path.name}")
-        source_font_identities = verify_windows_font_embedding_permissions(font_records)
+        validate_pdf_font_records(font_records)
+        source_font_identities = verify_bundled_font_sources(font_records)
 
         figure_tags = 0
         figure_leaf_tags = 0

@@ -1,7 +1,13 @@
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
+
+import matplotlib
+import pytest
+
+from tools import inspect_pdf
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = (ROOT / "manuscript" / "manuscript.md").read_text(encoding="utf-8")
@@ -103,3 +109,49 @@ def test_citation_keys_resolve_and_known_failures_are_removed() -> None:
     assert "https://arxiv.org/abs/2607.25941" in BIBLIOGRAPHY
     assert "10.48550/arXiv.2607.25941" not in BIBLIOGRAPHY
     assert "Nature Communications 15, 5169" not in BIBLIOGRAPHY
+
+
+def test_proprietary_or_machine_pdf_font_is_rejected() -> None:
+    records = [
+        {
+            "base_font": "/AAAAAA+TimesNewRomanPSMT",
+            "subtype": "/Type0",
+            "embedded": True,
+            "to_unicode": True,
+        }
+    ]
+    with pytest.raises(RuntimeError, match="Unexpected PDF font"):
+        inspect_pdf.validate_pdf_font_records(records)
+
+
+def test_bundled_font_source_mutation_is_rejected(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    font_dir = tmp_path / "fonts" / "ttf"
+    font_dir.mkdir(parents=True)
+    font_path = font_dir / "fixture.ttf"
+    font_path.write_bytes(b"font")
+    runtime = {
+        "pdf_renderer": {
+            "font_sources": {
+                "provider": f"matplotlib {matplotlib.__version__}",
+                "files": [
+                    {
+                        "file": font_path.name,
+                        "bytes": font_path.stat().st_size,
+                        "sha256": inspect_pdf.sha256_path(font_path),
+                    }
+                ],
+            }
+        }
+    }
+    (tmp_path / "RUNTIME.json").write_text(
+        json.dumps(runtime), encoding="utf-8", newline="\n"
+    )
+    monkeypatch.setattr(inspect_pdf, "ROOT", tmp_path)
+    monkeypatch.setattr(matplotlib, "get_data_path", lambda: str(tmp_path))
+    records = [{"base_font": "/DejaVu"}, {"base_font": "/STIXGeneral"}]
+    inspect_pdf.verify_bundled_font_sources(records)
+    font_path.write_bytes(b"font!")
+    with pytest.raises(RuntimeError, match="source-font identity drift"):
+        inspect_pdf.verify_bundled_font_sources(records)

@@ -92,7 +92,7 @@ th, td {
 th { background: #edf3f7; text-align: left; }
 code { font-family: "SPPT DejaVu Sans Mono", monospace; font-size: 0.9em; }
 pre { overflow-x: auto; padding: 0.9rem; background: #f4f6f8; border: 1px solid var(--rule); }
-math { overflow-x: auto; font-family: "SPPT DejaVu Serif", serif; }
+math { overflow-x: auto; font-family: "SPPT STIX General", serif !important; }
 
 .csl-entry { margin-bottom: 0.75rem; }
 .csl-left-margin { float: left; min-width: 2.2rem; }
@@ -105,7 +105,16 @@ math { overflow-x: auto; font-family: "SPPT DejaVu Serif", serif; }
 }
 
 @media print {
-  @page { size: Letter; margin: 0.72in 0.72in 0.78in; }
+  @page {
+    size: Letter;
+    margin: 0.72in 0.72in 0.78in;
+    @bottom-center {
+      content: counter(page);
+      color: #52606d;
+      font-family: "SPPT DejaVu Serif", serif;
+      font-size: 8pt;
+    }
+  }
   html, body { background: white; }
   body { max-width: none; margin: 0; padding: 0; box-shadow: none; font-size: 10.2pt; line-height: 1.32; }
   nav#TOC { break-after: page; }

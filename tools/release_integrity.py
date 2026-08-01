@@ -10,9 +10,12 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tarfile
 from pathlib import Path, PurePosixPath
 from typing import Any
+
+sys.dont_write_bytecode = True
 
 try:
     from tools.check_repository import public_files
