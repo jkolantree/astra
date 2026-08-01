@@ -147,6 +147,7 @@ def test_source_mutation_and_stale_generated_output_fail_manifest(
 
 def initialize_git_repository(path: Path) -> None:
     subprocess.run(["git", "init", "-q"], cwd=path, check=True)
+    subprocess.run(["git", "config", "core.autocrlf", "false"], cwd=path, check=True)
     subprocess.run(["git", "config", "user.name", "Jacko T."], cwd=path, check=True)
     subprocess.run(
         ["git", "config", "user.email", "307349551+jkolantree@users.noreply.github.com"],
