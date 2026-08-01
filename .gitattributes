@@ -1,0 +1,7 @@
+# Keep every textual artifact byte-stable across platforms.
+* text=auto eol=lf
+manuscript/manuscript.md whitespace=-blank-at-eol
+*.png binary
+*.pdf binary
+*.docx binary
+*.gz binary

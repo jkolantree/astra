@@ -1,0 +1,20 @@
+{
+  "schema": "https://github.com/jkolantree/astra/schemas/runtime-identity-v1",
+  "reference_platform": "Windows x86-64",
+  "python": "3.12.13",
+  "dependency_lock": {
+    "file": "requirements-lock.txt",
+    "sha256": "69b83ca86466525e912ea7c2d4a614d426ab44411ccc2789febc32f54c255721"
+  },
+  "pandoc": {
+    "version": "3.6.1",
+    "provider": "pypandoc-binary 1.15"
+  },
+  "pdf_renderer": {
+    "provider": "playwright 1.62.0",
+    "browser": "Chromium",
+    "revision": "1234",
+    "version": "151.0.7922.34"
+  },
+  "determinism_scope": "Byte identity is required when replayed with this frozen reference runtime, dependency lock, source tree, seeds, worker count, and build epoch."
+}

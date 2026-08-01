@@ -1,0 +1,17 @@
+{
+  "note": "Synthetic normalized demonstration; no planetary data are used.",
+  "true_parameters": {
+    "deep_capacity": 20.0,
+    "coupling": 0.2
+  },
+  "single_frequency": 0.003,
+  "multi_frequency_count": 24,
+  "single_best_grid_point": {
+    "deep_capacity": 16.031923550667624,
+    "coupling": 0.2719160660410406
+  },
+  "multi_best_grid_point": {
+    "deep_capacity": 20.11111952942079,
+    "coupling": 0.20130383149012887
+  }
+}

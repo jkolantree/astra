@@ -1,0 +1,36 @@
+{
+  "build_epoch": "2026-08-01T00:00:00Z",
+  "records": [
+    {
+      "author": "Jacko T.",
+      "html": "SPPT_ASTRA_preprint_v1.0.1.html",
+      "html_sha256": "a1260df77993af8508857593e409408e221f5492be07b434e7827edef33b4a87",
+      "language": "en-US",
+      "pdf": "SPPT_ASTRA_preprint_v1.0.1.pdf",
+      "pdf_accessibility": "tagged PDF with document language, outline, embedded fonts, extractable text, and figure alternative text; self-contained HTML is the primary accessible reading edition",
+      "pdf_normalized_text_sha256": "6b07d71b49db86c4fe8d5d0899d1f1f11d3bfd1967359c0b56246f881c05093e",
+      "pdf_pages": 46,
+      "pdf_sha256": "2a5376a76416166823f8d4208c7ad112e36d680f908dccd457e490593a9dd3a0",
+      "source": "manuscript.md",
+      "source_sha256": "2ff8f9df878b36a916bebef37725227b272d78b29fc550a581e3d51c683d8b94",
+      "title": "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution",
+      "version": "1.0.1"
+    },
+    {
+      "author": "Jacko T.",
+      "html": "SPPT_ASTRA_technical_supplement_v1.0.1.html",
+      "html_sha256": "a1be3f425dea56243a61f1e0b13a5defdf932a87ab1f6ed346c23cc43ae8340d",
+      "language": "en-US",
+      "pdf": "SPPT_ASTRA_technical_supplement_v1.0.1.pdf",
+      "pdf_accessibility": "tagged PDF with document language, outline, embedded fonts, extractable text, and figure alternative text; self-contained HTML is the primary accessible reading edition",
+      "pdf_normalized_text_sha256": "61cb70795abe165b869ff3fc3d5e2f740946406141c74788c78636fafdcfd48d",
+      "pdf_pages": 19,
+      "pdf_sha256": "adc3c2e4b9bef01705aeef7581cd3a59ea57155d078b28b8e70555bf95e992ac",
+      "source": "supplement.md",
+      "source_sha256": "a78d4cf8876a1c65b7da61df78f8a53d39d105143f1da5dfb02ce2ac09c31136",
+      "title": "Technical Supplement: Synthetic Identifiability and Topology-Recovery Tests",
+      "version": "1.0.1"
+    }
+  ],
+  "schema": "https://github.com/jkolantree/astra/schemas/document-semantic-identity-v1"
+}

@@ -1,0 +1,18 @@
+{
+  "model": "two-reservoir normalized demonstration",
+  "capacities": [
+    1.0,
+    20.0
+  ],
+  "surface_loss": 1.0,
+  "coupling": 0.2,
+  "decay_rates": [
+    0.008321694713139417,
+    1.2016783052868605
+  ],
+  "relaxation_times": [
+    120.16783052868604,
+    0.8321694713139416
+  ],
+  "note": "Synthetic demonstration only; parameters are dimensionless and are not fitted to a planet."
+}

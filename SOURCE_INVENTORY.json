@@ -1,0 +1,193 @@
+{
+  "schema": "https://github.com/jkolantree/astra/schemas/source-inventory-v1",
+  "authority": {
+    "title": "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution",
+    "framework": "Solar-Planetary Phase-Partition Theory (SPPT)",
+    "inference_layer": "Astronomical State-Topology and Reservoir Analysis (ASTRA)",
+    "version": "1.0.1",
+    "public_author": "Jacko T.",
+    "selection": "The synchronized manuscript.md and supplement.md supplied together are the sole authoritative textual source candidate. DOCX and PDF files are generated presentations; code, data, results, and figures are supporting artifacts."
+  },
+  "hash_algorithm": "SHA-256",
+  "artifacts": [
+    {
+      "canonical_relative_path": "SPPT_ASTRA_technical_supplement_v1.0.1.docx",
+      "bytes": 1165623,
+      "sha256": "e0df8befb15b19972479e6a81be9dc3253ea83659c9b088f65d4aa295f8915f9",
+      "media_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "displayed_attribution": "Jacko T.",
+      "embedded_attribution": "Jacko T.; stale Microsoft Word application metadata",
+      "license": "CC-BY-4.0",
+      "rights_status": "authoritative manuscript expressly licenses original text and figures; no third-party quotation or adapted artwork was identified",
+      "relationship": "generated presentation of supplement.md; superseded for public packaging by corrected Markdown, self-contained HTML, and rebuilt PDF"
+    },
+    {
+      "canonical_relative_path": "SPPT_ASTRA_preprint_v1.0.1.docx",
+      "bytes": 1417631,
+      "sha256": "fd4a9744ffa1a558b79c98fdf80dba7474e94942389738863d8e2a40769c81fd",
+      "media_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "displayed_attribution": "Jacko T.; included a private location removed from the admitted edition",
+      "embedded_attribution": "Jacko T.; stale Microsoft Word application metadata and an absolute CSL path",
+      "license": "CC-BY-4.0",
+      "rights_status": "authoritative manuscript expressly licenses original text and figures; privacy-bearing presentation rejected unchanged",
+      "relationship": "generated presentation of manuscript.md; superseded for public packaging by corrected Markdown, self-contained HTML, and rebuilt PDF"
+    },
+    {
+      "canonical_relative_path": "test_results.txt",
+      "bytes": 99,
+      "sha256": "87f823ae985f7238df4649a2f39044f5cde7bd3e604bf1353e4c363fc12cc359",
+      "media_type": "text/plain",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "CC-BY-4.0",
+      "rights_status": "treated as an original supplied transcript under the manuscript's generated-results grant",
+      "relationship": "saved transcript only; retained as source history and never counted as execution evidence"
+    },
+    {
+      "canonical_relative_path": "generate_astra_figures.py",
+      "bytes": 11533,
+      "sha256": "8fa45fb0e3a72e57718d269867a0632850c24e0493bb23c599402af938389483",
+      "media_type": "text/x-python",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "MIT",
+      "rights_status": "authoritative manuscript expressly licenses original source code as MIT",
+      "relationship": "source input; admitted after correction and expansion as scripts/generate_astra_figures.py"
+    },
+    {
+      "canonical_relative_path": "benchmark_ensemble.py",
+      "bytes": 10573,
+      "sha256": "d96c66f1c6d02814fcef3c3124393129c05df2513336a77c1e40a5f3c498ecad",
+      "media_type": "text/x-python",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "MIT",
+      "rights_status": "authoritative manuscript expressly licenses original source code as MIT",
+      "relationship": "source input; admitted after convergence, sensitivity, diagnostic, and negative-outcome corrections as scripts/benchmark_ensemble.py"
+    },
+    {
+      "canonical_relative_path": "synthetic_topology_benchmark.py",
+      "bytes": 8156,
+      "sha256": "ff80891c64d6cbcda796f3442ae5226b0d5d4032354c7101fa47b3b7972257a2",
+      "media_type": "text/x-python",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "MIT",
+      "rights_status": "authoritative manuscript expressly licenses original source code as MIT",
+      "relationship": "source input; admitted after unsupported blinding language and optimizer evidence were corrected"
+    },
+    {
+      "canonical_relative_path": "astra_reservoir.py",
+      "bytes": 7669,
+      "sha256": "e578dcfed9b0c3390c21765917a7a97432b707b667ad13da1bda4d36a1e775cd",
+      "media_type": "text/x-python",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "MIT",
+      "rights_status": "authoritative manuscript expressly licenses original source code as MIT",
+      "relationship": "source input; admitted after positive-definite covariance validation was added as src/astra_reservoir.py"
+    },
+    {
+      "canonical_relative_path": "sppt_core.py",
+      "bytes": 9412,
+      "sha256": "9475ea66be39170b8637b5821e6d1e0932bb6c7489a8aadce2259c0577934ad3",
+      "media_type": "text/x-python",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "MIT",
+      "rights_status": "authoritative manuscript expressly licenses original source code as MIT",
+      "relationship": "source input; admitted after the complete state-dependent transport derivative was implemented as src/sppt_core.py"
+    },
+    {
+      "canonical_relative_path": "synthetic_topology_ensemble.csv",
+      "bytes": 11734,
+      "sha256": "3bde1ede6e2402befc274c71f30329195eb0838f2ab803237c5322f7c6e73a60",
+      "media_type": "text/csv",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "CC-BY-4.0",
+      "rights_status": "authoritative manuscript expressly licenses original generated results",
+      "relationship": "alternate serialization of the same 64 runs as synthetic_topology_ensemble.json; not independent evidence; superseded by a fresh deterministic replay"
+    },
+    {
+      "canonical_relative_path": "synthetic_topology_ensemble.json",
+      "bytes": 31106,
+      "sha256": "33635845c744585c1cb21826746fac252538a259373262501d7e130f8af6b3c9",
+      "media_type": "application/json",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "CC-BY-4.0",
+      "rights_status": "authoritative manuscript expressly licenses original generated results",
+      "relationship": "alternate serialization of the same 64 runs as synthetic_topology_ensemble.csv; not independent evidence; superseded by a fresh deterministic replay"
+    },
+    {
+      "canonical_relative_path": "supplement.md",
+      "bytes": 15321,
+      "sha256": "95b2e5398ec9b9ce58d8a0741a9ba716fa3dfd0dc704069dc0af4fa2a0090651",
+      "media_type": "text/markdown",
+      "displayed_attribution": "Jacko T.",
+      "embedded_attribution": "Jacko T. in YAML metadata",
+      "license": "CC-BY-4.0",
+      "rights_status": "explicit original-work license statement in the synchronized source",
+      "relationship": "authoritative supplement source; admitted after scientific, citation, privacy, and reproducibility corrections"
+    },
+    {
+      "canonical_relative_path": "manuscript.md",
+      "bytes": 59840,
+      "sha256": "a96ccce39e5d445e59b8369bbb5c38ab90a1ffd9dd60f0a79d7d36d91dfd0b0b",
+      "media_type": "text/markdown",
+      "displayed_attribution": "Jacko T.; included a private location removed from the admitted edition",
+      "embedded_attribution": "Jacko T. in YAML metadata; included an absolute CSL path removed from the admitted edition",
+      "license": "CC-BY-4.0",
+      "rights_status": "explicit original-work license statement in the synchronized source",
+      "relationship": "authoritative preprint source; admitted after scientific, citation, privacy, and reproducibility corrections"
+    },
+    {
+      "canonical_relative_path": "SPPT_ASTRA_preprint_v1.0.1.pdf",
+      "bytes": 1645960,
+      "sha256": "a722ecddda861141ea21a864a20ee60b6ebef53aba855f66b5de9e37164c1930",
+      "media_type": "application/pdf",
+      "displayed_attribution": "Jacko T.; included a private location removed from the admitted edition",
+      "embedded_attribution": "Jacko T.; LaTeX/Pandoc producer and timestamps",
+      "license": "CC-BY-4.0",
+      "rights_status": "original generated presentation, but unchanged bytes rejected for privacy and layout defects",
+      "relationship": "generated presentation of manuscript.md; byte-identical to unlisted alias Audit_Descent_Calculus.pdf; superseded by rebuilt PDF"
+    },
+    {
+      "canonical_relative_path": "SPPT_ASTRA_technical_supplement_v1.0.1.pdf",
+      "bytes": 1243229,
+      "sha256": "650388d27465ab24f20411c28ce9fbba2544660292c153443c29604a3f46961d",
+      "media_type": "application/pdf",
+      "displayed_attribution": "Jacko T.",
+      "embedded_attribution": "Jacko T.; LaTeX/Pandoc producer and timestamps",
+      "license": "CC-BY-4.0",
+      "rights_status": "original generated presentation, but unchanged bytes rejected for a clipped figure and stale metadata",
+      "relationship": "generated presentation of supplement.md; superseded by rebuilt PDF"
+    },
+    {
+      "canonical_relative_path": "supplement_figure_S6_topology_ensemble.png",
+      "bytes": 205596,
+      "sha256": "5a898d35db0df2f9f99280a8208ab3d50797116457ea15ab5fab1156e627d743",
+      "media_type": "image/png",
+      "displayed_attribution": null,
+      "embedded_attribution": "Matplotlib version 3.10.8 only",
+      "license": "CC-BY-4.0",
+      "rights_status": "explicit original-figure license statement in the manuscript",
+      "relationship": "byte-identical to the S6 image embedded in the supplied supplement DOCX; not independent evidence; superseded by a fresh deterministic replay that exposes the lower-bound pile-up"
+    }
+  ],
+  "discovered_aliases": [
+    {
+      "canonical_relative_path": "Audit_Descent_Calculus.pdf",
+      "bytes": 1645960,
+      "sha256": "a722ecddda861141ea21a864a20ee60b6ebef53aba855f66b5de9e37164c1930",
+      "relationship": "misnamed byte-identical alias of SPPT_ASTRA_preprint_v1.0.1.pdf; excluded and never counted as independent evidence"
+    }
+  ],
+  "duplicate_evidence_rules": [
+    "Identical SHA-256 values are aliases.",
+    "CSV and JSON serializations of the same run set are one evidence source.",
+    "Rendered DOCX, PDF, and HTML presentations do not multiply the authority of their Markdown source.",
+    "A saved test transcript is not actual execution."
+  ]
+}

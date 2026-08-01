@@ -1,0 +1,28 @@
+[project]
+name = "sppt-astra"
+version = "1.0.1"
+description = "Reference implementation for Solar-Planetary Phase-Partition Theory and its ASTRA inference layer"
+requires-python = "==3.12.*"
+license = { text = "MIT" }
+authors = [{ name = "Jacko T." }]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers"
+pythonpath = ["src", "."]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+exclude = [".venv", "tmp", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src"]
+strict = true
+ignore_missing_imports = true
+warn_unused_ignores = true

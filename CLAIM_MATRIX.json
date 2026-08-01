@@ -1,0 +1,223 @@
+{
+  "schema": "https://github.com/jkolantree/astra/schemas/claim-matrix-v1",
+  "title": "SPPT/ASTRA v1.0.1 consequential claim-admission matrix",
+  "evidence_classes": [
+    "source_asserted",
+    "hand_checked",
+    "independently_reproduced",
+    "mechanically_replayed",
+    "kernel_verified",
+    "externally_published"
+  ],
+  "claims": [
+    {
+      "id": "SPPT-C001",
+      "statement": "For the stated node-edge incidence convention, internal transport conserves whole-network inventory, and a weighted inventory is conserved when the declared reaction weights annihilate the stoichiometric matrix and external source minus escape is zero.",
+      "claim_type": "theorem",
+      "hypotheses": ["finite reservoir and edge sets", "dimensionally compatible species inventories and edge fluxes", "each internal edge has one -1 tail and one +1 head", "w^T N = 0", "S-E = 0 for the closed inventory"],
+      "domain_units_signs_boundary_quantifiers": "All reservoir inventories use a common unit per species; flux signs follow the directed incidence convention; the result holds for every internal flux and reaction rate satisfying the hypotheses.",
+      "support": ["source input manuscript.md SHA-256 a96ccce39e5d445e59b8369bbb5c38ab90a1ffd9dd60f0a79d7d36d91dfd0b0b", "manuscript/manuscript.md equations 3-4 and Appendix A.1", "src/sppt_core.py", "tests/test_sppt_core.py"],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": ["Fails for undeclared sources, sinks, escape, dimension mismatch, or nonconserving reaction weights."],
+      "disposition": "admit"
+    },
+    {
+      "id": "SPPT-C002",
+      "statement": "The declared linear constitutive closure has nonnegative local entropy production when its phenomenological matrix is positive semidefinite on the declared force-flux domain.",
+      "claim_type": "thermodynamic admissibility condition",
+      "hypotheses": ["conjugate forces and fluxes are consistently defined", "the symmetric dissipative part is positive semidefinite", "Casimir-antisymmetric terms do not contribute to the quadratic entropy production"],
+      "domain_units_signs_boundary_quantifiers": "Temperature is positive; chemical/electrical signs use the manuscript convention; the statement is local and near-equilibrium unless a constitutive law establishes a wider domain.",
+      "support": ["manuscript/manuscript.md equations 7-8", "Onsager I/II and Casimir sources in manuscript/references.bib"],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": ["It is not a proof that every proposed nonlinear or far-from-equilibrium edge law is admissible."],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C003",
+      "statement": "The steady periodic solution of dM/dt = c0 + c1 cos(omega t) - M/tau and the signed loop integral integral M dc equal the displayed formulas.",
+      "claim_type": "analytic calculation",
+      "hypotheses": ["omega > 0", "tau > 0", "steady periodic regime after transients", "c(t)=c0+c1 cos(omega t)"],
+      "domain_units_signs_boundary_quantifiers": "M has inventory units, c has inventory/time units, tau is time, and omega is inverse time; the loop sign follows increasing time and the manuscript's M-versus-c orientation.",
+      "support": ["manuscript/manuscript.md equations 17-19 and Appendix A.2", "src/sppt_core.py", "tests/test_sppt_core.py"],
+      "evidence_class": "independently_reproduced",
+      "limitations_or_counterexamples": ["The result is for a linear single-timescale trap, not a general nonlinear phase reservoir."],
+      "disposition": "admit"
+    },
+    {
+      "id": "SPPT-C004",
+      "statement": "At fixed positive forcing frequency, the raw inventory-loop magnitude increases monotonically with release time, whereas the release-normalized loop magnitude has its unique maximum at omega*tau = 1.",
+      "claim_type": "monotonicity and extremum result",
+      "hypotheses": ["omega > 0", "tau > 0", "nonzero forcing amplitude for a nonzero loop"],
+      "domain_units_signs_boundary_quantifiers": "The raw and normalized areas are distinct quantities; the result quantifies all positive tau at fixed omega.",
+      "support": ["manuscript/manuscript.md equations 19-20", "data/trap_memory_loops.csv", "tests/test_sppt_core.py"],
+      "evidence_class": "independently_reproduced",
+      "limitations_or_counterexamples": ["Claiming that the raw loop itself peaks at omega*tau=1 is rejected."],
+      "disposition": "admit"
+    },
+    {
+      "id": "SPPT-C005",
+      "statement": "For a nonempty proper cut in a connected positive-weight conductance graph with strictly positive node capacities, the first nonzero generalized relaxation eigenvalue is bounded above by the displayed cut Rayleigh quotient.",
+      "claim_type": "spectral theorem",
+      "hypotheses": ["finite undirected conductance graph", "every node capacity is strictly positive", "positive-weight graph is connected", "cut is a nonempty proper node set", "cut conductance is the sum of crossing positive weights"],
+      "domain_units_signs_boundary_quantifiers": "Conductances and capacities are nonnegative/positive with compatible rate units; the bound applies to every eligible cut.",
+      "support": ["manuscript/manuscript.md Proposition 2 and Appendix A.3", "src/sppt_core.py", "tests/test_sppt_core.py"],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": ["Disconnected positive-weight graphs have additional zero modes and do not satisfy the stated positive-lambda2 interpretation."],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C006",
+      "statement": "The complete derivative of K(psi)(Td-Tu) with respect to Td is K(1-dTu/dTd) + (Td-Tu) K'(psi) dpsi/dTd; the fixed-upper-state toy closure sets dTu/dTd=0 explicitly.",
+      "claim_type": "calculus identity and software contract",
+      "hypotheses": ["K and psi are differentiable in the declared local domain", "Tu may depend on Td, so dTu/dTd is retained unless fixed explicitly"],
+      "domain_units_signs_boundary_quantifiers": "Derivative signs follow Td increase; K is positive in the toy model; temperatures share units.",
+      "support": ["manuscript/manuscript.md state-dependent transport section", "src/sppt_core.py effective_flux_slope", "tests/test_sppt_core.py"],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": ["A negative local slope is only a fold precursor, not proof of a global bifurcation."],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C007",
+      "statement": "The displayed ideal classical nucleation barrier is multiplied by the stated substrate-dependent wetting factor for the ideal spherical-cap heterogeneous case.",
+      "claim_type": "standard-model formula",
+      "hypotheses": ["classical nucleation approximation", "positive interfacial energy", "nonzero bulk driving free-energy density", "ideal spherical nucleus or spherical cap", "contact angle in the physical range"],
+      "domain_units_signs_boundary_quantifiers": "Barrier energy is nonnegative; the homogeneous result is recovered at the appropriate wetting-factor limit.",
+      "support": ["manuscript/manuscript.md equations 25-27", "canonical nucleation source in manuscript/references.bib"],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": ["Microscopic line tension, anisotropy, nonclassical pathways, and complex substrates are outside this formula."],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C008",
+      "statement": "In the declared two-reservoir static model, if K>0, an equilibrium exists, and the radiation law is injective on the physical temperature domain, the boundary temperature depends on total forcing but not on the deep conductance; the deep temperature remains conductance-dependent.",
+      "claim_type": "non-identifiability proposition",
+      "hypotheses": ["fixed conductance K>0", "Fstar+H lies in the range of the radiation law", "radiation law is injective on the declared physical temperature domain", "static equilibrium exists"],
+      "domain_units_signs_boundary_quantifiers": "Power signs and temperatures follow equations 37-38; the statement is restricted to this two-reservoir static closure.",
+      "support": ["manuscript/manuscript.md Proposition 3 and Appendix A.4", "src/sppt_core.py static_two_reservoir_equilibrium", "tests/test_sppt_core.py"],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": ["K=0, noninjective radiation, absent equilibria, multiple sinks, or different closures can invalidate the result."],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C009",
+      "statement": "The graph/guard/reset equations provide a proposed syntax for topology-changing phase-reservoir models.",
+      "claim_type": "framework proposal",
+      "hypotheses": ["model-specific flows, guards, and reset maps are supplied before use"],
+      "domain_units_signs_boundary_quantifiers": "No universal domain is asserted; each application must define one.",
+      "support": ["manuscript/manuscript.md topology-change section"],
+      "evidence_class": "source_asserted",
+      "limitations_or_counterexamples": ["No general existence or uniqueness theorem", "no simultaneous-guard priority", "no reset-map closure theorem", "no chattering exclusion or non-Zeno theorem"],
+      "disposition": "proposed_only"
+    },
+    {
+      "id": "SPPT-C010",
+      "statement": "The ideal four-electron CO2-to-carbon throughput and reversible-power scales follow from Faraday's law and the supplied standard-state electrochemical free energy.",
+      "claim_type": "order-of-magnitude calculation",
+      "hypotheses": ["four electrons per CO2", "declared Faradaic efficiency in (0,1]", "standard-state delta G is used only as an ideal minimum", "positive current direction is supplied electrical work"],
+      "domain_units_signs_boundary_quantifiers": "Current is amperes, mass throughput kg/year, energy J/kg, power watts; all reported scales are idealized.",
+      "support": ["manuscript/manuscript.md Carbon Phase Relay section", "src/sppt_core.py", "tests/test_sppt_core.py", "Ratso et al. DOI 10.1038/s41467-026-70977-0 for the experimental motivation"],
+      "evidence_class": "independently_reproduced",
+      "limitations_or_counterexamples": ["This is not latent heat", "not spontaneous planetary sequestration", "not a demonstrated planetary mechanism", "kinetics, overpotential, transport, and side reactions are omitted"],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "ASTRA-C011",
+      "statement": "Under the frozen released synthetic protocol, training BIC selects the generating two-edge chain in 64 of 64 Gaussian-noise realizations.",
+      "claim_type": "synthetic numerical result",
+      "hypotheses": ["fixed capacities, sink, forcing, noise scale, candidate set, bounds, seeds, and 12-start design", "generating graph is included", "selection is training BIC only", "every admitted optimizer run passes the convergence gate"],
+      "domain_units_signs_boundary_quantifiers": "Normalized model units; seeds 20260801 through 20260864 inclusive; 64 results exactly.",
+      "support": ["scripts/benchmark_ensemble.py", "data/synthetic_topology_ensemble.json", "data/synthetic_topology_ensemble.csv", "tests/test_data_integrity.py"],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": ["Not blinded", "not external", "not empirical", "does not estimate a general false-positive rate", "CSV and JSON are duplicate serializations"],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "ASTRA-C012",
+      "statement": "In the post-selection unseen-forcing comparison, the overconnected triangle has lower held-out RMSE than the chain in 23 of 64 realizations; this negative outcome is preserved.",
+      "claim_type": "synthetic negative result",
+      "hypotheses": ["same frozen protocol as ASTRA-C011", "held-out RMSE does not select the graph"],
+      "domain_units_signs_boundary_quantifiers": "Counts all 64 frozen seeds; smaller RMSE is better.",
+      "support": ["data/synthetic_topology_ensemble.json", "tests/test_data_integrity.py"],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": ["The result neither proves nor refutes the framework; it limits the interpretation of 64/64 BIC selection."],
+      "disposition": "admit"
+    },
+    {
+      "id": "ASTRA-C013",
+      "statement": "All retained benchmark graph fits have positive solver termination, finite parameters and cost, and cost-scaled first-order optimality at most 1e-4 under the frozen 12-start design.",
+      "claim_type": "optimizer diagnostic result",
+      "hypotheses": ["exact implemented sensitivities", "declared log-conductance box", "all 12 generic starts attempted", "acceptance gate applied before selection"],
+      "domain_units_signs_boundary_quantifiers": "The criterion applies to each retained graph fit; lower-bound active parameters remain flagged rather than treated as interior estimates.",
+      "support": ["src/astra_optimization.py", "scripts/synthetic_topology_benchmark.py", "scripts/benchmark_ensemble.py", "data/synthetic_topology_benchmark.json", "data/synthetic_topology_ensemble.json", "tests/test_optimizer.py"],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": ["Local multistart coverage is not a proof of a global optimum", "termination without the declared diagnostic is rejected", "29 of 64 shortcut estimates are lower-bound active"],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "ASTRA-C014",
+      "statement": "For the declared two-reservoir synthetic model, multi-frequency complex response localizes the grid minimum near the generating capacity-conductance pair more tightly than one low-frequency amplitude.",
+      "claim_type": "synthetic identifiability demonstration",
+      "hypotheses": ["linear time-invariant two-reservoir model", "declared frequency grid and observation operator", "no structural discrepancy", "normalized parameters"],
+      "domain_units_signs_boundary_quantifiers": "Applies only to the finite released grid and response features.",
+      "support": ["scripts/generate_astra_figures.py", "data/inverse_demo_summary.json", "data/inverse_objective_landscapes.csv", "figures/supplement_figure_S2_single_frequency_degeneracy.png", "figures/supplement_figure_S3_multifrequency_localization.png"],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": ["Astronomical observations cannot generally choose their forcing spectrum", "not empirical validation or a uniqueness theorem"],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C015",
+      "statement": "Planetary phase-reservoir connectivity should be promoted as a latent model state only when it produces calibrated held-out predictive gain over physically matched fixed-topology baselines.",
+      "claim_type": "testable methodological proposal",
+      "hypotheses": ["candidate graph families are physically admissible", "comparisons use independent held-out observations or controlled interventions", "complexity and discrepancy are treated fairly"],
+      "domain_units_signs_boundary_quantifiers": "Applies prospectively to specified planetary or exoplanet inference tasks.",
+      "support": ["manuscript/manuscript.md central claim, ASTRA workflow, falsifiers, and hypotheses"],
+      "evidence_class": "source_asserted",
+      "limitations_or_counterexamples": ["No mission-data or exoplanet retrieval is supplied", "failure to improve prediction requires demotion", "not a universality claim"],
+      "disposition": "proposed_only"
+    },
+    {
+      "id": "SPPT-C016",
+      "statement": "The proposed contribution is the specific integration of inferable phase-reservoir connectivity with physical admissibility and held-out promotion, not priority over network thermodynamics, graph inference, or planetary phase modeling.",
+      "claim_type": "bounded novelty statement",
+      "hypotheses": ["bounded exact-name and closest-formulation searches current to 2026-08-01"],
+      "domain_units_signs_boundary_quantifiers": "The negative search is limited to searched scholarly and repository records and cannot establish global priority.",
+      "support": ["manuscript/manuscript.md novelty boundary", "canonical literature records in manuscript/references.bib"],
+      "evidence_class": "externally_published",
+      "limitations_or_counterexamples": ["No first-discovery, priority, universality, predictive-superiority, proof, or empirical-validation claim is admitted."],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "CITE-C017",
+      "statement": "Consequential adjacent literature statements are supported by the corrected canonical bibliography, including Saturn article 5045 for DOI 10.1038/s41467-024-48969-9 and Lukas Delaye in current arXiv:2607.16713 v2.",
+      "claim_type": "citation identity and support audit",
+      "hypotheses": ["publisher, DOI, arXiv, or institutional records checked as of 2026-08-01", "paraphrases remain within the cited source's scope"],
+      "domain_units_signs_boundary_quantifiers": "Applies to the 36-entry released bibliography and its adjacent wording.",
+      "support": ["manuscript/references.bib", "tests/test_document_contract.py", "publisher records linked by DOI"],
+      "evidence_class": "externally_published",
+      "limitations_or_counterexamples": ["Literature supports the cited component facts, not the full SPPT/ASTRA framework or its empirical success."],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "VERIFY-C018",
+      "statement": "The discovered automated suite passes for the exact admitted source and checks implemented equations, evidence boundaries, deterministic outputs, metadata, and release invariants.",
+      "claim_type": "verification result",
+      "hypotheses": ["CPython 3.12.13", "hash-locked dependencies", "clean repository state", "canonical tools/verify.py invocation"],
+      "domain_units_signs_boundary_quantifiers": "Applies only to the exact commit/tree and runtime identities reported by the release identity.",
+      "support": ["tests/", "tools/verify.py", "requirements-lock.txt", "GitHub Actions run for the release commit"],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": ["Tests establish consistency with implemented equations, not completeness of planetary physics, mathematical proof beyond the checked propositions, or external truth."],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "VERIFY-C019",
+      "statement": "The supplied 99-byte test transcript and duplicate CSV/JSON serialization are not counted as independent execution or evidence.",
+      "claim_type": "evidence-provenance rule",
+      "hypotheses": ["artifact identity and derivation relationships in SOURCE_INVENTORY.json"],
+      "domain_units_signs_boundary_quantifiers": "Applies to this release candidate's evidence accounting.",
+      "support": ["SOURCE_INVENTORY.json", "evidence/README.md", "tests/test_data_integrity.py"],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [],
+      "disposition": "admit"
+    }
+  ]
+}

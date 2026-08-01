@@ -1,0 +1,205 @@
+{
+  "records": [
+    {
+      "all_pages_have_extractable_text": true,
+      "bytes": 1382794,
+      "display_doc_title": true,
+      "external_link_count": 37,
+      "external_links": [
+        "https://doi.org/10.1007/s11222-016-9696-4",
+        "https://doi.org/10.1016/S0006-3495(75)85847-4",
+        "https://doi.org/10.1017/S0033583500000081",
+        "https://doi.org/10.1029/2020JE006711",
+        "https://doi.org/10.1029/2024JE008576",
+        "https://doi.org/10.1029/2025GL115660",
+        "https://doi.org/10.1038/ngeo2669",
+        "https://doi.org/10.1038/s41467-024-48969-9",
+        "https://doi.org/10.1038/s41467-024-49305-x",
+        "https://doi.org/10.1038/s41467-024-52868-4",
+        "https://doi.org/10.1038/s41467-026-70977-0",
+        "https://doi.org/10.1038/s41467-026-71130-7",
+        "https://doi.org/10.1038/s41550-026-02860-3",
+        "https://doi.org/10.1038/s41586-020-2649-2",
+        "https://doi.org/10.1038/s41592-019-0686-2",
+        "https://doi.org/10.1051/0004-6361/201935714",
+        "https://doi.org/10.1051/0004-6361/202556322",
+        "https://doi.org/10.1051/0004-6361/202556526",
+        "https://doi.org/10.1051/0004-6361/202659098",
+        "https://doi.org/10.1073/pnas.2403981121",
+        "https://doi.org/10.1093/mnras/staf1670",
+        "https://doi.org/10.1103/PhysRev.37.405",
+        "https://doi.org/10.1103/PhysRev.38.2265",
+        "https://doi.org/10.1103/RevModPhys.17.343",
+        "https://doi.org/10.1109/MCSE.2007.55",
+        "https://doi.org/10.1115/1.3662552",
+        "https://doi.org/10.1126/sciadv.aeb9271",
+        "https://doi.org/10.1126/science.1187726",
+        "https://doi.org/10.48550/arXiv.2607.15011",
+        "https://doi.org/10.48550/arXiv.2607.16713",
+        "https://doi.org/10.48550/arXiv.2607.25845",
+        "https://doi.org/10.7185/geochemlet.1918",
+        "https://github.com/jkolantree/astra/issues"
+      ],
+      "figure_alt_tags": 7,
+      "figure_leaf_tags": 7,
+      "figure_tags": 14,
+      "file": "SPPT_ASTRA_preprint_v1.0.1.pdf",
+      "fonts": [
+        {
+          "base_font": "/AAAAAA+DejaVuSans-Bold",
+          "embedded": true,
+          "resource_name": "/F4",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/BAAAAA+DejaVuSerif",
+          "embedded": true,
+          "resource_name": "/F5",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/CAAAAA+DejaVuSerif-Bold",
+          "embedded": true,
+          "resource_name": "/F87",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/DAAAAA+CambriaMath",
+          "embedded": true,
+          "resource_name": "/F93",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/EAAAAA+TimesNewRomanPSMT",
+          "embedded": true,
+          "resource_name": "/F141",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/FAAAAA+DejaVuSerif-Italic",
+          "embedded": true,
+          "resource_name": "/F229",
+          "subtype": "/Type0",
+          "to_unicode": true
+        }
+      ],
+      "language": "en-US",
+      "metadata": {
+        "/Author": "Jacko T.",
+        "/CreationDate": "D:20260801000000Z",
+        "/Creator": "Pandoc 3.6.1 and Playwright 1.62.0 Chromium",
+        "/Keywords": "SPPT, ASTRA, planetary evolution, reservoir networks",
+        "/ModDate": "D:20260801000000Z",
+        "/Producer": "SPPT-ASTRA reproducibility build v1.0.1; pikepdf 10.11.0",
+        "/Subject": "SPPT/ASTRA v1.0.1; not peer reviewed",
+        "/Title": "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution"
+      },
+      "normalized_text_sha256": "6b07d71b49db86c4fe8d5d0899d1f1f11d3bfd1967359c0b56246f881c05093e",
+      "outline_present": true,
+      "pages": 46,
+      "sha256": "2a5376a76416166823f8d4208c7ad112e36d680f908dccd457e490593a9dd3a0",
+      "syntax_warnings": [],
+      "tagged": true,
+      "xmp": {
+        "created": "2026-08-01T00:00:00Z",
+        "creator": [
+          "Jacko T."
+        ],
+        "language": [
+          "en-US"
+        ],
+        "modified": "2026-08-01T00:00:00Z",
+        "title": "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution"
+      }
+    },
+    {
+      "all_pages_have_extractable_text": true,
+      "bytes": 1247582,
+      "display_doc_title": true,
+      "external_link_count": 0,
+      "external_links": [],
+      "figure_alt_tags": 6,
+      "figure_leaf_tags": 6,
+      "figure_tags": 12,
+      "file": "SPPT_ASTRA_technical_supplement_v1.0.1.pdf",
+      "fonts": [
+        {
+          "base_font": "/AAAAAA+DejaVuSans-Bold",
+          "embedded": true,
+          "resource_name": "/F5",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/BAAAAA+DejaVuSerif",
+          "embedded": true,
+          "resource_name": "/F6",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/CAAAAA+DejaVuSerif-Bold",
+          "embedded": true,
+          "resource_name": "/F43",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/DAAAAA+CambriaMath",
+          "embedded": true,
+          "resource_name": "/F46",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/EAAAAA+TimesNewRomanPSMT",
+          "embedded": true,
+          "resource_name": "/F62",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/FAAAAA+DejaVuSansMono",
+          "embedded": true,
+          "resource_name": "/F77",
+          "subtype": "/Type0",
+          "to_unicode": true
+        }
+      ],
+      "language": "en-US",
+      "metadata": {
+        "/Author": "Jacko T.",
+        "/CreationDate": "D:20260801000000Z",
+        "/Creator": "Pandoc 3.6.1 and Playwright 1.62.0 Chromium",
+        "/Keywords": "SPPT, ASTRA, planetary evolution, reservoir networks",
+        "/ModDate": "D:20260801000000Z",
+        "/Producer": "SPPT-ASTRA reproducibility build v1.0.1; pikepdf 10.11.0",
+        "/Subject": "SPPT/ASTRA v1.0.1; not peer reviewed",
+        "/Title": "Technical Supplement: Synthetic Identifiability and Topology-Recovery Tests"
+      },
+      "normalized_text_sha256": "61cb70795abe165b869ff3fc3d5e2f740946406141c74788c78636fafdcfd48d",
+      "outline_present": true,
+      "pages": 19,
+      "sha256": "adc3c2e4b9bef01705aeef7581cd3a59ea57155d078b28b8e70555bf95e992ac",
+      "syntax_warnings": [],
+      "tagged": true,
+      "xmp": {
+        "created": "2026-08-01T00:00:00Z",
+        "creator": [
+          "Jacko T."
+        ],
+        "language": [
+          "en-US"
+        ],
+        "modified": "2026-08-01T00:00:00Z",
+        "title": "Technical Supplement: Synthetic Identifiability and Topology-Recovery Tests"
+      }
+    }
+  ],
+  "schema": "https://github.com/jkolantree/astra/schemas/pdf-inspection-v1"
+}

@@ -1,0 +1,127 @@
+{
+  "status": "synthetic benchmark; not planetary data",
+  "seed": 20260801,
+  "noise_sd": 0.0025,
+  "true_graph": "chain",
+  "true_conductance": [
+    0.22,
+    1.4
+  ],
+  "capacities": [
+    8.0,
+    3.0,
+    1.0
+  ],
+  "surface_sink": 1.2,
+  "internal_power": 1.0,
+  "static_equilibrium": {
+    "chain": {
+      "surface_temperature": 0.8333333333333335,
+      "deep_temperature": 6.093073593073593
+    },
+    "surface_star": {
+      "surface_temperature": 0.8333333333333335,
+      "deep_temperature": 2.2619047619047623
+    },
+    "deep_star": {
+      "surface_temperature": 0.8333333333333334,
+      "deep_temperature": 2.261904761904762
+    },
+    "triangle": {
+      "surface_temperature": 0.8333333333333335,
+      "deep_temperature": 1.7857142857142863
+    }
+  },
+  "fits_ranked_by_bic": [
+    {
+      "graph": "chain",
+      "n_edges": 2,
+      "conductance": [
+        0.2288760944613834,
+        1.3938627700886683
+      ],
+      "train_rss": 0.002255627726280859,
+      "train_rmse": 0.002499655226243308,
+      "bic": -4314.159224622731,
+      "heldout_rmse": 0.0004738548379944202,
+      "optimizer_starts": 12,
+      "optimizer_accepted": 4,
+      "optimizer_best_start": 8,
+      "optimizer_nfev": 20,
+      "optimizer_optimality": 0.006004553405912556,
+      "optimizer_scaled_optimality": 3.3275401210670016e-05,
+      "optimizer_active_mask": [
+        0,
+        0
+      ]
+    },
+    {
+      "graph": "triangle",
+      "n_edges": 3,
+      "conductance": [
+        0.22504841506902393,
+        1.3900309413001701,
+        0.0018639145522757743
+      ],
+      "train_rss": 0.002254115086131394,
+      "train_rmse": 0.002498816942308359,
+      "bic": -4308.512517066193,
+      "heldout_rmse": 0.0004521721807391404,
+      "optimizer_starts": 12,
+      "optimizer_accepted": 8,
+      "optimizer_best_start": 10,
+      "optimizer_nfev": 35,
+      "optimizer_optimality": 0.0056047676033166936,
+      "optimizer_scaled_optimality": 3.1080753361931426e-05,
+      "optimizer_active_mask": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "graph": "surface_star",
+      "n_edges": 2,
+      "conductance": [
+        0.08732850908225527,
+        1.1969968311375432
+      ],
+      "train_rss": 0.009238798834161545,
+      "train_rmse": 0.005058877398973375,
+      "bic": -3805.1551537489836,
+      "heldout_rmse": 0.006720039055497338,
+      "optimizer_starts": 12,
+      "optimizer_accepted": 3,
+      "optimizer_best_start": 5,
+      "optimizer_nfev": 23,
+      "optimizer_optimality": 0.010778495569296755,
+      "optimizer_scaled_optimality": 1.458319387992571e-05,
+      "optimizer_active_mask": [
+        0,
+        0
+      ]
+    },
+    {
+      "graph": "deep_star",
+      "n_edges": 2,
+      "conductance": [
+        0.04581353284522812,
+        1.08478977228549
+      ],
+      "train_rss": 0.14155922187768272,
+      "train_rmse": 0.01980229301180641,
+      "bic": -2819.8755874650556,
+      "heldout_rmse": 0.025146808381766778,
+      "optimizer_starts": 12,
+      "optimizer_accepted": 2,
+      "optimizer_best_start": 10,
+      "optimizer_nfev": 32,
+      "optimizer_optimality": 1.1020010660901665,
+      "optimizer_scaled_optimality": 9.730919076419953e-05,
+      "optimizer_active_mask": [
+        0,
+        0
+      ]
+    }
+  ]
+}
