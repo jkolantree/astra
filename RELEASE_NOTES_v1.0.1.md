@@ -17,7 +17,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe tools\verify.py --all --workers 4
 ```
 
-The release gate executes 53 discovered unit, invariant, evidence-boundary, document-contract, optimizer, and negative release-integrity tests; strict Ruff and mypy checks; CFF schema validation; privacy, path, metadata, citation-key, license, HTML, PDF, and archive checks; the complete frozen numerical replay; figure regeneration; two byte-identity document builds; and fresh-clone, linked-worktree, and extracted-git-archive verification. The 64-seed ensemble uses frozen seeds, 12 declared multistarts per fitted family, convergence diagnostics, bound flags, and preserved negative outcomes.
+The release gate executes 55 discovered unit, invariant, evidence-boundary, document-contract, optimizer, and negative release-integrity tests; strict Ruff and mypy checks; CFF schema validation; privacy, path, metadata, citation-key, license, HTML, PDF, cache-boundary, and archive checks; the complete frozen numerical replay; figure regeneration; two byte-identity document builds; and fresh-clone, linked-worktree, and extracted-git-archive verification. The 64-seed ensemble uses frozen seeds, 12 declared multistarts per fitted family, convergence diagnostics, bound flags, and preserved negative outcomes.
 
 ## Synthetic-data status and limitations
 

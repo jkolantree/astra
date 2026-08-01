@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 from html.parser import HTMLParser
 from pathlib import Path
@@ -14,6 +15,8 @@ from ruamel.yaml import YAML
 ROOT = Path(__file__).resolve().parents[1]
 IGNORED_ROOTS = {".git", ".venv", ".pytest_cache", ".mypy_cache", ".ruff_cache", "tmp", "dist", "build"}
 IGNORED_NAMES = IGNORED_ROOTS | {"__pycache__"}
+DISPOSABLE_ROOTS = {".git", ".venv", "tmp", "dist", "build"}
+FORBIDDEN_CACHE_NAMES = {".pytest_cache", ".mypy_cache", ".ruff_cache", "__pycache__"}
 ROOT_ALLOWLIST = {
     ".gitattributes",
     ".gitignore",
@@ -109,6 +112,26 @@ def public_files() -> list[Path]:
                 raise RuntimeError(f"Unexpected repository path: {relative.as_posix()}")
         files.append(path)
     return sorted(files, key=lambda item: item.relative_to(ROOT).as_posix())
+
+
+def check_cache_boundaries() -> None:
+    offenders: list[str] = []
+    for current, directories, _ in os.walk(ROOT):
+        current_path = Path(current)
+        relative = current_path.relative_to(ROOT)
+        if relative.parts and relative.parts[0] in DISPOSABLE_ROOTS:
+            directories[:] = []
+            continue
+        for name in tuple(directories):
+            if name in DISPOSABLE_ROOTS:
+                directories.remove(name)
+            elif name in FORBIDDEN_CACHE_NAMES:
+                offenders.append((relative / name).as_posix())
+                directories.remove(name)
+    if offenders:
+        raise RuntimeError(
+            "Cache directories outside the disposable tmp root: " + ", ".join(sorted(offenders))
+        )
 
 
 def read_frontmatter(path: Path) -> dict[str, object]:
@@ -377,6 +400,7 @@ def check_runtime_identity() -> None:
 
 
 def main() -> None:
+    check_cache_boundaries()
     paths = public_files()
     check_text_privacy(paths)
     check_png_metadata(paths)

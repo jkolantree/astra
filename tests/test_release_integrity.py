@@ -273,3 +273,20 @@ def test_root_git_and_cache_directories_are_excluded_from_public_inventory(
     (tmp_path / "tmp" / "cache.bin").write_bytes(b"cache")
     monkeypatch.setattr(repository, "ROOT", tmp_path)
     assert [path.name for path in repository.public_files()] == ["README.md"]
+
+
+def test_cache_outside_disposable_root_is_rejected(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    (tmp_path / ".mypy_cache").mkdir()
+    monkeypatch.setattr(repository, "ROOT", tmp_path)
+    with pytest.raises(RuntimeError, match="outside the disposable tmp root"):
+        repository.check_cache_boundaries()
+
+
+def test_cache_inside_disposable_root_is_allowed(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    (tmp_path / "tmp" / "mypy").mkdir(parents=True)
+    monkeypatch.setattr(repository, "ROOT", tmp_path)
+    repository.check_cache_boundaries()

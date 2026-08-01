@@ -7,7 +7,7 @@ license = { text = "MIT" }
 authors = [{ name = "Jacko T." }]
 
 [tool.pytest.ini_options]
-addopts = "--strict-config --strict-markers"
+addopts = "--strict-config --strict-markers -p no:cacheprovider"
 pythonpath = ["src", "."]
 testpaths = ["tests"]
 
@@ -15,6 +15,7 @@ testpaths = ["tests"]
 target-version = "py312"
 line-length = 100
 exclude = [".venv", "tmp", "dist"]
+cache-dir = "tmp/ruff"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
@@ -26,3 +27,4 @@ files = ["src"]
 strict = true
 ignore_missing_imports = true
 warn_unused_ignores = true
+cache_dir = "tmp/mypy"
