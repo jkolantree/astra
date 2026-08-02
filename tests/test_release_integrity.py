@@ -578,6 +578,7 @@ def test_github_actions_tag_context_requires_tag_type_and_matching_sha(
     monkeypatch.setattr(release, "verify_manifest", lambda **_kwargs: None)
     monkeypatch.setenv("GITHUB_ACTIONS", "true")
     monkeypatch.setenv("GITHUB_EVENT_NAME", "push")
+    monkeypatch.delenv("GITHUB_SHA", raising=False)
 
     with pytest.raises(RuntimeError, match="requires a tag ref"):
         release.verify_release_tag("v1.0.1")
