@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import json
 import re
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -14,11 +15,19 @@ from pypdf import PdfReader
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = ROOT / "manuscript"
-AUTHOR = "Jacko T."
-FIXED_DATE = "D:20260801000000Z"
+RELEASE_SPEC = json.loads((ROOT / "RELEASE_SPEC.json").read_text(encoding="utf-8"))
+VERSION = str(RELEASE_SPEC["version"])
+BUILD_EPOCH = str(RELEASE_SPEC["build_epoch"])
+AUTHOR = str(RELEASE_SPEC["author"])
+if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", BUILD_EPOCH):
+    raise RuntimeError(f"Noncanonical release build epoch: {BUILD_EPOCH!r}")
+FIXED_DATE = "D:" + re.sub(r"[-:T]", "", BUILD_EPOCH)
+PDF_SUBJECT = f"SPPT/ASTRA v{VERSION}; not peer reviewed"
+PDF_PRODUCER = f"SPPT-ASTRA reproducibility build v{VERSION}; pikepdf 10.11.0"
+STRUCTURE_ID_PREFIX = "sppt-struct-"
 PDFS = (
-    MANUSCRIPT / "SPPT_ASTRA_preprint_v1.0.1.pdf",
-    MANUSCRIPT / "SPPT_ASTRA_technical_supplement_v1.0.1.pdf",
+    MANUSCRIPT / f"SPPT_ASTRA_preprint_v{VERSION}.pdf",
+    MANUSCRIPT / f"SPPT_ASTRA_technical_supplement_v{VERSION}.pdf",
 )
 PRIVATE_PATTERN = re.compile(
     r"(?:^\s*(?:contact|correspondence)\s*[:=]\s*(?:TBD|TODO|pending|placeholder)\b|"
@@ -41,6 +50,88 @@ def dereference(value: Any) -> Any:
         return value.get_object()
     except (AttributeError, ValueError):
         return value
+
+
+def structure_elements(value: object) -> Iterator[pikepdf.Object]:
+    if isinstance(value, pikepdf.Array):
+        for child in value:
+            yield from structure_elements(child)
+        return
+    if not isinstance(value, pikepdf.Dictionary):
+        return
+    if str(value.get("/Type", "")) != "/StructElem" and "/S" not in value:
+        return
+    yield value
+    if "/K" in value:
+        yield from structure_elements(value["/K"])
+
+
+def attribute_dictionaries(value: object) -> Iterator[pikepdf.Object]:
+    if isinstance(value, pikepdf.Array):
+        for child in value:
+            yield from attribute_dictionaries(child)
+    elif isinstance(value, pikepdf.Dictionary):
+        yield value
+
+
+def name_tree_key(value: bytes | str) -> str:
+    if isinstance(value, bytes):
+        return value.decode("utf-8", errors="strict")
+    return value
+
+
+def validate_structure_identifiers(pdf: pikepdf.Pdf) -> dict[str, int]:
+    root = pdf.Root.get("/StructTreeRoot")
+    if not isinstance(root, pikepdf.Dictionary):
+        raise RuntimeError("Tagged PDF structure tree is missing")
+    elements = list(structure_elements(root.get("/K", pikepdf.Array())))
+    identified = [element for element in elements if "/ID" in element]
+    identifiers = [str(element["/ID"]) for element in identified]
+    expected = [f"{STRUCTURE_ID_PREFIX}{index:08d}" for index in range(len(identified))]
+    if not identifiers or identifiers != expected:
+        raise RuntimeError(f"Tagged-PDF structure IDs are not canonical: {identifiers}")
+    if len(identifiers) != len(set(identifiers)):
+        raise RuntimeError("Tagged-PDF structure IDs are not unique")
+    if "/IDTree" not in root:
+        raise RuntimeError("Tagged-PDF canonical structure IDs require an IDTree")
+    name_tree = pikepdf.NameTree(root["/IDTree"])
+    tree_keys = {name_tree_key(key) for key in name_tree}
+    if tree_keys != set(identifiers):
+        raise RuntimeError("Tagged-PDF IDTree is not closed over canonical structure IDs")
+    for identifier, element in zip(identifiers, identified, strict=True):
+        if name_tree[identifier].objgen != element.objgen:
+            raise RuntimeError(f"Tagged-PDF IDTree target mismatch for {identifier!r}")
+
+    header_references: list[str] = []
+    for element in elements:
+        if "/A" not in element:
+            continue
+        for attribute in attribute_dictionaries(element["/A"]):
+            if "/Headers" not in attribute:
+                continue
+            headers = attribute["/Headers"]
+            if not isinstance(headers, pikepdf.Array):
+                raise RuntimeError("Tagged-PDF table Headers attribute must be an array")
+            header_references.extend(str(header) for header in headers)
+    if not header_references:
+        raise RuntimeError("Tagged-PDF table header references are missing")
+    unresolved = sorted(set(header_references) - set(identifiers))
+    if unresolved:
+        raise RuntimeError(f"Tagged-PDF table header references are unresolved: {unresolved}")
+    by_identifier = dict(zip(identifiers, identified, strict=True))
+    invalid_targets = sorted(
+        identifier
+        for identifier in set(header_references)
+        if str(by_identifier[identifier].get("/S", "")) != "/TH"
+    )
+    if invalid_targets:
+        raise RuntimeError(
+            f"Tagged-PDF table header references do not target TH: {invalid_targets}"
+        )
+    return {
+        "canonical_structure_id_count": len(identifiers),
+        "table_header_reference_count": len(header_references),
+    }
 
 
 def font_record(name: Any, font_reference: Any) -> dict[str, Any]:
@@ -141,10 +232,13 @@ def inspect(path: Path) -> dict[str, Any]:
             raise RuntimeError(f"DisplayDocTitle is not enabled in {path.name}")
         if "/Outlines" not in root:
             raise RuntimeError(f"Document outline missing from {path.name}")
+        structure_identity = validate_structure_identifiers(pdf)
 
         docinfo = {str(key): str(value) for key, value in pdf.docinfo.items()}
         expected_metadata = {
             "/Author": AUTHOR,
+            "/Subject": PDF_SUBJECT,
+            "/Producer": PDF_PRODUCER,
             "/CreationDate": FIXED_DATE,
             "/ModDate": FIXED_DATE,
         }
@@ -207,7 +301,12 @@ def inspect(path: Path) -> dict[str, Any]:
                 "created": str(xmp.get("xmp:CreateDate", "")),
                 "modified": str(xmp.get("xmp:ModifyDate", "")),
             }
-        if xmp_summary["creator"] != [AUTHOR] or xmp_summary["language"] != ["en-US"]:
+        if (
+            xmp_summary["creator"] != [AUTHOR]
+            or xmp_summary["language"] != ["en-US"]
+            or xmp_summary["created"] != BUILD_EPOCH
+            or xmp_summary["modified"] != BUILD_EPOCH
+        ):
             raise RuntimeError(f"XMP identity mismatch in {path.name}: {xmp_summary}")
 
     return {
@@ -232,6 +331,7 @@ def inspect(path: Path) -> dict[str, Any]:
         "metadata": docinfo,
         "xmp": xmp_summary,
         "syntax_warnings": [],
+        **structure_identity,
     }
 
 

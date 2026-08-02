@@ -6,12 +6,13 @@ unless a function explicitly states otherwise.
 """
 from __future__ import annotations
 
+import math
 from collections.abc import Sequence
 from dataclasses import dataclass
 
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
-from scipy.linalg import eigh
+from scipy.linalg import null_space
 
 FARADAY_C_PER_MOL = 96485.33212
 SECONDS_PER_JULIAN_YEAR = 365.25 * 24.0 * 3600.0
@@ -26,6 +27,56 @@ def _as_float_array(value: ArrayLike, *, ndim: int | None = None) -> NDArray[np.
     if not np.all(np.isfinite(arr)):
         raise ValueError("All numerical inputs must be finite.")
     return arr
+
+
+def _require_finite_scalars(*values: float) -> None:
+    if not all(np.isfinite(value) for value in values):
+        raise ValueError("All numerical inputs must be finite.")
+
+
+def _scaled_product(*values: float) -> float:
+    """Multiply finite scalars with binary exponent bookkeeping."""
+    if any(value == 0.0 for value in values):
+        return 0.0
+    sign = -1.0 if sum(value < 0.0 for value in values) % 2 else 1.0
+    mantissa = 1.0
+    exponent = 0
+    for value in values:
+        value_mantissa, value_exponent = math.frexp(abs(value))
+        mantissa *= value_mantissa
+        mantissa, normalization_exponent = math.frexp(mantissa)
+        exponent += value_exponent + normalization_exponent
+    try:
+        result = math.ldexp(mantissa, exponent)
+    except OverflowError as error:
+        raise ValueError("Numerical result exceeds the finite range.") from error
+    if not math.isfinite(result):
+        raise ValueError("Numerical result exceeds the finite range.")
+    return sign * result
+
+
+def _scaled_product_over(numerator: float, multiplier: float, denominator: float) -> float:
+    if numerator == 0.0 or multiplier == 0.0:
+        return 0.0
+    numerator_mantissa, numerator_exponent = math.frexp(abs(numerator))
+    multiplier_mantissa, multiplier_exponent = math.frexp(abs(multiplier))
+    denominator_mantissa, denominator_exponent = math.frexp(denominator)
+    mantissa, normalization_exponent = math.frexp(
+        numerator_mantissa * multiplier_mantissa / denominator_mantissa
+    )
+    try:
+        result = math.ldexp(
+            mantissa,
+            numerator_exponent
+            + multiplier_exponent
+            - denominator_exponent
+            + normalization_exponent,
+        )
+    except OverflowError as exc:
+        raise ValueError("Numerical result exceeds the finite range.") from exc
+    if result == 0.0 or not math.isfinite(result):
+        raise ValueError("Numerical result exceeds the finite range.")
+    return math.copysign(result, numerator)
 
 
 def incidence_matrix(n_nodes: int, edges: Sequence[tuple[int, int]]) -> NDArray[np.float64]:
@@ -100,28 +151,53 @@ def trap_periodic_solution(
     release_time: float,
 ) -> NDArray[np.float64]:
     """Steady periodic solution of dM/dt = c0 + c1 cos(omega t) - M/tau."""
+    _require_finite_scalars(capture_mean, capture_amplitude, omega, release_time)
     if omega <= 0.0 or release_time <= 0.0:
         raise ValueError("omega and release_time must be positive.")
     times = _as_float_array(t)
-    z = omega * release_time
-    amplitude = capture_amplitude * release_time / np.sqrt(1.0 + z * z)
-    phase = np.arctan(z)
-    return np.asarray(
-        capture_mean * release_time + amplitude * np.cos(omega * times - phase),
-        dtype=np.float64,
-    )
+    if release_time < 1.0:
+        scaled_frequency = omega * release_time
+        denominator = np.hypot(1.0, scaled_frequency)
+        response_inside_release = capture_amplitude / denominator
+        phase = np.arctan(scaled_frequency)
+    else:
+        inverse_release_time = 1.0 / release_time
+        denominator = np.hypot(inverse_release_time, omega)
+        response_inside_release = capture_amplitude * (inverse_release_time / denominator)
+        phase = np.arctan2(omega, inverse_release_time)
+    with np.errstate(over="ignore", under="ignore", invalid="ignore"):
+        result = release_time * (
+            capture_mean + response_inside_release * np.cos(omega * times - phase)
+        )
+    if not np.all(np.isfinite(result)):
+        raise ValueError("Periodic trap solution exceeds the finite numerical range.")
+    return np.asarray(result, dtype=np.float64)
 
 
 def trap_loop_area(capture_amplitude: float, omega: float, release_time: float) -> float:
     r"""Signed area integral \oint M dc for the steady periodic trap model."""
+    _require_finite_scalars(capture_amplitude, omega, release_time)
     if omega <= 0.0 or release_time <= 0.0:
         raise ValueError("omega and release_time must be positive.")
-    return float(
-        -np.pi
-        * capture_amplitude**2
-        * omega
-        * release_time**2
-        / (1.0 + (omega * release_time) ** 2)
+    if release_time < 1.0:
+        scaled_frequency = omega * release_time
+        denominator = np.hypot(1.0, scaled_frequency)
+        response_multiplier = release_time / denominator
+        area_factors = [
+            float(response_multiplier),
+            float(omega / denominator),
+            release_time,
+        ]
+    else:
+        inverse_release_time = 1.0 / release_time
+        denominator = np.hypot(inverse_release_time, omega)
+        response_multiplier = 1.0 / denominator
+        area_factors = [float(response_multiplier), float(omega / denominator)]
+    return -_scaled_product(
+        float(np.pi),
+        capture_amplitude,
+        capture_amplitude,
+        *area_factors,
     )
 
 
@@ -136,7 +212,68 @@ def weighted_laplacian(
         raise ValueError("One conductance is required per edge.")
     if np.any(k < 0.0):
         raise ValueError("Conductances cannot be negative.")
-    return Bm @ np.diag(k) @ Bm.T
+    diagonal_contributions: list[list[float]] = []
+    for row in Bm:
+        contributions: list[float] = []
+        for coefficient, conductance_value in zip(row, k, strict=True):
+            if coefficient == 0.0 or conductance_value == 0.0:
+                contributions.append(0.0)
+                continue
+            contribution = _scaled_product(
+                float(coefficient), float(coefficient), float(conductance_value)
+            )
+            if contribution == 0.0:
+                raise ValueError(
+                    "Incident conductance dynamic range exceeds reliable Laplacian assembly."
+                )
+            contributions.append(contribution)
+        diagonal_contributions.append(contributions)
+        positive = [value for value in contributions if value > 0.0]
+        if len(positive) >= 2:
+            largest = max(positive)
+            normalized = [value / largest for value in positive]
+            if any(value == 0.0 for value in normalized):
+                raise ValueError(
+                    "Incident conductance dynamic range exceeds reliable Laplacian assembly."
+                )
+            total = math.fsum(normalized)
+            tolerance = math.sqrt(np.finfo(float).eps) * len(normalized)
+            for index, contribution in enumerate(normalized):
+                without = math.fsum(
+                    value for offset, value in enumerate(normalized) if offset != index
+                )
+                retained = total - without
+                if (
+                    retained <= 0.0
+                    or abs(retained - contribution) > tolerance * contribution
+                ):
+                    raise ValueError(
+                        "Incident conductance dynamic range exceeds reliable Laplacian assembly."
+                    )
+    laplacian = np.empty((Bm.shape[0], Bm.shape[0]), dtype=float)
+    try:
+        for row in range(Bm.shape[0]):
+            laplacian[row, row] = math.fsum(diagonal_contributions[row])
+            for column in range(row + 1, Bm.shape[0]):
+                terms = (
+                    _scaled_product(
+                        float(Bm[row, edge]),
+                        float(k[edge]),
+                        float(Bm[column, edge]),
+                    )
+                    for edge in range(k.size)
+                    if Bm[row, edge] != 0.0
+                    and k[edge] != 0.0
+                    and Bm[column, edge] != 0.0
+                )
+                value = math.fsum(terms)
+                laplacian[row, column] = value
+                laplacian[column, row] = value
+    except OverflowError as exc:
+        raise ValueError("Weighted Laplacian exceeds the finite numerical range.") from exc
+    if not np.all(np.isfinite(laplacian)):
+        raise ValueError("Weighted Laplacian exceeds the finite numerical range.")
+    return np.asarray(laplacian, dtype=np.float64)
 
 
 def generalized_relaxation_eigenvalues(
@@ -145,15 +282,92 @@ def generalized_relaxation_eigenvalues(
     capacity: ArrayLike,
 ) -> NDArray[np.float64]:
     """Return sorted eigenvalues of L v = lambda C v."""
+    Bm = _as_float_array(B, ndim=2)
+    k = _as_float_array(conductance, ndim=1)
     C = _as_float_array(capacity, ndim=1)
     if np.any(C <= 0.0):
         raise ValueError("Capacities must be strictly positive.")
-    L = weighted_laplacian(B, conductance)
-    if L.shape[0] != C.size:
+    weighted_laplacian(Bm, k)
+    if Bm.shape[0] != C.size:
         raise ValueError("One capacity is required per node.")
-    values = eigh(L, np.diag(C), eigvals_only=True)
-    values[np.abs(values) < 1e-12] = 0.0
-    return np.sort(values)
+    edge_nodes: list[tuple[int, int]] = []
+    for column in range(Bm.shape[1]):
+        nonzero = np.flatnonzero(Bm[:, column])
+        if (
+            nonzero.size != 2
+            or Bm[nonzero[0], column] not in {-1.0, 1.0}
+            or Bm[nonzero[1], column] != -Bm[nonzero[0], column]
+        ):
+            raise ValueError(
+                "Generalized relaxation requires a standard signed node-edge incidence matrix."
+            )
+        edge_nodes.append((int(nonzero[0]), int(nonzero[1])))
+
+    parent = list(range(Bm.shape[0]))
+
+    def find(node: int) -> int:
+        while parent[node] != node:
+            parent[node] = parent[parent[node]]
+            node = parent[node]
+        return node
+
+    for column, (left, right) in enumerate(edge_nodes):
+        if k[column] <= 0.0:
+            continue
+        left_root = find(left)
+        right_root = find(right)
+        if left_root != right_root:
+            parent[right_root] = left_root
+    components: dict[int, list[int]] = {}
+    for node in range(Bm.shape[0]):
+        components.setdefault(find(node), []).append(node)
+
+    rates: list[float] = []
+    for nodes in components.values():
+        if len(nodes) == 1:
+            continue
+        node_set = set(nodes)
+        columns = [
+            column
+            for column, (left, right) in enumerate(edge_nodes)
+            if k[column] > 0.0 and left in node_set and right in node_set
+        ]
+        normalized = np.empty((len(nodes), len(columns)), dtype=np.float64)
+        try:
+            for local_row, node in enumerate(nodes):
+                for local_column, column in enumerate(columns):
+                    normalized[local_row, local_column] = _scaled_product_over(
+                        float(Bm[node, column]),
+                        math.sqrt(float(k[column])),
+                        math.sqrt(float(C[node])),
+                    )
+        except ValueError as exc:
+            raise ValueError("Relaxation eigenvalues exceed the finite numerical range.") from exc
+        zero_mode = np.sqrt(C[nodes])
+        zero_mode_scaled = zero_mode / float(np.max(zero_mode))
+        if np.any((zero_mode != 0.0) & (zero_mode_scaled == 0.0)):
+            raise ValueError("Relaxation eigenvalues exceed the finite numerical range.")
+        complement = null_space(zero_mode_scaled.reshape(1, -1))
+        if complement.shape != (len(nodes), len(nodes) - 1):
+            raise ValueError("Unable to resolve the structural conservation mode.")
+        reduced = complement.T @ normalized
+        singular_values = np.linalg.svd(reduced, compute_uv=False)
+        if singular_values.size != len(nodes) - 1 or not np.all(
+            np.isfinite(singular_values)
+        ):
+            raise ValueError("Relaxation eigenvalues exceed the finite numerical range.")
+        try:
+            component_rates = [
+                _scaled_product(float(value), float(value)) for value in singular_values
+            ]
+        except ValueError as exc:
+            raise ValueError("Relaxation eigenvalues exceed the finite numerical range.") from exc
+        if any(rate <= 0.0 or not math.isfinite(rate) for rate in component_rates):
+            raise ValueError("Relaxation eigenvalues exceed the finite numerical range.")
+        rates.extend(component_rates)
+    return np.sort(
+        np.array([0.0] * len(components) + rates, dtype=np.float64)
+    )
 
 
 def weak_cut_upper_bound(
@@ -162,9 +376,10 @@ def weak_cut_upper_bound(
     capacity_right: float,
 ) -> float:
     """Rayleigh-quotient upper bound on the first nonzero relaxation rate."""
+    _require_finite_scalars(cut_conductance, capacity_left, capacity_right)
     if cut_conductance < 0.0 or capacity_left <= 0.0 or capacity_right <= 0.0:
         raise ValueError("Cut conductance must be nonnegative and capacities positive.")
-    return cut_conductance * (1.0 / capacity_left + 1.0 / capacity_right)
+    return cut_conductance / capacity_left + cut_conductance / capacity_right
 
 
 @dataclass(frozen=True)
@@ -183,6 +398,7 @@ def electroreduction_scale(
     delta_g_j_per_mol: float = DG_CO2_TO_C_O2_J_PER_MOL,
 ) -> ElectroreductionScale:
     """Ideal four-electron CO2-to-C throughput and reversible power."""
+    _require_finite_scalars(current_a, faradaic_efficiency, delta_g_j_per_mol)
     if current_a < 0.0:
         raise ValueError("current_a must be nonnegative.")
     if not (0.0 < faradaic_efficiency <= 1.0):
@@ -203,6 +419,7 @@ def electroreduction_scale(
 
 def current_for_co2_rate(co2_kg_per_year: float, *, faradaic_efficiency: float = 1.0) -> float:
     """Current required for a target ideal CO2 conversion rate."""
+    _require_finite_scalars(co2_kg_per_year, faradaic_efficiency)
     if co2_kg_per_year < 0.0:
         raise ValueError("co2_kg_per_year must be nonnegative.")
     if not (0.0 < faradaic_efficiency <= 1.0):
@@ -222,11 +439,25 @@ def static_two_reservoir_equilibrium(
     The upper reservoir radiates L(T_u)=a*T_u^4. The returned tuple is
     (T_deep, T_upper). The upper temperature is independent of conductance.
     """
+    _require_finite_scalars(
+        internal_power, absorbed_external_power, conductance, radiative_coefficient
+    )
     if internal_power < 0.0 or absorbed_external_power < 0.0:
         raise ValueError("Power terms must be nonnegative.")
     if conductance <= 0.0 or radiative_coefficient <= 0.0:
         raise ValueError("conductance and radiative_coefficient must be positive.")
-    upper = ((internal_power + absorbed_external_power) / radiative_coefficient) ** 0.25
+    power_scale = max(internal_power, absorbed_external_power)
+    if power_scale == 0.0:
+        upper = 0.0
+    else:
+        normalized_power = (
+            internal_power / power_scale + absorbed_external_power / power_scale
+        )
+        upper = (
+            power_scale**0.25
+            / radiative_coefficient**0.25
+            * normalized_power**0.25
+        )
     deep = upper + internal_power / conductance
     return float(deep), float(upper)
 
@@ -249,12 +480,18 @@ def effective_flux_slope(
     is a fold precursor in a reduced constitutive model, not by itself proof of
     a global bifurcation.
     """
+    _require_finite_scalars(
+        temperature_contrast,
+        connectivity,
+        d_connectivity_d_temperature,
+        k_min,
+        k_span,
+        upper_temperature_slope,
+    )
     if not (0.0 <= connectivity <= 1.0):
         raise ValueError("connectivity must lie in [0, 1].")
     if k_min <= 0.0 or k_span < 0.0:
         raise ValueError("k_min must be positive and k_span nonnegative.")
-    if not np.isfinite(upper_temperature_slope):
-        raise ValueError("upper_temperature_slope must be finite.")
     K = k_min + k_span * connectivity
     return float(
         K * (1.0 - upper_temperature_slope)

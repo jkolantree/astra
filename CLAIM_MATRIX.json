@@ -1,6 +1,6 @@
 {
   "schema": "https://github.com/jkolantree/astra/schemas/claim-matrix-v1",
-  "title": "SPPT/ASTRA v1.0.1 consequential claim-admission matrix",
+  "title": "SPPT/ASTRA v1.0.2 consequential claim-admission matrix",
   "evidence_classes": [
     "source_asserted",
     "hand_checked",
@@ -128,7 +128,7 @@
       "domain_units_signs_boundary_quantifiers": "Normalized model units; seeds 20260801 through 20260864 inclusive; 64 results exactly.",
       "support": ["scripts/benchmark_ensemble.py", "data/synthetic_topology_ensemble.json", "data/synthetic_topology_ensemble.csv", "tests/test_data_integrity.py"],
       "evidence_class": "mechanically_replayed",
-      "limitations_or_counterexamples": ["Not blinded", "not external", "not empirical", "does not estimate a general false-positive rate", "CSV and JSON are duplicate serializations", "The release-frozen 20-start design was adopted after replay of this same benchmark exposed a missed endpoint under the earlier 12-start design; these reruns are post-audit regression evidence, not untouched evaluation"],
+      "limitations_or_counterexamples": ["Not blinded", "not external", "not empirical", "does not estimate a general false-positive rate", "CSV and JSON are duplicate serializations", "The release-frozen 20-start design was adopted after replay of this same benchmark exposed a missed endpoint under the earlier 12-start design; these reruns are post-audit regression evidence, not untouched evaluation", "This is pointwise selection, not family-wide topology identification: under the same capacities and surface-only port, surface_star [k02,k12]=[5,6] and deep_star [k01,k02]=[30/11,11] have identical transfer functions"],
       "disposition": "admit_with_qualification"
     },
     {
@@ -161,7 +161,18 @@
       "domain_units_signs_boundary_quantifiers": "Applies only to the finite released grid and response features.",
       "support": ["scripts/generate_astra_figures.py", "data/inverse_demo_summary.json", "data/inverse_objective_landscapes.csv", "figures/supplement_figure_S2_single_frequency_degeneracy.png", "figures/supplement_figure_S3_multifrequency_localization.png"],
       "evidence_class": "mechanically_replayed",
-      "limitations_or_counterexamples": ["Astronomical observations cannot generally choose their forcing spectrum", "not empirical validation or a uniqueness theorem"],
+      "limitations_or_counterexamples": ["Astronomical observations cannot generally choose their forcing spectrum", "not empirical validation or a uniqueness theorem", "The one-frequency objective uses amplitude only; one exact nonzero complex response can generically supply two real constraints, so the comparison demonstrates conditioning and finite-grid localization rather than the structural necessity of 24 frequencies"],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "ASTRA-C026",
+      "statement": "For C=(8,3,1), surface loss 1.2, equilibrium initialization, and node 2 as the sole input-output port, surface_star [k02,k12]=[5,6] and deep_star [k01,k02]=[30/11,11] have exactly the same rational surface transfer function for every surface forcing although their labeled supports and hidden states differ; the triangle family also has strictly positive two-point fibers, and its balance locus 8*k12=3*k02 contains an unobservable hidden mode.",
+      "claim_type": "structural non-identifiability counterexample",
+      "hypotheses": ["linear three-reservoir model", "known capacities and surface sink", "constant deep power", "each realization starts at its own equilibrium", "surface forcing and surface observation only", "positive conductances in the declared fitting bounds"],
+      "domain_units_signs_boundary_quantifiers": "Normalized benchmark units; exact equality holds for the complete surface input-output law, not only the sampled training and held-out waveforms.",
+      "support": ["manuscript/supplement.md Algebraic-statistical audit of dynamic identifiability across supports", "tests/test_benchmark.py", "src/astra_reservoir.py"],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": ["The released chain point (0.22,1.40) has no second realization in the nonnegative candidate domain, so this counterexample limits but does not contradict the frozen 64/64 pointwise result", "A spatially distinct time-varying input, another observation channel, an intervention, or independently justified structural constraints may separate the displayed equivalence, but identifiability must be recomputed for the augmented design", "This is a reduced synthetic linear result, not planetary evidence"],
       "disposition": "admit_with_qualification"
     },
     {
@@ -199,7 +210,7 @@
     },
     {
       "id": "ASTRA-C021",
-      "statement": "A future ASTRA methods extension may type physical flux, active control, observation, retained history, and verification as distinct coupled structures, but this tuple and its edge-availability syntax are proposed only and are not implemented by v1.0.1.",
+      "statement": "A future ASTRA methods extension may type physical flux, active control, observation, retained history, and verification as distinct coupled structures, but this tuple and its edge-availability syntax are proposed only and are not implemented by v1.0.2.",
       "claim_type": "research-outlook proposal",
       "hypotheses": ["each graph type receives a domain-specific definition", "any coupling into the physical flux graph has an explicit constitutive bridge", "units, kinetics, observation laws, and certificate failure classes are declared before use"],
       "domain_units_signs_boundary_quantifiers": "The displayed tuple and equations are abstract syntax without universal units; any application must instantiate its own state spaces, domains, signs, time scales, and boundary conditions.",
@@ -265,13 +276,13 @@
     },
     {
       "id": "VERIFY-C018",
-      "statement": "The discovered automated suite passes for the exact admitted source and checks implemented equations, evidence boundaries, deterministic outputs, metadata, and release invariants.",
-      "claim_type": "verification result",
+      "statement": "Release promotion is fail-closed unless the discovered automated suite passes for the exact admitted commit/tree and checks implemented equations, evidence boundaries, deterministic outputs, metadata, and release invariants under the declared runtime.",
+      "claim_type": "verification gate",
       "hypotheses": ["CPython 3.12.10", "hash-locked dependencies", "verified single-thread NumPy and SciPy OpenBLAS Haswell kernels on a Windows x86-64 CPU with AVX2 and FMA3", "clean repository state", "canonical tools/verify.py invocation"],
-      "domain_units_signs_boundary_quantifiers": "Applies only to the exact commit/tree and runtime identities reported by the release identity.",
-      "support": ["tests/", "tools/verify.py", "requirements-lock.txt", "GitHub Actions run for the release commit"],
-      "evidence_class": "mechanically_replayed",
-      "limitations_or_counterexamples": ["Tests establish consistency with implemented equations, not completeness of planetary physics, mathematical proof beyond the checked propositions, or external truth."],
+      "domain_units_signs_boundary_quantifiers": "The gate applies only to the exact commit/tree and runtime identities reported by the eventual release identity; a dirty local candidate or controller-invalid trial does not satisfy it.",
+      "support": ["tests/", "tools/verify.py", "requirements-lock.txt", ".github/workflows/verify.yml"],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": ["A pass must be bound to the exact clean release commit and valid controller; tests establish consistency with implemented equations, not completeness of planetary physics, mathematical proof beyond the checked propositions, or external truth."],
       "disposition": "admit_with_qualification"
     },
     {

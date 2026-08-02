@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           persist-credentials: false
+          fetch-depth: 0
 
       - name: Install and verify exact Git for Windows
         shell: pwsh
@@ -55,20 +56,22 @@ jobs:
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version-file: .python-version
-          cache: pip
-          cache-dependency-path: requirements-lock.txt
 
       - name: Install hash-locked dependencies
-        run: python -m pip install --require-hashes -r requirements-lock.txt
+        run: python -I -B -m pip install --require-hashes -r requirements-lock.txt
 
       - name: Install the Playwright-pinned Chromium build
-        run: python -m playwright install chromium
+        run: python -I -B -m playwright install chromium
+
+      - name: Verify annotated release-tag identity
+        if: startsWith(github.ref, 'refs/tags/')
+        run: python -I -B tools/release_integrity.py verify-tag
 
       - name: Run canonical complete verification
-        run: python tools/verify.py --all --workers 4
+        run: python -I -B tools/verify.py --all --workers 4
 
       - name: Verify git-archive inventory and bytes
-        run: python tools/release_integrity.py verify-git-archive
+        run: python -I -B tools/release_integrity.py verify-git-archive
 
       - name: Reject an unexplained worktree
         shell: pwsh

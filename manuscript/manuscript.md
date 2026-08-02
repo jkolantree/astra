@@ -1,9 +1,9 @@
 ---
 title: "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution"
 subtitle: "Solar–Planetary Phase-Partition Theory with ASTRA: a thermodynamically constrained network framework for interiors, atmospheres, and astronomical inference"
-version: "1.0.1"
+version: "1.0.2"
 author: "Jacko T."
-date: "1 August 2026"
+date: "2 August 2026"
 lang: en-US
 keywords:
   - planetary evolution
@@ -53,12 +53,12 @@ header-includes:
     \pagestyle{fancy}
     \fancyhf{}
     \fancyhead[L]{\small Solar--Planetary Phase-Partition Theory}
-    \fancyhead[R]{\small Preprint v1.0.1}
+    \fancyhead[R]{\small Preprint v1.0.2}
     \fancyfoot[C]{\thepage}
     \renewcommand{\headrulewidth}{0.3pt}
 ---
 
-**Preprint v1.0.1 · Perspective and mathematical framework · Not peer reviewed**
+**Preprint v1.0.2 · Perspective and mathematical framework · Not peer reviewed**
 
 **Correspondence:** [GitHub Issues for this repository](https://github.com/jkolantree/astra/issues)  
 **License:** Text and original figures, CC BY 4.0. Source code, MIT License.
@@ -77,7 +77,7 @@ The central astronomical proposal is testable: allow phase-reservoir topology to
 
 # Abstract {.unnumbered}
 
-Planetary evolution depends on more than bulk composition and total energy. The phase identity, physical connectivity, interfacial kinetics, and release times of material reservoirs determine whether energy and species circulate, remain trapped, segregate gravitationally, participate in magnetic-field generation, enter an atmosphere, or escape. We formulate the **Solar–Planetary Phase-Partition Theory (SPPT)** as a thermodynamically constrained, hybrid graph model in which a planet is described by a continuous state coupled to a directed phase-reservoir network. Its inference layer, **ASTRA — Astronomical State-Topology and Reservoir Analysis**, treats candidate reservoir graphs as latent states subject to physical legality, closure, calibration, and held-out prediction. We derive a matrix species balance, an exact conserved-inventory result, local entropy-production conditions, a retention criterion for generalized phase-partition traps, an analytic hysteresis law for periodically forced traps, a spectral bound linking weak transport cuts to long relaxation times, and a static non-identifiability result showing why equilibrium boundary observables can conceal deep transport conductance. We define the **Carbon Phase Relay**, motivated in part by 2026 operando evidence for a peroxide intermediate during molten-carbonate CO2-to-carbon electroreduction, while distinguishing that supplied electrochemical free-energy conversion from latent heat. In a transparent, deliberately favorable three-reservoir benchmark, training-set BIC selects the minimum generating graph in 64 of 64 frozen noise realizations; a separate post-selection unseen-forcing comparison preserves both positive and negative outcomes. This is a synthetic implementation check, not planetary evidence. We map the framework onto measured or modeled regimes in the Moon, Mercury, terrestrial planets, Jupiter, Saturn, Uranus, Neptune, and exoplanets. Recent results showing static interior degeneracy, strong conductivity sensitivity, hydrogen–water demixing, rock-rich ice-giant solutions, and evolutionary Bayesian retrieval motivate topology-aware inference but do not establish its predictive value. The proposed novelty is therefore narrow: infer phase-reservoir connectivity as a discrete or hybrid latent state, and promote it only when it yields held-out predictive gain beyond fixed-topology baselines. Eight falsifiable hypotheses and a laboratory, computational, and observational program are supplied.
+Planetary evolution depends on more than bulk composition and total energy. The phase identity, physical connectivity, interfacial kinetics, and release times of material reservoirs determine whether energy and species circulate, remain trapped, segregate gravitationally, participate in magnetic-field generation, enter an atmosphere, or escape. We formulate the **Solar–Planetary Phase-Partition Theory (SPPT)** as a thermodynamically constrained, hybrid graph model in which a planet is described by a continuous state coupled to a directed phase-reservoir network. Its inference layer, **ASTRA — Astronomical State-Topology and Reservoir Analysis**, treats candidate reservoir graphs as latent states subject to physical legality, closure, calibration, and held-out prediction. We derive a matrix species balance, an exact conserved-inventory result, local entropy-production conditions, a retention criterion for generalized phase-partition traps, an analytic hysteresis law for periodically forced traps, a spectral bound linking weak transport cuts to long relaxation times, and a static non-identifiability result showing why equilibrium boundary observables can conceal deep transport conductance. We define the **Carbon Phase Relay**, motivated in part by 2026 operando evidence for a peroxide intermediate during molten-carbonate CO2-to-carbon electroreduction, while distinguishing that supplied electrochemical free-energy conversion from latent heat. In a transparent, deliberately favorable three-reservoir benchmark, training-set BIC selects the released two-edge chain as the minimum representation in 64 of 64 frozen noise realizations; a separate post-selection unseen-forcing comparison preserves both positive and negative outcomes. This is a synthetic implementation check, not planetary evidence. We map the framework onto measured or modeled regimes in the Moon, Mercury, terrestrial planets, Jupiter, Saturn, Uranus, Neptune, and exoplanets. Recent results showing static interior degeneracy, strong conductivity sensitivity, hydrogen–water demixing, rock-rich ice-giant solutions, and evolutionary Bayesian retrieval motivate topology-aware inference but do not establish its predictive value. The proposed novelty is therefore narrow: infer phase-reservoir connectivity as a discrete or hybrid latent state, and promote it only when it yields held-out predictive gain beyond fixed-topology baselines. Eight falsifiable hypotheses and a laboratory, computational, and observational program are supplied.
 
 # 1. Claim, scope, and novelty boundary
 
@@ -738,7 +738,7 @@ $$
 
 **Proposition 3 (static boundary degeneracy).** Under the existence, injectivity, physical-domain, and $K>0$ hypotheses above, if $H$ and $F_\star$ are fixed, the unique equilibrium $T_u$ is independent of $K$, while the hidden deep temperature varies as $H/K$.
 
-A boundary equilibrium measurement can therefore identify the total flux without identifying the transport conductance or deep stored state. Transient forcing breaks the degeneracy because the response times depend on $K$ and the capacities.
+A boundary equilibrium measurement can therefore identify the total flux without identifying the transport conductance or deep stored state. Within this fixed two-reservoir family, transient forcing can break the conductance degeneracy because the response times depend on $K$ and the capacities. That pointwise result does not imply structural identifiability across different graph realizations.
 
 ![Several internal conductances yield the same static boundary temperature but different deep states; their transient responses separate them.](../figures/figure_5_static_degeneracy_transient_resolution.png){#fig:static width=94%}
 
@@ -763,7 +763,7 @@ H^{\mathsf T}R^{-1}H
 \qquad\text{(40)}
 $$
 
-Small eigenvalues of $W_o$ identify combinations of deep state that the selected observations cannot recover [@kalman1960]. A candidate topology should not be promoted when the data cannot distinguish it: a broad posterior is a valid scientific result, not a reason to overinterpret the prior.
+Small eigenvalues of $W_o$ identify combinations of deep state that the selected observations cannot recover [@kalman1960]. This is a within-realization state-observability test, not a structural-identifiability test across different parameterized graphs: two individually observable realizations can still have the same boundary transfer function. A candidate topology should not be promoted when the data cannot distinguish it; the observational equivalence class or a broad posterior is a valid scientific result, not a reason to overinterpret the prior.
 
 ## 9.3 ASTRA Bayesian graph inference
 
@@ -802,7 +802,7 @@ A candidate topology is promoted only if all six conditions hold:
 
 ## 9.5 Synthetic ASTRA benchmark
 
-The reference release includes a transparent three-reservoir model-selection benchmark. Four connected graph families — a serial chain, two distinct stars, and an overconnected triangle — are fitted only to noisy observations of the surface node. All generation and evaluation constants are public; this is neither blind nor external validation. All four families can be assigned the same static surface equilibrium, while their hidden deep equilibria differ. The generating graph is a two-edge chain with conductances $0.22$ and $1.40$ in normalized units.
+The reference release includes a transparent three-reservoir model-selection benchmark. Four connected node-labeled transport-support hypotheses — a serial chain, two differently labeled stars, and an overconnected triangle — are fitted only to noisy observations of the surface node. The labels and unequal capacities are part of the hypotheses; as abstract unweighted graphs, the chain and deep star are the same three-node path rooted at a leaf. All generation and evaluation constants are public; this is neither blind nor external validation. All four hypotheses can be assigned the same static surface equilibrium, while their hidden deep equilibria differ. The generating graph is a two-edge chain with conductances $0.22$ and $1.40$ in normalized units.
 
 Graph selection uses training-set Bayesian information criterion only. The held-out forcing is evaluated afterward and is not used to choose a graph. The overconnected triangle can attain a nearly identical training residual by shrinking its additional shortcut conductance toward zero, but loses after the BIC parameter penalty; the two incorrect star families produce substantially larger held-out errors. Every fit uses the same release-frozen 20-start generic log-conductance design, rejects solver terminations that fail the declared first-order optimality threshold, and fails closed if a non-admitted endpoint produces a materially lower cost. The 20-start design was adopted during release audit after replay of this same synthetic benchmark exposed a missed endpoint under the earlier 12-start design. The added unit and coordinate-wise decade anchors were therefore informed by benchmark behavior. These reruns are regression evidence for the repaired implementation, not untouched, blinded, or external evaluation. Across 64 independent noise realizations at standard deviation $2.5\times10^{-3}$, the minimum chain is selected in 64 cases, with median
 
@@ -812,7 +812,9 @@ $$
 =5.85.
 $$
 
-The median fitted shortcut conductance is $7.65\times10^{-4}$. The shortcut estimate reaches the optimizer's declared lower bound in 29 of 64 realizations and its distribution is therefore censored. The triangle also attains a smaller held-out RMSE than the chain in 23 of 64 realizations, even though training BIC selects the chain. A separate frequency-domain demonstration shows why one low-frequency measurement leaves a broad capacity–conductance degeneracy, whereas multi-frequency amplitude and phase can localize the generating parameters in the same reduced two-reservoir model. These results establish only minimum-family selection under deliberately favorable synthetic conditions; they are neither proof nor empirical, external, or population validation. Capacities, sink structure, candidate graph set, noise model, forcing, and negative outcomes are supplied. The complete protocol, tables, figures, numerical-validation error, optimizer diagnostics, and limitations appear in the technical supplement.
+The median fitted shortcut conductance is $7.65\times10^{-4}$. The shortcut estimate reaches the optimizer's declared lower bound in 29 of 64 realizations and its distribution is therefore censored. The triangle also attains a smaller held-out RMSE than the chain in 23 of 64 realizations, even though training BIC selects the chain. A separate frequency-domain demonstration shows why one low-frequency amplitude measurement leaves a broad capacity–conductance degeneracy, whereas multi-frequency amplitude and phase can localize the generating parameters in the same reduced two-reservoir model. These results establish only minimum-representation selection at one deliberately favorable generating point; they are neither proof nor empirical, external, population, or family-wide topology validation. Capacities, sink structure, candidate graph set, noise model, forcing, and negative outcomes are supplied. The complete protocol, tables, figures, numerical-validation error, optimizer diagnostics, and limitations appear in the technical supplement.
+
+An algebraic-statistical realization audit gives an exact boundary on that result by studying fibers of the rational parameter-to-transfer-function map. With the benchmark capacities and node 2 as the only forcing and observation port, a surface star with $(k_{02},k_{12})=(5,6)$ and a deep star with $(k_{01},k_{02})=(30/11,11)$ have identical rational surface transfer functions for every surface forcing from equilibrium, despite different hidden states and labeled supports. An open subset of nonsingular strictly positive triangles likewise occurs in globally two-to-one transfer-equivalent pairs, and a balanced singular locus contains an unobservable hidden mode. The released chain point has no second realization in the nonnegative candidate domain, so the 64/64 result remains a valid pointwise synthetic selection result. It does not show that surface transients globally identify physical topology. A second spatial input or output, an intervention, or independently justified structural constraints may separate these fibers, but structural identifiability must be recomputed for the particular augmented design.
 
 # 10. Dimensionless regime coordinates
 
@@ -896,7 +898,7 @@ The percolation distance requires $\phi_c>0$, and the spectral bottleneck requir
 
 **Claim.** On data sets containing informative transients or multiple independent channels, posterior inference over $\mathcal G$ improves prediction beyond continuous parameter expansion on a fixed graph.
 
-**Prediction.** In independently controlled future synthetic recovery and later mission/exoplanet data, topology-aware models improve held-out likelihood, calibration, or intervention discrimination while recovering the correct graph family at acceptable false-positive rates.
+**Prediction.** In independently controlled future synthetic studies and later mission/exoplanet data, topology-aware models improve held-out likelihood, calibration, or intervention discrimination. Recovery of a generating graph is claimed only where the declared input-output design separates the relevant observational-equivalence classes at predeclared false-positive rates; otherwise the inferential target is the equivalence class itself.
 
 **Falsifier.** Fixed-topology baselines, Gaussian-process discrepancies, or ordinary mixture models match the gain; random graph controls perform equally; or graph posteriors remain prior-dominated.
 
@@ -1038,7 +1040,7 @@ The proposed SPPT state representation is
 
 subject to conservation, nonnegative entropy production, legal phase domains, and predictive testing.
 
-Three analytic results give the framework concrete content. First, internal transport and reactions preserve every declared conserved inventory exactly, leaving only external exchange. Second, under positive capacities and positive-weight connectivity, a weak transport cut bounds a long relaxation mode. Third, under the stated $K>0$, existence, and injective-radiation hypotheses, static boundary equilibrium can be independent of deep conductance, so transient and multi-channel observations are required to identify hidden architecture.
+Three analytic results give the framework concrete content. First, internal transport and reactions preserve every declared conserved inventory exactly, leaving only external exchange. Second, under positive capacities and positive-weight connectivity, a weak transport cut bounds a long relaxation mode. Third, under the stated $K>0$, existence, and injective-radiation hypotheses, static boundary equilibrium can be independent of deep conductance. Equilibrium must therefore be supplemented, but transient data from one boundary port are not globally sufficient by themselves: structural-identifiability analysis or independent channels and interventions are also required before claiming hidden physical architecture.
 
 The 2026 graphite work sharpens rather than mystifies the theory. It shows that interface and intermediate chemistry can control solid-carbon production, while energy and circuit closure prevent a spontaneous-sequestration interpretation. Combined with emerging evidence for composition gradients, phase separation, superionic candidates, conductivity sensitivity, and evolutionary retrieval, it motivates a focused astronomical program: infer which phases are connected, not only how much material exists.
 
@@ -1128,4 +1130,4 @@ Numerical functions were implemented with NumPy and SciPy, and figures with Matp
 7. Compare held-out log score, calibration, and physically targeted residuals.
 8. Run shuffled-edge, overconnected, and equal-parameter nonlinear controls.
 9. Perturb EOS, phase boundaries, conductivity, and formation priors.
-10. Promote only the minimum graph family that survives all gates; otherwise demote.
+10. Promote a physical graph only if it is uniquely distinguishable under the declared inputs and observations and survives all gates; otherwise report the observational equivalence class or demote.

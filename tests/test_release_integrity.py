@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
+import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -21,7 +24,15 @@ def digest(path: Path) -> str:
 def configure_release_fixture(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> tuple[list[str], dict[str, str]]:
-    names = ["a.pdf", "a.html", "s.pdf", "s.html", "source.tar.gz", "SHA256SUMS", "identity.json"]
+    names = [
+        "SPPT_ASTRA_preprint_v1.0.1.pdf",
+        "SPPT_ASTRA_preprint_v1.0.1.html",
+        "SPPT_ASTRA_technical_supplement_v1.0.1.pdf",
+        "SPPT_ASTRA_technical_supplement_v1.0.1.html",
+        "SPPT_ASTRA_v1.0.1_source.tar.gz",
+        "SHA256SUMS",
+        "release-identity-v1.0.1.json",
+    ]
     dist = tmp_path / "dist"
     dist.mkdir()
     manifest = tmp_path / "MANIFEST.sha256"
@@ -29,13 +40,19 @@ def configure_release_fixture(
     spec = {
         "version": "1.0.1",
         "tag": "v1.0.1",
+        "repository": "https://example.invalid/astra",
+        "release_date": "2026-08-01",
         "build_epoch": "2026-08-01T00:00:00Z",
+        "build_epoch_unix": 1785542400,
         "release_asset_allowlist": names,
     }
     spec_path = tmp_path / "RELEASE_SPEC.json"
     spec_path.write_text(json.dumps(spec), encoding="utf-8")
     for index, name in enumerate(names[:5]):
         (dist / name).write_bytes(f"asset-{index}".encode())
+    tagged_documents = {
+        f"manuscript/{name}": (dist / name).read_bytes() for name in names[:4]
+    }
     sums = "".join(f"{digest(dist / name)}  {name}\n" for name in names[:5])
     (dist / names[5]).write_text(sums, encoding="utf-8", newline="\n")
     tag = {"tag_object": "a" * 40, "commit": "b" * 40, "tree": "c" * 40}
@@ -45,11 +62,13 @@ def configure_release_fixture(
     ]
     identity = {
         "schema": release.IDENTITY_SCHEMA,
+        "repository": "https://example.invalid/astra",
         "version": "1.0.1",
         "tag": "v1.0.1",
         "annotated_tag_object": tag["tag_object"],
         "commit": tag["commit"],
         "tree": tag["tree"],
+        "release_date": "2026-08-01",
         "build_epoch": "2026-08-01T00:00:00Z",
         "tracked_manifest": {
             "name": manifest.name,
@@ -65,7 +84,14 @@ def configure_release_fixture(
     monkeypatch.setattr(release, "DIST", dist)
     monkeypatch.setattr(release, "MANIFEST", manifest)
     monkeypatch.setattr(release, "SPEC_PATH", spec_path)
+    monkeypatch.setattr(release, "verify_python_runtime", lambda: None)
+    monkeypatch.setattr(release, "verify_git_runtime", lambda: None)
     monkeypatch.setattr(release, "tag_identity", lambda *args, **kwargs: tag)
+    monkeypatch.setattr(
+        release,
+        "tagged_file_bytes",
+        lambda _commit, relative: tagged_documents[str(relative)],
+    )
     monkeypatch.setattr(release, "verify_archive", lambda *args, **kwargs: None)
     release.verify_release_assets()
     return names, tag
@@ -77,7 +103,7 @@ def test_one_byte_release_asset_mutation_is_rejected(
     names, _ = configure_release_fixture(tmp_path, monkeypatch)
     target = release.DIST / names[0]
     target.write_bytes(target.read_bytes() + b"x")
-    with pytest.raises(RuntimeError, match="checksum mismatch"):
+    with pytest.raises(RuntimeError, match="checksum mismatch|differs from tagged manuscript"):
         release.verify_release_assets()
 
 
@@ -117,9 +143,45 @@ def test_checksum_or_identity_mismatch_is_rejected(
 ) -> None:
     names, _ = configure_release_fixture(tmp_path, monkeypatch)
     checksum_path = release.DIST / names[5]
-    checksum_path.write_text(checksum_path.read_text(encoding="utf-8").replace("a.pdf", "x.pdf"), encoding="utf-8")
+    checksum_path.write_text(
+        checksum_path.read_text(encoding="utf-8").replace(names[0], "wrong.pdf"),
+        encoding="utf-8",
+    )
     with pytest.raises(RuntimeError, match="SHA256SUMS mismatch"):
         release.verify_release_assets()
+
+
+def test_coordinated_document_replacement_cannot_claim_tagged_identity(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    names, tag = configure_release_fixture(tmp_path, monkeypatch)
+    target = release.DIST / names[0]
+    target.write_bytes(b"coordinated replacement")
+    sums_path = release.DIST / names[5]
+    sums_path.write_text(
+        "".join(f"{digest(release.DIST / name)}  {name}\n" for name in names[:5]),
+        encoding="utf-8",
+        newline="\n",
+    )
+    identity = release.expected_detached_identity(release.release_spec(), tag, names)
+    (release.DIST / names[6]).write_bytes(release.canonical_json_bytes(identity))
+
+    with pytest.raises(RuntimeError, match="tagged manuscript"):
+        release.verify_release_assets()
+
+
+def test_noncanonical_source_archive_bytes_are_rejected(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    archive = tmp_path / "source.tar.gz"
+    archive.write_bytes(b"noncanonical")
+    monkeypatch.setattr(
+        release,
+        "canonical_source_archive_bytes",
+        lambda *args, **kwargs: b"canonical",
+    )
+    with pytest.raises(RuntimeError, match="canonical"):
+        release.verify_archive(archive, commit="a" * 40, prefix="source", epoch=0)
 
 
 def test_source_mutation_and_stale_generated_output_fail_manifest(
@@ -189,6 +251,77 @@ def test_unannotated_existing_and_wrong_target_tags_are_rejected(
         release.tag_identity("v1.0.1")
 
 
+def test_nested_annotated_tag_is_not_accepted_as_a_direct_release_tag(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    initialize_git_repository(tmp_path)
+    monkeypatch.setattr(release, "ROOT", tmp_path)
+    subprocess.run(
+        ["git", "tag", "-a", "inner", "-m", "inner"],
+        cwd=tmp_path,
+        check=True,
+    )
+    subprocess.run(
+        ["git", "tag", "-a", "v1.0.1", "inner", "-m", "outer"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+    )
+    with pytest.raises(RuntimeError, match="directly target"):
+        release.tag_identity("v1.0.1")
+
+
+def test_duplicate_tag_headers_cannot_spoof_a_direct_release_target(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    initialize_git_repository(tmp_path)
+    monkeypatch.setattr(release, "ROOT", tmp_path)
+    subprocess.run(
+        ["git", "tag", "-a", "inner", "-m", "inner"],
+        cwd=tmp_path,
+        check=True,
+    )
+    inner = subprocess.run(
+        ["git", "rev-parse", "refs/tags/inner"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    commit = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    payload = (
+        f"object {inner}\n"
+        "type tag\n"
+        "tag outer\n"
+        "tagger Test <test@example.invalid> 0 +0000\n"
+        f"object {commit}\n"
+        "type commit\n"
+        "tag v1.0.1\n\n"
+        "spoofed duplicate headers\n"
+    )
+    tag_object = subprocess.run(
+        ["git", "hash-object", "--literally", "-t", "tag", "-w", "--stdin"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        input=payload.encode("utf-8"),
+    ).stdout.decode("ascii").strip()
+    subprocess.run(
+        ["git", "update-ref", "refs/tags/v1.0.1", tag_object],
+        cwd=tmp_path,
+        check=True,
+    )
+
+    with pytest.raises(RuntimeError, match="exactly one canonical"):
+        release.tag_identity("v1.0.1")
+
+
 @pytest.mark.parametrize(
     ("name", "is_file", "is_directory"),
     [
@@ -247,7 +380,8 @@ def test_hostile_inherited_numeric_kernel_environment_is_overridden(
     )
     for name in variable_names:
         monkeypatch.setenv(name, "hostile")
-    monkeypatch.setattr(verifier, "TEMP_ROOT", tmp_path / "verification")
+    monkeypatch.setattr(verifier, "ROOT", tmp_path)
+    monkeypatch.setattr(verifier, "TEMP_ROOT", tmp_path / "tmp" / "verification")
     environment = verifier.configure_environment()
     assert environment["OPENBLAS_CORETYPE"] == "HASWELL"
     assert all(environment[name] == "1" for name in variable_names[1:5])
@@ -255,6 +389,439 @@ def test_hostile_inherited_numeric_kernel_environment_is_overridden(
     assert environment["NPY_DISABLE_CPU_FEATURES"] == ",".join(
         runtime["numeric_kernel"]["numpy_disabled_cpu_features"]
     )
+
+
+def test_hostile_pytest_and_python_controller_environment_is_removed(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    hostile = {
+        "PYTEST_ADDOPTS": "--collect-only",
+        "PYTEST_PLUGINS": "hostile_plugin",
+        "PYTHONPATH": "hostile-path",
+        "PYTHONHOME": "hostile-home",
+        "PLAYWRIGHT_BROWSERS_PATH": "hostile-browser",
+        "PYPANDOC_PANDOC": "hostile-pandoc",
+    }
+    for name, value in hostile.items():
+        monkeypatch.setenv(name, value)
+    monkeypatch.setattr(verifier, "ROOT", tmp_path)
+    monkeypatch.setattr(verifier, "TEMP_ROOT", tmp_path / "tmp" / "verification")
+
+    environment = verifier.configure_environment()
+
+    assert not hostile.keys() & environment.keys()
+    assert environment["PYTEST_DISABLE_PLUGIN_AUTOLOAD"] == "1"
+
+
+def test_verifier_rejects_redirected_temporary_root(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    temporary_root = tmp_path / "tmp"
+    temporary_root.mkdir()
+    original_is_symlink = Path.is_symlink
+    monkeypatch.setattr(
+        Path,
+        "is_symlink",
+        lambda self: self == temporary_root or original_is_symlink(self),
+    )
+    monkeypatch.setattr(verifier, "ROOT", tmp_path)
+    monkeypatch.setattr(verifier, "TEMP_ROOT", temporary_root / "verification")
+
+    with pytest.raises(RuntimeError, match="symbolic link or junction"):
+        verifier.configure_environment()
+
+
+def test_verifier_requires_isolated_python(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(verifier.sys, "flags", SimpleNamespace(isolated=0))
+    with pytest.raises(RuntimeError, match="isolated mode"):
+        verifier.require_isolated_mode()
+
+
+@pytest.mark.parametrize("script_name", ["verify.py", "release_integrity.py"])
+def test_controller_refuses_nonisolated_startup_before_shadowable_imports(
+    script_name: str, tmp_path: Path
+) -> None:
+    probe = subprocess.run(
+        [sys.executable, "-B", "-c", "import sys; print(sys.flags.isolated)"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if probe.stdout.strip() == "1":
+        pytest.skip("This embedded interpreter forces isolated mode for every child process.")
+    (tmp_path / "platform.py").write_text(
+        'raise RuntimeError("HOSTILE_PLATFORM_IMPORTED")\n', encoding="utf-8"
+    )
+    environment = os.environ.copy()
+    environment["PYTHONPATH"] = str(tmp_path)
+    completed = subprocess.run(
+        [sys.executable, "-B", str(PROJECT_ROOT / "tools" / script_name)],
+        cwd=PROJECT_ROOT,
+        env=environment,
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=15,
+    )
+    output = completed.stdout + completed.stderr
+    assert completed.returncode != 0
+    assert "Unsafe startup" in output
+    assert "HOSTILE_PLATFORM_IMPORTED" not in output
+
+
+def test_hostile_git_repository_selectors_are_removed(monkeypatch: pytest.MonkeyPatch) -> None:
+    selectors = {
+        "GIT_DIR",
+        "GIT_WORK_TREE",
+        "GIT_COMMON_DIR",
+        "GIT_INDEX_FILE",
+        "GIT_OBJECT_DIRECTORY",
+        "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+        "GIT_CONFIG_PARAMETERS",
+    }
+    for name in selectors:
+        monkeypatch.setenv(name, "hostile")
+
+    environment = release.git_environment()
+
+    assert not selectors & environment.keys()
+    assert environment["GIT_NO_REPLACE_OBJECTS"] == "1"
+    assert environment["GIT_CONFIG_KEY_0"] == "safe.directory"
+    assert Path(environment["GIT_CONFIG_VALUE_0"]).resolve() == release.ROOT.resolve()
+
+
+def test_release_allowlist_rejects_path_traversal() -> None:
+    names = ["a.pdf", "a.html", "s.pdf", "s.html", "../README.md", "SHA256SUMS", "id.json"]
+    with pytest.raises(RuntimeError, match="portable basename"):
+        release.validated_release_allowlist({"release_asset_allowlist": names})
+
+
+@pytest.mark.parametrize(
+    ("mutation", "message"),
+    [
+        ("tag", "tag must equal"),
+        ("asset", "version-bound"),
+        ("epoch", "ISO and Unix"),
+    ],
+)
+def test_release_spec_identity_fields_must_agree(mutation: str, message: str) -> None:
+    version = "1.0.1"
+    spec = {
+        "version": version,
+        "tag": f"v{version}",
+        "repository": "https://example.invalid/astra",
+        "release_date": "2026-08-01",
+        "build_epoch": "2026-08-01T00:00:00Z",
+        "build_epoch_unix": 1785542400,
+        "release_asset_allowlist": [
+            f"SPPT_ASTRA_preprint_v{version}.pdf",
+            f"SPPT_ASTRA_preprint_v{version}.html",
+            f"SPPT_ASTRA_technical_supplement_v{version}.pdf",
+            f"SPPT_ASTRA_technical_supplement_v{version}.html",
+            f"SPPT_ASTRA_v{version}_source.tar.gz",
+            "SHA256SUMS",
+            f"release-identity-v{version}.json",
+        ],
+    }
+    if mutation == "tag":
+        spec["tag"] = "v9.9.9"
+    elif mutation == "asset":
+        spec["release_asset_allowlist"][0] = "SPPT_ASTRA_preprint_v9.9.9.pdf"
+    else:
+        spec["build_epoch_unix"] += 1
+    with pytest.raises(RuntimeError, match=message):
+        release.validated_release_allowlist(spec)
+
+
+def test_tag_event_name_must_equal_release_spec(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(release, "verify_python_runtime", lambda: None)
+    monkeypatch.setattr(release, "verify_git_runtime", lambda: None)
+    with pytest.raises(RuntimeError, match="does not equal declared release tag"):
+        release.verify_release_tag("v9.9.9")
+
+
+def test_github_repository_context_must_bind_declared_repository(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    spec = {"repository": "https://github.com/jkolantree/astra"}
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    monkeypatch.setenv("GITHUB_SERVER_URL", "https://github.com")
+    monkeypatch.setenv("GITHUB_REPOSITORY", "attacker/fork")
+    with pytest.raises(RuntimeError, match="does not equal declared repository"):
+        release.verify_github_repository_context(spec)
+
+
+def test_github_actions_tag_context_requires_tag_type_and_matching_sha(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    commit = "a" * 40
+    monkeypatch.setattr(release, "verify_python_runtime", lambda: None)
+    monkeypatch.setattr(release, "verify_git_runtime", lambda: None)
+    monkeypatch.setattr(
+        release,
+        "release_spec",
+        lambda: {"tag": "v1.0.1", "repository": "https://github.com/jkolantree/astra"},
+    )
+    monkeypatch.setattr(release, "verify_github_repository_context", lambda _spec: None)
+    monkeypatch.setattr(
+        release,
+        "tag_identity",
+        lambda _tag, require_head=True: {
+            "tag_object": "b" * 40,
+            "commit": commit,
+            "tree": "c" * 40,
+        },
+    )
+    monkeypatch.setattr(release, "assert_clean_worktree", lambda: None)
+    monkeypatch.setattr(release, "verify_manifest", lambda **_kwargs: None)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "push")
+
+    with pytest.raises(RuntimeError, match="requires a tag ref"):
+        release.verify_release_tag("v1.0.1")
+    monkeypatch.setenv("GITHUB_REF_TYPE", "tag")
+    with pytest.raises(RuntimeError, match="missing GITHUB_SHA"):
+        release.verify_release_tag("v1.0.1")
+    monkeypatch.setenv("GITHUB_SHA", "d" * 40)
+    with pytest.raises(RuntimeError, match="does not equal tagged commit"):
+        release.verify_release_tag("v1.0.1")
+    monkeypatch.setenv("GITHUB_SHA", commit)
+    release.verify_release_tag("v1.0.1")
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "workflow_dispatch")
+    with pytest.raises(RuntimeError, match="requires a push event"):
+        release.verify_release_tag("v1.0.1")
+
+
+def test_tag_workflow_does_not_shell_interpolate_ref_name() -> None:
+    workflow = (PROJECT_ROOT / ".github" / "workflows" / "verify.yml").read_text(
+        encoding="utf-8"
+    )
+    assert "verify-tag --ref-name" not in workflow
+    assert "github.ref_name" not in workflow
+
+
+def test_clean_worktree_rejects_hidden_index_flags(monkeypatch: pytest.MonkeyPatch) -> None:
+    def fake_git(arguments, **kwargs):
+        assert arguments == ["ls-files", "-v", "-z"]
+        assert kwargs.get("binary") is True
+        return b"h src/sppt_core.py\0"
+
+    monkeypatch.setattr(release, "git", fake_git)
+    with pytest.raises(RuntimeError, match="hide worktree changes"):
+        release.assert_clean_worktree()
+
+
+def test_tracked_paths_use_nul_delimiting(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(release, "git", lambda *args, **kwargs: b"README.md\0odd\nname.txt\0")
+    assert release.tracked_paths() == {"README.md", "odd\nname.txt"}
+
+
+def test_clear_dist_rejects_redirected_distribution_root(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = tmp_path / "root"
+    dist = root / "dist"
+    dist.mkdir(parents=True)
+    victim = dist / "allowed.pdf"
+    victim.write_bytes(b"preserve")
+    original_is_symlink = Path.is_symlink
+    monkeypatch.setattr(
+        Path,
+        "is_symlink",
+        lambda self: self == dist or original_is_symlink(self),
+    )
+    monkeypatch.setattr(release, "ROOT", root)
+    monkeypatch.setattr(release, "DIST", dist)
+
+    with pytest.raises(RuntimeError, match="distribution directory"):
+        release.clear_dist({victim.name})
+    assert victim.read_bytes() == b"preserve"
+
+
+def test_clear_dist_rejects_wrong_repository_descendant(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = tmp_path / "root"
+    wrong = root / "other"
+    wrong.mkdir(parents=True)
+    victim = wrong / "allowed.pdf"
+    victim.write_bytes(b"preserve")
+    monkeypatch.setattr(release, "ROOT", root)
+    monkeypatch.setattr(release, "DIST", wrong)
+
+    with pytest.raises(RuntimeError, match="distribution directory"):
+        release.clear_dist({victim.name})
+    assert victim.read_bytes() == b"preserve"
+
+
+def test_clear_dist_preflights_complete_roster_before_deleting(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = tmp_path / "root"
+    dist = root / "dist"
+    dist.mkdir(parents=True)
+    allowed = dist / "SHA256SUMS"
+    unexpected = dist / "old-release.pdf"
+    allowed.write_bytes(b"preserve allowed")
+    unexpected.write_bytes(b"preserve unexpected")
+    monkeypatch.setattr(release, "ROOT", root)
+    monkeypatch.setattr(release, "DIST", dist)
+
+    with pytest.raises(RuntimeError, match="Unexpected item"):
+        release.clear_dist({allowed.name})
+    assert allowed.read_bytes() == b"preserve allowed"
+    assert unexpected.read_bytes() == b"preserve unexpected"
+
+
+def test_staged_distribution_failure_restores_prior_roster(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = tmp_path / "root"
+    dist = root / "dist"
+    staging = root / "tmp" / "release-dist-test"
+    dist.mkdir(parents=True)
+    staging.mkdir(parents=True)
+    old_asset = dist / "allowed.pdf"
+    new_asset = staging / "allowed.pdf"
+    old_asset.write_bytes(b"old verified roster")
+    new_asset.write_bytes(b"new staged roster")
+    monkeypatch.setattr(release, "ROOT", root)
+    monkeypatch.setattr(release, "DIST", dist)
+
+    def reject_installed(_distribution=None) -> None:
+        raise RuntimeError("post-install verification failed")
+
+    monkeypatch.setattr(release, "verify_release_assets", reject_installed)
+    with pytest.raises(RuntimeError, match="post-install verification failed"):
+        release.install_staged_distribution(staging, {old_asset.name})
+
+    assert old_asset.read_bytes() == b"old verified roster"
+    assert new_asset.read_bytes() == b"new staged roster"
+
+
+def test_staged_distribution_preserves_unexpected_prior_roster(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = tmp_path / "root"
+    dist = root / "dist"
+    staging = root / "tmp" / "release-dist-test"
+    dist.mkdir(parents=True)
+    staging.mkdir(parents=True)
+    prior = dist / "old-release.pdf"
+    candidate = staging / "allowed.pdf"
+    prior.write_bytes(b"preserve old release")
+    candidate.write_bytes(b"candidate")
+    monkeypatch.setattr(release, "ROOT", root)
+    monkeypatch.setattr(release, "DIST", dist)
+
+    with pytest.raises(RuntimeError, match="Unexpected item"):
+        release.install_staged_distribution(staging, {candidate.name})
+
+    assert prior.read_bytes() == b"preserve old release"
+    assert candidate.read_bytes() == b"candidate"
+
+
+def test_atomic_repository_write_does_not_mutate_external_hardlink(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = tmp_path / "root"
+    output_directory = root / "tmp"
+    output_directory.mkdir(parents=True)
+    external = tmp_path / "external.bin"
+    external.write_bytes(b"preserve")
+    destination = output_directory / "archive.tar.gz"
+    os.link(external, destination)
+    monkeypatch.setattr(release, "ROOT", root)
+
+    release.atomic_write_repository_bytes(destination, b"replacement")
+
+    assert external.read_bytes() == b"preserve"
+    assert destination.read_bytes() == b"replacement"
+
+
+def test_manifest_write_does_not_mutate_external_hardlink(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = tmp_path / "root"
+    root.mkdir()
+    readme = root / "README.md"
+    readme.write_text("public\n", encoding="utf-8")
+    external = tmp_path / "external-manifest.txt"
+    external.write_bytes(b"preserve external")
+    manifest = root / "MANIFEST.sha256"
+    os.link(external, manifest)
+    monkeypatch.setattr(release, "ROOT", root)
+    monkeypatch.setattr(release, "MANIFEST", manifest)
+    monkeypatch.setattr(release, "public_files", lambda: [manifest, readme])
+
+    release.write_manifest()
+
+    assert external.read_bytes() == b"preserve external"
+    assert manifest.read_text(encoding="utf-8") == f"{release.sha256(readme)}  README.md\n"
+
+
+def test_full_replay_runs_scientific_generation_twice(monkeypatch: pytest.MonkeyPatch) -> None:
+    commands: list[list[str]] = []
+    monkeypatch.setattr(verifier, "verify_focused", lambda _environment: None)
+    monkeypatch.setattr(verifier, "scientific_outputs", lambda: [])
+    monkeypatch.setattr(verifier, "DOCUMENT_OUTPUTS", ())
+    monkeypatch.setattr(
+        verifier,
+        "run",
+        lambda command, *, environment: commands.append(command),
+    )
+
+    verifier.verify_full_replay({}, workers=1)
+
+    assert sum("scripts/make_figures.py" in command for command in commands) == 2
+    assert all(command[1:4] == ["-P", "-s", "-B"] for command in commands)
+
+
+def test_focused_verification_requires_tracked_manifest_inventory(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    commands: list[list[str]] = []
+    monkeypatch.setattr(verifier, "verify_runtime", lambda _environment: None)
+    monkeypatch.setattr(verifier, "cffconvert_command", lambda: ["cffconvert", "--validate"])
+    monkeypatch.setattr(
+        verifier,
+        "run",
+        lambda command, *, environment: commands.append(command),
+    )
+
+    verifier.verify_focused({})
+
+    pytest_command = next(command for command in commands if "pytest" in command)
+    python_commands = [command for command in commands if command[0] == sys.executable]
+    assert "addopts=" in pytest_command
+    assert pytest_command[-1] == "tests"
+    manifest_command = next(command for command in commands if "verify-manifest" in command)
+    non_manifest_python = [command for command in python_commands if command is not manifest_command]
+    assert all(command[1:4] == ["-P", "-s", "-B"] for command in non_manifest_python)
+    assert manifest_command[1:3] == ["-I", "-B"]
+    assert "--tracked" in manifest_command
+
+
+def test_focused_verification_does_not_skip_a_missing_manifest(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    commands: list[list[str]] = []
+    monkeypatch.setattr(verifier, "ROOT", tmp_path)
+    monkeypatch.setattr(verifier, "verify_runtime", lambda _environment: None)
+    monkeypatch.setattr(verifier, "cffconvert_command", lambda: ["cffconvert", "--validate"])
+    monkeypatch.setattr(
+        verifier,
+        "run",
+        lambda command, *, environment: commands.append(command),
+    )
+
+    verifier.verify_focused({})
+
+    manifest_command = next(command for command in commands if "verify-manifest" in command)
+    assert manifest_command[1:3] == ["-I", "-B"]
+    assert "--tracked" not in manifest_command
 
 
 @pytest.mark.parametrize(
@@ -350,6 +917,22 @@ def test_root_git_and_cache_directories_are_excluded_from_public_inventory(
     (tmp_path / "tmp" / "cache.bin").write_bytes(b"cache")
     monkeypatch.setattr(repository, "ROOT", tmp_path)
     assert [path.name for path in repository.public_files()] == ["README.md"]
+
+
+def test_ignored_output_root_link_is_rejected(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    redirected = tmp_path / "dist"
+    redirected.mkdir()
+    original_is_symlink = Path.is_symlink
+    monkeypatch.setattr(
+        Path,
+        "is_symlink",
+        lambda self: self == redirected or original_is_symlink(self),
+    )
+    monkeypatch.setattr(repository, "ROOT", tmp_path)
+    with pytest.raises(RuntimeError, match="symbolic link"):
+        repository.public_files()
 
 
 def test_cache_outside_disposable_root_is_rejected(

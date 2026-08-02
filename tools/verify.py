@@ -1,5 +1,11 @@
-"""Canonical fail-closed verification for SPPT/ASTRA v1.0.1."""
+"""Canonical fail-closed verification for the current SPPT/ASTRA release spec."""
 from __future__ import annotations
+
+if __name__ == "__main__":
+    import sys as _bootstrap_sys
+
+    if not _bootstrap_sys.flags.isolated or not _bootstrap_sys.dont_write_bytecode:
+        raise SystemExit("Unsafe startup: run Python with -I -B before tools/verify.py")
 
 import argparse
 import ctypes
@@ -20,15 +26,84 @@ ROOT = Path(__file__).resolve().parents[1]
 TEMP_ROOT = ROOT / "tmp" / "verification"
 RUNTIME_PATH = ROOT / "RUNTIME.json"
 LOCK_PATH = ROOT / "requirements-lock.txt"
+RELEASE_SPEC = json.loads((ROOT / "RELEASE_SPEC.json").read_text(encoding="utf-8"))
+VERSION = str(RELEASE_SPEC["version"])
 
 DOCUMENT_OUTPUTS = (
-    ROOT / "manuscript" / "SPPT_ASTRA_preprint_v1.0.1.html",
-    ROOT / "manuscript" / "SPPT_ASTRA_preprint_v1.0.1.pdf",
-    ROOT / "manuscript" / "SPPT_ASTRA_technical_supplement_v1.0.1.html",
-    ROOT / "manuscript" / "SPPT_ASTRA_technical_supplement_v1.0.1.pdf",
+    ROOT / "manuscript" / f"SPPT_ASTRA_preprint_v{VERSION}.html",
+    ROOT / "manuscript" / f"SPPT_ASTRA_preprint_v{VERSION}.pdf",
+    ROOT / "manuscript" / f"SPPT_ASTRA_technical_supplement_v{VERSION}.html",
+    ROOT / "manuscript" / f"SPPT_ASTRA_technical_supplement_v{VERSION}.pdf",
     ROOT / "manuscript" / "document_semantic_identity.json",
     ROOT / "manuscript" / "pdf_inspection.json",
 )
+INHERITED_CONTROL_VARIABLES = {
+    "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+    "GIT_CEILING_DIRECTORIES",
+    "GIT_COMMON_DIR",
+    "GIT_CONFIG_COUNT",
+    "GIT_CONFIG_GLOBAL",
+    "GIT_CONFIG_PARAMETERS",
+    "GIT_CONFIG_SYSTEM",
+    "GIT_DIR",
+    "GIT_DISCOVERY_ACROSS_FILESYSTEM",
+    "GIT_INDEX_FILE",
+    "GIT_NAMESPACE",
+    "GIT_OBJECT_DIRECTORY",
+    "GIT_QUARANTINE_PATH",
+    "GIT_REPLACE_REF_BASE",
+    "GIT_WORK_TREE",
+    "PYTEST_ADDOPTS",
+    "PYTEST_PLUGINS",
+    "PYTHONHOME",
+    "PYTHONPATH",
+    "PLAYWRIGHT_BROWSERS_PATH",
+    "PYPANDOC_PANDOC",
+}
+
+
+def is_link_or_junction(path: Path) -> bool:
+    junction_check = getattr(path, "is_junction", None)
+    return path.is_symlink() or bool(junction_check and junction_check())
+
+
+def assert_safe_repository_descendant(path: Path) -> None:
+    try:
+        relative = path.relative_to(ROOT)
+    except ValueError as exc:
+        raise RuntimeError(f"Output path is outside the repository: {path}") from exc
+    expected = ROOT.resolve().joinpath(*relative.parts)
+    current = ROOT
+    for part in relative.parts:
+        current /= part
+        if is_link_or_junction(current):
+            raise RuntimeError(f"Unsafe symbolic link or junction in output path: {current}")
+        if current != path and current.exists() and not current.is_dir():
+            raise RuntimeError(f"Non-directory component in output path: {current}")
+    if path.resolve() != expected:
+        raise RuntimeError(f"Output path resolves outside its expected location: {path}")
+
+
+def ensure_safe_directory(path: Path) -> None:
+    assert_safe_repository_descendant(path)
+    if path.exists() and not path.is_dir():
+        raise RuntimeError(f"Expected output directory but found a non-directory: {path}")
+    path.mkdir(parents=True, exist_ok=True)
+    assert_safe_repository_descendant(path)
+
+
+def is_inherited_controller_variable(name: str) -> bool:
+    return (
+        name in INHERITED_CONTROL_VARIABLES
+        or name.startswith("GIT_")
+        or name.startswith("PYTEST_")
+        or name.startswith("PYTHON")
+    )
+
+
+def require_isolated_mode() -> None:
+    if not sys.flags.isolated or not sys.dont_write_bytecode:
+        raise RuntimeError("Canonical verification requires Python isolated mode: use -I -B")
 
 
 def sha256(path: Path) -> str:
@@ -39,22 +114,44 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def controlled_python(*arguments: str) -> list[str]:
+    """Return a safe-path child command that honors the sanitized hash seed."""
+    return [sys.executable, "-P", "-s", "-B", *arguments]
+
+
+def isolated_python(*arguments: str) -> list[str]:
+    """Return an isolated child command for self-protecting controllers."""
+    return [sys.executable, "-I", "-B", *arguments]
+
+
 def configure_environment() -> dict[str, str]:
     runtime = json.loads(RUNTIME_PATH.read_text(encoding="utf-8"))
     numeric_kernel = runtime["numeric_kernel"]
     core_type = str(numeric_kernel["core_type"])
     threads = str(numeric_kernel["threads"])
     disabled_numpy_features = ",".join(numeric_kernel["numpy_disabled_cpu_features"])
-    TEMP_ROOT.mkdir(parents=True, exist_ok=True)
+    for path in (ROOT / "tmp", TEMP_ROOT, ROOT / "tmp" / "pycache", ROOT / "tmp" / "matplotlib"):
+        ensure_safe_directory(path)
     tempfile.tempdir = str(TEMP_ROOT)
     environment = os.environ.copy()
+    for name in tuple(environment):
+        if is_inherited_controller_variable(name):
+            environment.pop(name)
     environment.update(
         {
             "PYTHONHASHSEED": "0",
             "PYTHONDONTWRITEBYTECODE": "1",
             "PYTHONPYCACHEPREFIX": str(ROOT / "tmp" / "pycache"),
+            "PYTHONNOUSERSITE": "1",
+            "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+            "GIT_CONFIG_COUNT": "1",
+            "GIT_CONFIG_GLOBAL": os.devnull,
+            "GIT_CONFIG_NOSYSTEM": "1",
+            "GIT_CONFIG_KEY_0": "safe.directory",
+            "GIT_CONFIG_VALUE_0": str(ROOT.resolve()),
+            "GIT_NO_REPLACE_OBJECTS": "1",
             "TZ": "UTC",
-            "SOURCE_DATE_EPOCH": "1785542400",
+            "SOURCE_DATE_EPOCH": str(RELEASE_SPEC["build_epoch_unix"]),
             "OPENBLAS_CORETYPE": core_type,
             "OMP_NUM_THREADS": threads,
             "OPENBLAS_NUM_THREADS": threads,
@@ -68,6 +165,9 @@ def configure_environment() -> dict[str, str]:
             "TMPDIR": str(TEMP_ROOT),
         }
     )
+    for name in tuple(os.environ):
+        if is_inherited_controller_variable(name):
+            os.environ.pop(name, None)
     os.environ.update(environment)
     return environment
 
@@ -216,6 +316,7 @@ def verify_numeric_kernel(runtime: dict[str, Any]) -> None:
 
 
 def verify_runtime(environment: dict[str, str]) -> None:
+    require_isolated_mode()
     runtime = json.loads(RUNTIME_PATH.read_text(encoding="utf-8"))
     observed_python = platform.python_version()
     if observed_python != runtime["python"]:
@@ -250,7 +351,7 @@ def verify_runtime(environment: dict[str, str]) -> None:
 
     verify_installed_distributions()
     verify_numeric_kernel(runtime)
-    run([sys.executable, "-m", "pip", "check"], environment=environment)
+    run(controlled_python("-m", "pip", "check"), environment=environment)
 
     import playwright
     import pypandoc
@@ -280,42 +381,48 @@ def verify_runtime(environment: dict[str, str]) -> None:
 
 
 def cffconvert_command() -> list[str]:
-    suffix = ".exe" if os.name == "nt" else ""
-    executable = Path(sys.executable).parent / f"cffconvert{suffix}"
-    if not executable.is_file():
-        located = shutil.which("cffconvert")
-        if located is None:
-            return [
-                sys.executable,
-                "-c",
-                "from cffconvert.cli.cli import cli; cli()",
-                "--validate",
-            ]
-        executable = Path(located)
-    return [str(executable), "--validate"]
+    return controlled_python(
+        "-c",
+        "from cffconvert.cli.cli import cli; cli()",
+        "--validate",
+    )
 
 
 def verify_focused(environment: dict[str, str]) -> None:
     verify_runtime(environment)
-    run([sys.executable, "tools/check_repository.py"], environment=environment)
+    run(controlled_python("tools/check_repository.py"), environment=environment)
     commands = (
-        [sys.executable, "-m", "pytest", "-q"],
-        [sys.executable, "-m", "ruff", "check", "."],
-        [sys.executable, "-m", "mypy", "src"],
+        [
+            *controlled_python(),
+            "-m",
+            "pytest",
+            "-q",
+            "-o",
+            "addopts=",
+            "--strict-config",
+            "--strict-markers",
+            "-p",
+            "no:cacheprovider",
+            "tests",
+        ],
+        controlled_python("-m", "ruff", "check", "."),
+        controlled_python("-m", "mypy", "src"),
         cffconvert_command(),
-        [sys.executable, "tools/inspect_pdf.py"],
+        controlled_python("tools/inspect_pdf.py"),
     )
     for command in commands:
         run(command, environment=environment)
-    run([sys.executable, "tools/check_repository.py"], environment=environment)
+    run(controlled_python("tools/check_repository.py"), environment=environment)
     if (ROOT / ".git").exists():
         run(["git", "diff", "--check"], environment=environment)
         run(["git", "diff", "--cached", "--check"], environment=environment)
-    if (ROOT / "MANIFEST.sha256").is_file():
-        run(
-            [sys.executable, "tools/release_integrity.py", "verify-manifest"],
-            environment=environment,
-        )
+    manifest_command = isolated_python("tools/release_integrity.py", "verify-manifest")
+    if (ROOT / ".git").exists():
+        manifest_command.append("--tracked")
+    run(
+        manifest_command,
+        environment=environment,
+    )
 
 
 def identity(paths: tuple[Path, ...] | list[Path]) -> dict[str, dict[str, Any]]:
@@ -357,20 +464,31 @@ def verify_full_replay(environment: dict[str, str], workers: int) -> None:
     verify_focused(environment)
     science_before = identity(scientific_outputs())
     run(
-        [sys.executable, "scripts/make_figures.py", "--workers", str(workers)],
+        controlled_python("scripts/make_figures.py", "--workers", str(workers)),
         environment=environment,
     )
-    science_after = identity(scientific_outputs())
-    if science_after != science_before:
-        difference = identity_difference(science_before, science_after)
+    science_first = identity(scientific_outputs())
+    if science_first != science_before:
+        difference = identity_difference(science_before, science_first)
         raise RuntimeError(
             "Scientific data or figures were stale or non-deterministic: "
             + json.dumps(difference, sort_keys=True)
         )
+    run(
+        controlled_python("scripts/make_figures.py", "--workers", str(workers)),
+        environment=environment,
+    )
+    science_second = identity(scientific_outputs())
+    if science_second != science_first:
+        difference = identity_difference(science_first, science_second)
+        raise RuntimeError(
+            "Consecutive scientific replays are not byte-identical: "
+            + json.dumps(difference, sort_keys=True)
+        )
 
     documents_before = identity(list(DOCUMENT_OUTPUTS))
-    run([sys.executable, "tools/build_documents.py"], environment=environment)
-    run([sys.executable, "tools/inspect_pdf.py", "--write"], environment=environment)
+    run(controlled_python("tools/build_documents.py"), environment=environment)
+    run(controlled_python("tools/inspect_pdf.py", "--write"), environment=environment)
     documents_first = identity(list(DOCUMENT_OUTPUTS))
     if documents_first != documents_before:
         difference = identity_difference(documents_before, documents_first)
@@ -378,8 +496,8 @@ def verify_full_replay(environment: dict[str, str], workers: int) -> None:
             "Tracked document outputs were stale or non-deterministic: "
             + json.dumps(difference, sort_keys=True)
         )
-    run([sys.executable, "tools/build_documents.py"], environment=environment)
-    run([sys.executable, "tools/inspect_pdf.py", "--write"], environment=environment)
+    run(controlled_python("tools/build_documents.py"), environment=environment)
+    run(controlled_python("tools/inspect_pdf.py", "--write"), environment=environment)
     documents_second = identity(list(DOCUMENT_OUTPUTS))
     if documents_second != documents_first:
         difference = identity_difference(documents_first, documents_second)
@@ -393,6 +511,7 @@ def verify_full_replay(environment: dict[str, str], workers: int) -> None:
 
 
 def main() -> None:
+    require_isolated_mode()
     parser = argparse.ArgumentParser()
     parser.add_argument("--all", action="store_true", help="Replay every scientific and document output twice.")
     parser.add_argument("--workers", type=int, default=4)

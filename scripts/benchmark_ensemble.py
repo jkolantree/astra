@@ -1,7 +1,8 @@
-"""Monte Carlo robustness check for the synthetic topology-recovery benchmark.
+"""Monte Carlo robustness check for the synthetic pointwise topology benchmark.
 
-This script repeats the three-reservoir benchmark over independent noise seeds.
-It is a synthetic model-selection test, not a fit to any planet.
+This script repeats the released three-reservoir benchmark point over independent
+noise seeds. It is a synthetic model-selection test, not a family-wide
+identifiability result or a fit to any planet.
 """
 from __future__ import annotations
 
@@ -68,6 +69,19 @@ def equilibrium(edges: list[tuple[int, int]], conductance: np.ndarray, forcing: 
     return np.linalg.solve(L + sink, source)
 
 
+def validated_uniform_steps(time: np.ndarray) -> np.ndarray:
+    if time.ndim != 1 or time.size < 2:
+        raise ValueError("time must contain at least two samples.")
+    if not np.all(np.isfinite(time)):
+        raise ValueError("time must contain only finite samples.")
+    steps = np.diff(time)
+    if np.any(steps <= 0.0):
+        raise ValueError("time must be strictly monotonic increasing.")
+    if not np.allclose(steps, steps[0], rtol=0.0, atol=1e-12):
+        raise ValueError("Fast ensemble simulation requires a uniform time grid.")
+    return steps
+
+
 def simulate(
     edges: list[tuple[int, int]],
     conductance: np.ndarray,
@@ -81,11 +95,7 @@ def simulate(
     against the high-accuracy solve_ivp implementation is recorded in the
     technical supplement and unit tests.
     """
-    if time.ndim != 1 or time.size < 2:
-        raise ValueError("time must contain at least two samples.")
-    steps = np.diff(time)
-    if not np.allclose(steps, steps[0], rtol=0.0, atol=1e-12):
-        raise ValueError("Fast ensemble simulation requires a uniform time grid.")
+    steps = validated_uniform_steps(time)
 
     L = laplacian(edges, conductance)
     sink = np.diag([0.0, 0.0, SURFACE_SINK])
@@ -117,11 +127,7 @@ def simulate_with_log_conductance_sensitivities(
     forcing: Callable[[float], float],
 ) -> tuple[np.ndarray, np.ndarray]:
     """Propagate the ZOH model and exact sensitivities to log conductances."""
-    if time.ndim != 1 or time.size < 2:
-        raise ValueError("time must contain at least two samples.")
-    steps = np.diff(time)
-    if not np.allclose(steps, steps[0], rtol=0.0, atol=1e-12):
-        raise ValueError("Fast ensemble simulation requires a uniform time grid.")
+    steps = validated_uniform_steps(time)
 
     incidence = sppt.incidence_matrix(3, edges)
     laplacian_matrix = sppt.weighted_laplacian(incidence, conductance)
@@ -419,7 +425,7 @@ def main() -> None:
     ax.set_title("Overconnected edge shrinkage")
     ax.legend(frameon=False, fontsize=7.5)
 
-    fig.suptitle("Synthetic topology-recovery robustness ensemble", fontsize=12, fontweight="bold")
+    fig.suptitle("Synthetic pointwise topology-selection ensemble", fontsize=12, fontweight="bold")
     fig.tight_layout()
     fig.savefig(FIGURES / "supplement_figure_S6_topology_ensemble.png", dpi=300, bbox_inches="tight")
     fig.savefig(FIGURES / "supplement_figure_S6_topology_ensemble.pdf", bbox_inches="tight")

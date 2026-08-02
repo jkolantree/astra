@@ -1,9 +1,9 @@
 ---
-title: "Technical Supplement: Synthetic Identifiability and Topology-Recovery Tests"
+title: "Technical Supplement: Synthetic Pointwise Topology Selection and Identifiability Limits"
 subtitle: "Solar–Planetary Phase-Partition Theory with ASTRA"
 author: "Jacko T."
-date: "1 August 2026"
-version: "1.0.1"
+date: "2 August 2026"
+version: "1.0.2"
 lang: en-US
 toc: true
 toc-depth: 3
@@ -36,12 +36,12 @@ header-includes:
     \pagestyle{fancy}
     \fancyhf{}
     \fancyhead[L]{\small SPPT--ASTRA Technical Supplement}
-    \fancyhead[R]{\small Version 1.0.1}
+    \fancyhead[R]{\small Version 1.0.2}
     \fancyfoot[C]{\thepage}
     \renewcommand{\headrulewidth}{0.3pt}
 ---
 
-**Version 1.0.1 · Reproducibility supplement · Not peer reviewed**
+**Version 1.0.2 · Reproducibility supplement · Not peer reviewed**
 
 > **Status statement.** Every result in this supplement is synthetic. No Solar System, exoplanet, laboratory, or mission data are fitted. The tests demonstrate implementation behavior under declared assumptions; they do not validate a planetary topology.
 
@@ -51,15 +51,15 @@ The main paper proposes **Solar–Planetary Phase-Partition Theory (SPPT)** and 
 
 This supplement documents three narrow implementation tests:
 
-1. a transparent three-reservoir topology-recovery benchmark with training-BIC selection and a distinct post-selection held-out forcing;
+1. a transparent three-reservoir pointwise topology-selection benchmark with training-BIC selection and a distinct post-selection held-out forcing;
 2. a 64-seed Monte Carlo robustness repetition of that benchmark;
-3. a two-reservoir frequency-domain demonstration of static and single-frequency non-identifiability.
+3. a two-reservoir frequency-domain demonstration of static and single-frequency-amplitude non-identifiability.
 
 The tests are deliberately small enough to audit line by line. They are not a substitute for equations of state, phase diagrams, atmosphere–interior evolution, radiative transfer, or mission-data likelihoods.
 
-# Three-reservoir topology-recovery benchmark
+# Three-reservoir pointwise topology-selection benchmark
 
-## Candidate graph families
+## Candidate node-labeled support hypotheses
 
 The benchmark contains three reservoirs, indexed from deep to observable surface:
 
@@ -67,7 +67,7 @@ $$
 0=\text{deep},\qquad 1=\text{intermediate},\qquad 2=\text{surface}.
 $$
 
-Four connected undirected transport graphs are compared:
+Four connected, node-labeled undirected transport-support hypotheses are compared. The node labels and capacities are part of each hypothesis: as abstract unweighted graphs, the chain and deep star are both a three-node path rooted at a leaf.
 
 | Graph family | Edges | Free conductances |
 |---|---|---:|
@@ -133,9 +133,9 @@ $$
 \mathrm{BIC}=n\ln\left(\frac{\mathrm{RSS}}{n}\right)+p\ln n.
 $$
 
-This BIC is a small-sample implementation choice, not a universal ASTRA selection law. Its regular-model interpretation is only approximate here because the triangle nests the chain at a conductance boundary. The main framework requires posterior predictive calibration and physically matched controls for real inference.
+This BIC is a small-sample implementation choice, not a universal ASTRA selection law. Its regular-model interpretation is only approximate here because the triangle nests the chain at a conductance boundary, candidate families intersect exactly, and pole-zero-cancellation strata are singular. At an exact input-output equivalence, BIC can select a smaller representation but cannot establish which physical support generated the data. The main framework requires structural-identifiability checks, posterior predictive calibration, and physically matched controls for real inference.
 
-![Training observations and held-out predictions for the four candidate graph families. The benchmark is synthetic and uses only the surface node as an observation.](../figures/supplement_figure_S1_topology_benchmark.png){#fig:s1 width=100%}
+![Training observations and held-out predictions for the four candidate node-labeled support hypotheses. The benchmark is synthetic and uses only the surface node as an observation.](../figures/supplement_figure_S1_topology_benchmark.png){#fig:s1 width=100%}
 
 ## Exact static degeneracy
 
@@ -147,6 +147,8 @@ $$
 
 Their hidden deep states are not the same.
 
+For this static comparison only, the code uses the declared true conductances for the chain and assigns conductance $0.7$ to every edge of each non-generating candidate. These illustrative alternative weights do not enter the fitted benchmark results.
+
 | Graph family | Surface equilibrium | Deep equilibrium |
 |---|---:|---:|
 | Chain | 0.833333 | 6.093074 |
@@ -156,7 +158,81 @@ Their hidden deep states are not the same.
 
 This is the benchmark's core inverse-problem fact: a static boundary value can identify total throughput without identifying the internal transport architecture.
 
-## Single-seed recovery
+## Algebraic-statistical audit of dynamic identifiability across supports
+
+Algebraic statistics treats each candidate family as a parameter space mapped into observable coordinates and asks about the fibers of that map. A singleton admissible fiber gives global identifiability; a finite fiber with more than one point gives discrete ambiguity; a positive-dimensional fiber gives continuous non-identifiability; and changes in fiber dimension mark singular strata where regular likelihood asymptotics can fail. This global fiber question is stronger than checking a local Jacobian rank or observability matrix at one realization.
+
+Observability inside one fixed state-space realization is therefore not the same as structural identifiability across parameterized graph realizations. The algebraic-statistical distinction can be resolved exactly for this three-node model. Write
+
+$$
+a=k_{01},\qquad b=k_{12},\qquad c=k_{02},
+$$
+
+and let node 2 be both the forced and observed surface port. After subtracting each graph's equilibrium, the complete surface input-output law is the rational transfer function
+
+$$
+H(s)=e_2^{\mathsf T}
+\left[s\,\mathrm{diag}(C_0,C_1,C_2)+L+\lambda_s e_2e_2^{\mathsf T}\right]^{-1}e_2.
+$$
+
+Define
+
+$$
+\alpha=(C_0+C_1)a+C_0b+C_1c,\qquad
+\tau=ab+ac+bc,\qquad d=b+c.
+$$
+
+A direct cofactor expansion gives
+
+$$
+H(s)=
+\frac{C_0C_1s^2+\alpha s+\tau}
+{C_0C_1C_2s^3+
+\left[C_2\alpha+C_0C_1(d+\lambda_s)\right]s^2+
+\left[(C_0+C_1+C_2)\tau+\lambda_s\alpha\right]s+
+\lambda_s\tau}.
+$$
+
+The single surface port therefore determines only $(\alpha,\tau,d)$ before possible pole-zero cancellation, not necessarily the physical edge conductances. With the benchmark capacities, two different two-edge hypotheses give the same exact triple:
+
+$$
+\begin{aligned}
+\text{surface star:}&\quad (k_{02},k_{12})=(5,6),\\
+\text{deep star:}&\quad (k_{01},k_{02})=(30/11,11),\\
+(\alpha,\tau,d)=&\quad(63,30,11).
+\end{aligned}
+$$
+
+Both consequently have
+
+$$
+H(s)=
+\frac{24s^2+63s+30}
+{24s^3+(1779/5)s^2+(2178/5)s+36}.
+$$
+
+They are connected, have equal parameter count, and are minimal third-order realizations. Their hidden equilibria and trajectories differ, but their surface trajectories are identical for every surface forcing when each run begins at its own equilibrium. Thus changing the training waveform, adding noiseless samples, or applying a BIC penalty cannot distinguish this pair.
+
+The ambiguity is not an isolated coincidence. For a triangle, the second algebraic branch preserving $(\alpha,\tau,d)$ is
+
+$$
+b^\star=\frac{2C_1d}{C_0+C_1}-b,\qquad
+c^\star=d-b^\star,\qquad
+a^\star=a+\frac{C_0-C_1}{C_0+C_1}(b-b^\star),
+$$
+
+whenever the transformed conductances remain nonnegative. For example, the two strictly positive triangles
+
+$$
+(a,b,c)=(1,1,1),\qquad
+(a^\star,b^\star,c^\star)=(171/121,1/11,21/11)
+$$
+
+have the same surface transfer. Each point is locally full-rank, yet the global inverse is two-to-one. On the singular balance locus $C_0b=C_1c$---here $8k_{12}=3k_{02}$---an internal mode cancels from the port response and $k_{01}$ becomes completely invisible. A local Fisher-information or observability-rank check alone therefore cannot rule out global cross-realization ambiguity.
+
+The released generating chain remains a fair pointwise test. Its $(a,b,c)=(0.22,1.40,0)$ has algebraic partner $b^\star=-7/11$, outside the nonnegative-conductance domain. The frozen 64/64 result is therefore preserved as selection of this distinguishable generating point within the declared candidate set; it is not evidence that the candidate families are globally topology-identifying. A spatially distinct time-varying input, another observation channel, an intervention, or independently justified structural constraints may separate the displayed equivalences, but structural identifiability must be recomputed for the particular augmented design.
+
+## Single-seed pointwise selection
 
 The released realization uses seed 20260801. Results ranked by BIC are:
 
@@ -167,7 +243,7 @@ The released realization uses seed 20260801. Results ranked by BIC are:
 | 3 | Surface star | 0.087328; 1.196997 | 0.005059 | -3805.156 | 0.006720 |
 | 4 | Deep star | 0.045813; 1.084790 | 0.019802 | -2819.876 | 0.025147 |
 
-The overconnected triangle has a slightly smaller held-out RMSE than the chain in this one noise realization. That does **not** identify the triangle. Its extra shortcut is fitted at $0.001869$, approximately 0.85% of the weaker true chain edge, and the training-BIC penalty selects the two-edge chain. The correct interpretation is minimum-family selection with an overconnected control that collapses toward the generating graph.
+The overconnected triangle has a slightly smaller held-out RMSE than the chain in this one noise realization. That does **not** identify the triangle. Its extra shortcut is fitted at $0.001869$, approximately 0.85% of the weaker true chain edge, and the training-BIC penalty selects the two-edge chain. The correct interpretation is minimum-representation selection at the released generating point, with an overconnected control that collapses toward that point.
 
 # Monte Carlo robustness ensemble
 
@@ -196,7 +272,7 @@ The post-selection unseen-forcing comparison preserves a material negative outco
 
 This ensemble does not estimate a general false-positive rate. It holds capacities, sink location, forcing, noise law, and the candidate graph set fixed. The CSV and JSON are alternate serializations of the same 64 runs, not independent evidence. A real ASTRA validation program must vary those assumptions, include misspecified models, and test graph-posterior calibration.
 
-# Frequency-domain identifiability demonstration
+# Frequency-domain parameter-localization demonstration
 
 ## Linear response
 
@@ -244,6 +320,8 @@ Using complex amplitude and phase at 24 logarithmically spaced frequencies local
 $$
 (C_d,k)_{\mathrm{grid\ best}}=(20.1111,0.201304).
 $$
+
+The one-frequency objective deliberately discards phase and retains only amplitude. This comparison does not show that multiple frequencies are structurally necessary: one exact nonzero complex response supplies two real features and can generically constrain the two unknown parameters in this normalized model. Multiple frequencies provide redundancy, conditioning, and noise resistance; the released figures demonstrate finite-grid localization, not a minimal-data theorem.
 
 ![Multi-frequency amplitude and phase localize the generating two-reservoir parameters in the synthetic grid search.](../figures/supplement_figure_S3_multifrequency_localization.png){#fig:s3 width=90%}
 
@@ -294,7 +372,7 @@ From the release root, install the exact hash-locked dependencies and run the ca
 
 ```bash
 python -m pip install --require-hashes -r requirements-lock.txt
-python tools/verify.py --all
+python -I -B tools/verify.py --all
 ```
 
 For a direct scientific replay, `python scripts/make_figures.py` regenerates every figure and benchmark output; the wrapper declares the repository import path and frozen build environment itself. The scripts write data to `data/` and figures to `figures/`. Random seeds, all normalized parameter values, accepted-start counts, first-order optimality values, and active-bound flags are stored in machine-readable outputs.
@@ -306,16 +384,17 @@ The benchmark is intentionally favorable. Its main limitations are:
 1. **Known capacities and sink structure.** Only conductances and graph family are fitted.
 2. **Closed candidate set.** The generating graph is present among four candidates.
 3. **Linear dynamics.** No state-dependent phase boundary, topology guard, or nonlinear radiation is included.
-4. **Single observation channel.** Only the surface state is observed, but its noise is independent Gaussian noise with known scale.
-5. **Correct forcing model.** Input timing and amplitude are treated as known.
-6. **BIC approximation.** Full Bayesian graph evidence and posterior calibration are not computed.
-7. **Boundary-nested control.** The triangle collapses to the chain at a conductance boundary, so regular BIC asymptotics need not hold exactly.
-8. **No physical equations of state.** The variables are normalized and not mapped to a planet.
-9. **No discrepancy process.** Structural model error is absent.
-10. **No adversarial negative controls.** Random graph families, equal-parameter nonlinear fixed graphs, and correlated-noise controls remain future work.
-11. **No population validation.** The tests do not establish transfer to exoplanet or Solar System inference.
+4. **Single collocated boundary channel.** Only the surface state is forced and observed; its noise is independent Gaussian noise with known scale.
+5. **Structural non-identifiability.** Even with known capacities and perfect surface data, exact positive cross-support equivalences and a singular dark-mode locus remain. The released chain is a distinguishable point, not a proof of family-wide topology recovery.
+6. **Correct forcing model.** Input timing and amplitude are treated as known.
+7. **BIC approximation.** Full Bayesian graph evidence and posterior calibration are not computed; ordinary BIC does not resolve exact equivalence classes or supply regular asymptotics on singular strata.
+8. **Boundary-nested control.** The triangle collapses to the chain at a conductance boundary, so regular BIC asymptotics need not hold exactly.
+9. **No physical equations of state.** The variables are normalized and not mapped to a planet.
+10. **No discrepancy process.** Structural model error is absent.
+11. **Limited adversarial negative controls.** Exact algebraic equivalences are now tested, but random graph families, equal-parameter nonlinear fixed graphs, and correlated-noise controls remain future work.
+12. **No population validation.** The tests do not establish transfer to exoplanet or Solar System inference.
 
-The next computational milestone is a blinded benchmark suite in which capacities, sink placement, forcing spectrum, phase thresholds, and noise covariance vary; the candidate set sometimes omits the generating graph; and selection is judged by graph-posterior calibration as well as prediction.
+The next computational milestone is a blinded benchmark suite in which capacities, sink placement, forcing spectrum, phase thresholds, observation and intervention ports, and noise covariance vary; the candidate set sometimes omits the generating graph; exact input-output equivalence classes are reported rather than tie-broken; and selection is judged by graph-posterior calibration as well as prediction.
 
 # Artifact map
 
@@ -333,6 +412,6 @@ The next computational milestone is a blinded benchmark suite in which capacitie
 
 # Conclusion
 
-The released synthetic work establishes three limited points. Static surface equilibrium can conceal substantially different internal states; transient forcing can separate several candidate connectivity families; and multi-frequency complex response can reduce a capacity–conductance degeneracy that survives a single response measurement. Within the declared benchmark, training BIC consistently selects the minimum generating graph and an unnecessary edge shrinks toward or reaches its lower bound. Held-out results remain a post-selection comparison and preserve cases favoring the overconnected control.
+The released synthetic work establishes three limited points. Static surface equilibrium can conceal substantially different internal states; transient forcing separates the released chain point from the declared alternatives but cannot globally identify these support families from the single surface port; and multi-frequency complex response can improve localization relative to one amplitude-only response feature. Within the declared benchmark, training BIC consistently selects the released minimum generating representation and an unnecessary edge shrinks toward or reaches its lower bound. Held-out results remain a post-selection comparison and preserve cases favoring the overconnected control.
 
 Those results justify proceeding to harder blinded tests. They do not yet justify an astronomical claim. The scientific threshold remains the same as in the main paper: topology must pay predictive rent under realistic physics, uncertainty, and unseen data.

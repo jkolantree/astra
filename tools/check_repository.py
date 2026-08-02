@@ -7,6 +7,7 @@ import json
 import os
 import re
 import tomllib
+from datetime import UTC, date, datetime
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
@@ -32,6 +33,7 @@ ROOT_ALLOWLIST = {
     "MANIFEST.sha256",
     "README.md",
     "RELEASE_NOTES_v1.0.1.md",
+    "RELEASE_NOTES_v1.0.2.md",
     "RELEASE_SPEC.json",
     "RUNTIME.json",
     "SOURCE_INVENTORY.json",
@@ -90,6 +92,19 @@ ALLOWED_DISPOSITIONS = {
     "deferred",
     "rejected",
 }
+RELEASE_METADATA_PNGS = {
+    "figure_1_phase_reservoir_network.png",
+    "figure_2_trap_memory_hysteresis.png",
+    "figure_3_spectral_bottleneck.png",
+    "figure_4_carbon_phase_relay.png",
+    "figure_5_static_degeneracy_transient_resolution.png",
+    "figure_6_topology_aware_inference.png",
+    "figure_7_state_dependent_transport_feedback.png",
+    "supplement_figure_S2_single_frequency_degeneracy.png",
+    "supplement_figure_S3_multifrequency_localization.png",
+    "supplement_figure_S4_frequency_response_amplitude.png",
+    "supplement_figure_S5_frequency_response_phase.png",
+}
 
 
 def sha256(path: Path) -> str:
@@ -100,14 +115,25 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def is_link_or_junction(path: Path) -> bool:
+    junction_check = getattr(path, "is_junction", None)
+    return path.is_symlink() or bool(junction_check and junction_check())
+
+
 def public_files() -> list[Path]:
     files: list[Path] = []
     for path in ROOT.rglob("*"):
         relative = path.relative_to(ROOT)
-        if not relative.parts or any(part in IGNORED_NAMES for part in relative.parts):
+        if not relative.parts:
             continue
-        if path.is_symlink():
-            raise RuntimeError(f"Unsafe symbolic link: {relative.as_posix()}")
+        if relative.parts[0] in IGNORED_ROOTS:
+            if len(relative.parts) == 1 and is_link_or_junction(path):
+                raise RuntimeError(f"Unsafe symbolic link or junction: {relative.as_posix()}")
+            continue
+        if any(part in IGNORED_NAMES for part in relative.parts):
+            continue
+        if is_link_or_junction(path):
+            raise RuntimeError(f"Unsafe symbolic link or junction: {relative.as_posix()}")
         if not path.is_file():
             continue
         if len(relative.parts) == 1:
@@ -318,15 +344,43 @@ def check_license_map(paths: list[Path]) -> None:
 
 def check_metadata_agreement() -> None:
     spec = json.loads((ROOT / "RELEASE_SPEC.json").read_text(encoding="utf-8"))
+    version = str(spec["version"])
+    tag = str(spec["tag"])
+    if not re.fullmatch(r"\d+\.\d+\.\d+", version) or tag != f"v{version}":
+        raise RuntimeError("RELEASE_SPEC.json version and tag disagree")
+    release_date = date.fromisoformat(str(spec["release_date"]))
+    build_epoch = str(spec["build_epoch"])
+    expected_build_epoch = f"{release_date.isoformat()}T00:00:00Z"
+    if build_epoch != expected_build_epoch:
+        raise RuntimeError("Release build epoch must be midnight UTC on the release date")
+    parsed_epoch = datetime.strptime(build_epoch, "%Y-%m-%dT%H:%M:%SZ").replace(
+        tzinfo=UTC
+    )
+    if type(spec.get("build_epoch_unix")) is not int or spec["build_epoch_unix"] != int(
+        parsed_epoch.timestamp()
+    ):
+        raise RuntimeError("Release ISO and Unix build epochs disagree")
+    expected_release_names = [
+        f"SPPT_ASTRA_preprint_v{version}.pdf",
+        f"SPPT_ASTRA_preprint_v{version}.html",
+        f"SPPT_ASTRA_technical_supplement_v{version}.pdf",
+        f"SPPT_ASTRA_technical_supplement_v{version}.html",
+        f"SPPT_ASTRA_v{version}_source.tar.gz",
+        "SHA256SUMS",
+        f"release-identity-v{version}.json",
+    ]
+    if spec.get("release_asset_allowlist") != expected_release_names:
+        raise RuntimeError("Release asset names are not exactly bound to the release version")
+
     yaml = YAML(typ="safe")
     citation = yaml.load((ROOT / "CITATION.cff").read_text(encoding="utf-8"))
     manuscript = read_frontmatter(ROOT / "manuscript" / "manuscript.md")
     supplement = read_frontmatter(ROOT / "manuscript" / "supplement.md")
     expected = {
         "title": spec["title"],
-        "version": spec["version"],
+        "version": version,
         "author": spec["author"],
-        "date": "1 August 2026",
+        "date": f"{release_date.day} {release_date:%B %Y}",
     }
     for source_name, source in (("manuscript", manuscript), ("supplement", supplement)):
         for key in ("version", "author", "date"):
@@ -342,9 +396,81 @@ def check_metadata_agreement() -> None:
         raise RuntimeError("CITATION.cff pseudonymous author mismatch")
     if citation["repository-code"] != spec["repository"] or citation["license"] != "MIT":
         raise RuntimeError("CITATION.cff repository/license mismatch")
-    release_names = spec["release_asset_allowlist"]
-    if len(release_names) != len(set(release_names)) or len(release_names) != 7:
-        raise RuntimeError("Release asset allowlist must contain exactly seven unique names")
+    preferred = citation.get("preferred-citation", {})
+    if str(preferred.get("version")) != version or preferred.get("url") != (
+        f"{spec['repository']}/releases/tag/{tag}"
+    ):
+        raise RuntimeError("CITATION.cff preferred citation is not bound to the release tag")
+
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    if str(project["project"].get("version")) != version:
+        raise RuntimeError("pyproject.toml version differs from RELEASE_SPEC.json")
+    inventory = json.loads((ROOT / "SOURCE_INVENTORY.json").read_text(encoding="utf-8"))
+    if str(inventory.get("authority", {}).get("version")) != version:
+        raise RuntimeError("Source-inventory authority version differs from RELEASE_SPEC.json")
+    matrix = json.loads((ROOT / "CLAIM_MATRIX.json").read_text(encoding="utf-8"))
+    if matrix.get("title") != f"SPPT/ASTRA v{version} consequential claim-admission matrix":
+        raise RuntimeError("Claim-matrix title differs from RELEASE_SPEC.json")
+
+    notes_path = ROOT / f"RELEASE_NOTES_v{version}.md"
+    if not notes_path.is_file():
+        raise RuntimeError(f"Current release notes are missing: {notes_path.name}")
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    expected_documents = (
+        f"manuscript/SPPT_ASTRA_preprint_v{version}.html",
+        f"manuscript/SPPT_ASTRA_preprint_v{version}.pdf",
+        f"manuscript/SPPT_ASTRA_technical_supplement_v{version}.html",
+        f"manuscript/SPPT_ASTRA_technical_supplement_v{version}.pdf",
+    )
+    edition_pattern = re.compile(
+        r"SPPT_ASTRA_(?:preprint|technical_supplement)_v\d+\.\d+\.\d+\.(?:html|pdf)"
+    )
+    observed_editions = {
+        path.name
+        for path in (ROOT / "manuscript").iterdir()
+        if path.is_file() and edition_pattern.fullmatch(path.name)
+    }
+    expected_edition_names = {Path(relative).name for relative in expected_documents}
+    if observed_editions != expected_edition_names:
+        raise RuntimeError(
+            "Versioned manuscript edition roster differs from the current release: "
+            f"expected {sorted(expected_edition_names)}, observed {sorted(observed_editions)}"
+        )
+    required_readme_values = (*expected_documents, f"{spec['repository']}/releases/tag/{tag}")
+    if any(value not in readme for value in required_readme_values):
+        raise RuntimeError("README current-release links differ from RELEASE_SPEC.json")
+
+    identity = json.loads(
+        (ROOT / "manuscript" / "document_semantic_identity.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    if identity.get("build_epoch") != build_epoch or len(identity.get("records", [])) != 2:
+        raise RuntimeError("Document semantic identity differs from RELEASE_SPEC.json")
+    expected_editions = {
+        "manuscript.md": (
+            f"SPPT_ASTRA_preprint_v{version}.html",
+            f"SPPT_ASTRA_preprint_v{version}.pdf",
+        ),
+        "supplement.md": (
+            f"SPPT_ASTRA_technical_supplement_v{version}.html",
+            f"SPPT_ASTRA_technical_supplement_v{version}.pdf",
+        ),
+    }
+    for record in identity["records"]:
+        expected_files = expected_editions.get(record.get("source"))
+        if expected_files is None or (
+            str(record.get("version")) != version
+            or record.get("author") != expected["author"]
+            or (record.get("html"), record.get("pdf")) != expected_files
+        ):
+            raise RuntimeError("Document semantic-identity record differs from release metadata")
+
+    expected_png_software = f"SPPT-ASTRA reproducibility build v{version}"
+    for filename in sorted(RELEASE_METADATA_PNGS):
+        with Image.open(ROOT / "figures" / filename) as image:
+            if image.info.get("Software") != expected_png_software:
+                raise RuntimeError(f"Figure release metadata drift: {filename}")
 
 
 def check_claim_matrix() -> None:
@@ -485,6 +611,8 @@ def check_runtime_identity() -> None:
 def main() -> None:
     check_cache_boundaries()
     paths = public_files()
+    spec = json.loads((ROOT / "RELEASE_SPEC.json").read_text(encoding="utf-8"))
+    version = str(spec["version"])
     check_text_privacy(paths)
     check_license_map(paths)
     check_png_metadata(paths)
@@ -494,12 +622,12 @@ def main() -> None:
     check_dependency_lock()
     check_runtime_identity()
     check_html(
-        ROOT / "manuscript" / "SPPT_ASTRA_preprint_v1.0.1.html",
+        ROOT / "manuscript" / f"SPPT_ASTRA_preprint_v{version}.html",
         "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution",
     )
     check_html(
-        ROOT / "manuscript" / "SPPT_ASTRA_technical_supplement_v1.0.1.html",
-        "Technical Supplement: Synthetic Identifiability and Topology-Recovery Tests",
+        ROOT / "manuscript" / f"SPPT_ASTRA_technical_supplement_v{version}.html",
+        "Technical Supplement: Synthetic Pointwise Topology Selection and Identifiability Limits",
     )
     print(f"Repository contract passed for {len(paths)} public files.")
 

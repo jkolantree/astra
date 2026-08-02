@@ -2,14 +2,14 @@
 
 This is the versioned reference package for **Solar-Planetary Phase-Partition Theory (SPPT)** and its inference layer, **ASTRA — Astronomical State-Topology and Reservoir Analysis**. SPPT represents planetary material and energy reservoirs as a physically constrained network whose topology may itself be a latent state; ASTRA compares admissible candidate networks against observations and simpler baselines.
 
-Version **1.0.1** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public.
+Version **1.0.2** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public. This corrective release supersedes v1.0.1 for current use without modifying its immutable tag or assets.
 
 ## Read the work
 
-- [Accessible preprint (self-contained HTML)](manuscript/SPPT_ASTRA_preprint_v1.0.1.html)
-- [Preprint PDF](manuscript/SPPT_ASTRA_preprint_v1.0.1.pdf)
-- [Accessible technical supplement (self-contained HTML)](manuscript/SPPT_ASTRA_technical_supplement_v1.0.1.html)
-- [Technical supplement PDF](manuscript/SPPT_ASTRA_technical_supplement_v1.0.1.pdf)
+- [Accessible preprint (self-contained HTML)](manuscript/SPPT_ASTRA_preprint_v1.0.2.html)
+- [Preprint PDF](manuscript/SPPT_ASTRA_preprint_v1.0.2.pdf)
+- [Accessible technical supplement (self-contained HTML)](manuscript/SPPT_ASTRA_technical_supplement_v1.0.2.html)
+- [Technical supplement PDF](manuscript/SPPT_ASTRA_technical_supplement_v1.0.2.pdf)
 - [Authoritative preprint source](manuscript/manuscript.md)
 - [Authoritative supplement source](manuscript/supplement.md)
 - [Claim-admission matrix](CLAIM_MATRIX.json)
@@ -40,6 +40,8 @@ The acknowledgments record the author-reported dream/collage/ChatGPT origin of t
 
 Across 64 frozen Gaussian-noise realizations, training BIC selects the minimum generating chain in 64/64 runs. The held-out forcing comparison occurs after selection and preserves a negative result: the overconnected triangle has lower held-out RMSE in 23/64 runs. Its added edge reaches the declared lower bound in 29/64 runs, so the shortcut distribution is censored. These are mechanically replayed synthetic outcomes, not proof, external validation, or a general false-positive-rate estimate.
 
+An exact algebraic negative control sharpens that boundary. With the same capacities and only surface forcing and observation, the surface star $(k_{02},k_{12})=(5,6)$ and deep star $(k_{01},k_{02})=(30/11,11)$ have identical surface transfer functions for every forcing from equilibrium, despite different hidden states and labeled supports. The released chain point lies outside the ambiguous nonnegative branch, so 64/64 remains a pointwise selection result; it is not family-wide topology identification. Another spatial input or output, an intervention, or independently justified structural constraints may separate such equivalence classes, but identifiability must be recomputed for the augmented design.
+
 The release-frozen 20-start design was adopted during release audit after replay of this same benchmark exposed a missed endpoint under the earlier 12-start design. The added unit and coordinate-wise decade anchors were therefore informed by benchmark behavior. These reruns are regression evidence for the repaired implementation, not untouched, blinded, or external evaluation. Both data serializations preserve every start vector, solver disposition, endpoint, convergence diagnostic, active bound, and failed outcome; CSV and JSON remain duplicate representations of one evidence source.
 
 ## Reproduce
@@ -60,18 +62,18 @@ py -3.12 -c "import platform; assert platform.python_version() == '3.12.10', pla
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --require-hashes -r requirements-lock.txt
 .\.venv\Scripts\python.exe -m playwright install chromium
-.\.venv\Scripts\python.exe tools\verify.py --all
+.\.venv\Scripts\python.exe -I -B tools\verify.py --all
 ```
 
-On another Windows shell, first verify that the selected interpreter is exactly CPython 3.12.10 and that the selected Git matches `RUNTIME.json`, then run the same Python module commands. The canonical runtime and distribution archives are identified by hash in `RUNTIME.json`. `tools/verify.py --all` overrides hostile inherited thread or OpenBLAS-core values, verifies Git and the actual NumPy and SciPy kernels, and performs complete test discovery, lint and type checks, metadata/schema checks, privacy and path scans, scientific replay, figure regeneration, document rebuild, deterministic-output comparison, PDF inspection, manifest checks, and release-integrity negative tests.
+On another Windows shell, first verify that the selected interpreter is exactly CPython 3.12.10 and that the selected Git matches `RUNTIME.json`, then run the same Python module commands. The canonical controller commands require Python's `-I -B` flags before the script path so inherited import paths cannot run before verification begins. The canonical runtime and distribution archives are identified by hash in `RUNTIME.json`. `tools/verify.py --all` overrides hostile inherited thread or OpenBLAS-core values, verifies Git and the actual NumPy and SciPy kernels, and performs complete test discovery, lint and type checks, metadata/schema checks, privacy and path scans, scientific replay, figure regeneration, document rebuild, deterministic-output comparison, PDF inspection, manifest checks, and release-integrity negative tests.
 
 Focused commands:
 
 ```text
-python -m pytest -q
-python scripts/make_figures.py
-python tools/build_documents.py
-python tools/verify.py
+python -P -s -B -m pytest -q
+python -I -B scripts/make_figures.py
+python -I -B tools/build_documents.py
+python -I -B tools/verify.py
 ```
 
 Builds write only beneath the repository or a disposable output root. Seeds, the 20 distinct fixed generic multistart points, every start and endpoint, optimizer convergence diagnostics, bound flags, and all negative outcomes are preserved in `data/`. The byte-identity claim is limited to the exercised release-artifact paths under the complete frozen runtime; it is not a claim of universal floating-point identity for future numerical code.
@@ -92,11 +94,11 @@ Builds write only beneath the repository or a disposable output root. Seeds, the
 
 ## Citation
 
-Canonical citation metadata are in [`CITATION.cff`](CITATION.cff). Until the automatic Zenodo record is verified, cite the versioned GitHub release:
+Canonical citation metadata are in [`CITATION.cff`](CITATION.cff). Cite the versioned GitHub release:
 
-> Jacko T. (2026). *Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution*, version 1.0.1. GitHub. https://github.com/jkolantree/astra/releases/tag/v1.0.1
+> Jacko T. (2026). *Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution*, version 1.0.2. GitHub. https://github.com/jkolantree/astra/releases/tag/v1.0.2
 
-The post-release documentation commit will add the verified version DOI, concept DOI badge if exposed, and final citation guidance without changing the release tag or archived bytes.
+This is a GitHub-only release path. No DOI or Zenodo ingestion is claimed; adding either would be a separate, explicitly authorized publication step and a new version if any archived file changed.
 
 ## Licensing and correspondence
 

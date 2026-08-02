@@ -2,13 +2,15 @@
 
 This is a deliberately small linear thermal-network experiment. It demonstrates
 one narrow claim from SPPT: identical static boundary equilibria need not imply
-identical internal connectivity, while transient forcing can identify the
-minimum graph family. It is not a fit to any planet.
+identical internal connectivity, while transient forcing separates the released
+chain point from the declared alternatives. It does not establish family-wide
+structural identifiability and is not a fit to any planet.
 """
 from __future__ import annotations
 
 import csv
 import json
+import sys
 from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -20,10 +22,12 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np
 from scipy.integrate import solve_ivp
 
-import sppt_core as sppt
-from astra_optimization import N_STARTS, solve_multistart
-
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+import sppt_core as sppt  # noqa: E402
+from astra_optimization import N_STARTS, solve_multistart  # noqa: E402
+
 DATA = ROOT / "data"
 FIGURES = ROOT / "figures"
 DATA.mkdir(parents=True, exist_ok=True)
@@ -86,12 +90,24 @@ def equilibrium(edges: list[tuple[int, int]], conductance: np.ndarray, forcing: 
     return np.linalg.solve(L + sink, source)
 
 
+def validated_time_grid(time: np.ndarray) -> np.ndarray:
+    """Return a finite, strictly monotonic time grid with at least two samples."""
+    values = np.asarray(time, dtype=float)
+    if values.ndim != 1 or values.size < 2 or not np.all(np.isfinite(values)):
+        raise ValueError("time must be a finite, strictly monotonic vector with at least two samples.")
+    steps = np.diff(values)
+    if not (np.all(steps > 0.0) or np.all(steps < 0.0)):
+        raise ValueError("time must be a finite, strictly monotonic vector with at least two samples.")
+    return values
+
+
 def simulate(
     edges: list[tuple[int, int]],
     conductance: np.ndarray,
     time: np.ndarray,
     forcing: Callable[[float], float],
 ) -> np.ndarray:
+    time = validated_time_grid(time)
     L = laplacian(edges, conductance)
     sink = np.diag([0.0, 0.0, SURFACE_SINK])
     A = np.diag(1.0 / CAPACITY) @ (-L - sink)
@@ -124,6 +140,7 @@ def simulate_with_log_conductance_sensitivities(
     forcing: Callable[[float], float],
 ) -> tuple[np.ndarray, np.ndarray]:
     """Integrate state and exact forward sensitivities to log conductances."""
+    time = validated_time_grid(time)
     incidence = sppt.incidence_matrix(3, edges)
     laplacian_matrix = sppt.weighted_laplacian(incidence, conductance)
     sink = np.diag([0.0, 0.0, SURFACE_SINK])
@@ -175,6 +192,10 @@ def fit_graph(
     time: np.ndarray,
     observed_surface: np.ndarray,
 ) -> tuple[np.ndarray, float, float, dict[str, object]]:
+    time = validated_time_grid(time)
+    observed_surface = np.asarray(observed_surface, dtype=float)
+    if observed_surface.shape != time.shape or not np.all(np.isfinite(observed_surface)):
+        raise ValueError("observed_surface must be finite and have exactly the time-grid shape.")
     edges = GRAPHS[name]
 
     cached_log_conductance: np.ndarray | None = None
@@ -334,7 +355,7 @@ def main() -> None:
     ax.set_ylabel("surface state")
     ax.set_title("Post-selection unseen-forcing comparison")
     ax.legend(frameon=False, fontsize=7.2)
-    fig.suptitle("Synthetic topology-recovery benchmark", fontsize=12, fontweight="bold")
+    fig.suptitle("Synthetic pointwise topology-selection benchmark", fontsize=12, fontweight="bold")
     fig.tight_layout()
     fig.savefig(FIGURES / "supplement_figure_S1_topology_benchmark.png", dpi=300, bbox_inches="tight")
     fig.savefig(FIGURES / "supplement_figure_S1_topology_benchmark.pdf", bbox_inches="tight")

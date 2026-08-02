@@ -14,6 +14,8 @@ import pandas as pd  # noqa: E402
 from matplotlib.colors import LogNorm  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
+RELEASE_SPEC = json.loads((ROOT / "RELEASE_SPEC.json").read_text(encoding="utf-8"))
+VERSION = str(RELEASE_SPEC["version"])
 sys.path.insert(0, str(ROOT / "src"))
 
 import sppt_core as sppt  # noqa: E402
@@ -21,6 +23,7 @@ from astra_reservoir import (  # noqa: E402
     Edge,
     frequency_response,
     relaxation_spectrum,
+    steady_state,
     step_response,
 )
 
@@ -36,7 +39,7 @@ plt.rcParams.update(
         "savefig.dpi": 300,
         "axes.spines.top": False,
         "axes.spines.right": False,
-        "svg.hashsalt": "sppt-astra-v1.0.1",
+        "svg.hashsalt": f"sppt-astra-v{VERSION}",
     }
 )
 
@@ -45,7 +48,7 @@ def save_png(figure: plt.Figure, filename: str) -> None:
     figure.savefig(
         FIG / filename,
         bbox_inches="tight",
-        metadata={"Software": "SPPT-ASTRA reproducibility build v1.0.1"},
+        metadata={"Software": f"SPPT-ASTRA reproducibility build v{VERSION}"},
     )
     plt.close(figure)
 
@@ -219,19 +222,37 @@ def figure_4_carbon_relay() -> None:
     )
 
 
+STATIC_DEGENERACY_CAPACITIES = [1.0, 20.0]
+STATIC_DEGENERACY_LOSS = [1.0, 0.0]
+STATIC_DEGENERACY_POWER = [0.0, 1.0]
+
+
+def static_degeneracy_equilibrium(coupling: float) -> np.ndarray:
+    """Return the surface/deep equilibrium for unit deep internal power."""
+    return steady_state(
+        STATIC_DEGENERACY_CAPACITIES,
+        [Edge(0, 1, coupling)],
+        STATIC_DEGENERACY_LOSS,
+        STATIC_DEGENERACY_POWER,
+    )
+
+
 def figure_5_static_degeneracy() -> None:
     times = np.linspace(0.0, 500.0, 900)
-    capacities = [1.0, 20.0]
-    loss = [1.0, 0.0]
-    power = [1.0, 0.0]
     couplings = [0.05, 0.20, 1.00]
     figure, axes = plt.subplots(1, 2, figsize=(10.2, 4.2))
     rows: list[dict[str, float]] = []
-    deep_equilibria = []
+    equilibria = []
     for coupling in couplings:
-        states = step_response(capacities, [Edge(0, 1, coupling)], loss, power, times)
+        states = step_response(
+            STATIC_DEGENERACY_CAPACITIES,
+            [Edge(0, 1, coupling)],
+            STATIC_DEGENERACY_LOSS,
+            STATIC_DEGENERACY_POWER,
+            times,
+        )
         axes[0].plot(times, states[:, 0], label=rf"$K={coupling:g}$")
-        deep_equilibria.append(1.0 + 1.0 / coupling)
+        equilibria.append(static_degeneracy_equilibrium(coupling))
         for time_value, surface, deep in zip(times, states[:, 0], states[:, 1], strict=True):
             rows.append(
                 {
@@ -244,8 +265,12 @@ def figure_5_static_degeneracy() -> None:
     axes[0].axhline(1.0, color="black", linestyle="--", linewidth=1.0, label="common surface equilibrium")
     axes[0].set(xlabel="normalized time", ylabel="surface state", title="Transients depend on conductance")
     axes[0].legend(frameon=False, fontsize=8)
-    axes[1].semilogx(couplings, [1.0] * len(couplings), "o-", label="surface equilibrium")
-    axes[1].semilogx(couplings, deep_equilibria, "s-", label="deep equilibrium")
+    axes[1].semilogx(
+        couplings, [state[0] for state in equilibria], "o-", label="surface equilibrium"
+    )
+    axes[1].semilogx(
+        couplings, [state[1] for state in equilibria], "s-", label="deep equilibrium"
+    )
     axes[1].set(xlabel="conductance $K$", ylabel="equilibrium state", title="One boundary value hides deep states")
     axes[1].legend(frameon=False)
     figure.suptitle("Static boundary degeneracy and transient resolution", fontweight="bold")
