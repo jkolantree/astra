@@ -1,7 +1,7 @@
 ---
 title: "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution"
 subtitle: "Solar–Planetary Phase-Partition Theory with ASTRA: a thermodynamically constrained network framework for interiors, atmospheres, and astronomical inference"
-version: "1.0.3"
+version: "1.0.4"
 author: "Jacko T."
 date: "2 August 2026"
 lang: en-US
@@ -53,12 +53,12 @@ header-includes:
     \pagestyle{fancy}
     \fancyhf{}
     \fancyhead[L]{\small Solar--Planetary Phase-Partition Theory}
-    \fancyhead[R]{\small Preprint v1.0.3}
+    \fancyhead[R]{\small Preprint v1.0.4}
     \fancyfoot[C]{\thepage}
     \renewcommand{\headrulewidth}{0.3pt}
 ---
 
-**Preprint v1.0.3 · Perspective and mathematical framework · Not peer reviewed**
+**Preprint v1.0.4 · Perspective and mathematical framework · Not peer reviewed**
 
 **Correspondence:** [GitHub Issues for this repository](https://github.com/jkolantree/astra/issues)  
 **License:** Text and original figures, CC BY 4.0. Source code, MIT License.

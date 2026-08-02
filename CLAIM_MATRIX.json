@@ -1,6 +1,6 @@
 {
   "schema": "https://github.com/jkolantree/astra/schemas/claim-matrix-v1",
-  "title": "SPPT/ASTRA v1.0.3 consequential claim-admission matrix",
+  "title": "SPPT/ASTRA v1.0.4 consequential claim-admission matrix",
   "evidence_classes": [
     "source_asserted",
     "hand_checked",
@@ -210,7 +210,7 @@
     },
     {
       "id": "ASTRA-C021",
-      "statement": "A future ASTRA methods extension may type physical flux, active control, observation, retained history, and verification as distinct coupled structures, but this tuple and its edge-availability syntax are proposed only and are not implemented by v1.0.3.",
+      "statement": "A future ASTRA methods extension may type physical flux, active control, observation, retained history, and verification as distinct coupled structures, but this tuple and its edge-availability syntax are proposed only and are not implemented by v1.0.4.",
       "claim_type": "research-outlook proposal",
       "hypotheses": ["each graph type receives a domain-specific definition", "any coupling into the physical flux graph has an explicit constitutive bridge", "units, kinetics, observation laws, and certificate failure classes are declared before use"],
       "domain_units_signs_boundary_quantifiers": "The displayed tuple and equations are abstract syntax without universal units; any application must instantiate its own state spaces, domains, signs, time scales, and boundary conditions.",

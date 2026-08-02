@@ -575,10 +575,11 @@ def test_github_repository_context_must_bind_repository_id(
         release.verify_github_repository_context(spec)
 
 
-def test_github_actions_tag_context_requires_tag_type_and_matching_sha(
+def test_github_actions_tag_context_binds_distinct_tag_object_and_commit(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     commit = "a" * 40
+    tag_object = "b" * 40
     event_path = tmp_path / "event.json"
 
     def write_event(after: str) -> None:
@@ -613,7 +614,7 @@ def test_github_actions_tag_context_requires_tag_type_and_matching_sha(
         release,
         "tag_identity",
         lambda _tag, require_head=True: {
-            "tag_object": "b" * 40,
+            "tag_object": tag_object,
             "commit": commit,
             "tree": "c" * 40,
         },
@@ -634,12 +635,15 @@ def test_github_actions_tag_context_requires_tag_type_and_matching_sha(
     monkeypatch.setenv("GITHUB_REF", "refs/tags/v1.0.1")
     with pytest.raises(RuntimeError, match="canonical GITHUB_SHA"):
         release.verify_release_tag("v1.0.1")
-    monkeypatch.setenv("GITHUB_SHA", "d" * 40)
-    write_event("d" * 40)
-    with pytest.raises(RuntimeError, match="does not equal tagged commit"):
+    monkeypatch.setenv("GITHUB_SHA", tag_object)
+    write_event(tag_object)
+    with pytest.raises(RuntimeError, match="event commit.*does not equal tagged commit"):
         release.verify_release_tag("v1.0.1")
     monkeypatch.setenv("GITHUB_SHA", commit)
     write_event(commit)
+    with pytest.raises(RuntimeError, match="event tag object.*does not equal tagged tag object"):
+        release.verify_release_tag("v1.0.1")
+    write_event(tag_object)
     release.verify_release_tag("v1.0.1")
     monkeypatch.setenv("GITHUB_EVENT_NAME", "workflow_dispatch")
     with pytest.raises(RuntimeError, match="requires a push event"):
@@ -653,8 +657,20 @@ def test_github_actions_tag_context_requires_tag_type_and_matching_sha(
         ({"deleted": True}, "tag-deletion"),
         ({"forced": True}, "forced tag updates"),
         ({"before": "1" * 40}, "absent prior ref"),
-        ({"after": "2" * 40}, "after value"),
+        ({"after": None}, "canonical object ID"),
+        ({"after": 7}, "canonical object ID"),
+        ({"after": "2" * 39}, "canonical object ID"),
+        ({"after": "z" * 40}, "canonical object ID"),
+        ({"after": "A" * 40}, "canonical object ID"),
         ({"ref": "refs/tags/v9.9.9"}, "push-event ref"),
+        (
+            {"repository": {"full_name": "attacker/fork", "id": 1319077150}},
+            "push-event repository",
+        ),
+        (
+            {"repository": {"full_name": "jkolantree/astra", "id": 1}},
+            "push-event repository ID",
+        ),
     ],
 )
 def test_github_tag_event_rejects_noncreation_payloads(
@@ -664,10 +680,11 @@ def test_github_tag_event_rejects_noncreation_payloads(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     commit = "a" * 40
+    tag_object = "b" * 40
     payload: dict[str, object] = {
-        "ref": "refs/tags/v1.0.3",
+        "ref": "refs/tags/v1.0.4",
         "before": "0" * 40,
-        "after": commit,
+        "after": tag_object,
         "created": True,
         "deleted": False,
         "forced": False,
@@ -679,15 +696,15 @@ def test_github_tag_event_rejects_noncreation_payloads(
     monkeypatch.setenv("GITHUB_ACTIONS", "true")
     monkeypatch.setenv("GITHUB_EVENT_NAME", "push")
     monkeypatch.setenv("GITHUB_REF_TYPE", "tag")
-    monkeypatch.setenv("GITHUB_REF_NAME", "v1.0.3")
-    monkeypatch.setenv("GITHUB_REF", "refs/tags/v1.0.3")
+    monkeypatch.setenv("GITHUB_REF_NAME", "v1.0.4")
+    monkeypatch.setenv("GITHUB_REF", "refs/tags/v1.0.4")
     monkeypatch.setenv("GITHUB_SHA", commit)
     monkeypatch.setenv("GITHUB_EVENT_PATH", str(event_path))
     monkeypatch.setenv("GITHUB_SERVER_URL", "https://github.com")
     monkeypatch.setenv("GITHUB_REPOSITORY", "jkolantree/astra")
     monkeypatch.setenv("GITHUB_REPOSITORY_ID", "1319077150")
     spec = {
-        "tag": "v1.0.3",
+        "tag": "v1.0.4",
         "repository": "https://github.com/jkolantree/astra",
         "repository_id": 1319077150,
     }
@@ -696,9 +713,59 @@ def test_github_tag_event_rejects_noncreation_payloads(
         release.github_release_tag_event(spec, required=True)
 
 
-def test_restore_authoritative_tag_repairs_checkout_peeled_ref(
+def test_restore_rejects_invalid_event_before_any_git_fetch(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
+    event_path = tmp_path / "invalid-tag-event.json"
+    event_path.write_text(
+        json.dumps(
+            {
+                "ref": "refs/tags/v1.0.4",
+                "before": "0" * 40,
+                "after": "A" * 40,
+                "created": True,
+                "deleted": False,
+                "forced": False,
+                "repository": {"full_name": "jkolantree/astra", "id": 1319077150},
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(release, "verify_python_runtime", lambda: None)
+    monkeypatch.setattr(release, "verify_git_runtime", lambda: None)
+    monkeypatch.setattr(
+        release,
+        "release_spec",
+        lambda: {
+            "tag": "v1.0.4",
+            "repository": "https://github.com/jkolantree/astra",
+            "repository_id": 1319077150,
+        },
+    )
+    monkeypatch.setattr(
+        release,
+        "git",
+        lambda *_args, **_kwargs: pytest.fail("Git must not run for an invalid event"),
+    )
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "push")
+    monkeypatch.setenv("GITHUB_REF_TYPE", "tag")
+    monkeypatch.setenv("GITHUB_REF_NAME", "v1.0.4")
+    monkeypatch.setenv("GITHUB_REF", "refs/tags/v1.0.4")
+    monkeypatch.setenv("GITHUB_SHA", "a" * 40)
+    monkeypatch.setenv("GITHUB_EVENT_PATH", str(event_path))
+    monkeypatch.setenv("GITHUB_SERVER_URL", "https://github.com")
+    monkeypatch.setenv("GITHUB_REPOSITORY", "jkolantree/astra")
+    monkeypatch.setenv("GITHUB_REPOSITORY_ID", "1319077150")
+
+    with pytest.raises(RuntimeError, match="canonical object ID"):
+        release.restore_authoritative_release_tag()
+
+
+def test_restore_authoritative_tag_repairs_v103_checkout_peeled_ref(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Retain v1.0.3 here to reproduce the exact published negative tag trial.
     origin = tmp_path / "origin.git"
     decoy = tmp_path / "decoy.git"
     author = tmp_path / "author"
@@ -796,22 +863,29 @@ def test_restore_authoritative_tag_repairs_checkout_peeled_ref(
     monkeypatch.setenv("GITHUB_REPOSITORY", "jkolantree/astra")
     monkeypatch.setenv("GITHUB_REPOSITORY_ID", "1319077150")
     event_path = tmp_path / "tag-event.json"
-    event_path.write_text(
-        json.dumps(
-            {
-                "ref": "refs/tags/v1.0.3",
-                "before": "0" * 40,
-                "after": commit,
-                "created": True,
-                "deleted": False,
-                "forced": False,
-                "repository": {"full_name": "jkolantree/astra", "id": 1319077150},
-            }
-        ),
-        encoding="utf-8",
-    )
+    def write_event(after: str) -> None:
+        event_path.write_text(
+            json.dumps(
+                {
+                    "ref": "refs/tags/v1.0.3",
+                    "before": "0" * 40,
+                    "after": after,
+                    "created": True,
+                    "deleted": False,
+                    "forced": False,
+                    "repository": {"full_name": "jkolantree/astra", "id": 1319077150},
+                }
+            ),
+            encoding="utf-8",
+        )
+
+    write_event("f" * 40)
     monkeypatch.setenv("GITHUB_EVENT_PATH", str(event_path))
 
+    with pytest.raises(RuntimeError, match="event tag object.*restored tag object"):
+        release.restore_authoritative_release_tag()
+
+    write_event(tag_object)
     identity = release.restore_authoritative_release_tag()
     assert identity["tag_object"] == tag_object
     assert identity["commit"] == commit
@@ -832,15 +906,40 @@ def test_restore_authoritative_tag_repairs_checkout_peeled_ref(
     ).stdout.strip()
     assert remote_tag_after == tag_object
 
+    subprocess.run(["git", "tag", "-d", "v1.0.3"], cwd=author, check=True)
+    subprocess.run(
+        ["git", "tag", "-a", "v1.0.3", "-m", "Replacement annotation"],
+        cwd=author,
+        check=True,
+    )
+    replacement_tag_object = subprocess.run(
+        ["git", "rev-parse", "refs/tags/v1.0.3"],
+        cwd=author,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    assert replacement_tag_object != tag_object
+    subprocess.run(
+        ["git", "push", "-q", "--force", str(origin), "refs/tags/v1.0.3"],
+        cwd=author,
+        check=True,
+    )
+    write_event(tag_object)
+    with pytest.raises(RuntimeError, match="event tag object.*restored tag object"):
+        release.restore_authoritative_release_tag()
+
 
 def test_tag_workflow_does_not_shell_interpolate_ref_name() -> None:
     workflow = (PROJECT_ROOT / ".github" / "workflows" / "verify.yml").read_text(
         encoding="utf-8"
     )
+    git_index = workflow.index("Install and verify exact Git for Windows")
+    python_index = workflow.index("Install exact Python")
     restore_index = workflow.index("release_integrity.py restore-tag-ref")
     dependency_index = workflow.index("pip install --require-hashes")
     verify_index = workflow.index("release_integrity.py verify-tag")
-    assert restore_index < dependency_index < verify_index
+    assert git_index < python_index < restore_index < dependency_index < verify_index
     assert "verify-tag --ref-name" not in workflow
     assert "github.ref_name" not in workflow
     assert "git fetch" not in workflow

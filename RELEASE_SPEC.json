@@ -4,8 +4,8 @@
   "framework": "Solar-Planetary Phase-Partition Theory (SPPT)",
   "inference_layer": "Astronomical State-Topology and Reservoir Analysis (ASTRA)",
   "scientific_classification": "not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations; no empirical planetary validation",
-  "version": "1.0.3",
-  "tag": "v1.0.3",
+  "version": "1.0.4",
+  "tag": "v1.0.4",
   "release_date": "2026-08-02",
   "build_epoch": "2026-08-02T00:00:00Z",
   "build_epoch_unix": 1785628800,
@@ -17,12 +17,12 @@
     "manuscript_documentation_figures_data": "CC-BY-4.0"
   },
   "release_asset_allowlist": [
-    "SPPT_ASTRA_preprint_v1.0.3.pdf",
-    "SPPT_ASTRA_preprint_v1.0.3.html",
-    "SPPT_ASTRA_technical_supplement_v1.0.3.pdf",
-    "SPPT_ASTRA_technical_supplement_v1.0.3.html",
-    "SPPT_ASTRA_v1.0.3_source.tar.gz",
+    "SPPT_ASTRA_preprint_v1.0.4.pdf",
+    "SPPT_ASTRA_preprint_v1.0.4.html",
+    "SPPT_ASTRA_technical_supplement_v1.0.4.pdf",
+    "SPPT_ASTRA_technical_supplement_v1.0.4.html",
+    "SPPT_ASTRA_v1.0.4_source.tar.gz",
     "SHA256SUMS",
-    "release-identity-v1.0.3.json"
+    "release-identity-v1.0.4.json"
   ]
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.4 — 2026-08-02
+
+- Preserves the public, unreleased v1.0.3 tag and its failed tag-workflow run as negative release-process evidence; no v1.0.3 GitHub Release was created.
+- Corrects the tag-event controller's type error by binding the push payload's raw `after` object to the restored annotated tag while independently binding `GITHUB_SHA` and `HEAD` to its direct commit target.
+- Uses a frozen named event record and regressions with deliberately distinct tag-object and commit identifiers so their same-shaped hashes cannot be transposed silently.
+- Carries forward the v1.0.2 scientific corrections and frozen benchmark results unchanged, with newly versioned documents and release assets.
+
 ## 1.0.3 — 2026-08-02
 
 - Preserves the public, unreleased v1.0.2 tag and its failed tag-workflow run as negative release-process evidence; no v1.0.2 GitHub Release was created.

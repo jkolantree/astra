@@ -21,6 +21,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -56,6 +57,17 @@ MANIFEST = ROOT / "MANIFEST.sha256"
 SPEC_PATH = ROOT / "RELEASE_SPEC.json"
 RUNTIME_PATH = ROOT / "RUNTIME.json"
 IDENTITY_SCHEMA = "https://github.com/jkolantree/astra/schemas/release-identity-v1"
+
+
+@dataclass(frozen=True)
+class GitHubReleaseTagEvent:
+    """Typed identities supplied by a GitHub annotated-tag push."""
+
+    ref: str
+    tag_object: str
+    commit: str
+
+
 GIT_CONTROL_VARIABLES = {
     "GIT_ALTERNATE_OBJECT_DIRECTORIES",
     "GIT_CEILING_DIRECTORIES",
@@ -364,8 +376,8 @@ def verify_github_repository_context(spec: dict[str, Any]) -> None:
 
 def github_release_tag_event(
     spec: dict[str, Any], *, required: bool
-) -> tuple[str, str] | None:
-    """Return the exact GitHub tag ref and peeled event commit, when applicable."""
+) -> GitHubReleaseTagEvent | None:
+    """Return the exact tag ref, pushed tag object, and peeled event commit."""
     in_actions = os.environ.get("GITHUB_ACTIONS", "").lower() == "true"
     if not in_actions:
         if required:
@@ -414,8 +426,11 @@ def github_release_tag_event(
         raise RuntimeError("Release-tag verification rejects forced tag updates")
     if payload.get("before") != "0" * 40:
         raise RuntimeError("Release-tag verification requires an absent prior ref")
-    if payload.get("after") != event_commit:
-        raise RuntimeError("GitHub push-event after value does not equal GITHUB_SHA")
+    event_tag_object = payload.get("after")
+    if not isinstance(event_tag_object, str) or not re.fullmatch(
+        r"[0-9a-f]{40}", event_tag_object
+    ):
+        raise RuntimeError("GitHub push-event after value is not a canonical object ID")
     payload_repository = payload.get("repository")
     payload_full_name = (
         payload_repository.get("full_name") if isinstance(payload_repository, dict) else None
@@ -429,7 +444,11 @@ def github_release_tag_event(
     )
     if payload_repository_id != spec["repository_id"]:
         raise RuntimeError("GitHub push-event repository ID does not equal the declared ID")
-    return expected_ref, event_commit
+    return GitHubReleaseTagEvent(
+        ref=expected_ref,
+        tag_object=event_tag_object,
+        commit=event_commit,
+    )
 
 
 def restore_authoritative_release_tag() -> dict[str, str]:
@@ -440,20 +459,24 @@ def restore_authoritative_release_tag() -> dict[str, str]:
     event = github_release_tag_event(spec, required=True)
     if event is None:  # pragma: no cover - required=True makes this unreachable
         raise RuntimeError("GitHub tag event context is unavailable")
-    expected_ref, event_commit = event
     git(
         [
             "fetch",
             "--no-tags",
             "--no-recurse-submodules",
             str(spec["repository"]),
-            f"+{expected_ref}:{expected_ref}",
+            f"+{event.ref}:{event.ref}",
         ]
     )
     identity = tag_identity(str(spec["tag"]), require_head=True)
-    if event_commit != identity["commit"]:
+    if event.tag_object != identity["tag_object"]:
         raise RuntimeError(
-            f"GitHub event commit {event_commit!r} does not equal restored tag commit "
+            f"GitHub event tag object {event.tag_object!r} does not equal restored tag object "
+            f"{identity['tag_object']!r}"
+        )
+    if event.commit != identity["commit"]:
+        raise RuntimeError(
+            f"GitHub event commit {event.commit!r} does not equal restored tag commit "
             f"{identity['commit']!r}"
         )
     return identity
@@ -476,10 +499,15 @@ def verify_release_tag(ref_name: str) -> None:
         verify_github_repository_context(spec)
     identity = tag_identity(spec["tag"], require_head=True)
     if event is not None:
-        _, event_commit = event
-        if event_commit != identity["commit"]:
+        if event.tag_object != identity["tag_object"]:
             raise RuntimeError(
-                f"GitHub event commit {event_commit!r} does not equal tagged commit {identity['commit']!r}"
+                f"GitHub event tag object {event.tag_object!r} does not equal tagged tag object "
+                f"{identity['tag_object']!r}"
+            )
+        if event.commit != identity["commit"]:
+            raise RuntimeError(
+                f"GitHub event commit {event.commit!r} does not equal tagged commit "
+                f"{identity['commit']!r}"
             )
     assert_clean_worktree()
     verify_manifest(require_tracked=True, revision=identity["commit"])
