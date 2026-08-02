@@ -36,6 +36,7 @@ ROOT_ALLOWLIST = {
     "RELEASE_NOTES_v1.0.2.md",
     "RELEASE_NOTES_v1.0.3.md",
     "RELEASE_NOTES_v1.0.4.md",
+    "RELEASE_NOTES_v1.0.5.md",
     "RELEASE_SPEC.json",
     "RUNTIME.json",
     "SOURCE_INVENTORY.json",

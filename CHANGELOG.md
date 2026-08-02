@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.5 — 2026-08-02
+
+- Preserves the public, unreleased v1.0.4 tag and its harness-invalid natural tag-workflow run as negative release-process evidence; no v1.0.4 GitHub Release was created and no assets were uploaded.
+- Makes release-integrity tests hermetic by clearing the complete GitHub Actions context before every test, requiring each simulated scenario to declare all of its own event inputs.
+- Leaves the production annotated-tag controller unchanged after its restore and post-install identity checks both passed in the v1.0.4 natural tag run.
+- Carries forward the v1.0.4 scientific content and frozen benchmark results unchanged, with newly versioned documents and release assets.
+
 ## 1.0.4 — 2026-08-02
 
 - Preserves the public, unreleased v1.0.3 tag and its failed tag-workflow run as negative release-process evidence; no v1.0.3 GitHub Release was created.

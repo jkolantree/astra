@@ -16,6 +16,26 @@ from tools import verify as verifier
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
+GITHUB_CONTEXT_VARIABLES = (
+    "GITHUB_ACTIONS",
+    "GITHUB_EVENT_NAME",
+    "GITHUB_EVENT_PATH",
+    "GITHUB_REF",
+    "GITHUB_REF_NAME",
+    "GITHUB_REF_TYPE",
+    "GITHUB_REPOSITORY",
+    "GITHUB_REPOSITORY_ID",
+    "GITHUB_SERVER_URL",
+    "GITHUB_SHA",
+)
+
+
+@pytest.fixture(autouse=True)
+def isolate_github_actions_context(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Require each test to declare its complete simulated GitHub context."""
+    for name in GITHUB_CONTEXT_VARIABLES:
+        monkeypatch.delenv(name, raising=False)
+
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()

@@ -2,14 +2,14 @@
 
 This is the versioned reference package for **Solar-Planetary Phase-Partition Theory (SPPT)** and its inference layer, **ASTRA — Astronomical State-Topology and Reservoir Analysis**. SPPT represents planetary material and energy reservoirs as a physically constrained network whose topology may itself be a latent state; ASTRA compares admissible candidate networks against observations and simpler baselines.
 
-Version **1.0.4** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public. This corrective release supersedes v1.0.1 for current use without modifying its immutable tag or assets. The public v1.0.2 and v1.0.3 tags are retained as release-process evidence, were not moved, and have no GitHub Releases.
+Version **1.0.5** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public. This corrective release supersedes v1.0.1 for current use without modifying its immutable tag or assets. The public v1.0.2, v1.0.3, and v1.0.4 tags are retained as release-process evidence, were not moved, and have no GitHub Releases.
 
 ## Read the work
 
-- [Accessible preprint (self-contained HTML)](manuscript/SPPT_ASTRA_preprint_v1.0.4.html)
-- [Preprint PDF](manuscript/SPPT_ASTRA_preprint_v1.0.4.pdf)
-- [Accessible technical supplement (self-contained HTML)](manuscript/SPPT_ASTRA_technical_supplement_v1.0.4.html)
-- [Technical supplement PDF](manuscript/SPPT_ASTRA_technical_supplement_v1.0.4.pdf)
+- [Accessible preprint (self-contained HTML)](manuscript/SPPT_ASTRA_preprint_v1.0.5.html)
+- [Preprint PDF](manuscript/SPPT_ASTRA_preprint_v1.0.5.pdf)
+- [Accessible technical supplement (self-contained HTML)](manuscript/SPPT_ASTRA_technical_supplement_v1.0.5.html)
+- [Technical supplement PDF](manuscript/SPPT_ASTRA_technical_supplement_v1.0.5.pdf)
 - [Authoritative preprint source](manuscript/manuscript.md)
 - [Authoritative supplement source](manuscript/supplement.md)
 - [Claim-admission matrix](CLAIM_MATRIX.json)
@@ -96,7 +96,7 @@ Builds write only beneath the repository or a disposable output root. Seeds, the
 
 Canonical citation metadata are in [`CITATION.cff`](CITATION.cff). Cite the versioned GitHub release:
 
-> Jacko T. (2026). *Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution*, version 1.0.4. GitHub. https://github.com/jkolantree/astra/releases/tag/v1.0.4
+> Jacko T. (2026). *Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution*, version 1.0.5. GitHub. https://github.com/jkolantree/astra/releases/tag/v1.0.5
 
 This is a GitHub-only release path. No DOI or Zenodo ingestion is claimed; adding either would be a separate, explicitly authorized publication step and a new version if any archived file changed.
 
