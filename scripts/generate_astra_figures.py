@@ -43,6 +43,28 @@ plt.rcParams.update(
     }
 )
 
+SERIES_STYLES: tuple[dict[str, object], ...] = (
+    {"color": "#0072B2", "linestyle": "-", "marker": "o"},
+    {"color": "#D55E00", "linestyle": "--", "marker": "s"},
+    {"color": "#009E73", "linestyle": "-.", "marker": "^"},
+    {"color": "#CC79A7", "linestyle": ":", "marker": "D"},
+)
+
+
+def series_style(index: int, *, markevery: int) -> dict[str, object]:
+    """Return a color-, dash-, and marker-distinct style for a plotted series."""
+    style = dict(SERIES_STYLES[index % len(SERIES_STYLES)])
+    style.update(
+        {
+            "linewidth": 1.7,
+            "markersize": 4.2,
+            "markerfacecolor": "white",
+            "markeredgewidth": 0.9,
+            "markevery": markevery,
+        }
+    )
+    return style
+
 
 def save_png(figure: plt.Figure, filename: str) -> None:
     figure.savefig(
@@ -150,10 +172,11 @@ def figure_2_trap_memory() -> None:
     capture = c0 + c1 * np.cos(omega * time)
     figure, axes = plt.subplots(1, 2, figsize=(10.2, 4.2))
     rows: list[dict[str, float]] = []
-    for tau in release_times:
+    for index, tau in enumerate(release_times):
         inventory = sppt.trap_periodic_solution(time, c0, c1, omega, tau)
-        axes[0].plot(time, inventory, label=rf"$\tau_r={tau:g}$")
-        axes[1].plot(capture, inventory, label=rf"$\tau_r={tau:g}$")
+        style = series_style(index, markevery=120)
+        axes[0].plot(time, inventory, label=rf"$\tau_r={tau:g}$", **style)
+        axes[1].plot(capture, inventory, label=rf"$\tau_r={tau:g}$", **style)
         for t, c, m in zip(time, capture, inventory, strict=True):
             rows.append({"time": float(t), "release_time": tau, "capture": float(c), "inventory": float(m)})
     axes[0].set(xlabel="normalized time", ylabel="trapped inventory", title="Periodic inventory response")
@@ -179,8 +202,18 @@ def figure_3_bottleneck() -> None:
         eigenvalues.append(spectrum[1])
         bounds.append(sppt.weak_cut_upper_bound(cut, capacity[:2].sum(), capacity[2:].sum()))
     figure, axis = plt.subplots(figsize=(7.6, 4.8))
-    axis.loglog(cut_values, eigenvalues, label=r"computed $\lambda_2$")
-    axis.loglog(cut_values, bounds, "--", label="weak-cut upper bound")
+    axis.loglog(
+        cut_values,
+        eigenvalues,
+        label=r"computed $\lambda_2$",
+        **series_style(0, markevery=24),
+    )
+    axis.loglog(
+        cut_values,
+        bounds,
+        label="weak-cut upper bound",
+        **series_style(1, markevery=24),
+    )
     axis.set(
         xlabel="cut conductance",
         ylabel="slowest nonuniform decay rate",
@@ -243,7 +276,7 @@ def figure_5_static_degeneracy() -> None:
     figure, axes = plt.subplots(1, 2, figsize=(10.2, 4.2))
     rows: list[dict[str, float]] = []
     equilibria = []
-    for coupling in couplings:
+    for index, coupling in enumerate(couplings):
         states = step_response(
             STATIC_DEGENERACY_CAPACITIES,
             [Edge(0, 1, coupling)],
@@ -251,7 +284,12 @@ def figure_5_static_degeneracy() -> None:
             STATIC_DEGENERACY_POWER,
             times,
         )
-        axes[0].plot(times, states[:, 0], label=rf"$K={coupling:g}$")
+        axes[0].plot(
+            times,
+            states[:, 0],
+            label=rf"$K={coupling:g}$",
+            **series_style(index, markevery=90),
+        )
         equilibria.append(static_degeneracy_equilibrium(coupling))
         for time_value, surface, deep in zip(times, states[:, 0], states[:, 1], strict=True):
             rows.append(
@@ -262,14 +300,20 @@ def figure_5_static_degeneracy() -> None:
                     "deep_state": float(deep),
                 }
             )
-    axes[0].axhline(1.0, color="black", linestyle="--", linewidth=1.0, label="common surface equilibrium")
+    axes[0].axhline(1.0, color="black", linestyle=":", linewidth=1.2, label="common surface equilibrium")
     axes[0].set(xlabel="normalized time", ylabel="surface state", title="Transients depend on conductance")
     axes[0].legend(frameon=False, fontsize=8)
     axes[1].semilogx(
-        couplings, [state[0] for state in equilibria], "o-", label="surface equilibrium"
+        couplings,
+        [state[0] for state in equilibria],
+        label="surface equilibrium",
+        **series_style(0, markevery=1),
     )
     axes[1].semilogx(
-        couplings, [state[1] for state in equilibria], "s-", label="deep equilibrium"
+        couplings,
+        [state[1] for state in equilibria],
+        label="deep equilibrium",
+        **series_style(1, markevery=1),
     )
     axes[1].set(xlabel="conductance $K$", ylabel="equilibrium state", title="One boundary value hides deep states")
     axes[1].legend(frameon=False)
@@ -320,14 +364,44 @@ def figure_7_feedback() -> None:
         ]
     )
     figure, axes = plt.subplots(1, 2, figsize=(10.0, 4.2))
-    axes[0].plot(deep, connectivity, label=r"connectivity $\psi$")
-    axes[0].plot(deep, conductance, label=r"conductance $K(\psi)$")
+    axes[0].plot(
+        deep,
+        connectivity,
+        label=r"connectivity $\psi$",
+        **series_style(0, markevery=100),
+    )
+    axes[0].plot(
+        deep,
+        conductance,
+        label=r"conductance $K(\psi)$",
+        **series_style(1, markevery=100),
+    )
     axes[0].set(xlabel="deep temperature", ylabel="normalized state", title="State-dependent edge")
     axes[0].legend(frameon=False)
-    axes[1].plot(deep, flux, label="transported flux")
-    axes[1].plot(deep, slope, label=r"$dq/dT_d$")
+    axes[1].plot(
+        deep,
+        flux,
+        label="transported flux",
+        **series_style(0, markevery=100),
+    )
+    axes[1].plot(
+        deep,
+        slope,
+        label=r"$dq/dT_d$",
+        **series_style(1, markevery=100),
+    )
     axes[1].axhline(0.0, color="black", linewidth=0.8)
-    axes[1].fill_between(deep, slope, 0.0, where=slope < 0.0, color="#D55E00", alpha=0.25, label="negative slope")
+    axes[1].fill_between(
+        deep,
+        slope,
+        0.0,
+        where=slope < 0.0,
+        facecolor="#D55E00",
+        edgecolor="#9C3D00",
+        alpha=0.18,
+        hatch="//",
+        label="negative slope",
+    )
     axes[1].set(xlabel="deep temperature", ylabel="normalized flux / slope", title="Local negative differential transport")
     axes[1].legend(frameon=False, fontsize=8)
     figure.suptitle("Illustrative fixed-upper-state feedback closure", fontweight="bold")
@@ -369,16 +443,26 @@ def figure_s4_s5_frequency_response() -> None:
             )
 
     figure, axis = plt.subplots(figsize=(8.0, 5.2))
-    for name, response in responses.items():
-        axis.loglog(frequencies, np.abs(response), label=name)
+    for index, (name, response) in enumerate(responses.items()):
+        axis.loglog(
+            frequencies,
+            np.abs(response),
+            label=name,
+            **series_style(index, markevery=50),
+        )
     axis.set(xlabel="forcing frequency (cycles per unit time)", ylabel="response amplitude", title="Frequency response reveals hidden reservoir modes")
     axis.legend(frameon=False)
     figure.tight_layout()
     save_png(figure, "supplement_figure_S4_frequency_response_amplitude.png")
 
     figure, axis = plt.subplots(figsize=(8.0, 5.2))
-    for name, response in responses.items():
-        axis.semilogx(frequencies, np.degrees(np.angle(response)), label=name)
+    for index, (name, response) in enumerate(responses.items()):
+        axis.semilogx(
+            frequencies,
+            np.degrees(np.angle(response)),
+            label=name,
+            **series_style(index, markevery=50),
+        )
     axis.set(xlabel="forcing frequency (cycles per unit time)", ylabel="phase lag (degrees)", title="Phase lag separates transport-connectivity regimes")
     axis.legend(frameon=False)
     figure.tight_layout()

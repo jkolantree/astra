@@ -1,0 +1,62 @@
+name: Reproducibility report
+description: Report a deterministic replay, environment, data, or release-identity problem.
+title: "[Reproducibility]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping make the public evidence easier to reproduce. Issues are public: remove account details, local paths, credentials, unpublished data, and other private information before submitting.
+  - type: input
+    id: identity
+    attributes:
+      label: Version, tag, or commit
+      description: Identify the exact state you tested, such as v1.0.6 or a full commit SHA.
+      placeholder: v1.0.6
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, architecture, Python version, and any relevant tool versions.
+      placeholder: Windows 11 x64; Python 3.12.10
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command or procedure
+      description: Include the smallest command sequence that reproduces the result.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed result
+      description: Include the complete relevant error and say which step first diverged.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+      description: State what the documentation or release contract led you to expect.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Minimal evidence
+      description: Add public logs, hashes, or a minimal case. Do not include secrets or private file paths.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I tested an identified public version, tag, or commit.
+          required: true
+        - label: I removed secrets, account details, and private paths from this public report.
+          required: true

@@ -1,7 +1,7 @@
 ---
 title: "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution"
 subtitle: "Solar–Planetary Phase-Partition Theory with ASTRA: a thermodynamically constrained network framework for interiors, atmospheres, and astronomical inference"
-version: "1.0.5"
+version: "1.0.6"
 author: "Jacko T."
 date: "2 August 2026"
 lang: en-US
@@ -25,9 +25,6 @@ toc-depth: 3
 number-sections: true
 geometry: margin=0.82in
 fontsize: 10pt
-mainfont: "Noto Serif"
-sansfont: "Noto Sans"
-monofont: "DejaVu Sans Mono"
 colorlinks: true
 linkcolor: "SPPTBlue"
 citecolor: "SPPTBlue"
@@ -53,12 +50,12 @@ header-includes:
     \pagestyle{fancy}
     \fancyhf{}
     \fancyhead[L]{\small Solar--Planetary Phase-Partition Theory}
-    \fancyhead[R]{\small Preprint v1.0.5}
+    \fancyhead[R]{\small Preprint v1.0.6}
     \fancyfoot[C]{\thepage}
     \renewcommand{\headrulewidth}{0.3pt}
 ---
 
-**Preprint v1.0.5 · Perspective and mathematical framework · Not peer reviewed**
+**Preprint v1.0.6 · Perspective and mathematical framework · Not peer reviewed**
 
 **Correspondence:** [GitHub Issues for this repository](https://github.com/jkolantree/astra/issues)  
 **License:** Text and original figures, CC BY 4.0. Source code, MIT License.
@@ -370,6 +367,8 @@ The framework distinguishes seven mechanisms:
 | Stratification | stable gradient suppresses advective exchange | non-convective ice-giant region |
 | Kinetic/interfacial | nucleation or reaction barrier controls access | metastable polymorph or surface-selected carbon |
 
+Table: Phase-reservoir trap classes, their dominant physical conditions, and representative examples.
+
 ## 4.2 Exact periodically forced trap
 
 Consider the minimal trap
@@ -405,7 +404,9 @@ $$
 
 which is maximal at $\omega\tau_r=1$. Thus the raw area measures retained inventory, whereas the normalized area isolates the strongest forcing–release phase mismatch.
 
-![Exact response of a periodically forced linear trap. The nonzero loop area is a quantitative memory measure.](../figures/figure_2_trap_memory_hysteresis.png){#fig:memory width=94%}
+![Exact response of a periodically forced linear trap. Solid lines with circles, dashed lines with squares, and dash-dot lines with triangles identify release times 0.25, 1, and 4, respectively; the nonzero capture-inventory loop area is a quantitative memory measure.](../figures/figure_2_trap_memory_hysteresis.png){#fig:memory width=94%}
+
+The left panel plots inventory against normalized time and the right panel plots the same inventory against capture rate. Exact values for all three release times are provided in `data/trap_memory_loops.csv`.
 
 ## 4.3 Trap failure and release
 
@@ -468,7 +469,9 @@ Choose a trial vector constant on each side of the cut and $C$-orthogonal to $\m
 
 A weak connection therefore bounds a slow mode even when transport inside each region is efficient, subject to the positivity and weighted-connectivity hypotheses above.
 
-![A low-conductance cut creates a small spectral gap and a long exchange timescale.](../figures/figure_3_spectral_bottleneck.png){#fig:bottleneck width=94%}
+![A low-conductance cut creates a small spectral gap and a long exchange timescale. The computed second eigenvalue is a solid line with circles; the weak-cut upper bound is a dashed line with squares.](../figures/figure_3_spectral_bottleneck.png){#fig:bottleneck width=94%}
+
+Both axes are logarithmic. The plotted cut conductance, computed second eigenvalue, and upper bound are provided in `data/spectral_bottleneck.csv`.
 
 ## 5.3 Minority phases and percolation
 
@@ -517,7 +520,9 @@ The toy closure shown in the accompanying figure holds $T_u$ fixed locally, so t
 
 A negative value is a **negative differential transport region** and a possible fold precursor in a reduced closure. It is not, by itself, proof of global bistability or a fit to Uranus or Neptune.
 
-![Illustrative state-dependent connectivity and the resulting negative differential transport region.](../figures/figure_7_state_dependent_transport_feedback.png){#fig:feedback width=94%}
+![Illustrative state-dependent connectivity and the resulting negative differential transport region. In the left panel, connectivity is a solid line with circles and conductance is a dashed line with squares. In the right panel, transported flux is a solid line with circles, its derivative is a dashed line with squares, and hatched shading marks where that derivative is negative.](../figures/figure_7_state_dependent_transport_feedback.png){#fig:feedback width=94%}
+
+The deep-temperature grid, connectivity, conductance, transported flux, and flux derivative are provided in `data/state_dependent_transport.csv`.
 
 # 6. Hybrid planetary dynamics
 
@@ -740,7 +745,9 @@ $$
 
 A boundary equilibrium measurement can therefore identify the total flux without identifying the transport conductance or deep stored state. Within this fixed two-reservoir family, transient forcing can break the conductance degeneracy because the response times depend on $K$ and the capacities. That pointwise result does not imply structural identifiability across different graph realizations.
 
-![Several internal conductances yield the same static boundary temperature but different deep states; their transient responses separate them.](../figures/figure_5_static_degeneracy_transient_resolution.png){#fig:static width=94%}
+![Several internal conductances yield the same static boundary temperature but different deep states; their transient responses separate them. Solid-circle, dashed-square, and dash-dot-triangle curves identify conductances 0.05, 0.20, and 1.00 in the transient panel.](../figures/figure_5_static_degeneracy_transient_resolution.png){#fig:static width=94%}
+
+The right panel separately marks surface equilibria with solid circles and deep equilibria with dashed squares. Time, conductance, and both state trajectories are provided in `data/two_reservoir_step_response.csv`.
 
 ## 9.2 Observability Gramian
 
@@ -833,6 +840,8 @@ A comparative atlas needs dimensionless coordinates with declared scales.
 | Magnetic Reynolds | $Rm=\mu_0\sigma UL$ | magnetic advection versus diffusion |
 | Percolation distance | $\delta_p=(\phi-\phi_c)/\phi_c$ | distance from connectivity threshold |
 | Spectral bottleneck | $\mathfrak B_\lambda=\lambda_{\max}/\lambda_2$ | separation of fast and slow transport modes |
+
+Table: Dimensionless coordinates used to compare physical regimes.
 
 The percolation distance requires $\phi_c>0$, and the spectral bottleneck requires the positive-weight connectivity condition $\lambda_2>0$. These are not compressed into one universal “planet score.” They form a dimensionless regime vector whose components remain tied to declared dimensional scales and retain a specific physical interpretation.
 
@@ -1116,6 +1125,8 @@ The executable reference implementation reproduces the following idealized quant
 | Current for 1 Gt CO2 yr$^{-1}$, ideal | $2.7789\times10^{11}\ \mathrm A$ |
 | Reversible minimum mean power for 1 Gt CO2 yr$^{-1}$ | $2.8391\times10^{11}\ \mathrm W$ |
 | Signed release-normalized area $\oint q_r\,dc$ for $c_1=0.75$, $\omega\tau_r=1$ | $-0.8836$ normalized units |
+
+Table: Idealized reference outputs reproduced by the executable implementation.
 
 Numerical functions were implemented with NumPy and SciPy, and figures with Matplotlib [@harris2020; @virtanen2020; @hunter2007].
 

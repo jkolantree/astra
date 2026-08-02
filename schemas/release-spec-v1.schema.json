@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/release-spec-v1.schema.json",
+  "title": "SPPT/ASTRA release specification v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "title",
+    "framework",
+    "inference_layer",
+    "scientific_classification",
+    "version",
+    "tag",
+    "release_date",
+    "build_epoch",
+    "build_epoch_unix",
+    "author",
+    "repository",
+    "repository_id",
+    "licenses",
+    "release_asset_allowlist"
+  ],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/release-spec-v1.schema.json"},
+    "title": {"type": "string", "minLength": 1},
+    "framework": {"type": "string", "minLength": 1},
+    "inference_layer": {"type": "string", "minLength": 1},
+    "scientific_classification": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "tag": {"type": "string", "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "release_date": {"type": "string", "format": "date"},
+    "build_epoch": {"type": "string", "format": "date-time"},
+    "build_epoch_unix": {"type": "integer", "minimum": 0},
+    "author": {"type": "string", "minLength": 1},
+    "repository": {"type": "string", "format": "uri", "pattern": "^https://github\\.com/"},
+    "repository_id": {"type": "integer", "minimum": 1},
+    "licenses": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["software", "manuscript_documentation_figures_data"],
+      "properties": {
+        "software": {"const": "MIT"},
+        "manuscript_documentation_figures_data": {"const": "CC-BY-4.0"}
+      }
+    },
+    "release_asset_allowlist": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

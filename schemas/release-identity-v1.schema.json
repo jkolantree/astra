@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/release-identity-v1.schema.json",
+  "title": "SPPT/ASTRA detached release identity v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "repository",
+    "repository_id",
+    "version",
+    "tag",
+    "annotated_tag_object",
+    "commit",
+    "tree",
+    "tracked_manifest",
+    "release_date",
+    "build_epoch",
+    "assets",
+    "sha256sums_sha256",
+    "identity_excludes_self"
+  ],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/release-identity-v1.schema.json"},
+    "repository": {"type": "string", "format": "uri"},
+    "repository_id": {"type": "integer", "minimum": 1},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "tag": {"type": "string", "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "annotated_tag_object": {"$ref": "#/definitions/gitObject"},
+    "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "tree": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "tracked_manifest": {"$ref": "#/definitions/fileRecord"},
+    "release_date": {"type": "string", "format": "date"},
+    "build_epoch": {"type": "string", "format": "date-time"},
+    "assets": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {"$ref": "#/definitions/fileRecord"}
+    },
+    "sha256sums_sha256": {"$ref": "#/definitions/sha256"},
+    "identity_excludes_self": {"const": true}
+  },
+  "definitions": {
+    "gitObject": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "fileRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "bytes", "sha256"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    }
+  }
+}

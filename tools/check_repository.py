@@ -12,6 +12,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
 
+from jsonschema import Draft7Validator, FormatChecker
 from PIL import Image
 from ruamel.yaml import YAML
 
@@ -37,6 +38,7 @@ ROOT_ALLOWLIST = {
     "RELEASE_NOTES_v1.0.3.md",
     "RELEASE_NOTES_v1.0.4.md",
     "RELEASE_NOTES_v1.0.5.md",
+    "RELEASE_NOTES_v1.0.6.md",
     "RELEASE_SPEC.json",
     "RUNTIME.json",
     "SOURCE_INVENTORY.json",
@@ -46,12 +48,15 @@ ROOT_ALLOWLIST = {
     "requirements-lock.txt",
 }
 DIRECTORY_RULES = {
+    ".github/ISSUE_TEMPLATE": {".md", ".yaml", ".yml"},
     ".github/workflows": {".yml", ".yaml"},
     "data": {".csv", ".json"},
     "evidence": {".md", ".txt"},
     "figures": {".png", ".pdf"},
     "licenses": {".txt"},
     "manuscript": {".bib", ".css", ".html", ".json", ".md", ".pdf"},
+    "docs": {".css", ".html", ".json", ".md", ".png", ".svg", ".txt"},
+    "schemas": {".json", ".md"},
     "scripts": {".py"},
     "src": {".py"},
     "tests": {".py"},
@@ -189,7 +194,10 @@ class AccessibilityParser(HTMLParser):
         self.images = 0
         self.images_with_alt = 0
         self.tables = 0
+        self.table_captions = 0
         self.table_headers = 0
+        self.table_column_headers = 0
+        self.table_row_headers = 0
         self.math = 0
         self.main = 0
         self.nav = 0
@@ -212,8 +220,14 @@ class AccessibilityParser(HTMLParser):
                 self.external_resources.append(source)
         elif tag == "table":
             self.tables += 1
+        elif tag == "caption":
+            self.table_captions += 1
         elif tag == "th":
             self.table_headers += 1
+            if values.get("scope") == "col":
+                self.table_column_headers += 1
+            elif values.get("scope") == "row":
+                self.table_row_headers += 1
         elif tag == "math":
             self.math += 1
         elif tag == "main":
@@ -251,8 +265,16 @@ def check_html(path: Path, expected_title: str) -> None:
         failures.append(f"unexpected title {title!r}")
     if parser.images < 1 or parser.images_with_alt != parser.images:
         failures.append(f"image alt/aria coverage {parser.images_with_alt}/{parser.images}")
-    if parser.tables and parser.table_headers < parser.tables:
-        failures.append(f"table header count {parser.table_headers} for {parser.tables} tables")
+    if parser.tables and parser.table_captions != parser.tables:
+        failures.append(f"table caption count {parser.table_captions} for {parser.tables} tables")
+    if parser.tables and parser.table_column_headers < parser.tables:
+        failures.append(
+            f"scoped column-header count {parser.table_column_headers} for {parser.tables} tables"
+        )
+    if parser.tables and parser.table_row_headers < parser.tables:
+        failures.append(
+            f"scoped row-header count {parser.table_row_headers} for {parser.tables} tables"
+        )
     if parser.math < 1:
         failures.append("no structured MathML")
     if parser.main != 1 or parser.nav != 1 or parser.skip_link != 1:
@@ -401,10 +423,11 @@ def check_metadata_agreement() -> None:
         raise RuntimeError("CITATION.cff pseudonymous author mismatch")
     if citation["repository-code"] != spec["repository"] or citation["license"] != "MIT":
         raise RuntimeError("CITATION.cff repository/license mismatch")
+    release_url = f"{spec['repository']}/releases/tag/{tag}"
+    if citation.get("url") != release_url:
+        raise RuntimeError("CITATION.cff top-level URL is not bound to the release tag")
     preferred = citation.get("preferred-citation", {})
-    if str(preferred.get("version")) != version or preferred.get("url") != (
-        f"{spec['repository']}/releases/tag/{tag}"
-    ):
+    if str(preferred.get("version")) != version or preferred.get("url") != release_url:
         raise RuntimeError("CITATION.cff preferred citation is not bound to the release tag")
 
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
@@ -441,7 +464,13 @@ def check_metadata_agreement() -> None:
             "Versioned manuscript edition roster differs from the current release: "
             f"expected {sorted(expected_edition_names)}, observed {sorted(observed_editions)}"
         )
-    required_readme_values = (*expected_documents, f"{spec['repository']}/releases/tag/{tag}")
+    pages_root = "https://jkolantree.github.io/astra"
+    required_readme_values = (
+        *expected_documents,
+        release_url,
+        f"{pages_root}/{tag}/preprint/",
+        f"{pages_root}/{tag}/supplement/",
+    )
     if any(value not in readme for value in required_readme_values):
         raise RuntimeError("README current-release links differ from RELEASE_SPEC.json")
 
@@ -580,6 +609,63 @@ def check_dependency_lock() -> None:
             raise RuntimeError(f"Direct dependency missing from lock: {package}")
 
 
+def check_public_json_schemas() -> None:
+    schema_root = ROOT / "schemas"
+    expected_prefix = "https://jkolantree.github.io/astra/schemas/"
+    records = (
+        ROOT / "RELEASE_SPEC.json",
+        ROOT / "CLAIM_MATRIX.json",
+        ROOT / "SOURCE_INVENTORY.json",
+        ROOT / "RUNTIME.json",
+        ROOT / "manuscript" / "document_semantic_identity.json",
+        ROOT / "manuscript" / "pdf_inspection.json",
+    )
+    referenced_schema_files: set[Path] = set()
+    for record_path in records:
+        instance = json.loads(record_path.read_text(encoding="utf-8"))
+        declared = instance.get("schema")
+        if not isinstance(declared, str) or not declared.startswith(expected_prefix):
+            raise RuntimeError(
+                f"Non-public or missing schema URL in {record_path.relative_to(ROOT)}"
+            )
+        schema_path = schema_root / declared.removeprefix(expected_prefix)
+        if schema_path.parent != schema_root or not schema_path.is_file():
+            raise RuntimeError(
+                f"Declared schema is not shipped: {record_path.relative_to(ROOT)} -> {declared}"
+            )
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        if schema.get("$id") != declared:
+            raise RuntimeError(f"Schema $id differs from its public URL: {schema_path.name}")
+        errors = sorted(
+            Draft7Validator(schema, format_checker=FormatChecker()).iter_errors(instance),
+            key=lambda error: tuple(str(part) for part in error.absolute_path),
+        )
+        if errors:
+            first = errors[0]
+            location = "/".join(str(part) for part in first.absolute_path) or "<root>"
+            raise RuntimeError(
+                f"JSON schema validation failed for {record_path.relative_to(ROOT)} at "
+                f"{location}: {first.message}"
+            )
+        referenced_schema_files.add(schema_path)
+
+    release_identity = schema_root / "release-identity-v1.schema.json"
+    if not release_identity.is_file():
+        raise RuntimeError("Detached release-identity schema is not shipped")
+    release_identity_schema = json.loads(release_identity.read_text(encoding="utf-8"))
+    if release_identity_schema.get("$id") != expected_prefix + release_identity.name:
+        raise RuntimeError("Detached release-identity schema has the wrong public $id")
+    referenced_schema_files.add(release_identity)
+
+    shipped = set(schema_root.glob("*.schema.json"))
+    if shipped != referenced_schema_files:
+        unexpected = sorted(path.name for path in shipped - referenced_schema_files)
+        missing = sorted(path.name for path in referenced_schema_files - shipped)
+        raise RuntimeError(
+            f"Public schema inventory mismatch: unexpected={unexpected}, missing={missing}"
+        )
+
+
 def check_runtime_identity() -> None:
     runtime = json.loads((ROOT / "RUNTIME.json").read_text(encoding="utf-8"))
     lock_record = runtime.get("dependency_lock", {})
@@ -625,6 +711,7 @@ def main() -> None:
     check_claim_matrix()
     check_source_inventory()
     check_dependency_lock()
+    check_public_json_schemas()
     check_runtime_identity()
     check_html(
         ROOT / "manuscript" / f"SPPT_ASTRA_preprint_v{version}.html",

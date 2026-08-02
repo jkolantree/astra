@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/pdf-inspection-v1.schema.json",
+  "title": "SPPT/ASTRA PDF inspection record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "records"],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/pdf-inspection-v1.schema.json"},
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "file",
+          "bytes",
+          "sha256",
+          "pages",
+          "tagged",
+          "language",
+          "metadata",
+          "all_pages_have_extractable_text",
+          "fonts",
+          "figure_tags",
+          "figure_leaf_tags",
+          "figure_alt_tags",
+          "formula_tags",
+          "formula_alt_tags",
+          "formula_actual_text_tags",
+          "table_tags",
+          "table_caption_tags",
+          "column_header_tags",
+          "row_header_tags",
+          "outline_title_count",
+          "outline_titles_match_html",
+          "compatibility_ligature_count",
+          "exact_search_sentinels"
+        ],
+        "properties": {
+          "file": {"type": "string", "pattern": "\\.pdf$"},
+          "bytes": {"type": "integer", "minimum": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "pages": {"type": "integer", "minimum": 1},
+          "tagged": {"const": true},
+          "language": {"const": "en-US"},
+          "metadata": {"type": "object", "minProperties": 1},
+          "all_pages_have_extractable_text": {"const": true},
+          "fonts": {"type": "array", "minItems": 1},
+          "figure_tags": {"type": "integer", "minimum": 0},
+          "figure_leaf_tags": {"type": "integer", "minimum": 0},
+          "figure_alt_tags": {"type": "integer", "minimum": 0},
+          "formula_tags": {"type": "integer", "minimum": 1},
+          "formula_alt_tags": {"type": "integer", "minimum": 1},
+          "formula_actual_text_tags": {"type": "integer", "minimum": 1},
+          "table_tags": {"type": "integer", "minimum": 1},
+          "table_caption_tags": {"type": "integer", "minimum": 1},
+          "column_header_tags": {"type": "integer", "minimum": 1},
+          "row_header_tags": {"type": "integer", "minimum": 1},
+          "outline_title_count": {"type": "integer", "minimum": 1},
+          "outline_titles_match_html": {"const": true},
+          "compatibility_ligature_count": {"const": 0},
+          "exact_search_sentinels": {
+            "type": "array",
+            "contains": {"const": "identifiability"}
+          }
+        }
+      }
+    }
+  }
+}

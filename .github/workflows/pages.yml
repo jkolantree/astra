@@ -1,0 +1,306 @@
+name: Publish accessible reading room
+
+# Manual by design: stable paths are published only after the current main commit
+# has an annotated tag and a published immutable release. Before the first run, a
+# repository administrator must select GitHub Actions as the Pages source.
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout exact main revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Build release-bound reading room
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          site="$RUNNER_TEMP/astra-pages"
+          downloads="$RUNNER_TEMP/astra-pages-downloads"
+          rm -rf -- "$site" "$downloads"
+          mkdir -p -- "$site" "$downloads"
+          cp -R -- docs/. "$site/"
+
+          current_version="$(jq -er '.version | select(test("^[0-9]+[.][0-9]+[.][0-9]+$"))' RELEASE_SPEC.json)"
+          current_tag="v${current_version}"
+          current_ref="refs/tags/${current_tag}"
+          test "$(git cat-file -t "$current_ref")" = tag
+          test "$(git rev-parse HEAD)" = "$(git rev-parse "${current_ref}^{commit}")"
+
+          current_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${current_tag}")"
+          jq -e '
+            .tag_name == $tag and
+            .draft == false and
+            .prerelease == false and
+            .immutable == true
+          ' --arg tag "$current_tag" <<<"$current_release" >/dev/null
+
+          mapfile -t release_tags < <(
+            gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
+              --jq '.[] | select(.draft == false and .prerelease == false and .immutable == true) | .tag_name' |
+              grep -E '^v[0-9]+[.][0-9]+[.][0-9]+$' |
+              sort -V
+          )
+          test "${#release_tags[@]}" -gt 0
+          printf '%s\n' "${release_tags[@]}" | grep -Fx -- "$current_tag" >/dev/null
+
+          mkdir -p -- "$site/editions" "$site/schemas"
+
+          for tag in "${release_tags[@]}"; do
+            version="${tag#v}"
+            preprint="SPPT_ASTRA_preprint_${tag}.html"
+            supplement="SPPT_ASTRA_technical_supplement_${tag}.html"
+            source_archive="SPPT_ASTRA_${tag}_source.tar.gz"
+            release_dir="$downloads/$tag"
+            extract_dir="$release_dir/source"
+            archive_root="SPPT_ASTRA_${tag}"
+            version_dir="$site/$tag"
+
+            mkdir -p -- "$release_dir" "$extract_dir" "$version_dir/preprint" "$version_dir/supplement"
+            gh release download "$tag" \
+              --repo "$GITHUB_REPOSITORY" \
+              --dir "$release_dir" \
+              --pattern "$preprint" \
+              --pattern "$supplement" \
+              --pattern "$source_archive" \
+              --pattern SHA256SUMS
+
+            for asset in "$preprint" "$supplement" "$source_archive" SHA256SUMS; do
+              test -f "$release_dir/$asset"
+            done
+            for asset in "$preprint" "$supplement" "$source_archive"; do
+              test "$(awk -v name="$asset" '$2 == name { count += 1 } END { print count + 0 }' "$release_dir/SHA256SUMS")" -eq 1
+            done
+
+            awk -v preprint="$preprint" -v supplement="$supplement" -v source="$source_archive" '
+              $2 == preprint || $2 == supplement || $2 == source { print }
+            ' "$release_dir/SHA256SUMS" > "$release_dir/PAGES_SHA256SUMS"
+            test "$(wc -l < "$release_dir/PAGES_SHA256SUMS")" -eq 3
+            (
+              cd "$release_dir"
+              sha256sum --check --strict PAGES_SHA256SUMS
+            )
+
+            while IFS= read -r member; do
+              case "$member" in
+                "$archive_root"|"$archive_root/"*) ;;
+                *) echo "Unsafe source-archive member: $member" >&2; exit 1 ;;
+              esac
+              case "/$member/" in
+                *"/../"*) echo "Unsafe source-archive traversal: $member" >&2; exit 1 ;;
+              esac
+            done < <(tar -tzf "$release_dir/$source_archive")
+            if tar -tvzf "$release_dir/$source_archive" | grep -E '^[lh]' >/dev/null; then
+              echo "Source archive contains a link" >&2
+              exit 1
+            fi
+            tar -xzf "$release_dir/$source_archive" -C "$extract_dir"
+            source_root="$extract_dir/$archive_root"
+            test -f "$source_root/RELEASE_SPEC.json"
+            jq -e '.version == $version and .tag == $tag' \
+              --arg version "$version" --arg tag "$tag" \
+              "$source_root/RELEASE_SPEC.json" >/dev/null
+
+            cp -- "$release_dir/$preprint" "$version_dir/preprint/index.html"
+            cp -- "$release_dir/$supplement" "$version_dir/supplement/index.html"
+            if test -d "$source_root/data"; then
+              cp -R -- "$source_root/data" "$version_dir/data"
+            fi
+            if test -d "$source_root/schemas"; then
+              cp -R -- "$source_root/schemas" "$version_dir/schemas"
+              while IFS= read -r -d '' schema; do
+                relative="${schema#"$source_root/schemas/"}"
+                if [[ ! "$relative" =~ ^[a-z0-9][a-z0-9._/-]*[.]schema[.]json$ ]] || [[ "/$relative/" == *"/../"* ]]; then
+                  echo "Unsafe schema path: $relative" >&2
+                  exit 1
+                fi
+                target="$site/schemas/$relative"
+                mkdir -p -- "$(dirname "$target")"
+                if test -f "$target"; then
+                  cmp --silent -- "$schema" "$target" || {
+                    echo "Immutable schema revision changed: $relative" >&2
+                    exit 1
+                  }
+                else
+                  cp -- "$schema" "$target"
+                fi
+              done < <(find "$source_root/schemas" -type f -name '*.schema.json' -print0)
+              cat > "$version_dir/schemas/index.html" <<HTML
+          <!doctype html>
+          <html lang="en-US">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>JSON schemas for SPPT/ASTRA ${tag}</title>
+            <link rel="stylesheet" href="../../style.css">
+          </head>
+          <body>
+            <a class="skip-link" href="#main-content">Skip to main content</a>
+            <header><div class="wrap"><p class="eyebrow">SPPT/ASTRA ${tag}</p><h1>JSON schemas</h1></div></header>
+            <main id="main-content" class="wrap">
+              <p><a href="../">Edition home</a></p>
+              <ul>
+          HTML
+              while IFS= read -r schema; do
+                name="$(basename "$schema")"
+                printf '      <li><a href="./%s">%s</a></li>\n' "$name" "$name" >> "$version_dir/schemas/index.html"
+              done < <(find "$source_root/schemas" -maxdepth 1 -type f -name '*.schema.json' | sort)
+              cat >> "$version_dir/schemas/index.html" <<'HTML'
+              </ul>
+            </main>
+          </body>
+          </html>
+          HTML
+            fi
+
+            cat > "$version_dir/index.html" <<HTML
+          <!doctype html>
+          <html lang="en-US">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>SPPT/ASTRA ${tag} | Accessible reading room</title>
+            <link rel="stylesheet" href="../style.css">
+          </head>
+          <body>
+            <a class="skip-link" href="#main-content">Skip to main content</a>
+            <header><div class="wrap"><p class="eyebrow">Versioned edition</p><h1>SPPT/ASTRA ${tag}</h1></div></header>
+            <main id="main-content" class="wrap">
+              <p><a href="../editions/">All published editions</a></p>
+              <aside class="notice" aria-labelledby="status-${version}">
+                <h2 id="status-${version}">Scientific status</h2>
+                <p>This is a not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations. It is not empirical planetary validation.</p>
+              </aside>
+              <h2>Read this edition</h2>
+              <ul class="cards">
+                <li><a href="./preprint/">Preprint <span aria-hidden="true">&rarr;</span></a></li>
+                <li><a href="./supplement/">Technical supplement <span aria-hidden="true">&rarr;</span></a></li>
+              </ul>
+              <p><a href="https://github.com/${GITHUB_REPOSITORY}/releases/tag/${tag}">Download the immutable release assets and checksums</a>.</p>
+            </main>
+          </body>
+          </html>
+          HTML
+          done
+
+          cat > "$site/editions/index.html" <<'HTML'
+          <!doctype html>
+          <html lang="en-US">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Published editions | SPPT/ASTRA</title>
+            <link rel="stylesheet" href="../style.css">
+          </head>
+          <body>
+            <a class="skip-link" href="#main-content">Skip to main content</a>
+            <header><div class="wrap"><p class="eyebrow">SPPT/ASTRA</p><h1>Published editions</h1></div></header>
+            <main id="main-content" class="wrap">
+              <p><a href="../">Reading-room home</a></p>
+              <p>Each link is rebuilt from checksum-verified assets of an immutable GitHub Release.</p>
+              <ul>
+          HTML
+          for tag in "${release_tags[@]}"; do
+            printf '      <li><a href="../%s/">SPPT/ASTRA %s</a></li>\n' "$tag" "$tag" >> "$site/editions/index.html"
+          done
+          cat >> "$site/editions/index.html" <<'HTML'
+              </ul>
+            </main>
+          </body>
+          </html>
+          HTML
+
+          cat > "$site/schemas/index.html" <<'HTML'
+          <!doctype html>
+          <html lang="en-US">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Published JSON schemas | SPPT/ASTRA</title>
+            <link rel="stylesheet" href="../style.css">
+          </head>
+          <body>
+            <a class="skip-link" href="#main-content">Skip to main content</a>
+            <header><div class="wrap"><p class="eyebrow">SPPT/ASTRA</p><h1>Published JSON schemas</h1></div></header>
+            <main id="main-content" class="wrap">
+              <p><a href="../">Reading-room home</a></p>
+              <p>A schema revision keeps the same public URL only while its bytes remain identical across releases.</p>
+              <ul>
+          HTML
+          while IFS= read -r schema; do
+            name="$(basename "$schema")"
+            printf '      <li><a href="./%s">%s</a></li>\n' "$name" "$name" >> "$site/schemas/index.html"
+          done < <(find "$site/schemas" -maxdepth 1 -type f -name '*.schema.json' | sort)
+          cat >> "$site/schemas/index.html" <<'HTML'
+              </ul>
+            </main>
+          </body>
+          </html>
+          HTML
+
+          write_redirect() {
+            local directory="$1"
+            local target="$2"
+            local label="$3"
+            mkdir -p -- "$directory"
+            cat > "$directory/index.html" <<HTML
+          <!doctype html>
+          <html lang="en-US">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta http-equiv="refresh" content="0; url=${target}">
+            <title>${label} | SPPT/ASTRA</title>
+          </head>
+          <body>
+            <main><h1>${label}</h1><p><a href="${target}">Continue to the current versioned edition</a>.</p></main>
+          </body>
+          </html>
+          HTML
+          }
+
+          write_redirect "$site/latest" "../${current_tag}/" "Current SPPT/ASTRA edition"
+          write_redirect "$site/latest/preprint" "../../${current_tag}/preprint/" "Current SPPT/ASTRA preprint"
+          write_redirect "$site/latest/supplement" "../../${current_tag}/supplement/" "Current SPPT/ASTRA technical supplement"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: ${{ runner.temp }}/astra-pages
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0

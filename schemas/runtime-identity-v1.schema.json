@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/runtime-identity-v1.schema.json",
+  "title": "SPPT/ASTRA reference runtime identity v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "reference_platform", "python", "git", "reference_distribution", "ci_distribution", "dependency_lock", "numeric_kernel", "pandoc", "pdf_renderer", "determinism_scope"],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/runtime-identity-v1.schema.json"},
+    "reference_platform": {"type": "string", "minLength": 1},
+    "python": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "git": {"type": "object", "minProperties": 1},
+    "reference_distribution": {"type": "object", "minProperties": 1},
+    "ci_distribution": {"type": "object", "minProperties": 1},
+    "dependency_lock": {"type": "object", "minProperties": 1},
+    "numeric_kernel": {"type": "object", "minProperties": 1},
+    "pandoc": {"type": "object", "minProperties": 1},
+    "pdf_renderer": {"type": "object", "minProperties": 1},
+    "determinism_scope": {"type": "string", "minLength": 1}
+  }
+}

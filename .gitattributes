@@ -1,6 +1,8 @@
 # Keep every textual artifact byte-stable across platforms.
 * text=auto eol=lf
 manuscript/manuscript.md whitespace=-blank-at-eol
+# Self-contained editions are deterministic build products, not authored HTML.
+manuscript/*.html linguist-generated=true
 *.png binary
 *.pdf binary
 *.docx binary

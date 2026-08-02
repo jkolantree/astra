@@ -2,19 +2,21 @@
 
 This is the versioned reference package for **Solar-Planetary Phase-Partition Theory (SPPT)** and its inference layer, **ASTRA — Astronomical State-Topology and Reservoir Analysis**. SPPT represents planetary material and energy reservoirs as a physically constrained network whose topology may itself be a latent state; ASTRA compares admissible candidate networks against observations and simpler baselines.
 
-Version **1.0.5** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public. This corrective release supersedes v1.0.1 for current use without modifying its immutable tag or assets. The public v1.0.2, v1.0.3, and v1.0.4 tags are retained as release-process evidence, were not moved, and have no GitHub Releases.
+Version **1.0.6** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public. This accessibility release supersedes v1.0.5 for current use without modifying its immutable tag or assets. The public v1.0.2, v1.0.3, and v1.0.4 tags are retained as release-process evidence, were not moved, and have no GitHub Releases.
 
 ## Read the work
 
-- [Accessible preprint (self-contained HTML)](manuscript/SPPT_ASTRA_preprint_v1.0.5.html)
-- [Preprint PDF](manuscript/SPPT_ASTRA_preprint_v1.0.5.pdf)
-- [Accessible technical supplement (self-contained HTML)](manuscript/SPPT_ASTRA_technical_supplement_v1.0.5.html)
-- [Technical supplement PDF](manuscript/SPPT_ASTRA_technical_supplement_v1.0.5.pdf)
+- [Read the accessible preprint on GitHub Pages](https://jkolantree.github.io/astra/v1.0.6/preprint/)
+- [Read the accessible technical supplement on GitHub Pages](https://jkolantree.github.io/astra/v1.0.6/supplement/)
+- [Downloadable preprint HTML](manuscript/SPPT_ASTRA_preprint_v1.0.6.html) — download the file, then open it in a web browser; GitHub's file viewer does not render this large self-contained edition
+- [Preprint PDF](manuscript/SPPT_ASTRA_preprint_v1.0.6.pdf)
+- [Downloadable technical-supplement HTML](manuscript/SPPT_ASTRA_technical_supplement_v1.0.6.html) — download the file, then open it in a web browser
+- [Technical supplement PDF](manuscript/SPPT_ASTRA_technical_supplement_v1.0.6.pdf)
 - [Authoritative preprint source](manuscript/manuscript.md)
 - [Authoritative supplement source](manuscript/supplement.md)
 - [Claim-admission matrix](CLAIM_MATRIX.json)
 
-The HTML editions are the primary accessible reading path. The PDFs are synchronized tagged visual editions with normalized metadata; their text, metadata, fonts, links, and structure are mechanically checked, and every rendered page is visually inspected at the release gate.
+The versioned Pages editions are the primary accessible reading path. The downloadable HTML files contain the same document content and can be opened locally without network access. The PDFs are synchronized tagged visual editions with normalized metadata; their text, metadata, fonts, links, structure, TeX formula alternatives, and exact-search behavior are mechanically checked, and every rendered page is visually inspected at the release gate. Native MathML is available in HTML; the PDFs do not claim a native MathML expression tree.
 
 ## Scientific scope
 
@@ -62,10 +64,10 @@ py -3.12 -c "import platform; assert platform.python_version() == '3.12.10', pla
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --require-hashes -r requirements-lock.txt
 .\.venv\Scripts\python.exe -m playwright install chromium
-.\.venv\Scripts\python.exe -I -B tools\verify.py --all
+.\.venv\Scripts\python.exe -I -B tools\verify.py --all --workers 4
 ```
 
-On another Windows shell, first verify that the selected interpreter is exactly CPython 3.12.10 and that the selected Git matches `RUNTIME.json`, then run the same Python module commands. The canonical controller commands require Python's `-I -B` flags before the script path so inherited import paths cannot run before verification begins. The canonical runtime and distribution archives are identified by hash in `RUNTIME.json`. `tools/verify.py --all` overrides hostile inherited thread or OpenBLAS-core values, verifies Git and the actual NumPy and SciPy kernels, and performs complete test discovery, lint and type checks, metadata/schema checks, privacy and path scans, scientific replay, figure regeneration, document rebuild, deterministic-output comparison, PDF inspection, manifest checks, and release-integrity negative tests.
+On another Windows shell, first verify that the selected interpreter is exactly CPython 3.12.10 and that the selected Git matches `RUNTIME.json`, then run the same Python module commands. The canonical controller commands require Python's `-I -B` flags before the script path so inherited import paths cannot run before verification begins. The canonical runtime and distribution archives are identified by hash in `RUNTIME.json`. `tools/verify.py --all --workers 4` overrides hostile inherited thread or OpenBLAS-core values, verifies Git and the actual NumPy and SciPy kernels, and performs complete test discovery, lint and type checks, metadata/schema checks, privacy and path scans, scientific replay, figure regeneration, document rebuild, deterministic-output comparison, PDF inspection, manifest checks, and release-integrity negative tests.
 
 Focused commands:
 
@@ -83,6 +85,8 @@ Builds write only beneath the repository or a disposable output root. Seeds, the
 | Path | Contents |
 |---|---|
 | `manuscript/` | Authoritative Markdown, bibliography, accessible HTML, synchronized PDF |
+| `docs/` | GitHub Pages landing files; the deployment workflow assembles immutable versioned reading editions from published release assets |
+| `schemas/` | Published Draft 7 schemas for schema-declaring release metadata and audit records |
 | `src/` | Auditable reduced SPPT and ASTRA calculations |
 | `scripts/` | Deterministic scientific reproductions and figure generation |
 | `tests/` | Unit, invariant, numerical, evidence-boundary, and release-integrity tests |
@@ -96,7 +100,7 @@ Builds write only beneath the repository or a disposable output root. Seeds, the
 
 Canonical citation metadata are in [`CITATION.cff`](CITATION.cff). Cite the versioned GitHub release:
 
-> Jacko T. (2026). *Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution*, version 1.0.5. GitHub. https://github.com/jkolantree/astra/releases/tag/v1.0.5
+> Jacko T. (2026). *Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution*, version 1.0.6. GitHub. https://github.com/jkolantree/astra/releases/tag/v1.0.6
 
 This is a GitHub-only release path. No DOI or Zenodo ingestion is claimed; adding either would be a separate, explicitly authorized publication step and a new version if any archived file changed.
 

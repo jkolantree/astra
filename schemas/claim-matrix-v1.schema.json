@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/claim-matrix-v1.schema.json",
+  "title": "SPPT/ASTRA consequential claim-admission matrix v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "title", "evidence_classes", "claims"],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/claim-matrix-v1.schema.json"},
+    "title": {"type": "string", "minLength": 1},
+    "evidence_classes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/definitions/claim"}
+    }
+  },
+  "definitions": {
+    "stringList": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement",
+        "claim_type",
+        "hypotheses",
+        "domain_units_signs_boundary_quantifiers",
+        "support",
+        "evidence_class",
+        "limitations_or_counterexamples",
+        "disposition"
+      ],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "statement": {"type": "string", "minLength": 1},
+        "claim_type": {"type": "string", "minLength": 1},
+        "hypotheses": {"$ref": "#/definitions/stringList"},
+        "domain_units_signs_boundary_quantifiers": {"type": "string", "minLength": 1},
+        "support": {"$ref": "#/definitions/stringList"},
+        "evidence_class": {"type": "string", "minLength": 1},
+        "limitations_or_counterexamples": {"$ref": "#/definitions/stringList"},
+        "disposition": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

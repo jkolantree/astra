@@ -9,6 +9,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+from jsonschema import Draft7Validator, FormatChecker
 
 from tools import check_repository as repository
 from tools import release_integrity as release
@@ -117,6 +118,19 @@ def configure_release_fixture(
     monkeypatch.setattr(release, "verify_archive", lambda *args, **kwargs: None)
     release.verify_release_assets()
     return names, tag
+
+
+def test_detached_release_identity_matches_published_schema(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    names, _ = configure_release_fixture(tmp_path, monkeypatch)
+    identity = json.loads((release.DIST / names[6]).read_text(encoding="utf-8"))
+    schema = json.loads(
+        (PROJECT_ROOT / "schemas" / "release-identity-v1.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    Draft7Validator(schema, format_checker=FormatChecker()).validate(identity)
 
 
 def test_one_byte_release_asset_mutation_is_rejected(

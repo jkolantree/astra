@@ -1,5 +1,5 @@
 {
-  "schema": "https://github.com/jkolantree/astra/schemas/runtime-identity-v1",
+  "schema": "https://jkolantree.github.io/astra/schemas/runtime-identity-v1.schema.json",
   "reference_platform": "Haswell-compatible Windows x86-64 with AVX2 and FMA3",
   "python": "3.12.10",
   "git": {
