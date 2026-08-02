@@ -16,7 +16,7 @@ abstract: >-
   LICENSE_MAP.md.
 authors:
   - name: "Jacko T."
-version: 1.0.2
+version: 1.0.3
 date-released: 2026-08-02
 repository-code: "https://github.com/jkolantree/astra"
 url: "https://github.com/jkolantree/astra"
@@ -36,5 +36,5 @@ preferred-citation:
   authors:
     - name: "Jacko T."
   year: 2026
-  version: 1.0.2
-  url: "https://github.com/jkolantree/astra/releases/tag/v1.0.2"
+  version: 1.0.3
+  url: "https://github.com/jkolantree/astra/releases/tag/v1.0.3"

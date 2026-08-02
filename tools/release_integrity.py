@@ -40,7 +40,17 @@ def load_public_files_function() -> Any:
     return module.public_files
 
 
-public_files = load_public_files_function()
+_PUBLIC_FILES_FUNCTION: Any | None = None
+
+
+def public_files() -> list[Path]:
+    """Load repository policy only for commands that require the public inventory."""
+    global _PUBLIC_FILES_FUNCTION
+    if _PUBLIC_FILES_FUNCTION is None:
+        _PUBLIC_FILES_FUNCTION = load_public_files_function()
+    return _PUBLIC_FILES_FUNCTION()
+
+
 DIST = ROOT / "dist"
 MANIFEST = ROOT / "MANIFEST.sha256"
 SPEC_PATH = ROOT / "RELEASE_SPEC.json"
@@ -180,6 +190,8 @@ def validated_release_allowlist(spec: dict[str, Any]) -> list[str]:
     repository = spec.get("repository")
     if not isinstance(repository, str) or not repository.startswith("https://"):
         raise RuntimeError("Release repository must be an explicit HTTPS URL")
+    if type(spec.get("repository_id")) is not int or spec["repository_id"] <= 0:
+        raise RuntimeError("Release repository ID must be a positive integer")
     expected_allowlist = [
         f"SPPT_ASTRA_preprint_v{version}.pdf",
         f"SPPT_ASTRA_preprint_v{version}.html",
@@ -325,8 +337,9 @@ def verify_github_repository_context(spec: dict[str, Any]) -> None:
     """Bind a GitHub Actions run to the repository declared by the release."""
     server = os.environ.get("GITHUB_SERVER_URL")
     repository = os.environ.get("GITHUB_REPOSITORY")
+    repository_id = os.environ.get("GITHUB_REPOSITORY_ID")
     in_actions = os.environ.get("GITHUB_ACTIONS", "").lower() == "true"
-    if in_actions and (not server or not repository):
+    if in_actions and (not server or not repository or not repository_id):
         raise RuntimeError("GitHub Actions repository context is incomplete")
     if not server and not repository:
         return
@@ -338,6 +351,112 @@ def verify_github_repository_context(spec: dict[str, Any]) -> None:
         raise RuntimeError(
             f"GitHub repository context {observed!r} does not equal declared repository {expected!r}"
         )
+    expected_id = str(spec["repository_id"])
+    if repository_id not in {None, "", expected_id}:
+        raise RuntimeError(
+            f"GitHub repository ID {repository_id!r} does not equal declared ID {expected_id!r}"
+        )
+    if in_actions and repository_id != expected_id:
+        raise RuntimeError(
+            f"GitHub repository ID {repository_id!r} does not equal declared ID {expected_id!r}"
+        )
+
+
+def github_release_tag_event(
+    spec: dict[str, Any], *, required: bool
+) -> tuple[str, str] | None:
+    """Return the exact GitHub tag ref and peeled event commit, when applicable."""
+    in_actions = os.environ.get("GITHUB_ACTIONS", "").lower() == "true"
+    if not in_actions:
+        if required:
+            raise RuntimeError("Release-tag restoration requires GitHub Actions")
+        return None
+    event_name = os.environ.get("GITHUB_EVENT_NAME")
+    if event_name != "push":
+        raise RuntimeError(
+            f"GitHub release verification requires a push event, observed {event_name!r}"
+        )
+    ref_type = os.environ.get("GITHUB_REF_TYPE")
+    if ref_type != "tag":
+        raise RuntimeError(f"GitHub release verification requires a tag ref, observed {ref_type!r}")
+    tag = str(spec["tag"])
+    ref_name = os.environ.get("GITHUB_REF_NAME")
+    if ref_name != tag:
+        raise RuntimeError(
+            f"GitHub tag name {ref_name!r} does not equal declared release tag {tag!r}"
+        )
+    expected_ref = f"refs/tags/{tag}"
+    observed_ref = os.environ.get("GITHUB_REF")
+    if observed_ref != expected_ref:
+        raise RuntimeError(
+            f"GitHub tag ref {observed_ref!r} does not equal declared ref {expected_ref!r}"
+        )
+    verify_github_repository_context(spec)
+    event_commit = os.environ.get("GITHUB_SHA", "")
+    if not re.fullmatch(r"[0-9a-f]{40}", event_commit):
+        raise RuntimeError("GitHub release verification is missing a canonical GITHUB_SHA")
+    event_path = os.environ.get("GITHUB_EVENT_PATH")
+    if not event_path:
+        raise RuntimeError("GitHub release verification is missing GITHUB_EVENT_PATH")
+    try:
+        payload = json.loads(Path(event_path).read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as error:
+        raise RuntimeError("GitHub push-event payload is unreadable or invalid") from error
+    if not isinstance(payload, dict):
+        raise RuntimeError("GitHub push-event payload must be a JSON object")
+    if payload.get("ref") != expected_ref:
+        raise RuntimeError("GitHub push-event ref does not equal the declared release ref")
+    if payload.get("created") is not True:
+        raise RuntimeError("Release-tag verification requires a new-ref creation event")
+    if payload.get("deleted") is not False:
+        raise RuntimeError("Release-tag verification rejects tag-deletion events")
+    if payload.get("forced") is not False:
+        raise RuntimeError("Release-tag verification rejects forced tag updates")
+    if payload.get("before") != "0" * 40:
+        raise RuntimeError("Release-tag verification requires an absent prior ref")
+    if payload.get("after") != event_commit:
+        raise RuntimeError("GitHub push-event after value does not equal GITHUB_SHA")
+    payload_repository = payload.get("repository")
+    payload_full_name = (
+        payload_repository.get("full_name") if isinstance(payload_repository, dict) else None
+    )
+    if not isinstance(payload_full_name, str) or payload_full_name.casefold() != str(
+        os.environ["GITHUB_REPOSITORY"]
+    ).casefold():
+        raise RuntimeError("GitHub push-event repository does not equal GITHUB_REPOSITORY")
+    payload_repository_id = (
+        payload_repository.get("id") if isinstance(payload_repository, dict) else None
+    )
+    if payload_repository_id != spec["repository_id"]:
+        raise RuntimeError("GitHub push-event repository ID does not equal the declared ID")
+    return expected_ref, event_commit
+
+
+def restore_authoritative_release_tag() -> dict[str, str]:
+    """Replace checkout's runner-local tag ref from the declared repository."""
+    verify_python_runtime()
+    verify_git_runtime()
+    spec = release_spec()
+    event = github_release_tag_event(spec, required=True)
+    if event is None:  # pragma: no cover - required=True makes this unreachable
+        raise RuntimeError("GitHub tag event context is unavailable")
+    expected_ref, event_commit = event
+    git(
+        [
+            "fetch",
+            "--no-tags",
+            "--no-recurse-submodules",
+            str(spec["repository"]),
+            f"+{expected_ref}:{expected_ref}",
+        ]
+    )
+    identity = tag_identity(str(spec["tag"]), require_head=True)
+    if event_commit != identity["commit"]:
+        raise RuntimeError(
+            f"GitHub event commit {event_commit!r} does not equal restored tag commit "
+            f"{identity['commit']!r}"
+        )
+    return identity
 
 
 def verify_release_tag(ref_name: str) -> None:
@@ -349,23 +468,15 @@ def verify_release_tag(ref_name: str) -> None:
         raise RuntimeError(
             f"Tag event {ref_name!r} does not equal declared release tag {spec['tag']!r}"
         )
+    event = github_release_tag_event(spec, required=False)
     ref_type = os.environ.get("GITHUB_REF_TYPE")
-    in_actions = os.environ.get("GITHUB_ACTIONS", "").lower() == "true"
-    event_name = os.environ.get("GITHUB_EVENT_NAME")
-    if in_actions and event_name != "push":
-        raise RuntimeError(
-            f"GitHub release verification requires a push event, observed {event_name!r}"
-        )
-    if in_actions and ref_type != "tag":
-        raise RuntimeError(f"GitHub release verification requires a tag ref, observed {ref_type!r}")
-    if not in_actions and ref_type not in {None, "", "tag"}:
+    if event is None and ref_type not in {None, "", "tag"}:
         raise RuntimeError(f"Release-tag verification received ref type {ref_type!r}")
-    verify_github_repository_context(spec)
+    if event is None:
+        verify_github_repository_context(spec)
     identity = tag_identity(spec["tag"], require_head=True)
-    if in_actions:
-        event_commit = os.environ.get("GITHUB_SHA")
-        if not event_commit:
-            raise RuntimeError("GitHub release verification is missing GITHUB_SHA")
+    if event is not None:
+        _, event_commit = event
         if event_commit != identity["commit"]:
             raise RuntimeError(
                 f"GitHub event commit {event_commit!r} does not equal tagged commit {identity['commit']!r}"
@@ -699,6 +810,7 @@ def expected_detached_identity(
     return {
         "schema": IDENTITY_SCHEMA,
         "repository": spec["repository"],
+        "repository_id": spec["repository_id"],
         "version": spec["version"],
         "tag": spec["tag"],
         "annotated_tag_object": identity["tag_object"],
@@ -741,6 +853,7 @@ def verify_release_assets(distribution: Path | None = None) -> None:
     for key, expected in (
         ("schema", IDENTITY_SCHEMA),
         ("repository", spec["repository"]),
+        ("repository_id", spec["repository_id"]),
         ("version", spec["version"]),
         ("tag", spec["tag"]),
         ("annotated_tag_object", identity["tag_object"]),
@@ -797,6 +910,7 @@ def main() -> None:
     verify_manifest_parser = subparsers.add_parser("verify-manifest")
     verify_manifest_parser.add_argument("--tracked", action="store_true")
     subparsers.add_parser("pretag")
+    subparsers.add_parser("restore-tag-ref")
     verify_tag_parser = subparsers.add_parser("verify-tag")
     verify_tag_parser.add_argument("--ref-name")
     subparsers.add_parser("verify-git-archive")
@@ -820,6 +934,12 @@ def main() -> None:
         verify_manifest(require_tracked=True)
         assert_tag_absent(spec["tag"])
         print(f"Pre-tag gate passed for locally absent annotated tag {spec['tag']}.")
+    elif args.command == "restore-tag-ref":
+        identity = restore_authoritative_release_tag()
+        print(
+            "Restored authoritative annotated release tag "
+            f"{identity['tag_object']} at commit {identity['commit']}."
+        )
     elif args.command == "verify-tag":
         ref_name = args.ref_name or os.environ.get("GITHUB_REF_NAME", "")
         verify_release_tag(ref_name)

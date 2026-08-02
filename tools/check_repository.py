@@ -34,6 +34,7 @@ ROOT_ALLOWLIST = {
     "README.md",
     "RELEASE_NOTES_v1.0.1.md",
     "RELEASE_NOTES_v1.0.2.md",
+    "RELEASE_NOTES_v1.0.3.md",
     "RELEASE_SPEC.json",
     "RUNTIME.json",
     "SOURCE_INVENTORY.json",
@@ -360,6 +361,8 @@ def check_metadata_agreement() -> None:
         parsed_epoch.timestamp()
     ):
         raise RuntimeError("Release ISO and Unix build epochs disagree")
+    if type(spec.get("repository_id")) is not int or spec["repository_id"] <= 0:
+        raise RuntimeError("RELEASE_SPEC.json requires a positive GitHub repository ID")
     expected_release_names = [
         f"SPPT_ASTRA_preprint_v{version}.pdf",
         f"SPPT_ASTRA_preprint_v{version}.html",

@@ -50,7 +50,7 @@
       "figure_alt_tags": 7,
       "figure_leaf_tags": 7,
       "figure_tags": 14,
-      "file": "SPPT_ASTRA_preprint_v1.0.2.pdf",
+      "file": "SPPT_ASTRA_preprint_v1.0.3.pdf",
       "fonts": [
         {
           "base_font": "/AAAAAA+DejaVuSerif",
@@ -95,14 +95,14 @@
         "/Creator": "Pandoc 3.6.1 and Playwright 1.62.0 Chromium",
         "/Keywords": "SPPT, ASTRA, planetary evolution, reservoir networks",
         "/ModDate": "D:20260802000000Z",
-        "/Producer": "SPPT-ASTRA reproducibility build v1.0.2; pikepdf 10.11.0",
-        "/Subject": "SPPT/ASTRA v1.0.2; not peer reviewed",
+        "/Producer": "SPPT-ASTRA reproducibility build v1.0.3; pikepdf 10.11.0",
+        "/Subject": "SPPT/ASTRA v1.0.3; not peer reviewed",
         "/Title": "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution"
       },
-      "normalized_text_sha256": "eeedb2cec113c212b668897db9117d7be86c5e64ce2f0be614465407f9691ce6",
+      "normalized_text_sha256": "0fe165933745ca4fdb155dd14908a2b24734525577cff9f030c8db8e1b666307",
       "outline_present": true,
       "pages": 47,
-      "sha256": "906ab63d6ec8626c6f93e53c26eeabdde240ece209b1f4f924692963cceb39a0",
+      "sha256": "27331908c3dc41cdfdf2854ef88b82bba25a723ddacb976596ebd464678e03d7",
       "source_font_identities": [
         {
           "bytes": 379740,
@@ -163,7 +163,7 @@
     {
       "all_pages_have_extractable_text": true,
       "all_pages_have_visible_page_numbers": true,
-      "bytes": 1241726,
+      "bytes": 1241764,
       "canonical_structure_id_count": 21,
       "display_doc_title": true,
       "external_link_count": 0,
@@ -171,7 +171,7 @@
       "figure_alt_tags": 6,
       "figure_leaf_tags": 6,
       "figure_tags": 12,
-      "file": "SPPT_ASTRA_technical_supplement_v1.0.2.pdf",
+      "file": "SPPT_ASTRA_technical_supplement_v1.0.3.pdf",
       "fonts": [
         {
           "base_font": "/AAAAAA+DejaVuSerif",
@@ -216,14 +216,14 @@
         "/Creator": "Pandoc 3.6.1 and Playwright 1.62.0 Chromium",
         "/Keywords": "SPPT, ASTRA, planetary evolution, reservoir networks",
         "/ModDate": "D:20260802000000Z",
-        "/Producer": "SPPT-ASTRA reproducibility build v1.0.2; pikepdf 10.11.0",
-        "/Subject": "SPPT/ASTRA v1.0.2; not peer reviewed",
+        "/Producer": "SPPT-ASTRA reproducibility build v1.0.3; pikepdf 10.11.0",
+        "/Subject": "SPPT/ASTRA v1.0.3; not peer reviewed",
         "/Title": "Technical Supplement: Synthetic Pointwise Topology Selection and Identifiability Limits"
       },
-      "normalized_text_sha256": "1842f858a106f09a3edbac9e47334db8b49baf7b13d968d927159a0cbe908cd5",
+      "normalized_text_sha256": "1c55b448020adbce3f766a4d59f5f84ed21e9adfe63d3e9ce4d33edd802967df",
       "outline_present": true,
       "pages": 19,
-      "sha256": "35252b5a644cf528ed36ff36458aee20c69891947475aa2dc6831742d432430f",
+      "sha256": "601000391c03baf4f649d9a4676e70eac3b6fb11f742aaaaeb40cd0491e36861",
       "source_font_identities": [
         {
           "bytes": 379740,

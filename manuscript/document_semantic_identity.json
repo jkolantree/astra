@@ -3,33 +3,33 @@
   "records": [
     {
       "author": "Jacko T.",
-      "html": "SPPT_ASTRA_preprint_v1.0.2.html",
-      "html_sha256": "b83488cbf3ef3b45e8206fdd02f8183b35e8ae6ea1838c703bae2c099a0de93f",
+      "html": "SPPT_ASTRA_preprint_v1.0.3.html",
+      "html_sha256": "1ac94dc9ed458ae1b36932f9f53a90d8b2a908e9897f1c4962962b70ccc00382",
       "language": "en-US",
-      "pdf": "SPPT_ASTRA_preprint_v1.0.2.pdf",
+      "pdf": "SPPT_ASTRA_preprint_v1.0.3.pdf",
       "pdf_accessibility": "tagged PDF with document language, outline, embedded fonts, extractable text, and figure alternative text; self-contained HTML is the primary accessible reading edition",
-      "pdf_normalized_text_sha256": "eeedb2cec113c212b668897db9117d7be86c5e64ce2f0be614465407f9691ce6",
+      "pdf_normalized_text_sha256": "0fe165933745ca4fdb155dd14908a2b24734525577cff9f030c8db8e1b666307",
       "pdf_pages": 47,
-      "pdf_sha256": "906ab63d6ec8626c6f93e53c26eeabdde240ece209b1f4f924692963cceb39a0",
+      "pdf_sha256": "27331908c3dc41cdfdf2854ef88b82bba25a723ddacb976596ebd464678e03d7",
       "source": "manuscript.md",
-      "source_sha256": "ccc30e8c43bb6a730602b6f0a1ac121bad91b0b42c5182d53ea4332822bb5866",
+      "source_sha256": "abad0d6b14e1ef65aabea5b5865fdef4fcdc4555df14a1119ac0ca81da42071c",
       "title": "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution",
-      "version": "1.0.2"
+      "version": "1.0.3"
     },
     {
       "author": "Jacko T.",
-      "html": "SPPT_ASTRA_technical_supplement_v1.0.2.html",
-      "html_sha256": "dd9b7e468d5e8789fc111a2dcff2517ed9561d53c0f219394efce6c75465ab17",
+      "html": "SPPT_ASTRA_technical_supplement_v1.0.3.html",
+      "html_sha256": "16a4e9931718699de46db90d4f97c17b1e59cd07c7aa636e6f26cf3af9f9c14f",
       "language": "en-US",
-      "pdf": "SPPT_ASTRA_technical_supplement_v1.0.2.pdf",
+      "pdf": "SPPT_ASTRA_technical_supplement_v1.0.3.pdf",
       "pdf_accessibility": "tagged PDF with document language, outline, embedded fonts, extractable text, and figure alternative text; self-contained HTML is the primary accessible reading edition",
-      "pdf_normalized_text_sha256": "1842f858a106f09a3edbac9e47334db8b49baf7b13d968d927159a0cbe908cd5",
+      "pdf_normalized_text_sha256": "1c55b448020adbce3f766a4d59f5f84ed21e9adfe63d3e9ce4d33edd802967df",
       "pdf_pages": 19,
-      "pdf_sha256": "35252b5a644cf528ed36ff36458aee20c69891947475aa2dc6831742d432430f",
+      "pdf_sha256": "601000391c03baf4f649d9a4676e70eac3b6fb11f742aaaaeb40cd0491e36861",
       "source": "supplement.md",
-      "source_sha256": "c2f91db0522a12c97e3add0c307dbcfeecce03eead6b6c90a00d8796591410e6",
+      "source_sha256": "0008b426d0b37c652a351dc8d2add92db6f66099b73c0b64655f602533b09f77",
       "title": "Technical Supplement: Synthetic Pointwise Topology Selection and Identifiability Limits",
-      "version": "1.0.2"
+      "version": "1.0.3"
     }
   ],
   "schema": "https://github.com/jkolantree/astra/schemas/document-semantic-identity-v1"

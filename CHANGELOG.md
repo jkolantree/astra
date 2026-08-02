@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.3 — 2026-08-02
+
+- Preserves the public, unreleased v1.0.2 tag and its failed tag-workflow run as negative release-process evidence; no v1.0.2 GitHub Release was created.
+- Repairs the tag controller by restoring the authoritative remote annotated-tag object after checkout before verifying its direct commit target.
+- Adds a regression that reproduces the runner-local annotated-tag-to-commit overwrite and proves exact restoration without changing the remote tag.
+- Carries forward the v1.0.2 scientific corrections and frozen benchmark results unchanged, with newly versioned documents and release assets.
+
 ## 1.0.2 — 2026-08-02
 
 - Corrects Figure 5 so its transient simulation and equilibrium panel consistently apply unit internal power to the deep reservoir.
