@@ -5,7 +5,7 @@ Copyright © 2026 Jacko T.
 | Paths | License |
 |---|---|
 | `src/**`, `scripts/**`, `tools/**`, `tests/**`, `.github/**`, `pyproject.toml` | MIT, in [`LICENSE`](LICENSE) |
-| `manuscript/**`, `figures/**`, `data/**`, `evidence/**`, `README.md`, `CLAIM_MATRIX.json`, `SOURCE_INVENTORY.json`, `RELEASE_SPEC.json`, `RUNTIME.json`, `CITATION.cff`, `CHANGELOG.md`, `RELEASE_NOTES_v*.md`, `LICENSE_MAP.md`, `THIRD_PARTY_NOTICES.md`, `MANIFEST.sha256` | Creative Commons Attribution 4.0 International, in [`licenses/CC-BY-4.0.txt`](licenses/CC-BY-4.0.txt) |
+| `manuscript/**`, `figures/**`, `data/**`, `evidence/**`, `docs/**`, `schemas/**`, `README.md`, `CLAIM_MATRIX.json`, `SOURCE_INVENTORY.json`, `RELEASE_SPEC.json`, `RUNTIME.json`, `CITATION.cff`, `CHANGELOG.md`, `RELEASE_NOTES_v*.md`, `LICENSE_MAP.md`, `THIRD_PARTY_NOTICES.md`, `MANIFEST.sha256` | Creative Commons Attribution 4.0 International, in [`licenses/CC-BY-4.0.txt`](licenses/CC-BY-4.0.txt) |
 | `LICENSE` | MIT license text |
 | `licenses/CC-BY-4.0.txt` | Official CC BY 4.0 legal text reproduced for reference |
 | `licenses/DEJAVU-FONTS.txt` | Third-party DejaVu, Bitstream Vera, and Arev font copyright and permission notices reproduced verbatim |

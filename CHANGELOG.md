@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.6 — 2026-08-02
+
+- Adds a versioned GitHub Pages reading edition while retaining downloadable, self-contained HTML artifacts.
+- Repairs narrow-screen reflow, keyboard-focus and syntax-highlight contrast, table captions and row headers, and color-independent plot identification.
+- Improves tagged-PDF mathematical semantics, figure structure, bookmarks, and exact text search without changing the scientific content or frozen numerical results.
+- Publishes and validates the machine-readable JSON Schemas, binds citation metadata to the versioned release, and updates GitHub Actions away from the Node 20 runtime.
+
 ## 1.0.5 — 2026-08-02
 
 - Preserves the public, unreleased v1.0.4 tag and its harness-invalid natural tag-workflow run as negative release-process evidence; no v1.0.4 GitHub Release was created and no assets were uploaded.

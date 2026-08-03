@@ -88,6 +88,45 @@ def deterministic_pdf_bytes(pdf: pikepdf.Pdf) -> bytes:
     return stream.getvalue()
 
 
+def tagged_semantic_fixture() -> tuple[pikepdf.Pdf, pikepdf.Object, pikepdf.Object]:
+    pdf = pikepdf.Pdf.new()
+    image = pdf.make_indirect(
+        pikepdf.Dictionary(
+            {
+                "/Type": pikepdf.Name("/StructElem"),
+                "/S": pikepdf.Name("/Figure"),
+                "/Alt": pikepdf.String("Labeled scientific figure"),
+                "/Pg": pikepdf.Dictionary(),
+                "/K": 1,
+            }
+        )
+    )
+    formula = pdf.make_indirect(
+        pikepdf.Dictionary(
+            {
+                "/Type": pikepdf.Name("/StructElem"),
+                "/S": pikepdf.Name("/Figure"),
+                "/Alt": pikepdf.String("Formula in TeX: x^2"),
+                "/Pg": pikepdf.Dictionary(),
+                "/K": 2,
+            }
+        )
+    )
+    outer = pdf.make_indirect(
+        pikepdf.Dictionary(
+            {
+                "/Type": pikepdf.Name("/StructElem"),
+                "/S": pikepdf.Name("/Figure"),
+                "/K": pikepdf.Array([image, formula]),
+            }
+        )
+    )
+    pdf.Root["/StructTreeRoot"] = pdf.make_indirect(
+        pikepdf.Dictionary({"/K": pikepdf.Array([outer])})
+    )
+    return pdf, outer, formula
+
+
 def test_released_bibliography_entry_count_is_frozen() -> None:
     assert len(re.findall(r"(?m)^@", BIBLIOGRAPHY)) == 42
 
@@ -146,18 +185,171 @@ def test_orphan_tagged_structure_id_is_rejected() -> None:
 
 
 def test_unresolved_tagged_table_header_is_rejected() -> None:
-    pdf = tagged_table_fixture(
-        ["node00000001"], header_references=["node00000002"]
-    )
+    pdf = tagged_table_fixture(["node00000001"], header_references=["node00000002"])
     with pytest.raises(RuntimeError, match="header reference is unresolved"):
         build_documents.canonicalize_structure_ids(pdf)
 
 
+def test_pdf_semantics_promote_formula_and_flatten_only_labeled_figure_container() -> None:
+    pdf, outer, formula = tagged_semantic_fixture()
+    counts = build_documents.normalize_structure_semantics(pdf, expected_formula_count=1)
+    assert counts == {
+        "formula_count": 1,
+        "retagged_figure_container_count": 1,
+        "retagged_root_container_count": 0,
+    }
+    assert str(outer["/S"]) == "/Div"
+    assert str(formula["/S"]) == "/Formula"
+    assert str(formula["/Alt"]) == "Formula in TeX: x^2"
+    assert str(formula["/ActualText"]) == "x^2"
+
+
+def test_pdf_semantics_reject_formula_count_mismatch() -> None:
+    pdf, _outer, _formula = tagged_semantic_fixture()
+    with pytest.raises(RuntimeError, match="formula count does not match"):
+        build_documents.normalize_structure_semantics(pdf, expected_formula_count=2)
+
+
+def test_pdf_semantics_reject_ambiguous_unlabeled_figure() -> None:
+    pdf = pikepdf.Pdf.new()
+    figure = pdf.make_indirect(
+        pikepdf.Dictionary(
+            {
+                "/Type": pikepdf.Name("/StructElem"),
+                "/S": pikepdf.Name("/Figure"),
+                "/K": 1,
+            }
+        )
+    )
+    pdf.Root["/StructTreeRoot"] = pdf.make_indirect(
+        pikepdf.Dictionary({"/K": pikepdf.Array([figure])})
+    )
+    with pytest.raises(RuntimeError, match="not a verified outer container"):
+        build_documents.normalize_structure_semantics(pdf, expected_formula_count=0)
+
+
+def test_pdf_semantics_promote_root_nonstruct_container_to_part() -> None:
+    pdf = pikepdf.Pdf.new()
+    formula = pdf.make_indirect(
+        pikepdf.Dictionary(
+            {
+                "/Type": pikepdf.Name("/StructElem"),
+                "/S": pikepdf.Name("/Figure"),
+                "/Alt": pikepdf.String("Formula in TeX: y=mx+b"),
+                "/Pg": pikepdf.Dictionary(),
+                "/K": 1,
+            }
+        )
+    )
+    container = pdf.make_indirect(
+        pikepdf.Dictionary(
+            {
+                "/Type": pikepdf.Name("/StructElem"),
+                "/S": pikepdf.Name("/NonStruct"),
+                "/K": formula,
+            }
+        )
+    )
+    document = pdf.make_indirect(
+        pikepdf.Dictionary(
+            {
+                "/Type": pikepdf.Name("/StructElem"),
+                "/S": pikepdf.Name("/Document"),
+                "/K": container,
+            }
+        )
+    )
+    container["/P"] = document
+    formula["/P"] = container
+    pdf.Root["/StructTreeRoot"] = pdf.make_indirect(pikepdf.Dictionary({"/K": document}))
+    counts = build_documents.normalize_structure_semantics(pdf, expected_formula_count=1)
+    assert counts["retagged_root_container_count"] == 1
+    assert str(container["/S"]) == "/Part"
+    assert str(formula["/S"]) == "/Formula"
+
+
+def test_pdf_outline_titles_are_replaced_from_html_heading_text() -> None:
+    pdf = pikepdf.Pdf.new()
+    second = pdf.make_indirect(pikepdf.Dictionary({"/Title": pikepdf.String("andmemory")}))
+    first = pdf.make_indirect(
+        pikepdf.Dictionary({"/Title": pikepdf.String("HiddenState"), "/Next": second})
+    )
+    pdf.Root["/Outlines"] = pdf.make_indirect(
+        pikepdf.Dictionary({"/First": first, "/Last": second})
+    )
+    build_documents.normalize_outline_titles(pdf, ["Hidden State", "and memory"])
+    assert [str(item["/Title"]) for item in build_documents.outline_elements(pdf)] == [
+        "Hidden State",
+        "and memory",
+    ]
+
+
+def test_generated_html_tables_have_caption_and_explicit_header_scopes() -> None:
+    source = """
+<table><caption>Candidate supports</caption><thead><tr>
+<th>Graph family</th><th>Edges</th></tr></thead><tbody>
+<tr><td>Chain</td><td>(0,1), (1,2)</td></tr></tbody></table>
+<table><caption>Ranked results</caption><thead><tr>
+<th>Rank</th><th>Graph</th><th>BIC</th></tr></thead><tbody>
+<tr><td>1</td><td>Chain</td><td>-4314.159</td></tr></tbody></table>
+"""
+    processed = build_documents.postprocess_tables(source, expected_count=2)
+    assert processed.count('scope="col"') == 5
+    assert '<th scope="row">Chain</th><td>(0,1), (1,2)</td>' in processed
+    assert '<td>1</td><th scope="row">Chain</th><td>-4314.159</td>' in processed
+    assert processed.count("<caption>") == 2
+
+
+def test_generated_html_table_without_caption_is_rejected() -> None:
+    source = (
+        "<table><thead><tr><th>Artifact</th></tr></thead>"
+        "<tbody><tr><td>report.json</td></tr></tbody></table>"
+    )
+    with pytest.raises(RuntimeError, match="needs one nonempty source caption"):
+        build_documents.postprocess_tables(source, expected_count=1)
+
+
+def test_audited_focus_and_command_contrast_thresholds_are_measured() -> None:
+    assert build_documents.contrast_ratio(
+        "rgb(246, 195, 68)", "rgb(255, 255, 255)"
+    ) == pytest.approx(1.64, abs=0.01)
+    assert build_documents.contrast_ratio("rgb(0, 90, 156)", "rgb(255, 255, 255)") >= 3
+    assert build_documents.contrast_ratio(
+        "rgb(125, 144, 41)", "rgb(244, 246, 248)"
+    ) == pytest.approx(3.29, abs=0.01)
+    assert build_documents.contrast_ratio("rgb(83, 102, 0)", "rgb(244, 246, 248)") >= 4.5
+
+
+def test_html_heading_extraction_preserves_spaces_and_ignores_tex_annotation(
+    tmp_path: Path,
+) -> None:
+    html_path = tmp_path / "edition.html"
+    html_path.write_text(
+        "<h1>Hidden\nState</h1><h2>Pointwise <math>x"
+        '<annotation encoding="application/x-tex">x^2</annotation></math> Topology</h2>',
+        encoding="utf-8",
+    )
+    assert inspect_pdf.html_heading_titles(html_path) == [
+        "Hidden State",
+        "Pointwise x Topology",
+    ]
+
+
+def test_compatibility_ligatures_and_broken_exact_search_are_rejected() -> None:
+    inspect_pdf.validate_extracted_text(
+        "structural identifiability remains bounded", filename="good.pdf"
+    )
+    with pytest.raises(RuntimeError, match="Compatibility ligatures"):
+        inspect_pdf.validate_extracted_text(
+            "structural identi\ufb01ability", filename="ligature.pdf"
+        )
+    with pytest.raises(RuntimeError, match="Exact-search sentinel"):
+        inspect_pdf.validate_extracted_text("structural observability", filename="missing.pdf")
+
+
 def test_current_arxiv_author_spellings_are_canonical() -> None:
     assert "Delaye, Lukas" in BIBLIOGRAPHY
-    assert (
-        "Riegler, Ben and Calder, Robb and Fortuin, Vincent" in BIBLIOGRAPHY
-    )
+    assert "Riegler, Ben and Calder, Robb and Fortuin, Vincent" in BIBLIOGRAPHY
 
 
 def test_private_and_machine_local_metadata_are_absent() -> None:
@@ -258,6 +450,35 @@ def test_proprietary_or_machine_pdf_font_is_rejected() -> None:
         inspect_pdf.validate_pdf_font_records(records)
 
 
+def test_type3_font_char_procedures_are_embedded_and_require_unicode_map() -> None:
+    pdf = pikepdf.Pdf.new()
+    font = pdf.make_indirect(
+        pikepdf.Dictionary(
+            {
+                "/Type": pikepdf.Name("/Font"),
+                "/Subtype": pikepdf.Name("/Type3"),
+                "/CharProcs": pikepdf.Dictionary({"/g0": pdf.make_stream(b"0 0 d0")}),
+                "/FontDescriptor": pikepdf.Dictionary(
+                    {"/FontName": pikepdf.Name("/AAAAAA+DejaVuSansMono")}
+                ),
+                "/ToUnicode": pdf.make_stream(b"fixture"),
+            }
+        )
+    )
+    record = inspect_pdf.font_record("/F1", font)
+    assert record == {
+        "resource_name": "/F1",
+        "base_font": "/AAAAAA+DejaVuSansMono",
+        "subtype": "/Type3",
+        "embedded": True,
+        "to_unicode": True,
+    }
+    inspect_pdf.validate_pdf_font_records([record])
+    record["to_unicode"] = False
+    with pytest.raises(RuntimeError, match="Type3 PDF font needs ToUnicode"):
+        inspect_pdf.validate_pdf_font_records([record])
+
+
 def test_bundled_font_source_mutation_is_rejected(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -279,9 +500,7 @@ def test_bundled_font_source_mutation_is_rejected(
             }
         }
     }
-    (tmp_path / "RUNTIME.json").write_text(
-        json.dumps(runtime), encoding="utf-8", newline="\n"
-    )
+    (tmp_path / "RUNTIME.json").write_text(json.dumps(runtime), encoding="utf-8", newline="\n")
     monkeypatch.setattr(inspect_pdf, "ROOT", tmp_path)
     monkeypatch.setattr(matplotlib, "get_data_path", lambda: str(tmp_path))
     records = [{"base_font": "/DejaVu"}, {"base_font": "/STIXGeneral"}]

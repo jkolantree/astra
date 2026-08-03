@@ -1,4 +1,5 @@
 """Inspect released PDFs for syntax, metadata, structure, fonts, links, and text."""
+
 from __future__ import annotations
 
 import argparse
@@ -6,6 +7,7 @@ import hashlib
 import json
 import re
 from collections.abc import Iterator
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +27,8 @@ FIXED_DATE = "D:" + re.sub(r"[-:T]", "", BUILD_EPOCH)
 PDF_SUBJECT = f"SPPT/ASTRA v{VERSION}; not peer reviewed"
 PDF_PRODUCER = f"SPPT-ASTRA reproducibility build v{VERSION}; pikepdf 10.11.0"
 STRUCTURE_ID_PREFIX = "sppt-struct-"
+FORMULA_ALT_PREFIX = "Formula in TeX: "
+COMPATIBILITY_LIGATURES = frozenset("\ufb00\ufb01\ufb02\ufb03\ufb04\ufb05\ufb06")
 PDFS = (
     MANUSCRIPT / f"SPPT_ASTRA_preprint_v{VERSION}.pdf",
     MANUSCRIPT / f"SPPT_ASTRA_technical_supplement_v{VERSION}.pdf",
@@ -78,6 +82,76 @@ def name_tree_key(value: bytes | str) -> str:
     if isinstance(value, bytes):
         return value.decode("utf-8", errors="strict")
     return value
+
+
+class HeadingTextParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self._heading_depth = 0
+        self._annotation_depth = 0
+        self._parts: list[str] = []
+        self.headings: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        del attrs
+        if re.fullmatch(r"h[1-6]", tag):
+            if self._heading_depth:
+                raise RuntimeError("Nested HTML headings are not supported")
+            self._heading_depth = 1
+            self._parts = []
+        elif self._heading_depth and tag == "annotation":
+            self._annotation_depth += 1
+
+    def handle_endtag(self, tag: str) -> None:
+        if self._heading_depth and tag == "annotation":
+            self._annotation_depth -= 1
+        elif re.fullmatch(r"h[1-6]", tag) and self._heading_depth:
+            title = re.sub(r"\s+", " ", "".join(self._parts)).strip()
+            if not title:
+                raise RuntimeError("HTML contains an empty heading")
+            self.headings.append(title)
+            self._heading_depth = 0
+            self._parts = []
+
+    def handle_data(self, data: str) -> None:
+        if self._heading_depth and not self._annotation_depth:
+            self._parts.append(data)
+
+
+def html_heading_titles(path: Path) -> list[str]:
+    parser = HeadingTextParser()
+    parser.feed(path.read_text(encoding="utf-8"))
+    parser.close()
+    if not parser.headings:
+        raise RuntimeError(f"HTML headings are missing from {path.name}")
+    return parser.headings
+
+
+def pdf_outline_titles(reader: PdfReader) -> list[str]:
+    titles: list[str] = []
+
+    def visit(values: list[Any]) -> None:
+        for value in values:
+            if isinstance(value, list):
+                visit(value)
+                continue
+            title = getattr(value, "title", None)
+            if title is not None:
+                titles.append(re.sub(r"\s+", " ", str(title)).strip())
+
+    visit(reader.outline)
+    return titles
+
+
+def validate_extracted_text(text: str, *, filename: str) -> None:
+    ligatures = sorted({character for character in text if character in COMPATIBILITY_LIGATURES})
+    if ligatures:
+        codepoints = [f"U+{ord(character):04X}" for character in ligatures]
+        raise RuntimeError(
+            f"Compatibility ligatures remain in extracted text from {filename}: {codepoints}"
+        )
+    if "identifiability" not in text.casefold():
+        raise RuntimeError(f"Exact-search sentinel 'identifiability' is missing from {filename}")
 
 
 def validate_structure_identifiers(pdf: pikepdf.Pdf) -> dict[str, int]:
@@ -143,10 +217,25 @@ def font_record(name: Any, font_reference: Any) -> dict[str, Any]:
         if descendants:
             descendant = dereference(descendants[0])
     descriptor = dereference(descendant.get("/FontDescriptor", {}))
-    embedded = any(key in descriptor for key in ("/FontFile", "/FontFile2", "/FontFile3"))
+    if subtype == "/Type3":
+        char_procedures = dereference(font.get("/CharProcs", {}))
+        embedded = bool(char_procedures) and all(
+            isinstance(dereference(procedure), pikepdf.Stream)
+            for procedure in char_procedures.values()
+        )
+    else:
+        embedded = any(key in descriptor for key in ("/FontFile", "/FontFile2", "/FontFile3"))
     return {
         "resource_name": str(name),
-        "base_font": str(font.get("/BaseFont", descendant.get("/BaseFont", ""))),
+        "base_font": str(
+            font.get(
+                "/BaseFont",
+                descendant.get(
+                    "/BaseFont",
+                    descriptor.get("/FontName", descriptor.get("/FontFamily", "")),
+                ),
+            )
+        ),
         "subtype": subtype,
         "embedded": embedded,
         "to_unicode": "/ToUnicode" in font,
@@ -196,6 +285,17 @@ def validate_pdf_font_records(font_records: list[dict[str, Any]]) -> None:
         raise RuntimeError(f"Unexpected PDF font: {font_records}")
     if any(record["subtype"] == "/Type0" and not record["to_unicode"] for record in font_records):
         raise RuntimeError(f"Every Type0 PDF font needs ToUnicode: {font_records}")
+    if any(record["subtype"] == "/Type3" and not record["to_unicode"] for record in font_records):
+        raise RuntimeError(f"Every Type3 PDF font needs ToUnicode: {font_records}")
+
+
+def structure_ancestor_tags(element: pikepdf.Object) -> list[str]:
+    tags: list[str] = []
+    parent = element.get("/P")
+    while isinstance(parent, pikepdf.Dictionary) and "/S" in parent:
+        tags.append(str(parent.get("/S", "")))
+        parent = parent.get("/P")
+    return tags
 
 
 def inspect(path: Path) -> dict[str, Any]:
@@ -212,8 +312,24 @@ def inspect(path: Path) -> dict[str, Any]:
                 f"Page {page_number} of {path.name} is missing its visible page number"
             )
     normalized = re.sub(r"\s+", " ", "\n".join(page_text)).strip()
+    validate_extracted_text(normalized, filename=path.name)
     if PRIVATE_PATTERN.search(normalized):
         raise RuntimeError(f"Private or machine-local text found in {path.name}")
+    html_path = path.with_suffix(".html")
+    if not html_path.is_file():
+        raise RuntimeError(f"Matching HTML reading edition is missing for {path.name}")
+    expected_outline_titles = html_heading_titles(html_path)
+    outline_titles = pdf_outline_titles(reader)
+    if outline_titles != expected_outline_titles:
+        raise RuntimeError(
+            f"PDF outline titles do not match HTML headings in {path.name}: "
+            f"{outline_titles!r} != {expected_outline_titles!r}"
+        )
+    expected_formula_count = len(
+        re.findall(r"<math(?:\s|>)", html_path.read_text(encoding="utf-8"))
+    )
+    if expected_formula_count < 1:
+        raise RuntimeError(f"MathML formulas are missing from {html_path.name}")
 
     with pikepdf.open(path) as pdf:
         syntax_warnings = pdf.check_pdf_syntax()
@@ -272,25 +388,75 @@ def inspect(path: Path) -> dict[str, Any]:
         validate_pdf_font_records(font_records)
         source_font_identities = verify_bundled_font_sources(font_records)
 
-        figure_tags = 0
-        figure_leaf_tags = 0
-        figure_alt_tags = 0
-        for obj in pdf.objects:
-            candidate = dereference(obj)
-            if not isinstance(candidate, pikepdf.Dictionary):
+        structure_root = root["/StructTreeRoot"]
+        elements = list(structure_elements(structure_root.get("/K", pikepdf.Array())))
+        figures = [element for element in elements if str(element.get("/S", "")) == "/Figure"]
+        formulas = [element for element in elements if str(element.get("/S", "")) == "/Formula"]
+        tables = [element for element in elements if str(element.get("/S", "")) == "/Table"]
+        captions = [element for element in elements if str(element.get("/S", "")) == "/Caption"]
+        header_scopes: list[str] = []
+        for element in elements:
+            if str(element.get("/S", "")) != "/TH":
                 continue
-            if str(candidate.get("/S", "")) == "/Figure":
-                figure_tags += 1
-                if "/Pg" not in candidate:
-                    continue
-                figure_leaf_tags += 1
-                alt = str(candidate.get("/Alt", "")).strip()
-                if alt:
-                    figure_alt_tags += 1
-        if figure_leaf_tags < 1 or figure_alt_tags != figure_leaf_tags:
+            scopes = [
+                str(attribute["/Scope"])
+                for attribute in attribute_dictionaries(element.get("/A", pikepdf.Array()))
+                if "/Scope" in attribute
+            ]
+            if len(scopes) != 1 or scopes[0] not in {"/Column", "/Row"}:
+                raise RuntimeError(
+                    f"Tagged table header has invalid Scope in {path.name}: {scopes}"
+                )
+            header_scopes.extend(scopes)
+        table_tags = len(tables)
+        table_caption_tags = len(captions)
+        column_header_tags = header_scopes.count("/Column")
+        row_header_tags = header_scopes.count("/Row")
+        if (
+            table_tags < 1
+            or table_caption_tags != table_tags
+            or column_header_tags < table_tags
+            or row_header_tags < table_tags
+        ):
+            raise RuntimeError(
+                f"Tagged table semantics are incomplete in {path.name}: "
+                f"Table={table_tags}, Caption={table_caption_tags}, "
+                f"ColumnTH={column_header_tags}, RowTH={row_header_tags}"
+            )
+        figure_tags = len(figures)
+        figure_leaf_tags = sum("/Pg" in figure for figure in figures)
+        figure_alt_tags = sum(bool(str(figure.get("/Alt", "")).strip()) for figure in figures)
+        if figure_tags < 1 or figure_alt_tags != figure_tags:
             raise RuntimeError(
                 f"Every tagged figure needs alt text in {path.name}: "
-                f"{figure_alt_tags}/{figure_leaf_tags}"
+                f"{figure_alt_tags}/{figure_tags}"
+            )
+        if figure_leaf_tags != figure_tags:
+            raise RuntimeError(
+                f"Unflattened outer Figure tags remain in {path.name}: "
+                f"{figure_leaf_tags}/{figure_tags} are page-bound"
+            )
+        formula_alt_tags = 0
+        formula_actual_text_tags = 0
+        for formula in formulas:
+            alt = str(formula.get("/Alt", "")).strip()
+            actual_text = str(formula.get("/ActualText", "")).strip()
+            if alt.startswith(FORMULA_ALT_PREFIX) and alt.removeprefix(FORMULA_ALT_PREFIX).strip():
+                formula_alt_tags += 1
+            if actual_text:
+                formula_actual_text_tags += 1
+            if "/NonStruct" in structure_ancestor_tags(formula):
+                raise RuntimeError(f"Formula remains nested under NonStruct in {path.name}")
+        formula_tags = len(formulas)
+        if (
+            formula_tags != expected_formula_count
+            or formula_alt_tags != formula_tags
+            or formula_actual_text_tags != formula_tags
+        ):
+            raise RuntimeError(
+                f"Every HTML MathML formula needs PDF Formula semantics in {path.name}: "
+                f"HTML={expected_formula_count}, Formula={formula_tags}, "
+                f"Alt={formula_alt_tags}, ActualText={formula_actual_text_tags}"
             )
 
         with pdf.open_metadata(set_pikepdf_as_editor=False) as xmp:
@@ -321,7 +487,18 @@ def inspect(path: Path) -> dict[str, Any]:
         "figure_tags": figure_tags,
         "figure_leaf_tags": figure_leaf_tags,
         "figure_alt_tags": figure_alt_tags,
+        "formula_tags": formula_tags,
+        "formula_alt_tags": formula_alt_tags,
+        "formula_actual_text_tags": formula_actual_text_tags,
+        "table_tags": table_tags,
+        "table_caption_tags": table_caption_tags,
+        "column_header_tags": column_header_tags,
+        "row_header_tags": row_header_tags,
         "outline_present": True,
+        "outline_title_count": len(outline_titles),
+        "outline_titles_match_html": True,
+        "compatibility_ligature_count": 0,
+        "exact_search_sentinels": ["identifiability"],
         "language": "en-US",
         "display_doc_title": True,
         "fonts": font_records,
@@ -342,14 +519,12 @@ def main() -> None:
     args = parser.parse_args()
     paths = tuple(args.paths) or PDFS
     report = {
-        "schema": "https://github.com/jkolantree/astra/schemas/pdf-inspection-v1",
+        "schema": "https://jkolantree.github.io/astra/schemas/pdf-inspection-v1.schema.json",
         "records": [inspect(path.resolve()) for path in paths],
     }
     serialized = json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
     if args.write:
-        (MANUSCRIPT / "pdf_inspection.json").write_text(
-            serialized, encoding="utf-8", newline="\n"
-        )
+        (MANUSCRIPT / "pdf_inspection.json").write_text(serialized, encoding="utf-8", newline="\n")
     else:
         print(serialized, end="")
 

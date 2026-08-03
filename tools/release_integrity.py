@@ -56,7 +56,7 @@ DIST = ROOT / "dist"
 MANIFEST = ROOT / "MANIFEST.sha256"
 SPEC_PATH = ROOT / "RELEASE_SPEC.json"
 RUNTIME_PATH = ROOT / "RUNTIME.json"
-IDENTITY_SCHEMA = "https://github.com/jkolantree/astra/schemas/release-identity-v1"
+IDENTITY_SCHEMA = "https://jkolantree.github.io/astra/schemas/release-identity-v1.schema.json"
 
 
 @dataclass(frozen=True)

@@ -1,0 +1,70 @@
+name: Accessibility report
+description: Report a barrier in the HTML, PDF, repository, figures, data, or reading workflow.
+title: "[Accessibility]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an access barrier. Issues are public. Share only the assistive-technology and environment details you are comfortable publishing, and remove account details, local paths, or private documents.
+  - type: input
+    id: location
+    attributes:
+      label: Version and affected page or artifact
+      description: Give the version and a public URL, file name, section, figure, table, or page number.
+      placeholder: v1.0.6, preprint references section
+    validations:
+      required: true
+  - type: dropdown
+    id: barrier
+    attributes:
+      label: Barrier type
+      options:
+        - Keyboard or focus
+        - Screen reader or document structure
+        - Mathematics
+        - Reflow or zoom
+        - Color or contrast
+        - Figure, table, or data description
+        - Captions, transcript, or text alternative
+        - Download or navigation path
+        - Other accessibility barrier
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Reading environment
+      description: Browser or PDF reader, operating system, viewport or zoom, and assistive technology if relevant.
+      placeholder: Firefox at 400% zoom; NVDA 2026.1 on Windows 11
+    validations:
+      required: false
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to encounter the barrier
+      description: Give the shortest reliable sequence from a public link.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: What happened and its impact
+      description: Explain what content or action became difficult or unavailable.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected accessible behavior or suggested repair
+      description: Optional standards reference or practical improvement.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I identified a public version and location that maintainers can inspect.
+          required: true
+        - label: I removed secrets, account details, private paths, and private documents.
+          required: true

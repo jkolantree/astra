@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/source-inventory-v1.schema.json",
+  "title": "SPPT/ASTRA source inventory v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "authority", "hash_algorithm", "artifacts", "discovered_aliases", "duplicate_evidence_rules"],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/source-inventory-v1.schema.json"},
+    "authority": {"type": "object", "minProperties": 1},
+    "hash_algorithm": {"const": "SHA-256"},
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["canonical_relative_path", "bytes", "sha256", "media_type", "displayed_attribution", "embedded_attribution", "license", "rights_status", "relationship"],
+        "properties": {
+          "canonical_relative_path": {"type": "string", "minLength": 1},
+          "bytes": {"type": "integer", "minimum": 0},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "media_type": {"type": "string", "minLength": 1},
+          "displayed_attribution": {"type": ["string", "null"]},
+          "embedded_attribution": {"type": ["string", "null"]},
+          "license": {"type": "string", "minLength": 1},
+          "rights_status": {"type": "string", "minLength": 1},
+          "relationship": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "discovered_aliases": {"type": "array"},
+    "duplicate_evidence_rules": {"type": "array"}
+  }
+}

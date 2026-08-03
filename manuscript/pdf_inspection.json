@@ -3,9 +3,14 @@
     {
       "all_pages_have_extractable_text": true,
       "all_pages_have_visible_page_numbers": true,
-      "bytes": 1417805,
-      "canonical_structure_id_count": 8,
+      "bytes": 1362686,
+      "canonical_structure_id_count": 28,
+      "column_header_tags": 8,
+      "compatibility_ligature_count": 0,
       "display_doc_title": true,
+      "exact_search_sentinels": [
+        "identifiability"
+      ],
       "external_link_count": 43,
       "external_links": [
         "https://arxiv.org/abs/2607.25941",
@@ -49,8 +54,8 @@
       ],
       "figure_alt_tags": 7,
       "figure_leaf_tags": 7,
-      "figure_tags": 14,
-      "file": "SPPT_ASTRA_preprint_v1.0.5.pdf",
+      "figure_tags": 7,
+      "file": "SPPT_ASTRA_preprint_v1.0.6.pdf",
       "fonts": [
         {
           "base_font": "/AAAAAA+DejaVuSerif",
@@ -81,13 +86,23 @@
           "to_unicode": true
         },
         {
-          "base_font": "/EAAAAA+DejaVuSerif-Italic",
+          "base_font": "/EAAAAA+DejaVuSansMono",
           "embedded": true,
-          "resource_name": "/F207",
+          "resource_name": "/F133",
+          "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/FAAAAA+DejaVuSerif-Italic",
+          "embedded": true,
+          "resource_name": "/F212",
           "subtype": "/Type0",
           "to_unicode": true
         }
       ],
+      "formula_actual_text_tags": 261,
+      "formula_alt_tags": 261,
+      "formula_tags": 261,
       "language": "en-US",
       "metadata": {
         "/Author": "Jacko T.",
@@ -95,14 +110,17 @@
         "/Creator": "Pandoc 3.6.1 and Playwright 1.62.0 Chromium",
         "/Keywords": "SPPT, ASTRA, planetary evolution, reservoir networks",
         "/ModDate": "D:20260802000000Z",
-        "/Producer": "SPPT-ASTRA reproducibility build v1.0.5; pikepdf 10.11.0",
-        "/Subject": "SPPT/ASTRA v1.0.5; not peer reviewed",
+        "/Producer": "SPPT-ASTRA reproducibility build v1.0.6; pikepdf 10.11.0",
+        "/Subject": "SPPT/ASTRA v1.0.6; not peer reviewed",
         "/Title": "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution"
       },
-      "normalized_text_sha256": "541ee70620753d3d216e3d7b88bb4d098b91aa5047b9c5d9d9a68b7c2b93f048",
+      "normalized_text_sha256": "1e0a8f8c35c0d3392b40a83e5b163681874bd611662a6e415699cb91c33c48f5",
       "outline_present": true,
-      "pages": 47,
-      "sha256": "ae9d300dde62a0175fb292eba623cf0595036ee1ddcea0086b2b7a7c2a31c382",
+      "outline_title_count": 77,
+      "outline_titles_match_html": true,
+      "pages": 48,
+      "row_header_tags": 23,
+      "sha256": "b06f242dfc1c90d081d5f9b2792a4c5508687e1266c499e570e441905d1a5475",
       "source_font_identities": [
         {
           "bytes": 379740,
@@ -146,7 +164,9 @@
         }
       ],
       "syntax_warnings": [],
-      "table_header_reference_count": 64,
+      "table_caption_tags": 3,
+      "table_header_reference_count": 82,
+      "table_tags": 3,
       "tagged": true,
       "xmp": {
         "created": "2026-08-02T00:00:00Z",
@@ -163,15 +183,20 @@
     {
       "all_pages_have_extractable_text": true,
       "all_pages_have_visible_page_numbers": true,
-      "bytes": 1241752,
-      "canonical_structure_id_count": 21,
+      "bytes": 1255092,
+      "canonical_structure_id_count": 40,
+      "column_header_tags": 21,
+      "compatibility_ligature_count": 0,
       "display_doc_title": true,
+      "exact_search_sentinels": [
+        "identifiability"
+      ],
       "external_link_count": 0,
       "external_links": [],
       "figure_alt_tags": 6,
       "figure_leaf_tags": 6,
-      "figure_tags": 12,
-      "file": "SPPT_ASTRA_technical_supplement_v1.0.5.pdf",
+      "figure_tags": 6,
+      "file": "SPPT_ASTRA_technical_supplement_v1.0.6.pdf",
       "fonts": [
         {
           "base_font": "/AAAAAA+DejaVuSerif",
@@ -204,11 +229,21 @@
         {
           "base_font": "/EAAAAA+DejaVuSansMono",
           "embedded": true,
-          "resource_name": "/F78",
+          "resource_name": "/F57",
           "subtype": "/Type0",
+          "to_unicode": true
+        },
+        {
+          "base_font": "/EAAAAA+DejaVuSansMono",
+          "embedded": true,
+          "resource_name": "/F93",
+          "subtype": "/Type3",
           "to_unicode": true
         }
       ],
+      "formula_actual_text_tags": 68,
+      "formula_alt_tags": 68,
+      "formula_tags": 68,
       "language": "en-US",
       "metadata": {
         "/Author": "Jacko T.",
@@ -216,14 +251,17 @@
         "/Creator": "Pandoc 3.6.1 and Playwright 1.62.0 Chromium",
         "/Keywords": "SPPT, ASTRA, planetary evolution, reservoir networks",
         "/ModDate": "D:20260802000000Z",
-        "/Producer": "SPPT-ASTRA reproducibility build v1.0.5; pikepdf 10.11.0",
-        "/Subject": "SPPT/ASTRA v1.0.5; not peer reviewed",
+        "/Producer": "SPPT-ASTRA reproducibility build v1.0.6; pikepdf 10.11.0",
+        "/Subject": "SPPT/ASTRA v1.0.6; not peer reviewed",
         "/Title": "Technical Supplement: Synthetic Pointwise Topology Selection and Identifiability Limits"
       },
-      "normalized_text_sha256": "e2e34bb82d1ec41454f5c46f0b9dff6a60d237c8e5e6f81e75398d4a9e35f693",
+      "normalized_text_sha256": "d81507a521a1ac6e68665bea84bbf06558429422d45e571c9a76060d440e170b",
       "outline_present": true,
-      "pages": 19,
-      "sha256": "49ee47634c75977903c443d3b4bdf6304301cefdc579683e72ad7657ccd7f165",
+      "outline_title_count": 19,
+      "outline_titles_match_html": true,
+      "pages": 21,
+      "row_header_tags": 25,
+      "sha256": "bd998c4785c4e9e3990cd3393d6ff27d8f06b63db20bfa4e19e7a199e24c75b9",
       "source_font_identities": [
         {
           "bytes": 379740,
@@ -267,7 +305,9 @@
         }
       ],
       "syntax_warnings": [],
-      "table_header_reference_count": 80,
+      "table_caption_tags": 6,
+      "table_header_reference_count": 110,
+      "table_tags": 6,
       "tagged": true,
       "xmp": {
         "created": "2026-08-02T00:00:00Z",
@@ -282,5 +322,5 @@
       }
     }
   ],
-  "schema": "https://github.com/jkolantree/astra/schemas/pdf-inspection-v1"
+  "schema": "https://jkolantree.github.io/astra/schemas/pdf-inspection-v1.schema.json"
 }

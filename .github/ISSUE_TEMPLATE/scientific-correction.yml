@@ -1,0 +1,68 @@
+name: Scientific correction or counterexample
+description: Challenge a claim, derivation, interpretation, citation, or stated scope.
+title: "[Scientific correction]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Counterexamples, failed replications, prior work, and scope corrections are welcome. Please distinguish a demonstrated contradiction from an interpretation, open question, or proposed test.
+  - type: input
+    id: identity
+    attributes:
+      label: Version and location
+      description: Give the version plus the section, equation, figure, table, or claim-matrix entry.
+      placeholder: v1.0.6, supplement equation 12
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Kind of report
+      options:
+        - Counterexample or contradiction
+        - Derivation or implementation error
+        - Overstated inference or scope
+        - Missing or conflicting prior work
+        - Proposed falsification test
+        - Other scientific correction
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: Claim being challenged
+      description: Quote only the minimum needed to identify the claim, then summarize it in your own words.
+    validations:
+      required: true
+  - type: textarea
+    id: analysis
+    attributes:
+      label: Analysis or counterexample
+      description: Show the reasoning, assumptions, calculations, or data needed to evaluate the report.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources and reproducible evidence
+      description: Link primary sources, code, data, or a minimal derivation when available.
+    validations:
+      required: false
+  - type: textarea
+    id: correction
+    attributes:
+      label: Smallest adequate correction
+      description: Suggest replacement wording, a changed bound, a new test, or another falsifiable resolution.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I identified the exact public version and location.
+          required: true
+        - label: I separated verified evidence from inference or speculation.
+          required: true
+        - label: I removed secrets, account details, private paths, and non-public data.
+          required: true

@@ -3,16 +3,13 @@ title: "Technical Supplement: Synthetic Pointwise Topology Selection and Identif
 subtitle: "Solar–Planetary Phase-Partition Theory with ASTRA"
 author: "Jacko T."
 date: "2 August 2026"
-version: "1.0.5"
+version: "1.0.6"
 lang: en-US
 toc: true
 toc-depth: 3
 number-sections: true
 geometry: margin=0.82in
 fontsize: 10pt
-mainfont: "Noto Serif"
-sansfont: "Noto Sans"
-monofont: "DejaVu Sans Mono"
 colorlinks: true
 linkcolor: "SPPTBlue"
 urlcolor: "SPPTBlue"
@@ -36,12 +33,12 @@ header-includes:
     \pagestyle{fancy}
     \fancyhf{}
     \fancyhead[L]{\small SPPT--ASTRA Technical Supplement}
-    \fancyhead[R]{\small Version 1.0.5}
+    \fancyhead[R]{\small Version 1.0.6}
     \fancyfoot[C]{\thepage}
     \renewcommand{\headrulewidth}{0.3pt}
 ---
 
-**Version 1.0.5 · Reproducibility supplement · Not peer reviewed**
+**Version 1.0.6 · Reproducibility supplement · Not peer reviewed**
 
 > **Status statement.** Every result in this supplement is synthetic. No Solar System, exoplanet, laboratory, or mission data are fitted. The tests demonstrate implementation behavior under declared assumptions; they do not validate a planetary topology.
 
@@ -75,6 +72,8 @@ Four connected, node-labeled undirected transport-support hypotheses are compare
 | Surface star | $(0,2),(1,2)$ | 2 |
 | Deep star | $(0,1),(0,2)$ | 2 |
 | Triangle | $(0,1),(1,2),(0,2)$ | 3 |
+
+Table: Candidate node-labeled graph families and their free-conductance counts.
 
 The generating graph is the chain, with normalized conductances
 
@@ -127,7 +126,7 @@ The training window contains 361 samples over $0\le t\le36$; the held-out window
 
 ## Fitting and selection
 
-Positive conductances are parameterized as $k_e=\exp\eta_e$ and fitted by nonlinear least squares using only the noisy training surface series. All generation constants, seeds, candidates, and evaluation code are public; the benchmark is not blinded or external validation. Each fit uses a release-frozen 20-start generic design combining low-discrepancy coverage with unit and coordinate-wise decade anchors, together with exact forward sensitivities of the implemented propagator to log conductance. The 20-start design was adopted during release audit after replay of this same synthetic benchmark exposed a missed endpoint under the earlier 12-start design. The added anchors were therefore informed by benchmark behavior, and the reported reruns are regression evidence for the repaired implementation rather than untouched evaluation. A solver result is eligible only when it reports positive termination status, finite parameters and objective, and cost-scaled first-order optimality $\lVert g\rVert_\infty/\max(1,C)\le10^{-4}$; the lowest-cost eligible start is retained. If a non-eligible endpoint has a cost lower by more than $10^{-4}$ of the retained cost scale, the fit fails closed as insufficient optimizer coverage. Every start vector, solver disposition, endpoint, cost, optimality diagnostic, and active-bound mask is retained in both duplicate machine-readable serializations. With residual sum of squares $\mathrm{RSS}$, sample count $n$, and free-conductance count $p$, the benchmark reports
+Positive conductances are parameterized as $k_e=\exp\eta_e$ and fitted by nonlinear least squares using only the noisy training surface series. All generation constants, seeds, candidates, and evaluation code are public; the benchmark is not blinded or external validation. Each fit uses a release-frozen 20-start generic design combining low-discrepancy coverage with unit and coordinate-wise decade anchors, together with exact forward sensitivities of the implemented propagator to log conductance. The 20-start design was adopted during release audit after replay of this same synthetic benchmark exposed a missed endpoint under the earlier 12-start design. The added anchors were therefore informed by benchmark behavior, and the reported reruns are regression evidence for the repaired implementation rather than untouched evaluation. Write the scalar solver cost as $J$ (SciPy's least-squares cost, equal here to one half of the residual sum of squares) and the solver-reported first-order optimality as $O_{\mathrm{SciPy}}$ (for the bounded trust-region-reflective method, SciPy reports the infinity norm of its bound-aware scaled gradient). A solver result is eligible only when it reports positive termination status, finite parameters and objective, and $O_{\mathrm{SciPy}}/\max(1,J)\le10^{-4}$; the lowest-cost eligible start is retained. If a non-eligible endpoint has a cost lower by more than $10^{-4}$ of the retained cost scale, the fit fails closed as insufficient optimizer coverage. Every start vector, solver disposition, endpoint, cost, optimality diagnostic, and active-bound mask is retained in both duplicate machine-readable serializations. With residual sum of squares $\mathrm{RSS}$, sample count $n$, and free-conductance count $p$, the benchmark reports
 
 $$
 \mathrm{BIC}=n\ln\left(\frac{\mathrm{RSS}}{n}\right)+p\ln n.
@@ -135,7 +134,9 @@ $$
 
 This BIC is a small-sample implementation choice, not a universal ASTRA selection law. Its regular-model interpretation is only approximate here because the triangle nests the chain at a conductance boundary, candidate families intersect exactly, and pole-zero-cancellation strata are singular. At an exact input-output equivalence, BIC can select a smaller representation but cannot establish which physical support generated the data. The main framework requires structural-identifiability checks, posterior predictive calibration, and physically matched controls for real inference.
 
-![Training observations and held-out predictions for the four candidate node-labeled support hypotheses. The benchmark is synthetic and uses only the surface node as an observation.](../figures/supplement_figure_S1_topology_benchmark.png){#fig:s1 width=100%}
+![Training observations and held-out predictions for the four candidate node-labeled support hypotheses. The left panel compares noisy surface observations with the true-chain training response; the right panel compares all four candidate predictions with the true chain under unseen forcing. The benchmark is synthetic and uses only the surface node as an observation.](../figures/supplement_figure_S1_topology_benchmark.png){#fig:s1 width=100%}
+
+The complete plotted benchmark series and fit diagnostics are provided in `data/synthetic_topology_benchmark.csv` and `data/synthetic_topology_benchmark.json`.
 
 ## Exact static degeneracy
 
@@ -155,6 +156,8 @@ For this static comparison only, the code uses the declared true conductances fo
 | Surface star | 0.833333 | 2.261905 |
 | Deep star | 0.833333 | 2.261905 |
 | Triangle | 0.833333 | 1.785714 |
+
+Table: Static surface and deep equilibria under the declared comparison conductances.
 
 This is the benchmark's core inverse-problem fact: a static boundary value can identify total throughput without identifying the internal transport architecture.
 
@@ -243,6 +246,8 @@ The released realization uses seed 20260801. Results ranked by BIC are:
 | 3 | Surface star | 0.087328; 1.196997 | 0.005059 | -3805.156 | 0.006720 |
 | 4 | Deep star | 0.045813; 1.084790 | 0.019802 | -2819.876 | 0.025147 |
 
+Table: Single-seed synthetic candidates ranked by training-set BIC; held-out RMSE is reported only as a post-selection comparison.
+
 The overconnected triangle has a slightly smaller held-out RMSE than the chain in this one noise realization. That does **not** identify the triangle. Its extra shortcut is fitted at $0.001869$, approximately 0.85% of the weaker true chain edge, and the training-BIC penalty selects the two-edge chain. The correct interpretation is minimum-representation selection at the released generating point, with an overconnected control that collapses toward that point.
 
 # Monte Carlo robustness ensemble
@@ -268,7 +273,9 @@ showing systematic shrinkage of the unnecessary edge toward zero under the relea
 
 The post-selection unseen-forcing comparison preserves a material negative outcome: the triangle has a smaller held-out RMSE than the chain in 23 of 64 realizations. Mean held-out RMSE is $2.4864\times10^{-4}$ for the chain and $2.6969\times10^{-4}$ for the triangle. The observed $\Delta\mathrm{BIC}$ range is 1.0342 to 6.2157. These facts do not alter the training-BIC winner, but they limit what 64/64 selection establishes.
 
-![Across 64 synthetic noise realizations, BIC selects the minimum chain in every run. The overconnected triangle often predicts comparably but shrinks its additional edge toward zero.](../figures/supplement_figure_S6_topology_ensemble.png){#fig:s6 width=100%}
+![Across 64 synthetic noise realizations, BIC selects the minimum chain in every run. The left panel shows the positive triangle-minus-chain BIC differences, the center panel compares held-out error distributions for all candidates, and the right panel shows the triangle shortcut shrinking toward or reaching the optimizer's lower bound.](../figures/supplement_figure_S6_topology_ensemble.png){#fig:s6 width=100%}
+
+Per-seed selections, errors, shortcut conductances, and optimizer diagnostics are provided in `data/synthetic_topology_ensemble.csv` and `data/synthetic_topology_ensemble.json`.
 
 This ensemble does not estimate a general false-positive rate. It holds capacities, sink location, forcing, noise law, and the candidate graph set fixed. The CSV and JSON are alternate serializations of the same 64 runs, not independent evidence. A real ASTRA validation program must vary those assumptions, include misspecified models, and test graph-posterior calibration.
 
@@ -311,9 +318,11 @@ Its two decay rates and relaxation times are:
 | Slow | 0.0083217 | 120.1678 |
 | Fast | 1.2016783 | 0.83217 |
 
+Table: Decay modes of the normalized two-reservoir generating model.
+
 A single low-frequency amplitude at $f=0.003$ leaves a broad valley in $(C_d,k)$ space. The best point on the declared grid is $(16.0319,0.271916)$, visibly displaced from the generating pair despite matching that one response feature.
 
-![One low-frequency amplitude leaves a broad capacity-coupling degeneracy. The cross marks the generating parameters.](../figures/supplement_figure_S2_single_frequency_degeneracy.png){#fig:s2 width=90%}
+![One low-frequency amplitude leaves a broad capacity-coupling degeneracy. Color represents the objective increase on a logarithmic scale, labeled contour lines mark fixed objective increases, and a cross marks the generating parameters.](../figures/supplement_figure_S2_single_frequency_degeneracy.png){#fig:s2 width=90%}
 
 Using complex amplitude and phase at 24 logarithmically spaced frequencies localizes the grid minimum near the generating model:
 
@@ -323,13 +332,17 @@ $$
 
 The one-frequency objective deliberately discards phase and retains only amplitude. This comparison does not show that multiple frequencies are structurally necessary: one exact nonzero complex response supplies two real features and can generically constrain the two unknown parameters in this normalized model. Multiple frequencies provide redundancy, conditioning, and noise resistance; the released figures demonstrate finite-grid localization, not a minimal-data theorem.
 
-![Multi-frequency amplitude and phase localize the generating two-reservoir parameters in the synthetic grid search.](../figures/supplement_figure_S3_multifrequency_localization.png){#fig:s3 width=90%}
+![Multi-frequency amplitude and phase localize the generating two-reservoir parameters in the synthetic grid search. Color represents the objective increase on a logarithmic scale, labeled contours close around a compact minimum, and a cross marks the generating parameters.](../figures/supplement_figure_S3_multifrequency_localization.png){#fig:s3 width=90%}
+
+The objective value at every capacity-conductance grid point for both demonstrations is provided in `data/inverse_objective_landscapes.csv`; the generating and best-grid parameters are summarized in `data/inverse_demo_summary.json`.
 
 The mechanism is visible directly in the response curves. Adding a weakly or strongly coupled deep reservoir changes both attenuation and phase lag over a range of forcing frequencies.
 
-![Amplitude response for one-reservoir and two-reservoir normalized models.](../figures/supplement_figure_S4_frequency_response_amplitude.png){#fig:s4 width=88%}
+![Amplitude response for one-reservoir and two-reservoir normalized models. Solid lines with circles identify the one-reservoir model, dashed lines with squares the weakly coupled deep reservoir, and dash-dot lines with triangles the strongly coupled deep reservoir.](../figures/supplement_figure_S4_frequency_response_amplitude.png){#fig:s4 width=88%}
 
-![Phase response for one-reservoir and two-reservoir normalized models.](../figures/supplement_figure_S5_frequency_response_phase.png){#fig:s5 width=88%}
+![Phase response for the same three normalized models, using the same solid-circle, dashed-square, and dash-dot-triangle mapping as the amplitude plot.](../figures/supplement_figure_S5_frequency_response_phase.png){#fig:s5 width=88%}
+
+Forcing frequency, model name, amplitude, and phase in radians are provided in `data/frequency_response.csv`.
 
 The demonstration does not imply that astronomical observations can freely choose forcing frequencies. In practice, usable variation may come from orbital phase, seasons, eclipses, stellar variability, secular cooling, impacts, atmospheric events, or comparisons across a population. The input spectrum and observation operator must be modeled rather than assumed.
 
@@ -343,6 +356,8 @@ The fast propagator was compared with the high-accuracy solver at the generating
 |---|---:|---:|---:|
 | Training forcing | $9.63\times10^{-6}$ | $6.70\times10^{-6}$ | 0.00385 |
 | Held-out forcing | $1.60\times10^{-5}$ | $9.70\times10^{-6}$ | 0.00640 |
+
+Table: Fast-propagator errors relative to the high-accuracy solver.
 
 Thus the numerical approximation contributes less than 0.7% of the observational-noise standard deviation in the validation cases.
 
@@ -409,6 +424,8 @@ The next computational milestone is a blinded benchmark suite in which capacitie
 | `tests/` | Automated consistency and numerical-validation checks |
 | `data/*.json` and `data/*.csv` | Machine-readable inputs and outputs |
 | `figures/supplement_figure_S*.png` | Supplementary visualizations |
+
+Table: Public artifact map for reproduction and audit.
 
 # Conclusion
 

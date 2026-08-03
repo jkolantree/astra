@@ -1,12 +1,12 @@
 {
-  "schema": "https://github.com/jkolantree/astra/schemas/source-inventory-v1",
+  "schema": "https://jkolantree.github.io/astra/schemas/source-inventory-v1.schema.json",
   "authority": {
     "title": "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution",
     "framework": "Solar-Planetary Phase-Partition Theory (SPPT)",
     "inference_layer": "Astronomical State-Topology and Reservoir Analysis (ASTRA)",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "public_author": "Jacko T.",
-    "selection": "The synchronized manuscript.md and supplement.md, as revised under the explicit 2026-08-01 author direction, are the sole authoritative textual release sources. The v1.0.5 authority metadata is current, while artifact records deliberately retain their supplied v1.0.1 names, sizes, and hashes as historical provenance. The later pasted-text.txt is an author-supplied reasoning and provenance input, not independent evidence or verbatim release authority. DOCX and PDF files are generated presentations; code, data, results, and figures are supporting artifacts."
+    "selection": "The synchronized manuscript.md and supplement.md, as revised under the explicit 2026-08-01 author direction, are the sole authoritative textual release sources. The v1.0.6 authority metadata is current, while artifact records deliberately retain their supplied v1.0.1 names, sizes, and hashes as historical provenance. The later pasted-text.txt is an author-supplied reasoning and provenance input, not independent evidence or verbatim release authority. DOCX and PDF files are generated presentations; code, data, results, and figures are supporting artifacts."
   },
   "hash_algorithm": "SHA-256",
   "artifacts": [

@@ -16,10 +16,10 @@ abstract: >-
   LICENSE_MAP.md.
 authors:
   - name: "Jacko T."
-version: 1.0.5
+version: 1.0.6
 date-released: 2026-08-02
 repository-code: "https://github.com/jkolantree/astra"
-url: "https://github.com/jkolantree/astra"
+url: "https://github.com/jkolantree/astra/releases/tag/v1.0.6"
 license: MIT
 keywords:
   - planetary evolution
@@ -36,5 +36,5 @@ preferred-citation:
   authors:
     - name: "Jacko T."
   year: 2026
-  version: 1.0.5
-  url: "https://github.com/jkolantree/astra/releases/tag/v1.0.5"
+  version: 1.0.6
+  url: "https://github.com/jkolantree/astra/releases/tag/v1.0.6"
