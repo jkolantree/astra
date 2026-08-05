@@ -18,6 +18,17 @@ Version **1.0.6** is a **not-peer-reviewed perspective and mathematical framewor
 
 The versioned Pages editions are the primary accessible reading path. The downloadable HTML files contain the same document content and can be opened locally without network access. The PDFs are synchronized tagged visual editions with normalized metadata; their text, metadata, fonts, links, structure, TeX formula alternatives, and exact-search behavior are mechanically checked, and every rendered page is visually inspected at the release gate. Native MathML is available in HTML; the PDFs do not claim a native MathML expression tree.
 
+## Supplemental working papers
+
+<a href="https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/"><img src="resources/earth-is-the-instrument/v0.1/cover.png" width="280" alt="Dark blue cover showing a stylized cutaway Earth, orbital geometry, and the title Earth Is the Instrument"></a>
+
+**Exploratory · evidence graded · not peer reviewed · separate from v1.0.6.**
+
+- [Read the text-first companion to *Earth Is the Instrument* - Working Paper 0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/), a 44-page illustrated systems synthesis about plate boundaries, geological memory, preservation, origins, and tests that can distinguish plausible histories from unsupported ones.
+- [Download the illustrated PDF (44 pages, 709 KiB)](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf), or use the [repository resource directory](resources/earth-is-the-instrument/v0.1/) to keep the guide, PDF, checksums, and font notices together.
+
+Working papers are versioned separately from the reference framework. They are not peer reviewed and do not amend the immutable v1.0.6 release, its claim-admission matrix, or its verification status unless a later SPPT/ASTRA release explicitly admits them.
+
 ## Scientific scope
 
 The release admits bounded results about:
@@ -85,7 +96,7 @@ Builds write only beneath the repository or a disposable output root. Seeds, the
 | Path | Contents |
 |---|---|
 | `manuscript/` | Authoritative Markdown, bibliography, accessible HTML, synchronized PDF |
-| `docs/` | GitHub Pages landing files; the deployment workflow assembles immutable versioned reading editions from published release assets |
+| `docs/` | GitHub Pages landing files; the deployment workflow assembles immutable versioned reference editions and separately verified supplemental-resource pages from published release assets |
 | `schemas/` | Published Draft 7 schemas for schema-declaring release metadata and audit records |
 | `src/` | Auditable reduced SPPT and ASTRA calculations |
 | `scripts/` | Deterministic scientific reproductions and figure generation |
@@ -93,7 +104,8 @@ Builds write only beneath the repository or a disposable output root. Seeds, the
 | `data/` | Generated CSV and JSON outputs, including all negative outcomes |
 | `figures/` | Generated manuscript and supplement figures |
 | `tools/` | Canonical verification, document, manifest, and release-identity tooling |
-| `SOURCE_INVENTORY.json` | Hash, media, attribution, rights, alias, and excluded/deferred status for every supplied source artifact |
+| `resources/` | Independently versioned exploratory working papers and their text-first reading guides |
+| `SOURCE_INVENTORY.json` | Hash, media, attribution, rights, alias, and excluded/deferred status for every source artifact admitted to the v1.0.6 reference release |
 | `CLAIM_MATRIX.json` | Consequential claims, hypotheses, evidence classes, limitations, and dispositions |
 
 ## Citation
@@ -106,7 +118,7 @@ This is a GitHub-only release path. No DOI or Zenodo ingestion is claimed; addin
 
 ## Licensing and correspondence
 
-Original software is MIT licensed. Original manuscript text, documentation, figures, generated data, and results are CC BY 4.0. See [`LICENSE_MAP.md`](LICENSE_MAP.md) and [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md). Cited works remain under their own terms.
+Original software is MIT licensed. Original manuscript text, documentation, figures, generated data, and results are CC BY 4.0. Separately supplied resources do not inherit those terms; their authorization, provenance, and reuse status are stated individually. See [`LICENSE_MAP.md`](LICENSE_MAP.md) and [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md). Cited works remain under their own terms.
 
 Use [GitHub Issues](https://github.com/jkolantree/astra/issues) for public correspondence. No private email, location, institution, ORCID, or legal identity is published.
 

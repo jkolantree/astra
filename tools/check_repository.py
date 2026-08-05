@@ -14,6 +14,7 @@ from urllib.parse import urlparse
 
 from jsonschema import Draft7Validator, FormatChecker
 from PIL import Image
+from pypdf import PdfReader
 from ruamel.yaml import YAML
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -55,6 +56,7 @@ DIRECTORY_RULES = {
     "figures": {".png", ".pdf"},
     "licenses": {".txt"},
     "manuscript": {".bib", ".css", ".html", ".json", ".md", ".pdf"},
+    "resources": {".md", ".pdf", ".png", ".txt"},
     "docs": {".css", ".html", ".json", ".md", ".png", ".svg", ".txt"},
     "schemas": {".json", ".md"},
     "scripts": {".py"},
@@ -113,6 +115,21 @@ RELEASE_METADATA_PNGS = {
     "supplement_figure_S4_frequency_response_amplitude.png",
     "supplement_figure_S5_frequency_response_phase.png",
 }
+WORKING_PAPER_ROOT = ROOT / "resources" / "earth-is-the-instrument" / "v0.1"
+WORKING_PAPER_NAME = "ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf"
+WORKING_PAPER_SHA256 = "d0eaf61661e69395a6f3895167abb55d7b801480391f672966d359194e9b46d0"
+WORKING_PAPER_COVER_SHA256 = "815cf7cfa65145965093c6a4d82fce47a8663c9808775cdc8145cd300a18bd87"
+WORKING_PAPER_FONT_NOTICES_SHA256 = (
+    "5c1555ad05d23624ef81dba298876e88680f10c5c7251e58af78791f7b94f853"
+)
+RESOURCE_PATH_ALLOWLIST = {
+    "resources/README.md",
+    f"resources/earth-is-the-instrument/v0.1/{WORKING_PAPER_NAME}",
+    "resources/earth-is-the-instrument/v0.1/FONT_NOTICES.txt",
+    "resources/earth-is-the-instrument/v0.1/README.md",
+    "resources/earth-is-the-instrument/v0.1/SHA256SUMS.txt",
+    "resources/earth-is-the-instrument/v0.1/cover.png",
+}
 
 
 def sha256(path: Path) -> str:
@@ -152,6 +169,8 @@ def public_files() -> list[Path]:
             matched = next((root for root in DIRECTORY_RULES if parent == root or parent.startswith(root + "/")), None)
             if matched is None or path.suffix.lower() not in DIRECTORY_RULES[matched]:
                 raise RuntimeError(f"Unexpected repository path: {relative.as_posix()}")
+            if matched == "resources" and relative.as_posix() not in RESOURCE_PATH_ALLOWLIST:
+                raise RuntimeError(f"Unregistered supplemental resource: {relative.as_posix()}")
         files.append(path)
     return sorted(files, key=lambda item: item.relative_to(ROOT).as_posix())
 
@@ -304,6 +323,261 @@ def check_png_metadata(paths: list[Path]) -> None:
         for label, pattern in PRIVATE_PATTERNS.items():
             if pattern.search(text_metadata):
                 raise RuntimeError(f"{label} in PNG metadata: {path.relative_to(ROOT)}")
+
+
+def check_working_paper_resource() -> None:
+    resource_index = ROOT / "resources" / "README.md"
+    pdf_path = WORKING_PAPER_ROOT / WORKING_PAPER_NAME
+    cover_path = WORKING_PAPER_ROOT / "cover.png"
+    font_notices_path = WORKING_PAPER_ROOT / "FONT_NOTICES.txt"
+    readme_path = WORKING_PAPER_ROOT / "README.md"
+    sums_path = WORKING_PAPER_ROOT / "SHA256SUMS.txt"
+    expected_roster = {
+        pdf_path.name,
+        cover_path.name,
+        font_notices_path.name,
+        readme_path.name,
+        sums_path.name,
+    }
+
+    if not resource_index.is_file() or not WORKING_PAPER_ROOT.is_dir():
+        raise RuntimeError("Working-paper resource collection is incomplete")
+    observed_roster = {
+        path.relative_to(WORKING_PAPER_ROOT).as_posix()
+        for path in WORKING_PAPER_ROOT.rglob("*")
+        if path.is_file()
+    }
+    if observed_roster != expected_roster:
+        raise RuntimeError(
+            "Working-paper file roster differs from its contract: "
+            f"expected {sorted(expected_roster)}, observed {sorted(observed_roster)}"
+        )
+
+    expected_sums = (
+        f"{WORKING_PAPER_SHA256}  {WORKING_PAPER_NAME}\n"
+        f"{WORKING_PAPER_FONT_NOTICES_SHA256}  FONT_NOTICES.txt\n"
+        f"{WORKING_PAPER_COVER_SHA256}  cover.png\n"
+    )
+    if sums_path.read_text(encoding="utf-8") != expected_sums:
+        raise RuntimeError("Working-paper checksum sidecar is not canonical")
+    if sha256(pdf_path) != WORKING_PAPER_SHA256:
+        raise RuntimeError("Working-paper PDF checksum mismatch")
+    if sha256(cover_path) != WORKING_PAPER_COVER_SHA256:
+        raise RuntimeError("Working-paper cover checksum mismatch")
+    if sha256(font_notices_path) != WORKING_PAPER_FONT_NOTICES_SHA256:
+        raise RuntimeError("Working-paper font-notices checksum mismatch")
+
+    with Image.open(cover_path) as cover:
+        if cover.size != (480, 622) or cover.mode != "RGB":
+            raise RuntimeError(
+                f"Working-paper cover contract mismatch: size={cover.size}, mode={cover.mode}"
+            )
+
+    reader = PdfReader(pdf_path)
+    if len(reader.pages) != 44:
+        raise RuntimeError(f"Working-paper page count is {len(reader.pages)}, expected 44")
+    expected_labels = ["Cover", "i", "ii", "iii", "iv", *map(str, range(1, 40))]
+    if reader.page_labels != expected_labels:
+        raise RuntimeError("Working-paper page labels do not match the visible numbering")
+
+    metadata = reader.metadata
+    expected_metadata = {
+        "/Title": "Earth Is the Instrument",
+        "/Subject": "Plate tectonics, geological memory, boundary states, and human origins",
+        "/Author": "ASTRA Framework Working Paper",
+        "/Creator": "ASTRA Framework Working Paper 0.1",
+        "/Producer": "SPPT/ASTRA supplemental publication pipeline",
+        "/CreationDate": "D:20260804000000Z",
+        "/ModDate": "D:20260805000000Z",
+    }
+    if metadata is None or any(metadata.get(key) != value for key, value in expected_metadata.items()):
+        raise RuntimeError("Working-paper PDF metadata differs from the publication contract")
+    root = reader.root_object
+    if str(root.get("/Lang")) != "en-US":
+        raise RuntimeError("Working-paper PDF language is not en-US")
+    preferences = root.get("/ViewerPreferences")
+    preferences = preferences.get_object() if hasattr(preferences, "get_object") else preferences
+    if preferences is None or not bool(preferences.get("/DisplayDocTitle")):
+        raise RuntimeError("Working-paper PDF does not display its document title")
+    if "/StructTreeRoot" in root or "/MarkInfo" in root:
+        raise RuntimeError("Working-paper accessibility statement is stale: PDF is now tagged")
+
+    open_action = root.get("/OpenAction")
+    open_action = open_action.get_object() if hasattr(open_action, "get_object") else open_action
+    if (
+        not isinstance(open_action, list)
+        or len(open_action) != 2
+        or str(open_action[1]) != "/Fit"
+        or reader.get_page_number(open_action[0].get_object()) != 0
+    ):
+        raise RuntimeError("Working-paper opening action is not the safe first-page fit view")
+    if reader.get_fields() is not None or list(reader.attachments):
+        raise RuntimeError("Working-paper PDF contains forms or embedded attachments")
+
+    dangerous_keys = {"/AA", "/JS", "/JavaScript", "/Launch", "/RichMedia"}
+    dangerous_actions = {"/GoToE", "/GoToR", "/ImportData", "/JavaScript", "/Launch", "/SubmitForm"}
+    seen: set[int] = set()
+
+    def walk_pdf_objects(value: object):
+        resolved = value.get_object() if hasattr(value, "get_object") else value
+        identifier = id(resolved)
+        if identifier in seen:
+            return
+        seen.add(identifier)
+        if isinstance(resolved, dict):
+            yield resolved
+            for child in resolved.values():
+                yield from walk_pdf_objects(child)
+        elif isinstance(resolved, (list, tuple)):
+            for child in resolved:
+                yield from walk_pdf_objects(child)
+
+    for mapping in walk_pdf_objects(root):
+        present = dangerous_keys.intersection(map(str, mapping.keys()))
+        if present:
+            raise RuntimeError(f"Working-paper PDF contains unsafe keys: {sorted(present)}")
+        action = str(mapping.get("/S", ""))
+        if action in dangerous_actions:
+            raise RuntimeError(f"Working-paper PDF contains unsafe action: {mapping.get('/S')}")
+        if action == "/URI":
+            target = str(mapping.get("/URI", ""))
+            parsed_target = urlparse(target)
+            if (
+                parsed_target.scheme != "https"
+                or parsed_target.hostname not in {"doi.org", "volcanoes.usgs.gov"}
+                or parsed_target.username is not None
+                or parsed_target.password is not None
+            ):
+                raise RuntimeError(f"Working-paper PDF contains an unsafe URI: {target}")
+
+    expected_destinations = {
+        "section.2.3": (9, 59.76, 732.24),
+        "section.3.2": (12, 59.76, 732.24),
+        "section.4.2": (16, 59.76, 732.24),
+        "section.4.4": (17, 59.76, 732.24),
+        "section.6.1": (22, 59.76, 732.24),
+        "section.7.2": (24, 59.76, 732.24),
+        "section.8.1": (27, 59.76, 732.24),
+        "section.8.4": (29, 59.76, 732.24),
+        "section.9.2": (31, 59.76, 732.24),
+        "table.0.1": (2, 59.76, 465.96),
+    }
+    observed_destinations = {
+        name: (
+            reader.get_destination_page_number(reader.named_destinations[name]),
+            round(float(reader.named_destinations[name].left), 2),
+            round(float(reader.named_destinations[name].top), 2),
+        )
+        for name in expected_destinations
+        if name in reader.named_destinations
+    }
+    if observed_destinations != expected_destinations:
+        raise RuntimeError(
+            "Working-paper corrected destinations differ from the contract: "
+            f"{observed_destinations}"
+        )
+
+    def flatten_outline(entries: list[object]):
+        for entry in entries:
+            if isinstance(entry, list):
+                yield from flatten_outline(entry)
+            else:
+                yield entry
+
+    epistemic_items = [
+        item for item in flatten_outline(reader.outline) if getattr(item, "title", "") == "Epistemic vocabulary"
+    ]
+    if len(epistemic_items) != 1 or reader.get_destination_page_number(epistemic_items[0]) != 2:
+        raise RuntimeError("Working-paper Epistemic vocabulary bookmark is premature")
+
+    extracted_pages = [page.extract_text() or "" for page in reader.pages]
+    if any(not text.strip() for text in extracted_pages):
+        raise RuntimeError("Working-paper PDF has a page without extractable text")
+    privacy_text = "\n".join(extracted_pages) + "\n" + json.dumps(dict(metadata))
+    for label, pattern in PRIVATE_PATTERNS.items():
+        if pattern.search(privacy_text):
+            raise RuntimeError(f"{label} in working-paper text or metadata")
+
+    readme = readme_path.read_text(encoding="utf-8")
+    semantic_readme = " ".join(readme.replace("**", "").split())
+    required_readme_values = (
+        "supplemental exploratory working paper",
+        "not peer reviewed",
+        "does not amend or supersede SPPT/ASTRA v1.0.6",
+        "not a tagged PDF",
+        "Figure descriptions",
+        "available by August 2026",
+        "no reuse license is asserted",
+        "explicitly authorized its public distribution",
+        "No independent rights or provenance claim",
+        "FONT_NOTICES.txt",
+        "Inter",
+        "EB Garamond",
+        "Latin Modern Math",
+        "DejaVu Sans",
+        "SIL Open Font License 1.1",
+        "GUST Font License",
+        "ASTRA Framework Working Paper. (2026).",
+        "ASTRA_Earth_Is_The_Instrument_Working_Paper_0.1_cover_geometry_fixed.pdf",
+        "480 by 622 pixel rendering",
+        "issues/new?template=accessibility.yml",
+        "releases/tag/earth-instrument-wp-0.1",
+        WORKING_PAPER_SHA256,
+        "1982d988981e046ed3b083835144fb83d4e98b2dca92454903472c265f4e7220",
+    )
+    if any(value not in semantic_readme for value in required_readme_values):
+        raise RuntimeError("Working-paper reading guide omits a required publication boundary")
+    figure_labels = (
+        "Seven 2026 signals:",
+        "Plate-boundary classes:",
+        "Distributed geological nursery:",
+        "Boundary-state ladder:",
+        "Geology as archive and censor:",
+        "Monuments as reorganized geology:",
+        "Candidate origin stories:",
+        "ASTRA instrument test:",
+    )
+    if any(label not in semantic_readme for label in figure_labels):
+        raise RuntimeError("Working-paper guide does not describe all eight figures")
+    forbidden_readme_claims = (
+        "fully accessible PDF",
+        "empirically validates SPPT/ASTRA",
+        "amends SPPT/ASTRA v1.0.6",
+        "supersedes SPPT/ASTRA v1.0.6",
+    )
+    if any(claim in semantic_readme for claim in forbidden_readme_claims):
+        raise RuntimeError("Working-paper guide contains a contradictory publication claim")
+
+    collection_index = " ".join(resource_index.read_text(encoding="utf-8").split())
+    if (
+        "earth-is-the-instrument/v0.1/" not in collection_index
+        or "does not amend the current framework release" not in collection_index
+        or "inherit its verification status" not in collection_index
+    ):
+        raise RuntimeError("Supplemental resource index omits the working-paper boundary")
+
+    font_notices = font_notices_path.read_text(encoding="utf-8")
+    required_font_notices = (
+        "Copyright (c) 2016 The Inter Project Authors",
+        "Copyright 2010-2013 Georg A. Duffner",
+        "Copyright 2012--2014 for Latin Modern Math OTF",
+        "SIL OPEN FONT LICENSE Version 1.1",
+        "GUST FONT LICENSE preliminary version - 2006-09-30",
+        "licenses/DEJAVU-FONTS.txt",
+    )
+    if any(value not in font_notices for value in required_font_notices):
+        raise RuntimeError("Working-paper font notices are incomplete")
+
+    license_map = (ROOT / "LICENSE_MAP.md").read_text(encoding="utf-8")
+    required_license_boundaries = (
+        "It does not\nassert copyright ownership of separately supplied resources",
+        f"resources/earth-is-the-instrument/v0.1/{WORKING_PAPER_NAME}",
+        "resources/earth-is-the-instrument/v0.1/cover.png",
+        "resources/earth-is-the-instrument/v0.1/FONT_NOTICES.txt",
+        "no reuse license is asserted",
+    )
+    if any(value not in license_map for value in required_license_boundaries):
+        raise RuntimeError("License map omits the working-paper rights boundary")
 
 
 def check_text_privacy(paths: list[Path]) -> None:
@@ -707,6 +981,7 @@ def main() -> None:
     check_text_privacy(paths)
     check_license_map(paths)
     check_png_metadata(paths)
+    check_working_paper_resource()
     check_metadata_agreement()
     check_claim_matrix()
     check_source_inventory()
