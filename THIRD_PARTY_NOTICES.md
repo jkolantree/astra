@@ -1,6 +1,6 @@
 # Third-party notices
 
-No third-party article text, figure, photograph, dataset, or adapted artwork is redistributed. Bibliographic records and DOI/arXiv links identify externally published sources; those works remain under their own terms.
+The v1.0.6 reference package redistributes no third-party article text, figure, photograph, dataset, or adapted artwork. Bibliographic records and DOI/arXiv links identify externally published sources; those works remain under their own terms. Separately supplied resources are governed by their explicit entries in `LICENSE_MAP.md`; the Earth Is the Instrument working paper has the narrower authorization and provenance boundary recorded in its companion README.
 
 The source archive does not vendor Python packages, Pandoc, Chromium, Git, or a Python runtime. Reproduction installs the exact packages named in `requirements-lock.txt` from their publishers and requires the Git for Windows distribution identified in `RUNTIME.json`. Principal direct dependencies and their upstream licenses are:
 

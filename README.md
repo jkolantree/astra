@@ -18,6 +18,14 @@ Version **1.0.6** is a **not-peer-reviewed perspective and mathematical framewor
 
 The versioned Pages editions are the primary accessible reading path. The downloadable HTML files contain the same document content and can be opened locally without network access. The PDFs are synchronized tagged visual editions with normalized metadata; their text, metadata, fonts, links, structure, TeX formula alternatives, and exact-search behavior are mechanically checked, and every rendered page is visually inspected at the release gate. Native MathML is available in HTML; the PDFs do not claim a native MathML expression tree.
 
+## Supplemental working papers
+
+[![Dark blue cover showing a stylized cutaway Earth, orbital geometry, and the title Earth Is the Instrument](resources/earth-is-the-instrument/v0.1/cover.png)](resources/earth-is-the-instrument/v0.1/)
+
+- [*Earth Is the Instrument* - Working Paper 0.1](resources/earth-is-the-instrument/v0.1/) is a 44-page illustrated exploratory synthesis extending toward Earth systems, plate tectonics, geological memory, and human origins.
+
+Working papers are versioned separately from the reference framework. They are not peer reviewed and do not amend the immutable v1.0.6 release, its claim-admission matrix, or its verification status unless a later SPPT/ASTRA release explicitly admits them.
+
 ## Scientific scope
 
 The release admits bounded results about:
@@ -93,7 +101,8 @@ Builds write only beneath the repository or a disposable output root. Seeds, the
 | `data/` | Generated CSV and JSON outputs, including all negative outcomes |
 | `figures/` | Generated manuscript and supplement figures |
 | `tools/` | Canonical verification, document, manifest, and release-identity tooling |
-| `SOURCE_INVENTORY.json` | Hash, media, attribution, rights, alias, and excluded/deferred status for every supplied source artifact |
+| `resources/` | Independently versioned exploratory working papers and their text-first reading guides |
+| `SOURCE_INVENTORY.json` | Hash, media, attribution, rights, alias, and excluded/deferred status for every source artifact admitted to the v1.0.6 reference release |
 | `CLAIM_MATRIX.json` | Consequential claims, hypotheses, evidence classes, limitations, and dispositions |
 
 ## Citation
@@ -106,7 +115,7 @@ This is a GitHub-only release path. No DOI or Zenodo ingestion is claimed; addin
 
 ## Licensing and correspondence
 
-Original software is MIT licensed. Original manuscript text, documentation, figures, generated data, and results are CC BY 4.0. See [`LICENSE_MAP.md`](LICENSE_MAP.md) and [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md). Cited works remain under their own terms.
+Original software is MIT licensed. Original manuscript text, documentation, figures, generated data, and results are CC BY 4.0. Separately supplied resources do not inherit those terms; their authorization, provenance, and reuse status are stated individually. See [`LICENSE_MAP.md`](LICENSE_MAP.md) and [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md). Cited works remain under their own terms.
 
 Use [GitHub Issues](https://github.com/jkolantree/astra/issues) for public correspondence. No private email, location, institution, ORCID, or legal identity is published.
 
