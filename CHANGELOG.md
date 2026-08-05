@@ -4,7 +4,7 @@
 
 - Publishes *Earth Is the Instrument* Working Paper 0.1 as a separately versioned exploratory resource with a text-first reading guide, figure descriptions, checksums, and explicit accessibility, chronology, provenance, and v1.0.6 boundaries.
 - Corrects the working paper's page labels and ten premature navigation targets while preserving pixel-identical page content.
-- Leaves the immutable SPPT/ASTRA v1.0.6 release, release specification, claim matrix, source inventory, and Pages deployment unchanged.
+- Adds a release-verified GitHub Pages companion and default-branch discovery path for the working paper while leaving the immutable SPPT/ASTRA v1.0.6 release, release specification, claim matrix, source inventory, and current-edition redirects unchanged.
 
 ## 1.0.6 — 2026-08-02
 

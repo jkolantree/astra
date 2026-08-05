@@ -1,8 +1,9 @@
 name: Publish accessible reading room
 
-# Manual by design: stable paths are published only after the current main commit
-# has an annotated tag and a published immutable release. Before the first run, a
-# repository administrator must select GitHub Actions as the Pages source.
+# Manual by design: stable paths are assembled from annotated, immutable releases.
+# A descendant main commit is admitted only when its post-release changes stay in
+# the explicit communications allowlist below. Before the first run, a repository
+# administrator must select GitHub Actions as the Pages source.
 on:
   workflow_dispatch:
 
@@ -43,7 +44,10 @@ jobs:
           current_tag="v${current_version}"
           current_ref="refs/tags/${current_tag}"
           test "$(git cat-file -t "$current_ref")" = tag
-          test "$(git rev-parse HEAD)" = "$(git rev-parse "${current_ref}^{commit}")"
+          current_commit="$(git rev-parse "${current_ref}^{commit}")"
+          git merge-base --is-ancestor "$current_commit" HEAD
+          git show "${current_ref}^{commit}:RELEASE_SPEC.json" > "$downloads/TAG_RELEASE_SPEC.json"
+          cmp --silent -- RELEASE_SPEC.json "$downloads/TAG_RELEASE_SPEC.json"
 
           current_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${current_tag}")"
           jq -e '
@@ -52,6 +56,40 @@ jobs:
             .prerelease == false and
             .immutable == true
           ' --arg tag "$current_tag" <<<"$current_release" >/dev/null
+
+          paper_tag="earth-instrument-wp-0.1"
+          paper_ref="refs/tags/${paper_tag}"
+          paper_path="resources/earth-is-the-instrument/v0.1"
+          paper_pdf="ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf"
+          paper_assets=("$paper_pdf" "FONT_NOTICES.txt" "SHA256SUMS.txt" "cover.png")
+          paper_payloads=("$paper_pdf" "FONT_NOTICES.txt" "cover.png")
+
+          test "$(git cat-file -t "$paper_ref")" = tag
+          paper_commit="$(git rev-parse "${paper_ref}^{commit}")"
+          git merge-base --is-ancestor "$paper_commit" HEAD
+
+          if test "$(git rev-parse HEAD)" != "$current_commit"; then
+            while IFS= read -r changed_path; do
+              case "$changed_path" in
+                .github/workflows/pages.yml|CHANGELOG.md|MANIFEST.sha256|README.md|docs/index.html|docs/style.css|docs/resources/index.html|docs/resources/earth-is-the-instrument/v0.1/index.html|tests/test_pages_contract.py) ;;
+                *)
+                  echo "Unreleased non-communications change cannot enter Pages: $changed_path" >&2
+                  exit 1
+                  ;;
+              esac
+            done < <(git diff --name-only "${paper_ref}^{commit}" HEAD)
+          fi
+
+          paper_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${paper_tag}")"
+          paper_asset_json="$(jq -cn --args '$ARGS.positional | sort' "${paper_assets[@]}")"
+          jq -e '
+            .tag_name == $tag and
+            .draft == false and
+            .prerelease == true and
+            .immutable == true and
+            (.assets | map(.name) | sort) == $assets
+          ' --arg tag "$paper_tag" --argjson assets "$paper_asset_json" \
+            <<<"$paper_release" >/dev/null
 
           mapfile -t release_tags < <(
             gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
@@ -201,6 +239,49 @@ jobs:
           HTML
           done
 
+          paper_release_dir="$downloads/$paper_tag"
+          paper_target_dir="$site/$paper_path"
+          mkdir -p -- "$paper_release_dir" "$paper_target_dir"
+          gh release download "$paper_tag" \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir "$paper_release_dir" \
+            --pattern "$paper_pdf" \
+            --pattern FONT_NOTICES.txt \
+            --pattern SHA256SUMS.txt \
+            --pattern cover.png
+
+          for asset in "${paper_assets[@]}"; do
+            test -f "$paper_release_dir/$asset"
+            api_digest="$(jq -er '
+              .assets[] |
+              select(.name == $name) |
+              .digest |
+              select(test("^sha256:[0-9a-f]{64}$"))
+            ' --arg name "$asset" <<<"$paper_release")"
+            actual_digest="sha256:$(sha256sum "$paper_release_dir/$asset" | awk '{print $1}')"
+            test "$actual_digest" = "$api_digest"
+          done
+
+          git show "${paper_ref}^{commit}:${paper_path}/SHA256SUMS.txt" \
+            > "$paper_release_dir/TAG_SHA256SUMS.txt"
+          cmp --silent -- \
+            "$paper_release_dir/SHA256SUMS.txt" \
+            "$paper_release_dir/TAG_SHA256SUMS.txt"
+          test "$(wc -l < "$paper_release_dir/SHA256SUMS.txt")" -eq 3
+          awk '
+            NF != 2 || length($1) != 64 || $1 !~ /^[0-9a-f]+$/ { exit 1 }
+          ' "$paper_release_dir/SHA256SUMS.txt"
+          diff -u \
+            <(printf '%s\n' "${paper_payloads[@]}" | sort) \
+            <(awk '{print $2}' "$paper_release_dir/SHA256SUMS.txt" | sort)
+          (
+            cd "$paper_release_dir"
+            sha256sum --check --strict SHA256SUMS.txt
+          )
+          for asset in "${paper_assets[@]}"; do
+            cp -- "$paper_release_dir/$asset" "$paper_target_dir/$asset"
+          done
+
           cat > "$site/editions/index.html" <<'HTML'
           <!doctype html>
           <html lang="en-US">
@@ -280,6 +361,8 @@ jobs:
           write_redirect "$site/latest" "../${current_tag}/" "Current SPPT/ASTRA edition"
           write_redirect "$site/latest/preprint" "../../${current_tag}/preprint/" "Current SPPT/ASTRA preprint"
           write_redirect "$site/latest/supplement" "../../${current_tag}/supplement/" "Current SPPT/ASTRA technical supplement"
+          write_redirect "$site/resources/earth-is-the-instrument" "./v0.1/" "Current Earth Is the Instrument working paper"
+          write_redirect "$site/resources/earth-is-the-instrument/latest" "../v0.1/" "Current Earth Is the Instrument working paper"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Versioned, browser-readable HTML editions of SPPT/ASTRA.">
+  <meta name="description" content="Accessible, versioned reading editions of SPPT/ASTRA and its separately reviewed supplemental working papers.">
   <title>SPPT/ASTRA accessible reading room</title>
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -13,7 +13,7 @@
     <div class="wrap">
       <p class="eyebrow">Solar-Planetary Phase-Partition Theory</p>
       <h1>ASTRA accessible reading room</h1>
-      <p class="lede">Versioned, browser-readable HTML editions of the manuscript and technical supplement.</p>
+      <p class="lede">Versioned, browser-readable editions of the reference framework, with text-first companions for separately published working papers.</p>
     </div>
   </header>
   <main id="main-content" class="wrap">
@@ -23,7 +23,7 @@
     </aside>
 
     <section aria-labelledby="read-heading">
-      <h2 id="read-heading">Read the current edition</h2>
+      <h2 id="read-heading">Reference framework — v1.0.6</h2>
       <ul class="cards">
         <li><a href="./latest/preprint/">Preprint <span aria-hidden="true">&rarr;</span></a></li>
         <li><a href="./latest/supplement/">Technical supplement <span aria-hidden="true">&rarr;</span></a></li>
@@ -31,9 +31,31 @@
       <p>The <a href="./editions/">versioned-editions index</a> preserves stable reading links. Release downloads and checksums remain available on <a href="https://github.com/jkolantree/astra/releases">GitHub Releases</a>.</p>
     </section>
 
+    <section aria-labelledby="papers-heading">
+      <h2 id="papers-heading">Supplemental working papers</h2>
+      <article class="feature" aria-labelledby="earth-paper-heading">
+        <a class="cover-link" href="./resources/earth-is-the-instrument/v0.1/">
+          <img src="./resources/earth-is-the-instrument/v0.1/cover.png" width="480" height="622" alt="Dark blue cover with a cutaway Earth, orbital geometry, and the title Earth Is the Instrument">
+        </a>
+        <div>
+          <p class="meta">Working Paper 0.1 · 4 August 2026 · 44 pages</p>
+          <p class="status-badge">Exploratory · evidence graded · not peer reviewed</p>
+          <h3 id="earth-paper-heading"><cite>Earth Is the Instrument</cite></h3>
+          <p>Illustrated Earth-systems synthesis about plate boundaries, geological memory, preservation filters, origins, and tests that can distinguish plausible histories from unsupported ones.</p>
+          <p><strong>Status:</strong> exploratory, evidence graded, and not peer reviewed. This paper is separate from SPPT/ASTRA v1.0.6; it neither amends that release nor provides empirical validation of it.</p>
+          <ul class="actions">
+            <li><a class="button" href="./resources/earth-is-the-instrument/v0.1/">Read the text-first guide</a></li>
+            <li><a href="./resources/earth-is-the-instrument/v0.1/ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf">Download illustrated PDF (44 pages, 709 KiB)</a></li>
+            <li><a href="https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1">Release and checksums</a></li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
     <section aria-labelledby="resources-heading">
       <h2 id="resources-heading">Supporting resources</h2>
       <ul>
+        <li><a href="./resources/">Supplemental-resource index</a></li>
         <li><a href="./schemas/">Published JSON schemas</a></li>
         <li><a href="https://github.com/jkolantree/astra">Source repository and reproducibility instructions</a></li>
         <li><a href="https://github.com/jkolantree/astra/issues/new/choose">Report an accessibility, reproducibility, or scientific issue</a></li>
@@ -47,7 +69,7 @@
   </main>
   <footer>
     <div class="wrap">
-      <p>Original manuscript, documentation, figures, and data: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Software: <a href="https://github.com/jkolantree/astra/blob/main/LICENSE">MIT</a>.</p>
+      <p>Original reference-release manuscript, documentation, figures, and generated data: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Software: <a href="https://github.com/jkolantree/astra/blob/main/LICENSE">MIT</a>. Separately supplied resources retain the rights stated on their individual reading pages.</p>
     </div>
   </footer>
 </body>
