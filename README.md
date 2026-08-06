@@ -18,16 +18,18 @@ Version **1.0.6** is a **not-peer-reviewed perspective and mathematical framewor
 
 The versioned Pages editions are the primary accessible reading path. The downloadable HTML files contain the same document content and can be opened locally without network access. The PDFs are synchronized tagged visual editions with normalized metadata; their text, metadata, fonts, links, structure, TeX formula alternatives, and exact-search behavior are mechanically checked, and every rendered page is visually inspected at the release gate. Native MathML is available in HTML; the PDFs do not claim a native MathML expression tree.
 
-## Supplemental working papers
+## Supplemental Earth-systems framework
 
-<a href="https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/"><img src="resources/earth-is-the-instrument/v0.1/cover.png" width="280" alt="Dark blue cover showing a stylized cutaway Earth, orbital geometry, and the title Earth Is the Instrument"></a>
+<a href="https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/"><img src="resources/earth-is-the-instrument/v0.3.0/cover.png" width="280" alt="Blue-and-gold cover titled Earth Is the Instrument, with an abstract planetary diagram"></a>
 
-**Exploratory · evidence graded · not peer reviewed · separate from v1.0.6.**
+**Foundational working paper · evidence graded · not peer reviewed · separate from v1.0.6.**
 
-- [Read the text-first companion to *Earth Is the Instrument* - Working Paper 0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/), a 44-page illustrated systems synthesis about plate boundaries, geological memory, preservation, origins, and tests that can distinguish plausible histories from unsupported ones.
-- [Download the illustrated PDF (44 pages, 709 KiB)](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf), or use the [repository resource directory](resources/earth-is-the-instrument/v0.1/) to keep the guide, PDF, checksums, and font notices together.
+- [Read the text-first guide to *ASTRA Framework v0.3.0 — Earth Is the Instrument*](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/), a separately versioned framework about dual-rent seams, local-to-global certificates, geological memory, evidence independence, and bounded arithmetic-seam tests.
+- [Read or download the complete framework PDF (171 pages)](resources/earth-is-the-instrument/v0.3.0/ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf), begin with the [two-page public ground reading](resources/earth-is-the-instrument/v0.3.0/ASTRA_v0.3.0_Public_Ground_Reading.pdf), or use the [one-page audit form](resources/earth-is-the-instrument/v0.3.0/ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf).
+- [Review the publication audit and known accessibility limits](resources/earth-is-the-instrument/v0.3.0/PUBLICATION_AUDIT.md).
+- [Download the complete source and reproducibility archive from its versioned GitHub Release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
 
-Working papers are versioned separately from the reference framework. They are not peer reviewed and do not amend the immutable v1.0.6 release, its claim-admission matrix, or its verification status unless a later SPPT/ASTRA release explicitly admits them.
+Version 0.3.0 supersedes v0.2.1 only within the *Earth Is the Instrument* publication line. It does not amend or supersede the immutable SPPT/ASTRA v1.0.6 reference release, enter its claim-admission matrix, or inherit its verification status. The earlier [Working Paper 0.1](resources/earth-is-the-instrument/v0.1/) remains available as a stable historical edition.
 
 ## Scientific scope
 
@@ -104,7 +106,7 @@ Builds write only beneath the repository or a disposable output root. Seeds, the
 | `data/` | Generated CSV and JSON outputs, including all negative outcomes |
 | `figures/` | Generated manuscript and supplement figures |
 | `tools/` | Canonical verification, document, manifest, and release-identity tooling |
-| `resources/` | Independently versioned exploratory working papers and their text-first reading guides |
+| `resources/` | Independently versioned exploratory and foundational working papers, complete packages, and text-first reading guides |
 | `SOURCE_INVENTORY.json` | Hash, media, attribution, rights, alias, and excluded/deferred status for every source artifact admitted to the v1.0.6 reference release |
 | `CLAIM_MATRIX.json` | Consequential claims, hypotheses, evidence classes, limitations, and dispositions |
 

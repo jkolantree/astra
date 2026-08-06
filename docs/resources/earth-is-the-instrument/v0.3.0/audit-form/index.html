@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Accessible browser worksheet for the ASTRA v0.3.0 dual-rent and local-to-global audit discipline.">
+  <meta name="author" content="Jacko T.">
+  <link rel="canonical" href="https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/audit-form/">
+  <title>Dual-Rent and Local-to-Global Audit Worksheet - ASTRA v0.3.0</title>
+  <link rel="stylesheet" href="../../../../style.css">
+  <link rel="stylesheet" href="../companion.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="resource-header">
+    <div class="wrap">
+      <p class="eyebrow">ASTRA v0.3.0 - accessible browser worksheet</p>
+      <h1>Seam, observation, and certificate discipline</h1>
+      <p class="lede">A true local result may still certify too little. Separate physical effect from causal legibility, then close the global boundary.</p>
+    </div>
+  </header>
+
+  <main id="main-content" class="wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../../../">Reading-room home</a> <span aria-hidden="true">/</span>
+      <a href="../../../">Supplemental resources</a> <span aria-hidden="true">/</span>
+      <a href="../">Earth Is the Instrument v0.3.0</a> <span aria-hidden="true">/</span>
+      <span aria-current="page">Audit worksheet</span>
+    </nav>
+
+    <div class="worksheet-intro screen-only">
+      <aside class="notice" aria-labelledby="privacy-heading">
+        <h2 id="privacy-heading">Private by design, with browser limits</h2>
+        <p>This companion contains no submission target, submit control, script, analytics, cookies, or Web Storage calls. What you enter is not sent by this page. Your browser, device, accessibility software, or print system may still retain local session or print state. Clear sensitive entries before leaving a shared device.</p>
+      </aside>
+      <section class="reader-card" aria-labelledby="print-heading">
+        <h2 id="print-heading">Use and print</h2>
+        <p>Complete any fields that help the audit. Nothing is required. Use your browser's Print command to make a local paper or PDF copy. The print layout removes navigation and preserves native field values.</p>
+        <p><a href="../ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf" type="application/pdf">Download the compact one-page print PDF</a>. It is static, not electronically fillable, and is not claimed as PDF/UA-conformant.</p>
+      </section>
+    </div>
+
+    <div class="worksheet" role="form" aria-label="ASTRA dual-rent and local-to-global audit worksheet">
+      <section class="worksheet-meta" aria-labelledby="identity-heading">
+        <h2 id="identity-heading" class="visually-hidden">Claim identity</h2>
+        <div class="form-field">
+          <label for="claim-id">Claim ID</label>
+          <input id="claim-id" name="claim_id" type="text" autocomplete="off">
+        </div>
+        <div class="form-field">
+          <label for="date-version">Date and version</label>
+          <input id="date-version" name="date_version" type="text" autocomplete="off" placeholder="For example, 2026-08-06 / v0.3.0">
+        </div>
+        <div class="form-field">
+          <label for="reviewer">Reviewer or challenge channel</label>
+          <input id="reviewer" name="reviewer" type="text" autocomplete="off">
+        </div>
+        <div class="form-field">
+          <label for="claim-scope">Claim type and scope</label>
+          <input id="claim-scope" name="claim_scope" type="text" autocomplete="off" placeholder="Mathematical, empirical, methodological, historical, governance, or other">
+        </div>
+      </section>
+
+      <fieldset>
+        <legend>1. Atomic claim and typed chain</legend>
+        <p id="typed-chain-help" class="field-help">State one claim at one scale. Name the edge types instead of allowing physical, control, observation, archival, or verification roles to substitute for one another.</p>
+        <div class="form-grid" aria-describedby="typed-chain-help">
+          <div class="form-field">
+            <label for="atomic-claim">Atomic claim</label>
+            <span id="atomic-claim-help" class="field-help">One sentence with scale, location, date, and one canonical evidence label.</span>
+            <textarea id="atomic-claim" name="atomic_claim" rows="4" aria-describedby="atomic-claim-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="physical-edge">Physical edge</label>
+            <span id="physical-edge-help" class="field-help">Source, quantity, constitutive law, coupling, sink, and dissipation.</span>
+            <textarea id="physical-edge" name="physical_edge" rows="4" aria-describedby="physical-edge-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="control-edge">Control edge</label>
+            <span id="control-edge-help" class="field-help">Sensor or controller, target, timing, cost, and failure mode.</span>
+            <textarea id="control-edge" name="control_edge" rows="4" aria-describedby="control-edge-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="observation-edge">Observation edge</label>
+            <span id="observation-edge-help" class="field-help">Instrument, geometry, sampling path, preprocessing, noise, and missingness.</span>
+            <textarea id="observation-edge" name="observation_edge" rows="4" aria-describedby="observation-edge-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="archive-edge">Archive edge</label>
+            <span id="archive-edge-help" class="field-help">Deposition, alteration, exposure, recovery, and recognition.</span>
+            <textarea id="archive-edge" name="archive_edge" rows="4" aria-describedby="archive-edge-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="certificate-edge">Certificate edge</label>
+            <span id="certificate-edge-help" class="field-help">Exact bounded conclusion, assumptions, and detectable failures.</span>
+            <textarea id="certificate-edge" name="certificate_edge" rows="4" aria-describedby="certificate-edge-help" spellcheck="true"></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Dual rent</legend>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="seam-comparator">Seam and comparator</label>
+            <span id="seam-comparator-help" class="field-help">Name the studied seam and the reference seam or protocol.</span>
+            <textarea id="seam-comparator" name="seam_comparator" class="short-answer" rows="3" aria-describedby="seam-comparator-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="observer-classifier">Observer or classifier</label>
+            <span id="observer-classifier-help" class="field-help">Organism, instrument, archive, analyst, algorithm, proof system, or other declared channel.</span>
+            <textarea id="observer-classifier" name="observer_classifier" class="short-answer" rows="3" aria-describedby="observer-classifier-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="dynamical-rent">Dynamical rent</label>
+            <span id="dynamical-rent-help" class="field-help">What future changes under intervention on the seam? Which outcome distance measures it?</span>
+            <textarea id="dynamical-rent" name="dynamical_rent" rows="4" aria-describedby="dynamical-rent-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="epistemic-rent">Epistemic rent</label>
+            <span id="epistemic-rent-help" class="field-help">Which candidate generators become more or less distinguishable, and with what gain sign?</span>
+            <textarea id="epistemic-rent" name="epistemic_rent" rows="4" aria-describedby="epistemic-rent-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="gain-reversal">Gain-reversal test</label>
+            <span id="gain-reversal-help" class="field-help">Which intervention or new protocol should reverse the masking or diagnostic gain?</span>
+            <textarea id="gain-reversal" name="gain_reversal" class="short-answer" rows="3" aria-describedby="gain-reversal-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="boundary-amplifier">Boundary amplifier</label>
+            <span id="boundary-amplifier-help" class="field-help">Which operation could magnify the diagnostic distinction?</span>
+            <textarea id="boundary-amplifier" name="boundary_amplifier" class="short-answer" rows="3" aria-describedby="boundary-amplifier-help" spellcheck="true"></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Five FOG coordinates and equifinality</legend>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="reference-fog">Reference fog</label>
+            <span id="reference-fog-help" class="field-help">Relative to which material, mode, population, or baseline?</span>
+            <textarea id="reference-fog" name="reference_fog" class="short-answer" rows="3" aria-describedby="reference-fog-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="resolution-fog">Resolution fog</label>
+            <span id="resolution-fog-help" class="field-help">Which scales, frequencies, classes, and uncertainties are averaged out?</span>
+            <textarea id="resolution-fog" name="resolution_fog" class="short-answer" rows="3" aria-describedby="resolution-fog-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="generator-fog">Generator fog</label>
+            <span id="generator-fog-help" class="field-help">Which ordinary and extraordinary histories fit the datum?</span>
+            <textarea id="generator-fog" name="generator_fog" class="short-answer" rows="3" aria-describedby="generator-fog-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="chronology-fog">Chronology fog</label>
+            <span id="chronology-fog-help" class="field-help">Is causal order resolved at the mechanism's timescale?</span>
+            <textarea id="chronology-fog" name="chronology_fog" class="short-answer" rows="3" aria-describedby="chronology-fog-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="boundary-fog">Boundary fog</label>
+            <span id="boundary-fog-help" class="field-help">Which costs, reservoirs, denominators, or escape paths are excluded?</span>
+            <textarea id="boundary-fog" name="boundary_fog" class="short-answer" rows="3" aria-describedby="boundary-fog-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="process-equifinality">Process equifinality</label>
+            <span id="process-equifinality-help" class="field-help">Which different histories reach the same physical state?</span>
+            <textarea id="process-equifinality" name="process_equifinality" class="short-answer" rows="3" aria-describedby="process-equifinality-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="observation-equifinality">Observation equifinality</label>
+            <span id="observation-equifinality-help" class="field-help">Which different states become the same measured record?</span>
+            <textarea id="observation-equifinality" name="observation_equifinality" class="short-answer" rows="3" aria-describedby="observation-equifinality-help" spellcheck="true"></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. Local-to-global certificate stack</legend>
+        <p class="field-help">A local certificate may be correct while the global claim remains unsupported. Record each certificate separately.</p>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="local-certificate">Local certificate</label>
+            <span id="local-certificate-help" class="field-help">Differential, assay, mode, morphology, congruence, or bounded fit.</span>
+            <textarea id="local-certificate" name="local_certificate" class="short-answer" rows="3" aria-describedby="local-certificate-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="fiber-certificate">Complete-fiber certificate</label>
+            <span id="fiber-certificate-help" class="field-help">Complete preimages, viable alternatives, causal chain, and residue graph.</span>
+            <textarea id="fiber-certificate" name="fiber_certificate" class="short-answer" rows="3" aria-describedby="fiber-certificate-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="closure-certificate">Closure and infinity certificate</label>
+            <span id="closure-certificate-help" class="field-help">Properness, system closure, omitted reservoirs, and asymptotic paths.</span>
+            <textarea id="closure-certificate" name="closure_certificate" class="short-answer" rows="3" aria-describedby="closure-certificate-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="arithmetic-certificate">Arithmetic certificate</label>
+            <span id="arithmetic-certificate-help" class="field-help">Good and bad primes, valuations, extensions, lifting, and identifiers.</span>
+            <textarea id="arithmetic-certificate" name="arithmetic_certificate" class="short-answer" rows="3" aria-describedby="arithmetic-certificate-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="formal-certificate">Formal or deterministic replay certificate</label>
+            <span id="formal-certificate-help" class="field-help">Proof object, exact identity, deterministic test, hashes, and scope.</span>
+            <textarea id="formal-certificate" name="formal_certificate" class="short-answer" rows="3" aria-describedby="formal-certificate-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="independent-challenge">Independent challenge channel</label>
+            <span id="independent-challenge-help" class="field-help">A channel not physically or institutionally downstream of the first.</span>
+            <textarea id="independent-challenge" name="independent_challenge" class="short-answer" rows="3" aria-describedby="independent-challenge-help" spellcheck="true"></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>5. Residue, decision, and failure memory</legend>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="residue-field">Residue field</label>
+            <span id="residue-field-help" class="field-help">Location, medium, intensity, covariance, and survival or detection probability.</span>
+            <textarea id="residue-field" name="residue_field" rows="4" aria-describedby="residue-field-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="prospective-test">Prospective highest-information test</label>
+            <span id="prospective-test-help" class="field-help">Specify the observation before the search.</span>
+            <textarea id="prospective-test" name="prospective_test" rows="4" aria-describedby="prospective-test-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="demotion-condition">Demotion condition</label>
+            <span id="demotion-condition-help" class="field-help">Which result would materially lower confidence?</span>
+            <textarea id="demotion-condition" name="demotion_condition" rows="4" aria-describedby="demotion-condition-help" spellcheck="true"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="failure-record">Public failure record</label>
+            <span id="failure-record-help" class="field-help">Prediction ID, test, result, revision, and assumptions added.</span>
+            <textarea id="failure-record" name="failure_record" rows="4" aria-describedby="failure-record-help" spellcheck="true"></textarea>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <p id="evidence-label" class="field-label">Evidence label</p>
+          <div class="choice-group" role="radiogroup" aria-labelledby="evidence-label">
+            <label><input type="radio" name="evidence" value="established"> Established</label>
+            <label><input type="radio" name="evidence" value="strong-inference"> Strong inference</label>
+            <label><input type="radio" name="evidence" value="plausible"> Plausible</label>
+            <label><input type="radio" name="evidence" value="open"> Open</label>
+            <label><input type="radio" name="evidence" value="constrained"> Constrained</label>
+            <label><input type="radio" name="evidence" value="unsupported"> Unsupported</label>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <p id="rent-paid-label" class="field-label">Dual rent paid</p>
+          <div class="choice-group" role="radiogroup" aria-labelledby="rent-paid-label">
+            <label><input type="radio" name="rent_paid" value="dynamical"> Dynamical</label>
+            <label><input type="radio" name="rent_paid" value="epistemic"> Epistemic</label>
+            <label><input type="radio" name="rent_paid" value="both"> Both</label>
+            <label><input type="radio" name="rent_paid" value="neither"> Neither</label>
+            <label><input type="radio" name="rent_paid" value="undetermined"> Undetermined</label>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <p id="closure-adequate-label" class="field-label">Global closure adequate</p>
+          <div class="choice-group" role="radiogroup" aria-labelledby="closure-adequate-label">
+            <label><input type="radio" name="closure_adequate" value="yes"> Yes</label>
+            <label><input type="radio" name="closure_adequate" value="no"> No</label>
+            <label><input type="radio" name="closure_adequate" value="undetermined"> Undetermined</label>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <p id="preregistered-label" class="field-label">Protocol preregistered</p>
+          <div class="choice-group" role="radiogroup" aria-labelledby="preregistered-label">
+            <label><input type="radio" name="preregistered" value="yes"> Yes</label>
+            <label><input type="radio" name="preregistered" value="no"> No</label>
+            <label><input type="radio" name="preregistered" value="not-applicable"> Not applicable</label>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="decision-action">Decision and next action</label>
+          <textarea id="decision-action" name="decision_action" rows="5" spellcheck="true"></textarea>
+        </div>
+      </fieldset>
+    </div>
+
+    <section class="guardrails" aria-labelledby="guardrails-heading">
+      <h2 id="guardrails-heading">Guardrails</h2>
+      <ul>
+        <li>One-channel bias does not erase an independent multi-channel residue veto.</li>
+        <li>A finite computation is not an unrestricted proof.</li>
+        <li>A shared abstraction is not a shared hidden mechanism.</li>
+        <li>Information gain never overrides law, consent, custodial authority, conservation, or safety.</li>
+      </ul>
+    </section>
+
+    <section class="screen-only" aria-labelledby="worksheet-links-heading">
+      <h2 id="worksheet-links-heading">Framework context</h2>
+      <p><a href="../ground-reading/">Read the dual-rent and local-to-global explanation</a>, or return to the <a href="../">v0.3.0 release landing page</a>. The internal verification report documents release checks but is not peer review or outside endorsement.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><a href="../">Earth Is the Instrument v0.3.0</a> - <a href="../ground-reading/">Ground reading</a> - <a href="../../../">All supplemental resources</a></p>
+    </div>
+  </footer>
+</body>
+</html>

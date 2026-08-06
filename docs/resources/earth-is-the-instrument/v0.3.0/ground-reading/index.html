@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Reflowable public ground reading for Earth Is the Instrument, ASTRA Framework v0.3.0: dual rent, local-to-global certificates, calibration cases, and arithmetic seams.">
+  <meta name="author" content="Jacko T.">
+  <meta name="citation_title" content="ASTRA v0.3.0 Public Ground Reading">
+  <meta name="citation_author" content="Jacko T.">
+  <meta name="citation_publication_date" content="2026/08/06">
+  <meta name="citation_pdf_url" content="https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/ASTRA_v0.3.0_Public_Ground_Reading.pdf">
+  <link rel="canonical" href="https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/ground-reading/">
+  <title>Public Ground Reading - Earth Is the Instrument v0.3.0</title>
+  <link rel="stylesheet" href="../../../../style.css">
+  <link rel="stylesheet" href="../companion.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="resource-header">
+    <div class="wrap">
+      <p class="eyebrow">ASTRA Framework v0.3.0 - public ground reading</p>
+      <h1>Earth Is the Instrument</h1>
+      <p class="lede">A reflowable guide to dual-rent seams, local-to-global certificates, calibration cases, and finite arithmetic evidence</p>
+    </div>
+  </header>
+
+  <main id="main-content" class="wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../../../">Reading-room home</a> <span aria-hidden="true">/</span>
+      <a href="../../../">Supplemental resources</a> <span aria-hidden="true">/</span>
+      <a href="../">Earth Is the Instrument v0.3.0</a> <span aria-hidden="true">/</span>
+      <span aria-current="page">Ground reading</span>
+    </nav>
+
+    <aside class="notice" aria-labelledby="status-heading">
+      <h2 id="status-heading">How to read this page</h2>
+      <p>This is an exploratory synthesis and <strong>not peer reviewed</strong>. It explains the supplied two-page public PDF in a reflowable form and adds explicit source and accessibility context. The empirical cases remain domain-specific calibration examples. The arithmetic replay establishes only the exact identities and finite bounds stated here.</p>
+    </aside>
+
+    <nav class="page-toc" aria-labelledby="contents-heading">
+      <h2 id="contents-heading">On this page</h2>
+      <ul>
+        <li><a href="#ground">Ground reading</a></li>
+        <li><a href="#dual-rent">Dual rent</a></li>
+        <li><a href="#cases">Seven calibration cases</a></li>
+        <li><a href="#local-global">Local truth and global failure</a></li>
+        <li><a href="#prime-channels">Prime channels</a></li>
+        <li><a href="#boundaries">Limits and sources</a></li>
+      </ul>
+    </nav>
+
+    <section id="ground" aria-labelledby="ground-heading">
+      <h2 id="ground-heading">Ground reading</h2>
+      <p>Earth can be modeled simultaneously as reactor, archive, censor, and instrument. Here, <em>instrument</em> means a natural coupled system that stores, transforms, filters, and reveals evidence. <em>Censor</em> means that preservation, exposure, sampling, and recognition remove or distort parts of the record; it does not imply consciousness, agency, or design.</p>
+      <p>A seam can change the physical future and can change what an observer is able to infer. Those effects are different. ASTRA v0.3.0 asks researchers to measure them separately and then prevents a true local result from being promoted into a false global conclusion.</p>
+      <div class="caveat" aria-labelledby="ground-guardrail-heading">
+        <h2 id="ground-guardrail-heading">Ground rule</h2>
+        <p>State the atomic claim, observer, comparator, uncertainty model, system boundary, alternatives, chronology, and demotion condition before promotion. A shared analytical pattern does not establish a shared physical mechanism or history.</p>
+      </div>
+    </section>
+
+    <section id="dual-rent" aria-labelledby="dual-rent-heading">
+      <h2 id="dual-rent-heading">The dual-rent boundary criterion</h2>
+      <p>Let <var>&Gamma;</var> denote the seam being studied and <var>&Gamma;</var><sub>0</sub> a declared reference seam or protocol.</p>
+
+      <h3>Dynamical rent: does the seam change reachable futures?</h3>
+      <div class="equation" role="group" aria-label="Dynamical rent of Gamma equals a distance between the outcome distribution after intervening on Gamma and the outcome distribution after intervening on the reference Gamma zero.">
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML" aria-hidden="true">
+          <mrow>
+            <msub><mi>R</mi><mtext>dyn</mtext></msub>
+            <mo>(</mo><mi>&Gamma;</mi><mo>)</mo><mo>=</mo>
+            <mi>d</mi><mo>(</mo>
+            <mi>P</mi><mo>(</mo><mi>Y</mi><mo>|</mo><mi mathvariant="normal">do</mi><mo>(</mo><mi>&Gamma;</mi><mo>)</mo><mo>)</mo><mo>,</mo>
+            <mi>P</mi><mo>(</mo><mi>Y</mi><mo>|</mo><mi mathvariant="normal">do</mi><mo>(</mo><msub><mi>&Gamma;</mi><mn>0</mn></msub><mo>)</mo><mo>)</mo>
+            <mo>)</mo>
+          </mrow>
+        </math>
+      </div>
+      <p>The distance function <var>d</var> must be declared. It may compare outcome distributions, reachable states, or another operational quantity appropriate to the domain.</p>
+
+      <h3>Epistemic rent: does the seam change causal discrimination?</h3>
+      <div class="equation" role="group" aria-label="Epistemic rent of Gamma under protocol pi equals the information between candidate generator K and data D given Gamma and pi, minus the corresponding information under the reference Gamma zero and pi.">
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML" aria-hidden="true">
+          <mrow>
+            <msub><mi>R</mi><mtext>epi</mtext></msub>
+            <mo>(</mo><mi>&Gamma;</mi><mo>,</mo><mi>&pi;</mi><mo>)</mo><mo>=</mo>
+            <mi>I</mi><mo>(</mo><mi>K</mi><mo>;</mo><mi>D</mi><mo>|</mo><mi>&Gamma;</mi><mo>,</mo><mi>&pi;</mi><mo>)</mo>
+            <mo>&minus;</mo>
+            <mi>I</mi><mo>(</mo><mi>K</mi><mo>;</mo><mi>D</mi><mo>|</mo><msub><mi>&Gamma;</mi><mn>0</mn></msub><mo>,</mo><mi>&pi;</mi><mo>)</mo>
+          </mrow>
+        </math>
+      </div>
+      <p>This asks whether the seam and observation protocol make candidate causes easier or harder to distinguish. The observer, candidates, data, protocol, and information measure must all be named.</p>
+
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Dual-rent category matrix" aria-describedby="matrix-note">
+        <table class="quadrant-table">
+          <caption>Four operational seam categories</caption>
+          <thead>
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Operational meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Amplifying instrument</th>
+              <td>The physical future changes, and discrimination among candidate causes improves.</td>
+            </tr>
+            <tr>
+              <th scope="row">Diagnostic seam</th>
+              <td>The physical future does not change, but discrimination among candidate causes improves.</td>
+            </tr>
+            <tr>
+              <th scope="row">Stateful but masking</th>
+              <td>The physical future changes, but discrimination among candidate causes does not improve.</td>
+            </tr>
+            <tr>
+              <th scope="row">Cosmetic boundary</th>
+              <td>Neither the physical future nor discrimination among candidate causes changes.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="matrix-note" class="small">Promotion requires a predeclared intervention, observation protocol, negative control, or exact certificate that pays predictive rent. These text labels carry the meaning; color is not required.</p>
+    </section>
+
+    <section id="cases" aria-labelledby="cases-heading">
+      <h2 id="cases-heading">Seven 2026 calibration cases</h2>
+      <p>These studies are independent laboratories for boundaries, propagation paths, and observation errors. They do not provide evidence for one hidden mechanism and do not directly answer the historical origin of humanity.</p>
+      <ol class="case-list">
+        <li>
+          <article>
+            <h3>Localized IL-10 immunomodulation</h3>
+            <dl>
+              <dt>Seam lesson</dt>
+              <dd>A localized intervention can change implant-host immune fate; identity and integration are relational, not genome-only.</dd>
+              <dt>Boundary</dt>
+              <dd>Preclinical rodent and nonhuman-primate work does not establish human efficacy.</dd>
+              <dt>Primary source</dt>
+              <dd><a href="https://www.science.org/doi/10.1126/sciadv.aec7053">Kim and colleagues, <cite>Science Advances</cite> (2026)</a>.</dd>
+            </dl>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3>Magnetar polarization</h3>
+            <dl>
+              <dt>Seam lesson</dt>
+              <dd>Propagation can add a diagnostic field signature; the received signal is not identical to the emitted state.</dd>
+              <dt>Boundary</dt>
+              <dd>The vacuum-birefringence interpretation is model-dependent strong inference, not geometry-free proof.</dd>
+              <dt>Primary source</dt>
+              <dd><a href="https://www.nature.com/articles/s41586-026-10859-z">Stewart and colleagues, <cite>Nature</cite> (2026)</a>.</dd>
+            </dl>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3>Collisionless phase mixing</h3>
+            <dl>
+              <dt>Seam lesson</dt>
+              <dd>A coherent trajectory can appear as decorrelated time structure; the sampling path belongs in the forward model.</dd>
+              <dt>Boundary</dt>
+              <dd>The work supplies an analytical mechanism, not a prevalence estimate for historical misclassification.</dd>
+              <dt>Primary source</dt>
+              <dd><a href="https://journals.aps.org/prresearch/abstract/10.1103/5mmn-fm2p">Osmane and colleagues, <cite>Physical Review Research</cite> (2026)</a>.</dd>
+            </dl>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3>Possible basal nitrogen flow on Pluto</h3>
+            <dl>
+              <dt>Seam lesson</dt>
+              <dd>A material phase boundary may enable transient flow; the actual nitrogen phase diagram matters more than a water analogy.</dd>
+              <dt>Boundary</dt>
+              <dd>This is a morphology- and physics-based hypothesis, not a direct observation of flow.</dd>
+              <dt>Primary source</dt>
+              <dd><a href="https://arxiv.org/abs/2606.27200">Stern and colleagues, <cite>The Planetary Science Journal</cite> (2026)</a>.</dd>
+            </dl>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3>Nanoparticle measurement error</h3>
+            <dl>
+              <dt>Seam lesson</dt>
+              <dd>An errors-in-variables model can recover a relationship attenuated by predictor error; weak observed correlation is not automatically a strong physical constraint.</dd>
+              <dt>Boundary</dt>
+              <dd>The correction must match the measurement process and uncertainty model.</dd>
+              <dt>Primary source</dt>
+              <dd><a href="https://doi.org/10.1021/acsnano.5c12141">Pintar and colleagues, <cite>ACS Nano</cite> (2026)</a>.</dd>
+            </dl>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3>Silver-exchanged zeolite</h3>
+            <dl>
+              <dt>Seam lesson</dt>
+              <dd>Pore geometry can amplify isotope differences; anomalies may encode selective fractionation.</dd>
+              <dt>Boundary</dt>
+              <dd>The reported result is cryogenic laboratory separation, not a completed industrial lifecycle.</dd>
+              <dt>Primary source</dt>
+              <dd><a href="https://www.nature.com/articles/s41467-026-75930-9">Becker and colleagues, <cite>Nature Communications</cite> (2026)</a>.</dd>
+            </dl>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3>Chloroplast myoglobin</h3>
+            <dl>
+              <dt>Seam lesson</dt>
+              <dd>Inherited machinery can execute a foreign sequence incompletely; expression is not ecological autonomy.</dd>
+              <dt>Boundary</dt>
+              <dd>Partial heme occupancy means functional and commercial equivalence remain open.</dd>
+              <dt>Primary source</dt>
+              <dd><a href="https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2026.1876707/full">Groff and colleagues, <cite>Frontiers in Plant Science</cite> (2026)</a>.</dd>
+            </dl>
+          </article>
+        </li>
+      </ol>
+    </section>
+
+    <section id="local-global" aria-labelledby="local-global-heading">
+      <h2 id="local-global-heading">Local truth, global failure</h2>
+      <p>A 2026 mathematical result supplies an exact calibration case. An explicit polynomial map from three-dimensional complex space to itself has constant Jacobian determinant <span aria-label="negative two">-2</span>, yet three distinct rational inputs share one output:</p>
+      <div class="equation" role="group" aria-label="F of zero, zero, negative one fourth equals F of one, negative three halves, thirteen halves equals F of negative one, three halves, thirteen halves equals negative one fourth, zero, zero.">
+        <code>
+          <span class="equation-line">F(0, 0, -1/4)</span>
+          <span class="equation-line">= F(1, -3/2, 13/2)</span>
+          <span class="equation-line">= F(-1, 3/2, 13/2)</span>
+          <span class="equation-line">= (-1/4, 0, 0).</span>
+        </code>
+      </div>
+      <p>The local derivative certificate is exact, but global injectivity fails because complete fibers and behavior at infinity are missing. The result gives counterexamples in dimensions three and higher by adjoining identity coordinates. The two-dimensional Jacobian conjecture remains open.</p>
+      <aside class="caveat" aria-labelledby="math-status-heading">
+        <h2 id="math-status-heading">Recent-result boundary</h2>
+        <p>This is extraordinary, very recent mathematics. ASTRA did not originate the counterexample and its executable replay is not a substitute for independent mathematical review. The cited 2026 note and preprints were not peer reviewed at the release date.</p>
+      </aside>
+      <p>Use the following certificate stack before promoting any local result:</p>
+      <ol class="certificate-stack">
+        <li><strong>Local response:</strong> derivative, assay, mode, morphology, or bounded fit.</li>
+        <li><strong>Complete fibers:</strong> enumerate preimages and viable alternatives.</li>
+        <li><strong>Closure and infinity:</strong> check omitted reservoirs, escape paths, and properness.</li>
+        <li><strong>Arithmetic reductions:</strong> identify good and bad primes, valuations, and lifting limits.</li>
+        <li><strong>Formal replay:</strong> bind the exact object, identities, deterministic test, hashes, and scope.</li>
+      </ol>
+    </section>
+
+    <section id="prime-channels" aria-labelledby="prime-heading">
+      <h2 id="prime-heading">Prime channels and finite differences</h2>
+      <p>For a prime <var>p</var> and integer <var>a</var>, define a prime-difference expression and the Artin-Schreier polynomial:</p>
+      <div class="equation" role="group" aria-label="E sub p of a equals a to the p minus quantity a minus one to the p minus one. A sub p of t equals t to the p minus t.">
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML" aria-hidden="true">
+          <mrow>
+            <msub><mi>E</mi><mi>p</mi></msub><mo>(</mo><mi>a</mi><mo>)</mo><mo>=</mo>
+            <msup><mi>a</mi><mi>p</mi></msup><mo>&minus;</mo>
+            <msup><mrow><mo>(</mo><mi>a</mi><mo>&minus;</mo><mn>1</mn><mo>)</mo></mrow><mi>p</mi></msup><mo>&minus;</mo><mn>1</mn>
+            <mo>,</mo><mspace width="1em"/>
+            <msub><mi>A</mi><mi>p</mi></msub><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo>
+            <msup><mi>t</mi><mi>p</mi></msup><mo>&minus;</mo><mi>t</mi>
+          </mrow>
+        </math>
+      </div>
+      <p>The exact identity is:</p>
+      <div class="equation" role="group" aria-label="E sub p of a equals A sub p of a minus A sub p of a minus one.">
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML" aria-hidden="true">
+          <mrow>
+            <msub><mi>E</mi><mi>p</mi></msub><mo>(</mo><mi>a</mi><mo>)</mo><mo>=</mo>
+            <msub><mi>A</mi><mi>p</mi></msub><mo>(</mo><mi>a</mi><mo>)</mo><mo>&minus;</mo>
+            <msub><mi>A</mi><mi>p</mi></msub><mo>(</mo><mi>a</mi><mo>&minus;</mo><mn>1</mn><mo>)</mo>
+          </mrow>
+        </math>
+      </div>
+      <p>In characteristic <var>p</var>, the derivative of <var>A</var><sub>p</sub> is the nonzero constant -1, while translation by an element of the finite field leaves the value unchanged. Local nonsingularity therefore coexists with <var>p</var>-to-one fibers.</p>
+      <p>The package also records divisibility and valuation restrictions. Its exact search found no perfect-power hit only in the frozen domain:</p>
+      <div class="equation" role="group" aria-label="p is one of 5, 11, 17, 23, 29, 41, or 47, and a ranges from 2 through 5000 inclusive.">
+        <code>p in {5, 11, 17, 23, 29, 41, 47}; 2 &lt;= a &lt;= 5000.</code>
+      </div>
+      <p>That is an established finite computation within its bounds. It is <strong>not a proof</strong> of the unrestricted perfect-power claim.</p>
+    </section>
+
+    <section id="boundaries" aria-labelledby="boundaries-heading">
+      <h2 id="boundaries-heading">Scientific and release boundaries</h2>
+      <ul>
+        <li>The framework is a methodological working paper, not a discovered ancient technology, non-terrestrial origin of humans, or proof of intentional planetary design.</li>
+        <li>The seven empirical studies retain their original sample, model, species, scale, and uncertainty limits.</li>
+        <li>Prime reductions are arithmetic observation channels, not independent statistical replications and not automatic lifts to characteristic zero.</li>
+        <li>The higher-dimensional Jacobian result does not settle the plane case.</li>
+        <li>The synthetic benchmarks fit no planet, excavation, monument, genome, historical text, or mission dataset.</li>
+        <li>The package's ASTRA-Layers and FOG representations are structured mirrors with immutable identifiers, not byte-identical mounted originals.</li>
+        <li>The restored SPPT helper and original-scope tests are functional reconstructions, not byte-identical original files.</li>
+      </ul>
+
+      <h3>Mathematical sources</h3>
+      <ul class="source-list">
+        <li><a href="https://www.ulam.ai/research/jacobian.pdf"><cite>A Counterexample to the Jacobian Conjecture</cite></a>, unsigned hosted mathematical note dated 20 July 2026. The package conservatively does not invent an author line.</li>
+        <li><a href="https://isa-afp.org/entries/Jacobian_Counterexample.html"><cite>Formal Verification of an Explicit Counterexample to the Jacobian Conjecture</cite></a>, Archive of Formal Proofs, Isabelle/HOL development dated 20 July 2026.</li>
+        <li>Shuhong Gao, <a href="https://arxiv.org/abs/2608.00222"><cite>Counterexamples to the Jacobian Conjecture in Dimensions Greater Than Two</cite></a>, arXiv:2608.00222, submitted 31 July 2026; a recent preprint rather than peer-reviewed publication as of this release.</li>
+        <li>T. Shaska, <a href="https://arxiv.org/abs/2607.20210"><cite>Graded Keller Maps and the Jacobian Conjecture</cite></a>, arXiv:2607.20210.</li>
+        <li><a href="https://stacks.math.columbia.edu/tag/0A3J">The Stacks Project, Tag 0A3J: The Artin-Schreier Sequence</a>.</li>
+      </ul>
+
+      <h3>Downloads and full provenance</h3>
+      <ul class="actions">
+        <li><a class="button" href="../ASTRA_v0.3.0_Public_Ground_Reading.pdf" type="application/pdf">Download the compact PDF</a></li>
+        <li><a href="../ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf" type="application/pdf">Open the 171-page main paper</a></li>
+        <li><a href="../ASTRA_v0.3.0_Verification_Report.pdf" type="application/pdf">Read the internal verification report</a></li>
+        <li><a href="https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0">Get the source ledger, claim ledger, code, tests, and checksums from the release</a></li>
+      </ul>
+      <p class="small">The supplied package declares text and original figures CC BY 4.0 and code MIT. Cited sources remain under their respective rights. No cited person or institution is represented as having endorsed ASTRA.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><a href="../">Earth Is the Instrument v0.3.0</a> - <a href="../audit-form/">Audit worksheet</a> - <a href="../../../">All supplemental resources</a></p>
+    </div>
+  </footer>
+</body>
+</html>

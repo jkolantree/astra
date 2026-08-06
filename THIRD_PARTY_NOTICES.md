@@ -1,6 +1,10 @@
 # Third-party notices
 
-The v1.0.6 reference package redistributes no third-party article text, figure, photograph, dataset, or adapted artwork. Bibliographic records and DOI/arXiv links identify externally published sources; those works remain under their own terms. Separately supplied resources are governed by their explicit entries in `LICENSE_MAP.md`; the Earth Is the Instrument working paper has the narrower authorization and provenance boundary recorded in its companion README.
+The v1.0.6 reference package redistributes no third-party article text, figure, photograph, dataset, or adapted artwork. Bibliographic records and DOI/arXiv links identify externally published sources; those works remain under their own terms. Separately supplied resources are governed by their explicit entries in `LICENSE_MAP.md`: *Earth Is the Instrument* Working Paper 0.1 retains its narrower distribution-only boundary, while the separately versioned v0.3.0 package declares original text and figures CC BY 4.0 and original code MIT. Neither resource relicenses cited works, names, data, trademarks, or embedded third-party fonts; its companion README and release notices state the applicable boundaries.
+
+The v0.3.0 release asset `FONT_NOTICES.txt` records the upstream license routes
+for embedded subsets of Charis SIL, Inter, Asana Math, DejaVu, STIX, Computer
+Modern, and AMSFonts. No standalone font binary is added to the repository.
 
 The source archive does not vendor Python packages, Pandoc, Chromium, Git, or a Python runtime. Reproduction installs the exact packages named in `requirements-lock.txt` from their publishers and requires the Git for Windows distribution identified in `RUNTIME.json`. Principal direct dependencies and their upstream licenses are:
 

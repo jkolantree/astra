@@ -122,6 +122,44 @@ WORKING_PAPER_COVER_SHA256 = "815cf7cfa65145965093c6a4d82fce47a8663c9808775cdc81
 WORKING_PAPER_FONT_NOTICES_SHA256 = (
     "5c1555ad05d23624ef81dba298876e88680f10c5c7251e58af78791f7b94f853"
 )
+FRAMEWORK_RESOURCE_ROOT = ROOT / "resources" / "earth-is-the-instrument" / "v0.3.0"
+FRAMEWORK_RELEASE_PAYLOADS = {
+    "ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf": (
+        "62ee91f1d855fba12781e44aed8a5958b159508459bce53e5dc9eaefe48936ef"
+    ),
+    "ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip": (
+        "630364f85af2ba8657502ea06858bb6817ffc8b9f793f73e4c7477f8754fc001"
+    ),
+    "ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip.sha256": (
+        "09e2e14803900b5430ac3eade1156128b339703afb75b7e39ae37e35efdf345e"
+    ),
+    "ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip.verify.txt": (
+        "011633f5b29c7ad785a2b4cffecbe354d8d2e9c1a77c8ac72d9609b09cb9503b"
+    ),
+    "ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf": (
+        "39c722bb8ace94a28b08aa92d0596cc5342b156d8da05ff00737f5f23b8319e1"
+    ),
+    "ASTRA_v0.3.0_Public_Ground_Reading.pdf": (
+        "cc722b73741049440caaf307d0fbeee7b543755c53f8114a114b7adcef0e7c28"
+    ),
+    "ASTRA_v0.3.0_Verification_Report.pdf": (
+        "a7c0f9b9b979ec6bc5aeb685aa3165a5d1c89a60f712573a5a1871cf2831b35e"
+    ),
+    "FONT_NOTICES.txt": "a4d44d9e3b473d1addd0957ece7fa5151ea21799f84828f9b43acd6d2d89d744",
+    "PUBLICATION_AUDIT.md": "a1f40aa61f9ff72d60fd42b08fa66ab42d3c8dcea0443ff5005d18e42512a794",
+    "cover.png": "1f576806300e68d9ca9d747775d36ce544914c5954fd84e68796f4762b0ba304",
+}
+FRAMEWORK_RELEASE_ONLY = {
+    "ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip",
+    "ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip.sha256",
+    "ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip.verify.txt",
+}
+FRAMEWORK_RESOURCE_FILES = {
+    name: digest
+    for name, digest in FRAMEWORK_RELEASE_PAYLOADS.items()
+    if name not in FRAMEWORK_RELEASE_ONLY
+}
+FRAMEWORK_RESOURCE_COVER = "cover.png"
 RESOURCE_PATH_ALLOWLIST = {
     "resources/README.md",
     f"resources/earth-is-the-instrument/v0.1/{WORKING_PAPER_NAME}",
@@ -129,6 +167,14 @@ RESOURCE_PATH_ALLOWLIST = {
     "resources/earth-is-the-instrument/v0.1/README.md",
     "resources/earth-is-the-instrument/v0.1/SHA256SUMS.txt",
     "resources/earth-is-the-instrument/v0.1/cover.png",
+    *(
+        f"resources/earth-is-the-instrument/v0.3.0/{name}"
+        for name in (
+            *FRAMEWORK_RESOURCE_FILES,
+            "README.md",
+            "SHA256SUMS.txt",
+        )
+    ),
 }
 
 
@@ -580,6 +626,121 @@ def check_working_paper_resource() -> None:
         raise RuntimeError("License map omits the working-paper rights boundary")
 
 
+def check_framework_v030_resource() -> None:
+    readme_path = FRAMEWORK_RESOURCE_ROOT / "README.md"
+    sums_path = FRAMEWORK_RESOURCE_ROOT / "SHA256SUMS.txt"
+    expected_roster = {
+        *FRAMEWORK_RESOURCE_FILES,
+        FRAMEWORK_RESOURCE_COVER,
+        readme_path.name,
+        sums_path.name,
+    }
+
+    if not FRAMEWORK_RESOURCE_ROOT.is_dir():
+        raise RuntimeError("ASTRA Framework v0.3.0 resource directory is missing")
+    observed_roster = {
+        path.relative_to(FRAMEWORK_RESOURCE_ROOT).as_posix()
+        for path in FRAMEWORK_RESOURCE_ROOT.rglob("*")
+        if path.is_file()
+    }
+    if observed_roster != expected_roster:
+        raise RuntimeError(
+            "ASTRA Framework v0.3.0 file roster differs from its contract: "
+            f"expected {sorted(expected_roster)}, observed {sorted(observed_roster)}"
+        )
+
+    expected_sums = "".join(
+        f"{digest}  {name}\n" for name, digest in FRAMEWORK_RELEASE_PAYLOADS.items()
+    )
+    if sums_path.read_text(encoding="utf-8") != expected_sums:
+        raise RuntimeError("ASTRA Framework v0.3.0 checksum sidecar is not canonical")
+    if len(FRAMEWORK_RELEASE_PAYLOADS) != 10:
+        raise RuntimeError("ASTRA Framework v0.3.0 release payload roster must contain ten files")
+    for name, expected_digest in FRAMEWORK_RESOURCE_FILES.items():
+        if sha256(FRAMEWORK_RESOURCE_ROOT / name) != expected_digest:
+            raise RuntimeError(f"ASTRA Framework v0.3.0 checksum mismatch: {name}")
+
+    with Image.open(FRAMEWORK_RESOURCE_ROOT / FRAMEWORK_RESOURCE_COVER) as cover:
+        width, height = cover.size
+        if (
+            min(width, height) < 480
+            or abs((width / height) - (612 / 792)) > 0.002
+            or cover.mode not in {"RGB", "RGBA"}
+        ):
+            raise RuntimeError(
+                "ASTRA Framework v0.3.0 cover contract mismatch: "
+                f"size={cover.size}, mode={cover.mode}"
+            )
+
+    expected_pdf_pages = {
+        "ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf": 1,
+        "ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf": 171,
+        "ASTRA_v0.3.0_Public_Ground_Reading.pdf": 2,
+        "ASTRA_v0.3.0_Verification_Report.pdf": 3,
+    }
+    for name, expected_pages in expected_pdf_pages.items():
+        reader = PdfReader(FRAMEWORK_RESOURCE_ROOT / name)
+        if len(reader.pages) != expected_pages:
+            raise RuntimeError(
+                f"ASTRA Framework v0.3.0 page count mismatch for {name}: "
+                f"{len(reader.pages)} != {expected_pages}"
+            )
+        if str(reader.root_object.get("/Lang")) != "en-US":
+            raise RuntimeError(f"ASTRA Framework v0.3.0 PDF language is not en-US: {name}")
+        if "/StructTreeRoot" not in reader.root_object:
+            raise RuntimeError(f"ASTRA Framework v0.3.0 PDF is not tagged: {name}")
+        if reader.get_fields() is not None or list(reader.attachments):
+            raise RuntimeError(f"ASTRA Framework v0.3.0 PDF contains forms or attachments: {name}")
+        extracted_pages = [page.extract_text() or "" for page in reader.pages]
+        if any(not text.strip() for text in extracted_pages):
+            raise RuntimeError(f"ASTRA Framework v0.3.0 PDF has an empty text page: {name}")
+        privacy_text = "\n".join(extracted_pages) + "\n" + json.dumps(
+            dict(reader.metadata or {})
+        )
+        for label, pattern in PRIVATE_PATTERNS.items():
+            if pattern.search(privacy_text):
+                raise RuntimeError(
+                    f"{label} in ASTRA Framework v0.3.0 PDF text or metadata: {name}"
+                )
+
+    readme = readme_path.read_text(encoding="utf-8")
+    semantic_readme = " ".join(readme.replace("**", "").split())
+    required_readme_values = (
+        "Foundational working paper",
+        "not peer reviewed",
+        "supersedes v0.2.1 only within this supplemental publication line",
+        "does not amend or supersede the immutable SPPT/ASTRA v1.0.6",
+        "24 PASS, 2 PARTIAL, and 0 FAIL",
+        "internal release audit, not external scientific review or endorsement",
+        "not claimed as PDF/UA-conformant or fully accessible",
+        "29 isolated regression tests",
+        "90 of 90 checks",
+        "does not freeze a complete TeX environment",
+        "without publishing private object identifiers",
+        "bounded certificates",
+        "not empirical validation of SPPT/ASTRA",
+        "630364f85af2ba8657502ea06858bb6817ffc8b9f793f73e4c7477f8754fc001",
+        "earth-instrument-framework-v0.3.0",
+        "issues/new/choose",
+    )
+    if any(value not in semantic_readme for value in required_readme_values):
+        raise RuntimeError("ASTRA Framework v0.3.0 guide omits a publication boundary")
+
+    resource_index = " ".join(
+        (ROOT / "resources" / "README.md").read_text(encoding="utf-8").split()
+    )
+    if (
+        "earth-is-the-instrument/v0.3.0/" not in resource_index
+        or "does not replace, revise, or supersede the SPPT/ASTRA v1.0.6" not in resource_index
+    ):
+        raise RuntimeError("Supplemental resource index omits the v0.3.0 boundary")
+
+    license_map = (ROOT / "LICENSE_MAP.md").read_text(encoding="utf-8")
+    for name in FRAMEWORK_RESOURCE_FILES:
+        if f"resources/earth-is-the-instrument/v0.3.0/{name}" not in license_map:
+            raise RuntimeError(f"License map omits ASTRA Framework v0.3.0 file: {name}")
+
+
 def check_text_privacy(paths: list[Path]) -> None:
     for path in paths:
         if path.suffix.lower() not in TEXT_SUFFIXES:
@@ -982,6 +1143,7 @@ def main() -> None:
     check_license_map(paths)
     check_png_metadata(paths)
     check_working_paper_resource()
+    check_framework_v030_resource()
     check_metadata_agreement()
     check_claim_matrix()
     check_source_inventory()
