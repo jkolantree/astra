@@ -42,7 +42,7 @@ b5674043b8b0c642e6c0325c53fcac7153bfb82b9ac5a7d32cef4947ae7a5893  docs/404.html
 e27976c856add981ef8e5f80d48b5fd158dbe82f35ac2e2c4ec7f15444eadb58  docs/resources/earth-is-the-instrument/v0.3.0/audit-form/index.html
 6029d91114027e896caa7c7f8f181e9b1afdd3f4227b12f8f13caf1e2c4ebef7  docs/resources/earth-is-the-instrument/v0.3.0/companion.css
 f1fcd96ee850b36de1fd63e68cdfecafe04572d82347ce01f050bf512228cc8e  docs/resources/earth-is-the-instrument/v0.3.0/ground-reading/index.html
-3ffcca0ba875d6330acea65ce8cc9fcfccd46370549f534d9a54909527a74b5a  docs/resources/earth-is-the-instrument/v0.3.0/index.html
+b403838fbfd57380aa4f637b91b43ad17c6b845f5cc6a9baf93c1f4e413f97b3  docs/resources/earth-is-the-instrument/v0.3.0/index.html
 4590a15594bf5ebf7004065526bc2ee83827b38a6cc40fda530b3faead659845  docs/resources/index.html
 347835b462fc7105205cc4ea1ed0de054f7dc083c34edae242ee96b2ebe0549c  docs/style.css
 9b1c9f1b9b79ebfaab837a91005b438f40d526b4b28e36c2db79f97cdc0cbd45  evidence/README.md
@@ -90,7 +90,7 @@ cc722b73741049440caaf307d0fbeee7b543755c53f8114a114b7adcef0e7c28  resources/eart
 a7c0f9b9b979ec6bc5aeb685aa3165a5d1c89a60f712573a5a1871cf2831b35e  resources/earth-is-the-instrument/v0.3.0/ASTRA_v0.3.0_Verification_Report.pdf
 a4d44d9e3b473d1addd0957ece7fa5151ea21799f84828f9b43acd6d2d89d744  resources/earth-is-the-instrument/v0.3.0/FONT_NOTICES.txt
 a1f40aa61f9ff72d60fd42b08fa66ab42d3c8dcea0443ff5005d18e42512a794  resources/earth-is-the-instrument/v0.3.0/PUBLICATION_AUDIT.md
-ab4ad4d24bf28cdc05da18a03d86d61163631835aa50334a4d75ada2ab3b2234  resources/earth-is-the-instrument/v0.3.0/README.md
+3d5da265bfdba47247a37ecce73f943c8163f38ca4a8822e8d852dfaf81db45b  resources/earth-is-the-instrument/v0.3.0/README.md
 5618c0c2c2a50b5a03168976284508c3eedd8c96760c37ceea47d74ef15eafde  resources/earth-is-the-instrument/v0.3.0/SHA256SUMS.txt
 1f576806300e68d9ca9d747775d36ce544914c5954fd84e68796f4762b0ba304  resources/earth-is-the-instrument/v0.3.0/cover.png
 9b94ba291ad92b3cbb3588687d9dd8044cee12b2de68743728285cd25d8a98ae  schemas/README.md

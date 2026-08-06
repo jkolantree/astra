@@ -72,7 +72,7 @@ release audit, not external scientific review or endorsement.
 
 The four PDFs in this directory are text based, searchable, tagged, and use
 embedded fonts. The main paper contains bookmarks, links, and figure
-alternatives. The compact PDFs are not claimed as PDF/UA-conformant or fully
+alternatives. The four PDFs are not claimed as PDF/UA-conformant or fully
 accessible: mathematical semantics and some heading/table relationships remain
 incomplete, some fixed-layout text is very small, and the audit PDF is a static
 printable worksheet rather than an interactive form. The browser-readable Pages
