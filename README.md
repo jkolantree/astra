@@ -4,6 +4,14 @@ This is the versioned reference package for **Solar-Planetary Phase-Partition Th
 
 Version **1.0.6** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public. This accessibility release supersedes v1.0.5 for current use without modifying its immutable tag or assets. The public v1.0.2, v1.0.3, and v1.0.4 tags are retained as release-process evidence, were not moved, and have no GitHub Releases.
 
+## Name, assistance, and independence
+
+ASTRA is the project's own acronym for **Astronomical State-Topology and Reservoir Analysis**. The framework was developed by Jacko T. with substantive assistance from OpenAI's ChatGPT, including literature organization, adversarial review, equation checking, code drafting, visual design, editing, document production, accessibility review, and release engineering. Jacko T. selected the questions and final wording, reviewed and approved the released work, and remains responsible for its sources, claims, interpretations, errors, omissions, code, and publication decisions. Model output is not a citation, experiment, proof, independent verification, peer review, or scientific evidence; the evidentiary basis is the cited literature, declared calculations, data, tests, and bounded certificates.
+
+The author reports that the name and its continued use draw inspiration from the Kansas state motto, [*Ad Astra Per Aspera* — "To the Stars Through Difficulties"](https://www.kansas.gov/kbi/about/kbiseal.shtml), and from [OpenAI's 1 August 2026 public description](https://openai.com/index/ten-advances-in-mathematics/) of an internal version of Astra as "our next major model"; that wording records the dated public description without claiming a product launch, release timing, or priority in the name.
+
+ASTRA is an independent research project. It is not affiliated with, sponsored by, endorsed by, reviewed by, operated by, or produced for OpenAI or the State of Kansas; use of ChatGPT does not imply OpenAI endorsement. These references are descriptive acknowledgments only. This publication neither claims nor contests exclusive rights in the word *Astra* and places no restriction on unrelated uses.
+
 ## Read the work
 
 - [Read the accessible preprint on GitHub Pages](https://jkolantree.github.io/astra/v1.0.6/preprint/)

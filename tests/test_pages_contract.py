@@ -394,8 +394,13 @@ def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> N
         "supersedes v0.2.1 only",
         "not claimed to conform to PDF/UA",
         "internal package and release report",
-        "35,341,824 bytes",
-        "630364f85af2ba8657502ea06858bb6817ffc8b9f793f73e4c7477f8754fc001",
+        "substantive assistance from OpenAI's ChatGPT",
+        "Ad Astra Per Aspera",
+        'internal version of Astra as "our next major model"',
+        "not affiliated with, sponsored by, endorsed by, reviewed by, operated by, or produced for OpenAI",
+        "role-based review architecture, not a separate institution",
+        "35,343,563 bytes",
+        "b2a1072c14f1afff43a161b57620cdd2f6ad19b03884e7b5d8fbdd023333e09d",
         "2f8c26c92826c0464ae88048d9c3e68a4404ee5d9b8f46a660a0733ccddd75ab",
     ):
         assert value in landing_semantic

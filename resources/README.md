@@ -9,6 +9,9 @@ immutable SPPT/ASTRA reference releases.
 - [ASTRA Framework v0.3.0 — *Earth Is the Instrument*](earth-is-the-instrument/v0.3.0/) — current edition in this supplemental publication line; foundational working paper, not peer reviewed
 - [*Earth Is the Instrument* — Working Paper 0.1](earth-is-the-instrument/v0.1/) — stable historical edition
 
+The v0.3.0 guide includes the project's naming, substantive ChatGPT assistance,
+human responsibility, and independence disclosures.
+
 An item in this collection does not amend the current framework release, enter
 its claim-admission matrix, or inherit its verification status unless a later
 SPPT/ASTRA release explicitly admits it.

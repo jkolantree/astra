@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Adds *ASTRA Framework v0.3.0 — Earth Is the Instrument* as the current edition of a separately versioned supplemental publication line, with a 171-page framework, public ground reading, reusable audit form, internal verification report, text-first guide, and complete release archive.
+- Records the Kansas-motto and dated OpenAI-Astra naming inspirations, substantive ChatGPT assistance, sole human responsibility, project independence, and no-affiliation/no-endorsement boundary while preserving the authored manuscript and PDF bytes.
 - Separates dual-rent seams, local-to-global certificates, bounded arithmetic replay, synthetic results, and calibration cases from empirical validation or unrestricted proof; preserves the internal audit's 24 PASS, 2 PARTIAL, and 0 FAIL result without presenting it as external peer review.
 - Replaces private drafting-library object identifiers with stable public aliases in the publication package and scopes original text, figures, code, citations, embedded fonts, and historical inputs under their applicable terms.
 - Adds a fail-closed public package gate, exact bidirectional ledger checks, prime-domain validation, an isolated 29-test replay, and a normalized 341-member archive that passes all 90 release checks while preserving the four authored PDFs byte for byte.

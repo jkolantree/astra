@@ -66,7 +66,12 @@ def test_framework_v030_has_separate_version_and_evidence_boundaries() -> None:
         "does not freeze a complete TeX environment",
         "without publishing private object identifiers",
         "not empirical validation of SPPT/ASTRA",
-        "630364f85af2ba8657502ea06858bb6817ffc8b9f793f73e4c7477f8754fc001",
+        "substantive assistance from OpenAI's ChatGPT",
+        "Ad Astra Per Aspera",
+        'internal version of Astra as "our next major model"',
+        "not affiliated with, sponsored by, endorsed by, reviewed by, operated by, or produced for OpenAI",
+        "role-based review architecture, not a separate institution",
+        "b2a1072c14f1afff43a161b57620cdd2f6ad19b03884e7b5d8fbdd023333e09d",
     ):
         assert required in semantic_text
 
