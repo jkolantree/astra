@@ -1,0 +1,36 @@
+# Font and License Notices
+
+This file maps the license responsibilities visible in the public package. It is a provenance notice, not a relicense of third-party material or legal advice.
+
+## Work-level licenses
+
+| Material | License or status | Governing record |
+|---|---|---|
+| Original ASTRA v0.3.0 text | Creative Commons Attribution 4.0 International | `LICENSE_TEXT_AND_FIGURES_NOTICE.md` |
+| Original ASTRA v0.3.0 figures and conceptual cover art | Creative Commons Attribution 4.0 International | `LICENSE_TEXT_AND_FIGURES_NOTICE.md`, figure captions, and `visual_manifest.csv` |
+| Package source code | MIT License | `LICENSE_CODE_MIT.txt` |
+| Cited publications, names, trademarks, and third-party data | Not relicensed by ASTRA | `source_ledger.csv`, bibliography, and source terms |
+| Historical supplied inputs under `inputs/` | Retained for provenance; no broader rights asserted | Their source records and any embedded notices |
+
+## Fonts embedded in the PDFs
+
+The preflight font inventories show embedded subsets of the following families. The package contains no standalone font binaries. Embedded fonts remain governed by their upstream licenses; the ASTRA CC BY and MIT notices do not relicense them.
+
+| Font family or PDF name | Upstream license route | Upstream notice |
+|---|---|---|
+| Charis SIL | SIL Open Font License | https://software.sil.org/charis/faq/ |
+| Inter | SIL Open Font License 1.1 | https://github.com/rsms/inter/blob/master/LICENSE.txt |
+| Asana Math | SIL Open Font License | https://ctan.org/pkg/asana-math |
+| DejaVu Sans and DejaVu Sans Mono | DejaVu/Bitstream Vera-derived permissive license | https://dejavu-fonts.github.io/License.html |
+| STIXGeneral and STIXNonUnicode | SIL Open Font License; LaTeX support files may also carry LPPL terms | https://www.stixfonts.org/ and https://ctan.org/pkg/stix |
+| Computer Modern names such as CMR, CMMI, and CMSY | Knuth License for the Computer Modern sources; the exact embedded Type 1 distribution may carry its own included notice | https://ctan.org/pkg/cm |
+| AMS symbol fonts such as MSAM | SIL Open Font License for current AMSFonts; support files have their own distribution notices | https://ctan.org/pkg/amsfonts |
+
+The authoritative inventories for the released PDFs are:
+
+- `preflight/ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument_pdffonts.txt`;
+- `preflight/ASTRA_v0.3.0_Public_Ground_Reading_pdffonts.txt`;
+- `preflight/ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0_pdffonts.txt`;
+- `preflight/ASTRA_v0.3.0_Verification_Report_pdffonts.txt`.
+
+If future builds add, replace, or redistribute font binaries, regenerate these inventories and carry the exact upstream license files required by those font distributions.

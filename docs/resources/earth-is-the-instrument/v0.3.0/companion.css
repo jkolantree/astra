@@ -1,0 +1,450 @@
+.resource-header {
+  padding-block: clamp(2rem, 6vw, 4.5rem);
+}
+
+.resource-header h1 {
+  max-width: 24ch;
+}
+
+.resource-cover {
+  margin: 0;
+}
+
+.resource-cover figcaption {
+  margin-top: 0.55rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.page-toc,
+.reader-card,
+.caveat,
+.integrity-card {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--wash);
+}
+
+.page-toc h2,
+.reader-card h2,
+.caveat h2,
+.integrity-card h2 {
+  margin-top: 0;
+}
+
+.page-toc ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.2rem;
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.page-toc li {
+  margin: 0;
+}
+
+.summary-grid,
+.case-list,
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.summary-grid > *,
+.case-list > li,
+.download-grid > * {
+  min-width: 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--paper);
+}
+
+.case-list h3,
+.download-grid h3 {
+  margin-top: 0;
+}
+
+.case-list dl {
+  margin-bottom: 0;
+}
+
+.case-list dt {
+  margin-top: 0.65rem;
+  font-weight: 700;
+}
+
+.case-list dd {
+  margin-left: 0;
+}
+
+.status-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid #315f4f;
+  border-radius: 999px;
+  color: #174b39;
+  background: #e5f4ed;
+  font-size: 0.92rem;
+  font-weight: 750;
+}
+
+.caveat {
+  border-left: 0.4rem solid #8a6100;
+  background: #fff8df;
+}
+
+.equation {
+  max-width: 100%;
+  margin-block: 1rem;
+  padding: 0.85rem;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 0.3rem;
+  background: #f8fafb;
+  text-align: center;
+}
+
+.equation math {
+  max-width: 100%;
+  font-size: clamp(0.88rem, 3.5vw, 1.12rem);
+}
+
+.equation code {
+  display: block;
+  font-size: 0.96rem;
+  white-space: normal;
+}
+
+.equation-line {
+  display: block;
+}
+
+.certificate-stack {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  gap: 0.75rem;
+  padding: 0;
+  counter-reset: certificate;
+  list-style: none;
+}
+
+.certificate-stack li {
+  padding: 0.8rem;
+  border-left: 0.35rem solid #173f5f;
+  background: var(--wash);
+  counter-increment: certificate;
+}
+
+.certificate-stack li::before {
+  content: counter(certificate) ". ";
+  font-weight: 800;
+}
+
+.quadrant-table {
+  table-layout: auto;
+}
+
+.quadrant-table th:first-child {
+  width: min(11rem, 38%);
+}
+
+.source-list li {
+  margin-block: 0.65rem;
+}
+
+.worksheet-intro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  gap: 1rem;
+}
+
+.worksheet-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  gap: 1rem;
+  margin-block: 1.5rem;
+}
+
+.worksheet fieldset {
+  margin-block: 1.5rem;
+  padding: clamp(0.85rem, 3vw, 1.35rem);
+  border: 2px solid #7d8994;
+  border-radius: 0.4rem;
+}
+
+.worksheet legend {
+  max-width: 100%;
+  padding-inline: 0.35rem;
+  color: #173f5f;
+  font-size: clamp(1.2rem, 4vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
+  gap: 1rem;
+}
+
+.form-field {
+  min-width: 0;
+}
+
+.form-field > label,
+.form-field > .field-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 750;
+}
+
+.field-help {
+  display: block;
+  margin: 0 0 0.45rem;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.worksheet input[type="text"],
+.worksheet input[type="date"],
+.worksheet textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.65rem;
+  border: 2px solid #687684;
+  border-radius: 0.25rem;
+  color: var(--ink);
+  background: var(--paper);
+  font: inherit;
+}
+
+.worksheet textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.worksheet textarea.short-answer {
+  min-height: 4.5rem;
+}
+
+.choice-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.1rem;
+  margin-top: 0.35rem;
+}
+
+.choice-group label {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: flex-start;
+  font-weight: 500;
+}
+
+.choice-group input {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.18rem;
+  flex: 0 0 auto;
+}
+
+.worksheet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.worksheet button {
+  padding: 0.65rem 0.9rem;
+  border: 2px solid #173f5f;
+  border-radius: 0.3rem;
+  color: #ffffff;
+  background: #173f5f;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.worksheet button.secondary {
+  color: #173f5f;
+  background: #ffffff;
+}
+
+.guardrails {
+  padding: 1rem 1.2rem;
+  border-left: 0.4rem solid #8a3a24;
+  background: #fff2ed;
+}
+
+.guardrails h2 {
+  margin-top: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 38rem) {
+  .page-toc ul {
+    display: block;
+  }
+
+  .quadrant-table {
+    font-size: 0.92rem;
+  }
+
+  .quadrant-table th,
+  .quadrant-table td {
+    padding: 0.4rem;
+  }
+
+  .quadrant-table th:first-child {
+    width: 36%;
+  }
+
+  .equation {
+    padding-inline: 0.45rem;
+  }
+
+  .worksheet-actions,
+  .worksheet-actions button {
+    width: 100%;
+  }
+}
+
+@media print {
+  @page {
+    margin: 0.55in;
+  }
+
+  body {
+    color: #000000;
+    background: #ffffff;
+    font-size: 10pt;
+  }
+
+  .skip-link,
+  .breadcrumb,
+  .page-toc,
+  .screen-only,
+  footer,
+  .worksheet-actions {
+    display: none !important;
+  }
+
+  .resource-header {
+    padding-block: 0 0.25in;
+    color: #000000;
+    background: #ffffff;
+    border-bottom: 2pt solid #000000;
+  }
+
+  .resource-header h1,
+  .resource-header .eyebrow,
+  .resource-header .lede {
+    max-width: none;
+    color: #000000;
+  }
+
+  main {
+    padding-block: 0.2in 0;
+  }
+
+  .wrap {
+    width: 100%;
+  }
+
+  .worksheet-intro,
+  .worksheet-meta,
+  .form-grid {
+    display: block;
+  }
+
+  .form-field {
+    margin-bottom: 0.16in;
+    break-inside: avoid;
+  }
+
+  .worksheet fieldset {
+    margin-block: 0.18in;
+    padding: 0.12in;
+    border: 1.25pt solid #000000;
+    break-inside: avoid-page;
+  }
+
+  .worksheet input[type="text"],
+  .worksheet input[type="date"],
+  .worksheet textarea {
+    min-height: 0.42in;
+    padding: 0.08in;
+    border: 1pt solid #000000;
+    color: #000000;
+    background: #ffffff;
+  }
+
+  .worksheet textarea {
+    min-height: 0.7in;
+  }
+
+  .worksheet textarea.short-answer {
+    min-height: 0.5in;
+  }
+
+  .choice-group {
+    gap: 0.08in 0.18in;
+  }
+
+  .guardrails,
+  .caveat {
+    border: 1pt solid #000000;
+    color: #000000;
+    background: #ffffff;
+  }
+}
+
+@media (forced-colors: active) {
+  .page-toc,
+  .reader-card,
+  .caveat,
+  .integrity-card,
+  .summary-grid > *,
+  .case-list > li,
+  .download-grid > *,
+  .worksheet fieldset,
+  .worksheet input,
+  .worksheet textarea,
+  .guardrails,
+  .equation {
+    border: 2px solid CanvasText;
+  }
+
+  .status-chip,
+  .worksheet button {
+    color: ButtonText;
+    background: ButtonFace;
+    border-color: ButtonText;
+  }
+}

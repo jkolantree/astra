@@ -50,6 +50,9 @@ class LandingPageParser(HTMLParser):
         self.scripts: list[dict[str, str]] = []
         self.th_scopes: list[str] = []
         self.caption_count = 0
+        self.math_count = 0
+        self.form_count = 0
+        self.control_count = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = {key: value or "" for key, value in attrs}
@@ -73,6 +76,12 @@ class LandingPageParser(HTMLParser):
             self.th_scopes.append(values.get("scope", ""))
         elif tag == "caption":
             self.caption_count += 1
+        elif tag == "math":
+            self.math_count += 1
+        elif tag == "form":
+            self.form_count += 1
+        elif tag in {"input", "select", "textarea"}:
+            self.control_count += 1
 
 
 def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
@@ -96,8 +105,8 @@ def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
         ".immutable == true",
     )
     assert all(gate in script for gate in required_release_gates)
-    assert 'if test "$(git rev-parse HEAD)" != "$current_commit"' in script
-    assert 'git diff --name-only "${paper_ref}^{commit}" HEAD' in script
+    assert 'if test "$(git rev-parse HEAD)" != "$framework_commit"' in script
+    assert 'git diff --name-only "${framework_ref}^{commit}" HEAD' in script
     for allowed in (
         ".github/workflows/pages.yml",
         "CHANGELOG.md",
@@ -107,7 +116,12 @@ def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
         "docs/style.css",
         "docs/resources/index.html",
         "docs/resources/earth-is-the-instrument/v0.1/index.html",
+        "docs/resources/earth-is-the-instrument/v0.3.0/*",
+        "resources/README.md",
+        "resources/earth-is-the-instrument/v0.3.0/*",
         "tests/test_pages_contract.py",
+        "tests/test_resource_contract.py",
+        "tools/check_repository.py",
     ):
         assert allowed in script
     assert "Unreleased non-communications change cannot enter Pages" in script
@@ -144,7 +158,7 @@ def test_pages_workflow_verifies_exact_release_assets_before_copying() -> None:
     assert 'cmp --silent -- "$schema" "$target"' in script
 
 
-def test_pages_workflow_admits_only_the_verified_working_paper_release() -> None:
+def test_pages_workflow_admits_only_the_verified_supplemental_releases() -> None:
     workflow = load_yaml(PAGES_WORKFLOW)
     script = str(workflow["jobs"]["build"]["steps"][1]["run"])
 
@@ -166,8 +180,27 @@ def test_pages_workflow_admits_only_the_verified_working_paper_release() -> None
         'test "$(wc -l < "$paper_release_dir/SHA256SUMS.txt")" -eq 3',
         "sha256sum --check --strict SHA256SUMS.txt",
         'cp -- "$paper_release_dir/$asset" "$paper_target_dir/$asset"',
-        'write_redirect "$site/resources/earth-is-the-instrument" "./v0.1/"',
-        'write_redirect "$site/resources/earth-is-the-instrument/latest" "../v0.1/"',
+        'framework_tag="earth-instrument-framework-v0.3.0"',
+        'framework_path="resources/earth-is-the-instrument/v0.3.0"',
+        'framework_main="ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf"',
+        'framework_ground="ASTRA_v0.3.0_Public_Ground_Reading.pdf"',
+        'framework_audit="ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf"',
+        'framework_report="ASTRA_v0.3.0_Verification_Report.pdf"',
+        'framework_archive="ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip"',
+        '"${framework_archive}.sha256"',
+        '"${framework_archive}.verify.txt"',
+        '"PUBLICATION_AUDIT.md"',
+        'test "$(git cat-file -t "$framework_ref")" = tag',
+        'git merge-base --is-ancestor "$framework_commit" HEAD',
+        'releases/tags/${framework_tag}',
+        'git show "${framework_ref}^{commit}:${framework_path}/SHA256SUMS.txt"',
+        '"$framework_release_dir/TAG_SHA256SUMS.txt"',
+        'test "$(wc -l < "$framework_release_dir/SHA256SUMS.txt")" -eq 10',
+        'sha256sum --check --strict "${framework_archive}.sha256"',
+        'grep -Fx -- "verification_status: PASS" "${framework_archive}.verify.txt"',
+        'cp -- "$framework_release_dir/$asset" "$framework_target_dir/$asset"',
+        'write_redirect "$site/resources/earth-is-the-instrument" "./v0.3.0/"',
+        'write_redirect "$site/resources/earth-is-the-instrument/latest" "../v0.3.0/"',
     )
     assert all(value in script for value in required_values)
 
@@ -195,6 +228,7 @@ def test_landing_page_links_to_current_versioned_and_schema_paths() -> None:
         "./latest/supplement/",
         "./editions/",
         "./resources/",
+        "./resources/earth-is-the-instrument/v0.3.0/",
         "./resources/earth-is-the-instrument/v0.1/",
         "./schemas/",
     } <= links
@@ -315,13 +349,97 @@ def test_working_paper_pages_companion_is_text_first_and_well_bounded() -> None:
     assert not re.search(r"<iframe|google-analytics|googletagmanager|plausible[.]io", html)
 
 
+def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> None:
+    root = (
+        ROOT
+        / "docs"
+        / "resources"
+        / "earth-is-the-instrument"
+        / "v0.3.0"
+    )
+    landing_html = (root / "index.html").read_text(encoding="utf-8")
+    landing = LandingPageParser()
+    landing.feed(landing_html)
+    assert landing.lang == "en-US"
+    assert landing.main_ids == ["main-content"]
+    assert len(landing.ids) == len(set(landing.ids))
+    assert landing.scripts == []
+    assert landing.caption_count == 1
+    assert landing.th_scopes.count("col") == 2
+    assert landing.th_scopes.count("row") == 5
+    assert any(
+        image.get("src") == "./cover.png"
+        and image.get("width") == "510"
+        and image.get("height") == "660"
+        and "Earth Is the Instrument" in image.get("alt", "")
+        for image in landing.images
+    )
+    landing_links = {link.get("href", "") for link in landing.links}
+    assert {
+        "#main-content",
+        "./ground-reading/",
+        "./audit-form/",
+        "./ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf",
+        "./ASTRA_v0.3.0_Public_Ground_Reading.pdf",
+        "./ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf",
+        "./ASTRA_v0.3.0_Verification_Report.pdf",
+        "./PUBLICATION_AUDIT.md",
+        "./FONT_NOTICES.txt",
+        "./SHA256SUMS.txt",
+        "https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0",
+    } <= landing_links
+    landing_semantic = " ".join(re.sub(r"<[^>]+>", " ", landing_html).split())
+    for value in (
+        "not peer reviewed",
+        "supersedes v0.2.1 only",
+        "not claimed to conform to PDF/UA",
+        "internal package and release report",
+        "35,341,824 bytes",
+        "630364f85af2ba8657502ea06858bb6817ffc8b9f793f73e4c7477f8754fc001",
+        "2f8c26c92826c0464ae88048d9c3e68a4404ee5d9b8f46a660a0733ccddd75ab",
+    ):
+        assert value in landing_semantic
+
+    ground_html = (root / "ground-reading" / "index.html").read_text(encoding="utf-8")
+    ground = LandingPageParser()
+    ground.feed(ground_html)
+    assert ground.lang == "en-US"
+    assert ground.main_ids == ["main-content"]
+    assert len(ground.ids) == len(set(ground.ids))
+    assert ground.scripts == []
+    assert ground.math_count == 4
+    assert "https://isa-afp.org/entries/Jacobian_Counterexample.html" in ground_html
+    assert "https://arxiv.org/abs/2608.00222" in ground_html
+    assert "recent preprint rather than peer-reviewed publication" in ground_html
+    assert "two-dimensional Jacobian conjecture remains open" in ground_html
+
+    audit_html = (root / "audit-form" / "index.html").read_text(encoding="utf-8")
+    worksheet = LandingPageParser()
+    worksheet.feed(audit_html)
+    assert worksheet.lang == "en-US"
+    assert worksheet.main_ids == ["main-content"]
+    assert len(worksheet.ids) == len(set(worksheet.ids))
+    assert worksheet.scripts == []
+    assert worksheet.form_count == 0
+    assert worksheet.control_count == 51
+    assert not re.search(
+        r"<form\b|\baction\s*=|localStorage|sessionStorage|document[.]cookie|fetch\s*\(",
+        audit_html,
+        flags=re.IGNORECASE,
+    )
+    assert "not sent by this page" in audit_html
+    assert "static, not electronically fillable" in audit_html
+
+
 def test_pages_home_scopes_rights_and_separates_publication_tracks() -> None:
     html = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
     semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
     assert "Reference framework — v1.0.6" in semantic
     assert "Supplemental working papers" in semantic
-    assert "separate from SPPT/ASTRA v1.0.6" in semantic
-    assert "neither amends that release nor provides empirical validation" in semantic
+    assert "ASTRA Framework v0.3.0" in semantic
+    assert "supersedes v0.2.1 only within this supplemental line" in semantic
+    assert "does not amend or supersede SPPT/ASTRA v1.0.6" in semantic
+    assert "inherit its verification, or provide empirical validation" in semantic
     assert "Separately supplied resources retain the rights stated" in semantic
     assert "Original manuscript, documentation, figures, and data" not in semantic
 
@@ -332,6 +450,26 @@ def test_pages_home_scopes_rights_and_separates_publication_tracks() -> None:
 def test_pages_home_and_working_paper_reflow_at_narrow_widths() -> None:
     paths = (
         ROOT / "docs" / "index.html",
+        ROOT
+        / "docs"
+        / "resources"
+        / "earth-is-the-instrument"
+        / "v0.3.0"
+        / "index.html",
+        ROOT
+        / "docs"
+        / "resources"
+        / "earth-is-the-instrument"
+        / "v0.3.0"
+        / "ground-reading"
+        / "index.html",
+        ROOT
+        / "docs"
+        / "resources"
+        / "earth-is-the-instrument"
+        / "v0.3.0"
+        / "audit-form"
+        / "index.html",
         ROOT
         / "docs"
         / "resources"
@@ -361,6 +499,17 @@ def test_pages_home_and_working_paper_reflow_at_narrow_widths() -> None:
                     "bodyScroll": width,
                 }
         browser.close()
+
+
+def test_resource_index_marks_v030_current_without_changing_core_version() -> None:
+    html = (ROOT / "docs" / "resources" / "index.html").read_text(encoding="utf-8")
+    semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
+    assert "ASTRA Framework v0.3.0" in semantic
+    assert "Current supplemental edition" in semantic
+    assert "supersedes v0.2.1 only within its own publication line" in semantic
+    assert "Working Paper 0.1" in semantic
+    assert "Historical edition" in semantic
+    assert "separate from SPPT/ASTRA v1.0.6" in semantic
 
 
 def test_skip_link_uses_high_contrast_focus_on_dark_header() -> None:

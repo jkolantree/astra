@@ -2,8 +2,8 @@ name: Publish accessible reading room
 
 # Manual by design: stable paths are assembled from annotated, immutable releases.
 # A descendant main commit is admitted only when its post-release changes stay in
-# the explicit communications allowlist below. Before the first run, a repository
-# administrator must select GitHub Actions as the Pages source.
+# the explicit communications allowlist below. The repository's Pages source is
+# GitHub Actions; this workflow remains manual so deployment follows release lock.
 on:
   workflow_dispatch:
 
@@ -64,20 +64,68 @@ jobs:
           paper_assets=("$paper_pdf" "FONT_NOTICES.txt" "SHA256SUMS.txt" "cover.png")
           paper_payloads=("$paper_pdf" "FONT_NOTICES.txt" "cover.png")
 
+          framework_tag="earth-instrument-framework-v0.3.0"
+          framework_ref="refs/tags/${framework_tag}"
+          framework_path="resources/earth-is-the-instrument/v0.3.0"
+          framework_main="ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf"
+          framework_ground="ASTRA_v0.3.0_Public_Ground_Reading.pdf"
+          framework_audit="ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf"
+          framework_report="ASTRA_v0.3.0_Verification_Report.pdf"
+          framework_archive="ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip"
+          framework_assets=(
+            "$framework_main"
+            "$framework_ground"
+            "$framework_audit"
+            "$framework_report"
+            "$framework_archive"
+            "${framework_archive}.sha256"
+            "${framework_archive}.verify.txt"
+            "FONT_NOTICES.txt"
+            "PUBLICATION_AUDIT.md"
+            "SHA256SUMS.txt"
+            "cover.png"
+          )
+          framework_payloads=(
+            "$framework_main"
+            "$framework_ground"
+            "$framework_audit"
+            "$framework_report"
+            "$framework_archive"
+            "${framework_archive}.sha256"
+            "${framework_archive}.verify.txt"
+            "FONT_NOTICES.txt"
+            "PUBLICATION_AUDIT.md"
+            "cover.png"
+          )
+          framework_pages_payloads=(
+            "$framework_main"
+            "$framework_ground"
+            "$framework_audit"
+            "$framework_report"
+            "FONT_NOTICES.txt"
+            "PUBLICATION_AUDIT.md"
+            "SHA256SUMS.txt"
+            "cover.png"
+          )
+
           test "$(git cat-file -t "$paper_ref")" = tag
           paper_commit="$(git rev-parse "${paper_ref}^{commit}")"
           git merge-base --is-ancestor "$paper_commit" HEAD
 
-          if test "$(git rev-parse HEAD)" != "$current_commit"; then
+          test "$(git cat-file -t "$framework_ref")" = tag
+          framework_commit="$(git rev-parse "${framework_ref}^{commit}")"
+          git merge-base --is-ancestor "$framework_commit" HEAD
+
+          if test "$(git rev-parse HEAD)" != "$framework_commit"; then
             while IFS= read -r changed_path; do
               case "$changed_path" in
-                .github/workflows/pages.yml|CHANGELOG.md|MANIFEST.sha256|README.md|docs/index.html|docs/style.css|docs/resources/index.html|docs/resources/earth-is-the-instrument/v0.1/index.html|tests/test_pages_contract.py) ;;
+                .github/workflows/pages.yml|CHANGELOG.md|MANIFEST.sha256|README.md|docs/index.html|docs/style.css|docs/resources/index.html|docs/resources/earth-is-the-instrument/v0.1/index.html|docs/resources/earth-is-the-instrument/v0.3.0/*|resources/README.md|resources/earth-is-the-instrument/v0.3.0/*|tests/test_pages_contract.py|tests/test_resource_contract.py|tools/check_repository.py) ;;
                 *)
                   echo "Unreleased non-communications change cannot enter Pages: $changed_path" >&2
                   exit 1
                   ;;
               esac
-            done < <(git diff --name-only "${paper_ref}^{commit}" HEAD)
+            done < <(git diff --name-only "${framework_ref}^{commit}" HEAD)
           fi
 
           paper_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${paper_tag}")"
@@ -90,6 +138,17 @@ jobs:
             (.assets | map(.name) | sort) == $assets
           ' --arg tag "$paper_tag" --argjson assets "$paper_asset_json" \
             <<<"$paper_release" >/dev/null
+
+          framework_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${framework_tag}")"
+          framework_asset_json="$(jq -cn --args '$ARGS.positional | sort' "${framework_assets[@]}")"
+          jq -e '
+            .tag_name == $tag and
+            .draft == false and
+            .prerelease == true and
+            .immutable == true and
+            (.assets | map(.name) | sort) == $assets
+          ' --arg tag "$framework_tag" --argjson assets "$framework_asset_json" \
+            <<<"$framework_release" >/dev/null
 
           mapfile -t release_tags < <(
             gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
@@ -282,6 +341,58 @@ jobs:
             cp -- "$paper_release_dir/$asset" "$paper_target_dir/$asset"
           done
 
+          framework_release_dir="$downloads/$framework_tag"
+          framework_target_dir="$site/$framework_path"
+          mkdir -p -- "$framework_release_dir" "$framework_target_dir"
+          framework_download_args=()
+          for asset in "${framework_assets[@]}"; do
+            framework_download_args+=(--pattern "$asset")
+          done
+          gh release download "$framework_tag" \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir "$framework_release_dir" \
+            "${framework_download_args[@]}"
+
+          for asset in "${framework_assets[@]}"; do
+            test -f "$framework_release_dir/$asset"
+            api_digest="$(jq -er '
+              .assets[] |
+              select(.name == $name) |
+              .digest |
+              select(test("^sha256:[0-9a-f]{64}$"))
+            ' --arg name "$asset" <<<"$framework_release")"
+            actual_digest="sha256:$(sha256sum "$framework_release_dir/$asset" | awk '{print $1}')"
+            test "$actual_digest" = "$api_digest"
+          done
+
+          git show "${framework_ref}^{commit}:${framework_path}/SHA256SUMS.txt" \
+            > "$framework_release_dir/TAG_SHA256SUMS.txt"
+          cmp --silent -- \
+            "$framework_release_dir/SHA256SUMS.txt" \
+            "$framework_release_dir/TAG_SHA256SUMS.txt"
+          test "$(wc -l < "$framework_release_dir/SHA256SUMS.txt")" -eq 10
+          awk '
+            NF != 2 || length($1) != 64 || $1 !~ /^[0-9a-f]+$/ { exit 1 }
+          ' "$framework_release_dir/SHA256SUMS.txt"
+          diff -u \
+            <(printf '%s\n' "${framework_payloads[@]}" | sort) \
+            <(awk '{print $2}' "$framework_release_dir/SHA256SUMS.txt" | sort)
+          (
+            cd "$framework_release_dir"
+            sha256sum --check --strict SHA256SUMS.txt
+            test "$(wc -l < "${framework_archive}.sha256")" -eq 1
+            awk -v archive="$framework_archive" '
+              NF != 2 || length($1) != 64 || $1 !~ /^[0-9a-f]+$/ || $2 != archive { exit 1 }
+            ' "${framework_archive}.sha256"
+            sha256sum --check --strict "${framework_archive}.sha256"
+            archive_digest="$(sha256sum "$framework_archive" | awk '{print $1}')"
+            grep -Fx -- "archive_sha256: $archive_digest" "${framework_archive}.verify.txt"
+            grep -Fx -- "verification_status: PASS" "${framework_archive}.verify.txt"
+          )
+          for asset in "${framework_pages_payloads[@]}"; do
+            cp -- "$framework_release_dir/$asset" "$framework_target_dir/$asset"
+          done
+
           cat > "$site/editions/index.html" <<'HTML'
           <!doctype html>
           <html lang="en-US">
@@ -361,8 +472,8 @@ jobs:
           write_redirect "$site/latest" "../${current_tag}/" "Current SPPT/ASTRA edition"
           write_redirect "$site/latest/preprint" "../../${current_tag}/preprint/" "Current SPPT/ASTRA preprint"
           write_redirect "$site/latest/supplement" "../../${current_tag}/supplement/" "Current SPPT/ASTRA technical supplement"
-          write_redirect "$site/resources/earth-is-the-instrument" "./v0.1/" "Current Earth Is the Instrument working paper"
-          write_redirect "$site/resources/earth-is-the-instrument/latest" "../v0.1/" "Current Earth Is the Instrument working paper"
+          write_redirect "$site/resources/earth-is-the-instrument" "./v0.3.0/" "Current Earth Is the Instrument framework"
+          write_redirect "$site/resources/earth-is-the-instrument/latest" "../v0.3.0/" "Current Earth Is the Instrument framework"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

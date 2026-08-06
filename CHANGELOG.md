@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Adds *ASTRA Framework v0.3.0 — Earth Is the Instrument* as the current edition of a separately versioned supplemental publication line, with a 171-page framework, public ground reading, reusable audit form, internal verification report, text-first guide, and complete release archive.
+- Separates dual-rent seams, local-to-global certificates, bounded arithmetic replay, synthetic results, and calibration cases from empirical validation or unrestricted proof; preserves the internal audit's 24 PASS, 2 PARTIAL, and 0 FAIL result without presenting it as external peer review.
+- Replaces private drafting-library object identifiers with stable public aliases in the publication package and scopes original text, figures, code, citations, embedded fonts, and historical inputs under their applicable terms.
+- Adds a fail-closed public package gate, exact bidirectional ledger checks, prime-domain validation, an isolated 29-test replay, and a normalized 341-member archive that passes all 90 release checks while preserving the four authored PDFs byte for byte.
+- Adds reflowable ground-reading and audit-form Pages companions with MathML, semantic tables, high-contrast keyboard focus, print support, and exact 320/400-pixel reflow; fixed-layout PDF accessibility limits remain explicit.
+- Leaves the immutable SPPT/ASTRA v1.0.6 reference release, release specification, citation metadata, claim matrix, source inventory, and current reference-edition redirects unchanged.
 - Publishes *Earth Is the Instrument* Working Paper 0.1 as a separately versioned exploratory resource with a text-first reading guide, figure descriptions, checksums, and explicit accessibility, chronology, provenance, and v1.0.6 boundaries.
 - Corrects the working paper's page labels and ten premature navigation targets while preserving pixel-identical page content.
 - Adds a release-verified GitHub Pages companion and default-branch discovery path for the working paper while leaving the immutable SPPT/ASTRA v1.0.6 release, release specification, claim matrix, source inventory, and current-edition redirects unchanged.
