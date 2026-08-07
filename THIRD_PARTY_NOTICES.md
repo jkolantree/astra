@@ -6,7 +6,7 @@ The v0.3.0 release asset `FONT_NOTICES.txt` records the upstream license routes
 for embedded subsets of Charis SIL, Inter, Asana Math, DejaVu, STIX, Computer
 Modern, and AMSFonts. No standalone font binary is added to the repository.
 
-The source archive does not vendor Python packages, Pandoc, Chromium, Git, or a Python runtime. Reproduction installs the exact packages named in `requirements-lock.txt` from their publishers and requires the Git for Windows distribution identified in `RUNTIME.json`. Principal direct dependencies and their upstream licenses are:
+The core SPPT/ASTRA v1.0.6 source archive does not vendor Python packages, Pandoc, Chromium, Git, or a Python runtime. Reproduction installs the exact packages named in `requirements-lock.txt` from their publishers and requires the Git for Windows distribution identified in `RUNTIME.json`. Principal direct dependencies and their upstream licenses are:
 
 | Component | Released version | License |
 |---|---:|---|

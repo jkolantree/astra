@@ -4,15 +4,26 @@ This is the versioned reference package for **Solar-Planetary Phase-Partition Th
 
 Version **1.0.6** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public. This accessibility release supersedes v1.0.5 for current use without modifying its immutable tag or assets. The public v1.0.2, v1.0.3, and v1.0.4 tags are retained as release-process evidence, were not moved, and have no GitHub Releases.
 
-## Name, assistance, and independence
+## Publication map
 
-ASTRA is the project's own acronym for **Astronomical State-Topology and Reservoir Analysis**. The framework was developed by Jacko T. with substantive assistance from OpenAI's ChatGPT, including literature organization, adversarial review, equation checking, code drafting, visual design, editing, document production, accessibility review, and release engineering. Jacko T. selected the questions and final wording, reviewed and approved the released work, and remains responsible for its sources, claims, interpretations, errors, omissions, code, and publication decisions. Model output is not a citation, experiment, proof, independent verification, peer review, or scientific evidence; the evidentiary basis is the cited literature, declared calculations, data, tests, and bounded certificates.
+- **v1.0.6 — current reference edition (SPPT/ASTRA).** GitHub Latest; not
+  peer reviewed. [Read the current core
+  edition](https://jkolantree.github.io/astra/latest/) or open the immutable
+  [v1.0.6 release](https://github.com/jkolantree/astra/releases/tag/v1.0.6).
+- **v0.3.0 — current supplemental edition (*Earth Is the Instrument*).**
+  Immutable GitHub prerelease; not peer reviewed. [Read the current supplemental
+  edition](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/latest/)
+  or open the immutable [v0.3.0
+  release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
+- **v0.1 — historical edition (*Earth Is the Instrument* Working Paper).**
+  Immutable GitHub prerelease; not peer reviewed. [Read historical
+  v0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/)
+  or open the immutable [v0.1
+  release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1).
 
-The author reports that the name and its continued use draw inspiration from the Kansas state motto, [*Ad Astra Per Aspera* — "To the Stars Through Difficulties"](https://www.kansas.gov/kbi/about/kbiseal.shtml), and from [OpenAI's 1 August 2026 public description](https://openai.com/index/ten-advances-in-mathematics/) of an internal version of Astra as "our next major model"; that wording records the dated public description without claiming a product launch, release timing, or priority in the name.
+The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line. Supplemental resources use their own namespaced tags, citations, checksums, and `/resources/` routes. The project was developed with substantive ChatGPT assistance; the full human-responsibility, naming, and independence disclosure appears below.
 
-ASTRA is an independent research project. It is not affiliated with, sponsored by, endorsed by, reviewed by, operated by, or produced for OpenAI or the State of Kansas; use of ChatGPT does not imply OpenAI endorsement. These references are descriptive acknowledgments only. This publication neither claims nor contests exclusive rights in the word *Astra* and places no restriction on unrelated uses.
-
-## Read the work
+## Read the SPPT/ASTRA v1.0.6 reference release
 
 - [Read the accessible preprint on GitHub Pages](https://jkolantree.github.io/astra/v1.0.6/preprint/)
 - [Read the accessible technical supplement on GitHub Pages](https://jkolantree.github.io/astra/v1.0.6/supplement/)
@@ -26,18 +37,27 @@ ASTRA is an independent research project. It is not affiliated with, sponsored b
 
 The versioned Pages editions are the primary accessible reading path. The downloadable HTML files contain the same document content and can be opened locally without network access. The PDFs are synchronized tagged visual editions with normalized metadata; their text, metadata, fonts, links, structure, TeX formula alternatives, and exact-search behavior are mechanically checked, and every rendered page is visually inspected at the release gate. Native MathML is available in HTML; the PDFs do not claim a native MathML expression tree.
 
-## Supplemental Earth-systems framework
+## Supplemental publication line: *Earth Is the Instrument*
 
 <a href="https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/"><img src="resources/earth-is-the-instrument/v0.3.0/cover.png" width="280" alt="Blue-and-gold cover titled Earth Is the Instrument, with an abstract planetary diagram"></a>
 
 **Foundational working paper · evidence graded · not peer reviewed · separate from v1.0.6.**
 
 - [Read the text-first guide to *ASTRA Framework v0.3.0 — Earth Is the Instrument*](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/), a separately versioned framework about dual-rent seams, local-to-global certificates, geological memory, evidence independence, and bounded arithmetic-seam tests.
-- [Read or download the complete framework PDF (171 pages)](resources/earth-is-the-instrument/v0.3.0/ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf), begin with the [two-page public ground reading](resources/earth-is-the-instrument/v0.3.0/ASTRA_v0.3.0_Public_Ground_Reading.pdf), or use the [one-page audit form](resources/earth-is-the-instrument/v0.3.0/ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf).
+- Start with the reflowable [public ground reading](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/ground-reading/) or use the [browser audit worksheet](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/audit-form/); both work at narrow screen widths.
+- Fixed-layout download and print alternatives: [complete framework PDF (171 pages)](resources/earth-is-the-instrument/v0.3.0/ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf), [two-page ground-reading PDF](resources/earth-is-the-instrument/v0.3.0/ASTRA_v0.3.0_Public_Ground_Reading.pdf), and [one-page audit-form PDF](resources/earth-is-the-instrument/v0.3.0/ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf).
 - [Review the publication audit and known accessibility limits](resources/earth-is-the-instrument/v0.3.0/PUBLICATION_AUDIT.md).
 - [Download the complete source and reproducibility archive from its versioned GitHub Release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
 
-Version 0.3.0 supersedes v0.2.1 only within the *Earth Is the Instrument* publication line. It does not amend or supersede the immutable SPPT/ASTRA v1.0.6 reference release, enter its claim-admission matrix, or inherit its verification status. The earlier [Working Paper 0.1](resources/earth-is-the-instrument/v0.1/) remains available as a stable historical edition.
+Version 0.3.0 supersedes the internal v0.2.1 predecessor preserved in its release archive, only within the *Earth Is the Instrument* publication line. No public v0.2.1 tag or GitHub Release was created. It does not amend or supersede the immutable SPPT/ASTRA v1.0.6 reference release, enter its claim-admission matrix, or inherit its verification status. The earlier [Working Paper 0.1](resources/earth-is-the-instrument/v0.1/) remains available as a stable historical edition. See the [v0.3.0 post-publication errata](resources/earth-is-the-instrument/v0.3.0/ERRATA.md) for documentation corrections that do not change the immutable artifacts.
+
+## Name, assistance, and independence
+
+ASTRA is the project's own acronym for **Astronomical State-Topology and Reservoir Analysis**. The framework was developed by Jacko T. with substantive assistance from OpenAI's ChatGPT, including literature organization, adversarial review, equation checking, code drafting, visual design, editing, document production, accessibility review, and release engineering. Jacko T. selected the questions and final wording, reviewed and approved the released work, and remains responsible for its sources, claims, interpretations, errors, omissions, code, and publication decisions. Model output is not a citation, experiment, proof, independent verification, peer review, or scientific evidence; the evidentiary basis is the cited literature, declared calculations, data, tests, and bounded certificates.
+
+The author reports that the name and its continued use draw inspiration from the Kansas state motto, [*Ad Astra Per Aspera* — "To the Stars Through Difficulties"](https://www.kansas.gov/kbi/about/kbiseal.shtml), and from [OpenAI's 1 August 2026 public description](https://openai.com/index/ten-advances-in-mathematics/) of an internal version of Astra as "our next major model"; that wording records the dated public description without claiming a product launch, release timing, or priority in the name.
+
+ASTRA is an independent research project. It is not affiliated with, sponsored by, endorsed by, reviewed by, operated by, or produced for OpenAI or the State of Kansas; use of ChatGPT does not imply OpenAI endorsement. These references are descriptive acknowledgments only. This publication neither claims nor contests exclusive rights in the word *Astra* and places no restriction on unrelated uses.
 
 ## Scientific scope
 
@@ -101,6 +121,10 @@ python -I -B tools/verify.py
 
 Builds write only beneath the repository or a disposable output root. Seeds, the 20 distinct fixed generic multistart points, every start and endpoint, optimizer convergence diagnostics, bound flags, and all negative outcomes are preserved in `data/`. The byte-identity claim is limited to the exercised release-artifact paths under the complete frozen runtime; it is not a claim of universal floating-point identity for future numerical code.
 
+## Verification routes and tag namespaces
+
+The repository verification workflow runs for pull requests, `main`, and core reference tags matching `v*`. Its tag-event identity checks are intentionally bound to the core `RELEASE_SPEC.json`; they do not apply to namespaced supplemental tags. *Earth Is the Instrument* v0.3.0 instead retains its own 90-check package gate, checksum and archive records, successful exact-main repository verification, and release-bound Pages deployment. A future supplemental release that requires natural tag-event CI should use a dedicated supplemental controller rather than broadening the core tag pattern.
+
 ## Repository map
 
 | Path | Contents |
@@ -115,14 +139,17 @@ Builds write only beneath the repository or a disposable output root. Seeds, the
 | `figures/` | Generated manuscript and supplement figures |
 | `tools/` | Canonical verification, document, manifest, and release-identity tooling |
 | `resources/` | Independently versioned exploratory and foundational working papers, complete packages, and text-first reading guides |
+| `RELEASE_NOTES_earth-instrument-*.md` | Archived bodies of the immutable supplemental GitHub releases, with links to any post-publication errata |
 | `SOURCE_INVENTORY.json` | Hash, media, attribution, rights, alias, and excluded/deferred status for every source artifact admitted to the v1.0.6 reference release |
 | `CLAIM_MATRIX.json` | Consequential claims, hypotheses, evidence classes, limitations, and dispositions |
 
 ## Citation
 
-Canonical citation metadata are in [`CITATION.cff`](CITATION.cff). Cite the versioned GitHub release:
+The repository-level [`CITATION.cff`](CITATION.cff) describes only the current SPPT/ASTRA **reference** release. Cite that versioned GitHub release as:
 
 > Jacko T. (2026). *Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution*, version 1.0.6. GitHub. https://github.com/jkolantree/astra/releases/tag/v1.0.6
+
+For *Earth Is the Instrument*, use the citation printed on its [current supplemental edition](resources/earth-is-the-instrument/v0.3.0/#citation) or historical v0.1 page rather than GitHub's repository-level citation suggestion.
 
 This is a GitHub-only release path. No DOI or Zenodo ingestion is claimed; adding either would be a separate, explicitly authorized publication step and a new version if any archived file changed.
 

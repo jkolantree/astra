@@ -1,8 +1,12 @@
 # Public data schemas
 
 These Draft 7 JSON Schemas describe the machine-readable records shipped by
-SPPT/ASTRA. Their canonical URLs are served by the project reading site at
+the SPPT/ASTRA reference-release line, currently **v1.0.6**. Their canonical
+URLs are served by the project reading site at
 `https://jkolantree.github.io/astra/schemas/`.
+
+Supplemental resources use their own package records unless a future
+SPPT/ASTRA reference release explicitly adopts a schema-declaring record.
 
 Schema names carry an independent revision (`v1`). A scientific release may
 therefore update from, for example, v1.0.6 to v1.0.7 without changing a schema

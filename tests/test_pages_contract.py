@@ -99,31 +99,51 @@ def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
         'git merge-base --is-ancestor "$current_commit" HEAD',
         'git show "${current_ref}^{commit}:RELEASE_SPEC.json"',
         'cmp --silent -- RELEASE_SPEC.json "$downloads/TAG_RELEASE_SPEC.json"',
-        'releases/tags/${current_tag}',
+        "releases/tags/${current_tag}",
         ".draft == false",
         ".prerelease == false",
         ".immutable == true",
     )
     assert all(gate in script for gate in required_release_gates)
+    assert 'latest_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/latest")"' in script
+    assert "$(jq -er '.id' <<<\"$latest_release\")" in script
     assert 'if test "$(git rev-parse HEAD)" != "$framework_commit"' in script
     assert 'git diff --name-only "${framework_ref}^{commit}" HEAD' in script
     for allowed in (
+        ".github/ISSUE_TEMPLATE/accessibility.yml",
+        ".github/ISSUE_TEMPLATE/config.yml",
+        ".github/ISSUE_TEMPLATE/reproducibility.yml",
+        ".github/ISSUE_TEMPLATE/scientific-correction.yml",
         ".github/workflows/pages.yml",
         "CHANGELOG.md",
+        "LICENSE_MAP.md",
         "MANIFEST.sha256",
         "README.md",
+        "RELEASE_NOTES_earth-instrument-framework-v0.3.0.md",
+        "RELEASE_NOTES_earth-instrument-wp-0.1.md",
+        "THIRD_PARTY_NOTICES.md",
+        "docs/404.html",
         "docs/index.html",
         "docs/style.css",
         "docs/resources/index.html",
         "docs/resources/earth-is-the-instrument/v0.1/index.html",
-        "docs/resources/earth-is-the-instrument/v0.3.0/*",
+        "docs/resources/earth-is-the-instrument/v0.3.0/audit-form/index.html",
+        "docs/resources/earth-is-the-instrument/v0.3.0/errata/index.html",
+        "docs/resources/earth-is-the-instrument/v0.3.0/ground-reading/index.html",
+        "docs/resources/earth-is-the-instrument/v0.3.0/index.html",
+        "evidence/README.md",
         "resources/README.md",
-        "resources/earth-is-the-instrument/v0.3.0/*",
+        "resources/earth-is-the-instrument/v0.1/README.md",
+        "resources/earth-is-the-instrument/v0.3.0/ERRATA.md",
+        "resources/earth-is-the-instrument/v0.3.0/README.md",
+        "schemas/README.md",
         "tests/test_pages_contract.py",
         "tests/test_resource_contract.py",
         "tools/check_repository.py",
     ):
         assert allowed in script
+    assert "docs/resources/earth-is-the-instrument/v0.3.0/*" not in script
+    assert "resources/earth-is-the-instrument/v0.3.0/*" not in script
     assert "Unreleased non-communications change cannot enter Pages" in script
 
     deploy = workflow["jobs"]["deploy"]
@@ -143,7 +163,7 @@ def test_pages_workflow_verifies_exact_release_assets_before_copying() -> None:
         "--pattern SHA256SUMS",
     )
     assert all(asset in script for asset in required_assets)
-    assert '$2 == name { count += 1 } END { print count + 0 }' in script
+    assert "$2 == name { count += 1 } END { print count + 0 }" in script
     assert 'test "$(wc -l < "$release_dir/PAGES_SHA256SUMS")" -eq 3' in script
     assert "sha256sum --check --strict PAGES_SHA256SUMS" in script
     assert "Unsafe source-archive member" in script
@@ -163,16 +183,17 @@ def test_pages_workflow_admits_only_the_verified_supplemental_releases() -> None
     script = str(workflow["jobs"]["build"]["steps"][1]["run"])
 
     required_values = (
+        'paper_version="v0.1"',
         'paper_tag="earth-instrument-wp-0.1"',
-        'paper_path="resources/earth-is-the-instrument/v0.1"',
+        'paper_path="resources/earth-is-the-instrument/${paper_version}"',
         'paper_pdf="ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf"',
         'paper_assets=("$paper_pdf" "FONT_NOTICES.txt" "SHA256SUMS.txt" "cover.png")',
         'paper_payloads=("$paper_pdf" "FONT_NOTICES.txt" "cover.png")',
         'test "$(git cat-file -t "$paper_ref")" = tag',
         'git merge-base --is-ancestor "$paper_commit" HEAD',
-        'releases/tags/${paper_tag}',
+        "releases/tags/${paper_tag}",
         ".prerelease == true",
-        '(.assets | map(.name) | sort) == $assets',
+        "(.assets | map(.name) | sort) == $assets",
         'select(test("^sha256:[0-9a-f]{64}$"))',
         'actual_digest="sha256:$(sha256sum "$paper_release_dir/$asset"',
         'git show "${paper_ref}^{commit}:${paper_path}/SHA256SUMS.txt"',
@@ -180,8 +201,9 @@ def test_pages_workflow_admits_only_the_verified_supplemental_releases() -> None
         'test "$(wc -l < "$paper_release_dir/SHA256SUMS.txt")" -eq 3',
         "sha256sum --check --strict SHA256SUMS.txt",
         'cp -- "$paper_release_dir/$asset" "$paper_target_dir/$asset"',
+        'framework_version="v0.3.0"',
         'framework_tag="earth-instrument-framework-v0.3.0"',
-        'framework_path="resources/earth-is-the-instrument/v0.3.0"',
+        'framework_path="resources/earth-is-the-instrument/${framework_version}"',
         'framework_main="ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf"',
         'framework_ground="ASTRA_v0.3.0_Public_Ground_Reading.pdf"',
         'framework_audit="ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf"',
@@ -192,15 +214,21 @@ def test_pages_workflow_admits_only_the_verified_supplemental_releases() -> None
         '"PUBLICATION_AUDIT.md"',
         'test "$(git cat-file -t "$framework_ref")" = tag',
         'git merge-base --is-ancestor "$framework_commit" HEAD',
-        'releases/tags/${framework_tag}',
+        "releases/tags/${framework_tag}",
         'git show "${framework_ref}^{commit}:${framework_path}/SHA256SUMS.txt"',
         '"$framework_release_dir/TAG_SHA256SUMS.txt"',
         'test "$(wc -l < "$framework_release_dir/SHA256SUMS.txt")" -eq 10',
         'sha256sum --check --strict "${framework_archive}.sha256"',
         'grep -Fx -- "verification_status: PASS" "${framework_archive}.verify.txt"',
         'cp -- "$framework_release_dir/$asset" "$framework_target_dir/$asset"',
-        'write_redirect "$site/resources/earth-is-the-instrument" "./v0.3.0/"',
-        'write_redirect "$site/resources/earth-is-the-instrument/latest" "../v0.3.0/"',
+        'cp -- "$framework_path/ERRATA.md" "$framework_target_dir/ERRATA.md"',
+        'framework_pages_roster=(',
+        '"audit-form/index.html"',
+        '"errata/index.html"',
+        '"ground-reading/index.html"',
+        '<(find "$framework_target_dir" -type f -printf \'%P\\n\' | sort)',
+        'write_redirect "$site/resources/earth-is-the-instrument" "./${framework_version}/"',
+        'write_redirect "$site/resources/earth-is-the-instrument/latest" "../${framework_version}/"',
     )
     assert all(value in script for value in required_values)
 
@@ -224,31 +252,32 @@ def test_landing_page_links_to_current_versioned_and_schema_paths() -> None:
     links = {link.get("href", "") for link in parser.links}
     assert {
         "#main-content",
-        "./latest/preprint/",
-        "./latest/supplement/",
+        "./v1.0.6/preprint/",
+        "./v1.0.6/supplement/",
+        "./latest/",
         "./editions/",
         "./resources/",
         "./resources/earth-is-the-instrument/v0.3.0/",
+        "./resources/earth-is-the-instrument/v0.3.0/ground-reading/",
+        "./resources/earth-is-the-instrument/v0.3.0/errata/",
         "./resources/earth-is-the-instrument/v0.1/",
         "./schemas/",
     } <= links
-    skip_links = [
-        link
-        for link in parser.links
-        if "skip-link" in link.get("class", "").split()
-    ]
+    skip_links = [link for link in parser.links if "skip-link" in link.get("class", "").split()]
     assert skip_links == [{"class": "skip-link", "href": "#main-content"}]
 
     script = str(load_yaml(PAGES_WORKFLOW)["jobs"]["build"]["steps"][1]["run"])
     assert 'version_dir="$site/$tag"' in script
     assert 'write_redirect "$site/latest" "../${current_tag}/"' in script
     assert 'write_redirect "$site/latest/preprint" "../../${current_tag}/preprint/"' in script
-    assert (
-        'write_redirect "$site/latest/supplement" '
-        '"../../${current_tag}/supplement/"' in script
-    )
+    assert 'write_redirect "$site/latest/supplement" "../../${current_tag}/supplement/"' in script
     assert 'cp -R -- "$source_root/schemas" "$version_dir/schemas"' in script
     assert 'target="$site/schemas/$relative"' in script
+    assert "Current reference edition" in script
+    assert "Earlier immutable reference editions" in script
+    assert "for ((index=${#release_tags[@]} - 1; index >= 0; index--))" in script
+    assert 'test "$tag" != "$current_tag"' in script
+    assert "GitHub Latest</li>" in script
 
     spec = json.loads((ROOT / "RELEASE_SPEC.json").read_text(encoding="utf-8"))
     schema_root = "https://jkolantree.github.io/astra/schemas/"
@@ -261,14 +290,7 @@ def test_landing_page_links_to_current_versioned_and_schema_paths() -> None:
 
 
 def test_working_paper_pages_companion_is_text_first_and_well_bounded() -> None:
-    path = (
-        ROOT
-        / "docs"
-        / "resources"
-        / "earth-is-the-instrument"
-        / "v0.1"
-        / "index.html"
-    )
+    path = ROOT / "docs" / "resources" / "earth-is-the-instrument" / "v0.1" / "index.html"
     html = path.read_text(encoding="utf-8")
     parser = LandingPageParser()
     parser.feed(html)
@@ -287,6 +309,8 @@ def test_working_paper_pages_companion_is_text_first_and_well_bounded() -> None:
         "./ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf",
         "./SHA256SUMS.txt",
         "./FONT_NOTICES.txt",
+        "../v0.3.0/",
+        "https://github.com/jkolantree/astra/blob/main/RELEASE_NOTES_earth-instrument-wp-0.1.md",
         "https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1",
         "https://github.com/jkolantree/astra/issues/new?template=accessibility.yml",
     } <= links
@@ -303,10 +327,7 @@ def test_working_paper_pages_companion_is_text_first_and_well_bounded() -> None:
         == "https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/"
         for link in parser.link_elements
     )
-    meta_keys = {
-        meta.get("name") or meta.get("property")
-        for meta in parser.metas
-    }
+    meta_keys = {meta.get("name") or meta.get("property") for meta in parser.metas}
     assert {
         "description",
         "citation_title",
@@ -315,21 +336,29 @@ def test_working_paper_pages_companion_is_text_first_and_well_bounded() -> None:
         "citation_pdf_url",
         "og:title",
         "og:description",
-        "og:url",
-        "og:image",
-    } <= meta_keys
+            "og:url",
+            "og:image",
+            "og:image:alt",
+        } <= meta_keys
 
     semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
     required_boundaries = (
         "supplemental exploratory working paper",
+        "Historical edition",
+        "current edition in this supplemental line is ASTRA Framework v0.3.0",
+        "Project-level provenance",
+        "substantive ChatGPT assistance",
+        "Kansas motto",
+        "project is independent and unaffiliated",
         "not peer reviewed",
-        "does not amend or supersede SPPT/ASTRA v1.0.6",
-        "provide empirical validation",
+        "Neither edition amends or supersedes SPPT/ASTRA v1.0.6",
+        "provides empirical validation",
         "not a tagged PDF",
         "no reuse license is asserted for the PDF or cover image",
         "available by August 2026",
         "does not establish a particular artifact's historicity",
         "pixel-for-pixel with no differences",
+        "rather than silently rewriting the immutable v0.1 PDF",
         "all three payload hashes verify",
         "author's classifications",
         "not a claim that Earth was engineered",
@@ -350,13 +379,7 @@ def test_working_paper_pages_companion_is_text_first_and_well_bounded() -> None:
 
 
 def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> None:
-    root = (
-        ROOT
-        / "docs"
-        / "resources"
-        / "earth-is-the-instrument"
-        / "v0.3.0"
-    )
+    root = ROOT / "docs" / "resources" / "earth-is-the-instrument" / "v0.3.0"
     landing_html = (root / "index.html").read_text(encoding="utf-8")
     landing = LandingPageParser()
     landing.feed(landing_html)
@@ -366,7 +389,7 @@ def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> N
     assert landing.scripts == []
     assert landing.caption_count == 1
     assert landing.th_scopes.count("col") == 2
-    assert landing.th_scopes.count("row") == 5
+    assert landing.th_scopes.count("row") == 7
     assert any(
         image.get("src") == "./cover.png"
         and image.get("width") == "510"
@@ -383,6 +406,7 @@ def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> N
         "./ASTRA_v0.3.0_Public_Ground_Reading.pdf",
         "./ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf",
         "./ASTRA_v0.3.0_Verification_Report.pdf",
+        "./errata/",
         "./PUBLICATION_AUDIT.md",
         "./FONT_NOTICES.txt",
         "./SHA256SUMS.txt",
@@ -391,7 +415,8 @@ def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> N
     landing_semantic = " ".join(re.sub(r"<[^>]+>", " ", landing_html).split())
     for value in (
         "not peer reviewed",
-        "supersedes v0.2.1 only",
+        "supersedes an internal v0.2.1 predecessor preserved in its archive",
+        "no public v0.2.1 tag or GitHub Release was created",
         "not claimed to conform to PDF/UA",
         "internal package and release report",
         "substantive assistance from OpenAI's ChatGPT",
@@ -399,11 +424,21 @@ def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> N
         'internal version of Astra as "our next major model"',
         "not affiliated with, sponsored by, endorsed by, reviewed by, operated by, or produced for OpenAI",
         "role-based review architecture, not a separate institution",
+        "The main framework PDF discloses language-model assistance",
+        "The three compact companion PDFs do not carry that disclosure",
+        "Choose a reading path",
+        "post-publication errata",
         "35,343,563 bytes",
         "b2a1072c14f1afff43a161b57620cdd2f6ad19b03884e7b5d8fbdd023333e09d",
         "2f8c26c92826c0464ae88048d9c3e68a4404ee5d9b8f46a660a0733ccddd75ab",
     ):
         assert value in landing_semantic
+    assert (
+        "Jacko T. (2026). Earth Is the Instrument: Dual-Rent Seams, Prime Spectra, "
+        "Local-to-Global Certificates, Geological Memory, and the Search for Human Origins . "
+        "ASTRA Framework v0.3.0. GitHub."
+    ) in landing_semantic
+    assert "The four preserved PDFs already disclose" not in landing_semantic
 
     ground_html = (root / "ground-reading" / "index.html").read_text(encoding="utf-8")
     ground = LandingPageParser()
@@ -417,6 +452,7 @@ def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> N
     assert "https://arxiv.org/abs/2608.00222" in ground_html
     assert "recent preprint rather than peer-reviewed publication" in ground_html
     assert "two-dimensional Jacobian conjecture remains open" in ground_html
+    assert "../errata/" in ground_html
 
     audit_html = (root / "audit-form" / "index.html").read_text(encoding="utf-8")
     worksheet = LandingPageParser()
@@ -434,19 +470,40 @@ def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> N
     )
     assert "not sent by this page" in audit_html
     assert "static, not electronically fillable" in audit_html
+    assert "../errata/" in audit_html
+
+    errata_html = (root / "errata" / "index.html").read_text(encoding="utf-8")
+    errata = LandingPageParser()
+    errata.feed(errata_html)
+    assert errata.lang == "en-US"
+    assert errata.main_ids == ["main-content"]
+    assert len(errata.ids) == len(set(errata.ids))
+    assert errata.scripts == []
+    errata_semantic = " ".join(re.sub(r"<[^>]+>", " ", errata_html).split())
+    assert "all four preserved PDFs" in errata_semantic
+    assert "The 171-page main framework PDF contains the disclosure" in errata_semantic
+    assert "public ground reading, audit form, and verification report do not" in errata_semantic
+    assert "No public v0.2.1 tag or GitHub Release was created" in errata_semantic
+    assert "do not replace, edit, or reissue any PDF" in errata_semantic
 
 
 def test_pages_home_scopes_rights_and_separates_publication_tracks() -> None:
     html = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
     semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
-    assert "Reference framework — v1.0.6" in semantic
-    assert "Supplemental working papers" in semantic
+    assert "Current reference framework — v1.0.6" in semantic
+    assert "Current supplemental framework — v0.3.0" in semantic
     assert "ASTRA Framework v0.3.0" in semantic
-    assert "supersedes v0.2.1 only within this supplemental line" in semantic
+    assert "supersedes an internal v0.2.1 predecessor preserved in its archive" in semantic
+    assert "no public v0.2.1 tag or GitHub Release was created" in semantic
     assert "does not amend or supersede SPPT/ASTRA v1.0.6" in semantic
     assert "inherit its verification, or provide empirical validation" in semantic
     assert "Separately supplied resources retain the rights stated" in semantic
     assert "Original manuscript, documentation, figures, and data" not in semantic
+    assert 'href="./v1.0.6/preprint/"' in html
+    assert 'href="./v1.0.6/supplement/"' in html
+    assert 'href="./latest/"' in html
+    assert 'href="./resources/earth-is-the-instrument/v0.3.0/ground-reading/"' in html
+    assert 'href="./resources/earth-is-the-instrument/v0.3.0/audit-form/"' in html
 
     css = (ROOT / "docs" / "style.css").read_text(encoding="utf-8")
     assert re.search(r"[.]cover-link,\s*[.]cover-link img,\s*[.]paper-cover", css)
@@ -455,12 +512,7 @@ def test_pages_home_scopes_rights_and_separates_publication_tracks() -> None:
 def test_pages_home_and_working_paper_reflow_at_narrow_widths() -> None:
     paths = (
         ROOT / "docs" / "index.html",
-        ROOT
-        / "docs"
-        / "resources"
-        / "earth-is-the-instrument"
-        / "v0.3.0"
-        / "index.html",
+        ROOT / "docs" / "resources" / "earth-is-the-instrument" / "v0.3.0" / "index.html",
         ROOT
         / "docs"
         / "resources"
@@ -479,8 +531,10 @@ def test_pages_home_and_working_paper_reflow_at_narrow_widths() -> None:
         / "docs"
         / "resources"
         / "earth-is-the-instrument"
-        / "v0.1"
+        / "v0.3.0"
+        / "errata"
         / "index.html",
+        ROOT / "docs" / "resources" / "earth-is-the-instrument" / "v0.1" / "index.html",
     )
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True, args=["--disable-gpu"])
@@ -511,10 +565,29 @@ def test_resource_index_marks_v030_current_without_changing_core_version() -> No
     semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
     assert "ASTRA Framework v0.3.0" in semantic
     assert "Current supplemental edition" in semantic
-    assert "supersedes v0.2.1 only within its own publication line" in semantic
+    assert "supersedes an internal v0.2.1 predecessor preserved in its archive" in semantic
+    assert "not a public v0.2.1 release" in semantic
     assert "Working Paper 0.1" in semantic
     assert "Historical edition" in semantic
     assert "separate from SPPT/ASTRA v1.0.6" in semantic
+    assert "| Edition |" not in (
+        ROOT / "resources" / "README.md"
+    ).read_text(encoding="utf-8")
+    assert "./earth-is-the-instrument/latest/" in html
+    assert "./earth-is-the-instrument/v0.3.0/errata/" in html
+
+
+def test_not_found_page_routes_to_both_current_publication_tracks() -> None:
+    html = (ROOT / "docs" / "404.html").read_text(encoding="utf-8")
+    parser = LandingPageParser()
+    parser.feed(html)
+    links = {link.get("href", "") for link in parser.links}
+    assert {
+        "/astra/",
+        "/astra/latest/",
+        "/astra/resources/",
+        "/astra/resources/earth-is-the-instrument/latest/",
+    } <= links
 
 
 def test_skip_link_uses_high_contrast_focus_on_dark_header() -> None:
@@ -527,9 +600,9 @@ def test_skip_link_uses_high_contrast_focus_on_dark_header() -> None:
 
     def channel(value: int) -> float:
         normalized = value / 255
-        return normalized / 12.92 if normalized <= 0.04045 else (
-            (normalized + 0.055) / 1.055
-        ) ** 2.4
+        return (
+            normalized / 12.92 if normalized <= 0.04045 else ((normalized + 0.055) / 1.055) ** 2.4
+        )
 
     def luminance(rgb: tuple[int, int, int]) -> float:
         red, green, blue = (channel(value) for value in rgb)
@@ -552,10 +625,16 @@ def test_issue_forms_parse_and_require_public_report_privacy_checks() -> None:
     config = load_yaml(forms_root / "config.yml")
     assert config["blank_issues_enabled"] is True
     assert config["contact_links"][0]["url"].endswith("/astra/latest/")
+    assert config["contact_links"][1]["url"].endswith(
+        "/astra/resources/earth-is-the-instrument/latest/"
+    )
 
     for name in expected:
+        form_text = (forms_root / name).read_text(encoding="utf-8")
         form = load_yaml(forms_root / name)
         assert all(form.get(key) for key in ("name", "description", "title", "body"))
+        assert "v1.0.6" in form_text
+        assert "earth-instrument-framework-v0.3.0" in form_text
         field_ids = [field.get("id") for field in form["body"] if field.get("id")]
         assert len(field_ids) == len(set(field_ids))
 

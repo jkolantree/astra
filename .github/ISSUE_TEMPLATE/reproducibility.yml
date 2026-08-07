@@ -10,8 +10,8 @@ body:
     id: identity
     attributes:
       label: Version, tag, or commit
-      description: Identify the exact state you tested, such as v1.0.6 or a full commit SHA.
-      placeholder: v1.0.6
+      description: Identify the exact state you tested, such as core v1.0.6, supplemental earth-instrument-framework-v0.3.0, or a full commit SHA.
+      placeholder: v1.0.6 or earth-instrument-framework-v0.3.0
     validations:
       required: true
   - type: input

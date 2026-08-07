@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Reorganizes the repository and reading room around an explicit publication map: SPPT/ASTRA v1.0.6 is the current core reference release, *Earth Is the Instrument* v0.3.0 is the current supplemental edition, and Working Paper 0.1 is historical.
+- Corrects the overbroad statement that all four v0.3.0 PDFs print the shared AI-assistance disclosure, clarifies that v0.2.1 was an internal predecessor rather than a public release, and adds a post-publication erratum without changing any immutable artifact or tag.
+- Clarifies that the root `CITATION.cff`, bare `/latest/` route, and `v*` tag-verification controller belong to the core reference line; supplemental resources retain namespaced tags, citations, checksums, and reading routes.
+- Improves direct versioned links, historical-to-current navigation, issue-report examples, generated edition ordering, and release-note discoverability across README and Pages surfaces.
+
+## Earth Is the Instrument framework 0.3.0 — 2026-08-06
+
 - Adds *ASTRA Framework v0.3.0 — Earth Is the Instrument* as the current edition of a separately versioned supplemental publication line, with a 171-page framework, public ground reading, reusable audit form, internal verification report, text-first guide, and complete release archive.
 - Records the Kansas-motto and dated OpenAI-Astra naming inspirations, substantive ChatGPT assistance, sole human responsibility, project independence, and no-affiliation/no-endorsement boundary while preserving the authored manuscript and PDF bytes.
 - Separates dual-rent seams, local-to-global certificates, bounded arithmetic replay, synthetic results, and calibration cases from empirical validation or unrestricted proof; preserves the internal audit's 24 PASS, 2 PARTIAL, and 0 FAIL result without presenting it as external peer review.
@@ -9,6 +16,9 @@
 - Adds a fail-closed public package gate, exact bidirectional ledger checks, prime-domain validation, an isolated 29-test replay, and a normalized 341-member archive that passes all 90 release checks while preserving the four authored PDFs byte for byte.
 - Adds reflowable ground-reading and audit-form Pages companions with MathML, semantic tables, high-contrast keyboard focus, print support, and exact 320/400-pixel reflow; fixed-layout PDF accessibility limits remain explicit.
 - Leaves the immutable SPPT/ASTRA v1.0.6 reference release, release specification, citation metadata, claim matrix, source inventory, and current reference-edition redirects unchanged.
+
+## Earth Is the Instrument working paper 0.1 — 2026-08-05
+
 - Publishes *Earth Is the Instrument* Working Paper 0.1 as a separately versioned exploratory resource with a text-first reading guide, figure descriptions, checksums, and explicit accessibility, chronology, provenance, and v1.0.6 boundaries.
 - Corrects the working paper's page labels and ten premature navigation targets while preserving pixel-identical page content.
 - Adds a release-verified GitHub Pages companion and default-branch discovery path for the working paper while leaving the immutable SPPT/ASTRA v1.0.6 release, release specification, claim matrix, source inventory, and current-edition redirects unchanged.

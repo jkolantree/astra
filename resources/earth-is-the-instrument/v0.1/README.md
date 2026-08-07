@@ -1,5 +1,17 @@
 # Earth Is the Instrument - Working Paper 0.1
 
+**Historical edition.** The current edition in this supplemental publication
+line is [ASTRA Framework v0.3.0](../v0.3.0/). Version 0.1 remains available for
+stable citation and comparison.
+
+**Project-level provenance.** ASTRA was developed by Jacko T. with substantive
+ChatGPT assistance; Jacko T. remains responsible for the work and its
+publication. The name draws inspiration from the Kansas motto *Ad Astra Per
+Aspera* and OpenAI's 1 August 2026 public description of an internal version of
+Astra. The project is independent and unaffiliated. See the repository's full
+[name, assistance, responsibility, and no-affiliation
+disclosure](../../../README.md#name-assistance-and-independence).
+
 ![Dark blue cover showing a stylized cutaway Earth, orbital geometry, and the title Earth Is the Instrument](cover.png)
 
 [Read or download the normalized PDF (44 pages, about 710 KiB)](ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf)
@@ -11,10 +23,11 @@ This is a **supplemental exploratory working paper**, version 0.1, dated
 boundary-state reading of plate tectonics, geological memory, origin-of-life
 environments, the archaeological record, and candidate historical instruments.
 
-The paper was prepared for possible later integration. It **does not amend or
-supersede SPPT/ASTRA v1.0.6**, enter the v1.0.6 claim-admission matrix, provide
-empirical validation of SPPT/ASTRA, or inherit the verification status of the
-reference release.
+This paper preceded the current v0.3.0 supplemental framework. Neither edition
+is part of the core reference line: v0.1 **does not amend or supersede
+SPPT/ASTRA v1.0.6**, enter the v1.0.6 claim-admission matrix, provide empirical
+validation of SPPT/ASTRA, or inherit the verification status of the reference
+release.
 
 ## Text-first reading guide
 
@@ -100,7 +113,7 @@ possibility from demonstrated historical operation.
   electrical device.
 
 These notes preserve the supplied scientific text while making known boundaries
-visible to readers. They should be folded into a later authored source revision.
+visible to readers rather than silently rewriting the immutable v0.1 PDF.
 
 ## Integrity and normalization
 
@@ -119,8 +132,13 @@ the same resolution and compared pixel-for-pixel with no differences.
 
 Checksums are in [SHA256SUMS.txt](SHA256SUMS.txt). The versioned public release is
 [earth-instrument-wp-0.1](https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1).
+The repository also preserves an [archived copy of the immutable release
+body](../../../RELEASE_NOTES_earth-instrument-wp-0.1.md).
 
 ## Citation
+
+The repository-level `CITATION.cff` describes the core SPPT/ASTRA v1.0.6
+reference release, not this historical supplemental paper. Cite v0.1 as:
 
 > ASTRA Framework Working Paper. (2026). *Earth Is the Instrument: Plate
 > Tectonics, Geological Memory, Boundary States, and the Search for Human

@@ -2,25 +2,31 @@
 
 ![Blue-and-gold cover titled Earth Is the Instrument, with an abstract planetary diagram](cover.png)
 
-**Foundational working paper · evidence graded · not peer reviewed · separate
-from SPPT/ASTRA v1.0.6.**
+**Current supplemental edition · immutable GitHub prerelease · foundational
+working paper · evidence graded · not peer reviewed · separate from SPPT/ASTRA
+v1.0.6.**
 
 This edition develops the separately versioned *Earth Is the Instrument*
 working-paper line through dual-rent seams, local-to-global certificates,
 geological memory, evidence independence, and an exact arithmetic-seam
-laboratory. Version 0.3.0 supersedes v0.2.1 **only within this supplemental
-publication line**. It does not amend or supersede the immutable SPPT/ASTRA
-v1.0.6 reference release, enter its claim-admission matrix, or inherit its
-verification status.
+laboratory. Version 0.3.0 supersedes the internal v0.2.1 predecessor preserved
+inside its release archive, **only within this supplemental publication line**;
+no public v0.2.1 tag or GitHub Release was created. It does not amend or
+supersede the immutable SPPT/ASTRA v1.0.6 reference release, enter its
+claim-admission matrix, or inherit its verification status.
 
 ## Read and use the work
 
-- [Read the text-first guide on GitHub Pages](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/)
+- [Open the versioned overview and complete file map](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/)
+- [Start with the reflowable public ground reading](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/ground-reading/)
+- [Use the accessible browser audit worksheet](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/audit-form/)
 - [Read or download the complete framework PDF (171 pages)](ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf)
-- [Start with the public ground reading (2 pages)](ASTRA_v0.3.0_Public_Ground_Reading.pdf)
-- [Use the dual-rent/local-to-global audit form (1 page)](ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf)
+- [Download the compact public ground reading (2 pages)](ASTRA_v0.3.0_Public_Ground_Reading.pdf)
+- [Download the printable audit form (1 page)](ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf)
 - [Read the internal verification report (3 pages)](ASTRA_v0.3.0_Verification_Report.pdf)
-- [Read the independent publication-boundary audit](PUBLICATION_AUDIT.md)
+- [Read the post-publication documentation errata](ERRATA.md)
+- [Read the archived immutable release-body record](../../../RELEASE_NOTES_earth-instrument-framework-v0.3.0.md)
+- [Read the release-time publication-boundary audit](PUBLICATION_AUDIT.md)
 - [Read the embedded-font and license notices](FONT_NOTICES.txt)
 - [Download the complete source and reproducibility archive from the versioned release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0)
 
@@ -60,10 +66,13 @@ and places no restriction on unrelated uses. The "ASTRA Coherence Cell" named
 in the paper is Jacko T.'s role-based review architecture, not a separate
 institution, employer, committee, or roster of external reviewers.
 
-The four preserved PDFs already disclose language-model assistance and human
-responsibility on their document-status pages. This release metadata names the
-assisting product and records the naming provenance without changing those
-authored PDF or manuscript-source bytes.
+The main framework PDF discloses language-model assistance and authorial
+responsibility on its Document status page. The three compact companion PDFs do
+not carry that disclosure; this release-level acknowledgment supplies the
+shared provenance and responsibility statement for the package as a whole.
+The [post-publication errata](ERRATA.md) record and correct the original
+overstatement without changing authored PDF or manuscript-source bytes; the
+archived release-body record preserves the historical wording.
 
 ## What v0.3.0 adds
 
@@ -138,14 +147,18 @@ The supplier's original candidate archive had SHA-256
 Pre-publication normalization corrected release metadata, public identifiers,
 ledger reverse mappings, input validation, reproducibility isolation, and
 accessibility disclosures while preserving the four authored PDFs byte for
-byte. The release-side [publication audit](PUBLICATION_AUDIT.md) records the
-scope and the independent extraction replay.
+byte. The release-time [publication audit](PUBLICATION_AUDIT.md) records the
+scope and a verifier-independent extraction replay; it is not an external
+scientific audit.
 
 ## Citation
 
-> Jacko T. (2026). *ASTRA Framework v0.3.0 — Earth Is the Instrument: Dual-Rent
-> Seams, Prime Spectra, Local-to-Global Certificates, Geological Memory, and the
-> Search for Human Origins*. Foundational working paper. GitHub.
+The repository-level `CITATION.cff` describes the core SPPT/ASTRA v1.0.6
+reference release, not this supplemental line. Cite v0.3.0 as:
+
+> Jacko T. (2026). *Earth Is the Instrument: Dual-Rent Seams, Prime Spectra,
+> Local-to-Global Certificates, Geological Memory, and the Search for Human
+> Origins*. ASTRA Framework v0.3.0. GitHub.
 > https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0
 
 ## Rights and reporting
