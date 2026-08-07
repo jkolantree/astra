@@ -11,7 +11,7 @@ body:
     attributes:
       label: Version and location
       description: Give the version plus the section, equation, figure, table, or claim-matrix entry.
-      placeholder: v1.0.6, supplement equation 12
+      placeholder: v1.0.6 supplement equation 12, or earth-instrument-framework-v0.3.0 section 4
     validations:
       required: true
   - type: dropdown

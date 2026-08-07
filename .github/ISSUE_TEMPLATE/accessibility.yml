@@ -11,7 +11,7 @@ body:
     attributes:
       label: Version and affected page or artifact
       description: Give the version and a public URL, file name, section, figure, table, or page number.
-      placeholder: v1.0.6, preprint references section
+      placeholder: v1.0.6 preprint references, or earth-instrument-framework-v0.3.0 ground reading
     validations:
       required: true
   - type: dropdown

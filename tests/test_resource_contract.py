@@ -56,7 +56,8 @@ def test_framework_v030_has_separate_version_and_evidence_boundaries() -> None:
     semantic_text = " ".join(text.replace("**", "").split())
     for required in (
         "not peer reviewed",
-        "supersedes v0.2.1 only within this supplemental publication line",
+        "supersedes the internal v0.2.1 predecessor preserved inside its release archive",
+        "no public v0.2.1 tag or GitHub Release was created",
         "does not amend or supersede the immutable SPPT/ASTRA v1.0.6",
         "24 PASS, 2 PARTIAL, and 0 FAIL",
         "not external scientific review or endorsement",
@@ -71,9 +72,40 @@ def test_framework_v030_has_separate_version_and_evidence_boundaries() -> None:
         'internal version of Astra as "our next major model"',
         "not affiliated with, sponsored by, endorsed by, reviewed by, operated by, or produced for OpenAI",
         "role-based review architecture, not a separate institution",
+        "The main framework PDF discloses language-model assistance",
+        "The three compact companion PDFs do not carry that disclosure",
+        "post-publication errata",
         "b2a1072c14f1afff43a161b57620cdd2f6ad19b03884e7b5d8fbdd023333e09d",
     ):
         assert required in semantic_text
+    assert "The four preserved PDFs already disclose" not in semantic_text
+    citation_text = " ".join(text.replace("*", "").replace(">", "").split())
+    assert (
+        "Jacko T. (2026). Earth Is the Instrument: Dual-Rent Seams, Prime Spectra, "
+        "Local-to-Global Certificates, Geological Memory, and the Search for Human "
+        "Origins. ASTRA Framework v0.3.0. GitHub."
+    ) in citation_text
+
+
+def test_framework_v030_errata_match_pdf_disclosures_and_immutable_scope() -> None:
+    errata = " ".join(
+        (FRAMEWORK_RESOURCE / "ERRATA.md").read_text(encoding="utf-8").replace("**", "").split()
+    )
+    assert "The 171-page main framework PDF contains that disclosure" in errata
+    assert "The public ground reading, audit form, and verification report do not" in errata
+    assert "No public v0.2.1 tag or GitHub Release was created" in errata
+    assert "does not replace, edit, or reissue any PDF" in errata
+
+    pdf_text = {
+        path.name: "\n".join(page.extract_text() or "" for page in PdfReader(path).pages)
+        for path in FRAMEWORK_RESOURCE.glob("*.pdf")
+    }
+    main = pdf_text["ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf"]
+    assert "Language-model assistance" in main
+    assert "Authorial responsibility" in main
+    for name, text in pdf_text.items():
+        if name != "ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf":
+            assert "Language-model assistance" not in text
 
 
 def test_framework_v030_release_checksums_bind_ten_payloads() -> None:
@@ -100,9 +132,7 @@ def test_framework_v030_release_checksums_bind_ten_payloads() -> None:
         ("ASTRA_v0.3.0_Verification_Report.pdf", 3),
     ),
 )
-def test_framework_v030_pdfs_are_tagged_searchable_and_bounded(
-    name: str, pages: int
-) -> None:
+def test_framework_v030_pdfs_are_tagged_searchable_and_bounded(name: str, pages: int) -> None:
     reader = PdfReader(FRAMEWORK_RESOURCE / name)
     assert len(reader.pages) == pages
     assert str(reader.root_object.get("/Lang")) == "en-US"

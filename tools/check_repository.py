@@ -1,4 +1,5 @@
 """Fail-closed repository, metadata, accessibility, privacy, and license checks."""
+
 from __future__ import annotations
 
 import fnmatch
@@ -18,7 +19,16 @@ from pypdf import PdfReader
 from ruamel.yaml import YAML
 
 ROOT = Path(__file__).resolve().parents[1]
-IGNORED_ROOTS = {".git", ".venv", ".pytest_cache", ".mypy_cache", ".ruff_cache", "tmp", "dist", "build"}
+IGNORED_ROOTS = {
+    ".git",
+    ".venv",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "tmp",
+    "dist",
+    "build",
+}
 IGNORED_NAMES = IGNORED_ROOTS | {"__pycache__"}
 DISPOSABLE_ROOTS = {".git", ".venv", "tmp", "dist", "build"}
 FORBIDDEN_CACHE_NAMES = {".pytest_cache", ".mypy_cache", ".ruff_cache", "__pycache__"}
@@ -34,6 +44,8 @@ ROOT_ALLOWLIST = {
     "LICENSE_MAP.md",
     "MANIFEST.sha256",
     "README.md",
+    "RELEASE_NOTES_earth-instrument-framework-v0.3.0.md",
+    "RELEASE_NOTES_earth-instrument-wp-0.1.md",
     "RELEASE_NOTES_v1.0.1.md",
     "RELEASE_NOTES_v1.0.2.md",
     "RELEASE_NOTES_v1.0.3.md",
@@ -64,13 +76,25 @@ DIRECTORY_RULES = {
     "tests": {".py"},
     "tools": {".py"},
 }
-TEXT_SUFFIXES = {"", ".bib", ".cff", ".css", ".csv", ".in", ".json", ".md", ".py", ".toml", ".txt", ".yaml", ".yml"}
+TEXT_SUFFIXES = {
+    "",
+    ".bib",
+    ".cff",
+    ".css",
+    ".csv",
+    ".in",
+    ".json",
+    ".md",
+    ".py",
+    ".toml",
+    ".txt",
+    ".yaml",
+    ".yml",
+}
 PRIVATE_PATTERNS = {
     "local Windows path": re.compile(r"[A-Za-z]:\\", re.IGNORECASE),
     "local POSIX path": re.compile(r"(?:/Users/|/home/|/usr/share/)", re.IGNORECASE),
-    "private location": re.compile(
-        r"\b[A-Z][A-Za-z .'-]+,\s*(?:USA|United States)\b"
-    ),
+    "private location": re.compile(r"\b[A-Z][A-Za-z .'-]+,\s*(?:USA|United States)\b"),
     "placeholder contact": re.compile(
         r"^\s*(?:contact|correspondence)\s*[:=]\s*(?:TBD|TODO|pending|placeholder)\b",
         re.IGNORECASE | re.MULTILINE,
@@ -171,6 +195,7 @@ RESOURCE_PATH_ALLOWLIST = {
         f"resources/earth-is-the-instrument/v0.3.0/{name}"
         for name in (
             *FRAMEWORK_RESOURCE_FILES,
+            "ERRATA.md",
             "README.md",
             "SHA256SUMS.txt",
         )
@@ -212,7 +237,14 @@ def public_files() -> list[Path]:
                 raise RuntimeError(f"Unexpected root file: {relative.as_posix()}")
         else:
             parent = relative.parent.as_posix()
-            matched = next((root for root in DIRECTORY_RULES if parent == root or parent.startswith(root + "/")), None)
+            matched = next(
+                (
+                    root
+                    for root in DIRECTORY_RULES
+                    if parent == root or parent.startswith(root + "/")
+                ),
+                None,
+            )
             if matched is None or path.suffix.lower() not in DIRECTORY_RULES[matched]:
                 raise RuntimeError(f"Unexpected repository path: {relative.as_posix()}")
             if matched == "resources" and relative.as_posix() not in RESOURCE_PATH_ALLOWLIST:
@@ -343,9 +375,7 @@ def check_html(path: Path, expected_title: str) -> None:
     if parser.math < 1:
         failures.append("no structured MathML")
     if parser.main != 1 or parser.nav != 1 or parser.skip_link != 1:
-        failures.append(
-            f"landmarks main={parser.main} nav={parser.nav} skip={parser.skip_link}"
-        )
+        failures.append(f"landmarks main={parser.main} nav={parser.nav} skip={parser.skip_link}")
     if parser.external_resources:
         failures.append(f"non-embedded resources: {parser.external_resources[:3]}")
     for href in parser.links:
@@ -354,7 +384,9 @@ def check_html(path: Path, expected_title: str) -> None:
         parsed = urlparse(href)
         if parsed.scheme and parsed.scheme not in {"http", "https"}:
             failures.append(f"unsafe link scheme: {href}")
-    if PRIVATE_PATTERNS["local Windows path"].search(text) or PRIVATE_PATTERNS["local POSIX path"].search(text):
+    if PRIVATE_PATTERNS["local Windows path"].search(text) or PRIVATE_PATTERNS[
+        "local POSIX path"
+    ].search(text):
         failures.append("machine-local path")
     if failures:
         raise RuntimeError(f"HTML accessibility check failed for {path.name}: {failures}")
@@ -436,7 +468,9 @@ def check_working_paper_resource() -> None:
         "/CreationDate": "D:20260804000000Z",
         "/ModDate": "D:20260805000000Z",
     }
-    if metadata is None or any(metadata.get(key) != value for key, value in expected_metadata.items()):
+    if metadata is None or any(
+        metadata.get(key) != value for key, value in expected_metadata.items()
+    ):
         raise RuntimeError("Working-paper PDF metadata differs from the publication contract")
     root = reader.root_object
     if str(root.get("/Lang")) != "en-US":
@@ -531,7 +565,9 @@ def check_working_paper_resource() -> None:
                 yield entry
 
     epistemic_items = [
-        item for item in flatten_outline(reader.outline) if getattr(item, "title", "") == "Epistemic vocabulary"
+        item
+        for item in flatten_outline(reader.outline)
+        if getattr(item, "title", "") == "Epistemic vocabulary"
     ]
     if len(epistemic_items) != 1 or reader.get_destination_page_number(epistemic_items[0]) != 2:
         raise RuntimeError("Working-paper Epistemic vocabulary bookmark is premature")
@@ -555,6 +591,10 @@ def check_working_paper_resource() -> None:
         "available by August 2026",
         "no reuse license is asserted",
         "explicitly authorized its public distribution",
+        "Project-level provenance",
+        "substantive ChatGPT assistance",
+        "Kansas motto",
+        "project is independent and unaffiliated",
         "No independent rights or provenance claim",
         "FONT_NOTICES.txt",
         "Inter",
@@ -597,7 +637,7 @@ def check_working_paper_resource() -> None:
     collection_index = " ".join(resource_index.read_text(encoding="utf-8").split())
     if (
         "earth-is-the-instrument/v0.1/" not in collection_index
-        or "does not amend the current framework release" not in collection_index
+        or "does not replace, revise, or supersede the current" not in collection_index
         or "inherit its verification status" not in collection_index
     ):
         raise RuntimeError("Supplemental resource index omits the working-paper boundary")
@@ -632,6 +672,7 @@ def check_framework_v030_resource() -> None:
     expected_roster = {
         *FRAMEWORK_RESOURCE_FILES,
         FRAMEWORK_RESOURCE_COVER,
+        "ERRATA.md",
         readme_path.name,
         sums_path.name,
     }
@@ -678,6 +719,7 @@ def check_framework_v030_resource() -> None:
         "ASTRA_v0.3.0_Public_Ground_Reading.pdf": 2,
         "ASTRA_v0.3.0_Verification_Report.pdf": 3,
     }
+    pdf_texts: dict[str, str] = {}
     for name, expected_pages in expected_pdf_pages.items():
         reader = PdfReader(FRAMEWORK_RESOURCE_ROOT / name)
         if len(reader.pages) != expected_pages:
@@ -692,23 +734,36 @@ def check_framework_v030_resource() -> None:
         if reader.get_fields() is not None or list(reader.attachments):
             raise RuntimeError(f"ASTRA Framework v0.3.0 PDF contains forms or attachments: {name}")
         extracted_pages = [page.extract_text() or "" for page in reader.pages]
+        pdf_texts[name] = "\n".join(extracted_pages)
         if any(not text.strip() for text in extracted_pages):
             raise RuntimeError(f"ASTRA Framework v0.3.0 PDF has an empty text page: {name}")
-        privacy_text = "\n".join(extracted_pages) + "\n" + json.dumps(
-            dict(reader.metadata or {})
-        )
+        privacy_text = "\n".join(extracted_pages) + "\n" + json.dumps(dict(reader.metadata or {}))
         for label, pattern in PRIVATE_PATTERNS.items():
             if pattern.search(privacy_text):
                 raise RuntimeError(
                     f"{label} in ASTRA Framework v0.3.0 PDF text or metadata: {name}"
                 )
 
+    main_text = pdf_texts["ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf"]
+    if "Language-model assistance" not in main_text or "Authorial responsibility" not in main_text:
+        raise RuntimeError("ASTRA Framework v0.3.0 main PDF omits its AI/responsibility disclosure")
+    for name in (
+        "ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf",
+        "ASTRA_v0.3.0_Public_Ground_Reading.pdf",
+        "ASTRA_v0.3.0_Verification_Report.pdf",
+    ):
+        if "Language-model assistance" in pdf_texts[name]:
+            raise RuntimeError(
+                f"ASTRA Framework v0.3.0 companion unexpectedly claims an AI disclosure: {name}"
+            )
+
     readme = readme_path.read_text(encoding="utf-8")
     semantic_readme = " ".join(readme.replace("**", "").split())
     required_readme_values = (
-        "Foundational working paper",
+        "foundational working paper",
         "not peer reviewed",
-        "supersedes v0.2.1 only within this supplemental publication line",
+        "supersedes the internal v0.2.1 predecessor preserved inside its release archive",
+        "no public v0.2.1 tag or GitHub Release was created",
         "does not amend or supersede the immutable SPPT/ASTRA v1.0.6",
         "24 PASS, 2 PARTIAL, and 0 FAIL",
         "internal release audit, not external scientific review or endorsement",
@@ -724,19 +779,39 @@ def check_framework_v030_resource() -> None:
         'internal version of Astra as "our next major model"',
         "not affiliated with, sponsored by, endorsed by, reviewed by, operated by, or produced for OpenAI",
         "role-based review architecture, not a separate institution",
+        "The main framework PDF discloses language-model assistance",
+        "The three compact companion PDFs do not carry that disclosure",
+        "post-publication errata",
         "b2a1072c14f1afff43a161b57620cdd2f6ad19b03884e7b5d8fbdd023333e09d",
         "earth-instrument-framework-v0.3.0",
         "issues/new/choose",
     )
     if any(value not in semantic_readme for value in required_readme_values):
         raise RuntimeError("ASTRA Framework v0.3.0 guide omits a publication boundary")
+    if "The four preserved PDFs already disclose" in semantic_readme:
+        raise RuntimeError("ASTRA Framework v0.3.0 guide overstates PDF-level AI disclosures")
+
+    errata = " ".join(
+        (FRAMEWORK_RESOURCE_ROOT / "ERRATA.md")
+        .read_text(encoding="utf-8")
+        .replace("**", "")
+        .split()
+    )
+    for value in (
+        "The 171-page main framework PDF contains that disclosure",
+        "The public ground reading, audit form, and verification report do not",
+        "No public v0.2.1 tag or GitHub Release was created",
+        "does not replace, edit, or reissue any PDF, archive member, checksum, tag, or release asset",
+    ):
+        if value not in errata:
+            raise RuntimeError(f"ASTRA Framework v0.3.0 errata omit: {value}")
 
     resource_index = " ".join(
         (ROOT / "resources" / "README.md").read_text(encoding="utf-8").split()
     )
     if (
         "earth-is-the-instrument/v0.3.0/" not in resource_index
-        or "does not replace, revise, or supersede the SPPT/ASTRA v1.0.6" not in resource_index
+        or "does not replace, revise, or supersede the current SPPT/ASTRA" not in resource_index
     ):
         raise RuntimeError("Supplemental resource index omits the v0.3.0 boundary")
 
@@ -744,6 +819,93 @@ def check_framework_v030_resource() -> None:
     for name in FRAMEWORK_RESOURCE_FILES:
         if f"resources/earth-is-the-instrument/v0.3.0/{name}" not in license_map:
             raise RuntimeError(f"License map omits ASTRA Framework v0.3.0 file: {name}")
+    if "resources/earth-is-the-instrument/v0.3.0/ERRATA.md" not in license_map:
+        raise RuntimeError("License map omits ASTRA Framework v0.3.0 errata")
+
+
+def check_publication_map() -> None:
+    readme = " ".join((ROOT / "README.md").read_text(encoding="utf-8").replace("**", "").split())
+    required_readme_values = (
+        "Publication map",
+        "v1.0.6 — current reference edition",
+        "v0.3.0 — current supplemental edition",
+        "v0.1 — historical edition",
+        "The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line",
+        "resources/earth-is-the-instrument/latest/",
+        "resources/earth-is-the-instrument/v0.3.0/ground-reading/",
+        "resources/earth-is-the-instrument/v0.3.0/audit-form/",
+        "earth-instrument-framework-v0.3.0",
+        "earth-instrument-wp-0.1",
+        "supersedes the internal v0.2.1 predecessor preserved in its release archive",
+        "No public v0.2.1 tag or GitHub Release was created",
+        "core reference tags matching `v*`",
+    )
+    for value in required_readme_values:
+        if value not in readme:
+            raise RuntimeError(f"Root publication map omits: {value}")
+    if "| Publication track |" in readme:
+        raise RuntimeError("Root publication map regressed to a wide narrow-screen table")
+
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    for heading in (
+        "## Earth Is the Instrument framework 0.3.0 — 2026-08-06",
+        "## Earth Is the Instrument working paper 0.1 — 2026-08-05",
+        "## 1.0.6 — 2026-08-02",
+    ):
+        if heading not in changelog:
+            raise RuntimeError(f"Changelog omits released publication section: {heading}")
+    unreleased = changelog.split("## Earth Is the Instrument framework 0.3.0", 1)[0]
+    if (
+        "Adds *ASTRA Framework v0.3.0" in unreleased
+        or "Publishes *Earth Is the Instrument* Working Paper 0.1" in unreleased
+    ):
+        raise RuntimeError("Published supplemental releases remain under Unreleased")
+
+    notes = {
+        "earth-instrument-framework-v0.3.0": (
+            ROOT / "RELEASE_NOTES_earth-instrument-framework-v0.3.0.md",
+            "3c0392e12230e9415f5a40ae6008dd498291d67b366898e97bd8b0a04fe099c5",
+        ),
+        "earth-instrument-wp-0.1": (
+            ROOT / "RELEASE_NOTES_earth-instrument-wp-0.1.md",
+            "8e53a4bec211af4a1ebe8df1c2ae15f49213649b445c0a2b64b392c4c9131aba",
+        ),
+    }
+    note_texts: dict[str, str] = {}
+    for tag, (path, expected_body_digest) in notes.items():
+        text = path.read_text(encoding="utf-8")
+        if "Archived immutable release-body record" not in text or tag not in text:
+            raise RuntimeError(f"Archived supplemental release body is incomplete: {path.name}")
+        try:
+            body = (
+                text.split("<!-- BEGIN IMMUTABLE RELEASE BODY -->", 1)[1]
+                .split("<!-- END IMMUTABLE RELEASE BODY -->", 1)[0]
+                .strip()
+            )
+        except IndexError as error:
+            raise RuntimeError(
+                f"Archived release-body markers are incomplete: {path.name}"
+            ) from error
+        if hashlib.sha256(body.encode("utf-8")).hexdigest() != expected_body_digest:
+            raise RuntimeError(f"Archived immutable release body changed: {path.name}")
+        note_texts[tag] = text
+    if "post-publication errata" not in note_texts["earth-instrument-framework-v0.3.0"]:
+        raise RuntimeError("v0.3.0 release-body archive omits its erratum link")
+    if "project-level disclosure" not in note_texts["earth-instrument-wp-0.1"]:
+        raise RuntimeError("v0.1 release-body archive omits the current provenance disclosure")
+
+    evidence_readme = (ROOT / "evidence" / "README.md").read_text(encoding="utf-8")
+    if (
+        "v1.0.6 reference package" not in evidence_readme
+        or "--all --workers 4" not in evidence_readme
+    ):
+        raise RuntimeError("Evidence README does not identify the core release and command")
+    schemas_readme = (ROOT / "schemas" / "README.md").read_text(encoding="utf-8")
+    if (
+        "currently **v1.0.6**" not in schemas_readme
+        or "Supplemental resources" not in schemas_readme
+    ):
+        raise RuntimeError("Schema README does not identify its publication-line scope")
 
 
 def check_text_privacy(paths: list[Path]) -> None:
@@ -818,9 +980,7 @@ def check_metadata_agreement() -> None:
     expected_build_epoch = f"{release_date.isoformat()}T00:00:00Z"
     if build_epoch != expected_build_epoch:
         raise RuntimeError("Release build epoch must be midnight UTC on the release date")
-    parsed_epoch = datetime.strptime(build_epoch, "%Y-%m-%dT%H:%M:%SZ").replace(
-        tzinfo=UTC
-    )
+    parsed_epoch = datetime.strptime(build_epoch, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=UTC)
     if type(spec.get("build_epoch_unix")) is not int or spec["build_epoch_unix"] != int(
         parsed_epoch.timestamp()
     ):
@@ -915,9 +1075,7 @@ def check_metadata_agreement() -> None:
         raise RuntimeError("README current-release links differ from RELEASE_SPEC.json")
 
     identity = json.loads(
-        (ROOT / "manuscript" / "document_semantic_identity.json").read_text(
-            encoding="utf-8"
-        )
+        (ROOT / "manuscript" / "document_semantic_identity.json").read_text(encoding="utf-8")
     )
     if identity.get("build_epoch") != build_epoch or len(identity.get("records", [])) != 2:
         raise RuntimeError("Document semantic identity differs from RELEASE_SPEC.json")
@@ -1020,20 +1178,31 @@ def check_source_inventory() -> None:
             raise RuntimeError(f"Invalid source hash: {item['canonical_relative_path']}")
     aliases = inventory.get("discovered_aliases", [])
     preprint_hash = next(
-        item["sha256"] for item in artifacts if item["canonical_relative_path"].endswith("preprint_v1.0.1.pdf")
+        item["sha256"]
+        for item in artifacts
+        if item["canonical_relative_path"].endswith("preprint_v1.0.1.pdf")
     )
     if len(aliases) != 1 or aliases[0]["sha256"] != preprint_hash:
         raise RuntimeError("The byte-identical PDF alias relationship is not preserved")
     ensemble_relationships = [
-        item["relationship"] for item in artifacts if "synthetic_topology_ensemble" in item["canonical_relative_path"]
+        item["relationship"]
+        for item in artifacts
+        if "synthetic_topology_ensemble" in item["canonical_relative_path"]
     ]
-    if len(ensemble_relationships) != 2 or not all("not independent evidence" in value for value in ensemble_relationships):
+    if len(ensemble_relationships) != 2 or not all(
+        "not independent evidence" in value for value in ensemble_relationships
+    ):
         raise RuntimeError("Duplicate CSV/JSON evidence is not explicitly deduplicated")
     synthesis = next(
         item for item in artifacts if item["canonical_relative_path"] == "pasted-text.txt"
     )
-    if "not independent evidence" not in synthesis["relationship"] or "not redistributed verbatim" not in synthesis["rights_status"]:
-        raise RuntimeError("Author-supplied synthesis must remain excluded as independent or verbatim evidence")
+    if (
+        "not independent evidence" not in synthesis["relationship"]
+        or "not redistributed verbatim" not in synthesis["rights_status"]
+    ):
+        raise RuntimeError(
+            "Author-supplied synthesis must remain excluded as independent or verbatim evidence"
+        )
 
 
 def check_dependency_lock() -> None:
@@ -1149,6 +1318,7 @@ def main() -> None:
     check_png_metadata(paths)
     check_working_paper_resource()
     check_framework_v030_resource()
+    check_publication_map()
     check_metadata_agreement()
     check_claim_matrix()
     check_source_inventory()

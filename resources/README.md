@@ -1,21 +1,33 @@
 # Supplemental ASTRA resources
 
-This collection holds exploratory and foundational working papers, complete
-supporting packages, and other public resources that may inform later framework
-revisions. These files have their own version lines, review status, integrity
-records, and rights boundaries; they are versioned independently from the
-immutable SPPT/ASTRA reference releases.
+This collection holds separately versioned exploratory and foundational working
+papers, supporting packages, and public reading companions. Each resource has
+its own review status, integrity record, citation, and rights boundary.
 
-- [ASTRA Framework v0.3.0 — *Earth Is the Instrument*](earth-is-the-instrument/v0.3.0/) — current edition in this supplemental publication line; foundational working paper, not peer reviewed
-- [*Earth Is the Instrument* — Working Paper 0.1](earth-is-the-instrument/v0.1/) — stable historical edition
+## *Earth Is the Instrument* publication line
 
-The v0.3.0 guide includes the project's naming, substantive ChatGPT assistance,
-human responsibility, and independence disclosures.
+- **Current supplemental edition — [ASTRA Framework
+  v0.3.0](earth-is-the-instrument/v0.3.0/).** Foundational working paper; not
+  peer reviewed; immutable GitHub prerelease. It supersedes an internal v0.2.1
+  predecessor preserved in its archive. [Read the versioned Pages
+  guide](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/),
+  open the [immutable v0.3.0
+  release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0),
+  or review its [documentation
+  errata](earth-is-the-instrument/v0.3.0/ERRATA.md).
+- **Historical edition — [Working Paper
+  0.1](earth-is-the-instrument/v0.1/).** Exploratory working paper; not peer
+  reviewed; immutable GitHub prerelease. [Read the historical Pages
+  guide](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/)
+  or open the [immutable v0.1
+  release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1).
 
-An item in this collection does not amend the current framework release, enter
-its claim-admission matrix, or inherit its verification status unless a later
-SPPT/ASTRA release explicitly admits it.
+No public v0.2.1 tag or GitHub Release was created. The v0.3.0 guide records the
+project's naming, substantive ChatGPT assistance, human responsibility,
+independence disclosures, and [post-publication documentation
+errata](earth-is-the-instrument/v0.3.0/ERRATA.md).
 
-The v0.3.0 label belongs only to the supplemental *Earth Is the Instrument*
-line. It does not replace, revise, or supersede the SPPT/ASTRA v1.0.6 reference
-release.
+This supplemental line does not replace, revise, or supersede the current
+SPPT/ASTRA **v1.0.6 reference release**, enter its claim-admission matrix, or
+inherit its verification status. A later reference release would need to admit
+any supplemental claim explicitly.
