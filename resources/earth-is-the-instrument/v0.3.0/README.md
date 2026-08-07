@@ -29,6 +29,42 @@ binary. It keeps the editable source, claim and source ledgers, visual manifest,
 code, tests, generated data, failure archive, build records, and internal
 checksums together.
 
+## Name, assistance, and independence
+
+ASTRA is the project's own acronym for **Astronomical State-Topology and
+Reservoir Analysis**. This independent framework was developed by Jacko T. with
+substantive assistance from OpenAI's ChatGPT, including literature organization,
+adversarial review, equation checking, code drafting, visual design, editing,
+document production, accessibility review, and release engineering. Jacko T.
+selected the questions and final wording, reviewed and approved the released
+work, and remains responsible for its sources, claims, interpretations, errors,
+omissions, code, and publication decisions. Model output is not a citation,
+experiment, proof, independent verification, peer review, or scientific
+evidence; the evidentiary basis is the cited literature, declared calculations,
+data, tests, and bounded certificates.
+
+The author reports that the name and its continued use draw inspiration from the
+Kansas state motto, [*Ad Astra Per Aspera* — "To the Stars Through
+Difficulties"](https://www.kansas.gov/kbi/about/kbiseal.shtml), and from
+[OpenAI's 1 August 2026 public
+description](https://openai.com/index/ten-advances-in-mathematics/) of an
+internal version of Astra as "our next major model"; this records the dated
+public description without claiming a product launch, release timing, or
+priority in the name.
+
+ASTRA is not affiliated with, sponsored by, endorsed by, reviewed by, operated
+by, or produced for OpenAI or the State of Kansas; use of ChatGPT does not imply
+OpenAI endorsement. These references are descriptive acknowledgments only. This
+publication neither claims nor contests exclusive rights in the word *Astra*
+and places no restriction on unrelated uses. The "ASTRA Coherence Cell" named
+in the paper is Jacko T.'s role-based review architecture, not a separate
+institution, employer, committee, or roster of external reviewers.
+
+The four preserved PDFs already disclose language-model assistance and human
+responsibility on their document-status pages. This release metadata names the
+assisting product and records the naming provenance without changing those
+authored PDF or manuscript-source bytes.
+
 ## What v0.3.0 adds
 
 - **Dual-rent seams:** dynamical rent asks whether intervention changes the
@@ -93,9 +129,9 @@ sidecars, the four PDFs, cover, notices, and publication audit.
 ## Normalized archive identity
 
 - Filename: `ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip`
-- Size: **35,341,824 bytes**
+- Size: **35,343,563 bytes**
 - Members: **341**
-- SHA-256: `630364f85af2ba8657502ea06858bb6817ffc8b9f793f73e4c7477f8754fc001`
+- SHA-256: `b2a1072c14f1afff43a161b57620cdd2f6ad19b03884e7b5d8fbdd023333e09d`
 
 The supplier's original candidate archive had SHA-256
 `2f8c26c92826c0464ae88048d9c3e68a4404ee5d9b8f46a660a0733ccddd75ab`.

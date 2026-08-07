@@ -128,13 +128,13 @@ FRAMEWORK_RELEASE_PAYLOADS = {
         "62ee91f1d855fba12781e44aed8a5958b159508459bce53e5dc9eaefe48936ef"
     ),
     "ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip": (
-        "630364f85af2ba8657502ea06858bb6817ffc8b9f793f73e4c7477f8754fc001"
+        "b2a1072c14f1afff43a161b57620cdd2f6ad19b03884e7b5d8fbdd023333e09d"
     ),
     "ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip.sha256": (
-        "09e2e14803900b5430ac3eade1156128b339703afb75b7e39ae37e35efdf345e"
+        "9eab58be3a619e41d0675a78cb61c88d72de1470316d068e77197dcd3ed826ee"
     ),
     "ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip.verify.txt": (
-        "011633f5b29c7ad785a2b4cffecbe354d8d2e9c1a77c8ac72d9609b09cb9503b"
+        "60ef6d22759cf5960a81248fab3f223fce1bbedb2b8719c199df4bdefee7c278"
     ),
     "ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf": (
         "39c722bb8ace94a28b08aa92d0596cc5342b156d8da05ff00737f5f23b8319e1"
@@ -146,7 +146,7 @@ FRAMEWORK_RELEASE_PAYLOADS = {
         "a7c0f9b9b979ec6bc5aeb685aa3165a5d1c89a60f712573a5a1871cf2831b35e"
     ),
     "FONT_NOTICES.txt": "a4d44d9e3b473d1addd0957ece7fa5151ea21799f84828f9b43acd6d2d89d744",
-    "PUBLICATION_AUDIT.md": "a1f40aa61f9ff72d60fd42b08fa66ab42d3c8dcea0443ff5005d18e42512a794",
+    "PUBLICATION_AUDIT.md": "0baa79bac2bac4c2a1b3caaca305f8240a436a93d1fd856c481909ddab9e9cc1",
     "cover.png": "1f576806300e68d9ca9d747775d36ce544914c5954fd84e68796f4762b0ba304",
 }
 FRAMEWORK_RELEASE_ONLY = {
@@ -719,7 +719,12 @@ def check_framework_v030_resource() -> None:
         "without publishing private object identifiers",
         "bounded certificates",
         "not empirical validation of SPPT/ASTRA",
-        "630364f85af2ba8657502ea06858bb6817ffc8b9f793f73e4c7477f8754fc001",
+        "substantive assistance from OpenAI's ChatGPT",
+        "Ad Astra Per Aspera",
+        'internal version of Astra as "our next major model"',
+        "not affiliated with, sponsored by, endorsed by, reviewed by, operated by, or produced for OpenAI",
+        "role-based review architecture, not a separate institution",
+        "b2a1072c14f1afff43a161b57620cdd2f6ad19b03884e7b5d8fbdd023333e09d",
         "earth-instrument-framework-v0.3.0",
         "issues/new/choose",
     )

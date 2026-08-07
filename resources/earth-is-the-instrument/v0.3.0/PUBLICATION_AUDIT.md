@@ -23,6 +23,23 @@ This public normalization does not revise the authored manuscript text or the re
 
 Changes are limited to release metadata, public identifiers and mappings, documentation, validation code, and tests.
 
+## Naming and AI provenance
+
+The authored main paper already records language-model assistance and Jacko T.'s
+responsibility for the work. The public release metadata now names OpenAI's
+ChatGPT as the assisting product and records the author's stated naming
+inspirations: the Kansas motto *Ad Astra Per Aspera* and OpenAI's 1 August 2026
+public description of an internal version of Astra as "our next major model."
+These are provenance disclosures, not scientific evidence, independent review,
+or endorsement by OpenAI or the State of Kansas.
+
+The preserved authored PDFs and manuscript sources are not rewritten to add
+this release-level wording. Their existing model-assistance disclosure remains
+in place, while the resource guide, Pages landing page, release notes, and
+offline package README carry the fuller naming and independence statement. The
+"ASTRA Coherence Cell" is the author's role-based review architecture, not a
+separate institution, employer, committee, or roster of external reviewers.
+
 ## Verified strengths
 
 - The supplied archive was structurally safe: no path traversal, absolute members, symlinks, encryption, filename collisions, CRC errors, or duplicate members were found.
@@ -112,10 +129,10 @@ passed** with status `RELEASE_GATE_PASS`. A second deterministic archive build
 produced the same bytes.
 
 - Archive: `ASTRA_Framework_v0.3.0_Dual_Rent_Arithmetic_Seams.zip`
-- Bytes: `35,341,824`
+- Bytes: `35,343,563`
 - Members: `341`
-- Uncompressed bytes: `43,014,635`
-- SHA-256: `630364f85af2ba8657502ea06858bb6817ffc8b9f793f73e4c7477f8754fc001`
+- Uncompressed bytes: `43,018,712`
+- SHA-256: `b2a1072c14f1afff43a161b57620cdd2f6ad19b03884e7b5d8fbdd023333e09d`
 - Inner manifest rows: `339`
 - Inner checksum rows: `340`
 - Independent extraction replay: no missing or extra files, no hash mismatches,
