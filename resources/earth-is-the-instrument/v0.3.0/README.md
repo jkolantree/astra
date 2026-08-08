@@ -49,14 +49,12 @@ experiment, proof, independent verification, peer review, or scientific
 evidence; the evidentiary basis is the cited literature, declared calculations,
 data, tests, and bounded certificates.
 
-The author reports that the name and its continued use draw inspiration from the
-Kansas state motto, [*Ad Astra Per Aspera* — "To the Stars Through
-Difficulties"](https://www.kansas.gov/kbi/about/kbiseal.shtml), and from
-[OpenAI's 1 August 2026 public
-description](https://openai.com/index/ten-advances-in-mathematics/) of an
-internal version of Astra as "our next major model"; this records the dated
-public description without claiming a product launch, release timing, or
-priority in the name.
+The name ASTRA draws inspiration from the Kansas state motto, [*Ad Astra Per
+Aspera* — "To the Stars Through Difficulties"](https://www.kansas.gov/kbi/about/kbiseal.shtml),
+and from [OpenAI's 1 August 2026 public description](https://openai.com/index/ten-advances-in-mathematics/)
+of an internal version of Astra as "our next major model". These are dated
+naming references only; they do not claim a product launch, release timing,
+priority, affiliation, or endorsement.
 
 ASTRA is not affiliated with, sponsored by, endorsed by, reviewed by, operated
 by, or produced for OpenAI or the State of Kansas; use of ChatGPT does not imply

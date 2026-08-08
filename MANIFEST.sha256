@@ -13,7 +13,7 @@ fca71d6610597facef2f24fe218cd91b8ee516b04ed87bd79eed3dc023fc33c9  .gitignore
 9e1e356adb3ce83f4aef79aeaf06307b39d73e9247008c826929d18090737d07  CLAIM_MATRIX.json
 6920a0fa22ffc180d62fc8d5446c61ed79ae0187cea6a241a37140b30356b67a  LICENSE
 4021784bf2aaa88ec985cf0d311a17b14af97dc7843259a6046689df1534e56d  LICENSE_MAP.md
-43d01ae8c3fd54e92e951aee852dbe04c99fa440d6af30a227a70fa55c483873  README.md
+38042fb0887e05f124be2a2bff22581b09c5e7ad019fdbdb6ceaabe8c6b6a792  README.md
 713a78e9b67611eec35174a42c7a176c367dd36b06aca3fb1aa6a9549dd5efa4  RELEASE_NOTES_earth-instrument-framework-v0.3.0.md
 69e40ca508b6da15c3b8eefba0faa65396b1c6b5e414aedabbbc4b9e358900f4  RELEASE_NOTES_earth-instrument-wp-0.1.md
 1421a7b91b98e6d091c034fd8ff6dd3985175f02d4f9dda7755da931e56ba683  RELEASE_NOTES_v1.0.1.md
@@ -45,7 +45,7 @@ b6d3563604e6a0789f86bba398da2a76e590d7b2100e88926733ac14c5a80d6a  data/two_reser
 6029d91114027e896caa7c7f8f181e9b1afdd3f4227b12f8f13caf1e2c4ebef7  docs/resources/earth-is-the-instrument/v0.3.0/companion.css
 9dfd9c17dfa7ba31f1a8db75722724c88a5904697c51c873e92bb07e302855f0  docs/resources/earth-is-the-instrument/v0.3.0/errata/index.html
 34ede59dca7bf547b0507eb4c20f9848c923824cb1400b2d7c57e156c773abf9  docs/resources/earth-is-the-instrument/v0.3.0/ground-reading/index.html
-d434d4bc1189a13085e9e7522bcdda87efafddd689a89c74a6395266d3b8414b  docs/resources/earth-is-the-instrument/v0.3.0/index.html
+1be579c21fd74a713fd6f90a32bd01118d164be0a1bca0388632cca423af7a73  docs/resources/earth-is-the-instrument/v0.3.0/index.html
 678e40683e2139d5061fe58f4a9a12987d89dac4fe45369a96e3d5b6a1be0221  docs/resources/index.html
 347835b462fc7105205cc4ea1ed0de054f7dc083c34edae242ee96b2ebe0549c  docs/style.css
 a80d19883d321715c01004051c8342a86eb45e768c2ef7492d257af375ba2d46  evidence/README.md
@@ -94,7 +94,7 @@ a7c0f9b9b979ec6bc5aeb685aa3165a5d1c89a60f712573a5a1871cf2831b35e  resources/eart
 f8c727f06e212742cd1acae00457d7fe6721fff435531bddead798137f74eaf1  resources/earth-is-the-instrument/v0.3.0/ERRATA.md
 a4d44d9e3b473d1addd0957ece7fa5151ea21799f84828f9b43acd6d2d89d744  resources/earth-is-the-instrument/v0.3.0/FONT_NOTICES.txt
 0baa79bac2bac4c2a1b3caaca305f8240a436a93d1fd856c481909ddab9e9cc1  resources/earth-is-the-instrument/v0.3.0/PUBLICATION_AUDIT.md
-b94c4a58d47e61050e6ea470b959d4dc6f2dbadb43732af73a2a3cf3829c4962  resources/earth-is-the-instrument/v0.3.0/README.md
+ab48151f2105b56863f778ea7c9b36c2ef3a3ae5dd960ff90ca715cf3fc8153a  resources/earth-is-the-instrument/v0.3.0/README.md
 590166cb03ee77857924f6005636425475cd3322f4225710171c0f70f52062f9  resources/earth-is-the-instrument/v0.3.0/SHA256SUMS.txt
 1f576806300e68d9ca9d747775d36ce544914c5954fd84e68796f4762b0ba304  resources/earth-is-the-instrument/v0.3.0/cover.png
 bda0718975383f3ccd5359a36bee2b975f2b1ad4f6ebe438939e2bd537689166  resources/sector-complete-instrument/v0.1.0-alpha.1/CITATION.cff
