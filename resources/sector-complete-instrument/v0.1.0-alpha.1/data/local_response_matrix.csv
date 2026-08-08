@@ -1,0 +1,4 @@
+outcome,reflect,absorb,local_transmit,string_transmit
+left_local,0.98,0.01,0.01,0.01
+right_local,0.01,0.01,0.98,0.01
+no_local_signal,0.01,0.98,0.01,0.98

@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this synthetic methods module, cite the namespaced GitHub prerelease."
+title: "ASTRA Sector-Complete Instrument Module"
+version: "0.1.0-alpha.1"
+date-released: 2026-08-07
+type: software
+authors:
+  - family-names: "T."
+    given-names: "Jacko"
+repository-code: "https://github.com/jkolantree/astra"
+url: "https://github.com/jkolantree/astra/releases/tag/sector-complete-instrument-v0.1.0-alpha.1"
+license: "MIT"
+keywords:
+  - ASTRA
+  - sector-complete instrument
+  - quantum measurement
+  - identifiability
+  - synthetic benchmark
+abstract: >-
+  A namespaced, not-peer-reviewed synthetic methods module for typed
+  observation and certificate layers. It repairs a channel/POVM observation
+  equation, exposes declared sector equivalence classes, and evaluates a
+  frozen four-generator benchmark. Dark-matter interpretations are explicitly
+  proposed only; the module is not an empirical dark-matter result or a
+  validation of SPPT/ASTRA planetary claims. Original code, scripts, tests,
+  and schemas are MIT; original documentation, diagrams, synthetic data, and
+  generated results are CC BY 4.0 to the extent the author holds the relevant
+  rights. Third-party works retain their own terms, and ChatGPT/OpenAI
+  assistance is provenance rather than authorship or endorsement.

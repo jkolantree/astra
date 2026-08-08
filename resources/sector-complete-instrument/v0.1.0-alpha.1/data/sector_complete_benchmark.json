@@ -1,0 +1,357 @@
+{
+  "status": "synthetic methods benchmark only; not evidence for real duality defects, hidden matter, or dark matter",
+  "version": "0.1.0-alpha.1",
+  "seed": 20260807,
+  "samples_per_generator": 600,
+  "classification_replicates": 400,
+  "detector_error_rate": 0.02,
+  "generator_order": [
+    "reflect",
+    "absorb",
+    "local_transmit",
+    "string_transmit"
+  ],
+  "local_outcomes": [
+    "left_local",
+    "right_local",
+    "no_local_signal"
+  ],
+  "sector_complete_outcomes": [
+    "left_local",
+    "right_local",
+    "string_sector",
+    "environment_sector",
+    "other"
+  ],
+  "local_equivalence_classes": [
+    [
+      "reflect"
+    ],
+    [
+      "absorb",
+      "string_transmit"
+    ],
+    [
+      "local_transmit"
+    ]
+  ],
+  "sector_complete_equivalence_classes": [
+    [
+      "reflect"
+    ],
+    [
+      "absorb"
+    ],
+    [
+      "local_transmit"
+    ],
+    [
+      "string_transmit"
+    ]
+  ],
+  "mutual_information_bits": {
+    "local_ideal": 1.5,
+    "sector_complete_ideal": 2.0,
+    "local_with_detector_error": 1.343487321503841,
+    "sector_complete_with_detector_error": 1.853974149791973
+  },
+  "fisher_information": {
+    "local_matrix": [
+      [
+        5627.1447144714475,
+        0.0,
+        1900.808080808081
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1900.808080808081,
+        0.0,
+        5627.1447144714475
+      ]
+    ],
+    "sector_complete_matrix": [
+      [
+        7643.2160804020095,
+        3821.6080402010048,
+        3821.6080402010048
+      ],
+      [
+        3821.6080402010048,
+        7643.2160804020095,
+        3821.6080402010048
+      ],
+      [
+        3821.6080402010048,
+        3821.6080402010048,
+        7643.2160804020095
+      ]
+    ],
+    "local_eigenvalues": [
+      0.0,
+      3726.3366336633667,
+      7527.952795279529
+    ],
+    "sector_complete_eigenvalues": [
+      3821.6080402010048,
+      3821.608040201006,
+      15286.432160804023
+    ],
+    "local_rank": 2,
+    "sector_complete_rank": 3
+  },
+  "classification": {
+    "local_confusion_counts": [
+      [
+        400,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        195,
+        0,
+        191
+      ],
+      [
+        0,
+        0,
+        400,
+        0
+      ],
+      [
+        0,
+        205,
+        0,
+        209
+      ]
+    ],
+    "sector_complete_confusion_counts": [
+      [
+        400,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        400,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        400,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        400
+      ]
+    ],
+    "local_accuracy": 0.7525,
+    "sector_complete_accuracy": 1.0
+  },
+  "conservation_exchange_ledger": {
+    "trace": "one for every output state",
+    "global_excitation_expectation": {
+      "reflect": 1.0,
+      "absorb": 1.0,
+      "local_transmit": 1.0,
+      "string_transmit": 1.0
+    },
+    "defect_occupation_expectation": {
+      "reflect": 0.0,
+      "absorb": 0.0,
+      "local_transmit": 0.0,
+      "string_transmit": 1.0
+    },
+    "energy": "not modeled",
+    "charge": "not modeled",
+    "entropy": "not asserted conserved for reduced channels",
+    "accessible_information": "measurement- and sector-dependent"
+  },
+  "model_mismatch_control": {
+    "hybrid_weights_in_generator_order": [
+      0.1,
+      0.2,
+      0.25,
+      0.45
+    ],
+    "counts": [
+      490,
+      1285,
+      2210,
+      993,
+      22
+    ],
+    "best_pure_candidate": "string_transmit",
+    "pure_candidate_log_likelihoods": [
+      -23905.31064971723,
+      -21250.418976124278,
+      -19709.20949562897,
+      -14826.95343584074
+    ],
+    "deviance": 16828.035432421668,
+    "degrees_of_freedom": 4,
+    "chi_square_pvalue": 0.0,
+    "chi_square_logsf": null,
+    "chi_square_logsf_status": "underflow_to_zero",
+    "selection_adjusted_pvalue_upper_bound": 0.0,
+    "pvalue_status": "underflow_to_zero",
+    "selection_note": "best-of-four pure candidate selected before this diagnostic; adjusted value is a conservative Bonferroni bound",
+    "rejection_rule": "reject pure candidate set when the selection-adjusted upper bound is below 0.001",
+    "rejected": true
+  },
+  "typed_transduction_record": {
+    "model_id": "ASTRA-SCI-SYN-001",
+    "input_carrier": "one synthetic local excitation",
+    "input_sector": "left_local_d0",
+    "output_carriers": [
+      "left local",
+      "right local",
+      "string-labelled",
+      "environment-labelled"
+    ],
+    "output_sectors": [
+      "local_left",
+      "local_right",
+      "string",
+      "environment",
+      "defect_state"
+    ],
+    "selection_conditioning": "no postselection in primary benchmark; random-unitary controls are CPTP",
+    "interface_state": "binary d0/d1 defect label included in enlarged Hilbert space",
+    "active_control_route": "generator identity and control parameters are frozen before simulation",
+    "observable_basis": [
+      "local POVM",
+      "sector-complete POVM",
+      "defect occupation"
+    ],
+    "calibration_and_units": "probabilities and multinomial counts; detector confusion is explicit",
+    "conservation_exchange_ledger": {
+      "probability": "trace is one for every output state",
+      "energy": "not modeled",
+      "charge": "not modeled",
+      "entropy": "not asserted conserved for reduced channels",
+      "accessible_information": "measurement- and sector-dependent"
+    },
+    "unresolved_sector_bounds": [
+      "the finite synthetic basis is declared; sectors outside it are not bounded",
+      "no real string/Wilson observable or physical environment calibration is included"
+    ],
+    "model_mediated_inversion": "pure-generator likelihood classification plus Fisher-rank and equivalence-class audit",
+    "identifiability": {
+      "equivalence_classes": {
+        "local": {
+          "reflect": [
+            "reflect"
+          ],
+          "absorb_string": [
+            "absorb",
+            "string_transmit"
+          ],
+          "local_transmit": [
+            "local_transmit"
+          ]
+        },
+        "sector_complete": {
+          "reflect": [
+            "reflect"
+          ],
+          "absorb": [
+            "absorb"
+          ],
+          "local_transmit": [
+            "local_transmit"
+          ],
+          "string_transmit": [
+            "string_transmit"
+          ]
+        }
+      },
+      "fisher_rank": {
+        "local": 2,
+        "sector_complete": 3
+      },
+      "null_directions": [
+        "local protocol has one mixture-simplex null direction under the frozen response"
+      ]
+    },
+    "rejection_test": "out-of-set hybrid must fail pure-model goodness-of-fit; unresolved equivalence must be reported",
+    "interpretation_status": "synthetic_methods_only"
+  },
+  "sector_records": [
+    {
+      "sector_id": "local_left",
+      "carrier": "local excitation",
+      "support_basis": [
+        "left_local_d0",
+        "left_local_d1"
+      ],
+      "detector_or_bound": "left local projector",
+      "calibration": "projector completeness and detector confusion matrix",
+      "units": "probability or counts",
+      "unresolved_bound": "none inside declared benchmark"
+    },
+    {
+      "sector_id": "local_right",
+      "carrier": "local excitation",
+      "support_basis": [
+        "right_local_d0",
+        "right_local_d1"
+      ],
+      "detector_or_bound": "right local projector",
+      "calibration": "projector completeness and detector confusion matrix",
+      "units": "probability or counts",
+      "unresolved_bound": "none inside declared benchmark"
+    },
+    {
+      "sector_id": "string",
+      "carrier": "nonlocal/string-labelled excitation",
+      "support_basis": [
+        "string_d0",
+        "string_d1"
+      ],
+      "detector_or_bound": "string-sector projector",
+      "calibration": "synthetic exact basis label; no real-device calibration implied",
+      "units": "probability or counts",
+      "unresolved_bound": "real string/Wilson observable implementation remains outside benchmark"
+    },
+    {
+      "sector_id": "environment",
+      "carrier": "absorbed/environment excitation",
+      "support_basis": [
+        "environment_d0",
+        "environment_d1"
+      ],
+      "detector_or_bound": "environment-sector projector",
+      "calibration": "synthetic exact basis label; no calorimetry model implied",
+      "units": "probability or counts",
+      "unresolved_bound": "energy units are not modeled"
+    },
+    {
+      "sector_id": "defect_state",
+      "carrier": "interface state",
+      "support_basis": [
+        "vacuum_d1",
+        "left_local_d1",
+        "right_local_d1",
+        "string_d1",
+        "environment_d1"
+      ],
+      "detector_or_bound": "defect occupation observable",
+      "calibration": "synthetic binary interface state",
+      "units": "expectation value",
+      "unresolved_bound": "does not represent a real topological defect Hilbert space"
+    }
+  ],
+  "dark_matter_interpretation_status": "proposed_only"
+}

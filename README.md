@@ -15,6 +15,13 @@ Version **1.0.6** is a **not-peer-reviewed perspective and mathematical framewor
   edition](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/latest/)
   or open the immutable [v0.3.0
   release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
+- **Public namespaced alpha — Sector-Complete Instrument v0.1.0-alpha.1.**
+  GitHub prerelease methods module under
+  [`resources/sector-complete-instrument/v0.1.0-alpha.1/`](resources/sector-complete-instrument/v0.1.0-alpha.1/).
+  It is synthetic methods evidence and a proposed observation/certificate-layer
+  bridge only; it is not ASTRA v0.3.2, does not amend either immutable line, and
+  has no Pages route, DOI, or Zenodo record. Open the namespaced [GitHub
+  prerelease](https://github.com/jkolantree/astra/releases/tag/sector-complete-instrument-v0.1.0-alpha.1).
 - **v0.1 — historical edition (*Earth Is the Instrument* Working Paper).**
   Immutable GitHub prerelease; not peer reviewed. [Read historical
   v0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/)

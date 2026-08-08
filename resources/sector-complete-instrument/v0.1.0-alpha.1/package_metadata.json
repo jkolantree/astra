@@ -1,0 +1,23 @@
+{
+  "package": "ASTRA Sector-Complete Instrument Module",
+  "version": "0.1.0-alpha.1",
+  "date": "2026-08-07",
+  "status": "public namespaced GitHub alpha research preview; synthetic methods only; not peer reviewed",
+  "namespace": "resources/sector-complete-instrument/v0.1.0-alpha.1",
+  "supersession": "does not supersede SPPT/ASTRA v1.0.6 or Earth Is the Instrument v0.3.0",
+  "repository_changes": true,
+  "publication_changes": true,
+  "tag": "sector-complete-instrument-v0.1.0-alpha.1",
+  "release_type": "GitHub prerelease; no DOI or Zenodo record",
+  "dark_matter_interpretation_status": "proposed_only",
+  "attached_zip_sha256": "b0b9606b3c64c91c97a92e18e4e4a5bdb7519ed4d15664a33f864e420f32c1b6",
+  "companion_text_sha256": "0dc731eaac8ffadfd9105afd7ac944a5a98274d8b26462547343bc16d30c3675",
+  "source_records_checked": "2026-08-07",
+  "benchmark_result_sha256": "c01673b4228173928acf90798644181ca6ca4dbfed6a8d6f05458db28a31b031",
+  "tests": "27 supplied tests plus integration schema/determinism checks; local results in verification/LOCAL_AUDIT.md",
+  "binary_review_inputs": [
+    "ASTRA_Sector_Complete_Instrument_Module_v0.1.0-alpha.1.pdf",
+    "ASTRA_Sector_Complete_Instrument_Module_v0.1.0-alpha.1_Tagged_Reading_Edition.pdf",
+    "ASTRA_Sector_Complete_Instrument_Module_v0.1.0-alpha.1.docx"
+  ]
+}

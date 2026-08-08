@@ -68,7 +68,7 @@ DIRECTORY_RULES = {
     "figures": {".png", ".pdf"},
     "licenses": {".txt"},
     "manuscript": {".bib", ".css", ".html", ".json", ".md", ".pdf"},
-    "resources": {".md", ".pdf", ".png", ".txt"},
+    "resources": {".cff", ".csv", ".json", ".md", ".pdf", ".png", ".py", ".sha256", ".txt"},
     "docs": {".css", ".html", ".json", ".md", ".png", ".svg", ".txt"},
     "schemas": {".json", ".md"},
     "scripts": {".py"},
@@ -183,6 +183,53 @@ FRAMEWORK_RESOURCE_FILES = {
     for name, digest in FRAMEWORK_RELEASE_PAYLOADS.items()
     if name not in FRAMEWORK_RELEASE_ONLY
 }
+SECTOR_RESOURCE_ROOT = "resources/sector-complete-instrument/v0.1.0-alpha.1"
+SECTOR_RESOURCE_FILES = (
+    "CITATION.cff",
+    "README.md",
+    "LICENSE_MAP.md",
+    "MANIFEST.sha256",
+    "RELEASE_NOTES.md",
+    "RELEASE_SPEC.json",
+    "THIRD_PARTY_NOTICES.md",
+    "change_log.md",
+    "claim_ledger.csv",
+    "package_metadata.json",
+    "source_ledger.csv",
+    "data/benchmark_config.json",
+    "data/broken_duality_control.csv",
+    "data/detector_noise_information.csv",
+    "data/example_sector_complete_record.json",
+    "data/finite_boundary_control.csv",
+    "data/local_response_matrix.csv",
+    "data/sector_complete_benchmark.json",
+    "data/sector_complete_benchmark.json.sha256",
+    "data/sector_complete_response_matrix.csv",
+    "figures/contact_sheet.png",
+    "figures/figure_00_sector_complete_workflow.png",
+    "figures/figure_01_local_response_matrix.png",
+    "figures/figure_02_sector_complete_response_matrix.png",
+    "figures/figure_03_fisher_eigenvalues.png",
+    "figures/figure_04_information_vs_detector_noise.png",
+    "figures/figure_05_finite_boundary_control.png",
+    "figures/figure_06_broken_duality_control.png",
+    "figures/figure_07_local_classification_confusion.png",
+    "figures/figure_08_sector_complete_classification_confusion.png",
+    "figures/figure_09_four_generator_state_flow.png",
+    "figures/figure_10_dark_matter_firewall.png",
+    "schema/sector_complete_instrument.schema.json",
+    "scripts/run_sector_complete_benchmark.py",
+    "source/ASTRA_Sector_Complete_Instrument_Module_v0.1.0-alpha.1.md",
+    "source/ASTRA_v0.3.2_Integration_Patch.md",
+    "source/source_map.csv",
+    "src/astra_sector_complete.py",
+    "templates/dark_matter_hidden_sector_proposed_only.json",
+    "tests/test_sector_complete.py",
+    "verification/BINARY_REVIEW_STATUS.md",
+    "verification/LOCAL_AUDIT.md",
+    "verification/producer_acceptance_gate_matrix.csv",
+    "verification/producer_verification_report.md",
+)
 FRAMEWORK_RESOURCE_COVER = "cover.png"
 RESOURCE_PATH_ALLOWLIST = {
     "resources/README.md",
@@ -200,6 +247,7 @@ RESOURCE_PATH_ALLOWLIST = {
             "SHA256SUMS.txt",
         )
     ),
+    *(f"{SECTOR_RESOURCE_ROOT}/{name}" for name in SECTOR_RESOURCE_FILES),
 }
 
 

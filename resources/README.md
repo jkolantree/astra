@@ -27,6 +27,19 @@ project's naming, substantive ChatGPT assistance, human responsibility,
 independence disclosures, and [post-publication documentation
 errata](earth-is-the-instrument/v0.3.0/ERRATA.md).
 
+## Public namespaced alpha module
+
+[`Sector-Complete Instrument v0.1.0-alpha.1`](sector-complete-instrument/v0.1.0-alpha.1/)
+is a namespaced GitHub prerelease methods module derived from the supplied audit
+and ZIP.
+It repairs a POVM/channel equation, adds typed sector and identifiability
+fields, and records a synthetic benchmark plus a bounded magnet
+observation/certificate bridge. It is not ASTRA v0.3.2, does not supersede the
+Earth line or the SPPT/ASTRA v1.0.6 core, and has no Pages route, DOI, or Zenodo
+record. Its PDFs/DOCX remain external review inputs and are not release assets;
+see its `verification/` records and the [namespaced GitHub
+prerelease](https://github.com/jkolantree/astra/releases/tag/sector-complete-instrument-v0.1.0-alpha.1).
+
 This supplemental line does not replace, revise, or supersede the current
 SPPT/ASTRA **v1.0.6 reference release**, enter its claim-admission matrix, or
 inherit its verification status. A later reference release would need to admit

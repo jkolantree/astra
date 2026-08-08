@@ -1,0 +1,76 @@
+{
+  "model_id": "ASTRA-SCI-SYN-001",
+  "input_carrier": "one synthetic local excitation",
+  "input_sector": "left_local_d0",
+  "output_carriers": [
+    "left local",
+    "right local",
+    "string-labelled",
+    "environment-labelled"
+  ],
+  "output_sectors": [
+    "local_left",
+    "local_right",
+    "string",
+    "environment",
+    "defect_state"
+  ],
+  "selection_conditioning": "No postselection in the primary benchmark; random-unitary controls are CPTP.",
+  "interface_state": "Binary d0/d1 label included in the enlarged Hilbert space.",
+  "active_control_route": "Generator identity and all control parameters frozen before simulation.",
+  "observable_basis": [
+    "local POVM",
+    "sector-complete POVM",
+    "defect occupation observable"
+  ],
+  "calibration_and_units": "Probabilities and multinomial counts; symmetric detector confusion matrix is explicit.",
+  "conservation_exchange_ledger": {
+    "probability": "Trace preserved globally and by declared CPTP controls.",
+    "energy": "Not modeled; no energy-conservation claim is made.",
+    "charge": "Not modeled; no charge-conservation claim is made.",
+    "entropy": "No reduced-subsystem entropy conservation claim is made.",
+    "accessible_information": "Protocol-dependent; local and sector-complete values are reported separately."
+  },
+  "unresolved_sector_bounds": [
+    "No real string/Wilson measurement is represented.",
+    "No real topological-defect Hamiltonian is represented.",
+    "No calorimetric energy scale is represented."
+  ],
+  "model_mediated_inversion": "Pure-generator likelihood classification, exact equivalence classes, Fisher rank, and mutual information.",
+  "identifiability": {
+    "equivalence_classes": {
+      "local": [
+        [
+          "reflect"
+        ],
+        [
+          "absorb",
+          "string_transmit"
+        ],
+        [
+          "local_transmit"
+        ]
+      ],
+      "sector_complete": [
+        [
+          "reflect"
+        ],
+        [
+          "absorb"
+        ],
+        [
+          "local_transmit"
+        ],
+        [
+          "string_transmit"
+        ]
+      ]
+    },
+    "fisher_rank": 3,
+    "null_directions": [
+      "Local observation has an absorb-versus-string null direction."
+    ]
+  },
+  "rejection_test": "Reject the four-pure-generator candidate set when its selection-adjusted diagnostic upper bound is below 0.001.",
+  "interpretation_status": "synthetic_methods_only"
+}

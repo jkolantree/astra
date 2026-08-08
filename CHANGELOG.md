@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Publishes the namespaced GitHub prerelease `sector-complete-instrument-v0.1.0-alpha.1` under `resources/sector-complete-instrument/v0.1.0-alpha.1`, without changing any immutable core or Earth-line release, Pages route, DOI, or Zenodo state. The module repairs its supplied typed-record/schema mismatch, makes text benchmark outputs LF-deterministic and headless, labels the best-of-four mismatch statistic as selection-adjusted, and adds source-checked magnet observation/certificate guardrails. It remains synthetic/proposed-only and is not ASTRA v0.3.2 or a framework validation.
 - Reorganizes the repository and reading room around an explicit publication map: SPPT/ASTRA v1.0.6 is the current core reference release, *Earth Is the Instrument* v0.3.0 is the current supplemental edition, and Working Paper 0.1 is historical.
 - Corrects the overbroad statement that all four v0.3.0 PDFs print the shared AI-assistance disclosure, clarifies that v0.2.1 was an internal predecessor rather than a public release, and adds a post-publication erratum without changing any immutable artifact or tag.
 - Clarifies that the root `CITATION.cff`, bare `/latest/` route, and `v*` tag-verification controller belong to the core reference line; supplemental resources retain namespaced tags, citations, checksums, and reading routes.

@@ -19,6 +19,7 @@ provenance are described by their own mapping and companion README.
 | `licenses/DEJAVU-FONTS.txt` | Third-party DejaVu, Bitstream Vera, and Arev font copyright and permission notices reproduced verbatim |
 | `licenses/STIX-FONTS.txt` | Third-party Matplotlib STIX conversion notice and SIL Open Font License 1.1 reproduced verbatim |
 | `requirements.in`, `requirements-lock.txt`, `.python-version`, `.gitignore`, `.gitattributes`, `.mailmap` | MIT, in [`LICENSE`](LICENSE) |
+| `resources/sector-complete-instrument/v0.1.0-alpha.1/**` | Package author has declared original code/scripts/tests/schemas MIT and original documentation/diagrams/synthetic data/generated results CC BY 4.0, to the extent the author holds the relevant rights. Third-party works, facts, metadata, dependencies, fonts, and raw experimental datasets remain under their own terms; see the resource `LICENSE_MAP.md`. |
 
 The `manuscript/**` CC BY 4.0 mapping applies only to original authored content. The self-contained HTML editions embed complete Matplotlib-distributed DejaVu and STIX font programs, and the PDF editions embed subsets of those same fonts. Embedded DejaVu, Bitstream Vera, and Arev components retain the third-party terms reproduced in [`licenses/DEJAVU-FONTS.txt`](licenses/DEJAVU-FONTS.txt); embedded STIX components retain the SIL Open Font License 1.1 terms reproduced in [`licenses/STIX-FONTS.txt`](licenses/STIX-FONTS.txt). No proprietary or machine-installed font file or subset is distributed.
 

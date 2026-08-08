@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.invalid/astra/sector-complete-instrument-v0.1.schema.json",
+  "title": "ASTRA Sector-Complete Instrument Record",
+  "type": "object",
+  "required": [
+    "model_id",
+    "input_carrier",
+    "input_sector",
+    "output_carriers",
+    "output_sectors",
+    "selection_conditioning",
+    "interface_state",
+    "active_control_route",
+    "observable_basis",
+    "calibration_and_units",
+    "conservation_exchange_ledger",
+    "unresolved_sector_bounds",
+    "model_mediated_inversion",
+    "identifiability",
+    "rejection_test",
+    "interpretation_status"
+  ],
+  "properties": {
+    "model_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_carrier": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_sector": {
+      "type": "string",
+      "minLength": 1
+    },
+    "output_carriers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "output_sectors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "selection_conditioning": {
+      "type": "string",
+      "minLength": 1
+    },
+    "interface_state": {
+      "type": "string",
+      "minLength": 1
+    },
+    "active_control_route": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observable_basis": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "calibration_and_units": {
+      "type": "string",
+      "minLength": 1
+    },
+    "conservation_exchange_ledger": {
+      "type": "object",
+      "required": [
+        "probability",
+        "energy",
+        "charge",
+        "entropy",
+        "accessible_information"
+      ],
+      "properties": {
+        "probability": {
+          "type": "string"
+        },
+        "energy": {
+          "type": "string"
+        },
+        "charge": {
+          "type": "string"
+        },
+        "entropy": {
+          "type": "string"
+        },
+        "accessible_information": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "unresolved_sector_bounds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "model_mediated_inversion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "identifiability": {
+      "type": "object",
+      "required": [
+        "equivalence_classes",
+        "fisher_rank",
+        "null_directions"
+      ],
+      "properties": {
+        "equivalence_classes": {
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "array"
+              },
+              {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "array"
+                }
+              }
+            ]
+          }
+        },
+        "fisher_rank": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          ]
+        },
+        "null_directions": {
+          "type": "array"
+        }
+      }
+    },
+    "rejection_test": {
+      "type": "string",
+      "minLength": 1
+    },
+    "interpretation_status": {
+      "type": "string",
+      "enum": [
+        "synthetic_methods_only",
+        "proposed_only",
+        "empirical_calibration",
+        "empirical_test"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

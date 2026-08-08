@@ -1,0 +1,6 @@
+outcome,reflect,absorb,local_transmit,string_transmit
+left_local,0.98,0.005,0.005,0.005
+right_local,0.005,0.005,0.98,0.005
+string_sector,0.005,0.005,0.005,0.98
+environment_sector,0.005,0.98,0.005,0.005
+other,0.005,0.005,0.005,0.005

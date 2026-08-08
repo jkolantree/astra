@@ -1,0 +1,34 @@
+{
+  "version": "0.1.0-alpha.1",
+  "seed": 20260807,
+  "samples_per_generator": 600,
+  "classification_replicates": 400,
+  "detector_error_rate": 0.02,
+  "basis": [
+    "vacuum_d0",
+    "left_local_d0",
+    "right_local_d0",
+    "string_d0",
+    "environment_d0",
+    "vacuum_d1",
+    "left_local_d1",
+    "right_local_d1",
+    "string_d1",
+    "environment_d1"
+  ],
+  "input_basis": "left_local_d0",
+  "generator_outputs": {
+    "reflect": "left_local_d0",
+    "absorb": "environment_d0",
+    "local_transmit": "right_local_d0",
+    "string_transmit": "string_d1"
+  },
+  "finite_boundary_closure": "string survival = 1 - exp(-L/xi); remainder maps to environment",
+  "broken_duality_closure": "random-unitary mixture of string transmission and reflection",
+  "model_mismatch_hybrid_weights": [
+    0.1,
+    0.2,
+    0.25,
+    0.45
+  ]
+}

@@ -38,3 +38,9 @@ DejaVu fonts are based on Bitstream Vera and are distributed under the permissiv
 ## Tool output
 
 PNG and PDF artifacts are generated with the tools above. Tool use does not transfer ownership of those tools to this repository. Generated scientific content, data, and original figure composition are licensed as stated in `LICENSE_MAP.md`.
+
+The namespaced sector-complete GitHub prerelease does not redistribute article
+text, publisher PDFs, supplements, or third-party figures. Its source-level
+citations for the Amaral, Ji, and Tian magnet records remain under the authors'
+and publishers' terms; see the candidate's own `THIRD_PARTY_NOTICES.md` and
+`LICENSE_MAP.md`.

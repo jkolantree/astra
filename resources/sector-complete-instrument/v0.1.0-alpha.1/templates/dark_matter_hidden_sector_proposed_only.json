@@ -1,0 +1,18 @@
+{
+  "record_type": "ASTRA hidden-sector interaction proposal",
+  "interpretation_status": "proposed_only",
+  "claim_guardrail": "This template is not evidence that a hidden sector or dark-matter interaction exists.",
+  "interaction_hamiltonian": "H_int = sum_a g_a O_a^SM tensor O_a^chi",
+  "required_fields": {
+    "dark_sector_state_or_phase_space_distribution": null,
+    "mediator_and_coupling_normalization": null,
+    "production_and_abundance_assumptions": null,
+    "mass_range_and_coherence_time": null,
+    "detector_response_function": null,
+    "background_and_nuisance_model": null,
+    "signals_in_multiple_observable_sectors": [],
+    "blind_or_preregistered_search": null,
+    "falsifiable_null_result": null
+  },
+  "promotion_rule": "Do not promote beyond proposed_only until the complete interaction, abundance, response, nuisance, and rejection chain is specified and tested."
+}
