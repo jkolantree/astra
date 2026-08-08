@@ -4,6 +4,12 @@ This is the versioned reference package for **Solar-Planetary Phase-Partition Th
 
 Version **1.0.6** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public. This accessibility release supersedes v1.0.5 for current use without modifying its immutable tag or assets. The public v1.0.2, v1.0.3, and v1.0.4 tags are retained as release-process evidence, were not moved, and have no GitHub Releases.
 
+## In plain English: what this is and why it matters
+
+A planet can contain similar ingredients and total heat to another planet yet evolve differently if those materials are connected differently. Imagine two buildings with the same rooms and pipes: if a valve is closed or a hallway is missing, heat and water take different routes. SPPT models a planet this way - as reservoirs and phases linked by physical processes whose connections may appear, disappear, or become bottlenecks. ASTRA is the inference and checking layer that asks which of those network arrangements is consistent with observations.
+
+This matters because many planetary measurements are made at the boundary: temperature, light, gravity, magnetic fields, and atmospheric composition. Different interiors can produce the same surface snapshot. The framework therefore emphasizes transients, multiple independent channels, interventions, conservation checks, and comparisons with simpler fixed-topology models. The repository contains mathematical results and synthetic demonstrations of these ideas; it does not yet explain a real planet, identify dark matter, or provide mission validation. A topology-aware model earns its place only if it improves calibrated held-out predictions and survives counterexamples.
+
 ## Publication map
 
 - **v1.0.6 — current reference edition (SPPT/ASTRA).** GitHub Latest; not
