@@ -55,7 +55,7 @@ peer review.
   to these text outputs in this runtime; plot bytes are not claimed portable
   across graphics stacks.
 - The namespaced resource is registered in the repository allowlist; the
-  repository contract passes for 174 public files and the root tracked manifest
+  repository contract passes for 176 public files and the root tracked manifest
   was regenerated mechanically. A final `git diff --check` is run before handoff.
 
 ## Document and source limitations

@@ -1,5 +1,6 @@
 {
   "schema": "https://jkolantree.github.io/astra/schemas/supplemental-release-spec-v1.schema.json",
+  "identity_schema": "https://jkolantree.github.io/astra/schemas/supplemental-release-identity-v1.schema.json",
   "title": "ASTRA Sector-Complete Instrument Module",
   "version": "0.1.0-alpha.1",
   "tag": "sector-complete-instrument-v0.1.0-alpha.1",

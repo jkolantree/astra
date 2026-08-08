@@ -1276,6 +1276,11 @@ def check_public_json_schemas() -> None:
         ROOT / "RUNTIME.json",
         ROOT / "manuscript" / "document_semantic_identity.json",
         ROOT / "manuscript" / "pdf_inspection.json",
+        ROOT
+        / "resources"
+        / "sector-complete-instrument"
+        / "v0.1.0-alpha.1"
+        / "RELEASE_SPEC.json",
     )
     referenced_schema_files: set[Path] = set()
     for record_path in records:
@@ -1305,6 +1310,22 @@ def check_public_json_schemas() -> None:
                 f"{location}: {first.message}"
             )
         referenced_schema_files.add(schema_path)
+
+        related_schema = instance.get("identity_schema")
+        if related_schema is not None:
+            if not isinstance(related_schema, str) or not related_schema.startswith(expected_prefix):
+                raise RuntimeError(
+                    f"Non-public or missing related schema URL in {record_path.relative_to(ROOT)}"
+                )
+            related_path = schema_root / related_schema.removeprefix(expected_prefix)
+            if related_path.parent != schema_root or not related_path.is_file():
+                raise RuntimeError(
+                    f"Related schema is not shipped: {record_path.relative_to(ROOT)} -> {related_schema}"
+                )
+            related_schema_doc = json.loads(related_path.read_text(encoding="utf-8"))
+            if related_schema_doc.get("$id") != related_schema:
+                raise RuntimeError(f"Related schema $id differs from its public URL: {related_path.name}")
+            referenced_schema_files.add(related_path)
 
     release_identity = schema_root / "release-identity-v1.schema.json"
     if not release_identity.is_file():

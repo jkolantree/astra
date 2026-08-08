@@ -5,8 +5,10 @@ the SPPT/ASTRA reference-release line, currently **v1.0.6**. Their canonical
 URLs are served by the project reading site at
 `https://jkolantree.github.io/astra/schemas/`.
 
-Supplemental resources use their own package records unless a future
-SPPT/ASTRA reference release explicitly adopts a schema-declaring record.
+Supplemental resources use the namespaced release schemas
+`supplemental-release-spec-v1.schema.json` and
+`supplemental-release-identity-v1.schema.json`; they do not change the core
+SPPT/ASTRA release contract.
 
 Schema names carry an independent revision (`v1`). A scientific release may
 therefore update from, for example, v1.0.6 to v1.0.7 without changing a schema
