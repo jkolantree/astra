@@ -24,7 +24,7 @@ NumPy 2.3.5, SciPy 1.18.0, Matplotlib 3.11.1, pytest 9.1.1, and jsonschema
 
 - Focused resource and integration tests: 34 passed.
 - Complete repository suite: 245 passed, 2 skipped.
-- Repository contract: 171 public files passed.
+- Repository contract: 174 public files passed.
 - Root manifest verification and `git diff --check`: passed.
 - Two deterministic benchmark replays: identical frozen text-output hashes.
 - Ruff and mypy checks: passed for the candidate module.

@@ -99,9 +99,9 @@ b94c4a58d47e61050e6ea470b959d4dc6f2dbadb43732af73a2a3cf3829c4962  resources/eart
 1f576806300e68d9ca9d747775d36ce544914c5954fd84e68796f4762b0ba304  resources/earth-is-the-instrument/v0.3.0/cover.png
 bda0718975383f3ccd5359a36bee2b975f2b1ad4f6ebe438939e2bd537689166  resources/sector-complete-instrument/v0.1.0-alpha.1/CITATION.cff
 444310839e639df8fa9c37441d0f5d08d43510e20f40c21d0a78b9717679aa16  resources/sector-complete-instrument/v0.1.0-alpha.1/LICENSE_MAP.md
-6b1b4633c6ce99506c26d969690aca525c0bcf007ca3844e3cadea5938fef976  resources/sector-complete-instrument/v0.1.0-alpha.1/MANIFEST.sha256
+acc6b45321e86e3a411d434122fe579eb649fb91cc3dd7d7a858169fe7baf861  resources/sector-complete-instrument/v0.1.0-alpha.1/MANIFEST.sha256
 42d89432be749cc8d5c35f3f20f21e4b7bb6503d679903cef99aae5cc97445b8  resources/sector-complete-instrument/v0.1.0-alpha.1/README.md
-99c725e14526b5b3358fa7fe634bb358641cf26d3aff51baec4b49af272d8276  resources/sector-complete-instrument/v0.1.0-alpha.1/RELEASE_NOTES.md
+a47f5fef550eeff4d0c782673467dbad3d663183e61daead283185a40d5f4331  resources/sector-complete-instrument/v0.1.0-alpha.1/RELEASE_NOTES.md
 257ac807bf691206599402333b9859d3bb368da4d78475505584b8a48ccc2d66  resources/sector-complete-instrument/v0.1.0-alpha.1/RELEASE_SPEC.json
 f4124dc17d5450f76fbf13946379262b7411be52cf25381f3ee168ce88a67751  resources/sector-complete-instrument/v0.1.0-alpha.1/THIRD_PARTY_NOTICES.md
 5ea5542a7dad57c70078648fe918867e7d5b57b9f07c796791cf17df56a64173  resources/sector-complete-instrument/v0.1.0-alpha.1/change_log.md
@@ -138,7 +138,7 @@ f9f67422eb756f088ca71b48037e04e97b42fe990b3b067209e2b8dd7dc76458  resources/sect
 578dcade7940b102886dfa625833247f4509799b297654f66a01e57a7fcdab39  resources/sector-complete-instrument/v0.1.0-alpha.1/templates/dark_matter_hidden_sector_proposed_only.json
 9189e89ea1731bccd301ab33591b99cfb7aa8bd67a89267cf0072e957fbf49c7  resources/sector-complete-instrument/v0.1.0-alpha.1/tests/test_sector_complete.py
 c70c35401c9235fe78998df6f8875cabbe2ff99fa26e8696f16acc1b5af91a2f  resources/sector-complete-instrument/v0.1.0-alpha.1/verification/BINARY_REVIEW_STATUS.md
-0ac2bd94ebdcdc7b70f71db53c0af3283f09f1c4e0c01d94a46f655eabf6b735  resources/sector-complete-instrument/v0.1.0-alpha.1/verification/LOCAL_AUDIT.md
+4e81e4f748ff5af1c3346cd924f8f7c30ce159ca932fa2f30a5deef5f2027cce  resources/sector-complete-instrument/v0.1.0-alpha.1/verification/LOCAL_AUDIT.md
 c14c6d24aa340e53db7a8cd6775866126a09856adff58ce435e97820ac33e1bf  resources/sector-complete-instrument/v0.1.0-alpha.1/verification/producer_acceptance_gate_matrix.csv
 966f43b4b8cf0f68c096e9540a4bfeaf7b32aff569709068d573e1ffdcdd24de  resources/sector-complete-instrument/v0.1.0-alpha.1/verification/producer_verification_report.md
 1979b906e798c82b63d39169da3d097707f5cef46b4e64b39ae61b78b24fbdfa  schemas/README.md

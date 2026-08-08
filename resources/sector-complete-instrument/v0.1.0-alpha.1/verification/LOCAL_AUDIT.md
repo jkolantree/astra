@@ -42,8 +42,9 @@ peer review.
   pytest 9.1.1, and jsonschema 3.2.0.
 - Resource test file: **29 passed**. The root integration contract adds five
   checks; together the focused command reports **34 passed**.
-- Benchmark replay: completed with the repository `.venv` Python 3.12.13 and
-  NumPy/SciPy/Matplotlib. The output reports local Fisher rank 2, complete rank
+- Benchmark replay: mechanically replayed with the frozen CPython 3.12.10
+  runtime and locked NumPy 2.3.5, SciPy 1.18.0, and Matplotlib 3.11.1. The
+  output reports local Fisher rank 2, complete rank
   3, mutual information 1.343487321503841 versus 1.853974149791973 bits,
   classification accuracy 0.7525 versus 1.0, and a selection-adjusted
   diagnostic bound of 0.0 after underflow.
@@ -54,7 +55,7 @@ peer review.
   to these text outputs in this runtime; plot bytes are not claimed portable
   across graphics stacks.
 - The namespaced resource is registered in the repository allowlist; the
-  repository contract passes for 171 public files and the root tracked manifest
+  repository contract passes for 174 public files and the root tracked manifest
   was regenerated mechanically. A final `git diff --check` is run before handoff.
 
 ## Document and source limitations
