@@ -1,8 +1,10 @@
 # Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution
 
-This is the versioned reference package for **Solar-Planetary Phase-Partition Theory (SPPT)** and its inference layer, **ASTRA — Astronomical State-Topology and Reservoir Analysis**. SPPT represents planetary material and energy reservoirs as a physically constrained network whose topology may itself be a latent state; ASTRA compares admissible candidate networks against observations and simpler baselines.
+This repository contains the versioned reference package for **Solar-Planetary Phase-Partition Theory (SPPT)** and its inference layer, **ASTRA — Astronomical State-Topology and Reservoir Analysis**. SPPT represents planetary material and energy reservoirs as a physically constrained network whose topology may itself be a latent state; ASTRA compares admissible candidate networks against observations and simpler baselines.
 
 Version **1.0.6** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public. This accessibility release supersedes v1.0.5 for current use without modifying its immutable tag or assets. The public v1.0.2, v1.0.3, and v1.0.4 tags are retained as release-process evidence, were not moved, and have no GitHub Releases.
+
+The immutable [v1.0.6 release](https://github.com/jkolantree/astra/releases/tag/v1.0.6) is the frozen core citation and reproduction target. The default branch may contain later documentation, maintenance, and separately namespaced supplemental resources; its tree is not automatically identical to the v1.0.6 release archive and is not a new core version unless a new release says so.
 
 ## In plain English: what this is and why it matters
 
@@ -47,8 +49,9 @@ The bare `/latest/` route and repository-level `CITATION.cff` refer only to the 
 - [Authoritative preprint source](manuscript/manuscript.md)
 - [Authoritative supplement source](manuscript/supplement.md)
 - [Claim-admission matrix](CLAIM_MATRIX.json)
+- [Structured claim-to-source coverage draft](evidence/claim_source_coverage_v1.0.6_draft.json)
 
-The versioned Pages editions are the primary accessible reading path. The downloadable HTML files contain the same document content and can be opened locally without network access. The PDFs are synchronized tagged visual editions with normalized metadata; their text, metadata, fonts, links, structure, TeX formula alternatives, and exact-search behavior are mechanically checked, and every rendered page is visually inspected at the release gate. Native MathML is available in HTML; the PDFs do not claim a native MathML expression tree.
+The versioned Pages editions are the primary accessible reading path. The downloadable HTML files contain the same document content and can be opened locally without network access. The PDFs are synchronized tagged visual editions with normalized metadata; their text, metadata, fonts, links, structure, TeX formula alternatives, and exact-search behavior are mechanically checked, and every rendered page is visually inspected at the release gate. Native MathML is available in HTML; the PDFs do not claim a native MathML expression tree. The structured coverage draft records exact hashes for current tracked support files while preserving unknown external entailment, retrieval, and claim-specific execution fields; it is a maintenance audit, not a new release or proof of sentence-level completeness.
 
 ## Supplemental publication line: *Earth Is the Instrument*
 
@@ -90,7 +93,7 @@ The raw inventory-loop magnitude is monotone in release time at fixed forcing fr
 
 The preprint includes a proposed-only ASTRA outlook prompted by four 2026 studies. A mixed iron-oxyhydroxide inclusion in one Juína diamond has no observed present fracture or exterior connection and is admitted as a qualified example of present isolation; permeability, past exchange, and its inferred deep history remain unmeasured or source-author hypotheses. Moonlight/animal spectroscopy, error-detected quantum sampling, and xenophagocytosis are admitted only as observation, certificate, and active-control analogies. None validates SPPT, changes its physical flux graph, or establishes a universal cross-domain law. No article text, third-party figure, collage, or chat transcript is redistributed.
 
-The acknowledgments record the author-reported dream/collage/ChatGPT origin of the cold-trap/Saturn idea and later OpenAI language-model assistance. The unprovided collage is excluded because its component-image identities and publication rights were not established. This is conceptual provenance, not evidence. Every admitted evidentiary statement is bound to a primary source, calculation, data set, or test in `CLAIM_MATRIX.json`; proposed and deferred statements are labeled separately.
+The acknowledgments record the author-reported dream/collage/ChatGPT origin of the cold-trap/Saturn idea and later OpenAI language-model assistance. The unprovided collage is excluded because its component-image identities and publication rights were not established. This is conceptual provenance, not evidence. Each consequential claim listed in `CLAIM_MATRIX.json` is bound to a primary source, calculation, data set, or test; proposed and deferred statements are labeled separately. The matrix is a claim register, not a sentence-level completeness proof.
 
 ## Synthetic benchmark boundary
 

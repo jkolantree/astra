@@ -1,0 +1,2422 @@
+{
+  "claims": [
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "Proposition 1, equations 3-4, and inline proof",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "locator": null,
+          "path": "src/sppt_core.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "locator": null,
+          "path": "tests/test_sppt_core.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "theorem",
+      "coverage_notes": [],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit",
+      "domain_units_signs_boundary_quantifiers": "All reservoir inventories use a common unit per species; flux signs follow the directed incidence convention; the result holds for every internal flux and reaction rate satisfying the hypotheses.",
+      "evidence_class": "hand_checked",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "finite reservoir and edge sets",
+        "dimensionally compatible species inventories and edge fluxes",
+        "each internal edge has one -1 tail and one +1 head",
+        "w^T N = 0",
+        "S-E = 0 for the closed inventory"
+      ],
+      "id": "SPPT-C001",
+      "limitations_or_counterexamples": [
+        "Fails for undeclared sources, sinks, escape, dimension mismatch, or nonconserving reaction weights."
+      ],
+      "source_links": [
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "historical_provenance_only",
+          "kind": "supplied_input",
+          "raw_support": "source input manuscript.md SHA-256 a96ccce39e5d445e59b8369bbb5c38ab90a1ffd9dd60f0a79d7d36d91dfd0b0b",
+          "reference": "source-input-sha256:a96ccce39e5d445e59b8369bbb5c38ab90a1ffd9dd60f0a79d7d36d91dfd0b0b",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": "a96ccce39e5d445e59b8369bbb5c38ab90a1ffd9dd60f0a79d7d36d91dfd0b0b"
+        },
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md Proposition 1, equations 3-4, and inline proof",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "src/sppt_core.py",
+          "admitted_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "src/sppt_core.py",
+          "reference": "src/sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_sppt_core.py",
+          "admitted_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_sppt_core.py",
+          "reference": "tests/test_sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "For the stated node-edge incidence convention, internal transport conserves whole-network inventory, and a weighted inventory is conserved when the declared reaction weights annihilate the stoichiometric matrix and external source minus escape is zero."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "equations 7-8",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "df9c68f0beef096448dcbd3e78b8a778b957927578aa297b4f0dc903ebc3479e",
+          "locator": "Onsager I/II and Casimir sources in",
+          "path": "manuscript/references.bib",
+          "precision": "file_level"
+        }
+      ],
+      "claim_type": "thermodynamic admissibility condition",
+      "coverage_notes": [],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "Temperature is positive; chemical/electrical signs use the manuscript convention; the statement is local and near-equilibrium unless a constitutive law establishes a wider domain.",
+      "evidence_class": "hand_checked",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "conjugate forces and fluxes are consistently defined",
+        "the symmetric dissipative part is positive semidefinite",
+        "Casimir-antisymmetric terms do not contribute to the quadratic entropy production"
+      ],
+      "id": "SPPT-C002",
+      "limitations_or_counterexamples": [
+        "It is not a proof that every proposed nonlinear or far-from-equilibrium edge law is admissible."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md equations 7-8",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "manuscript/references.bib",
+          "admitted_sha256": "df9c68f0beef096448dcbd3e78b8a778b957927578aa297b4f0dc903ebc3479e",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "Onsager I/II and Casimir sources in manuscript/references.bib",
+          "reference": "manuscript/references.bib",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The declared linear constitutive closure has nonnegative local entropy production when its phenomenological matrix is positive semidefinite on the declared force-flux domain."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "equations 17-19 and Appendix A.1",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "locator": null,
+          "path": "src/sppt_core.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "locator": null,
+          "path": "tests/test_sppt_core.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "analytic calculation",
+      "coverage_notes": [
+        "The exact reproduction command, runtime, and run identifier are not encoded in the legacy claim matrix."
+      ],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit",
+      "domain_units_signs_boundary_quantifiers": "M has inventory units, c has inventory/time units, tau is time, and omega is inverse time; the loop sign follows increasing time and the manuscript's M-versus-c orientation.",
+      "evidence_class": "independently_reproduced",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_recorded_in_claim_matrix"
+      },
+      "hypotheses": [
+        "omega > 0",
+        "tau > 0",
+        "steady periodic regime after transients",
+        "c(t)=c0+c1 cos(omega t)"
+      ],
+      "id": "SPPT-C003",
+      "limitations_or_counterexamples": [
+        "The result is for a linear single-timescale trap, not a general nonlinear phase reservoir."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md equations 17-19 and Appendix A.1",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "src/sppt_core.py",
+          "admitted_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "src/sppt_core.py",
+          "reference": "src/sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_sppt_core.py",
+          "admitted_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_sppt_core.py",
+          "reference": "tests/test_sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The steady periodic solution of dM/dt = c0 + c1 cos(omega t) - M/tau and the signed loop integral integral M dc equal the displayed formulas."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "equation 19 and the unnumbered release-normalized loop expression in section 4.2",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "7edc054e743102523c207afa7bd51741471d34020029d1a23c21d352221e225a",
+          "locator": null,
+          "path": "data/trap_memory_loops.csv",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "locator": null,
+          "path": "tests/test_sppt_core.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "monotonicity and extremum result",
+      "coverage_notes": [
+        "The exact reproduction command, runtime, and run identifier are not encoded in the legacy claim matrix."
+      ],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit",
+      "domain_units_signs_boundary_quantifiers": "The raw and normalized areas are distinct quantities; the result quantifies all positive tau at fixed omega.",
+      "evidence_class": "independently_reproduced",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_recorded_in_claim_matrix"
+      },
+      "hypotheses": [
+        "omega > 0",
+        "tau > 0",
+        "nonzero forcing amplitude for a nonzero loop"
+      ],
+      "id": "SPPT-C004",
+      "limitations_or_counterexamples": [
+        "Claiming that the raw loop itself peaks at omega*tau=1 is rejected."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md equation 19 and the unnumbered release-normalized loop expression in section 4.2",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "data/trap_memory_loops.csv",
+          "admitted_sha256": "7edc054e743102523c207afa7bd51741471d34020029d1a23c21d352221e225a",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "data/trap_memory_loops.csv",
+          "reference": "data/trap_memory_loops.csv",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_sppt_core.py",
+          "admitted_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_sppt_core.py",
+          "reference": "tests/test_sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "At fixed positive forcing frequency, the raw inventory-loop magnitude increases monotonically with release time, whereas the release-normalized loop magnitude has its unique maximum at omega*tau = 1."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "Proposition 2, equation 23, and Appendix A.2",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "locator": null,
+          "path": "src/sppt_core.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "locator": null,
+          "path": "tests/test_sppt_core.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "spectral theorem",
+      "coverage_notes": [],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "Conductances and capacities are nonnegative/positive with compatible rate units; the bound applies to every eligible cut.",
+      "evidence_class": "hand_checked",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "finite undirected conductance graph",
+        "every node capacity is strictly positive",
+        "positive-weight graph is connected",
+        "cut is a nonempty proper node set",
+        "cut conductance is the sum of crossing positive weights"
+      ],
+      "id": "SPPT-C005",
+      "limitations_or_counterexamples": [
+        "Disconnected positive-weight graphs have additional zero modes and do not satisfy the stated positive-lambda2 interpretation."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md Proposition 2, equation 23, and Appendix A.2",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "src/sppt_core.py",
+          "admitted_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "src/sppt_core.py",
+          "reference": "src/sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_sppt_core.py",
+          "admitted_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_sppt_core.py",
+          "reference": "tests/test_sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "For a nonempty proper cut in a connected positive-weight conductance graph with strictly positive node capacities, the first nonzero generalized relaxation eigenvalue is bounded above by the displayed cut Rayleigh quotient."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "state-dependent transport section",
+          "path": "manuscript/manuscript.md",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "locator": "effective_flux_slope",
+          "path": "src/sppt_core.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "locator": null,
+          "path": "tests/test_sppt_core.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "calculus identity and software contract",
+      "coverage_notes": [
+        "The exact reproduction command, runtime, and run identifier are not encoded in the legacy claim matrix."
+      ],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "Derivative signs follow Td increase; K is positive in the toy model; temperatures share units.",
+      "evidence_class": "mechanically_replayed",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_recorded_in_claim_matrix"
+      },
+      "hypotheses": [
+        "K and psi are differentiable in the declared local domain",
+        "Tu may depend on Td, so dTu/dTd is retained unless fixed explicitly"
+      ],
+      "id": "SPPT-C006",
+      "limitations_or_counterexamples": [
+        "A negative local slope is only a fold precursor, not proof of a global bifurcation."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md state-dependent transport section",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "src/sppt_core.py",
+          "admitted_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "src/sppt_core.py effective_flux_slope",
+          "reference": "src/sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_sppt_core.py",
+          "admitted_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_sppt_core.py",
+          "reference": "tests/test_sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The complete derivative of K(psi)(Td-Tu) with respect to Td is K(1-dTu/dTd) + (Td-Tu) K'(psi) dpsi/dTd; the fixed-upper-state toy closure sets dTu/dTd=0 explicitly."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "equations 34-35",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "df9c68f0beef096448dcbd3e78b8a778b957927578aa297b4f0dc903ebc3479e",
+          "locator": "Fitzner et al. DOI 10.1038/s41467-017-02300-x in",
+          "path": "manuscript/references.bib",
+          "precision": "file_level"
+        }
+      ],
+      "claim_type": "standard-model formula",
+      "coverage_notes": [
+        "External record identity and entailment were not reverified in this generation."
+      ],
+      "coverage_status": "mixed_tracked_external",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "Barrier energy is nonnegative; the homogeneous result is recovered at the appropriate wetting-factor limit.",
+      "evidence_class": "hand_checked",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "classical nucleation approximation",
+        "positive interfacial energy",
+        "nonzero bulk driving free-energy density",
+        "spherical-cap nucleus on a planar substrate",
+        "isotropic interfacial tensions",
+        "negligible line tension",
+        "contact angle measured through the nucleating phase in 0 <= theta <= pi"
+      ],
+      "id": "SPPT-C007",
+      "limitations_or_counterexamples": [
+        "Microscopic line tension, anisotropy, nonclassical pathways, and complex substrates are outside this formula."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md equations 34-35",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "manuscript/references.bib",
+          "admitted_sha256": "df9c68f0beef096448dcbd3e78b8a778b957927578aa297b4f0dc903ebc3479e",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "Fitzner et al. DOI 10.1038/s41467-017-02300-x in manuscript/references.bib",
+          "reference": "manuscript/references.bib",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "not_reverified",
+          "kind": "external_record",
+          "raw_support": "Fitzner et al. DOI 10.1038/s41467-017-02300-x in manuscript/references.bib",
+          "reference": "doi:10.1038/s41467-017-02300-x",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The displayed ideal classical nucleation barrier is multiplied by the stated substrate-dependent wetting factor for the ideal spherical-cap heterogeneous case."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "Proposition 3, equations 37-38, and Appendix A.3",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "locator": "static_two_reservoir_equilibrium",
+          "path": "src/sppt_core.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "locator": null,
+          "path": "tests/test_sppt_core.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "non-identifiability proposition",
+      "coverage_notes": [],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "Power signs and temperatures follow equations 37-38; the statement is restricted to this two-reservoir static closure.",
+      "evidence_class": "hand_checked",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "fixed conductance K>0",
+        "Fstar+H lies in the range of the radiation law",
+        "radiation law is injective on the declared physical temperature domain",
+        "static equilibrium exists"
+      ],
+      "id": "SPPT-C008",
+      "limitations_or_counterexamples": [
+        "K=0, noninjective radiation, absent equilibria, multiple sinks, or different closures can invalidate the result."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md Proposition 3, equations 37-38, and Appendix A.3",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "src/sppt_core.py",
+          "admitted_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "src/sppt_core.py static_two_reservoir_equilibrium",
+          "reference": "src/sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_sppt_core.py",
+          "admitted_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_sppt_core.py",
+          "reference": "tests/test_sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "In the declared two-reservoir static model, if K>0, an equilibrium exists, and the radiation law is injective on the physical temperature domain, the boundary temperature depends on total forcing but not on the deep conductance; the deep temperature remains conductance-dependent."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "topology-change section",
+          "path": "manuscript/manuscript.md",
+          "precision": "file_level"
+        }
+      ],
+      "claim_type": "framework proposal",
+      "coverage_notes": [],
+      "coverage_status": "proposed_or_deferred",
+      "disposition": "proposed_only",
+      "domain_units_signs_boundary_quantifiers": "No universal domain is asserted; each application must define one.",
+      "evidence_class": "source_asserted",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "model-specific flows, guards, and reset maps are supplied before use"
+      ],
+      "id": "SPPT-C009",
+      "limitations_or_counterexamples": [
+        "No general existence or uniqueness theorem",
+        "no simultaneous-guard priority",
+        "no reset-map closure theorem",
+        "no chattering exclusion or non-Zeno theorem"
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md topology-change section",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The graph/guard/reset equations provide a proposed syntax for topology-changing phase-reservoir models."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "Carbon Phase Relay section",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "locator": null,
+          "path": "src/sppt_core.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "locator": null,
+          "path": "tests/test_sppt_core.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "order-of-magnitude calculation",
+      "coverage_notes": [
+        "External record identity and entailment were not reverified in this generation.",
+        "The exact reproduction command, runtime, and run identifier are not encoded in the legacy claim matrix."
+      ],
+      "coverage_status": "mixed_tracked_external",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "Current is amperes, mass throughput kg/year, energy J/kg, power watts; all reported scales are idealized.",
+      "evidence_class": "independently_reproduced",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_recorded_in_claim_matrix"
+      },
+      "hypotheses": [
+        "four electrons per CO2",
+        "declared Faradaic efficiency in (0,1]",
+        "standard-state delta G is used only as an ideal minimum",
+        "positive current direction is supplied electrical work"
+      ],
+      "id": "SPPT-C010",
+      "limitations_or_counterexamples": [
+        "This is not latent heat",
+        "not spontaneous planetary sequestration",
+        "not a demonstrated planetary mechanism",
+        "kinetics, overpotential, transport, and side reactions are omitted"
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md Carbon Phase Relay section",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "src/sppt_core.py",
+          "admitted_sha256": "1f919642e245e3ad42df6d389095c4c61c332f4516cdc7846070ad470aa6415f",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "src/sppt_core.py",
+          "reference": "src/sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_sppt_core.py",
+          "admitted_sha256": "45d4cbb56ff6d569362251b189dd36902d28e745c08e197d2bbea9ec7941df00",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_sppt_core.py",
+          "reference": "tests/test_sppt_core.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "not_reverified",
+          "kind": "external_record",
+          "raw_support": "Ratso et al. DOI 10.1038/s41467-026-70977-0 for the experimental motivation",
+          "reference": "doi:10.1038/s41467-026-70977-0",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The ideal four-electron CO2-to-carbon throughput and reversible-power scales follow from Faraday's law and the supplied standard-state electrochemical free energy."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "a51342e7b832b569e01559e62762b774ce484d2bd4e2f74a551793e84713036d",
+          "locator": null,
+          "path": "scripts/benchmark_ensemble.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "5a7f8a27455317838c2114b3eb607dfb43ace26a4058c9d06695e7639dbc782b",
+          "locator": null,
+          "path": "data/synthetic_topology_ensemble.json",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "7cae43fa8965201df5edae5571a6061d5dff9bb48ce008fc4b9b52b2795424c1",
+          "locator": null,
+          "path": "data/synthetic_topology_ensemble.csv",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "6a6badd184b4ed1dadc0025afa42a8fc0455c871b60ea4e51acf3f985ac09a6d",
+          "locator": null,
+          "path": "tests/test_data_integrity.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "synthetic numerical result",
+      "coverage_notes": [
+        "The exact reproduction command, runtime, and run identifier are not encoded in the legacy claim matrix."
+      ],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "Normalized model units; seeds 20260801 through 20260864 inclusive; 64 results exactly.",
+      "evidence_class": "mechanically_replayed",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_recorded_in_claim_matrix"
+      },
+      "hypotheses": [
+        "fixed capacities, sink, forcing, noise scale, candidate set, bounds, seeds, and 20-start generic design",
+        "generating graph is included",
+        "selection is training BIC only",
+        "every admitted optimizer run passes the convergence and materially-better-endpoint gates"
+      ],
+      "id": "ASTRA-C011",
+      "limitations_or_counterexamples": [
+        "Not blinded",
+        "not external",
+        "not empirical",
+        "does not estimate a general false-positive rate",
+        "CSV and JSON are duplicate serializations",
+        "The release-frozen 20-start design was adopted after replay of this same benchmark exposed a missed endpoint under the earlier 12-start design; these reruns are post-audit regression evidence, not untouched evaluation",
+        "This is pointwise selection, not family-wide topology identification: under the same capacities and surface-only port, surface_star [k02,k12]=[5,6] and deep_star [k01,k02]=[30/11,11] have identical transfer functions"
+      ],
+      "source_links": [
+        {
+          "admitted_path": "scripts/benchmark_ensemble.py",
+          "admitted_sha256": "a51342e7b832b569e01559e62762b774ce484d2bd4e2f74a551793e84713036d",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "scripts/benchmark_ensemble.py",
+          "reference": "scripts/benchmark_ensemble.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "data/synthetic_topology_ensemble.json",
+          "admitted_sha256": "5a7f8a27455317838c2114b3eb607dfb43ace26a4058c9d06695e7639dbc782b",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "data/synthetic_topology_ensemble.json",
+          "reference": "data/synthetic_topology_ensemble.json",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "data/synthetic_topology_ensemble.csv",
+          "admitted_sha256": "7cae43fa8965201df5edae5571a6061d5dff9bb48ce008fc4b9b52b2795424c1",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "data/synthetic_topology_ensemble.csv",
+          "reference": "data/synthetic_topology_ensemble.csv",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_data_integrity.py",
+          "admitted_sha256": "6a6badd184b4ed1dadc0025afa42a8fc0455c871b60ea4e51acf3f985ac09a6d",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_data_integrity.py",
+          "reference": "tests/test_data_integrity.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "Under the frozen released synthetic protocol, training BIC selects the generating two-edge chain in 64 of 64 Gaussian-noise realizations."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "5a7f8a27455317838c2114b3eb607dfb43ace26a4058c9d06695e7639dbc782b",
+          "locator": null,
+          "path": "data/synthetic_topology_ensemble.json",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "6a6badd184b4ed1dadc0025afa42a8fc0455c871b60ea4e51acf3f985ac09a6d",
+          "locator": null,
+          "path": "tests/test_data_integrity.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "synthetic negative result",
+      "coverage_notes": [
+        "The exact reproduction command, runtime, and run identifier are not encoded in the legacy claim matrix."
+      ],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit",
+      "domain_units_signs_boundary_quantifiers": "Counts all 64 frozen seeds; smaller RMSE is better.",
+      "evidence_class": "mechanically_replayed",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_recorded_in_claim_matrix"
+      },
+      "hypotheses": [
+        "same frozen protocol as ASTRA-C011",
+        "held-out RMSE does not select the graph"
+      ],
+      "id": "ASTRA-C012",
+      "limitations_or_counterexamples": [
+        "The result neither proves nor refutes the framework; it limits the interpretation of 64/64 BIC selection.",
+        "The strengthened start design was informed by behavior of this same benchmark, so the rerun is regression evidence rather than untouched evaluation."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "data/synthetic_topology_ensemble.json",
+          "admitted_sha256": "5a7f8a27455317838c2114b3eb607dfb43ace26a4058c9d06695e7639dbc782b",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "data/synthetic_topology_ensemble.json",
+          "reference": "data/synthetic_topology_ensemble.json",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_data_integrity.py",
+          "admitted_sha256": "6a6badd184b4ed1dadc0025afa42a8fc0455c871b60ea4e51acf3f985ac09a6d",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_data_integrity.py",
+          "reference": "tests/test_data_integrity.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "In the post-selection unseen-forcing comparison, the overconnected triangle has lower held-out RMSE than the chain in 23 of 64 realizations; this negative outcome is preserved."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "64e075583ec9b2fdb5ec8f229d5027cbb57e6a463e2b5c627a74cba32062baff",
+          "locator": null,
+          "path": "src/astra_optimization.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "8107d0a974d47cfbb613e4832ef42a940a98a770a7c89ff216b5b6ad97cabb74",
+          "locator": null,
+          "path": "scripts/synthetic_topology_benchmark.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "a51342e7b832b569e01559e62762b774ce484d2bd4e2f74a551793e84713036d",
+          "locator": null,
+          "path": "scripts/benchmark_ensemble.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "c122728f8a4622b663c66ef391d6521320a5f0fcead97bae016f9523f6b9b18f",
+          "locator": null,
+          "path": "data/synthetic_topology_benchmark.json",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "5a7f8a27455317838c2114b3eb607dfb43ace26a4058c9d06695e7639dbc782b",
+          "locator": null,
+          "path": "data/synthetic_topology_ensemble.json",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "ac2c43e9a9ec0aa5771424b33cec66360e86ab279258bd1481c1f99decabc96f",
+          "locator": null,
+          "path": "tests/test_optimizer.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "optimizer diagnostic result",
+      "coverage_notes": [
+        "The exact reproduction command, runtime, and run identifier are not encoded in the legacy claim matrix."
+      ],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "The criterion applies to each retained graph fit; lower-bound active parameters remain flagged rather than treated as interior estimates.",
+      "evidence_class": "mechanically_replayed",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_recorded_in_claim_matrix"
+      },
+      "hypotheses": [
+        "exact implemented sensitivities",
+        "declared log-conductance box",
+        "all 20 distinct generic starts attempted for every fitted two- or three-parameter graph family",
+        "acceptance gate applied before selection"
+      ],
+      "id": "ASTRA-C013",
+      "limitations_or_counterexamples": [
+        "Local multistart coverage is not a proof of a global optimum",
+        "termination without the declared diagnostic is rejected",
+        "29 of 64 shortcut estimates are lower-bound active",
+        "The 20-start design was strengthened after the same benchmark exposed a missed endpoint under 12 starts; current results are post-audit regression evidence"
+      ],
+      "source_links": [
+        {
+          "admitted_path": "src/astra_optimization.py",
+          "admitted_sha256": "64e075583ec9b2fdb5ec8f229d5027cbb57e6a463e2b5c627a74cba32062baff",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "src/astra_optimization.py",
+          "reference": "src/astra_optimization.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "scripts/synthetic_topology_benchmark.py",
+          "admitted_sha256": "8107d0a974d47cfbb613e4832ef42a940a98a770a7c89ff216b5b6ad97cabb74",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "scripts/synthetic_topology_benchmark.py",
+          "reference": "scripts/synthetic_topology_benchmark.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "scripts/benchmark_ensemble.py",
+          "admitted_sha256": "a51342e7b832b569e01559e62762b774ce484d2bd4e2f74a551793e84713036d",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "scripts/benchmark_ensemble.py",
+          "reference": "scripts/benchmark_ensemble.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "data/synthetic_topology_benchmark.json",
+          "admitted_sha256": "c122728f8a4622b663c66ef391d6521320a5f0fcead97bae016f9523f6b9b18f",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "data/synthetic_topology_benchmark.json",
+          "reference": "data/synthetic_topology_benchmark.json",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "data/synthetic_topology_ensemble.json",
+          "admitted_sha256": "5a7f8a27455317838c2114b3eb607dfb43ace26a4058c9d06695e7639dbc782b",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "data/synthetic_topology_ensemble.json",
+          "reference": "data/synthetic_topology_ensemble.json",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_optimizer.py",
+          "admitted_sha256": "ac2c43e9a9ec0aa5771424b33cec66360e86ab279258bd1481c1f99decabc96f",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_optimizer.py",
+          "reference": "tests/test_optimizer.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "All retained benchmark graph fits have positive solver termination, finite parameters and cost, and cost-scaled first-order optimality at most 1e-4 under the frozen 20-start generic design; a retained fit is rejected if a non-admitted endpoint produces a materially lower cost."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "655ad5ce06f75ed88128feb9a41c8b5c5e3ec29eeb5ea38d3312610feb643654",
+          "locator": null,
+          "path": "scripts/generate_astra_figures.py",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "e3f73c17253575e0fbc166a206bd529d2c497b2c2211c0c744a621e1ea98dde1",
+          "locator": null,
+          "path": "data/inverse_demo_summary.json",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "7b8ea3a9a73fb1116eda68dd63cdca6554b01018eb8e0864144e571e78a31041",
+          "locator": null,
+          "path": "data/inverse_objective_landscapes.csv",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "cd41178e01315c1613ca1a4c555708ba4f1d49f57dad0480e06c0a9a74e1bda7",
+          "locator": null,
+          "path": "figures/supplement_figure_S2_single_frequency_degeneracy.png",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "fed53897186038ae123f2be49b2ce26afbb3c0b141afd0d53d71118f9d7252bf",
+          "locator": null,
+          "path": "figures/supplement_figure_S3_multifrequency_localization.png",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "synthetic identifiability demonstration",
+      "coverage_notes": [
+        "The exact reproduction command, runtime, and run identifier are not encoded in the legacy claim matrix."
+      ],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "Applies only to the finite released grid and response features.",
+      "evidence_class": "mechanically_replayed",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_recorded_in_claim_matrix"
+      },
+      "hypotheses": [
+        "linear time-invariant two-reservoir model",
+        "declared frequency grid and observation operator",
+        "no structural discrepancy",
+        "normalized parameters"
+      ],
+      "id": "ASTRA-C014",
+      "limitations_or_counterexamples": [
+        "Astronomical observations cannot generally choose their forcing spectrum",
+        "not empirical validation or a uniqueness theorem",
+        "The one-frequency objective uses amplitude only; one exact nonzero complex response can generically supply two real constraints, so the comparison demonstrates conditioning and finite-grid localization rather than the structural necessity of 24 frequencies"
+      ],
+      "source_links": [
+        {
+          "admitted_path": "scripts/generate_astra_figures.py",
+          "admitted_sha256": "655ad5ce06f75ed88128feb9a41c8b5c5e3ec29eeb5ea38d3312610feb643654",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "scripts/generate_astra_figures.py",
+          "reference": "scripts/generate_astra_figures.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "data/inverse_demo_summary.json",
+          "admitted_sha256": "e3f73c17253575e0fbc166a206bd529d2c497b2c2211c0c744a621e1ea98dde1",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "data/inverse_demo_summary.json",
+          "reference": "data/inverse_demo_summary.json",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "data/inverse_objective_landscapes.csv",
+          "admitted_sha256": "7b8ea3a9a73fb1116eda68dd63cdca6554b01018eb8e0864144e571e78a31041",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "data/inverse_objective_landscapes.csv",
+          "reference": "data/inverse_objective_landscapes.csv",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "figures/supplement_figure_S2_single_frequency_degeneracy.png",
+          "admitted_sha256": "cd41178e01315c1613ca1a4c555708ba4f1d49f57dad0480e06c0a9a74e1bda7",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "figures/supplement_figure_S2_single_frequency_degeneracy.png",
+          "reference": "figures/supplement_figure_S2_single_frequency_degeneracy.png",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "figures/supplement_figure_S3_multifrequency_localization.png",
+          "admitted_sha256": "fed53897186038ae123f2be49b2ce26afbb3c0b141afd0d53d71118f9d7252bf",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "figures/supplement_figure_S3_multifrequency_localization.png",
+          "reference": "figures/supplement_figure_S3_multifrequency_localization.png",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "For the declared two-reservoir synthetic model, multi-frequency complex response localizes the grid minimum near the generating capacity-conductance pair more tightly than one low-frequency amplitude."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "e0d622ebd4b56e15009a6b5880166f8626e3f180fb517de9029a21806f9c5a81",
+          "locator": "Algebraic-statistical audit of dynamic identifiability across supports",
+          "path": "manuscript/supplement.md",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "a4616c142e0f6240bb0063691ab8685b3fbd0b6790114180504660b470ea1172",
+          "locator": null,
+          "path": "tests/test_benchmark.py",
+          "precision": "named_locator"
+        },
+        {
+          "file_sha256": "7603f8610d349d69668d5b6ff1e8e005d5d35869463d27cf600c11eb90da0ab7",
+          "locator": null,
+          "path": "src/astra_reservoir.py",
+          "precision": "file_level"
+        }
+      ],
+      "claim_type": "structural non-identifiability counterexample",
+      "coverage_notes": [],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "Normalized benchmark units; exact equality holds for the complete surface input-output law, not only the sampled training and held-out waveforms.",
+      "evidence_class": "hand_checked",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "linear three-reservoir model",
+        "known capacities and surface sink",
+        "constant deep power",
+        "each realization starts at its own equilibrium",
+        "surface forcing and surface observation only",
+        "positive conductances in the declared fitting bounds"
+      ],
+      "id": "ASTRA-C026",
+      "limitations_or_counterexamples": [
+        "The released chain point (0.22,1.40) has no second realization in the nonnegative candidate domain, so this counterexample limits but does not contradict the frozen 64/64 pointwise result",
+        "A spatially distinct time-varying input, another observation channel, an intervention, or independently justified structural constraints may separate the displayed equivalence, but identifiability must be recomputed for the augmented design",
+        "This is a reduced synthetic linear result, not planetary evidence"
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/supplement.md",
+          "admitted_sha256": "e0d622ebd4b56e15009a6b5880166f8626e3f180fb517de9029a21806f9c5a81",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/supplement.md Algebraic-statistical audit of dynamic identifiability across supports",
+          "reference": "manuscript/supplement.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_benchmark.py",
+          "admitted_sha256": "a4616c142e0f6240bb0063691ab8685b3fbd0b6790114180504660b470ea1172",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_benchmark.py",
+          "reference": "tests/test_benchmark.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "src/astra_reservoir.py",
+          "admitted_sha256": "7603f8610d349d69668d5b6ff1e8e005d5d35869463d27cf600c11eb90da0ab7",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "src/astra_reservoir.py",
+          "reference": "src/astra_reservoir.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "For C=(8,3,1), surface loss 1.2, equilibrium initialization, and node 2 as the sole input-output port, surface_star [k02,k12]=[5,6] and deep_star [k01,k02]=[30/11,11] have exactly the same rational surface transfer function for every surface forcing although their labeled supports and hidden states differ; the triangle family also has strictly positive two-point fibers, and its balance locus 8*k12=3*k02 contains an unobservable hidden mode."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "central claim, ASTRA workflow, falsifiers, and hypotheses",
+          "path": "manuscript/manuscript.md",
+          "precision": "file_level"
+        }
+      ],
+      "claim_type": "testable methodological proposal",
+      "coverage_notes": [],
+      "coverage_status": "proposed_or_deferred",
+      "disposition": "proposed_only",
+      "domain_units_signs_boundary_quantifiers": "Applies prospectively to specified planetary or exoplanet inference tasks.",
+      "evidence_class": "source_asserted",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "candidate graph families are physically admissible",
+        "comparisons use independent held-out observations or controlled interventions",
+        "complexity and discrepancy are treated fairly"
+      ],
+      "id": "SPPT-C015",
+      "limitations_or_counterexamples": [
+        "No mission-data or exoplanet retrieval is supplied",
+        "failure to improve prediction requires demotion",
+        "not a universality claim"
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md central claim, ASTRA workflow, falsifiers, and hypotheses",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "Planetary phase-reservoir connectivity should be promoted as a latent model state only when it produces calibrated held-out predictive gain over physically matched fixed-topology baselines."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "novelty boundary",
+          "path": "manuscript/manuscript.md",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "df9c68f0beef096448dcbd3e78b8a778b957927578aa297b4f0dc903ebc3479e",
+          "locator": "canonical literature records in",
+          "path": "manuscript/references.bib",
+          "precision": "file_level"
+        }
+      ],
+      "claim_type": "bounded novelty statement",
+      "coverage_notes": [],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "The negative search is limited to searched scholarly and repository records and cannot establish global priority.",
+      "evidence_class": "externally_published",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "bounded exact-name and closest-formulation searches current to 2026-08-01"
+      ],
+      "id": "SPPT-C016",
+      "limitations_or_counterexamples": [
+        "No first-discovery, priority, universality, predictive-superiority, proof, or empirical-validation claim is admitted."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md novelty boundary",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "manuscript/references.bib",
+          "admitted_sha256": "df9c68f0beef096448dcbd3e78b8a778b957927578aa297b4f0dc903ebc3479e",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "canonical literature records in manuscript/references.bib",
+          "reference": "manuscript/references.bib",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The proposed contribution is the specific integration of inferable phase-reservoir connectivity with physical admissibility and held-out promotion, not priority over network thermodynamics, graph inference, or planetary phase modeling."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "section 12.4",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "qualified external example",
+      "coverage_notes": [
+        "External record identity and entailment were not reverified in this generation."
+      ],
+      "coverage_status": "mixed_tracked_external",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "The reported inclusion is approximately 35 micrometers and the statement applies only to that specimen; no global deep-water flux, frequency, or population rate is inferred.",
+      "evidence_class": "externally_published",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "one unpolished diamond specimen",
+        "tomography shows no observed fracture or exterior connection to the selected inclusion",
+        "phase assignments use the published diffraction and spectroscopy analyses",
+        "the epsilon-FeOOH path is treated as a hypothesis rather than a unique inversion"
+      ],
+      "id": "SPPT-C020",
+      "limitations_or_counterexamples": [
+        "present isolation does not measure permeability or past exchange",
+        "later infiltration, epigenetic alteration, multi-stage encapsulation, and syn-growth histories remain alternatives to compare",
+        "one specimen cannot establish planetary prevalence or global volatile transport",
+        "the study does not validate SPPT or ASTRA"
+      ],
+      "source_links": [
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "not_reverified",
+          "kind": "external_record",
+          "raw_support": "Camarda et al. 2026, DOI 10.1038/s41598-026-46683-8",
+          "reference": "doi:10.1038/s41598-026-46683-8",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md section 12.4",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "A published study reports an approximately 35 micrometer mixed goethite-hematite-magnetite inclusion completely encapsulated within one Juína diamond with no observed present fracture or exterior connection, and interprets the assemblage as a possible retrograde record of high-pressure epsilon-FeOOH."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "section 12.4",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "research-outlook proposal",
+      "coverage_notes": [],
+      "coverage_status": "proposed_or_deferred",
+      "disposition": "proposed_only",
+      "domain_units_signs_boundary_quantifiers": "The displayed tuple and equations are abstract syntax without universal units; any application must instantiate its own state spaces, domains, signs, time scales, and boundary conditions.",
+      "evidence_class": "source_asserted",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "each graph type receives a domain-specific definition",
+        "any coupling into the physical flux graph has an explicit constitutive bridge",
+        "units, kinetics, observation laws, and certificate failure classes are declared before use"
+      ],
+      "id": "ASTRA-C021",
+      "limitations_or_counterexamples": [
+        "no cross-domain implementation, theorem, benchmark, or empirical evaluation is supplied",
+        "auxiliary graph labels cannot substitute for constitutive mechanisms",
+        "the physical SPPT core remains unchanged"
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md section 12.4",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "historical_provenance_only",
+          "kind": "supplied_input",
+          "raw_support": "source input pasted-text.txt SHA-256 d5780e8ec084d51cbb7c454bf6b6e935f4620b4d80723fa30084b3da429ae711",
+          "reference": "source-input-sha256:d5780e8ec084d51cbb7c454bf6b6e935f4620b4d80723fa30084b3da429ae711",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": "d5780e8ec084d51cbb7c454bf6b6e935f4620b4d80723fa30084b3da429ae711"
+        }
+      ],
+      "statement": "A future ASTRA methods extension may type physical flux, active control, observation, retained history, and verification as distinct coupled structures, but this tuple and its edge-availability syntax are proposed only and are not implemented by v1.0.6."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "section 12.4",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "cross-domain evidence boundary",
+      "coverage_notes": [
+        "External record identity and entailment were not reverified in this generation."
+      ],
+      "coverage_status": "mixed_tracked_external",
+      "disposition": "admit",
+      "domain_units_signs_boundary_quantifiers": "The boundary applies to all uses of the three nonplanetary studies in this release; no quantitative parameter or edge is transferred between domains.",
+      "evidence_class": "hand_checked",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "canonical primary records are cited",
+        "adjacent wording remains within each source's reported system",
+        "no constitutive bridge to planetary matter or energy transport is asserted"
+      ],
+      "id": "ASTRA-C022",
+      "limitations_or_counterexamples": [
+        "spectral resemblance does not establish cultural causation",
+        "a device-dependent fidelity lower bound does not certify arbitrary models",
+        "a specified embryo mechanism does not establish a universal biological gate",
+        "none of the studies validates SPPT"
+      ],
+      "source_links": [
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "not_reverified",
+          "kind": "external_record",
+          "raw_support": "Dominy and Hobaiter 2026, DOI 10.1080/1751696X.2026.2696260",
+          "reference": "doi:10.1080/1751696X.2026.2696260",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "not_reverified",
+          "kind": "external_record",
+          "raw_support": "Martiel et al. 2026, arXiv:2607.25941v1",
+          "reference": "arxiv:2607.25941v1",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "not_reverified",
+          "kind": "external_record",
+          "raw_support": "Wang et al. 2026, DOI 10.1016/j.cell.2026.05.016",
+          "reference": "doi:10.1016/j.cell.2026.05.016",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md section 12.4",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The moonlight spectroscopy, doped-Clifford sampling, and xenophagocytosis studies are used only as observation, certificate, and active-control analogies; their results are not evidence for planetary transport or SPPT validity."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "no-go condition N6",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "no-go condition",
+      "coverage_notes": [],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit",
+      "domain_units_signs_boundary_quantifiers": "Applies to every proposed edge in the physical SPPT graph; the bridge must declare domain, units, signs, kinetics, and boundary conditions.",
+      "evidence_class": "source_asserted",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "the physical SPPT graph represents matter, energy, or declared physical transformations",
+        "auxiliary observations, controls, semantics, or certificates have not independently supplied a constitutive transport law"
+      ],
+      "id": "SPPT-C023",
+      "limitations_or_counterexamples": [
+        "The rule does not prohibit a future coupling when a lawful, tested constitutive bridge is supplied."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md no-go condition N6",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "historical_provenance_only",
+          "kind": "supplied_input",
+          "raw_support": "source input pasted-text.txt SHA-256 d5780e8ec084d51cbb7c454bf6b6e935f4620b4d80723fa30084b3da429ae711",
+          "reference": "source-input-sha256:d5780e8ec084d51cbb7c454bf6b6e935f4620b4d80723fa30084b3da429ae711",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": "d5780e8ec084d51cbb7c454bf6b6e935f4620b4d80723fa30084b3da429ae711"
+        }
+      ],
+      "statement": "An observational resemblance, semantic association, biological recognition signal, or computational certificate cannot be treated as a physical matter-or-energy transport edge without an explicit constitutive bridge."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "section 12.4",
+          "path": "manuscript/manuscript.md",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "deferred cross-domain hypothesis",
+      "coverage_notes": [
+        "External record identity and entailment were not reverified in this generation."
+      ],
+      "coverage_status": "proposed_or_deferred",
+      "disposition": "deferred",
+      "domain_units_signs_boundary_quantifiers": "No universal domain or units are admitted; the quantum paper reports one state-fidelity-rate tradeoff and the embryo paper reports intervention-specific donor-chimerism changes.",
+      "evidence_class": "source_asserted",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "a common selection parameter and comparable quality and yield quantities can be defined",
+        "all other mechanisms and resources are controlled",
+        "monotonicity is tested over a declared domain"
+      ],
+      "id": "ASTRA-C024",
+      "limitations_or_counterexamples": [
+        "specificity, repair, parallelism, or added resources can change both quality and throughput",
+        "two domain-specific observations cannot establish a general law"
+      ],
+      "source_links": [
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "not_reverified",
+          "kind": "external_record",
+          "raw_support": "Martiel et al. 2026, arXiv:2607.25941v1",
+          "reference": "arxiv:2607.25941v1",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "not_reverified",
+          "kind": "external_record",
+          "raw_support": "Wang et al. 2026, DOI 10.1016/j.cell.2026.05.016",
+          "reference": "doi:10.1016/j.cell.2026.05.016",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md section 12.4",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The proposed general claim that stronger boundary selection monotonically improves retained-state conformity while reducing throughput, diversity, or integration is not established by the quantum and embryo studies and is deferred."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "943e7b0b1b2078038651a5c06e6a63ad46de1fcdfa8e7dea1e3088b20178cc1f",
+          "locator": "pasted-text.txt record",
+          "path": "SOURCE_INVENTORY.json",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "locator": "acknowledgments",
+          "path": "manuscript/manuscript.md",
+          "precision": "file_level"
+        }
+      ],
+      "claim_type": "author-reported provenance",
+      "coverage_notes": [],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "This is an authorial provenance statement without scientific units or evidentiary authority; it does not date or independently verify the private event.",
+      "evidence_class": "source_asserted",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "the report is attributed to the public pseudonym only",
+        "the unprovided collage and chat are excluded",
+        "scientific support remains bound to public primary sources, calculations, data, and tests"
+      ],
+      "id": "PROV-C025",
+      "limitations_or_counterexamples": [
+        "The account is not independently verified",
+        "the collage component rights were not established",
+        "no private account, device, location, legal name, or unprovided image is published"
+      ],
+      "source_links": [
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "structural_link_only",
+          "kind": "provenance_record",
+          "raw_support": "explicit 2026-08-01 author publication instruction",
+          "reference": "legacy-support-text",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "SOURCE_INVENTORY.json",
+          "admitted_sha256": "943e7b0b1b2078038651a5c06e6a63ad46de1fcdfa8e7dea1e3088b20178cc1f",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "SOURCE_INVENTORY.json pasted-text.txt record",
+          "reference": "SOURCE_INVENTORY.json",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "manuscript/manuscript.md",
+          "admitted_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/manuscript.md acknowledgments",
+          "reference": "manuscript/manuscript.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The dream, three-diagram collage, and OpenAI ChatGPT conversation are recorded as the author-reported conceptual origin of the cold-trap/Saturn idea, while later OpenAI assistance is recorded as workflow provenance; none is treated as scientific evidence."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "df9c68f0beef096448dcbd3e78b8a778b957927578aa297b4f0dc903ebc3479e",
+          "locator": null,
+          "path": "manuscript/references.bib",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "976d6909f57c1865e582a27b3681d0f5e3b51646690019f795e18ed85d224fdb",
+          "locator": null,
+          "path": "tests/test_document_contract.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "citation identity and support audit",
+      "coverage_notes": [],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "Applies to the 42-entry released bibliography and its adjacent wording.",
+      "evidence_class": "externally_published",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "publisher, DOI, arXiv, or institutional records checked as of 2026-08-01",
+        "paraphrases remain within the cited source's scope"
+      ],
+      "id": "CITE-C017",
+      "limitations_or_counterexamples": [
+        "Literature supports the cited component facts, not the full SPPT/ASTRA framework or its empirical success."
+      ],
+      "source_links": [
+        {
+          "admitted_path": "manuscript/references.bib",
+          "admitted_sha256": "df9c68f0beef096448dcbd3e78b8a778b957927578aa297b4f0dc903ebc3479e",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "manuscript/references.bib",
+          "reference": "manuscript/references.bib",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_document_contract.py",
+          "admitted_sha256": "976d6909f57c1865e582a27b3681d0f5e3b51646690019f795e18ed85d224fdb",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_document_contract.py",
+          "reference": "tests/test_document_contract.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "structural_link_only",
+          "kind": "framework_statement",
+          "raw_support": "publisher records linked by DOI",
+          "reference": "legacy-support-text",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "Consequential adjacent literature statements are supported by the corrected 42-entry canonical bibliography, including Saturn article 5045 for DOI 10.1038/s41467-024-48969-9, Lukas Delaye in current arXiv:2607.16713 v2, and the four primary records used by the typed-layer outlook."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "bc884667b8b4c96ebeeac91298419f2e8f0d96a05295a1c84273ff57e2d504e1",
+          "locator": null,
+          "path": "tools/verify.py",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "69b83ca86466525e912ea7c2d4a614d426ab44411ccc2789febc32f54c255721",
+          "locator": null,
+          "path": "requirements-lock.txt",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "fd1444d0c3caaf31e83209b21a8c00808c2f8896de231060cf7c494549dee366",
+          "locator": null,
+          "path": ".github/workflows/verify.yml",
+          "precision": "file_level"
+        }
+      ],
+      "claim_type": "verification gate",
+      "coverage_notes": [],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit_with_qualification",
+      "domain_units_signs_boundary_quantifiers": "The gate applies only to the exact commit/tree and runtime identities reported by the eventual release identity; a dirty local candidate or controller-invalid trial does not satisfy it.",
+      "evidence_class": "hand_checked",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "CPython 3.12.10",
+        "hash-locked dependencies",
+        "verified single-thread NumPy and SciPy OpenBLAS Haswell kernels on a Windows x86-64 CPU with AVX2 and FMA3",
+        "clean repository state",
+        "canonical tools/verify.py invocation"
+      ],
+      "id": "VERIFY-C018",
+      "limitations_or_counterexamples": [
+        "A pass must be bound to the exact clean release commit and valid controller; tests establish consistency with implemented equations, not completeness of planetary physics, mathematical proof beyond the checked propositions, or external truth."
+      ],
+      "source_links": [
+        {
+          "admitted_path": null,
+          "admitted_sha256": null,
+          "entailment_status": "structural_link_only",
+          "kind": "framework_statement",
+          "raw_support": "tests/",
+          "reference": "legacy-support-text",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tools/verify.py",
+          "admitted_sha256": "bc884667b8b4c96ebeeac91298419f2e8f0d96a05295a1c84273ff57e2d504e1",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tools/verify.py",
+          "reference": "tools/verify.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "requirements-lock.txt",
+          "admitted_sha256": "69b83ca86466525e912ea7c2d4a614d426ab44411ccc2789febc32f54c255721",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "requirements-lock.txt",
+          "reference": "requirements-lock.txt",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": ".github/workflows/verify.yml",
+          "admitted_sha256": "fd1444d0c3caaf31e83209b21a8c00808c2f8896de231060cf7c494549dee366",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": ".github/workflows/verify.yml",
+          "reference": ".github/workflows/verify.yml",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "Release promotion is fail-closed unless the discovered automated suite passes for the exact admitted commit/tree and checks implemented equations, evidence boundaries, deterministic outputs, metadata, and release invariants under the declared runtime."
+    },
+    {
+      "claim_locators": [
+        {
+          "file_sha256": "943e7b0b1b2078038651a5c06e6a63ad46de1fcdfa8e7dea1e3088b20178cc1f",
+          "locator": null,
+          "path": "SOURCE_INVENTORY.json",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "bd937749c32bd639daab10a59d99c3be0b676bb57ffc2d3ef418f1ecb30fd9a4",
+          "locator": null,
+          "path": "evidence/README.md",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "22dd683b663cf667d4d955278e20673445e9b7712b9a5bc6558e6ebd852478d6",
+          "locator": "evidence/",
+          "path": "README.md",
+          "precision": "file_level"
+        },
+        {
+          "file_sha256": "6a6badd184b4ed1dadc0025afa42a8fc0455c871b60ea4e51acf3f985ac09a6d",
+          "locator": null,
+          "path": "tests/test_data_integrity.py",
+          "precision": "named_locator"
+        }
+      ],
+      "claim_type": "evidence-provenance rule",
+      "coverage_notes": [
+        "The legacy claim record has no limitations_or_counterexamples entry."
+      ],
+      "coverage_status": "tracked_structural",
+      "disposition": "admit",
+      "domain_units_signs_boundary_quantifiers": "Applies to this release candidate's evidence accounting.",
+      "evidence_class": "hand_checked",
+      "execution": {
+        "command": null,
+        "run_id": null,
+        "runtime": null,
+        "status": "not_applicable_to_legacy_record"
+      },
+      "hypotheses": [
+        "artifact identity and derivation relationships in SOURCE_INVENTORY.json"
+      ],
+      "id": "VERIFY-C019",
+      "limitations_or_counterexamples": [],
+      "source_links": [
+        {
+          "admitted_path": "SOURCE_INVENTORY.json",
+          "admitted_sha256": "943e7b0b1b2078038651a5c06e6a63ad46de1fcdfa8e7dea1e3088b20178cc1f",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "SOURCE_INVENTORY.json",
+          "reference": "SOURCE_INVENTORY.json",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "evidence/README.md",
+          "admitted_sha256": "bd937749c32bd639daab10a59d99c3be0b676bb57ffc2d3ef418f1ecb30fd9a4",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "evidence/README.md",
+          "reference": "evidence/README.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "README.md",
+          "admitted_sha256": "22dd683b663cf667d4d955278e20673445e9b7712b9a5bc6558e6ebd852478d6",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "evidence/README.md",
+          "reference": "README.md",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        },
+        {
+          "admitted_path": "tests/test_data_integrity.py",
+          "admitted_sha256": "6a6badd184b4ed1dadc0025afa42a8fc0455c871b60ea4e51acf3f985ac09a6d",
+          "entailment_status": "structural_link_only",
+          "kind": "tracked_file",
+          "raw_support": "tests/test_data_integrity.py",
+          "reference": "tests/test_data_integrity.py",
+          "retrieval_date": null,
+          "source_record_version": null,
+          "supplied_input_sha256": null
+        }
+      ],
+      "statement": "The supplied 99-byte test transcript and duplicate CSV/JSON serialization are not counted as independent execution or evidence."
+    }
+  ],
+  "discovered_aliases": [
+    {
+      "alias_id": "ALIAS-001",
+      "bytes": 1645960,
+      "canonical_relative_path": "Audit_Descent_Calculus.pdf",
+      "relationship": "misnamed byte-identical alias of SPPT_ASTRA_preprint_v1.0.1.pdf; excluded and never counted as independent evidence",
+      "sha256": "a722ecddda861141ea21a864a20ee60b6ebef53aba855f66b5de9e37164c1930"
+    }
+  ],
+  "duplicate_evidence_rules": [
+    "Identical SHA-256 values are aliases.",
+    "CSV and JSON serializations of the same run set are one evidence source.",
+    "Rendered DOCX, PDF, and HTML presentations do not multiply the authority of their Markdown source.",
+    "A saved test transcript is not actual execution.",
+    "An author-supplied synthesis is a reasoning input, not external validation or independent evidence."
+  ],
+  "generator": {
+    "output_path": "evidence/claim_source_coverage_v1.0.6_draft.json",
+    "path": "tools/build_claim_source_coverage.py",
+    "runtime": "python==3.12.10",
+    "version": "0.1.0"
+  },
+  "input_files": [
+    {
+      "bytes": 31125,
+      "path": "CLAIM_MATRIX.json",
+      "sha256": "9e1e356adb3ce83f4aef79aeaf06307b39d73e9247008c826929d18090737d07"
+    },
+    {
+      "bytes": 12230,
+      "path": "SOURCE_INVENTORY.json",
+      "sha256": "943e7b0b1b2078038651a5c06e6a63ad46de1fcdfa8e7dea1e3088b20178cc1f"
+    },
+    {
+      "bytes": 13296,
+      "path": "manuscript/references.bib",
+      "sha256": "df9c68f0beef096448dcbd3e78b8a778b957927578aa297b4f0dc903ebc3479e"
+    }
+  ],
+  "known_gaps": [
+    "Legacy CLAIM_MATRIX.json stores support as free text rather than source IDs and machine-addressable locators.",
+    "Legacy claim records do not bind claims to admitted release-byte hashes.",
+    "Legacy SOURCE_INVENTORY.json records supplied inputs but does not encode admitted replacement paths or hashes.",
+    "External citation identity and claim-local entailment were not reverified by this structural generator.",
+    "Exact execution commands, runtimes, and run identifiers are not present in the legacy claim records.",
+    "This is a maintenance draft tied to the v1.0.6 core line; it is not a new release identity or publication decision."
+  ],
+  "reference_release": {
+    "bibliography_path": "manuscript/references.bib",
+    "bibliography_sha256": "df9c68f0beef096448dcbd3e78b8a778b957927578aa297b4f0dc903ebc3479e",
+    "claim_matrix_path": "CLAIM_MATRIX.json",
+    "claim_matrix_sha256": "9e1e356adb3ce83f4aef79aeaf06307b39d73e9247008c826929d18090737d07",
+    "identity_status": "immutable_release_with_local_overlay",
+    "line": "core",
+    "source_inventory_path": "SOURCE_INVENTORY.json",
+    "source_inventory_sha256": "943e7b0b1b2078038651a5c06e6a63ad46de1fcdfa8e7dea1e3088b20178cc1f",
+    "version": "1.0.6"
+  },
+  "schema": "https://jkolantree.github.io/astra/schemas/claim-source-coverage-v1.schema.json",
+  "source_records": [
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-001",
+      "bytes": 1165623,
+      "canonical_relative_path": "SPPT_ASTRA_technical_supplement_v1.0.1.docx",
+      "displayed_attribution": "Jacko T.",
+      "embedded_attribution": "Jacko T.; stale Microsoft Word application metadata",
+      "license": "CC-BY-4.0",
+      "media_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "relationship": "generated presentation of supplement.md; superseded for public packaging by corrected Markdown, self-contained HTML, and rebuilt PDF",
+      "retrieval_date": null,
+      "rights_status": "authoritative manuscript expressly licenses original text and figures; no third-party quotation or adapted artwork was identified",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "e0df8befb15b19972479e6a81be9dc3253ea83659c9b088f65d4aa295f8915f9"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-002",
+      "bytes": 1417631,
+      "canonical_relative_path": "SPPT_ASTRA_preprint_v1.0.1.docx",
+      "displayed_attribution": "Jacko T.; included a private location removed from the admitted edition",
+      "embedded_attribution": "Jacko T.; stale Microsoft Word application metadata and an absolute CSL path",
+      "license": "CC-BY-4.0",
+      "media_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "relationship": "generated presentation of manuscript.md; superseded for public packaging by corrected Markdown, self-contained HTML, and rebuilt PDF",
+      "retrieval_date": null,
+      "rights_status": "authoritative manuscript expressly licenses original text and figures; privacy-bearing presentation rejected unchanged",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "fd4a9744ffa1a558b79c98fdf80dba7474e94942389738863d8e2a40769c81fd"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-003",
+      "bytes": 99,
+      "canonical_relative_path": "test_results.txt",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "CC-BY-4.0",
+      "media_type": "text/plain",
+      "relationship": "saved transcript only; retained as source history and never counted as execution evidence",
+      "retrieval_date": null,
+      "rights_status": "publication and CC BY 4.0 treatment were explicitly authorized for this supplied original transcript in the release instruction; it is not execution evidence",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "87f823ae985f7238df4649a2f39044f5cde7bd3e604bf1353e4c363fc12cc359"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-004",
+      "bytes": 11533,
+      "canonical_relative_path": "generate_astra_figures.py",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "MIT",
+      "media_type": "text/x-python",
+      "relationship": "source input; admitted after correction and expansion as scripts/generate_astra_figures.py",
+      "retrieval_date": null,
+      "rights_status": "authoritative manuscript expressly licenses original source code as MIT",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "8fa45fb0e3a72e57718d269867a0632850c24e0493bb23c599402af938389483"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-005",
+      "bytes": 10573,
+      "canonical_relative_path": "benchmark_ensemble.py",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "MIT",
+      "media_type": "text/x-python",
+      "relationship": "source input; admitted after convergence, sensitivity, diagnostic, and negative-outcome corrections as scripts/benchmark_ensemble.py",
+      "retrieval_date": null,
+      "rights_status": "authoritative manuscript expressly licenses original source code as MIT",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "d96c66f1c6d02814fcef3c3124393129c05df2513336a77c1e40a5f3c498ecad"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-006",
+      "bytes": 8156,
+      "canonical_relative_path": "synthetic_topology_benchmark.py",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "MIT",
+      "media_type": "text/x-python",
+      "relationship": "source input; admitted after unsupported blinding language and optimizer evidence were corrected",
+      "retrieval_date": null,
+      "rights_status": "authoritative manuscript expressly licenses original source code as MIT",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "ff80891c64d6cbcda796f3442ae5226b0d5d4032354c7101fa47b3b7972257a2"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-007",
+      "bytes": 7669,
+      "canonical_relative_path": "astra_reservoir.py",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "MIT",
+      "media_type": "text/x-python",
+      "relationship": "source input; admitted after positive-definite covariance validation was added as src/astra_reservoir.py",
+      "retrieval_date": null,
+      "rights_status": "authoritative manuscript expressly licenses original source code as MIT",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "e578dcfed9b0c3390c21765917a7a97432b707b667ad13da1bda4d36a1e775cd"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-008",
+      "bytes": 9412,
+      "canonical_relative_path": "sppt_core.py",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "MIT",
+      "media_type": "text/x-python",
+      "relationship": "source input; admitted after the complete state-dependent transport derivative was implemented as src/sppt_core.py",
+      "retrieval_date": null,
+      "rights_status": "authoritative manuscript expressly licenses original source code as MIT",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "9475ea66be39170b8637b5821e6d1e0932bb6c7489a8aadce2259c0577934ad3"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-009",
+      "bytes": 11734,
+      "canonical_relative_path": "synthetic_topology_ensemble.csv",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "CC-BY-4.0",
+      "media_type": "text/csv",
+      "relationship": "alternate serialization of the same 64 runs as synthetic_topology_ensemble.json; not independent evidence; superseded by a fresh deterministic replay",
+      "retrieval_date": null,
+      "rights_status": "original factual result serialization; CC BY 4.0 publication was explicitly authorized for generated results in the release instruction",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "3bde1ede6e2402befc274c71f30329195eb0838f2ab803237c5322f7c6e73a60"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-010",
+      "bytes": 31106,
+      "canonical_relative_path": "synthetic_topology_ensemble.json",
+      "displayed_attribution": null,
+      "embedded_attribution": null,
+      "license": "CC-BY-4.0",
+      "media_type": "application/json",
+      "relationship": "alternate serialization of the same 64 runs as synthetic_topology_ensemble.csv; not independent evidence; superseded by a fresh deterministic replay",
+      "retrieval_date": null,
+      "rights_status": "original factual result serialization; CC BY 4.0 publication was explicitly authorized for generated results in the release instruction",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "33635845c744585c1cb21826746fac252538a259373262501d7e130f8af6b3c9"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-011",
+      "bytes": 15321,
+      "canonical_relative_path": "supplement.md",
+      "displayed_attribution": "Jacko T.",
+      "embedded_attribution": "Jacko T. in YAML metadata",
+      "license": "CC-BY-4.0",
+      "media_type": "text/markdown",
+      "relationship": "authoritative supplement source; admitted after scientific, citation, privacy, and reproducibility corrections",
+      "retrieval_date": null,
+      "rights_status": "explicit original-work license statement in the synchronized source",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "95b2e5398ec9b9ce58d8a0741a9ba716fa3dfd0dc704069dc0af4fa2a0090651"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-012",
+      "bytes": 59840,
+      "canonical_relative_path": "manuscript.md",
+      "displayed_attribution": "Jacko T.; included a private location removed from the admitted edition",
+      "embedded_attribution": "Jacko T. in YAML metadata; included an absolute CSL path removed from the admitted edition",
+      "license": "CC-BY-4.0",
+      "media_type": "text/markdown",
+      "relationship": "authoritative preprint source; admitted after scientific, citation, privacy, and reproducibility corrections",
+      "retrieval_date": null,
+      "rights_status": "explicit original-work license statement in the synchronized source",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "a96ccce39e5d445e59b8369bbb5c38ab90a1ffd9dd60f0a79d7d36d91dfd0b0b"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-013",
+      "bytes": 1645960,
+      "canonical_relative_path": "SPPT_ASTRA_preprint_v1.0.1.pdf",
+      "displayed_attribution": "Jacko T.; included a private location removed from the admitted edition",
+      "embedded_attribution": "Jacko T.; LaTeX/Pandoc producer and timestamps",
+      "license": "CC-BY-4.0",
+      "media_type": "application/pdf",
+      "relationship": "generated presentation of manuscript.md; byte-identical to unlisted alias Audit_Descent_Calculus.pdf; superseded by rebuilt PDF",
+      "retrieval_date": null,
+      "rights_status": "original generated presentation, but unchanged bytes rejected for privacy and layout defects",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "a722ecddda861141ea21a864a20ee60b6ebef53aba855f66b5de9e37164c1930"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-014",
+      "bytes": 1243229,
+      "canonical_relative_path": "SPPT_ASTRA_technical_supplement_v1.0.1.pdf",
+      "displayed_attribution": "Jacko T.",
+      "embedded_attribution": "Jacko T.; LaTeX/Pandoc producer and timestamps",
+      "license": "CC-BY-4.0",
+      "media_type": "application/pdf",
+      "relationship": "generated presentation of supplement.md; superseded by rebuilt PDF",
+      "retrieval_date": null,
+      "rights_status": "original generated presentation, but unchanged bytes rejected for a clipped figure and stale metadata",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "650388d27465ab24f20411c28ce9fbba2544660292c153443c29604a3f46961d"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-015",
+      "bytes": 205596,
+      "canonical_relative_path": "supplement_figure_S6_topology_ensemble.png",
+      "displayed_attribution": null,
+      "embedded_attribution": "Matplotlib version 3.10.8 only",
+      "license": "CC-BY-4.0",
+      "media_type": "image/png",
+      "relationship": "byte-identical to the S6 image embedded in the supplied supplement DOCX; not independent evidence; superseded by a fresh deterministic replay that exposes the lower-bound pile-up",
+      "retrieval_date": null,
+      "rights_status": "explicit original-figure license statement in the manuscript",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "5a898d35db0df2f9f99280a8208ab3d50797116457ea15ab5fab1156e627d743"
+    },
+    {
+      "admitted_path": null,
+      "admitted_sha256": null,
+      "artifact_id": "SUP-016",
+      "bytes": 27496,
+      "canonical_relative_path": "pasted-text.txt",
+      "displayed_attribution": "no byline in the file; supplied by Jacko T. as an authorial reasoning input",
+      "embedded_attribution": null,
+      "license": "source input only; admitted original paraphrase is CC-BY-4.0",
+      "media_type": "text/plain; charset=utf-8",
+      "relationship": "author-supplied synthesis and provenance prompt audited against four canonical primary records; broken markup and overbroad claims rejected; bounded proposed-only wording incorporated; not independent evidence",
+      "retrieval_date": null,
+      "rights_status": "publication of the framework update and provenance record was explicitly authorized; the raw synthesis is not redistributed verbatim, and no linked article text, third-party figure, collage, or chat transcript is included",
+      "source_record_version": null,
+      "status": "historical_supplied_input",
+      "supplied_sha256": "d5780e8ec084d51cbb7c454bf6b6e935f4620b4d80723fa30084b3da429ae711"
+    }
+  ],
+  "status": "maintenance_draft",
+  "summary": {
+    "claim_count": 26,
+    "claims_with_current_path_support": 26,
+    "claims_with_exact_locators": 21,
+    "claims_with_external_record_support": 5,
+    "claims_with_supplied_input_hash_support": 3,
+    "claims_with_support": 26,
+    "claims_without_limitations": [
+      "VERIFY-C019"
+    ],
+    "legacy_claim_fields_missing": [
+      "claim_locator",
+      "source_record_id",
+      "admitted_hash",
+      "input_hash",
+      "source_record_version",
+      "retrieval_date",
+      "entailment_status",
+      "independent_reproduction",
+      "reproduction_command",
+      "runtime"
+    ],
+    "path_support_references": 65,
+    "source_record_count": 16,
+    "source_records_with_admitted_hash": 0,
+    "source_records_with_retrieval_date": 0,
+    "unique_tracked_support_paths": 28
+  },
+  "title": "SPPT/ASTRA structured claim-to-source coverage audit (maintenance draft)"
+}

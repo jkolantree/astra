@@ -10,6 +10,14 @@ Supplemental resources use the namespaced release schemas
 `supplemental-release-identity-v1.schema.json`; they do not change the core
 SPPT/ASTRA release contract.
 
+The maintenance-draft `claim-source-coverage-v1.schema.json` describes the
+structured claim/source audit under `evidence/`. It is an audit-layer schema,
+not a replacement for `claim-matrix-v1.schema.json`, and it does not promote
+source-asserted or structurally linked material to independently verified
+evidence. The current served Pages snapshot predates this local overlay, so
+the draft schema's public URL is not claimed live until a separately authorized
+Pages deployment verifies it.
+
 Schema names carry an independent revision (`v1`). A scientific release may
 therefore update from, for example, v1.0.6 to v1.0.7 without changing a schema
 whose contract is unchanged. Published schema revisions are immutable; a
