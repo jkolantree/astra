@@ -1,10 +1,16 @@
 # Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution
 
-This repository contains the versioned reference package for **Solar-Planetary Phase-Partition Theory (SPPT)** and its inference layer, **ASTRA — Astronomical State-Topology and Reservoir Analysis**. SPPT represents planetary material and energy reservoirs as a physically constrained network whose topology may itself be a latent state; ASTRA compares admissible candidate networks against observations and simpler baselines.
+<p align="center">
+  <img src="docs/sppt-astra-cover.svg" width="960" alt="Conceptual vector diagram of SPPT and ASTRA: surface observables linked to candidate planetary reservoir topologies and calibration gates">
+</p>
 
-Version **1.0.6** is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a claim of general hybrid-system well-posedness, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; all generation constants are public. This accessibility release supersedes v1.0.5 for current use without modifying its immutable tag or assets. The public v1.0.2, v1.0.3, and v1.0.4 tags are retained as release-process evidence, were not moved, and have no GitHub Releases.
+*Conceptual vector diagram of the framework; it is not an observational image, scale model, or data visualization.*
 
-The immutable [v1.0.6 release](https://github.com/jkolantree/astra/releases/tag/v1.0.6) is the frozen core citation and reproduction target. The default branch may contain later documentation, maintenance, and separately namespaced supplemental resources; its tree is not automatically identical to the v1.0.6 release archive and is not a new core version unless a new release says so.
+This repository contains the reference package for **Solar-Planetary Phase-Partition Theory (SPPT)** and its inference layer, **ASTRA — Astronomical State-Topology and Reservoir Analysis**. SPPT represents planetary material and energy reservoirs as a physically constrained network whose topology may itself be a latent state; ASTRA compares admissible candidate networks against observations and simpler baselines.
+
+> **Status.** The core work is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a general hybrid-system theorem, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; its generation constants are public.
+>
+> **Citation boundary.** The immutable [v1.0.6 release](https://github.com/jkolantree/astra/releases/tag/v1.0.6) is the frozen core citation and reproduction target. Later documentation, maintenance, and separately namespaced research drafts remain overlays until a future release explicitly admits them.
 
 ## In plain English: what this is and why it matters
 
@@ -14,38 +20,17 @@ This matters because many planetary measurements are made at the boundary: tempe
 
 ## Publication map
 
-- **v1.0.6 — current reference edition (SPPT/ASTRA).** GitHub Latest; not
-  peer reviewed. [Read the current core
-  edition](https://jkolantree.github.io/astra/latest/) or open the immutable
-  [v1.0.6 release](https://github.com/jkolantree/astra/releases/tag/v1.0.6).
-- **v0.3.0 — current supplemental edition (*Earth Is the Instrument*).**
-  Immutable GitHub prerelease; not peer reviewed. [Read the current supplemental
-  edition](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/latest/)
-  or open the immutable [v0.3.0
-  release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
-- **Public namespaced alpha — Sector-Complete Instrument v0.1.0-alpha.1.**
-  GitHub prerelease methods module under
-  [`resources/sector-complete-instrument/v0.1.0-alpha.1/`](resources/sector-complete-instrument/v0.1.0-alpha.1/).
-  It is synthetic methods evidence and a proposed observation/certificate-layer
-  bridge only; it is not ASTRA v0.3.2, does not amend either immutable line, and
-  has no Pages route, DOI, or Zenodo record. Open the namespaced [GitHub
-  prerelease](https://github.com/jkolantree/astra/releases/tag/sector-complete-instrument-v0.1.0-alpha.1).
-- **Unpromoted methods draft — Mode-resolved active-support audit.**
-  The default-branch [draft](resources/active-support-audit/draft-v0.1.0/) is a long-form
-  ASTRA methods perspective on how mode, waveform, geometry, phase matching,
-  and observation can vary without changing SPPT's physical core. It separates
-  established SPPT consequences from proposed predictions and deferred source
-  bridges. It is not peer reviewed, has no release or DOI, and does not enter
-  the v1.0.6 claim matrix or immutable assets.
-- **v0.1 — historical edition (*Earth Is the Instrument* Working Paper).**
-  Immutable GitHub prerelease; not peer reviewed. [Read historical
-  v0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/)
-  or open the immutable [v0.1
-  release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1).
+- **v1.0.6 — current reference edition (SPPT/ASTRA).** [Read the current core edition](https://jkolantree.github.io/astra/latest/) or open the immutable [release](https://github.com/jkolantree/astra/releases/tag/v1.0.6).
+- **v0.3.0 — current supplemental edition (*Earth Is the Instrument*).** [Read the supplemental edition](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/latest/) or open its immutable [release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
+- **Public namespaced alpha — Sector-Complete Instrument v0.1.0-alpha.1.** This synthetic methods module lives under [`resources/sector-complete-instrument/v0.1.0-alpha.1/`](resources/sector-complete-instrument/v0.1.0-alpha.1/); it is not ASTRA v0.3.2, does not amend either immutable line, and has no Pages route, DOI, or Zenodo record. Open the [GitHub prerelease](https://github.com/jkolantree/astra/releases/tag/sector-complete-instrument-v0.1.0-alpha.1).
+- **Unpromoted methods draft — Mode-resolved active-support audit.** The default-branch [draft](resources/active-support-audit/draft-v0.1.0/) is a long-form ASTRA methods perspective on mode, waveform, geometry, phase matching, and observation. It does not enter the v1.0.6 claim matrix or immutable assets.
+- **v0.1 — historical edition (*Earth Is the Instrument* Working Paper).** [Read historical v0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/) or open its immutable [release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1).
 
-The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line. Supplemental resources use their own namespaced tags, citations, checksums, and `/resources/` routes. The project was developed with substantive ChatGPT assistance; the full human-responsibility, naming, and independence disclosure appears below.
+- **Unpromoted successor prototypes.** The [SPPT Bridge Protocol](resources/sppt-bridge-protocol/draft-v0.1.0/) and [coherence-cell exploration](resources/coherence-cell-exploration/draft-v0.1.0/) are separate methods prototypes. They are not core equations, release assets, or validation claims.
 
-## Read the SPPT/ASTRA v1.0.6 reference release
+The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line. Supplemental resources use their own namespaced tags, citations, checksums, and `/resources/` routes. The project was developed with substantive ChatGPT assistance; the human-responsibility and independence disclosure appears below.
+
+## Core reference package
 
 - [Read the accessible preprint on GitHub Pages](https://jkolantree.github.io/astra/v1.0.6/preprint/)
 - [Read the accessible technical supplement on GitHub Pages](https://jkolantree.github.io/astra/v1.0.6/supplement/)
@@ -58,9 +43,9 @@ The bare `/latest/` route and repository-level `CITATION.cff` refer only to the 
 - [Claim-admission matrix](CLAIM_MATRIX.json)
 - [Structured claim-to-source coverage draft](evidence/claim_source_coverage_v1.0.6_draft.json)
 
-The versioned Pages editions are the primary accessible reading path. The downloadable HTML files contain the same document content and can be opened locally without network access. The PDFs are synchronized tagged visual editions with normalized metadata; their text, metadata, fonts, links, structure, TeX formula alternatives, and exact-search behavior are mechanically checked, and every rendered page is visually inspected at the release gate. Native MathML is available in HTML; the PDFs do not claim a native MathML expression tree. The structured coverage draft records exact hashes for current tracked support files while preserving unknown external entailment, retrieval, and claim-specific execution fields; it is a maintenance audit, not a new release or proof of sentence-level completeness.
+The versioned Pages editions are the primary accessible reading path. The downloadable HTML files are self-contained; the PDFs are synchronized tagged visual editions. Native MathML is available in HTML, while the PDFs do not claim a native MathML expression tree. The structured coverage draft is maintenance evidence, not a new release or proof of sentence-level completeness.
 
-## Supplemental publication line: *Earth Is the Instrument*
+## Supplemental line: *Earth Is the Instrument*
 
 <a href="https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/"><img src="resources/earth-is-the-instrument/v0.3.0/cover.png" width="280" alt="Blue-and-gold cover titled Earth Is the Instrument, with an abstract planetary diagram"></a>
 
@@ -72,15 +57,13 @@ The versioned Pages editions are the primary accessible reading path. The downlo
 - [Review the publication audit and known accessibility limits](resources/earth-is-the-instrument/v0.3.0/PUBLICATION_AUDIT.md).
 - [Download the complete source and reproducibility archive from its versioned GitHub Release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
 
-Version 0.3.0 supersedes the internal v0.2.1 predecessor preserved in its release archive, only within the *Earth Is the Instrument* publication line. No public v0.2.1 tag or GitHub Release was created. It does not amend or supersede the immutable SPPT/ASTRA v1.0.6 reference release, enter its claim-admission matrix, or inherit its verification status. The earlier [Working Paper 0.1](resources/earth-is-the-instrument/v0.1/) remains available as a stable historical edition. See the [v0.3.0 post-publication errata](resources/earth-is-the-instrument/v0.3.0/ERRATA.md) for documentation corrections that do not change the immutable artifacts.
+Within its own publication line, v0.3.0 supersedes the internal v0.2.1 predecessor preserved in its release archive. No public v0.2.1 tag or GitHub Release was created. It does not amend or supersede the immutable SPPT/ASTRA v1.0.6 reference release or inherit its verification status. The earlier [Working Paper 0.1](resources/earth-is-the-instrument/v0.1/) remains available, and the [v0.3.0 post-publication errata](resources/earth-is-the-instrument/v0.3.0/ERRATA.md) records documentation corrections that do not change immutable artifacts.
 
 ## Name, assistance, and independence
 
-ASTRA is the project's own acronym for **Astronomical State-Topology and Reservoir Analysis**. The framework was developed by Jacko T. with substantive assistance from OpenAI's ChatGPT, including literature organization, adversarial review, equation checking, code drafting, visual design, editing, document production, accessibility review, and release engineering. Jacko T. selected the questions and final wording, reviewed and approved the released work, and remains responsible for its sources, claims, interpretations, errors, omissions, code, and publication decisions. Model output is not a citation, experiment, proof, independent verification, peer review, or scientific evidence; the evidentiary basis is the cited literature, declared calculations, data, tests, and bounded certificates.
+ASTRA is the project's own acronym for **Astronomical State-Topology and Reservoir Analysis**. The framework was developed by Jacko T. with substantive ChatGPT assistance in literature organization, adversarial review, equation checking, code drafting, visual design, editing, accessibility, and release engineering. Jacko T. selected the questions and final wording, reviewed the released work, and remains responsible for its sources, claims, interpretations, errors, omissions, code, and publication decisions. Model output is not a citation, experiment, proof, independent verification, peer review, or scientific evidence; the evidentiary basis is the cited literature, declared calculations, data, tests, and bounded certificates.
 
-The name ASTRA draws inspiration from the Kansas state motto, [*Ad Astra Per Aspera* — "To the Stars Through Difficulties"](https://www.kansas.gov/kbi/about/kbiseal.shtml), and from [OpenAI's 1 August 2026 public description](https://openai.com/index/ten-advances-in-mathematics/) of an internal version of Astra as "our next major model". These are dated naming references only; they do not claim a product launch, release timing, priority, affiliation, or endorsement.
-
-ASTRA is an independent research project. It is not affiliated with, sponsored by, endorsed by, reviewed by, operated by, or produced for OpenAI or the State of Kansas; use of ChatGPT does not imply OpenAI endorsement. These references are descriptive acknowledgments only. This publication neither claims nor contests exclusive rights in the word *Astra* and places no restriction on unrelated uses.
+The name echoes [*Ad Astra Per Aspera* — "To the Stars Through Difficulties"](https://www.kansas.gov/kbi/about/kbiseal.shtml) as a general motto; this is a naming reference, not a claim of affiliation, endorsement, priority, or exclusive rights. ASTRA is an independent research project, and use of ChatGPT does not imply OpenAI endorsement.
 
 ## Scientific scope
 
@@ -100,7 +83,7 @@ The raw inventory-loop magnitude is monotone in release time at fixed forcing fr
 
 The preprint includes a proposed-only ASTRA outlook prompted by four 2026 studies. A mixed iron-oxyhydroxide inclusion in one Juína diamond has no observed present fracture or exterior connection and is admitted as a qualified example of present isolation; permeability, past exchange, and its inferred deep history remain unmeasured or source-author hypotheses. Moonlight/animal spectroscopy, error-detected quantum sampling, and xenophagocytosis are admitted only as observation, certificate, and active-control analogies. None validates SPPT, changes its physical flux graph, or establishes a universal cross-domain law. No article text, third-party figure, collage, or chat transcript is redistributed.
 
-The acknowledgments record the author-reported dream/collage/ChatGPT origin of the cold-trap/Saturn idea and later OpenAI language-model assistance. The unprovided collage is excluded because its component-image identities and publication rights were not established. This is conceptual provenance, not evidence. Each consequential claim listed in `CLAIM_MATRIX.json` is bound to a primary source, calculation, data set, or test; proposed and deferred statements are labeled separately. The matrix is a claim register, not a sentence-level completeness proof.
+The provenance record distinguishes author-reported inspirations and model assistance from evidence. The unprovided collage is excluded because its component identities and publication rights were not established. Each consequential claim listed in `CLAIM_MATRIX.json` is bound to a primary source, calculation, data set, or test; proposed and deferred statements are labeled separately. The matrix is a claim register, not a sentence-level completeness proof.
 
 ## Synthetic benchmark boundary
 
@@ -108,7 +91,7 @@ Across 64 frozen Gaussian-noise realizations, training BIC selects the minimum g
 
 An exact algebraic negative control sharpens that boundary. With the same capacities and only surface forcing and observation, the surface star $(k_{02},k_{12})=(5,6)$ and deep star $(k_{01},k_{02})=(30/11,11)$ have identical surface transfer functions for every forcing from equilibrium, despite different hidden states and labeled supports. The released chain point lies outside the ambiguous nonnegative branch, so 64/64 remains a pointwise selection result; it is not family-wide topology identification. Another spatial input or output, an intervention, or independently justified structural constraints may separate such equivalence classes, but identifiability must be recomputed for the augmented design.
 
-The release-frozen 20-start design was adopted during release audit after replay of this same benchmark exposed a missed endpoint under the earlier 12-start design. The added unit and coordinate-wise decade anchors were therefore informed by benchmark behavior. These reruns are regression evidence for the repaired implementation, not untouched, blinded, or external evaluation. Both data serializations preserve every start vector, solver disposition, endpoint, convergence diagnostic, active bound, and failed outcome; CSV and JSON remain duplicate representations of one evidence source.
+The release-frozen 20-start design was informed by an earlier replay and is therefore regression evidence for the repaired implementation, not untouched, blinded, or external evaluation. Both data serializations preserve every start vector, solver disposition, endpoint, convergence diagnostic, active bound, and failed outcome; CSV and JSON remain duplicate representations of one evidence source.
 
 ## Reproduce
 
@@ -153,7 +136,7 @@ The repository verification workflow runs for pull requests, `main`, and core re
 | Path | Contents |
 |---|---|
 | `manuscript/` | Authoritative Markdown, bibliography, accessible HTML, synchronized PDF |
-| `docs/` | GitHub Pages landing files; the deployment workflow assembles immutable versioned reference editions and separately verified supplemental-resource pages from published release assets |
+| `docs/` | GitHub Pages landing files, including the public vector cover; the deployment workflow assembles immutable versioned reference editions and separately verified supplemental-resource pages from published release assets |
 | `schemas/` | Published Draft 7 schemas for schema-declaring release metadata and audit records |
 | `src/` | Auditable reduced SPPT and ASTRA calculations |
 | `scripts/` | Deterministic scientific reproductions and figure generation |
@@ -182,4 +165,4 @@ Original software is MIT licensed. Original manuscript text, documentation, figu
 
 Use [GitHub Issues](https://github.com/jkolantree/astra/issues) for public correspondence. No private email, location, institution, ORCID, or legal identity is published.
 
-The tracked `.mailmap` maps the already-public GitHub-handle author label used by early bootstrap commits to the release pseudonym Jacko T.; raw historical commit objects are not rewritten.
+Historical commit objects are preserved; the immutable release history is not rewritten.

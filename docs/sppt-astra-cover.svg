@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="cover-title cover-desc">
+  <title id="cover-title">SPPT and ASTRA conceptual framework</title>
+  <desc id="cover-desc">A layered vector diagram showing the SPPT and ASTRA workflow: observe surface signals, infer admissible reservoir topologies, and test them with conservation, thermodynamic closure, identifiability, intervention, and calibrated held-out prediction. The circular network is conceptual, not a scale model or observation.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#061427"/>
+      <stop offset="0.55" stop-color="#0a2139"/>
+      <stop offset="1" stop-color="#12283c"/>
+    </linearGradient>
+    <radialGradient id="planet" cx="36%" cy="30%" r="78%">
+      <stop offset="0" stop-color="#376985"/>
+      <stop offset="0.48" stop-color="#1d425d"/>
+      <stop offset="0.8" stop-color="#10283f"/>
+      <stop offset="1" stop-color="#081728"/>
+    </radialGradient>
+    <linearGradient id="deep" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4c66a" stop-opacity="0.96"/>
+      <stop offset="0.62" stop-color="#b76b2f" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#4b2a24" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="cyan-path" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8dd9ea"/>
+      <stop offset="1" stop-color="#40a6c8"/>
+    </linearGradient>
+    <linearGradient id="amber-path" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffe083"/>
+      <stop offset="1" stop-color="#e9a84f"/>
+    </linearGradient>
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8dd9ea"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ffe0a0"/>
+    </marker>
+    <marker id="arrow-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c9b8ff"/>
+    </marker>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+      <path d="M 42 0 L 0 0 0 42" fill="none" stroke="#8bd5e5" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+    <style>
+      .sans { font-family: "Segoe UI", Inter, Arial, sans-serif; }
+      .eyebrow { fill: #9dddea; font-size: 24px; font-weight: 700; letter-spacing: 5px; }
+      .headline { fill: #f5f8fb; font-size: 54px; font-weight: 700; letter-spacing: -1px; }
+      .subhead { fill: #b8cfdb; font-size: 22px; font-weight: 400; }
+      .section { fill: #8fd9e9; font-size: 16px; font-weight: 700; letter-spacing: 2px; }
+      .box-title { fill: #f5f8fb; font-size: 21px; font-weight: 700; }
+      .box-copy { fill: #b9cfdb; font-size: 17px; }
+      .plate-title { fill: #f5f8fb; font-size: 17px; font-weight: 700; letter-spacing: 1.5px; }
+      .plate-copy { fill: #b9cfdb; font-size: 15px; }
+      .planet-small { fill: #b7d4de; font-size: 15px; }
+      .legend { fill: #c2d8e1; font-size: 16px; }
+      .footer { fill: #9eb8c4; font-size: 15px; letter-spacing: 0.6px; }
+      .footer-strong { fill: #d9f0f4; font-size: 15px; font-weight: 700; letter-spacing: 1.2px; }
+      .plate { fill: #071a2d; fill-opacity: 0.97; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#background)"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#grid)" opacity="0.55"/>
+  <path d="M 0 770 C 300 650 540 760 780 680 C 1060 586 1280 680 1600 560" fill="none" stroke="#84d6e3" stroke-opacity="0.12" stroke-width="2"/>
+  <path d="M 0 805 C 300 685 540 795 780 715 C 1060 621 1280 715 1600 595" fill="none" stroke="#84d6e3" stroke-opacity="0.08" stroke-width="1"/>
+
+  <g class="sans">
+    <text x="92" y="92" class="eyebrow">SPPT / ASTRA</text>
+    <text x="90" y="166" class="headline">A planet as a</text>
+    <text x="90" y="226" class="headline">constrained network</text>
+    <text x="92" y="274" class="subhead">Phase-reservoir topology, boundary observations,</text>
+    <text x="92" y="305" class="subhead">and tests that must earn predictive value.</text>
+
+    <g transform="translate(90 360)">
+      <rect width="500" height="98" rx="16" fill="#102b43" fill-opacity="0.94" stroke="#4c9db8" stroke-width="2"/>
+      <text x="24" y="31" class="section">01 / OBSERVE</text>
+      <text x="24" y="62" class="box-title">Surface observables</text>
+      <text x="24" y="84" class="box-copy">temperature  &#x00B7;  light  &#x00B7;  gravity  &#x00B7;  composition</text>
+    </g>
+    <path d="M 340 470 L 340 498" stroke="#8dd9ea" stroke-width="3" marker-end="url(#arrow-cyan)"/>
+    <g transform="translate(90 510)">
+      <rect width="500" height="98" rx="16" fill="#102b43" fill-opacity="0.94" stroke="#4c9db8" stroke-width="2"/>
+      <text x="24" y="31" class="section">02 / INFER</text>
+      <text x="24" y="62" class="box-title">Admissible candidate graphs</text>
+      <text x="24" y="84" class="box-copy">reservoirs, phases, pathways, and hidden states</text>
+    </g>
+    <path d="M 340 620 L 340 648" stroke="#c9b8ff" stroke-width="3" marker-end="url(#arrow-violet)"/>
+    <g transform="translate(90 660)">
+      <rect width="500" height="98" rx="16" fill="#102b43" fill-opacity="0.94" stroke="#7767b5" stroke-width="2"/>
+      <text x="24" y="31" class="section" fill="#c9b8ff">03 / TEST</text>
+      <text x="24" y="62" class="box-title">Earn the topology claim</text>
+      <text x="24" y="84" class="box-copy">conservation  &#x00B7;  closure  &#x00B7;  intervention  &#x00B7;  held-out fit</text>
+    </g>
+
+    <text x="770" y="82" class="section">CONCEPTUAL STATE-TOPOLOGY VIEW</text>
+
+    <!-- The network is deliberately drawn first; opaque plates are a paper-like layer above it. -->
+    <circle cx="1210" cy="445" r="290" fill="url(#planet)" stroke="#a3dbe7" stroke-opacity="0.78" stroke-width="3"/>
+    <circle cx="1210" cy="445" r="252" fill="none" stroke="#77bfd0" stroke-opacity="0.35" stroke-width="2"/>
+    <circle cx="1210" cy="445" r="190" fill="none" stroke="#6eabc0" stroke-opacity="0.32" stroke-width="2"/>
+    <circle cx="1210" cy="445" r="128" fill="none" stroke="#e3ac5d" stroke-opacity="0.42" stroke-width="2"/>
+    <circle cx="1210" cy="445" r="84" fill="url(#deep)" stroke="#ffd889" stroke-opacity="0.8" stroke-width="2"/>
+
+    <path d="M 925 344 C 1035 276 1135 294 1212 348 C 1310 417 1400 408 1491 344" fill="none" stroke="#b6e6ee" stroke-opacity="0.42" stroke-width="2"/>
+    <path d="M 925 485 C 1035 405 1134 420 1206 480 C 1300 545 1400 535 1494 454" fill="none" stroke="#9ed4e0" stroke-opacity="0.28" stroke-width="2"/>
+    <path d="M 960 575 C 1050 510 1138 522 1208 580 C 1290 644 1380 630 1465 560" fill="none" stroke="#d8a35a" stroke-opacity="0.34" stroke-width="2"/>
+
+    <path d="M 1210 445 C 1130 378 1050 355 986 407 C 960 428 944 452 922 480" fill="none" stroke="url(#cyan-path)" stroke-width="7" stroke-linecap="round" marker-end="url(#arrow-cyan)"/>
+    <path d="M 1210 445 C 1290 372 1370 356 1422 405 C 1452 433 1473 453 1500 474" fill="none" stroke="url(#cyan-path)" stroke-width="7" stroke-linecap="round" marker-end="url(#arrow-cyan)"/>
+    <path d="M 1210 445 C 1168 508 1118 561 1080 588 C 1046 612 1010 616 976 604" fill="none" stroke="url(#amber-path)" stroke-width="7" stroke-linecap="round" marker-end="url(#arrow-amber)"/>
+    <path d="M 1210 445 C 1264 508 1314 550 1362 570 C 1400 585 1435 578 1470 560" fill="none" stroke="url(#amber-path)" stroke-width="7" stroke-linecap="round" marker-end="url(#arrow-amber)"/>
+    <path d="M 986 407 C 1066 467 1136 474 1210 445 C 1281 416 1360 425 1422 405" fill="none" stroke="#c9b8ff" stroke-opacity="0.9" stroke-width="4" stroke-dasharray="10 9" marker-end="url(#arrow-violet)"/>
+
+    <g fill="#10283c" stroke="#b8edf4" stroke-width="4">
+      <circle cx="986" cy="407" r="16"/>
+      <circle cx="1210" cy="445" r="19" stroke="#ffe2a0"/>
+      <circle cx="1422" cy="405" r="16"/>
+      <circle cx="1080" cy="588" r="16" stroke="#ffd37c"/>
+      <circle cx="1362" cy="570" r="16" stroke="#ffd37c"/>
+    </g>
+
+    <path d="M 1000 218 C 1114 122 1324 120 1462 227" fill="none" stroke="#9fe7ef" stroke-opacity="0.34" stroke-width="2" stroke-dasharray="7 10"/>
+    <path d="M 965 248 C 1095 130 1346 131 1490 266" fill="none" stroke="#9fe7ef" stroke-opacity="0.18" stroke-width="2" stroke-dasharray="3 12"/>
+    <g fill="#d7f6f8" stroke="#68bed0" stroke-width="2">
+      <circle cx="1040" cy="194" r="8"/>
+      <circle cx="1210" cy="164" r="8"/>
+      <circle cx="1375" cy="191" r="8"/>
+      <circle cx="1464" cy="250" r="8"/>
+    </g>
+    <path d="M 1040 202 C 1026 274 1004 340 986 391" fill="none" stroke="#a8e6ed" stroke-opacity="0.65" stroke-width="2" stroke-dasharray="4 8"/>
+    <path d="M 1210 172 C 1210 268 1210 345 1210 424" fill="none" stroke="#a8e6ed" stroke-opacity="0.65" stroke-width="2" stroke-dasharray="4 8"/>
+    <path d="M 1375 199 C 1390 276 1408 345 1420 389" fill="none" stroke="#a8e6ed" stroke-opacity="0.65" stroke-width="2" stroke-dasharray="4 8"/>
+    <path d="M 1464 258 C 1474 330 1482 396 1491 462" fill="none" stroke="#a8e6ed" stroke-opacity="0.65" stroke-width="2" stroke-dasharray="4 8"/>
+
+    <!-- Connector strokes terminate at plates; labels never sit on a path or node. -->
+    <path d="M 1210 164 L 1210 148" fill="none" stroke="#bceff4" stroke-width="2"/>
+    <path d="M 986 407 L 934 395" fill="none" stroke="#8dd9ea" stroke-width="2"/>
+    <path d="M 1210 445 L 1240 445" fill="none" stroke="#ffe0a0" stroke-width="2"/>
+    <path d="M 1080 588 L 1080 625" fill="none" stroke="#ffd37c" stroke-width="2"/>
+    <path d="M 1362 570 L 1362 625" fill="none" stroke="#ffd37c" stroke-width="2"/>
+
+    <!-- Construction-paper label plates: each label has its own opaque layer and safe margin. -->
+    <g>
+      <rect x="1078" y="94" width="264" height="54" rx="12" class="plate" stroke="#7dcbd8"/>
+      <rect x="1078" y="94" width="7" height="54" rx="3" fill="#7dcbd8"/>
+      <text x="1100" y="118" class="plate-title">OBSERVATION BOUNDARY</text>
+      <text x="1100" y="137" class="plate-copy">surface signals + constraints</text>
+    </g>
+    <g>
+      <rect x="770" y="350" width="164" height="60" rx="12" class="plate" stroke="#7dcbd8"/>
+      <rect x="770" y="350" width="7" height="60" rx="3" fill="#7dcbd8"/>
+      <text x="790" y="376" class="plate-title">SURFACE NODE</text>
+      <text x="790" y="397" class="plate-copy">measured outputs</text>
+    </g>
+    <g>
+      <rect x="1240" y="414" width="226" height="62" rx="12" class="plate" stroke="#f1c56d"/>
+      <rect x="1240" y="414" width="7" height="62" rx="3" fill="#f1c56d"/>
+      <text x="1260" y="441" class="plate-title">DEEP RESERVOIR</text>
+      <text x="1260" y="462" class="plate-copy">latent state / storage</text>
+    </g>
+    <g>
+      <rect x="990" y="625" width="182" height="56" rx="12" class="plate" stroke="#f1c56d"/>
+      <rect x="990" y="625" width="7" height="56" rx="3" fill="#f1c56d"/>
+      <text x="1011" y="649" class="plate-title">COUPLED PHASE</text>
+      <text x="1011" y="668" class="plate-copy">state transition</text>
+    </g>
+    <g>
+      <rect x="1275" y="625" width="184" height="56" rx="12" class="plate" stroke="#f1c56d"/>
+      <rect x="1275" y="625" width="7" height="56" rx="3" fill="#f1c56d"/>
+      <text x="1296" y="649" class="plate-title">TRANSPORT EDGE</text>
+      <text x="1296" y="668" class="plate-copy">constitutive path</text>
+    </g>
+
+    <g transform="translate(905 704)">
+      <rect x="0" y="0" width="585" height="58" rx="12" fill="#071a2d" fill-opacity="0.94" stroke="#345a70" stroke-width="2"/>
+      <line x1="20" y1="21" x2="60" y2="21" stroke="#8dd9ea" stroke-width="5"/>
+      <text x="72" y="26" class="legend">candidate transport path</text>
+      <line x1="300" y1="21" x2="340" y2="21" stroke="#c9b8ff" stroke-width="4" stroke-dasharray="9 8"/>
+      <text x="352" y="26" class="legend">state / observation link</text>
+      <text x="20" y="48" class="legend">All labels are declared layers; the network is a conceptual topology view.</text>
+    </g>
+
+    <g>
+      <rect x="70" y="790" width="1460" height="66" rx="16" fill="#071a2d" fill-opacity="0.96" stroke="#2e5168" stroke-width="2"/>
+      <text x="95" y="817" class="footer-strong">FRAMEWORK GATES</text>
+      <text x="290" y="817" class="footer">conservation  &#x00B7;  thermodynamic closure  &#x00B7;  identifiability  &#x00B7;  intervention  &#x00B7;  calibrated held-out prediction</text>
+      <text x="95" y="842" class="footer">Conceptual vector diagram &#x2014; not a scale model, measurement, or claim of planetary validation.</text>
+    </g>
+  </g>
+</svg>

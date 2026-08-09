@@ -1,0 +1,28 @@
+{
+  "schema": "astra-coherence-cell-draft-v1",
+  "title": "ASTRA coherence-cell exploration: wave packets, stress flux, and falsifiers",
+  "status": "local_unpromoted_supplemental_research_draft",
+  "audited_base_commit": "8e2332df19da9092ad95e25031f1c50020e9fee7",
+  "audited_base_tree": "062f8e2cc1c789f30134e823ba9cf2bb39c02539",
+  "input_artifact": "user-supplied council result pasted-text.txt",
+  "input_artifact_sha256": "E132D254D90545E169306A9245149848E39B83B2B01A7199FC8498333DC7BCA9",
+  "source_bytes_archived": false,
+  "scope": "separate ASTRA supplemental methods and speculative model scaffold; no SPPT core changes",
+  "evidence_policy": "observed, source_asserted, proposed_only, deferred, and rejected claims remain distinct",
+  "machine_readable_ledgers": [
+    "aeof_ledger.csv",
+    "claim_ledger.csv",
+    "source_ledger.csv",
+    "novelty_ledger.csv"
+  ],
+  "dynamic_fields": [],
+  "release_identity": null,
+  "publication": {
+    "github_repository_visible": false,
+    "github_release": false,
+    "pages": false,
+    "zenodo": false,
+    "doi": false
+  },
+  "rights_boundary": "Original draft prose is CC BY 4.0 only to the extent the project author holds relevant rights; cited works, facts, metadata, publisher materials, raw data, and dependencies retain their own terms."
+}

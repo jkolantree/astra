@@ -63,3 +63,32 @@ Release, Pages route, DOI, or Zenodo record. Its active-support kernel,
 mode-specific interface, and moving-front coordinate are proposed bookkeeping
 and experiment-design objects, not new physical laws. It does not modify the
 SPPT/ASTRA v1.0.6 claim matrix, equations, release assets, or immutable tags.
+
+## Unpromoted coherence-cell exploration
+
+[Coherence-cell exploration](coherence-cell-exploration/draft-v0.1.0/) is an
+unpromoted supplemental research scaffold derived from a supplied
+council result. It translates the “electron crest” intuition into prepared
+Rydberg wave-packet observables, replaces unqualified pressure language with
+stress-flux bookkeeping, and proposes AEOF (Analogy → Equation → Observable →
+Falsifier) records plus a coherence–support–release comparison. It does not
+claim an ether, a common hidden mechanism, a dark-matter detection, a static
+cosmology, or a new SPPT equation. Its source and novelty ledgers are
+citation-level and explicitly incomplete until source bytes, exact entailment,
+and independent replays are frozen.
+
+The folder is not a GitHub Release, Pages route, DOI, or Zenodo deposit. It is
+kept separate from the immutable SPPT/ASTRA v1.0.6 core and from the other
+namespaced resource lines.
+
+## Unpromoted SPPT bridge protocol
+
+[SPPT Bridge Protocol successor prototype](sppt-bridge-protocol/draft-v0.1.0/)
+implements the proposed chain from conservation contract to thermodynamic
+ledger, observational-equivalence classes, designed intervention selection,
+and calibrated held-out prediction. It is a successor methods prototype, not a
+new SPPT equation, planetary result, topology-recovery theorem, GitHub Release,
+Pages route, DOI, or Zenodo deposit. Its finite transfer signatures and
+response-derived utility scores are diagnostics that require domain-specific
+constitutive models and independent validation before any scientific claim is
+promoted.
