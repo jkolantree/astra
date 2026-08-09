@@ -92,3 +92,17 @@ Pages route, DOI, or Zenodo deposit. Its finite transfer signatures and
 response-derived utility scores are diagnostics that require domain-specific
 constitutive models and independent validation before any scientific claim is
 promoted.
+
+## Unpromoted cosmic visibility framework
+
+[Cosmic Visibility and Sampling Framework](cosmic-visibility-framework/draft-v0.1.0/)
+is a repository-visible, unpromoted methods draft. It combines conditional
+cosmic-filament conversion searches with the selective recovery of Martian
+meteorites through a typed source-to-certificate operator chain. The framework
+requires calibrated visibility factors, explicit source-versus-visibility
+equivalence classes, matched controls, and held-out scoring. It does not claim
+dark-matter or graviton detection, a fourth Martian mantle reservoir, a shared
+physical mechanism, or a replacement cosmology. The folder contains the
+machine-checkable protocol, source/claim/novelty ledgers, vector diagrams, and
+the 28-page core PDF. It is not a GitHub Release, Pages route, DOI, or Zenodo
+deposit and does not modify the immutable SPPT/ASTRA v1.0.6 core.

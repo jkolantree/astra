@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/astra/cosmic-visibility-framework/draft-v0.1.0/schema.json",
+  "title": "ASTRA cosmic visibility and transformed-archive record",
+  "description": "Unpromoted research schema for source-to-certificate visibility chains. Validation does not establish a physical claim.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "record_id",
+    "status",
+    "question",
+    "domain",
+    "visibility_chain",
+    "visibility_kernel",
+    "observation_design",
+    "predictions",
+    "evidence_boundary",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "cosmic-visibility-record-v0.1.0"},
+    "record_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+    "status": {"enum": ["unpromoted_research_draft", "reproduction_candidate", "deferred"]},
+    "question": {"type": "string", "minLength": 1},
+    "domain": {"type": "string", "minLength": 1},
+    "hypotheses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/hypothesis"}
+    },
+    "visibility_chain": {
+      "type": "array",
+      "minItems": 3,
+      "items": {"$ref": "#/$defs/chainStage"}
+    },
+    "visibility_kernel": {
+      "type": "object",
+      "required": ["combination", "factors", "unknown_policy"],
+      "properties": {
+        "combination": {"enum": ["product", "integral_operator", "simulation_operator", "qualitative_only"]},
+        "equation": {"type": "string", "minLength": 1},
+        "factors": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/kernelFactor"}
+        },
+        "unknown_policy": {"enum": ["interval_propagation", "prior_sensitivity", "defer", "not_applicable"]},
+        "sensitivity_analysis": {"type": "array", "items": {"$ref": "#/$defs/sensitivity"}}
+      },
+      "additionalProperties": false
+    },
+    "observation_design": {"$ref": "#/$defs/observationDesign"},
+    "predictions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/prediction"}
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "required": ["established", "conditional", "inferred", "unsupported", "promotion_blockers"],
+      "properties": {
+        "established": {"type": "array", "items": {"type": "string"}},
+        "conditional": {"type": "array", "items": {"type": "string"}},
+        "inferred": {"type": "array", "items": {"type": "string"}},
+        "unsupported": {"type": "array", "items": {"type": "string"}},
+        "promotion_blockers": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source_ids", "claim_ids", "novelty_ids", "base_reference"],
+      "properties": {
+        "source_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^S[A-Z0-9._-]+$"}},
+        "claim_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^CV-[A-Z0-9._-]+$"}},
+        "novelty_ids": {"type": "array", "items": {"type": "string", "pattern": "^NVA-[A-Z0-9._-]+$"}},
+        "base_reference": {
+          "type": "object",
+          "required": ["tag", "commit", "tree"],
+          "properties": {
+            "tag": {"const": "v1.0.6"},
+            "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+            "tree": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "certificate": {"$ref": "#/$defs/certificate"}
+  },
+  "$defs": {
+    "hypothesis": {
+      "type": "object",
+      "required": ["hypothesis_id", "label", "kind", "status"],
+      "properties": {
+        "hypothesis_id": {"type": "string", "pattern": "^H-[A-Z0-9._-]+$"},
+        "label": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["source", "transduction", "sampling", "null", "baseline", "mixture"]},
+        "status": {"enum": ["reported", "conditional", "proposed", "deferred", "rejected"]},
+        "assumptions": {"type": "array", "items": {"type": "string"}},
+        "source_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "chainStage": {
+      "type": "object",
+      "required": ["chain_id", "stage_id", "stage_kind", "input", "output", "operator_status"],
+      "properties": {
+        "chain_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+        "stage_id": {"type": "string", "pattern": "^stage-[a-z0-9][a-z0-9._-]*$"},
+        "stage_kind": {"enum": ["source", "production", "transduction", "propagation", "archive", "sampling", "recovery", "detector", "certificate"]},
+        "input": {"type": "string", "minLength": 1},
+        "output": {"type": "string", "minLength": 1},
+        "operator": {"type": "string", "minLength": 1},
+        "operator_status": {"enum": ["measured", "modelled", "simulated", "unknown", "not_applicable"]},
+        "loss_or_gain": {"enum": ["gain", "loss", "selection", "conversion", "preservation", "measurement", "none", "unknown"]},
+        "source_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "interval": {
+      "type": "object",
+      "required": ["lower", "upper"],
+      "properties": {
+        "lower": {"type": "number"},
+        "upper": {"type": "number"},
+        "confidence_level": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "kind": {"enum": ["bound", "credible_interval", "confidence_interval", "sensitivity_range", "unknown"]}
+      },
+      "description": "The companion contract test enforces lower <= upper because standard Draft 2020-12 has no cross-field numeric minimum keyword.",
+      "additionalProperties": false
+    },
+    "kernelFactor": {
+      "type": "object",
+      "required": ["factor_id", "stage_id", "quantity", "units", "value_kind", "evidence_class", "identifiability", "source_ids"],
+      "properties": {
+        "factor_id": {"type": "string", "pattern": "^K-[A-Z0-9._-]+$"},
+        "stage_id": {"type": "string", "pattern": "^stage-[a-z0-9][a-z0-9._-]*$"},
+        "quantity": {"type": "string", "minLength": 1},
+        "units": {"type": "string", "minLength": 1},
+        "value_kind": {"enum": ["scalar", "interval", "distribution", "operator", "unknown"]},
+        "value": {"type": ["number", "string", "null"]},
+        "interval": {"$ref": "#/$defs/interval"},
+        "distribution": {"type": "string", "minLength": 1},
+        "evidence_class": {"enum": ["hand_checked", "independently_reproduced", "mechanically_replayed", "externally_published", "source_asserted", "proposed_only", "unknown"]},
+        "identifiability": {"enum": ["identified", "partially_identified", "equivalence_class", "not_identified", "not_applicable"]},
+        "source_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "limitations": {"type": "array", "items": {"type": "string"}}
+      },
+      "allOf": [
+        {"if": {"properties": {"value_kind": {"const": "scalar"}}, "required": ["value_kind"]}, "then": {"required": ["value"]}},
+        {"if": {"properties": {"value_kind": {"const": "interval"}}, "required": ["value_kind"]}, "then": {"required": ["interval"]}}
+      ],
+      "additionalProperties": false
+    },
+    "sensitivity": {
+      "type": "object",
+      "required": ["parameter", "low", "high", "metric", "result"],
+      "properties": {
+        "parameter": {"type": "string", "minLength": 1},
+        "low": {"type": "number"},
+        "high": {"type": "number"},
+        "metric": {"type": "string", "minLength": 1},
+        "result": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "observationDesign": {
+      "type": "object",
+      "required": ["observables", "controls", "selection_process", "missingness_assumption"],
+      "properties": {
+        "observables": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/observable"}},
+        "controls": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/control"}},
+        "selection_process": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "missingness_assumption": {"enum": ["missing_completely_at_random", "missing_at_random", "missing_not_at_random", "unknown", "not_applicable"]},
+        "holdout_split_id": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "observable": {
+      "type": "object",
+      "required": ["observable_id", "quantity", "units", "operator", "noise_model", "source_ids"],
+      "properties": {
+        "observable_id": {"type": "string", "pattern": "^O-[A-Z0-9._-]+$"},
+        "quantity": {"type": "string", "minLength": 1},
+        "units": {"type": "string", "minLength": 1},
+        "operator": {"type": "string", "minLength": 1},
+        "noise_model": {"type": "string", "minLength": 1},
+        "source_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "control": {
+      "type": "object",
+      "required": ["control_id", "control_kind", "matching_variables", "predicted_difference"],
+      "properties": {
+        "control_id": {"type": "string", "pattern": "^C-[A-Z0-9._-]+$"},
+        "control_kind": {"enum": ["low_converter", "void", "randomized_geometry", "negative_source", "alternative_generator", "recovery_audit", "other"]},
+        "matching_variables": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "predicted_difference": {"type": "string", "minLength": 1},
+        "source_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "prediction": {
+      "type": "object",
+      "required": ["prediction_id", "hypothesis_id", "observable_id", "direction", "metric", "holdout_rule", "falsifier", "status"],
+      "properties": {
+        "prediction_id": {"type": "string", "pattern": "^P-[A-Z0-9._-]+$"},
+        "hypothesis_id": {"type": "string", "pattern": "^H-[A-Z0-9._-]+$"},
+        "observable_id": {"type": "string", "pattern": "^O-[A-Z0-9._-]+$"},
+        "direction": {"enum": ["positive", "negative", "monotonic_increase", "monotonic_decrease", "localized", "null_difference", "distributional", "unknown"]},
+        "metric": {"type": "string", "minLength": 1},
+        "threshold": {"type": ["number", "null"]},
+        "holdout_rule": {"type": "string", "minLength": 1},
+        "falsifier": {"type": "string", "minLength": 1},
+        "status": {"enum": ["predeclared", "observed", "failed", "deferred"]},
+        "result": {"type": ["number", "string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "certificate": {
+      "type": "object",
+      "required": ["kind", "result", "limitations"],
+      "properties": {
+        "kind": {"enum": ["conditional_null_constraint", "heldout_prediction", "sampling_bound", "method_only", "none"]},
+        "result": {"enum": ["pass_with_qualification", "fail", "defer", "not_run"]},
+        "metric": {"type": ["number", "null"]},
+        "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

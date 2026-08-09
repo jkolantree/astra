@@ -68,7 +68,7 @@ DIRECTORY_RULES = {
     "figures": {".png", ".pdf"},
     "licenses": {".txt"},
     "manuscript": {".bib", ".css", ".html", ".json", ".md", ".pdf"},
-    "resources": {".cff", ".csv", ".json", ".md", ".pdf", ".png", ".py", ".sha256", ".txt"},
+    "resources": {".cff", ".csv", ".html", ".json", ".md", ".pdf", ".png", ".py", ".sha256", ".svg", ".txt"},
     "docs": {".css", ".html", ".json", ".md", ".png", ".svg", ".txt"},
     "schemas": {".json", ".md"},
     "scripts": {".py"},
@@ -110,6 +110,7 @@ PATTERN_FIXTURE_FILES = {
     "tools/inspect_pdf.py",
     "tests/test_document_contract.py",
     "tests/test_release_integrity.py",
+    "resources/cosmic-visibility-framework/draft-v0.1.0/build_framework_pdf.py",
 }
 ALLOWED_EVIDENCE = {
     "source_asserted",
@@ -262,6 +263,28 @@ SPPT_BRIDGE_RESOURCE_FILES = (
     "test_bridge_contract.py",
     "validate_schema.py",
 )
+COSMIC_VISIBILITY_RESOURCE_ROOT = "resources/cosmic-visibility-framework/draft-v0.1.0"
+COSMIC_VISIBILITY_RESOURCE_FILES = (
+    "CHANGE_LOG.md",
+    "CORE_FRAMEWORK.md",
+    "COSMIC_VISIBILITY_FRAMEWORK_v0.1.0.html",
+    "COSMIC_VISIBILITY_FRAMEWORK_v0.1.0.pdf",
+    "LICENSE_MAP.md",
+    "pdf_build_identity.json",
+    "README.md",
+    "VISIBILITY_MANIFEST.sha256",
+    "claim_ledger.csv",
+    "draft_metadata.json",
+    "example_visibility_record.json",
+    "novelty_ledger.csv",
+    "source_ledger.csv",
+    "test_visibility_framework.py",
+    "validate_framework.py",
+    "visibility_framework.schema.json",
+    "build_framework_pdf.py",
+    "figures/evidence_ladder.svg",
+    "figures/visibility_kernel_chain.svg",
+)
 FRAMEWORK_RESOURCE_COVER = "cover.png"
 RESOURCE_PATH_ALLOWLIST = {
     "resources/README.md",
@@ -283,6 +306,10 @@ RESOURCE_PATH_ALLOWLIST = {
     *(f"{ACTIVE_SUPPORT_RESOURCE_ROOT}/{name}" for name in ACTIVE_SUPPORT_RESOURCE_FILES),
     *(f"{COHERENCE_CELL_RESOURCE_ROOT}/{name}" for name in COHERENCE_CELL_RESOURCE_FILES),
     *(f"{SPPT_BRIDGE_RESOURCE_ROOT}/{name}" for name in SPPT_BRIDGE_RESOURCE_FILES),
+    *(
+        f"{COSMIC_VISIBILITY_RESOURCE_ROOT}/{name}"
+        for name in COSMIC_VISIBILITY_RESOURCE_FILES
+    ),
 }
 
 

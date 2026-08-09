@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Evidence ladder for operator-aware research</title>
+  <desc id="desc">A three-lane diagram from a hidden-state equivalence class through a designed intervention and calibrated held-out prediction to a bounded evidence certificate. A warning lane marks unknown and rejected states.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7fbff"/>
+      <stop offset="1" stop-color="#eef3f8"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1">
+      <stop offset="0" stop-color="#f8e5af"/>
+      <stop offset="1" stop-color="#eac77a"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" x2="1">
+      <stop offset="0" stop-color="#dff2e5"/>
+      <stop offset="1" stop-color="#b6dfc3"/>
+    </linearGradient>
+    <linearGradient id="purple" x1="0" x2="1">
+      <stop offset="0" stop-color="#e8e2f5"/>
+      <stop offset="1" stop-color="#c8b9e6"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#102a43" flood-opacity=".16"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0,0 L11,5.5 L0,11 Z" fill="#52606d"/>
+    </marker>
+    <style>
+      .title { font: 700 29px "SPPT DejaVu Sans", sans-serif; fill: #102a43; }
+      .subtitle { font: 400 17px "SPPT DejaVu Sans", sans-serif; fill: #52606d; }
+      .label { font: 700 17px "SPPT DejaVu Sans", sans-serif; fill: #102a43; }
+      .small { font: 400 14px "SPPT DejaVu Sans", sans-serif; fill: #334e68; }
+      .tiny { font: 400 12px "SPPT DejaVu Sans", sans-serif; fill: #52606d; }
+      .mono { font: 700 14px "SPPT DejaVu Sans Mono", monospace; fill: #334e68; }
+      .white { fill: #ffffff; }
+    </style>
+  </defs>
+  <rect width="1400" height="760" fill="url(#bg)"/>
+  <text x="70" y="66" class="title">From analogy to a bounded certificate</text>
+  <text x="70" y="98" class="subtitle">The bridge earns a claim only when the intervention and holdout can separate the rivals.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="154" width="280" height="174" rx="18" fill="url(#purple)" stroke="#8b78bb" stroke-width="2"/>
+    <rect x="410" y="154" width="280" height="174" rx="18" fill="url(#gold)" stroke="#c89c42" stroke-width="2"/>
+    <rect x="750" y="154" width="280" height="174" rx="18" fill="url(#green)" stroke="#78ad87" stroke-width="2"/>
+    <rect x="1090" y="154" width="240" height="174" rx="18" fill="#274d63" stroke="#183b56" stroke-width="2"/>
+  </g>
+  <g fill="none" stroke="#52606d" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M350 241 H402"/>
+    <path d="M690 241 H742"/>
+    <path d="M1030 241 H1082"/>
+  </g>
+
+  <g text-anchor="middle">
+    <text x="210" y="195" class="tiny">1 / IDENTIFY</text>
+    <text x="210" y="229" class="label">Equivalence class</text>
+    <text x="210" y="257" class="small">exact or epsilon-equivalent</text>
+    <text x="210" y="281" class="small">source x visibility</text>
+    <text x="210" y="305" class="small">graph-label quotient</text>
+
+    <text x="550" y="195" class="tiny">2 / DESIGN</text>
+    <text x="550" y="229" class="label">Intervention surface</text>
+    <text x="550" y="257" class="small">Fisher information</text>
+    <text x="550" y="281" class="small">KL or separation U(u)</text>
+    <text x="550" y="305" class="small">matched controls</text>
+
+    <text x="890" y="195" class="tiny">3 / PREDICT</text>
+    <text x="890" y="229" class="label">Calibrated holdout</text>
+    <text x="890" y="257" class="small">train / calibrate / test</text>
+    <text x="890" y="281" class="small">posterior predictive</text>
+    <text x="890" y="305" class="small">simulation-based calibration</text>
+
+    <text x="1210" y="195" class="tiny white">4 / CERTIFY</text>
+    <text x="1210" y="229" class="label white">Bounded result</text>
+    <text x="1210" y="257" class="small white">status + source IDs</text>
+    <text x="1210" y="281" class="small white">runtime + hashes</text>
+    <text x="1210" y="305" class="small white">limitations preserved</text>
+  </g>
+
+  <rect x="70" y="388" width="1260" height="112" rx="17" fill="#fff" stroke="#d1dbe5" stroke-width="2"/>
+  <text x="104" y="425" class="label">Response-derived utility</text>
+  <text x="104" y="456" class="mono">U(u) = E[KL(P(y | theta,u) || P(y | u))] or S(u) = norm(Cov^-1/2 (mu1(u) - mu2(u)))^2</text>
+  <text x="104" y="481" class="small">The utility is computed from the declared forward model; it is never copied from an expected-value field.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="560" width="360" height="108" rx="17" fill="#fff4e6" stroke="#d6a25e" stroke-width="2"/>
+    <rect x="520" y="560" width="360" height="108" rx="17" fill="#eef1f4" stroke="#a8b7c4" stroke-width="2"/>
+    <rect x="970" y="560" width="360" height="108" rx="17" fill="#f5e8e8" stroke="#c99191" stroke-width="2"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="250" y="598" class="label">UNKNOWN</text>
+    <text x="250" y="625" class="small">operators or support not identified</text>
+    <text x="250" y="648" class="tiny">preserve; do not force a label</text>
+
+    <text x="700" y="598" class="label">REPORTED / PROPOSED</text>
+    <text x="700" y="625" class="small">source record or design only</text>
+    <text x="700" y="648" class="tiny">not independent validation</text>
+
+    <text x="1150" y="598" class="label">REJECTED / DEMOTED</text>
+    <text x="1150" y="625" class="small">held-out failure or contradiction</text>
+    <text x="1150" y="648" class="tiny">retain negative result and boundary</text>
+  </g>
+  <path d="M210 328 V378 M550 328 V378 M890 328 V378 M1210 328 V378" fill="none" stroke="#9fb3c8" stroke-width="2" stroke-dasharray="7 7"/>
+  <text x="70" y="728" class="small">Original vector artwork. A promotion is a decision with an evidence identity, not a style of prose.</text>
+</svg>

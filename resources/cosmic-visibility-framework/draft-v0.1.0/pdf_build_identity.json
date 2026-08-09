@@ -1,0 +1,58 @@
+{
+  "artifacts": [
+    {
+      "bytes": 5012301,
+      "name": "COSMIC_VISIBILITY_FRAMEWORK_v0.1.0.html",
+      "sha256": "880b218eb332b42065f551e7f300737194f21b4abf19b1911ae68ffe5260144e"
+    },
+    {
+      "bytes": 645073,
+      "name": "COSMIC_VISIBILITY_FRAMEWORK_v0.1.0.pdf",
+      "pages": 28,
+      "sha256": "40e952a1955e95f437621c31b554f7900092c2367eacb29bcefc3c9a82564d17"
+    }
+  ],
+  "audited_base_commit": "6982f700bdad2f8e19a3ab4121f1afb0aa323d92",
+  "audited_base_tree": "7aee19aa1bc31ac9d918ff797dc51dfb50d6afae",
+  "build_epoch": "2026-08-09T00:00:00Z",
+  "builder": {
+    "name": "build_framework_pdf.py",
+    "sha256": "b85629c48bcde420585d4780049c11c55b7b53d5f14fa0a43a7301c1b69c3bdd"
+  },
+  "identity_excludes_self": true,
+  "input_bindings": [
+    {
+      "name": "manuscript/style.css",
+      "sha256": "5ec28b512f4299d166713fb94b7cce4daa7acfb9ea6077f7efe55cc3606897f5"
+    },
+    {
+      "name": "resources/cosmic-visibility-framework/draft-v0.1.0/figures/evidence_ladder.svg",
+      "sha256": "f8b9a13dd2616ddf97b4366fb96047c8e7550db32937fee9d4ccc04a73ba8461"
+    },
+    {
+      "name": "resources/cosmic-visibility-framework/draft-v0.1.0/figures/visibility_kernel_chain.svg",
+      "sha256": "35f39b267fd8f5165df943899357e3705a1e5eb4764cbb37166c19d28a564e27"
+    }
+  ],
+  "rights": {
+    "original_prose_and_vector_art": "CC BY 4.0 to the extent held by the project author",
+    "third_party_sources": "citation leads only; no source bytes redistributed"
+  },
+  "runtime": {
+    "browser": "151.0.7922.34",
+    "font_provider": "matplotlib bundled DejaVu/STIX",
+    "matplotlib": "3.11.1",
+    "pandoc": "3.6.1",
+    "pikepdf": "10.11.0",
+    "playwright": "1.62.0",
+    "python": "3.12.10"
+  },
+  "schema": "astra-cosmic-visibility-pdf-build-v1",
+  "source": {
+    "name": "CORE_FRAMEWORK.md",
+    "sha256": "b199793f617d814d16b79d1efd93502e8b75b28631c1520380e4a0756d6b2929"
+  },
+  "status": "unpromoted_default_branch_research_draft",
+  "title": "Cosmic Visibility and Sampling Framework",
+  "version": "0.1.0"
+}
