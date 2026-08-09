@@ -2,7 +2,9 @@
 
 This collection holds separately versioned exploratory and foundational working
 papers, supporting packages, and public reading companions. Each resource has
-its own review status, integrity record, citation, and rights boundary.
+its own review status, integrity record, source or provenance record, and rights
+boundary; published editions additionally state their citation and reading
+route.
 
 ## *Earth Is the Instrument* publication line
 

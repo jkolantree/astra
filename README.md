@@ -29,7 +29,7 @@ This matters because many planetary measurements are made at the boundary: tempe
 - **Unpromoted successor prototypes.** The [SPPT Bridge Protocol](resources/sppt-bridge-protocol/draft-v0.1.0/) and [coherence-cell exploration](resources/coherence-cell-exploration/draft-v0.1.0/) are separate methods prototypes. They are not core equations, release assets, or validation claims.
 - **Unpromoted cosmic visibility framework.** The [Cosmic Visibility and Sampling Framework](resources/cosmic-visibility-framework/draft-v0.1.0/) is a 28-page operator-aware research draft for separating source strength from transduction, propagation, archive, recovery, and detector visibility. It is a methods proposal only: no dark-matter or graviton detection, fourth Martian reservoir, shared physical mechanism, or replacement cosmology is claimed.
 
-The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line. Supplemental resources use their own namespaced tags, citations, checksums, and `/resources/` routes. The project was developed with substantive ChatGPT assistance; the human-responsibility and independence disclosure appears below.
+The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line. Published reading editions have their own versioned tags, citations, checksums, and `/resources/` routes; public namespaced releases without a reading route and repository-visible unpromoted drafts remain source-tree or release artifacts unless a route is stated explicitly. The project was developed with substantive ChatGPT assistance; the human-responsibility and independence disclosure appears below.
 
 ## Core reference package
 
@@ -44,7 +44,7 @@ The bare `/latest/` route and repository-level `CITATION.cff` refer only to the 
 - [Claim-admission matrix](CLAIM_MATRIX.json)
 - [Structured claim-to-source coverage draft](evidence/claim_source_coverage_v1.0.6_draft.json)
 
-The versioned Pages editions are the primary accessible reading path. The downloadable HTML files are self-contained; the PDFs are synchronized tagged visual editions. Native MathML is available in HTML, while the PDFs do not claim a native MathML expression tree. The structured coverage draft is maintenance evidence, not a new release or proof of sentence-level completeness.
+The versioned Pages editions are the primary accessible reading path for the reference package and published supplemental line. The downloadable HTML files are self-contained; the PDFs are synchronized tagged visual editions. Native MathML is available in HTML, while the PDFs do not claim a native MathML expression tree. Repository-visible unpromoted drafts remain source-tree artifacts rather than Pages editions. The structured coverage draft is maintenance evidence, not a new release or proof of sentence-level completeness.
 
 ## Supplemental line: *Earth Is the Instrument*
 
@@ -137,7 +137,7 @@ The repository verification workflow runs for pull requests, `main`, and core re
 | Path | Contents |
 |---|---|
 | `manuscript/` | Authoritative Markdown, bibliography, accessible HTML, synchronized PDF |
-| `docs/` | GitHub Pages landing files, including the public vector cover; the deployment workflow assembles immutable versioned reference editions and separately verified supplemental-resource pages from published release assets |
+| `docs/` | GitHub Pages landing files, including the public vector cover; the deployment workflow assembles immutable versioned reference editions and separately verified published supplemental-resource pages. Unpromoted drafts remain source-tree artifacts unless given an explicit route |
 | `schemas/` | Published Draft 7 schemas for schema-declaring release metadata and audit records |
 | `src/` | Auditable reduced SPPT and ASTRA calculations |
 | `scripts/` | Deterministic scientific reproductions and figure generation |
