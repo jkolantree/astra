@@ -30,6 +30,13 @@ This matters because many planetary measurements are made at the boundary: tempe
   bridge only; it is not ASTRA v0.3.2, does not amend either immutable line, and
   has no Pages route, DOI, or Zenodo record. Open the namespaced [GitHub
   prerelease](https://github.com/jkolantree/astra/releases/tag/sector-complete-instrument-v0.1.0-alpha.1).
+- **Unpromoted methods draft — Mode-resolved active-support audit.**
+  The default-branch [draft](resources/active-support-audit/draft-v0.1.0/) is a long-form
+  ASTRA methods perspective on how mode, waveform, geometry, phase matching,
+  and observation can vary without changing SPPT's physical core. It separates
+  established SPPT consequences from proposed predictions and deferred source
+  bridges. It is not peer reviewed, has no release or DOI, and does not enter
+  the v1.0.6 claim matrix or immutable assets.
 - **v0.1 — historical edition (*Earth Is the Instrument* Working Paper).**
   Immutable GitHub prerelease; not peer reviewed. [Read historical
   v0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/)

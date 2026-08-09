@@ -44,3 +44,22 @@ This supplemental line does not replace, revise, or supersede the current
 SPPT/ASTRA **v1.0.6 reference release**, enter its claim-admission matrix, or
 inherit its verification status. A later reference release would need to admit
 any supplemental claim explicitly.
+
+## Unpromoted namespaced methods draft
+
+[Mode-resolved active-support audit draft-v0.1.0](active-support-audit/draft-v0.1.0/)
+is an unpromoted ASTRA methods perspective derived from a separately hashed
+user-supplied synthesis and checked primary-record leads. It explains how
+mode, waveform, geometry, phase matching, and observation can vary without
+silently changing SPPT's physical graph. It adds a long-form prediction and
+falsification program for three heterogeneous cases:
+
+- flying-focus laser wakefield acceleration;
+- radiofrequency disturbance of migratory-bird orientation; and
+- a silver/perovskite electrode lead whose primary record remains unresolved.
+
+The draft is not peer reviewed, has no release identity, and has no GitHub
+Release, Pages route, DOI, or Zenodo record. Its active-support kernel,
+mode-specific interface, and moving-front coordinate are proposed bookkeeping
+and experiment-design objects, not new physical laws. It does not modify the
+SPPT/ASTRA v1.0.6 claim matrix, equations, release assets, or immutable tags.

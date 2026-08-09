@@ -230,6 +230,15 @@ SECTOR_RESOURCE_FILES = (
     "verification/producer_acceptance_gate_matrix.csv",
     "verification/producer_verification_report.md",
 )
+ACTIVE_SUPPORT_RESOURCE_ROOT = "resources/active-support-audit/draft-v0.1.0"
+ACTIVE_SUPPORT_RESOURCE_FILES = (
+    "CHANGE_LOG.md",
+    "METHODS_NOTE.md",
+    "README.md",
+    "claim_ledger.csv",
+    "draft_metadata.json",
+    "source_ledger.csv",
+)
 FRAMEWORK_RESOURCE_COVER = "cover.png"
 RESOURCE_PATH_ALLOWLIST = {
     "resources/README.md",
@@ -248,6 +257,7 @@ RESOURCE_PATH_ALLOWLIST = {
         )
     ),
     *(f"{SECTOR_RESOURCE_ROOT}/{name}" for name in SECTOR_RESOURCE_FILES),
+    *(f"{ACTIVE_SUPPORT_RESOURCE_ROOT}/{name}" for name in ACTIVE_SUPPORT_RESOURCE_FILES),
 }
 
 

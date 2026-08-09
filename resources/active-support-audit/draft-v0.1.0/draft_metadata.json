@@ -1,0 +1,27 @@
+{
+  "schema": "astra-active-support-draft-v1",
+  "title": "ASTRA proposed methods draft: mode-resolved active-support audit",
+  "status": "unpromoted_default_branch_research_draft",
+  "audited_base_commit": "772d5ed70c2dc84a1fe229262acd74358d834139",
+  "audited_base_tree": "4573c5a8939db248cf3f48ef62e2f3f29767b160",
+  "input_artifact": "user-supplied pasted-text.txt",
+  "input_artifact_sha256": "db61d23573a97b62ff743344efcb765db363b7781e340c332a5c0cf42a8b5129",
+  "source_scope": [
+    "current SPPT/ASTRA v1.0.6 tracked sources as an immutable reference",
+    "three supplied external study cases",
+    "one related negative-control preprint",
+    "one supplied cross-case synthesis"
+  ],
+  "release_identity": null,
+  "publication": {
+    "github_repository_visible": true,
+    "github_release": false,
+    "pages": false,
+    "zenodo": false,
+    "doi": false
+  },
+  "scope": "ASTRA supplemental methods perspective; no SPPT core changes",
+  "evidence_policy": "reported results, structural analogies, and proposed tests remain separate; no dark-matter inference is admitted",
+  "dynamic_fields": [],
+  "rights_boundary": "Original draft prose is CC BY 4.0 only to the extent the project author holds the rights; cited works, facts, metadata, publisher materials, raw data, and dependencies retain their own terms."
+}
