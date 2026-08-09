@@ -258,6 +258,7 @@ SPPT_BRIDGE_RESOURCE_FILES = (
     "README.md",
     "bridge_contract.py",
     "bridge_protocol.schema.json",
+    "schema_validation_environment.json",
     "test_bridge_contract.py",
     "validate_schema.py",
 )

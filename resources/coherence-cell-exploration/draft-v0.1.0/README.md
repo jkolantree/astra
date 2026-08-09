@@ -1,7 +1,7 @@
 # ASTRA coherence-cell exploration: wave packets, stress flux, and falsifiers
 
-Status: local, unpromoted supplemental research draft. This is not a release,
-not peer reviewed, and not a new SPPT or ASTRA core claim.
+Status: repository-visible, unpromoted supplemental research draft. This is not
+a release, not peer reviewed, and not a new SPPT or ASTRA core claim.
 
 This note develops a cautious research program from the supplied “foam,
 pressure, crest, and code” proposal. It preserves the useful intuition while

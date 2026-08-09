@@ -1,7 +1,7 @@
 {
   "schema": "astra-coherence-cell-draft-v1",
   "title": "ASTRA coherence-cell exploration: wave packets, stress flux, and falsifiers",
-  "status": "local_unpromoted_supplemental_research_draft",
+  "status": "unpromoted_default_branch_research_draft",
   "audited_base_commit": "8e2332df19da9092ad95e25031f1c50020e9fee7",
   "audited_base_tree": "062f8e2cc1c789f30134e823ba9cf2bb39c02539",
   "input_artifact": "user-supplied council result pasted-text.txt",
@@ -18,7 +18,7 @@
   "dynamic_fields": [],
   "release_identity": null,
   "publication": {
-    "github_repository_visible": false,
+    "github_repository_visible": true,
     "github_release": false,
     "pages": false,
     "zenodo": false,

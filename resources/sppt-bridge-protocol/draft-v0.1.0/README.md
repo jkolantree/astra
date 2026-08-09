@@ -1,8 +1,9 @@
-# SPPT Bridge Protocol — local successor prototype
+# SPPT Bridge Protocol — repository-visible successor prototype
 
-Status: `local_unpromoted_successor_prototype`
+Status: `repository_visible_unpromoted_successor_prototype`
 
-This directory is a local, unpromoted prototype for the proposed bridge:
+This directory is a repository-visible, unpromoted prototype for the proposed
+bridge:
 
 ```text
 ConservationContract
@@ -47,7 +48,7 @@ replication.
 The record types are intentionally conservative. A typed record is not evidence
 that the corresponding scientific result has been established.
 
-## Local check
+## Checks
 
 From the repository root, run:
 
@@ -55,10 +56,15 @@ From the repository root, run:
 & '.\tmp\python-3.12.10-embed\python.exe' -I -B '.\resources\sppt-bridge-protocol\draft-v0.1.0\test_bridge_contract.py'
 ```
 
-The prototype is not registered in the public manifest or release machinery.
-`BRIDGE_MANIFEST.sha256` binds this local prototype's own payload bytes; it is
-not the root v1.0.6 release manifest. No commit, push, tag, Pages deployment,
-DOI, or release is implied.
+The prototype is admitted to the repository's public-file inventory, but not to
+the v1.0.6 claim matrix or release machinery. `BRIDGE_MANIFEST.sha256` binds
+this prototype's own payload bytes; it is not the root v1.0.6 release manifest.
+The external validator result is recorded in
+`schema_validation_environment.json`: a disposable CPython 3.12.10 target
+with pinned `jsonschema==4.25.1` validated the declared Draft 2020-12 schema.
+The locked root environment remains unchanged and intentionally reports
+`environment_limited` for this dialect. No tag, GitHub Release, Pages route,
+DOI, or Zenodo deposit is implied.
 
 ## Schema dialect gate
 
@@ -70,8 +76,9 @@ declared dialect.  Run `validate_schema.py` instead: it uses
 `Draft202012Validator` when available and otherwise returns the explicit status
 `environment_limited` (exit code 2), never a false pass.
 
-To obtain `valid`, use a disposable external validation environment with a
-current `jsonschema` 4.x release, record its interpreter/package identity, and
-keep it separate from the root v1.0.6 lock.  Do not upgrade the root lock merely
-to remove this warning; that would be a separate dependency/reproducibility
+The checked-in evidence was obtained in a disposable external validation
+environment with a pinned `jsonschema` 4.x release. Its interpreter and wheel
+hashes are recorded without exposing the temporary path. Keep that environment
+separate from the root v1.0.6 lock. Do not upgrade the root lock merely to
+remove this warning; that would be a separate dependency/reproducibility
 change requiring its own audit.
