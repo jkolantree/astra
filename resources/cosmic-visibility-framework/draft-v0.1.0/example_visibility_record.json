@@ -1,0 +1,565 @@
+{
+  "certificate": {
+    "kind": "method_only",
+    "limitations": [
+      "This example demonstrates typed bookkeeping only",
+      "No primary data, source bytes, or independent cosmological detection is included"
+    ],
+    "metric": null,
+    "result": "defer"
+  },
+  "domain": "cosmic messenger transduction and planetary sample archives",
+  "evidence_boundary": {
+    "conditional": [
+      "A hidden-sector decay-to-photon search can constrain a model under declared magnetic, propagation, and background assumptions"
+    ],
+    "established": [
+      "Recovered planetary samples can be selective",
+      "Filament magnetic and baryonic properties are measurable through calibrated proxies"
+    ],
+    "inferred": [
+      "A null has force only relative to a quantified visibility model",
+      "Natural systems should be typed as transducers, samplers, archives, filters, amplifiers, converters, or erasers before being called instruments"
+    ],
+    "promotion_blockers": [
+      "Primary records and claim-local locators are incomplete in the supplied material",
+      "Visibility and recovery factors are not independently calibrated",
+      "No blinded held-out end-to-end replay has been run",
+      "The schema is a reporting contract, not physical validation"
+    ],
+    "unsupported": [
+      "Dark matter has been detected through filament conversion",
+      "Gravitons have been observed",
+      "The two case studies share one physical mechanism",
+      "NWA 13441 uniquely identifies a previously unknown Martian mantle reservoir"
+    ]
+  },
+  "hypotheses": [
+    {
+      "assumptions": [
+        "The specified hidden-sector decay channel exists",
+        "The filament field and coherence model is adequate",
+        "Gamma-ray propagation and backgrounds are jointly modelled"
+      ],
+      "hypothesis_id": "H-FILAMENT-CONVERSION",
+      "kind": "transduction",
+      "label": "A hidden decay product can acquire an electromagnetic residue in magnetised cosmic filaments",
+      "source_ids": [
+        "S001",
+        "S002",
+        "S003"
+      ],
+      "status": "conditional"
+    },
+    {
+      "assumptions": [
+        "The recovered collection is not uniform random sampling of Martian magmatism",
+        "Age and provenance are bounded by disturbance and alteration checks"
+      ],
+      "hypothesis_id": "H-MARS-SELECTIVE-ARCHIVE",
+      "kind": "sampling",
+      "label": "A gap in recovered Martian meteorite ages can arise from selective ejection, transport, preservation, and recovery",
+      "source_ids": [
+        "S004",
+        "S005"
+      ],
+      "status": "reported"
+    },
+    {
+      "assumptions": [
+        "Visibility factors are represented as intervals or calibrated distributions"
+      ],
+      "hypothesis_id": "H-NULL-LOW-VISIBILITY",
+      "kind": "null",
+      "label": "A null observation is explained by low visibility rather than source absence",
+      "source_ids": [
+        "S006"
+      ],
+      "status": "proposed"
+    }
+  ],
+  "observation_design": {
+    "controls": [
+      {
+        "control_id": "C-VOID-SIGHTLINES",
+        "control_kind": "void",
+        "matching_variables": [
+          "redshift",
+          "exposure",
+          "foreground mask",
+          "FRB dispersion",
+          "RM-squared magnetic proxy",
+          "lensing mass"
+        ],
+        "predicted_difference": "A converter-correlated residue should track an independently calibrated magnetic proxy and be suppressed in matched low-converter or void-dominated controls",
+        "source_ids": [
+          "S001",
+          "S007",
+          "S008",
+          "S009"
+        ]
+      },
+      {
+        "control_id": "C-RANDOM-FILAMENT-GEOMETRY",
+        "control_kind": "randomized_geometry",
+        "matching_variables": [
+          "sky mask",
+          "energy bin",
+          "exposure"
+        ],
+        "predicted_difference": "Randomized filament positions should remove a genuine cross-correlation while preserving diffuse backgrounds",
+        "source_ids": [
+          "S001"
+        ]
+      },
+      {
+        "control_id": "C-RECOVERY-AUDIT",
+        "control_kind": "recovery_audit",
+        "matching_variables": [
+          "rock chemistry",
+          "collection region",
+          "laboratory recognition"
+        ],
+        "predicted_difference": "A recovered age gap should shrink after a nonuniform recovery model is fitted",
+        "source_ids": [
+          "S004"
+        ]
+      }
+    ],
+    "holdout_split_id": "cosmic-visibility-split-v0.1-seed-20260809",
+    "missingness_assumption": "missing_not_at_random",
+    "observables": [
+      {
+        "noise_model": "Poisson plus spatially correlated foreground nuisance",
+        "observable_id": "O-GAMMA-FILAMENT",
+        "operator": "exposure and background likelihood",
+        "quantity": "gamma-ray residual and filament cross-correlation",
+        "source_ids": [
+          "S001"
+        ],
+        "units": "counts or intensity"
+      },
+      {
+        "noise_model": "measurement error plus host and Milky-Way nuisance",
+        "observable_id": "O-FRB-DM",
+        "operator": "dispersion-delay estimator",
+        "quantity": "fast-radio-burst dispersion measure",
+        "source_ids": [
+          "S008"
+        ],
+        "units": "pc cm^-3"
+      },
+      {
+        "noise_model": "analytical uncertainty plus alteration and shock model",
+        "observable_id": "O-MARTIAN-AGE",
+        "operator": "mineral isotope regression",
+        "quantity": "Sm-Nd isochron age",
+        "source_ids": [
+          "S004"
+        ],
+        "units": "Ma"
+      }
+    ],
+    "selection_process": [
+      "predeclare energy, redshift, and field bins",
+      "fit converter and archive factors on calibration data",
+      "hold out spatial regions and samples for certificate scoring"
+    ]
+  },
+  "predictions": [
+    {
+      "direction": "localized",
+      "falsifier": "No correlation in a sensitivity region where the calibrated converter predicts detectable power, or an ordinary source model explains the residual",
+      "holdout_rule": "Freeze filament catalogue, magnetic proxies, and energy bins before scoring the held-out sky",
+      "hypothesis_id": "H-FILAMENT-CONVERSION",
+      "metric": "held-out gamma-ray x filament cross-correlation after nuisance marginalisation",
+      "observable_id": "O-GAMMA-FILAMENT",
+      "prediction_id": "P-FILAMENT-CORRELATION",
+      "result": null,
+      "status": "predeclared",
+      "threshold": null
+    },
+    {
+      "direction": "negative",
+      "falsifier": "Equal or larger residual in matched void controls after exposure and foreground correction",
+      "holdout_rule": "Use independently measured field proxies and retain voids as a control class",
+      "hypothesis_id": "H-FILAMENT-CONVERSION",
+      "metric": "matched high-converter minus low-converter contrast",
+      "observable_id": "O-GAMMA-FILAMENT",
+      "prediction_id": "P-VOID-SUPPRESSION",
+      "result": null,
+      "status": "predeclared",
+      "threshold": null
+    },
+    {
+      "direction": "distributional",
+      "falsifier": "A representative sampling model predicts the observed gap without selection, or new samples do not alter coverage",
+      "holdout_rule": "Fit recovery parameters on existing collection records and test newly recovered or blinded samples",
+      "hypothesis_id": "H-MARS-SELECTIVE-ARCHIVE",
+      "metric": "posterior predictive probability for recovered age coverage",
+      "observable_id": "O-MARTIAN-AGE",
+      "prediction_id": "P-MARTIAN-INTERVAL",
+      "result": null,
+      "status": "predeclared",
+      "threshold": null
+    }
+  ],
+  "provenance": {
+    "base_reference": {
+      "commit": "6982f700bdad2f8e19a3ab4121f1afb0aa323d92",
+      "tag": "v1.0.6",
+      "tree": "7aee19aa1bc31ac9d918ff797dc51dfb50d6afae"
+    },
+    "claim_ids": [
+      "CV-001",
+      "CV-002",
+      "CV-003",
+      "CV-004"
+    ],
+    "novelty_ids": [
+      "NVA-001",
+      "NVA-002",
+      "NVA-003"
+    ],
+    "source_ids": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S005",
+      "S006",
+      "S008",
+      "S009"
+    ]
+  },
+  "question": "When does an apparent absence constrain a hidden source, and when does a conversion or recovery operator dominate the uncertainty?",
+  "record_id": "filament-and-martian-visibility-demo",
+  "schema_version": "cosmic-visibility-record-v0.1.0",
+  "status": "unpromoted_research_draft",
+  "visibility_chain": [
+    {
+      "chain_id": "filament-conversion",
+      "input": "hidden-sector state",
+      "loss_or_gain": "none",
+      "operator": "source and abundance model",
+      "operator_status": "modelled",
+      "output": "candidate carrier",
+      "source_ids": [
+        "S001"
+      ],
+      "stage_id": "stage-filament-source",
+      "stage_kind": "source"
+    },
+    {
+      "chain_id": "filament-conversion",
+      "input": "hidden carrier",
+      "loss_or_gain": "gain",
+      "operator": "field-mediated conversion",
+      "operator_status": "modelled",
+      "output": "photon residue",
+      "source_ids": [
+        "S001",
+        "S002"
+      ],
+      "stage_id": "stage-filament-transduction",
+      "stage_kind": "transduction"
+    },
+    {
+      "chain_id": "filament-conversion",
+      "input": "photon residue",
+      "loss_or_gain": "loss",
+      "operator": "cosmic propagation and cascade",
+      "operator_status": "unknown",
+      "output": "surviving gamma-ray signal",
+      "source_ids": [
+        "S001"
+      ],
+      "stage_id": "stage-filament-propagation",
+      "stage_kind": "propagation"
+    },
+    {
+      "chain_id": "filament-conversion",
+      "input": "surviving gamma-ray signal",
+      "loss_or_gain": "measurement",
+      "operator": "exposure and background likelihood",
+      "operator_status": "measured",
+      "output": "gamma-ray map",
+      "source_ids": [
+        "S001"
+      ],
+      "stage_id": "stage-filament-detector",
+      "stage_kind": "detector"
+    },
+    {
+      "chain_id": "filament-conversion",
+      "input": "gamma-ray map",
+      "loss_or_gain": "none",
+      "operator": "held-out spatial and spectral score",
+      "operator_status": "unknown",
+      "output": "conditional constraint",
+      "source_ids": [
+        "S006"
+      ],
+      "stage_id": "stage-filament-certificate",
+      "stage_kind": "certificate"
+    },
+    {
+      "chain_id": "martian-archive",
+      "input": "Martian mantle history",
+      "loss_or_gain": "none",
+      "operator": "melting and crystallisation history",
+      "operator_status": "modelled",
+      "output": "candidate rock population",
+      "source_ids": [
+        "S004"
+      ],
+      "stage_id": "stage-mars-source",
+      "stage_kind": "source"
+    },
+    {
+      "chain_id": "martian-archive",
+      "input": "candidate rock population",
+      "loss_or_gain": "loss",
+      "operator": "impact ejection and interplanetary transfer",
+      "operator_status": "unknown",
+      "output": "surviving fragments",
+      "source_ids": [
+        "S004"
+      ],
+      "stage_id": "stage-mars-propagation",
+      "stage_kind": "propagation"
+    },
+    {
+      "chain_id": "martian-archive",
+      "input": "surviving fragments",
+      "loss_or_gain": "preservation",
+      "operator": "atmospheric survival and preservation",
+      "operator_status": "unknown",
+      "output": "terrestrial meteorite archive",
+      "source_ids": [
+        "S004"
+      ],
+      "stage_id": "stage-mars-archive",
+      "stage_kind": "archive"
+    },
+    {
+      "chain_id": "martian-archive",
+      "input": "terrestrial meteorite archive",
+      "loss_or_gain": "selection",
+      "operator": "collection and recognition",
+      "operator_status": "unknown",
+      "output": "selected recovered sample",
+      "source_ids": [
+        "S004",
+        "S005"
+      ],
+      "stage_id": "stage-mars-sampling",
+      "stage_kind": "sampling"
+    },
+    {
+      "chain_id": "martian-archive",
+      "input": "selected recovered sample",
+      "loss_or_gain": "measurement",
+      "operator": "mineral isotope regression",
+      "operator_status": "measured",
+      "output": "isotope age record",
+      "source_ids": [
+        "S004"
+      ],
+      "stage_id": "stage-mars-detector",
+      "stage_kind": "detector"
+    },
+    {
+      "chain_id": "martian-archive",
+      "input": "isotope age record",
+      "loss_or_gain": "none",
+      "operator": "recovery-aware posterior predictive score",
+      "operator_status": "unknown",
+      "output": "bounded sampling conclusion",
+      "source_ids": [
+        "S006"
+      ],
+      "stage_id": "stage-mars-certificate",
+      "stage_kind": "certificate"
+    }
+  ],
+  "visibility_kernel": {
+    "combination": "integral_operator",
+    "equation": "Lambda_H = integral r_H(q) eta_production(q) eta_transduction(q) eta_propagation(q) eta_archive(q) eta_recovery(q) eta_detector(q) dq; product form is conditional on declared independence",
+    "factors": [
+      {
+        "evidence_class": "source_asserted",
+        "factor_id": "K-FILAMENT-PRODUCTION",
+        "identifiability": "not_identified",
+        "limitations": [
+          "Production history is not selected by the conditional conversion search"
+        ],
+        "quantity": "hidden-sector production and abundance weight",
+        "source_ids": [
+          "S001"
+        ],
+        "stage_id": "stage-filament-source",
+        "units": "dimensionless",
+        "value": null,
+        "value_kind": "unknown"
+      },
+      {
+        "evidence_class": "proposed_only",
+        "factor_id": "K-TRANSDUCTION",
+        "identifiability": "not_identified",
+        "interval": {
+          "confidence_level": null,
+          "kind": "sensitivity_range",
+          "lower": 0.0,
+          "upper": 1.0
+        },
+        "limitations": [
+          "The [0,1] interval is a bookkeeping domain, not a source-derived or calibrated bound; field amplitude, coherence, and filling fraction are uncertain"
+        ],
+        "quantity": "field-mediated conversion efficiency",
+        "source_ids": [
+          "S001",
+          "S002"
+        ],
+        "stage_id": "stage-filament-transduction",
+        "units": "dimensionless",
+        "value_kind": "interval"
+      },
+      {
+        "evidence_class": "proposed_only",
+        "factor_id": "K-FILAMENT-PROPAGATION",
+        "identifiability": "not_identified",
+        "limitations": [
+          "Propagation and nuisance background require joint calibration"
+        ],
+        "quantity": "survival and cascade transfer",
+        "source_ids": [
+          "S001"
+        ],
+        "stage_id": "stage-filament-propagation",
+        "units": "dimensionless",
+        "value": null,
+        "value_kind": "unknown"
+      },
+      {
+        "evidence_class": "proposed_only",
+        "factor_id": "K-FILAMENT-DETECTOR",
+        "identifiability": "partially_identified",
+        "limitations": [
+          "Instrument response and foreground covariance must be calibrated"
+        ],
+        "quantity": "exposure and detector response",
+        "source_ids": [
+          "S001"
+        ],
+        "stage_id": "stage-filament-detector",
+        "units": "dimensionless",
+        "value": null,
+        "value_kind": "unknown"
+      },
+      {
+        "evidence_class": "externally_published",
+        "factor_id": "K-MARS-PRODUCTION",
+        "identifiability": "partially_identified",
+        "limitations": [
+          "The source population is not directly observed"
+        ],
+        "quantity": "Martian rock production density",
+        "source_ids": [
+          "S004"
+        ],
+        "stage_id": "stage-mars-source",
+        "units": "dimensionless",
+        "value": null,
+        "value_kind": "unknown"
+      },
+      {
+        "evidence_class": "proposed_only",
+        "factor_id": "K-MARS-PROPAGATION",
+        "identifiability": "not_identified",
+        "limitations": [
+          "Impact history and launch trajectories are incomplete"
+        ],
+        "quantity": "ejection and transfer survival",
+        "source_ids": [
+          "S004"
+        ],
+        "stage_id": "stage-mars-propagation",
+        "units": "dimensionless",
+        "value": null,
+        "value_kind": "unknown"
+      },
+      {
+        "evidence_class": "proposed_only",
+        "factor_id": "K-ARCHIVE",
+        "identifiability": "not_identified",
+        "interval": {
+          "confidence_level": null,
+          "kind": "unknown",
+          "lower": 0.0,
+          "upper": 1.0
+        },
+        "limitations": [
+          "Impact, transport, survival, preservation, and collection are nonuniform"
+        ],
+        "quantity": "probability a fragment enters the recoverable archive",
+        "source_ids": [
+          "S004"
+        ],
+        "stage_id": "stage-mars-archive",
+        "units": "dimensionless",
+        "value_kind": "interval"
+      },
+      {
+        "evidence_class": "proposed_only",
+        "factor_id": "K-MARS-SAMPLING",
+        "identifiability": "not_identified",
+        "limitations": [
+          "Human collection and recognition introduce nonrandom missingness"
+        ],
+        "quantity": "collection and recognition selection",
+        "source_ids": [
+          "S004",
+          "S005"
+        ],
+        "stage_id": "stage-mars-sampling",
+        "units": "dimensionless",
+        "value": null,
+        "value_kind": "unknown"
+      },
+      {
+        "evidence_class": "externally_published",
+        "factor_id": "K-MARS-DETECTOR",
+        "identifiability": "partially_identified",
+        "limitations": [
+          "Analytical uncertainty, alteration, and shock disturbance require an explicit model"
+        ],
+        "quantity": "isotope measurement operator",
+        "source_ids": [
+          "S004"
+        ],
+        "stage_id": "stage-mars-detector",
+        "units": "dimensionless",
+        "value": null,
+        "value_kind": "unknown"
+      }
+    ],
+    "sensitivity_analysis": [
+      {
+        "high": 250.0,
+        "low": 60.0,
+        "metric": "conditional gamma-ray sensitivity",
+        "parameter": "filament magnetic field",
+        "result": "Recompute rather than quote one field"
+      },
+      {
+        "high": 1.0,
+        "low": 0.0,
+        "metric": "probability of observing an age interval",
+        "parameter": "recovery-selection rate",
+        "result": "Do not treat an unobserved interval as planetary absence"
+      }
+    ],
+    "unknown_policy": "interval_propagation"
+  }
+}

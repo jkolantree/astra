@@ -1,0 +1,35 @@
+{
+  "schema": "astra-cosmic-visibility-framework-draft-v1",
+  "title": "ASTRA cosmic visibility and transformed-archive framework",
+  "status": "unpromoted_default_branch_research_draft",
+  "audited_base_tag": "v1.0.6",
+  "audited_base_commit": "6982f700bdad2f8e19a3ab4121f1afb0aa323d92",
+  "audited_base_tree": "7aee19aa1bc31ac9d918ff797dc51dfb50d6afae",
+  "input_artifacts": [
+    {
+      "artifact_id": "supplied-report-cosmic-filaments-mars",
+      "sha256": "0d0194e2d95d1036835f184702770775af6be15a81b66b121c21bbd194ac5945",
+      "role": "provenance_and_discovery_lead"
+    },
+    {
+      "artifact_id": "supplied-report-cosmological-apparatus",
+      "sha256": "f2c6a8f02b29e0388d70b58548a2f3f3ea7d39cd49c8c82f0079012fe5b2920e",
+      "role": "provenance_and_discovery_lead"
+    }
+  ],
+  "source_scope": [
+    "immutable SPPT/ASTRA v1.0.6 reference",
+    "primary-record links named in the supplied reports",
+    "methodological synthesis of natural transduction and selective archives"
+  ],
+  "publication": {
+    "github_repository_visible": true,
+    "github_release": false,
+    "pages": false,
+    "zenodo": false,
+    "doi": false
+  },
+  "dynamic_fields": [],
+  "evidence_policy": "source records, conditional model results, methodological inference, and proposed tests remain separate; no dark-matter or graviton detection is admitted",
+  "rights_boundary": "Original draft material is CC BY 4.0 only to the extent the project author holds the rights; cited works, publisher materials, raw data, and dependencies retain their own terms."
+}

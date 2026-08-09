@@ -27,6 +27,7 @@ This matters because many planetary measurements are made at the boundary: tempe
 - **v0.1 — historical edition (*Earth Is the Instrument* Working Paper).** [Read historical v0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/) or open its immutable [release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1).
 
 - **Unpromoted successor prototypes.** The [SPPT Bridge Protocol](resources/sppt-bridge-protocol/draft-v0.1.0/) and [coherence-cell exploration](resources/coherence-cell-exploration/draft-v0.1.0/) are separate methods prototypes. They are not core equations, release assets, or validation claims.
+- **Unpromoted cosmic visibility framework.** The [Cosmic Visibility and Sampling Framework](resources/cosmic-visibility-framework/draft-v0.1.0/) is a 28-page operator-aware research draft for separating source strength from transduction, propagation, archive, recovery, and detector visibility. It is a methods proposal only: no dark-matter or graviton detection, fourth Martian reservoir, shared physical mechanism, or replacement cosmology is claimed.
 
 The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line. Supplemental resources use their own namespaced tags, citations, checksums, and `/resources/` routes. The project was developed with substantive ChatGPT assistance; the human-responsibility and independence disclosure appears below.
 
