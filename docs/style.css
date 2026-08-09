@@ -122,6 +122,26 @@ section,
   margin-top: 0.35rem;
 }
 
+.core-cover {
+  margin: 1rem 0 1.5rem;
+}
+
+.core-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 0.45rem;
+  background: var(--paper);
+  box-shadow: 0 0.25rem 0.8rem rgb(23 33 43 / 18%);
+}
+
+.core-cover figcaption {
+  margin-top: 0.55rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));

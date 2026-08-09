@@ -230,6 +230,38 @@ SECTOR_RESOURCE_FILES = (
     "verification/producer_acceptance_gate_matrix.csv",
     "verification/producer_verification_report.md",
 )
+ACTIVE_SUPPORT_RESOURCE_ROOT = "resources/active-support-audit/draft-v0.1.0"
+ACTIVE_SUPPORT_RESOURCE_FILES = (
+    "CHANGE_LOG.md",
+    "METHODS_NOTE.md",
+    "README.md",
+    "claim_ledger.csv",
+    "draft_metadata.json",
+    "source_ledger.csv",
+)
+COHERENCE_CELL_RESOURCE_ROOT = "resources/coherence-cell-exploration/draft-v0.1.0"
+COHERENCE_CELL_RESOURCE_FILES = (
+    "aeof_ledger.csv",
+    "CHANGE_LOG.md",
+    "LICENSE_MAP.md",
+    "METHODS_NOTE.md",
+    "README.md",
+    "claim_ledger.csv",
+    "draft_metadata.json",
+    "novelty_ledger.csv",
+    "source_ledger.csv",
+)
+SPPT_BRIDGE_RESOURCE_ROOT = "resources/sppt-bridge-protocol/draft-v0.1.0"
+SPPT_BRIDGE_RESOURCE_FILES = (
+    "BRIDGE_MANIFEST.sha256",
+    "example_protocol.json",
+    "README.md",
+    "bridge_contract.py",
+    "bridge_protocol.schema.json",
+    "schema_validation_environment.json",
+    "test_bridge_contract.py",
+    "validate_schema.py",
+)
 FRAMEWORK_RESOURCE_COVER = "cover.png"
 RESOURCE_PATH_ALLOWLIST = {
     "resources/README.md",
@@ -248,6 +280,9 @@ RESOURCE_PATH_ALLOWLIST = {
         )
     ),
     *(f"{SECTOR_RESOURCE_ROOT}/{name}" for name in SECTOR_RESOURCE_FILES),
+    *(f"{ACTIVE_SUPPORT_RESOURCE_ROOT}/{name}" for name in ACTIVE_SUPPORT_RESOURCE_FILES),
+    *(f"{COHERENCE_CELL_RESOURCE_ROOT}/{name}" for name in COHERENCE_CELL_RESOURCE_FILES),
+    *(f"{SPPT_BRIDGE_RESOURCE_ROOT}/{name}" for name in SPPT_BRIDGE_RESOURCE_FILES),
 }
 
 

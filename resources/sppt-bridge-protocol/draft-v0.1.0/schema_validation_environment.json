@@ -1,0 +1,32 @@
+{
+  "schema": "astra-sppt-bridge-schema-validation-environment-v1",
+  "status": "valid",
+  "validation": {
+    "declared_dialect": "https://json-schema.org/draft/2020-12/schema",
+    "validator": "Draft202012Validator",
+    "distribution": "jsonschema",
+    "distribution_version": "4.25.1",
+    "distribution_wheel_sha256": "3fba0169e345c7175110351d456342c364814cfcf3b964ba4587f22915230a63",
+    "validated_instance": "example_protocol.json",
+    "validated_schema": "bridge_protocol.schema.json"
+  },
+  "interpreter": {
+    "implementation": "CPython",
+    "version": "3.12.10",
+    "architecture": "AMD64",
+    "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a"
+  },
+  "installed_dependencies": {
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.6.3",
+    "typing-extensions": "4.16.0"
+  },
+  "isolation": {
+    "disposable_external_environment": true,
+    "root_dependency_lock_changed": false,
+    "root_jsonschema_requirement": "3.2.0 (unchanged)"
+  },
+  "dynamic_fields": []
+}

@@ -1,0 +1,121 @@
+{
+  "conservation_contract": {
+    "conserved_weights": [
+      1.0
+    ],
+    "incidence": [
+      [
+        -1.0
+      ],
+      [
+        1.0
+      ]
+    ],
+    "residual_tolerance": 1e-10,
+    "state_units": [
+      "normalized_temperature"
+    ],
+    "stoichiometry": [
+      []
+    ]
+  },
+  "equivalence_class": {
+    "candidate_ids": [
+      "candidate-a",
+      "candidate-b"
+    ],
+    "class_id": "design-1:class-01",
+    "design_id": "design-1",
+    "maximum_residual": 0.0,
+    "signature_kind": "epsilon",
+    "status": "equivalent",
+    "tolerance": 1.0
+  },
+  "intervention_design": {
+    "budget": 1.0,
+    "control_ports": [
+      "surface-input"
+    ],
+    "design_id": "design-1",
+    "expected_minimum_separation": 0.16666666666666663,
+    "objective": "maximize minimum Fisher/separation utility",
+    "observation_ports": [
+      "surface-output",
+      "deep-sensor"
+    ],
+    "safety_constraints": [
+      "conservation",
+      "entropy",
+      "bounded-input"
+    ]
+  },
+  "intervention_options": [
+    {
+      "control_ports": [
+        "surface-input"
+      ],
+      "cost": 1.0,
+      "expected_minimum_separation": 0.16666666666666663,
+      "fisher_separation": null,
+      "observation_ports": [
+        "surface-output",
+        "deep-sensor"
+      ],
+      "option_id": "surface-plus-deep",
+      "response_separation": 0.16666666666666663,
+      "safety_ok": true,
+      "safety_reason": "",
+      "utility_kind": "normalized_euclidean"
+    }
+  ],
+  "intervention_selection": {
+    "considered_option_ids": [
+      "surface-plus-deep"
+    ],
+    "expected_minimum_separation": 0.16666666666666663,
+    "feasible": true,
+    "rejected_option_ids": [],
+    "selected_option_id": "surface-plus-deep",
+    "total_cost": 1.0
+  },
+  "prediction_audit": {
+    "audit_id": "prediction-audit-1",
+    "baseline_coverage": 0.8,
+    "baseline_crps": 0.13,
+    "baseline_heldout_log_score": -1.1,
+    "baseline_id": "candidate-b",
+    "calibration_data_id": "calibration-1",
+    "calibration_status": "pass",
+    "candidate_crps": 0.08,
+    "candidate_id": "candidate-a",
+    "coverage": 0.9,
+    "coverage_tolerance": 0.05,
+    "fit_data_id": "fit-1",
+    "heldout_log_score": -0.8,
+    "interval_level": 0.9,
+    "result": "promote",
+    "sample_count": 20,
+    "target_coverage": 0.9,
+    "test_data_id": "test-1"
+  },
+  "protocol_id": "sppt-bridge-demo-v0.1.0",
+  "status": "local_unpromoted_successor_prototype",
+  "thermodynamic_ledger": {
+    "energy_tolerance": 1e-10,
+    "entropy_tolerance": 1e-10,
+    "terms": [
+      {
+        "destination": "internal-state",
+        "energy_delta": 0.0,
+        "entropy_flow": 0.0,
+        "entropy_production": 0.1,
+        "internal_or_external": "internal",
+        "process": "normalized-heat-transfer",
+        "quantity": "entropy-production",
+        "source": "reservoir-edge",
+        "term_id": "internal-dissipation-1",
+        "units": "normalized"
+      }
+    ]
+  }
+}

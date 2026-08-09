@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/astra/sppt-bridge-protocol-v0.1.0.schema.json",
+  "title": "SPPT Bridge Protocol successor draft",
+  "description": "Unpromoted local schema for conservation, thermodynamic, identifiability, intervention, and calibrated prediction records.",
+  "type": "object",
+  "required": ["protocol_id", "status", "conservation_contract", "thermodynamic_ledger", "equivalence_class", "intervention_design", "prediction_audit"],
+  "properties": {
+    "protocol_id": {"type": "string", "minLength": 1},
+    "status": {"const": "local_unpromoted_successor_prototype"},
+    "conservation_contract": {"$ref": "#/$defs/conservationContract"},
+    "thermodynamic_ledger": {"$ref": "#/$defs/thermodynamicLedger"},
+    "equivalence_class": {"$ref": "#/$defs/equivalenceClass"},
+    "intervention_design": {"$ref": "#/$defs/interventionDesign"},
+    "intervention_options": {"type": "array", "items": {"$ref": "#/$defs/interventionOption"}},
+    "intervention_selection": {"$ref": "#/$defs/interventionSelection"},
+    "prediction_audit": {"$ref": "#/$defs/predictionAudit"}
+  },
+  "$defs": {
+    "conservationContract": {
+      "type": "object",
+      "required": ["state_units", "incidence", "stoichiometry", "conserved_weights", "residual_tolerance"],
+      "properties": {
+        "state_units": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+        "incidence": {"type": "array", "items": {"type": "array", "items": {"type": "number"}, "minItems": 1}, "minItems": 1},
+        "stoichiometry": {"type": "array", "items": {"type": "array", "items": {"type": "number"}, "minItems": 0}, "minItems": 1},
+        "conserved_weights": {"type": "array", "items": {"type": "number"}, "minItems": 1},
+        "residual_tolerance": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "thermodynamicTerm": {
+      "type": "object",
+      "required": ["term_id", "source", "destination", "process", "quantity", "units", "internal_or_external", "energy_delta", "entropy_flow", "entropy_production"],
+      "properties": {
+        "term_id": {"type": "string", "minLength": 1},
+        "source": {"type": "string", "minLength": 1},
+        "destination": {"type": "string", "minLength": 1},
+        "process": {"type": "string", "minLength": 1},
+        "quantity": {"type": "string", "minLength": 1},
+        "units": {"type": "string", "minLength": 1},
+        "internal_or_external": {"enum": ["internal", "external"]},
+        "energy_delta": {"type": "number"},
+        "entropy_flow": {"type": "number"},
+        "entropy_production": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "thermodynamicLedger": {
+      "type": "object",
+      "required": ["terms", "energy_tolerance", "entropy_tolerance"],
+      "properties": {
+        "terms": {"type": "array", "items": {"$ref": "#/$defs/thermodynamicTerm"}, "minItems": 1},
+        "energy_tolerance": {"type": "number", "minimum": 0},
+        "entropy_tolerance": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "equivalenceClass": {
+      "type": "object",
+      "required": ["class_id", "candidate_ids", "signature_kind", "maximum_residual", "tolerance", "design_id", "status"],
+      "properties": {
+        "class_id": {"type": "string", "minLength": 1},
+        "candidate_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+        "signature_kind": {"enum": ["exact", "epsilon", "posterior"]},
+        "maximum_residual": {"type": "number", "minimum": 0},
+        "tolerance": {"type": "number", "minimum": 0},
+        "design_id": {"type": "string", "minLength": 1},
+        "status": {"enum": ["identified", "equivalent", "unknown"]}
+      },
+      "additionalProperties": false
+    },
+    "interventionDesign": {
+      "type": "object",
+      "required": ["design_id", "control_ports", "observation_ports", "objective", "budget", "safety_constraints", "expected_minimum_separation"],
+      "properties": {
+        "design_id": {"type": "string", "minLength": 1},
+        "control_ports": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+        "observation_ports": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+        "objective": {"type": "string", "minLength": 1},
+        "budget": {"type": "number", "minimum": 0},
+        "safety_constraints": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+        "expected_minimum_separation": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "interventionOption": {
+      "type": "object",
+      "required": ["option_id", "control_ports", "observation_ports", "cost", "expected_minimum_separation", "safety_ok"],
+      "properties": {
+        "option_id": {"type": "string", "minLength": 1},
+        "control_ports": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+        "observation_ports": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+        "cost": {"type": "number", "minimum": 0},
+        "expected_minimum_separation": {"type": "number", "minimum": 0},
+        "safety_ok": {"type": "boolean"},
+        "safety_reason": {"type": "string"},
+        "utility_kind": {"enum": ["normalized_euclidean", "fisher"]},
+        "response_separation": {"type": ["number", "null"], "minimum": 0},
+        "fisher_separation": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "interventionSelection": {
+      "type": "object",
+      "required": ["selected_option_id", "total_cost", "expected_minimum_separation", "feasible", "considered_option_ids", "rejected_option_ids"],
+      "properties": {
+        "selected_option_id": {"type": ["string", "null"]},
+        "total_cost": {"type": "number", "minimum": 0},
+        "expected_minimum_separation": {"type": "number", "minimum": 0},
+        "feasible": {"type": "boolean"},
+        "considered_option_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "rejected_option_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    },
+    "predictionAudit": {
+      "type": "object",
+      "required": ["audit_id", "fit_data_id", "calibration_data_id", "test_data_id", "candidate_id", "baseline_id", "heldout_log_score", "baseline_heldout_log_score", "coverage", "target_coverage", "calibration_status", "result"],
+      "properties": {
+        "audit_id": {"type": "string", "minLength": 1},
+        "fit_data_id": {"type": "string", "minLength": 1},
+        "calibration_data_id": {"type": "string", "minLength": 1},
+        "test_data_id": {"type": "string", "minLength": 1},
+        "candidate_id": {"type": "string", "minLength": 1},
+        "baseline_id": {"type": "string", "minLength": 1},
+        "heldout_log_score": {"type": "number"},
+        "baseline_heldout_log_score": {"type": "number"},
+        "coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "target_coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "calibration_status": {"enum": ["pass", "fail", "unknown"]},
+        "result": {"enum": ["promote", "demote", "defer"]},
+        "candidate_crps": {"type": ["number", "null"], "minimum": 0},
+        "baseline_crps": {"type": ["number", "null"], "minimum": 0},
+        "baseline_coverage": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "interval_level": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1},
+        "coverage_tolerance": {"type": "number", "minimum": 0},
+        "sample_count": {"type": ["integer", "null"], "minimum": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

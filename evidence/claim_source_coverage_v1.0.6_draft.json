@@ -1976,7 +1976,7 @@
           "precision": "file_level"
         },
         {
-          "file_sha256": "22dd683b663cf667d4d955278e20673445e9b7712b9a5bc6558e6ebd852478d6",
+          "file_sha256": "45d4917d1e228522effd5a43db760710459b1288137bf5574a2a36c1ac62df32",
           "locator": "evidence/",
           "path": "README.md",
           "precision": "file_level"
@@ -2032,7 +2032,7 @@
         },
         {
           "admitted_path": "README.md",
-          "admitted_sha256": "22dd683b663cf667d4d955278e20673445e9b7712b9a5bc6558e6ebd852478d6",
+          "admitted_sha256": "45d4917d1e228522effd5a43db760710459b1288137bf5574a2a36c1ac62df32",
           "entailment_status": "structural_link_only",
           "kind": "tracked_file",
           "raw_support": "evidence/README.md",

@@ -1,14 +1,11 @@
 # Changelog
 
-## Unreleased
+## Unreleased maintenance overlay
 
-- Adds a local structured claim-to-source coverage draft and deterministic generator for the v1.0.6 core line. It records admitted-file hashes, historical input hashes, locator precision, duplicate-evidence rules, and explicit unknowns without changing the immutable release identity.
-- Clarifies that current `main` is a post-release maintenance and supplemental overlay: the immutable SPPT/ASTRA v1.0.6 tag remains the frozen core citation/reproduction target, and no core release identity or immutable asset is changed by these unreleased changes.
-- Publishes the namespaced GitHub prerelease `sector-complete-instrument-v0.1.0-alpha.1` under `resources/sector-complete-instrument/v0.1.0-alpha.1`, without changing any immutable core or Earth-line release, Pages route, DOI, or Zenodo state. The module repairs its supplied typed-record/schema mismatch, makes text benchmark outputs LF-deterministic and headless, labels the best-of-four mismatch statistic as selection-adjusted, and adds source-checked magnet observation/certificate guardrails. It remains synthetic/proposed-only and is not ASTRA v0.3.2 or a framework validation.
-- Reorganizes the repository and reading room around an explicit publication map: SPPT/ASTRA v1.0.6 is the current core reference release, *Earth Is the Instrument* v0.3.0 is the current supplemental edition, and Working Paper 0.1 is historical.
-- Corrects the overbroad statement that all four v0.3.0 PDFs print the shared AI-assistance disclosure, clarifies that v0.2.1 was an internal predecessor rather than a public release, and adds a post-publication erratum without changing any immutable artifact or tag.
-- Clarifies that the root `CITATION.cff`, bare `/latest/` route, and `v*` tag-verification controller belong to the core reference line; supplemental resources retain namespaced tags, citations, checksums, and reading routes.
-- Improves direct versioned links, historical-to-current navigation, issue-report examples, generated edition ordering, and release-note discoverability across README and Pages surfaces.
+- Adds structured claim-to-source coverage evidence and a deterministic generator for the v1.0.6 reference line; this is maintenance evidence, not a new release or sentence-level proof.
+- Adds separately namespaced active-support, coherence-cell, and SPPT Bridge Protocol research drafts, plus a construction-paper-layered vector cover and accessible reading-room refinements.
+- Keeps all successor material explicitly proposed, deferred, or unpromoted. The drafts are repository-visible ordinary files, not releases; the v1.0.6 tag, release assets, claim matrix, citation metadata, Pages state, DOI state, and Zenodo state remain unchanged.
+- Keeps the Sector-Complete Instrument alpha and *Earth Is the Instrument* on their own versioned publication lines with their own evidence, rights, and release boundaries.
 
 ## Earth Is the Instrument framework 0.3.0 — 2026-08-06
 
