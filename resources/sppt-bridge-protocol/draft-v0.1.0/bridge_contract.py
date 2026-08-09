@@ -7,12 +7,12 @@ not alter the SPPT v1.0.6 core API.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import json
 import math
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
 from pathlib import Path
 from statistics import NormalDist
-from collections.abc import Mapping, Sequence
 from typing import Literal
 
 import numpy as np
@@ -238,7 +238,7 @@ class StrictSPPTAdapter:
                 entropy_flow=0.0,
                 entropy_production=entropy,
             )
-            for edge, entropy in zip(self.edges, entropy_values)
+            for edge, entropy in zip(self.edges, entropy_values, strict=True)
         )
         ledger = ThermodynamicLedger(terms=terms)
         thermodynamic_report = ledger.audit(0.0, float(sum(entropy_values)))

@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
-import sys
 
 import numpy as np
 
@@ -19,32 +19,32 @@ from bridge_contract import (
     InterventionDesign,
     InterventionOption,
     ObservationalEquivalenceClass,
+    StrictSPPTAdapter,
+    ThermalEdgeContract,
     ThermodynamicLedger,
     ThermodynamicTerm,
-    gaussian_crps,
     apply_data_split,
-    canonical_protocol_json,
     canonical_graph_label,
+    canonical_protocol_json,
     compare_linear_models,
     controllability_matrix,
     example_protocol,
     fisher_information_from_jacobian,
     fisher_pairwise_separation,
+    gaussian_crps,
     intervention_option_from_signatures,
     matrix_rank_condition,
     observability_matrix,
-    posterior_predictive_check,
     partition_equivalence_classes,
-    run_calibrated_prediction_audit,
-    select_intervention,
-    seeded_three_way_split,
-    simulation_based_calibration,
-    StrictSPPTAdapter,
-    ThermalEdgeContract,
-    read_protocol_json,
-    write_protocol_json,
-    transfer_signature,
+    posterior_predictive_check,
     protocol_from_dict,
+    read_protocol_json,
+    run_calibrated_prediction_audit,
+    seeded_three_way_split,
+    select_intervention,
+    simulation_based_calibration,
+    transfer_signature,
+    write_protocol_json,
 )
 from validate_schema import DRAFT_2020_12_SCHEMA, validate_protocol_schema
 

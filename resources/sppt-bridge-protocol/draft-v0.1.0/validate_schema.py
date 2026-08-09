@@ -9,12 +9,12 @@ machine-readable environment limitation.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from importlib.metadata import PackageNotFoundError, version as distribution_version
 import json
+from dataclasses import dataclass
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as distribution_version
 from pathlib import Path
 from typing import Any, Literal
-
 
 ROOT = Path(__file__).resolve().parent
 SCHEMA_PATH = ROOT / "bridge_protocol.schema.json"
@@ -83,7 +83,6 @@ def validate_protocol_schema(
         )
 
     try:
-        import jsonschema
         from jsonschema import Draft202012Validator, FormatChecker
     except (ImportError, AttributeError) as exc:
         return SchemaValidationResult(
