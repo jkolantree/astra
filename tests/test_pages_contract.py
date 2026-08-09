@@ -577,6 +577,28 @@ def test_resource_index_marks_v030_current_without_changing_core_version() -> No
     assert "./earth-is-the-instrument/v0.3.0/errata/" in html
 
 
+def test_resource_index_separates_published_routes_from_repository_drafts() -> None:
+    html = (ROOT / "docs" / "resources" / "index.html").read_text(encoding="utf-8")
+    semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
+    assert (
+        "Published editions have reading routes; unpromoted drafts remain source-tree-only."
+        in semantic
+    )
+    assert "Other versioned package" in semantic
+    assert "Sector-Complete Instrument" in semantic
+    assert "has no Pages route, DOI, or Zenodo record" in semantic
+    assert "Repository-visible unpromoted drafts" in semantic
+    assert "not Pages editions or release assets" in semantic
+    assert "do not enter the v1.0.6 claim matrix" in semantic
+    for relative in (
+        "cosmic-visibility-framework/draft-v0.1.0",
+        "sppt-bridge-protocol/draft-v0.1.0",
+        "coherence-cell-exploration/draft-v0.1.0",
+        "active-support-audit/draft-v0.1.0",
+    ):
+        assert f"https://github.com/jkolantree/astra/tree/main/resources/{relative}" in html
+
+
 def test_not_found_page_routes_to_both_current_publication_tracks() -> None:
     html = (ROOT / "docs" / "404.html").read_text(encoding="utf-8")
     parser = LandingPageParser()
