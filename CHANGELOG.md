@@ -5,6 +5,7 @@
 - Adds structured claim-to-source coverage evidence and a deterministic generator for the v1.0.6 reference line; this is maintenance evidence, not a new release or sentence-level proof.
 - Adds separately namespaced active-support, coherence-cell, and SPPT Bridge Protocol research drafts, plus a construction-paper-layered vector cover and accessible reading-room refinements.
 - Adds the repository-visible Cosmic Visibility and Sampling Framework draft with an accessible 28-page vector PDF/HTML package, explicit source-versus-visibility boundaries, and no Pages, release, DOI, or Zenodo promotion.
+- Publishes the SPPT/ASTRA v1.0.7 Candidate Revision 2 as a namespaced, package-only GitHub prerelease (`sppt-astra-v1.0.7-rc.2`) for public review while keeping v1.0.6 as the current core citation and leaving the repository, Pages route, DOI, Zenodo state, and final v1.0.7 identity unchanged.
 - Keeps successor drafts explicitly proposed, deferred, or unpromoted. Those drafts are repository-visible ordinary files, not releases; the v1.0.6 tag, release assets, claim matrix, citation metadata, Pages state, DOI state, and Zenodo state remain unchanged.
 - Keeps the Sector-Complete Instrument alpha and *Earth Is the Instrument* on their own versioned publication lines with their own evidence, rights, and release boundaries.
 
