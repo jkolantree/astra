@@ -1,12 +1,16 @@
 # Changelog
 
-## Unreleased maintenance overlay
+## 1.0.7 — 2026-08-10
 
-- Adds structured claim-to-source coverage evidence and a deterministic generator for the v1.0.6 reference line; this is maintenance evidence, not a new release or sentence-level proof.
+- Promotes SPPT/ASTRA v1.0.7 as the stable current core reference edition with its own source tree, claim matrix, source inventory, generated documents, manifest, and release identity; v1.0.6 remains immutable historical provenance.
+- Adds structured claim-to-source coverage evidence and a deterministic generator for the v1.0.7 reference line; this is maintenance evidence, not peer review or sentence-level proof.
+- Integrates stateful edges, closure-conditioned reciprocity, active support, operator-aware visibility, sector completeness, equivalence classes, intervention design, and held-out prediction as scoped ASTRA methods.
+- Records nonreciprocal colloids, strain-dependent Cu3Pt ORR, and temporal-interface wave theory as domain-specific calibration cases with explicit limits, not planetary validation or a universal physical mechanism.
+- Keeps *Earth Is the Instrument* v0.3.0 as a supplemental working-paper release and Sector-Complete Instrument as a research preview; active-support, Bridge Protocol, Cosmic Visibility, and Coherence-Cell resources remain unpromoted drafts or prototypes.
+- Marks the public `sppt-astra-v1.0.7-rc.2` package as a superseded immutable review snapshot; its bytes and release identity are not changed.
 - Adds separately namespaced active-support, coherence-cell, and SPPT Bridge Protocol research drafts, plus a construction-paper-layered vector cover and accessible reading-room refinements.
 - Adds the repository-visible Cosmic Visibility and Sampling Framework draft with an accessible 28-page vector PDF/HTML package, explicit source-versus-visibility boundaries, and no Pages, release, DOI, or Zenodo promotion.
-- Publishes the SPPT/ASTRA v1.0.7 Candidate Revision 2 as a namespaced, package-only GitHub prerelease (`sppt-astra-v1.0.7-rc.2`) for public review. The asset remains fixed to its audited pre-merge source snapshot; a separate documentation pointer records it. v1.0.6 remains the current core citation, with no final v1.0.7 identity, Pages route, DOI, or Zenodo record created.
-- Keeps successor drafts explicitly proposed, deferred, or unpromoted. Those drafts are repository-visible ordinary files, not releases; the v1.0.6 tag, release assets, claim matrix, citation metadata, Pages state, DOI state, and Zenodo state remain unchanged.
+- Keeps successor drafts explicitly proposed, deferred, or unpromoted. Those drafts are repository-visible ordinary files, not core releases; they do not inherit v1.0.7 verification or citation status.
 - Keeps the Sector-Complete Instrument alpha and *Earth Is the Instrument* on their own versioned publication lines with their own evidence, rights, and release boundaries.
 
 ## Earth Is the Instrument framework 0.3.0 — 2026-08-06

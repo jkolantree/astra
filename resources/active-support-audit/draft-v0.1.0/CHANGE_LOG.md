@@ -11,9 +11,9 @@
   rights were not resolved.
 - Keeps all dark-matter connections behind an explicit interaction,
   calibration, and null-control firewall.
-- Does not modify the immutable SPPT/ASTRA v1.0.6 release, the root claim
-  matrix, the Earth line, the Sector-Complete Instrument alpha, or any
-  external service.
+- Does not modify the stable SPPT/ASTRA v1.0.7 claim matrix or release
+  identity, the immutable v1.0.6 historical release, the Earth line, the
+  Sector-Complete Instrument alpha, or any external service.
 
 This is a default-branch working draft, not a release note for an immutable
 versioned release. No tag, GitHub Release, Pages deployment, DOI, or Zenodo

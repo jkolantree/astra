@@ -252,8 +252,8 @@ def test_landing_page_links_to_current_versioned_and_schema_paths() -> None:
     links = {link.get("href", "") for link in parser.links}
     assert {
         "#main-content",
-        "./v1.0.6/preprint/",
-        "./v1.0.6/supplement/",
+        "./v1.0.7/preprint/",
+        "./v1.0.7/supplement/",
         "./latest/",
         "./editions/",
         "./resources/",
@@ -286,7 +286,7 @@ def test_landing_page_links_to_current_versioned_and_schema_paths() -> None:
     for path in schema_paths:
         schema = json.loads(path.read_text(encoding="utf-8"))
         assert schema["$id"] == f"{schema_root}{path.name}"
-        assert spec["version"] == "1.0.6"
+        assert spec["version"] == "1.0.7"
 
 
 def test_working_paper_pages_companion_is_text_first_and_well_bounded() -> None:
@@ -351,7 +351,7 @@ def test_working_paper_pages_companion_is_text_first_and_well_bounded() -> None:
         "Kansas motto",
         "project is independent and unaffiliated",
         "not peer reviewed",
-        "Neither edition amends or supersedes SPPT/ASTRA v1.0.6",
+        "Neither edition amends or supersedes the current SPPT/ASTRA v1.0.7 core",
         "provides empirical validation",
         "not a tagged PDF",
         "no reuse license is asserted for the PDF or cover image",
@@ -490,17 +490,17 @@ def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> N
 def test_pages_home_scopes_rights_and_separates_publication_tracks() -> None:
     html = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
     semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
-    assert "Current reference framework — v1.0.6" in semantic
+    assert "Current reference framework — v1.0.7" in semantic
     assert "Current supplemental framework — v0.3.0" in semantic
     assert "ASTRA Framework v0.3.0" in semantic
     assert "supersedes an internal v0.2.1 predecessor preserved in its archive" in semantic
     assert "no public v0.2.1 tag or GitHub Release was created" in semantic
-    assert "does not amend or supersede SPPT/ASTRA v1.0.6" in semantic
+    assert "does not amend or supersede stable SPPT/ASTRA v1.0.7, enter its claim-admission matrix, inherit its verification" in semantic
     assert "inherit its verification, or provide empirical validation" in semantic
     assert "Separately supplied resources retain the rights stated" in semantic
     assert "Original manuscript, documentation, figures, and data" not in semantic
-    assert 'href="./v1.0.6/preprint/"' in html
-    assert 'href="./v1.0.6/supplement/"' in html
+    assert 'href="./v1.0.7/preprint/"' in html
+    assert 'href="./v1.0.7/supplement/"' in html
     assert 'href="./latest/"' in html
     assert 'href="./resources/earth-is-the-instrument/v0.3.0/ground-reading/"' in html
     assert 'href="./resources/earth-is-the-instrument/v0.3.0/audit-form/"' in html
@@ -569,7 +569,7 @@ def test_resource_index_marks_v030_current_without_changing_core_version() -> No
     assert "not a public v0.2.1 release" in semantic
     assert "Working Paper 0.1" in semantic
     assert "Historical edition" in semantic
-    assert "separate from SPPT/ASTRA v1.0.6" in semantic
+    assert "separate from stable SPPT/ASTRA v1.0.7" in semantic
     assert "| Edition |" not in (
         ROOT / "resources" / "README.md"
     ).read_text(encoding="utf-8")
@@ -589,7 +589,7 @@ def test_resource_index_separates_published_routes_from_repository_drafts() -> N
     assert "has no Pages route, DOI, or Zenodo record" in semantic
     assert "Repository-visible unpromoted drafts" in semantic
     assert "not Pages editions or release assets" in semantic
-    assert "do not enter the v1.0.6 claim matrix" in semantic
+    assert "do not enter the v1.0.7 claim matrix" in semantic
     for relative in (
         "cosmic-visibility-framework/draft-v0.1.0",
         "sppt-bridge-protocol/draft-v0.1.0",

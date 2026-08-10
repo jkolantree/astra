@@ -128,7 +128,7 @@ def tagged_semantic_fixture() -> tuple[pikepdf.Pdf, pikepdf.Object, pikepdf.Obje
 
 
 def test_released_bibliography_entry_count_is_frozen() -> None:
-    assert len(re.findall(r"(?m)^@", BIBLIOGRAPHY)) == 42
+    assert len(re.findall(r"(?m)^@", BIBLIOGRAPHY)) == 77
 
 
 def test_tagged_structure_allocator_ids_are_canonicalized_by_logical_order() -> None:

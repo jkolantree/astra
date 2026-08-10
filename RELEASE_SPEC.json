@@ -1,14 +1,14 @@
 {
   "schema": "https://jkolantree.github.io/astra/schemas/release-spec-v1.schema.json",
-  "title": "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution",
+  "title": "SPPT / ASTRA v1.0.7: Stateful Edges and Operator-Aware Inference",
   "framework": "Solar-Planetary Phase-Partition Theory (SPPT)",
   "inference_layer": "Astronomical State-Topology and Reservoir Analysis (ASTRA)",
   "scientific_classification": "not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations; no empirical planetary validation",
-  "version": "1.0.6",
-  "tag": "v1.0.6",
-  "release_date": "2026-08-02",
-  "build_epoch": "2026-08-02T00:00:00Z",
-  "build_epoch_unix": 1785628800,
+  "version": "1.0.7",
+  "tag": "v1.0.7",
+  "release_date": "2026-08-10",
+  "build_epoch": "2026-08-10T00:00:00Z",
+  "build_epoch_unix": 1786320000,
   "author": "Jacko T.",
   "repository": "https://github.com/jkolantree/astra",
   "repository_id": 1319077150,
@@ -17,12 +17,12 @@
     "manuscript_documentation_figures_data": "CC-BY-4.0"
   },
   "release_asset_allowlist": [
-    "SPPT_ASTRA_preprint_v1.0.6.pdf",
-    "SPPT_ASTRA_preprint_v1.0.6.html",
-    "SPPT_ASTRA_technical_supplement_v1.0.6.pdf",
-    "SPPT_ASTRA_technical_supplement_v1.0.6.html",
-    "SPPT_ASTRA_v1.0.6_source.tar.gz",
+    "SPPT_ASTRA_preprint_v1.0.7.pdf",
+    "SPPT_ASTRA_preprint_v1.0.7.html",
+    "SPPT_ASTRA_technical_supplement_v1.0.7.pdf",
+    "SPPT_ASTRA_technical_supplement_v1.0.7.html",
+    "SPPT_ASTRA_v1.0.7_source.tar.gz",
     "SHA256SUMS",
-    "release-identity-v1.0.6.json"
+    "release-identity-v1.0.7.json"
   ]
 }

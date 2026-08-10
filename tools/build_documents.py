@@ -34,14 +34,14 @@ PDF_PRODUCER = f"SPPT-ASTRA reproducibility build v{VERSION}; pikepdf 10.11.0"
 STRUCTURE_ID_PREFIX = "sppt-struct-"
 FORMULA_ALT_PREFIX = "Formula in TeX: "
 TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-EXPECTED_TABLE_COUNTS = {"manuscript.md": 3, "supplement.md": 6}
+EXPECTED_TABLE_COUNTS = {"manuscript.md": 11, "supplement.md": 6}
 
 DOCUMENTS = (
     (
         MANUSCRIPT / "manuscript.md",
         MANUSCRIPT / f"SPPT_ASTRA_preprint_v{VERSION}.html",
         MANUSCRIPT / f"SPPT_ASTRA_preprint_v{VERSION}.pdf",
-        "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution",
+        "SPPT / ASTRA v1.0.7: Stateful Edges and Operator-Aware Inference",
     ),
     (
         MANUSCRIPT / "supplement.md",

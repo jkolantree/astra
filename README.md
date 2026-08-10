@@ -10,7 +10,7 @@ This repository contains the reference package for **Solar-Planetary Phase-Parti
 
 > **Status.** The core work is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a general hybrid-system theorem, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; its generation constants are public.
 >
-> **Citation boundary.** The immutable [v1.0.6 release](https://github.com/jkolantree/astra/releases/tag/v1.0.6) is the frozen core citation and reproduction target. Later documentation, maintenance, and separately namespaced research drafts remain overlays until a future release explicitly admits them.
+> **Citation boundary.** [SPPT/ASTRA v1.0.7](https://github.com/jkolantree/astra/releases/tag/v1.0.7) is the current stable core citation and reproduction target. The immutable [v1.0.6 release](https://github.com/jkolantree/astra/releases/tag/v1.0.6) remains the historical core baseline. Supplemental releases and namespaced research drafts retain their own identities and do not inherit the v1.0.7 claim matrix unless the release record says so.
 
 ## In plain English: what this is and why it matters
 
@@ -20,11 +20,12 @@ This matters because many planetary measurements are made at the boundary: tempe
 
 ## Publication map
 
-- **v1.0.6 — current reference edition (SPPT/ASTRA).** [Read the current core edition](https://jkolantree.github.io/astra/latest/) or open the immutable [release](https://github.com/jkolantree/astra/releases/tag/v1.0.6).
+- **v1.0.7 — current stable reference edition (SPPT/ASTRA).** [Read the current core edition](https://jkolantree.github.io/astra/latest/) or open the immutable [release](https://github.com/jkolantree/astra/releases/tag/v1.0.7).
+- **v1.0.6 — historical immutable core baseline.** [Read its versioned edition](https://jkolantree.github.io/astra/v1.0.6/preprint/) or open the [release](https://github.com/jkolantree/astra/releases/tag/v1.0.6).
 - **v0.3.0 — current supplemental edition (*Earth Is the Instrument*), a working-paper release.** [Read the supplemental edition](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/latest/) or open its immutable [release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
-- **v1.0.7 Candidate Revision 2 — public integration-candidate package.** [View the GitHub prerelease](https://github.com/jkolantree/astra/releases/tag/sppt-astra-v1.0.7-rc.2) and download its self-contained review archive. The asset is fixed to the audited pre-merge `main` snapshot recorded in its manifest; a later documentation-only pointer records it in the repository. It is not the final v1.0.7 core release and has no Pages route, DOI, Zenodo record, or claim-matrix admission.
+- **v1.0.7 Candidate Revision 2 — superseded public integration package.** [View the immutable prerelease](https://github.com/jkolantree/astra/releases/tag/sppt-astra-v1.0.7-rc.2) and its self-contained review archive. It records the review snapshot that preceded the stable v1.0.7 integration; its bytes and identity remain unchanged, and it has no separate Pages route, DOI, or Zenodo record.
 - **Public namespaced alpha — Sector-Complete Instrument v0.1.0-alpha.1.** This synthetic methods module lives under [`resources/sector-complete-instrument/v0.1.0-alpha.1/`](resources/sector-complete-instrument/v0.1.0-alpha.1/); it is not ASTRA v0.3.2, does not amend either immutable line, and has no Pages route, DOI, or Zenodo record. Open the [GitHub prerelease](https://github.com/jkolantree/astra/releases/tag/sector-complete-instrument-v0.1.0-alpha.1).
-- **Unpromoted methods draft — Mode-resolved active-support audit.** The default-branch [draft](resources/active-support-audit/draft-v0.1.0/) is a long-form ASTRA methods perspective on mode, waveform, geometry, phase matching, and observation. It does not enter the v1.0.6 claim matrix or immutable assets.
+- **Unpromoted methods draft — Mode-resolved active-support audit.** The default-branch [draft](resources/active-support-audit/draft-v0.1.0/) is a long-form ASTRA methods perspective on mode, waveform, geometry, phase matching, and observation. It remains separate from the v1.0.7 claim matrix and immutable assets.
 - **v0.1 — historical edition (*Earth Is the Instrument* Working Paper).** [Read historical v0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/) or open its immutable [release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1).
 
 - **Unpromoted successor prototypes.** The [SPPT Bridge Protocol](resources/sppt-bridge-protocol/draft-v0.1.0/) and [coherence-cell exploration](resources/coherence-cell-exploration/draft-v0.1.0/) are separate methods prototypes. They are not core equations, release assets, or validation claims.
@@ -32,27 +33,27 @@ This matters because many planetary measurements are made at the boundary: tempe
 
 ### Status vocabulary
 
-- **Core stable:** SPPT/ASTRA v1.0.6 is the current citation, reproduction target, GitHub Latest release, and only core release identity.
+- **Core stable:** SPPT/ASTRA v1.0.7 is the current citation, reproduction target, GitHub Latest release, and current core release identity. v1.0.6 is the immutable historical baseline.
 - **Supplemental working-paper release:** *Earth Is the Instrument* v0.3.0 is a complete, separately versioned working-paper snapshot; it is supplemental and does not inherit the core claim matrix or verification.
 - **Research preview:** Sector-Complete Instrument v0.1.0-alpha.1 is an explicitly alpha, synthetic methods module.
-- **Integration candidate:** v1.0.7 Candidate Revision 2 is a package-only review candidate, not an admitted core version.
+- **Integration candidate:** v1.0.7 Candidate Revision 2 is a superseded package-only review snapshot; the admitted stable core version is v1.0.7.
 
-GitHub's **Pre-release** badge is used for the supplemental, preview, and candidate lines so v1.0.6 remains Latest. It is a distribution/status flag, not a claim that every artifact is unfinished or that peer review has occurred.
+GitHub's **Pre-release** badge remains on the supplemental, preview, and candidate lines because they are not the core/latest line. It is a distribution/status flag, not a claim that every artifact is unfinished or that peer review has occurred.
 
 The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line. Published reading editions have their own versioned tags, citations, checksums, and `/resources/` routes; public namespaced releases without a reading route and repository-visible unpromoted drafts remain source-tree or release artifacts unless a route is stated explicitly. The project was developed with substantive ChatGPT assistance; the human-responsibility and independence disclosure appears below.
 
 ## Core reference package
 
-- [Read the accessible preprint on GitHub Pages](https://jkolantree.github.io/astra/v1.0.6/preprint/)
-- [Read the accessible technical supplement on GitHub Pages](https://jkolantree.github.io/astra/v1.0.6/supplement/)
-- [Downloadable preprint HTML](manuscript/SPPT_ASTRA_preprint_v1.0.6.html) — download the file, then open it in a web browser; GitHub's file viewer does not render this large self-contained edition
-- [Preprint PDF](manuscript/SPPT_ASTRA_preprint_v1.0.6.pdf)
-- [Downloadable technical-supplement HTML](manuscript/SPPT_ASTRA_technical_supplement_v1.0.6.html) — download the file, then open it in a web browser
-- [Technical supplement PDF](manuscript/SPPT_ASTRA_technical_supplement_v1.0.6.pdf)
+- [Read the accessible v1.0.7 preprint on GitHub Pages](https://jkolantree.github.io/astra/v1.0.7/preprint/)
+- [Read the accessible v1.0.7 technical supplement on GitHub Pages](https://jkolantree.github.io/astra/v1.0.7/supplement/)
+- [Downloadable v1.0.7 preprint HTML](manuscript/SPPT_ASTRA_preprint_v1.0.7.html) — download the file, then open it in a web browser; GitHub's file viewer does not render this large self-contained edition
+- [v1.0.7 preprint PDF](manuscript/SPPT_ASTRA_preprint_v1.0.7.pdf)
+- [Downloadable v1.0.7 technical-supplement HTML](manuscript/SPPT_ASTRA_technical_supplement_v1.0.7.html) — download the file, then open it in a web browser
+- [v1.0.7 technical supplement PDF](manuscript/SPPT_ASTRA_technical_supplement_v1.0.7.pdf)
 - [Authoritative preprint source](manuscript/manuscript.md)
 - [Authoritative supplement source](manuscript/supplement.md)
 - [Claim-admission matrix](CLAIM_MATRIX.json)
-- [Structured claim-to-source coverage draft](evidence/claim_source_coverage_v1.0.6_draft.json)
+- [Structured claim-to-source coverage](evidence/claim_source_coverage_v1.0.7.json)
 
 The versioned Pages editions are the primary accessible reading path for the reference package and published supplemental line. The downloadable HTML files are self-contained; the PDFs are synchronized tagged visual editions. Native MathML is available in HTML, while the PDFs do not claim a native MathML expression tree. Repository-visible unpromoted drafts remain source-tree artifacts rather than Pages editions. The structured coverage draft is maintenance evidence, not a new release or proof of sentence-level completeness.
 
@@ -60,7 +61,7 @@ The versioned Pages editions are the primary accessible reading path for the ref
 
 <a href="https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/"><img src="resources/earth-is-the-instrument/v0.3.0/cover.png" width="280" alt="Blue-and-gold cover titled Earth Is the Instrument, with an abstract planetary diagram"></a>
 
-**Foundational working paper · evidence graded · not peer reviewed · separate from v1.0.6.**
+**Foundational working paper · evidence graded · not peer reviewed · separate from stable v1.0.7.**
 
 - [Read the text-first guide to *ASTRA Framework v0.3.0 — Earth Is the Instrument*](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/), a separately versioned framework about dual-rent seams, local-to-global certificates, geological memory, evidence independence, and bounded arithmetic-seam tests.
 - Start with the reflowable [public ground reading](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/ground-reading/) or use the [browser audit worksheet](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/audit-form/); both work at narrow screen widths.
@@ -68,7 +69,7 @@ The versioned Pages editions are the primary accessible reading path for the ref
 - [Review the publication audit and known accessibility limits](resources/earth-is-the-instrument/v0.3.0/PUBLICATION_AUDIT.md).
 - [Download the complete source and reproducibility archive from its versioned GitHub Release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
 
-Within its own publication line, v0.3.0 supersedes the internal v0.2.1 predecessor preserved in its release archive. No public v0.2.1 tag or GitHub Release was created. It does not amend or supersede the immutable SPPT/ASTRA v1.0.6 reference release or inherit its verification status. The earlier [Working Paper 0.1](resources/earth-is-the-instrument/v0.1/) remains available, and the [v0.3.0 post-publication errata](resources/earth-is-the-instrument/v0.3.0/ERRATA.md) records documentation corrections that do not change immutable artifacts.
+Within its own publication line, v0.3.0 supersedes the internal v0.2.1 predecessor preserved in its release archive. No public v0.2.1 tag or GitHub Release was created. It does not amend or supersede the stable SPPT/ASTRA v1.0.7 reference release or inherit its verification status; v1.0.6 remains the immutable historical baseline. The earlier [Working Paper 0.1](resources/earth-is-the-instrument/v0.1/) remains available, and the [v0.3.0 post-publication errata](resources/earth-is-the-instrument/v0.3.0/ERRATA.md) records documentation corrections that do not change immutable artifacts.
 
 ## Name, assistance, and independence
 
@@ -157,14 +158,14 @@ The repository verification workflow runs for pull requests, `main`, and core re
 | `tools/` | Canonical verification, document, manifest, and release-identity tooling |
 | `resources/` | Independently versioned exploratory and foundational working papers, complete packages, and text-first reading guides |
 | `RELEASE_NOTES_earth-instrument-*.md` | Archived bodies of the immutable supplemental GitHub releases, with links to any post-publication errata |
-| `SOURCE_INVENTORY.json` | Hash, media, attribution, rights, alias, and excluded/deferred status for every source artifact admitted to the v1.0.6 reference release |
+| `SOURCE_INVENTORY.json` | Hash, media, attribution, rights, alias, and excluded/deferred status for every source artifact admitted to the v1.0.7 reference release |
 | `CLAIM_MATRIX.json` | Consequential claims, hypotheses, evidence classes, limitations, and dispositions |
 
 ## Citation
 
 The repository-level [`CITATION.cff`](CITATION.cff) describes only the current SPPT/ASTRA **reference** release. Cite that versioned GitHub release as:
 
-> Jacko T. (2026). *Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution*, version 1.0.6. GitHub. https://github.com/jkolantree/astra/releases/tag/v1.0.6
+> Jacko T. (2026). *SPPT / ASTRA v1.0.7: Stateful Edges and Operator-Aware Inference*. GitHub. https://github.com/jkolantree/astra/releases/tag/v1.0.7
 
 For *Earth Is the Instrument*, use the citation printed on its [current supplemental edition](resources/earth-is-the-instrument/v0.3.0/#citation) or historical v0.1 page rather than GitHub's repository-level citation suggestion.
 

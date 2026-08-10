@@ -29,11 +29,11 @@ def test_claim_source_coverage_preserves_structural_unknowns() -> None:
     record = json.loads(DEFAULT_OUTPUT.read_text(encoding="utf-8"))
     summary = record["summary"]
 
-    assert record["status"] == "maintenance_draft"
-    assert record["reference_release"]["version"] == "1.0.6"
-    assert summary["claim_count"] == 26
-    assert summary["claims_with_support"] == 26
-    assert summary["claims_with_current_path_support"] == 26
+    assert record["status"] == "maintenance_record"
+    assert record["reference_release"]["version"] == "1.0.7"
+    assert summary["claim_count"] == 55
+    assert summary["claims_with_support"] == 55
+    assert summary["claims_with_current_path_support"] == 55
     assert summary["source_records_with_admitted_hash"] == 0
     assert summary["source_records_with_retrieval_date"] == 0
     assert "VERIFY-C019" in summary["claims_without_limitations"]

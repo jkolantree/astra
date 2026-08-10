@@ -1,4 +1,4 @@
-"""Build the local structured claim-to-source coverage draft."""
+"""Build the deterministic v1.0.7 structured claim-to-source coverage record."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from jsonschema import Draft7Validator, FormatChecker
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_URL = "https://jkolantree.github.io/astra/schemas/claim-source-coverage-v1.schema.json"
 SCHEMA_PATH = ROOT / "schemas" / "claim-source-coverage-v1.schema.json"
-DEFAULT_OUTPUT = ROOT / "evidence" / "claim_source_coverage_v1.0.6_draft.json"
+DEFAULT_OUTPUT = ROOT / "evidence" / "claim_source_coverage_v1.0.7.json"
 GENERATOR_VERSION = "0.1.0"
 RUNTIME_IDENTITY = "python==3.12.10"
 SHA256_RE = re.compile(r"(?<![0-9a-f])[0-9a-f]{64}(?![0-9a-f])", re.IGNORECASE)
@@ -322,10 +322,10 @@ def build_record(root: Path = ROOT) -> dict[str, Any]:
     return {
         "schema": SCHEMA_URL,
         "title": "SPPT/ASTRA structured claim-to-source coverage audit (maintenance draft)",
-        "status": "maintenance_draft",
+        "status": "maintenance_record",
         "reference_release": {
             "line": "core",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "identity_status": "immutable_release_with_local_overlay",
             "claim_matrix_path": "CLAIM_MATRIX.json",
             "claim_matrix_sha256": sha256_file(root / "CLAIM_MATRIX.json"),
@@ -338,7 +338,7 @@ def build_record(root: Path = ROOT) -> dict[str, Any]:
             "path": "tools/build_claim_source_coverage.py",
             "version": GENERATOR_VERSION,
             "runtime": RUNTIME_IDENTITY,
-            "output_path": "evidence/claim_source_coverage_v1.0.6_draft.json",
+            "output_path": "evidence/claim_source_coverage_v1.0.7.json",
         },
         "input_files": [
             {
@@ -390,7 +390,7 @@ def build_record(root: Path = ROOT) -> dict[str, Any]:
             "Legacy SOURCE_INVENTORY.json records supplied inputs but does not encode admitted replacement paths or hashes.",
             "External citation identity and claim-local entailment were not reverified by this structural generator.",
             "Exact execution commands, runtimes, and run identifiers are not present in the legacy claim records.",
-            "This is a maintenance draft tied to the v1.0.6 core line; it is not a new release identity or publication decision.",
+            "This is the v1.0.7 maintenance coverage record; it is structural evidence for the current reference edition, not sentence-level external entailment or a separate publication decision.",
         ],
     }
 

@@ -4,9 +4,9 @@ Status: unpromoted default-branch research draft; not peer reviewed and not a
 release.
 
 This is a separately named ASTRA methods perspective. It does not revise the
-Solar-Planetary Phase-Partition Theory (SPPT) equations, the v1.0.6 claim
-matrix, any immutable tag or asset, the Earth Is the Instrument line, or the
-Sector-Complete Instrument alpha. It has no GitHub Release, Pages route,
+Solar-Planetary Phase-Partition Theory (SPPT) equations, the v1.0.7 claim
+matrix or its release identity, any immutable tag or asset, the Earth Is the
+Instrument line, or the Sector-Complete Instrument alpha. It has no GitHub Release, Pages route,
 Zenodo record, DOI, or release identity.
 
 ## Why this draft exists
@@ -47,10 +47,11 @@ a substitute for a constitutive bridge.
 
 ## Relationship to SPPT and dark matter
 
-SPPT remains the physical core: a thermodynamically constrained hybrid
+SPPT/ASTRA v1.0.7 remains the current physical core: a thermodynamically constrained hybrid
 phase-reservoir graph with declared units, transport, boundary conditions,
 topology guards, and promotion by held-out prediction. This draft adds no
-planetary reservoir law and no dark-matter claim.
+planetary reservoir law and no dark-matter claim. The immutable v1.0.6 release
+remains the historical core baseline used by this audit's frozen source record.
 
 Any later adapter for a dark-matter search would need a declared interaction
 operator, coupling normalization, source and abundance model, coherence
