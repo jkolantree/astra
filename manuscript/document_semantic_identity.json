@@ -1,35 +1,35 @@
 {
-  "build_epoch": "2026-08-02T00:00:00Z",
+  "build_epoch": "2026-08-10T00:00:00Z",
   "records": [
     {
       "author": "Jacko T.",
-      "html": "SPPT_ASTRA_preprint_v1.0.6.html",
-      "html_sha256": "0654f46d59da99bba7d9f18f2883dc8ccee8ca75ac30fa4bbb083cc7de65d5a5",
+      "html": "SPPT_ASTRA_preprint_v1.0.7.html",
+      "html_sha256": "9a612d4de0e3f80a5f5610549e1987ab715fd863ff0fb49da331fa56c56e8064",
       "language": "en-US",
-      "pdf": "SPPT_ASTRA_preprint_v1.0.6.pdf",
+      "pdf": "SPPT_ASTRA_preprint_v1.0.7.pdf",
       "pdf_accessibility": "tagged PDF with document language, normalized outline, embedded fonts, extractable ligature-free text, formula alternatives, and figure alternative text; self-contained HTML is the primary accessible reading edition",
-      "pdf_normalized_text_sha256": "1e0a8f8c35c0d3392b40a83e5b163681874bd611662a6e415699cb91c33c48f5",
-      "pdf_pages": 48,
-      "pdf_sha256": "b06f242dfc1c90d081d5f9b2792a4c5508687e1266c499e570e441905d1a5475",
+      "pdf_normalized_text_sha256": "87e2d76479fb23cb67f165de399a2f746c6a011f384b9468dd50d658192c39e7",
+      "pdf_pages": 97,
+      "pdf_sha256": "4711d62c6dc35d0d50c52b21803ef0499b8fe833e1227aad1a13ad2463900227",
       "source": "manuscript.md",
-      "source_sha256": "1a35e5bce7ff6b652d56a04d42f7d553f5675c0ebd1405afffca86a6ecfc7012",
-      "title": "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution",
-      "version": "1.0.6"
+      "source_sha256": "57dfe86cd0892df3e64245cfcd88822f9942e7bfebd9a82d3d686ad1b11ca43b",
+      "title": "SPPT / ASTRA v1.0.7: Stateful Edges and Operator-Aware Inference",
+      "version": "1.0.7"
     },
     {
       "author": "Jacko T.",
-      "html": "SPPT_ASTRA_technical_supplement_v1.0.6.html",
-      "html_sha256": "4e6c810a646dfff63fd62a9b4cfb18a465e7d3e91ac2e229bba01175ddf8b566",
+      "html": "SPPT_ASTRA_technical_supplement_v1.0.7.html",
+      "html_sha256": "a15715e551939f2342d62eaff18e4ca932143fc76d43e4110686c7b4996be523",
       "language": "en-US",
-      "pdf": "SPPT_ASTRA_technical_supplement_v1.0.6.pdf",
+      "pdf": "SPPT_ASTRA_technical_supplement_v1.0.7.pdf",
       "pdf_accessibility": "tagged PDF with document language, normalized outline, embedded fonts, extractable ligature-free text, formula alternatives, and figure alternative text; self-contained HTML is the primary accessible reading edition",
-      "pdf_normalized_text_sha256": "d81507a521a1ac6e68665bea84bbf06558429422d45e571c9a76060d440e170b",
+      "pdf_normalized_text_sha256": "a4b845f0a6d3c45aabe61063427dd1f8c59536c6578644a3d763689406d82ce4",
       "pdf_pages": 21,
-      "pdf_sha256": "bd998c4785c4e9e3990cd3393d6ff27d8f06b63db20bfa4e19e7a199e24c75b9",
+      "pdf_sha256": "1b8a3e0285981fba05fd25ff1407c1efeca7342db759b0d63ae6e063469c1fba",
       "source": "supplement.md",
-      "source_sha256": "e0d622ebd4b56e15009a6b5880166f8626e3f180fb517de9029a21806f9c5a81",
+      "source_sha256": "8874dd1d1d6a40b4912cc70a1df0c8c7f0c003d0fc28d0edfdffe25efdd9b795",
       "title": "Technical Supplement: Synthetic Pointwise Topology Selection and Identifiability Limits",
-      "version": "1.0.6"
+      "version": "1.0.7"
     }
   ],
   "schema": "https://jkolantree.github.io/astra/schemas/document-semantic-identity-v1.schema.json"

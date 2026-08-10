@@ -10,8 +10,8 @@ route.
 
 - **Supplemental working-paper release — [ASTRA Framework
   v0.3.0](earth-is-the-instrument/v0.3.0/).** Foundational working paper; not
-  peer reviewed; immutable GitHub prerelease. The prerelease badge keeps the
-  core v1.0.6 release as GitHub Latest; it does not make this a core candidate.
+  peer reviewed; immutable GitHub prerelease. It remains supplemental rather
+  than part of the stable v1.0.7 core/latest line.
   It supersedes an internal v0.2.1
   predecessor preserved in its archive. [Read the versioned Pages
   guide](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/),
@@ -31,15 +31,14 @@ project's naming, substantive ChatGPT assistance, human responsibility,
 independence disclosures, and [post-publication documentation
 errata](earth-is-the-instrument/v0.3.0/ERRATA.md).
 
-## Public integration candidate
+## Superseded public integration package
 
 [SPPT/ASTRA v1.0.7 Candidate Revision 2](https://github.com/jkolantree/astra/releases/tag/sppt-astra-v1.0.7-rc.2)
-is a package-only integration candidate for public review and implementation
-planning. Its ZIP and document assets are fixed to the audited pre-merge
-`main` snapshot recorded in the package manifest; the later repository pointer
-does not alter those bytes. It has no Pages edition, DOI, Zenodo record, or
-admission to the v1.0.6 claim matrix, and it is not the final v1.0.7 core
-release. GitHub labels it a prerelease so v1.0.6 remains Latest.
+is an immutable package-only review snapshot that preceded the stable v1.0.7
+integration. Its ZIP and document assets remain fixed to the audited pre-merge
+`main` snapshot recorded in the package manifest; the stable release has its
+own source tree and identity. It has no separate Pages edition, DOI, or Zenodo
+record.
 
 ## Public namespaced alpha module
 
@@ -49,13 +48,13 @@ and ZIP.
 It repairs a POVM/channel equation, adds typed sector and identifiability
 fields, and records a synthetic benchmark plus a bounded magnet
 observation/certificate bridge. It is not ASTRA v0.3.2, does not supersede the
-Earth line or the SPPT/ASTRA v1.0.6 core, and has no Pages route, DOI, or Zenodo
+Earth line or the SPPT/ASTRA v1.0.7 core, and has no Pages route, DOI, or Zenodo
 record. Its PDFs/DOCX remain external review inputs and are not release assets;
 see its `verification/` records and the [namespaced GitHub
 prerelease](https://github.com/jkolantree/astra/releases/tag/sector-complete-instrument-v0.1.0-alpha.1).
 
 This supplemental line does not replace, revise, or supersede the current
-SPPT/ASTRA **v1.0.6 reference release**, enter its claim-admission matrix, or
+SPPT/ASTRA **v1.0.7 reference release**, enter its claim-admission matrix, or
 inherit its verification status. A later reference release would need to admit
 any supplemental claim explicitly.
 
@@ -76,7 +75,7 @@ The draft is not peer reviewed, has no release identity, and has no GitHub
 Release, Pages route, DOI, or Zenodo record. Its active-support kernel,
 mode-specific interface, and moving-front coordinate are proposed bookkeeping
 and experiment-design objects, not new physical laws. It does not modify the
-SPPT/ASTRA v1.0.6 claim matrix, equations, release assets, or immutable tags.
+SPPT/ASTRA v1.0.7 claim matrix, equations, release assets, or immutable tags.
 
 ## Unpromoted coherence-cell exploration
 
@@ -92,7 +91,7 @@ citation-level and explicitly incomplete until source bytes, exact entailment,
 and independent replays are frozen.
 
 The folder is not a GitHub Release, Pages route, DOI, or Zenodo deposit. It is
-kept separate from the immutable SPPT/ASTRA v1.0.6 core and from the other
+kept separate from the stable SPPT/ASTRA v1.0.7 core and from the other
 namespaced resource lines.
 
 ## Unpromoted SPPT bridge protocol
@@ -119,4 +118,4 @@ dark-matter or graviton detection, a fourth Martian mantle reservoir, a shared
 physical mechanism, or a replacement cosmology. The folder contains the
 machine-checkable protocol, source/claim/novelty ledgers, vector diagrams, and
 the 28-page core PDF. It is not a GitHub Release, Pages route, DOI, or Zenodo
-deposit and does not modify the immutable SPPT/ASTRA v1.0.6 core.
+deposit and does not modify the stable SPPT/ASTRA v1.0.7 core.

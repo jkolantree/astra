@@ -27,7 +27,8 @@ for a particular mode. They do not mean a new field, a universal coupling, a
 new material reservoir, or a discovered dark-matter sector.
 
 This note is a local, unpromoted methods draft. It is not a peer-reviewed
-paper, an empirical validation of SPPT, or an extension of the immutable
+paper, an empirical validation of SPPT, or an extension of the stable
+SPPT/ASTRA v1.0.7 claim matrix. Its frozen audit baseline is the immutable
 SPPT/ASTRA v1.0.6 release.
 
 ## 2. What was audited

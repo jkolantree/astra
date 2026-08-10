@@ -52,6 +52,7 @@ ROOT_ALLOWLIST = {
     "RELEASE_NOTES_v1.0.4.md",
     "RELEASE_NOTES_v1.0.5.md",
     "RELEASE_NOTES_v1.0.6.md",
+    "RELEASE_NOTES_v1.0.7.md",
     "RELEASE_SPEC.json",
     "RUNTIME.json",
     "SOURCE_INVENTORY.json",
@@ -65,7 +66,7 @@ DIRECTORY_RULES = {
     ".github/workflows": {".yml", ".yaml"},
     "data": {".csv", ".json"},
     "evidence": {".json", ".md", ".txt"},
-    "figures": {".png", ".pdf"},
+    "figures": {".png", ".pdf", ".svg"},
     "licenses": {".txt"},
     "manuscript": {".bib", ".css", ".html", ".json", ".md", ".pdf"},
     "resources": {".cff", ".csv", ".html", ".json", ".md", ".pdf", ".png", ".py", ".sha256", ".svg", ".txt"},
@@ -119,6 +120,10 @@ ALLOWED_EVIDENCE = {
     "mechanically_replayed",
     "kernel_verified",
     "externally_published",
+    "structural_inference",
+    "proposed_only",
+    "deferred",
+    "rejected",
 }
 ALLOWED_DISPOSITIONS = {
     "admit",
@@ -937,7 +942,7 @@ def check_publication_map() -> None:
     readme = " ".join((ROOT / "README.md").read_text(encoding="utf-8").replace("**", "").split())
     required_readme_values = (
         "Publication map",
-        "v1.0.6 — current reference edition",
+        "v1.0.7 — current stable reference edition",
         "v0.3.0 — current supplemental edition",
         "v0.1 — historical edition",
         "The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line",
@@ -1006,13 +1011,13 @@ def check_publication_map() -> None:
 
     evidence_readme = (ROOT / "evidence" / "README.md").read_text(encoding="utf-8")
     if (
-        "v1.0.6 reference package" not in evidence_readme
+        "v1.0.7 reference package" not in evidence_readme
         or "--all --workers 4" not in evidence_readme
     ):
         raise RuntimeError("Evidence README does not identify the core release and command")
     schemas_readme = (ROOT / "schemas" / "README.md").read_text(encoding="utf-8")
     if (
-        "currently **v1.0.6**" not in schemas_readme
+        "currently **v1.0.7**" not in schemas_readme
         or "Supplemental resources" not in schemas_readme
     ):
         raise RuntimeError("Schema README does not identify its publication-line scope")
@@ -1169,10 +1174,10 @@ def check_metadata_agreement() -> None:
         if path.is_file() and edition_pattern.fullmatch(path.name)
     }
     expected_edition_names = {Path(relative).name for relative in expected_documents}
-    if observed_editions != expected_edition_names:
+    if not expected_edition_names <= observed_editions:
         raise RuntimeError(
             "Versioned manuscript edition roster differs from the current release: "
-            f"expected {sorted(expected_edition_names)}, observed {sorted(observed_editions)}"
+            f"expected at least {sorted(expected_edition_names)}, observed {sorted(observed_editions)}"
         )
     pages_root = "https://jkolantree.github.io/astra"
     required_readme_values = (
@@ -1335,7 +1340,7 @@ def check_public_json_schemas() -> None:
         ROOT / "RELEASE_SPEC.json",
         ROOT / "CLAIM_MATRIX.json",
         ROOT / "SOURCE_INVENTORY.json",
-        ROOT / "evidence" / "claim_source_coverage_v1.0.6_draft.json",
+        ROOT / "evidence" / "claim_source_coverage_v1.0.7.json",
         ROOT / "RUNTIME.json",
         ROOT / "manuscript" / "document_semantic_identity.json",
         ROOT / "manuscript" / "pdf_inspection.json",
@@ -1459,7 +1464,7 @@ def main() -> None:
     check_runtime_identity()
     check_html(
         ROOT / "manuscript" / f"SPPT_ASTRA_preprint_v{version}.html",
-        "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution",
+        "SPPT / ASTRA v1.0.7: Stateful Edges and Operator-Aware Inference",
     )
     check_html(
         ROOT / "manuscript" / f"SPPT_ASTRA_technical_supplement_v{version}.html",

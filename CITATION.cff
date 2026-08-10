@@ -1,25 +1,23 @@
 cff-version: 1.2.0
 message: "If you use this work, cite the versioned software record and the accompanying preprint."
 type: software
-title: "Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution"
+title: "SPPT / ASTRA v1.0.7: Stateful Edges and Operator-Aware Inference"
 abstract: >-
   Versioned reference package for Solar-Planetary Phase-Partition Theory
   (SPPT) and its Astronomical State-Topology and Reservoir Analysis (ASTRA)
-  inference layer. It contains a not-peer-reviewed mathematical framework,
-  reduced synthetic demonstrations, tests, data, figures, and synchronized
-  accessible reading editions. A proposed typed-layer outlook separates
-  physical flux, active control, observation, archival preservation, and
-  verification without transferring evidence across fields. Synthetic results
-  and cross-domain analogies are not empirical planetary validation. Software
-  is MIT licensed; manuscript, documentation, figures,
-  data, and generated results are CC BY 4.0 under the file-level mapping in
-  LICENSE_MAP.md.
+  inference layer. This not-peer-reviewed perspective adds a typed stateful-
+  edge and operator-aware integration layer while retaining the v1.0.6
+  conservation, thermodynamic, topology, and synthetic-baseline boundaries.
+  External studies are calibration cases, not planetary validation; proposed
+  methods remain explicitly qualified. Software is MIT licensed; manuscript,
+  documentation, figures, data, and generated results are CC BY 4.0 under the
+  file-level mapping in LICENSE_MAP.md.
 authors:
   - name: "Jacko T."
-version: 1.0.6
-date-released: 2026-08-02
+version: 1.0.7
+date-released: 2026-08-10
 repository-code: "https://github.com/jkolantree/astra"
-url: "https://github.com/jkolantree/astra/releases/tag/v1.0.6"
+url: "https://github.com/jkolantree/astra/releases/tag/v1.0.7"
 license: MIT
 keywords:
   - planetary evolution
@@ -36,5 +34,5 @@ preferred-citation:
   authors:
     - name: "Jacko T."
   year: 2026
-  version: 1.0.6
-  url: "https://github.com/jkolantree/astra/releases/tag/v1.0.6"
+  version: 1.0.7
+  url: "https://github.com/jkolantree/astra/releases/tag/v1.0.7"

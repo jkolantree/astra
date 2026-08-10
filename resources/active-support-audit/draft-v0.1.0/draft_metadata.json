@@ -7,7 +7,8 @@
   "input_artifact": "user-supplied pasted-text.txt",
   "input_artifact_sha256": "db61d23573a97b62ff743344efcb765db363b7781e340c332a5c0cf42a8b5129",
   "source_scope": [
-    "current SPPT/ASTRA v1.0.6 tracked sources as an immutable reference",
+    "immutable SPPT/ASTRA v1.0.6 tracked sources as the historical audit baseline",
+    "current SPPT/ASTRA v1.0.7 reference edition as a separate successor identity",
     "three supplied external study cases",
     "one related negative-control preprint",
     "one supplied cross-case synthesis"

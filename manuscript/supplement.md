@@ -2,8 +2,8 @@
 title: "Technical Supplement: Synthetic Pointwise Topology Selection and Identifiability Limits"
 subtitle: "Solar–Planetary Phase-Partition Theory with ASTRA"
 author: "Jacko T."
-date: "2 August 2026"
-version: "1.0.6"
+date: "10 August 2026"
+version: "1.0.7"
 lang: en-US
 toc: true
 toc-depth: 3
@@ -33,12 +33,12 @@ header-includes:
     \pagestyle{fancy}
     \fancyhf{}
     \fancyhead[L]{\small SPPT--ASTRA Technical Supplement}
-    \fancyhead[R]{\small Version 1.0.6}
+    \fancyhead[R]{\small Version 1.0.7}
     \fancyfoot[C]{\thepage}
     \renewcommand{\headrulewidth}{0.3pt}
 ---
 
-**Version 1.0.6 · Reproducibility supplement · Not peer reviewed**
+**Version 1.0.7 · Reproducibility supplement · Not peer reviewed**
 
 > **Status statement.** Every result in this supplement is synthetic. No Solar System, exoplanet, laboratory, or mission data are fitted. The tests demonstrate implementation behavior under declared assumptions; they do not validate a planetary topology.
 

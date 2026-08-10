@@ -29,6 +29,7 @@
     "status": {
       "enum": [
         "maintenance_draft",
+        "maintenance_record",
         "candidate_only"
       ]
     },
@@ -96,7 +97,7 @@
           "const": "python==3.12.10"
         },
         "output_path": {
-          "const": "evidence/claim_source_coverage_v1.0.6_draft.json"
+          "const": "evidence/claim_source_coverage_v1.0.7.json"
         }
       }
     },

@@ -1,7 +1,7 @@
 # Public data schemas
 
 These Draft 7 JSON Schemas describe the machine-readable records shipped by
-the SPPT/ASTRA reference-release line, currently **v1.0.6**. Their canonical
+the SPPT/ASTRA reference-release line, currently **v1.0.7**. Their canonical
 URLs are served by the project reading site at
 `https://jkolantree.github.io/astra/schemas/`.
 
@@ -10,13 +10,12 @@ Supplemental resources use the namespaced release schemas
 `supplemental-release-identity-v1.schema.json`; they do not change the core
 SPPT/ASTRA release contract.
 
-The maintenance-draft `claim-source-coverage-v1.schema.json` describes the
+The maintenance `claim-source-coverage-v1.schema.json` describes the
 structured claim/source audit under `evidence/`. It is an audit-layer schema,
 not a replacement for `claim-matrix-v1.schema.json`, and it does not promote
 source-asserted or structurally linked material to independently verified
-evidence. The current served Pages snapshot predates this local overlay, so
-the draft schema's public URL is not claimed live until a separately authorized
-Pages deployment verifies it.
+evidence. The schema is available through the versioned Pages build when the
+v1.0.7 release-bound deployment completes.
 
 Schema names carry an independent revision (`v1`). A scientific release may
 therefore update from, for example, v1.0.6 to v1.0.7 without changing a schema
