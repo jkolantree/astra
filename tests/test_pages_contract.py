@@ -107,8 +107,8 @@ def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
     assert all(gate in script for gate in required_release_gates)
     assert 'latest_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/latest")"' in script
     assert "$(jq -er '.id' <<<\"$latest_release\")" in script
-    assert 'if test "$(git rev-parse HEAD)" != "$framework_commit"' in script
-    assert 'git diff --name-only "${framework_ref}^{commit}" HEAD' in script
+    assert 'if test "$(git rev-parse HEAD)" != "$current_commit"' in script
+    assert 'git diff --name-only "${current_ref}^{commit}" HEAD' in script
     for allowed in (
         ".github/ISSUE_TEMPLATE/accessibility.yml",
         ".github/ISSUE_TEMPLATE/config.yml",
