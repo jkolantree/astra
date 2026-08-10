@@ -2,9 +2,11 @@
 
 ![Blue-and-gold cover titled Earth Is the Instrument, with an abstract planetary diagram](cover.png)
 
-**Current supplemental edition · immutable GitHub prerelease · foundational
+**Supplemental working-paper release · immutable GitHub prerelease · foundational
 working paper · evidence graded · not peer reviewed · separate from SPPT/ASTRA
-v1.0.6.**
+v1.0.6.** The prerelease badge keeps v1.0.6 as GitHub Latest; it is a
+distribution status, not a claim that this complete working paper is a core
+candidate or has undergone peer review.
 
 This edition develops the separately versioned *Earth Is the Instrument*
 working-paper line through dual-rent seams, local-to-global certificates,
