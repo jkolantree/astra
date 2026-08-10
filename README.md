@@ -21,14 +21,23 @@ This matters because many planetary measurements are made at the boundary: tempe
 ## Publication map
 
 - **v1.0.6 — current reference edition (SPPT/ASTRA).** [Read the current core edition](https://jkolantree.github.io/astra/latest/) or open the immutable [release](https://github.com/jkolantree/astra/releases/tag/v1.0.6).
-- **v0.3.0 — current supplemental edition (*Earth Is the Instrument*).** [Read the supplemental edition](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/latest/) or open its immutable [release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
-- **v1.0.7 Candidate Revision 2 — public package prerelease.** [View the GitHub prerelease](https://github.com/jkolantree/astra/releases/tag/sppt-astra-v1.0.7-rc.2) and download its self-contained review archive. It is a package-only candidate from `main` commit `f999536`, not the final v1.0.7 core release; it has no Pages route, DOI, Zenodo record, or claim-matrix admission.
+- **v0.3.0 — current supplemental edition (*Earth Is the Instrument*), a working-paper release.** [Read the supplemental edition](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/latest/) or open its immutable [release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
+- **v1.0.7 Candidate Revision 2 — public integration-candidate package.** [View the GitHub prerelease](https://github.com/jkolantree/astra/releases/tag/sppt-astra-v1.0.7-rc.2) and download its self-contained review archive. The asset is fixed to the audited pre-merge `main` snapshot recorded in its manifest; a later documentation-only pointer records it in the repository. It is not the final v1.0.7 core release and has no Pages route, DOI, Zenodo record, or claim-matrix admission.
 - **Public namespaced alpha — Sector-Complete Instrument v0.1.0-alpha.1.** This synthetic methods module lives under [`resources/sector-complete-instrument/v0.1.0-alpha.1/`](resources/sector-complete-instrument/v0.1.0-alpha.1/); it is not ASTRA v0.3.2, does not amend either immutable line, and has no Pages route, DOI, or Zenodo record. Open the [GitHub prerelease](https://github.com/jkolantree/astra/releases/tag/sector-complete-instrument-v0.1.0-alpha.1).
 - **Unpromoted methods draft — Mode-resolved active-support audit.** The default-branch [draft](resources/active-support-audit/draft-v0.1.0/) is a long-form ASTRA methods perspective on mode, waveform, geometry, phase matching, and observation. It does not enter the v1.0.6 claim matrix or immutable assets.
 - **v0.1 — historical edition (*Earth Is the Instrument* Working Paper).** [Read historical v0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/) or open its immutable [release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1).
 
 - **Unpromoted successor prototypes.** The [SPPT Bridge Protocol](resources/sppt-bridge-protocol/draft-v0.1.0/) and [coherence-cell exploration](resources/coherence-cell-exploration/draft-v0.1.0/) are separate methods prototypes. They are not core equations, release assets, or validation claims.
 - **Unpromoted cosmic visibility framework.** The [Cosmic Visibility and Sampling Framework](resources/cosmic-visibility-framework/draft-v0.1.0/) is a 28-page operator-aware research draft for separating source strength from transduction, propagation, archive, recovery, and detector visibility. It is a methods proposal only: no dark-matter or graviton detection, fourth Martian reservoir, shared physical mechanism, or replacement cosmology is claimed.
+
+### Status vocabulary
+
+- **Core stable:** SPPT/ASTRA v1.0.6 is the current citation, reproduction target, GitHub Latest release, and only core release identity.
+- **Supplemental working-paper release:** *Earth Is the Instrument* v0.3.0 is a complete, separately versioned working-paper snapshot; it is supplemental and does not inherit the core claim matrix or verification.
+- **Research preview:** Sector-Complete Instrument v0.1.0-alpha.1 is an explicitly alpha, synthetic methods module.
+- **Integration candidate:** v1.0.7 Candidate Revision 2 is a package-only review candidate, not an admitted core version.
+
+GitHub's **Pre-release** badge is used for the supplemental, preview, and candidate lines so v1.0.6 remains Latest. It is a distribution/status flag, not a claim that every artifact is unfinished or that peer review has occurred.
 
 The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line. Published reading editions have their own versioned tags, citations, checksums, and `/resources/` routes; public namespaced releases without a reading route and repository-visible unpromoted drafts remain source-tree or release artifacts unless a route is stated explicitly. The project was developed with substantive ChatGPT assistance; the human-responsibility and independence disclosure appears below.
 

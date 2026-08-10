@@ -8,9 +8,11 @@ route.
 
 ## *Earth Is the Instrument* publication line
 
-- **Current supplemental edition — [ASTRA Framework
+- **Supplemental working-paper release — [ASTRA Framework
   v0.3.0](earth-is-the-instrument/v0.3.0/).** Foundational working paper; not
-  peer reviewed; immutable GitHub prerelease. It supersedes an internal v0.2.1
+  peer reviewed; immutable GitHub prerelease. The prerelease badge keeps the
+  core v1.0.6 release as GitHub Latest; it does not make this a core candidate.
+  It supersedes an internal v0.2.1
   predecessor preserved in its archive. [Read the versioned Pages
   guide](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.3.0/),
   open the [immutable v0.3.0
@@ -28,6 +30,16 @@ No public v0.2.1 tag or GitHub Release was created. The v0.3.0 guide records the
 project's naming, substantive ChatGPT assistance, human responsibility,
 independence disclosures, and [post-publication documentation
 errata](earth-is-the-instrument/v0.3.0/ERRATA.md).
+
+## Public integration candidate
+
+[SPPT/ASTRA v1.0.7 Candidate Revision 2](https://github.com/jkolantree/astra/releases/tag/sppt-astra-v1.0.7-rc.2)
+is a package-only integration candidate for public review and implementation
+planning. Its ZIP and document assets are fixed to the audited pre-merge
+`main` snapshot recorded in the package manifest; the later repository pointer
+does not alter those bytes. It has no Pages edition, DOI, Zenodo record, or
+admission to the v1.0.6 claim matrix, and it is not the final v1.0.7 core
+release. GitHub labels it a prerelease so v1.0.6 remains Latest.
 
 ## Public namespaced alpha module
 
