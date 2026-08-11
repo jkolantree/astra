@@ -15,6 +15,42 @@ ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = (ROOT / "manuscript" / "manuscript.md").read_text(encoding="utf-8")
 SUPPLEMENT = (ROOT / "manuscript" / "supplement.md").read_text(encoding="utf-8")
 BIBLIOGRAPHY = (ROOT / "manuscript" / "references.bib").read_text(encoding="utf-8")
+CLAIM_MATRIX_PATH = ROOT / "CLAIM_MATRIX.json"
+COVERAGE_PATH = ROOT / "evidence" / "claim_source_coverage_v1.0.7.json"
+
+
+def markdown_section(start_heading: str, end_heading: str) -> str:
+    start = MANUSCRIPT.index(start_heading)
+    end = MANUSCRIPT.index(end_heading, start)
+    return MANUSCRIPT[start:end]
+
+
+def normalize_markdown_cell(value: str) -> str:
+    """Normalize only escaped table pipes and Markdown-insignificant whitespace."""
+    return re.sub(r"\s+", " ", value.replace(r"\|", "|").strip())
+
+
+def appendix_b_claim_rows() -> list[tuple[str, str, str, str]]:
+    appendix = markdown_section(
+        "# Appendix B - v1.0.7 atomic claims",
+        "# Appendix C - Repository snapshot",
+    )
+    lines = appendix.splitlines()
+    header_index = next(
+        index for index, line in enumerate(lines) if re.match(r"^\|\s*ID\s*\|", line)
+    )
+    assert re.match(r"^\|\s*-+\s*\|", lines[header_index + 1])
+    rows: list[tuple[str, str, str, str]] = []
+    for line in lines[header_index + 2 :]:
+        if not line.startswith("|"):
+            break
+        cells = [
+            normalize_markdown_cell(cell)
+            for cell in re.split(r"(?<!\\)\|", line.strip().strip("|"))
+        ]
+        assert len(cells) == 4, f"Malformed Appendix B claim row: {line}"
+        rows.append((cells[0], cells[1], cells[2], cells[3]))
+    return rows
 
 
 def tagged_table_fixture(
@@ -415,6 +451,101 @@ def test_required_scientific_qualifications_are_explicit() -> None:
         "Neither the dream, the collage, nor model output is scientific evidence",
     ):
         assert phrase in MANUSCRIPT
+
+
+def test_appendix_b_v107_claims_match_the_machine_register() -> None:
+    matrix = json.loads(CLAIM_MATRIX_PATH.read_text(encoding="utf-8"))
+    expected = [
+        claim
+        for claim in matrix["claims"]
+        if claim["id"].startswith("V107-")
+        and claim["claim_type"] not in {"repository audit", "release disposition"}
+    ]
+    rows = appendix_b_claim_rows()
+    identifiers = [row[0] for row in rows]
+
+    assert len(identifiers) == len(set(identifiers))
+    assert set(identifiers) == {claim["id"] for claim in expected}
+    displayed = {row[0]: row[1:] for row in rows}
+    for claim in expected:
+        assert displayed[claim["id"]] == (
+            normalize_markdown_cell(claim["statement"]),
+            normalize_markdown_cell(claim["evidence_class"]),
+            normalize_markdown_cell(claim["disposition"]),
+        )
+
+
+def test_weak_cut_boundary_excludes_low_capacity_shortcut() -> None:
+    section = normalize_markdown_cell(
+        markdown_section(
+            "## 2.3 Memory, traps, and bottlenecks",
+            "## 2.4 Static non-identifiability remains the baseline warning",
+        )
+    )
+    assert "a low-capacity cut or weak conductance cut produces a slow relaxation bound" not in section
+    assert (
+        "weak cut conductance relative to the aggregate capacities on both sides "
+        "yields a small Rayleigh quotient and therefore a slow-relaxation upper bound"
+    ) in section
+    assert "Low capacity alone does not imply slow relaxation." in section
+    for hypothesis in (
+        "connected positive-conductance graph",
+        "strictly positive node capacities",
+        "nonempty proper cut",
+    ):
+        assert hypothesis in section
+
+
+def test_claim_source_completeness_boundary_uses_coverage_record() -> None:
+    coverage = json.loads(COVERAGE_PATH.read_text(encoding="utf-8"))
+    summary = coverage["summary"]
+    section = normalize_markdown_cell(
+        markdown_section(
+            "## 26.5 Stage 4 - claim and source audit record",
+            "## 26.6 Stage 5 - release engineering record",
+        )
+    )
+
+    assert "For every new claim the release record includes" not in section
+    assert (
+        f"{summary['claims_with_current_path_support']} claims with some structural path support"
+        in section
+    )
+    assert f"{summary['claims_with_exact_locators']} with exact locators" in section
+    for boundary in (
+        "External entailment was not reverified.",
+        "Admitted source-record hashes and retrieval dates are not recorded.",
+        "Claim-local commands, runtimes, and run IDs are incomplete",
+        "does not establish sentence-level completeness",
+    ):
+        assert boundary in section
+
+
+def test_dynamic_arrest_is_bounded_proposed_only_and_counterexample_safe() -> None:
+    section = markdown_section(
+        "## 6.1 Static arrest versus dynamic arrest",
+        "## 6.2 Topology as an ensemble rather than one graph",
+    )
+    normalized = normalize_markdown_cell(section)
+
+    assert "PROPOSED_ONLY" in section
+    assert "bounded or statistically stationary" in normalized
+    assert "persistent nonzero microscopic turnover" in normalized
+    for declared_axis in (
+        "observation window",
+        "ensemble",
+        "sampling resolution",
+        "noise treatment",
+    ):
+        assert declared_axis in normalized
+    assert "preregistered long-window trend statistic" in normalized
+    assert "it is not proof of boundedness or stationarity" in normalized
+    assert "Vanishing logarithmic slope alone is insufficient" in normalized
+    assert r"$\ell(t)=\log(1+t)$" in section
+    assert "is unbounded even though its logarithmic slope" in normalized
+    assert r"$\ell(t)=2+\sin(t)$" in section
+    assert "does not converge to zero and has unbounded limsup magnitude" in normalized
+    assert r"\limsup_{t\to\infty}" not in section
 
 
 def test_citation_keys_resolve_and_known_failures_are_removed() -> None:

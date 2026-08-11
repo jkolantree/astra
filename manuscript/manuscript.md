@@ -376,7 +376,7 @@ $$
 
 Its steady periodic solution, phase lag, and loop integrals show how a release time $\tau$ produces memory under periodic forcing. The raw loop magnitude and release-normalized loop magnitude have different dependence on $\omega\tau$; those quantities must not be conflated.
 
-The weak-cut spectral result remains the simplest topological bottleneck calibration. For a connected positive conductance graph with positive capacities, a low-capacity cut or weak conductance cut produces a slow relaxation bound. A slow mode can therefore arise from topology even when local constitutive laws are ordinary.
+The weak-cut spectral result remains the simplest topological bottleneck calibration. For a connected positive-conductance graph with strictly positive node capacities and a nonempty proper cut, weak cut conductance relative to the aggregate capacities on both sides yields a small Rayleigh quotient and therefore a slow-relaxation upper bound. Low capacity alone does not imply slow relaxation. A slow mode can therefore arise from topology even when local constitutive laws are ordinary.
 
 The v1.0.7 edition adds another possibility: a slow mode can arise because an edge state evolves slowly, because its active support turns on intermittently, or because a directed effective coupling maintains dynamic reorganization. Those mechanisms must be separated by intervention.
 
@@ -623,19 +623,19 @@ A statement such as "action-reaction is broken" is incomplete unless it names th
 
 ## 6.1 Static arrest versus dynamic arrest
 
-A static aggregate can stop changing because it reached an equilibrium, a glassy state, or a kinetic trap. A dynamically arrested cluster state is different: cluster size stops growing on average while mergers, fragmentation, exchange, and reorganization continue.
+A static aggregate can stop changing because it reached an equilibrium, a glassy state, or a kinetic trap. A dynamically arrested cluster state is different: cluster size remains bounded or statistically stationary while mergers, fragmentation, exchange, and reorganization continue.
 
-Let $\ell(t)$ be a declared characteristic cluster scale and $\Gamma_{\mathrm{turn}}(t)$ a turnover rate counting fragmentation, fusion, or membership exchange. A proposed operational criterion is
+This operational formulation is **PROPOSED_ONLY**. Let $\ell(t)$ be a declared characteristic cluster scale and $\Gamma_{\mathrm{turn}}(t)$ a microscopic turnover rate counting fragmentation, fusion, or membership exchange. An observation is operationally consistent with dynamic arrest over a declared window only when:
 
-$$
-\limsup_{t\to\infty}
-\left|\frac{d\ln\ell}{d\ln t}\right|
-\le\delta,
-\qquad
-\liminf_{t\to\infty}\Gamma_{\mathrm{turn}}(t)>\Gamma_{\min}>0.
-$$
+1. the characteristic-scale process is bounded within preregistered physical limits or statistically stationary under a preregistered assessment across the declared ensemble; and
+2. persistent nonzero microscopic turnover is resolved above a preregistered positive threshold.
 
-The thresholds $\delta$ and $\Gamma_{\min}$ must be preregistered relative to noise and finite-window uncertainty. The first condition indicates arrested scale growth; the second distinguishes dynamic renewal from a frozen aggregate.
+The record must declare the observation window, ensemble, sampling resolution, and noise treatment for both conditions. A preregistered long-window trend statistic can diagnose unresolved scale drift, but it is not proof of boundedness or stationarity. Vanishing logarithmic slope alone is insufficient and is neither a necessary nor a sufficient definition:
+
+- $\ell(t)=\log(1+t)$ is unbounded even though its logarithmic slope $d\log\ell/d\log t=t/[(1+t)\log(1+t)]$ tends to zero.
+- $\ell(t)=2+\sin(t)$ is bounded although its logarithmic derivative with respect to $\log t$, $d\log\ell/d\log t=t\cos(t)/[2+\sin(t)]$, does not converge to zero and has unbounded limsup magnitude.
+
+These bounded-window conditions classify observations; they do not promote dynamic arrest to an admitted physical law.
 
 ![**[MODEL]** Conceptual distinction between reciprocal coarsening and a dynamically saturated nonreciprocal state. The trajectories are explanatory and are not fitted to Hara et al. Creator: ASTRA / Jacko T. Source: original model figure. License: CC BY 4.0.](../figures/figure_05_arrested_coarsening_model.png){#fig:coarsening width=86%}
 
@@ -1846,16 +1846,7 @@ The Earth and human-origin material should remain a separately cited supplementa
 
 ## 26.5 Stage 4 - claim and source audit record
 
-The v1.0.7 claim matrix and source ledger are generated from one frozen tree. For every new claim the release record includes:
-
-- exact sentence or equation locator;
-- source or code locator;
-- hypotheses, units, domain, and quantifiers;
-- evidence class;
-- limitation and counterexample;
-- admission disposition;
-- test or reproduction command;
-- output hash.
+The v1.0.7 maintenance coverage record reports 55 claims with some structural path support and 21 with exact locators. External entailment was not reverified. Admitted source-record hashes and retrieval dates are not recorded. Claim-local commands, runtimes, and run IDs are incomplete for labels classified as mechanically replayed or independently reproduced. This structural record does not establish sentence-level completeness.
 
 ## 26.6 Stage 5 - release engineering record
 
@@ -1982,31 +1973,38 @@ Table: Unified notation used by the v1.0.7 reference edition.
 
 # Appendix B - v1.0.7 atomic claims
 
-The machine-readable claim ledger delivered with this manuscript contains the full records. The principal new atomic claims are summarized here.
+CLAIM_MATRIX.json is authoritative for this source-repair draft. The published v1.0.7 Appendix summarized a mismatched subset and reused several displayed IDs for statements that do not match the machine register; that historical defect remains preserved in the immutable v1.0.7 PDF and HTML. The scientific table below includes each V107-* record whose claim_type is neither repository audit nor release disposition. Repository and process records remain in the machine register.
 
-Table: Principal v1.0.7 atomic claims and their dispositions.
+Table: Matrix-derived v1.0.7 scientific atomic claims and their dispositions.
 
 | ID | Statement | Evidence class | Disposition |
 |---|---|---|---|
-| V107-M001 | A finite coupling matrix has unique symmetric and antisymmetric decomposition. | hand checked | admit |
-| V107-M002 | The declared two-particle asymmetric-attraction model has center drift $(a_{LS}-a_{SL})r/2$. | hand checked | admit |
-| V107-M003 | A nonzero reduced pair-force residual requires an environment/boundary term in the enlarged momentum ledger. | hand checked bookkeeping identity | admit with qualification |
-| V107-M004 | The active-support aggregate has a multiplicative normalization gauge unless normalization is fixed. | hand checked | admit |
-| V107-M005 | Observational equivalence under a protocol is an equivalence relation when equality of distributions is exact. | hand checked | admit |
-| V107-M006 | The corrected POVM/channel equations replace the invalid trace-of-commutator measurement form. | hand checked | admit |
-| V107-F001 | Stateful-edge syntax separates fixed topology, evolving edge state, and topology change. | proposed framework | proposed only |
-| V107-F002 | Dynamic arrest should require scale saturation and nonzero turnover. | proposed operational definition | proposed only |
-| V107-F003 | A self-rewriting edge contains fast reversible and slow irreversible state. | proposed framework | proposed only |
-| V107-E001 | Hara et al. report persistent dynamic clusters from nonreciprocal EHD interactions in a large bidisperse colloid system. | externally published/source asserted | admit as calibration |
-| V107-E002 | Redondo et al. report the stated strain-dependent ORR values and Pt-enriched surface. | externally published/source asserted | admit as calibration |
-| V107-A001 | The colloid case supports a closure-conditioned reciprocity audit. | structural inference | admit with qualification |
-| V107-A002 | The Cu3Pt case supports a self-rewriting mechanochemical edge audit. | structural inference | admit with qualification |
-| V107-E006 | Koivurova et al. published the accelerating-wave equation and positive-time interpretation in 2023. | externally published/source asserted | admit as calibration |
-| V107-A003 | The wave paper supports a temporal-interface, reference-frame, branch-selection, and global-ledger audit. | structural inference | admit with qualification |
-| V107-D001 | These cases validate SPPT for a planet. | unsupported | reject |
-| V107-D002 | The colloid paper establishes fundamental violation of momentum conservation. | unsupported | reject |
-| V107-D003 | The Cu3Pt paper establishes commercial fuel-cell parity. | unsupported | reject |
-| V107-D004 | The accelerating-wave equation experimentally proves a universal microscopic arrow of time. | unsupported | reject |
+| V107-M001 | A finite coupling matrix decomposes uniquely into symmetric and antisymmetric parts. | hand_checked | admit |
+| V107-M002 | In the declared two-particle asymmetric-attraction toy model, the center velocity is (a_LS-a_SL)r/2. | hand_checked | admit |
+| V107-M003 | A nonzero reduced pair-force residual requires an environment or boundary term when the enlarged momentum ledger is closed. | hand_checked | admit_with_qualification |
+| V107-M004 | The active-support aggregate has a multiplicative normalization gauge unless a normalization convention is fixed. | hand_checked | admit |
+| V107-M005 | Exact equality of observation distributions defines an equivalence relation on a declared candidate set. | hand_checked | admit |
+| V107-M006 | The valid unconditioned quantum observation is Tr[M_d E(rho)], while postselected branches require trace-nonincreasing instruments. | hand_checked | admit |
+| V107-F001 | Stateful-edge syntax separates fixed topology, evolving edge state, active support, and topology change. | proposed_only | proposed_only |
+| V107-F002 | Closure-conditioned reciprocity is a useful admission rule for reduced directed interactions. | structural_inference | admit_with_qualification |
+| V107-F003 | Dynamic arrest should require bounded characteristic scale together with persistent turnover. | proposed_only | proposed_only |
+| V107-F004 | A self-rewriting edge can be decomposed into fast reversible state and slow irreversible history. | structural_inference | admit_with_qualification |
+| V107-F005 | Mode-resolved active support records where, when, and in which spectral or geometric measure a coupling is effective. | proposed_only | proposed_only |
+| V107-F006 | Sector completeness means measuring or bounding plausible declared sectors and reporting unresolved generator classes, not measuring every imaginable sector. | hand_checked | admit |
+| V107-F007 | Visibility and sampling must be represented as typed operators between source residue and terminal data. | structural_inference | admit_with_qualification |
+| V107-F008 | Dynamical rent and epistemic rent are distinct promotion tests for an added seam or edge state. | structural_inference | admit_with_qualification |
+| V107-E001 | Bidisperse colloids driven by AC electric fields form persistent active clusters sustained by nonreciprocal electrohydrodynamic interactions. | externally_published | admit_with_qualification |
+| V107-E002 | The colloid experiment does not establish failure of momentum conservation or Newtonian action-reaction in the full closed system. | hand_checked | admit |
+| V107-E003 | Compressed Cu3Pt thin film reached a reported 855 mV at 1.0 mA cm^-2 versus 856 mV for Pt under the study conditions, while tensile strain reached 840 mV. | externally_published | admit_with_qualification |
+| V107-E004 | Cycling of the Cu3Pt film selectively removed Cu and produced a 5-10 nm Pt-enriched surface region. | externally_published | admit_with_qualification |
+| V107-E005 | The Cu3Pt study establishes a commercial low-platinum fuel-cell catalyst. | rejected | rejected |
+| V107-A001 | The colloid case supports representing directed effective edges with an explicit environment ledger. | structural_inference | admit_with_qualification |
+| V107-A002 | The Cu3Pt case supports representing an interface whose constitutive response changes through both strain and operating history. | structural_inference | admit_with_qualification |
+| V107-D001 | The two new experiments empirically validate SPPT for planetary interiors. | rejected | rejected |
+| V107-D002 | The integrated methods identify dark matter, a universal hidden medium, or a simulation substrate. | rejected | rejected |
+| V107-E006 | Koivurova, Robson, and Ornigotti published and analyzed an accelerating-wave equation with a positive-time solution interpretation in a 2023 peer-reviewed Optica article. | externally_published | admit_with_qualification |
+| V107-A003 | The accelerating-wave paper and temporal-interface literature support an ASTRA audit that separates medium history, control schedule, reference frame, branch selection, observable basis, and the enlarged energy-momentum ledger. | structural_inference | admit_with_qualification |
+| V107-D004 | The accelerating-wave equation has experimentally proved a universal microscopic arrow of time. | rejected | rejected |
 
 # Appendix C - Repository snapshot
 

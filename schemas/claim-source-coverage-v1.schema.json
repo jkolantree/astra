@@ -91,15 +91,89 @@
           "const": "tools/build_claim_source_coverage.py"
         },
         "version": {
-          "const": "0.1.0"
+          "type": "string"
         },
         "runtime": {
+          "pattern": "^python==3\\.12\\.[0-9]+$"
+        },
+        "required_runtime": {
           "const": "python==3.12.10"
         },
+        "runtime_classification": {
+          "enum": [
+            "environment_limited",
+            "release_authoritative"
+          ]
+        },
         "output_path": {
-          "const": "evidence/claim_source_coverage_v1.0.7.json"
+          "type": "string"
         }
-      }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "version": {
+              "const": "0.1.0"
+            },
+            "runtime": {
+              "const": "python==3.12.10"
+            },
+            "output_path": {
+              "const": "evidence/claim_source_coverage_v1.0.7.json"
+            }
+          },
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "required_runtime"
+                ]
+              },
+              {
+                "required": [
+                  "runtime_classification"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "required": [
+            "required_runtime",
+            "runtime_classification"
+          ],
+          "properties": {
+            "version": {
+              "const": "0.3.0"
+            },
+            "output_path": {
+              "const": "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"
+            }
+          },
+          "oneOf": [
+            {
+              "properties": {
+                "runtime": {
+                  "const": "python==3.12.10"
+                },
+                "runtime_classification": {
+                  "const": "release_authoritative"
+                }
+              }
+            },
+            {
+              "properties": {
+                "runtime": {
+                  "const": "python==3.12.13"
+                },
+                "runtime_classification": {
+                  "const": "environment_limited"
+                }
+              }
+            }
+          ]
+        }
+      ]
     },
     "input_files": {
       "type": "array",
@@ -242,6 +316,9 @@
         "minLength": 1
       }
     },
+    "maintenance_overlay": {
+      "$ref": "#/definitions/maintenanceOverlay"
+    },
     "known_gaps": {
       "type": "array",
       "items": {
@@ -250,6 +327,33 @@
       }
     }
   },
+  "oneOf": [
+    {
+      "properties": {
+        "status": {
+          "enum": [
+            "maintenance_draft",
+            "maintenance_record"
+          ]
+        }
+      },
+      "not": {
+        "required": [
+          "maintenance_overlay"
+        ]
+      }
+    },
+    {
+      "required": [
+        "maintenance_overlay"
+      ],
+      "properties": {
+        "status": {
+          "const": "candidate_only"
+        }
+      }
+    }
+  ],
   "definitions": {
     "sha256": {
       "type": "string",
@@ -259,6 +363,126 @@
       "type": [
         "string",
         "null"
+      ]
+    },
+    "gitObject": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "nullableGitObject": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/gitObject"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "maintenanceOverlay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overlay_id",
+        "promotion_status",
+        "source_state",
+        "base_commit",
+        "base_tree",
+        "candidate_source_commit",
+        "candidate_source_tree",
+        "identity_closure_paths",
+        "authoritative_source_path",
+        "authoritative_source_sha256",
+        "frozen_record_path",
+        "frozen_record_sha256",
+        "release_tag",
+        "release_tag_object",
+        "release_commit",
+        "release_tree"
+      ],
+      "properties": {
+        "overlay_id": {
+          "const": "astra-core-integrity-m1"
+        },
+        "promotion_status": {
+          "const": "unpromoted_source_repair"
+        },
+        "source_state": {
+          "enum": [
+            "uncommitted_worktree",
+            "committed_source_candidate"
+          ]
+        },
+        "base_commit": {
+          "$ref": "#/definitions/gitObject"
+        },
+        "base_tree": {
+          "$ref": "#/definitions/gitObject"
+        },
+        "candidate_source_commit": {
+          "$ref": "#/definitions/nullableGitObject"
+        },
+        "candidate_source_tree": {
+          "$ref": "#/definitions/nullableGitObject"
+        },
+        "identity_closure_paths": {
+          "const": [
+            "MANIFEST.sha256",
+            "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"
+          ]
+        },
+        "authoritative_source_path": {
+          "const": "manuscript/manuscript.md"
+        },
+        "authoritative_source_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "frozen_record_path": {
+          "const": "evidence/claim_source_coverage_v1.0.7.json"
+        },
+        "frozen_record_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "release_tag": {
+          "const": "v1.0.7"
+        },
+        "release_tag_object": {
+          "$ref": "#/definitions/gitObject"
+        },
+        "release_commit": {
+          "$ref": "#/definitions/gitObject"
+        },
+        "release_tree": {
+          "$ref": "#/definitions/gitObject"
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "source_state": {
+              "const": "uncommitted_worktree"
+            },
+            "candidate_source_commit": {
+              "type": "null"
+            },
+            "candidate_source_tree": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "source_state": {
+              "const": "committed_source_candidate"
+            },
+            "candidate_source_commit": {
+              "$ref": "#/definitions/gitObject"
+            },
+            "candidate_source_tree": {
+              "$ref": "#/definitions/gitObject"
+            }
+          }
+        }
       ]
     },
     "inputFile": {
