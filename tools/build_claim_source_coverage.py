@@ -25,7 +25,7 @@ SCHEMA_PATH = ROOT / "schemas" / "claim-source-coverage-overlay-m1.schema.json"
 FROZEN_OUTPUT = ROOT / "evidence" / "claim_source_coverage_v1.0.7.json"
 OVERLAY_RELATIVE_PATH = "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"
 DEFAULT_OUTPUT = ROOT / OVERLAY_RELATIVE_PATH
-GENERATOR_VERSION = "0.4.0"
+GENERATOR_VERSION = "0.4.1"
 AUTHORITATIVE_RUNTIME_IDENTITY = "python==3.12.10"
 RUNTIME_IDENTITY = f"python=={platform.python_version()}"
 RUNTIME_CLASSIFICATION = (
@@ -61,6 +61,10 @@ RELEASE_TREE = "3aaa2ec8c62d7c5c925e557cd79b3b43446aaf1d"
 SOURCE_PROJECTION_SCHEME = "astra-source-projection-v1"
 SOURCE_PROJECTION_SCOPE = "astra-core-integrity-m1-repository-source-v1"
 SOURCE_PROJECTION_SERIALIZATION = "astra-binary-length-prefixed-v1"
+SAFE_PROJECTION_PATH_PATTERN = re.compile(
+    r"(?!/)(?!.*//)(?!.*(?:^|/)\.{1,2}(?:/|$))"
+    r"[A-Za-z0-9._/-]*[A-Za-z0-9._-]"
+)
 RUNTIME_PATH = "RUNTIME.json"
 LOCK_PATH = "requirements-lock.txt"
 GIT_CONTROL_VARIABLES = {
@@ -208,13 +212,7 @@ def _validate_snapshot_path(path: str) -> None:
         path.encode("ascii")
     except UnicodeEncodeError as error:
         raise RuntimeError(f"Source-projection path is not ASCII: {path!r}") from error
-    parts = path.split("/")
-    if (
-        not path
-        or "\\" in path
-        or path.startswith("/")
-        or any(part in {"", ".", ".."} for part in parts)
-    ):
+    if SAFE_PROJECTION_PATH_PATTERN.fullmatch(path) is None:
         raise RuntimeError(f"Unsafe source-projection path: {path!r}")
 
 

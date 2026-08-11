@@ -41,6 +41,21 @@ from tools.release_integrity import git, tag_identity
 FROZEN_RECORD_RELATIVE = "evidence/claim_source_coverage_v1.0.7.json"
 FROZEN_SCHEMA_RELATIVE = "schemas/claim-source-coverage-v1.schema.json"
 OVERLAY_SCHEMA_RELATIVE = "schemas/claim-source-coverage-overlay-m1.schema.json"
+UNSAFE_PROJECTION_PATHS = (
+    "/x",
+    "a//b",
+    "./x",
+    "../x",
+    "a/./b",
+    "a/../b",
+    "a/",
+    "a\\b",
+    "a b",
+    "a\n",
+    "a\r",
+    "a\x00b",
+    "a\x7fb",
+)
 
 
 def test_frozen_v107_coverage_matches_release_tag_and_tagged_schema() -> None:
@@ -220,7 +235,7 @@ def test_overlay_source_projection_matches_index_blobs_independently() -> None:
     )
 
 
-def test_source_projection_serializer_has_stable_framing_and_rejects_bad_paths() -> None:
+def test_source_projection_serializer_has_stable_framing() -> None:
     entries = [
         {
             "path": "z/file.txt",
@@ -243,10 +258,19 @@ def test_source_projection_serializer_has_stable_framing_and_rejects_bad_paths()
     )
     assert payload == serialize_source_projection(list(reversed(entries)), exclusions)
 
-    invalid = copy.deepcopy(entries)
-    invalid[0]["path"] = "../escape"
+
+@pytest.mark.parametrize("path", UNSAFE_PROJECTION_PATHS)
+def test_source_projection_serializer_rejects_unsafe_paths(path: str) -> None:
+    invalid = [
+        {
+            "path": path,
+            "mode": "100644",
+            "bytes": 3,
+            "sha256": hashlib.sha256(b"abc").hexdigest(),
+        }
+    ]
     with pytest.raises(RuntimeError, match="Unsafe source-projection path"):
-        serialize_source_projection(invalid, exclusions)
+        serialize_source_projection(invalid, sorted(IDENTITY_CLOSURE_PATHS))
 
 
 def test_overlay_never_treats_identity_closure_as_claim_support() -> None:
@@ -264,7 +288,7 @@ def test_overlay_never_treats_identity_closure_as_claim_support() -> None:
     assert not IDENTITY_CLOSURE_PATHS & admitted
 
 
-@pytest.mark.parametrize("path", ["/x", "a//b", "./x", "../x", "a/./b", "a/../b"])
+@pytest.mark.parametrize("path", UNSAFE_PROJECTION_PATHS)
 def test_overlay_schema_rejects_unsafe_projection_paths(path: str) -> None:
     record = _load_record(DEFAULT_OUTPUT)
     record["maintenance_overlay"]["source_projection"]["entries"][0]["path"] = path
