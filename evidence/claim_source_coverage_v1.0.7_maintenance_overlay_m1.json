@@ -1861,7 +1861,7 @@
     {
       "claim_locators": [
         {
-          "file_sha256": "bc884667b8b4c96ebeeac91298419f2e8f0d96a05295a1c84273ff57e2d504e1",
+          "file_sha256": "ee5409fe537b45fd8d1c27e592e09f11838dd688752b213b2de9ba9a56406e13",
           "locator": null,
           "path": "tools/verify.py",
           "precision": "file_level"
@@ -1916,7 +1916,7 @@
         },
         {
           "admitted_path": "tools/verify.py",
-          "admitted_sha256": "bc884667b8b4c96ebeeac91298419f2e8f0d96a05295a1c84273ff57e2d504e1",
+          "admitted_sha256": "ee5409fe537b45fd8d1c27e592e09f11838dd688752b213b2de9ba9a56406e13",
           "entailment_status": "structural_link_only",
           "kind": "tracked_file",
           "raw_support": "tools/verify.py",
@@ -1965,7 +1965,7 @@
           "precision": "file_level"
         },
         {
-          "file_sha256": "5cc2c45e10470a0645ee41b113636afec6000bba904f9ef77060ff44ebf20bfc",
+          "file_sha256": "e226e87f32160b22b1acd1c27cc0a690f352e688ec64140696e9cbe343eb3e01",
           "locator": "evidence/",
           "path": "README.md",
           "precision": "file_level"
@@ -2021,7 +2021,7 @@
         },
         {
           "admitted_path": "README.md",
-          "admitted_sha256": "5cc2c45e10470a0645ee41b113636afec6000bba904f9ef77060ff44ebf20bfc",
+          "admitted_sha256": "e226e87f32160b22b1acd1c27cc0a690f352e688ec64140696e9cbe343eb3e01",
           "entailment_status": "structural_link_only",
           "kind": "tracked_file",
           "raw_support": "evidence/README.md",
@@ -3951,7 +3951,10 @@
     "Runtime classification here binds the CPython version plus the immutable tagged RUNTIME.json and dependency-lock contracts. Exact executable/distribution and installed-environment provenance require the separate runtime verifier and hash-locked replay."
   ],
   "maintenance_overlay": {
-    "additional_baseline_changed_paths": [],
+    "additional_baseline_changed_paths": [
+      "tests/test_release_integrity.py",
+      "tools/verify.py"
+    ],
     "authoritative_source_path": "manuscript/manuscript.md",
     "authoritative_source_sha256": "ce55ea375ae5fbc28d06a52e3a2ea6e118294fc2b5925aef99365c39a637c292",
     "baseline_commit": "f66027da807a35a1682033ba41348e81f9ceb7e7",
@@ -4083,10 +4086,10 @@
           "sha256": "44d1d2bcf338b53f40e47b3a060266be9d5937831c74839f7a00df927104e3fa"
         },
         {
-          "bytes": 23380,
+          "bytes": 23965,
           "mode": "100644",
           "path": "README.md",
-          "sha256": "5cc2c45e10470a0645ee41b113636afec6000bba904f9ef77060ff44ebf20bfc"
+          "sha256": "e226e87f32160b22b1acd1c27cc0a690f352e688ec64140696e9cbe343eb3e01"
         },
         {
           "bytes": 5713,
@@ -5463,10 +5466,10 @@
           "sha256": "8036f5fce6f90d0e126aecd1b972c40aba1b7f2e905a82ba0156f667a6fda107"
         },
         {
-          "bytes": 50183,
+          "bytes": 58383,
           "mode": "100644",
           "path": "tests/test_release_integrity.py",
-          "sha256": "e6031fe923926f1dd4b333a1ef80ce5a5e49dacc0ff90515f521c324a265ac33"
+          "sha256": "0e3994ed6deb2c81ffd125f3db857cf408166a51bb7b76b358dc550b528668af"
         },
         {
           "bytes": 6801,
@@ -5517,10 +5520,10 @@
           "sha256": "bb5c1de8ece429966bd9d0d843ec33353dd17372ee0626f3197825d1b67f5bf4"
         },
         {
-          "bytes": 20647,
+          "bytes": 39415,
           "mode": "100644",
           "path": "tools/verify.py",
-          "sha256": "bc884667b8b4c96ebeeac91298419f2e8f0d96a05295a1c84273ff57e2d504e1"
+          "sha256": "ee5409fe537b45fd8d1c27e592e09f11838dd688752b213b2de9ba9a56406e13"
         }
       ],
       "entry_count": 256,
@@ -5532,7 +5535,7 @@
       "scheme": "astra-source-projection-v1",
       "scope": "astra-core-integrity-m1-repository-source-v1",
       "serialization": "astra-binary-length-prefixed-v1",
-      "sha256": "9182dba3692697ba93a5e97454d474dd2da1c4f81f9a9623e2d45e1c0cb79cd1"
+      "sha256": "918ee31899dd1400dd7c083d7146043c52ef5c8c2d477ffde340705a0d2f408c"
     }
   },
   "reference_release": {

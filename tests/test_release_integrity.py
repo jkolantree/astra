@@ -1143,7 +1143,9 @@ def test_full_replay_runs_scientific_generation_twice(monkeypatch: pytest.Monkey
     commands: list[list[str]] = []
     monkeypatch.setattr(verifier, "verify_focused", lambda _environment: None)
     monkeypatch.setattr(verifier, "scientific_outputs", lambda: [])
-    monkeypatch.setattr(verifier, "DOCUMENT_OUTPUTS", ())
+    monkeypatch.setattr(
+        verifier, "verify_document_boundary", lambda _environment: "strict_replay"
+    )
     monkeypatch.setattr(
         verifier,
         "run",
@@ -1154,6 +1156,228 @@ def test_full_replay_runs_scientific_generation_twice(monkeypatch: pytest.Monkey
 
     assert sum("scripts/make_figures.py" in command for command in commands) == 2
     assert all(command[1:4] == ["-P", "-s", "-B"] for command in commands)
+
+
+def test_exact_m1_overlay_verifies_frozen_v107_document_bytes() -> None:
+    environment = os.environ.copy()
+    commit = verifier.candidate_document_commit(environment)
+
+    assert commit == verifier.DRAFT_RELEASE_IDENTITY["commit"]
+    verifier.verify_frozen_document_outputs(commit, environment)
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "schema",
+        "status",
+        "reference_release",
+        "generator_runtime",
+        "overlay_id",
+        "promotion_status",
+        "baseline",
+        "projection_scope",
+        "source_hash",
+        "release_tag_object",
+    ],
+)
+def test_candidate_overlay_gate_drift_is_rejected(mutation: str) -> None:
+    record = json.loads(
+        (PROJECT_ROOT / verifier.DRAFT_OVERLAY_RELATIVE).read_text(encoding="utf-8")
+    )
+    if mutation == "schema":
+        record["schema"] = "https://example.invalid/overlay.schema.json"
+    elif mutation == "status":
+        record["status"] = "maintenance_record"
+    elif mutation == "reference_release":
+        record["reference_release"]["version"] = "1.0.8"
+    elif mutation == "generator_runtime":
+        record["generator"]["runtime"] = "python==3.12.13"
+    elif mutation == "overlay_id":
+        record["maintenance_overlay"]["overlay_id"] = "another-overlay"
+    elif mutation == "promotion_status":
+        record["maintenance_overlay"]["promotion_status"] = "promoted"
+    elif mutation == "baseline":
+        record["maintenance_overlay"]["baseline_commit"] = "0" * 40
+    elif mutation == "projection_scope":
+        record["maintenance_overlay"]["source_projection"]["scope"] = "wider"
+    elif mutation == "source_hash":
+        record["maintenance_overlay"]["authoritative_source_sha256"] = "0" * 64
+    elif mutation == "release_tag_object":
+        record["maintenance_overlay"]["release_tag_object"] = "0" * 40
+    else:  # pragma: no cover - parameter list is exhaustive
+        raise AssertionError(mutation)
+
+    with pytest.raises(RuntimeError, match="Draft verification boundary drift"):
+        verifier.validate_candidate_overlay_record(record)
+
+
+def test_duplicate_overlay_key_is_rejected(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(verifier, "ROOT", tmp_path)
+    path = tmp_path / "duplicate.json"
+    path.write_text('{"status":"candidate_only","status":"other"}', encoding="utf-8")
+
+    with pytest.raises(RuntimeError, match="Duplicate JSON key"):
+        verifier.strict_json_object(path)
+
+
+def test_candidate_overlay_cannot_authorize_tag_context() -> None:
+    environment = os.environ.copy()
+    environment.update({"GITHUB_REF": "refs/tags/v1.0.7", "GITHUB_REF_TYPE": "tag"})
+
+    with pytest.raises(RuntimeError, match="cannot authorize a tag-event"):
+        verifier.candidate_document_commit(environment)
+
+
+def test_candidate_overlay_rejects_unbound_baseline_delta(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    record = json.loads(
+        (PROJECT_ROOT / verifier.DRAFT_OVERLAY_RELATIVE).read_text(encoding="utf-8")
+    )
+    overlay = record["maintenance_overlay"]
+    overlay["additional_baseline_changed_paths"] = ["src/sppt_core.py"]
+    observed = set(verifier.DRAFT_MILESTONE_PATHS) | {
+        "tests/test_release_integrity.py",
+        "tools/verify.py",
+    }
+    monkeypatch.setattr(verifier, "indexed_baseline_source_changes", lambda _env: observed)
+
+    with pytest.raises(RuntimeError, match="additional_baseline_changed_paths"):
+        verifier.verify_candidate_baseline_delta(overlay, {})
+
+
+def test_candidate_overlay_rejects_any_tag_at_head(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(verifier, "capture_git", lambda *_args, **_kwargs: "local-tag\n")
+
+    with pytest.raises(RuntimeError, match="cannot authorize verification at a tag"):
+        verifier.verify_candidate_not_at_tag({})
+
+
+def test_candidate_overlay_rejects_tagged_contract_drift(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        verifier,
+        "tagged_blob_bytes",
+        lambda _commit, relative, _environment: (PROJECT_ROOT / relative).read_bytes() + b"x",
+    )
+
+    with pytest.raises(RuntimeError, match="differs from v1.0.7"):
+        verifier.verify_tagged_draft_contracts("a" * 40, {})
+
+
+def test_candidate_overlay_rejects_source_index_mode(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    record = json.loads(
+        (PROJECT_ROOT / verifier.DRAFT_OVERLAY_RELATIVE).read_text(encoding="utf-8")
+    )
+    monkeypatch.setattr(verifier, "indexed_regular_mode", lambda *_args: "100755")
+
+    with pytest.raises(RuntimeError, match="source mode"):
+        verifier.verify_unpromoted_source(
+            "a" * 40, record["maintenance_overlay"], {}
+        )
+
+
+def test_candidate_overlay_requires_source_to_differ_from_release(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    record = json.loads(
+        (PROJECT_ROOT / verifier.DRAFT_OVERLAY_RELATIVE).read_text(encoding="utf-8")
+    )
+    monkeypatch.setattr(verifier, "indexed_regular_mode", lambda *_args: "100644")
+    monkeypatch.setattr(
+        verifier,
+        "tagged_blob_bytes",
+        lambda _commit, _relative, _environment: (
+            PROJECT_ROOT / verifier.DRAFT_SOURCE_RELATIVE
+        ).read_bytes(),
+    )
+
+    with pytest.raises(RuntimeError, match="does not differ"):
+        verifier.verify_unpromoted_source(
+            "a" * 40, record["maintenance_overlay"], {}
+        )
+
+
+def test_verifier_git_environment_removes_hostile_repository_selectors() -> None:
+    environment = {
+        "PATH": os.environ.get("PATH", ""),
+        "GIT_DIR": "elsewhere",
+        "GIT_WORK_TREE": "elsewhere",
+        "GIT_INDEX_FILE": "elsewhere",
+        "GIT_OBJECT_DIRECTORY": "elsewhere",
+        "GIT_ALTERNATE_OBJECT_DIRECTORIES": "elsewhere",
+        "GIT_CONFIG_PARAMETERS": "'core.hooksPath=elsewhere'",
+    }
+
+    sanitized = verifier.sanitized_git_environment(environment)
+
+    for name in environment.keys() - {"PATH"}:
+        assert name not in sanitized
+    assert sanitized["GIT_NO_REPLACE_OBJECTS"] == "1"
+    assert sanitized["GIT_CONFIG_VALUE_0"] == str(verifier.ROOT.resolve())
+
+
+def test_candidate_document_boundary_runs_no_document_builder(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[tuple[str, str]] = []
+    monkeypatch.setattr(
+        verifier,
+        "candidate_document_commit",
+        lambda _environment: verifier.DRAFT_RELEASE_IDENTITY["commit"],
+    )
+    monkeypatch.setattr(
+        verifier,
+        "verify_frozen_document_outputs",
+        lambda commit, _environment: calls.append(("frozen", commit)),
+    )
+    monkeypatch.setattr(
+        verifier,
+        "run",
+        lambda command, *, environment: calls.append(("run", " ".join(command))),
+    )
+
+    mode = verifier.verify_document_boundary({})
+
+    assert mode == "frozen_v1.0.7"
+    assert calls == [("frozen", verifier.DRAFT_RELEASE_IDENTITY["commit"])]
+
+
+def test_overlay_absence_keeps_two_strict_document_builds(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    commands: list[list[str]] = []
+    monkeypatch.setattr(verifier, "candidate_document_commit", lambda _environment: None)
+    monkeypatch.setattr(verifier, "DOCUMENT_OUTPUTS", ())
+    monkeypatch.setattr(
+        verifier,
+        "run",
+        lambda command, *, environment: commands.append(command),
+    )
+
+    mode = verifier.verify_document_boundary({})
+
+    assert mode == "strict_replay"
+    assert sum("tools/build_documents.py" in command for command in commands) == 2
+    assert sum("tools/inspect_pdf.py" in command and "--write" in command for command in commands) == 2
+
+
+def test_frozen_document_byte_drift_is_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
+    expected = {"manuscript/frozen.pdf": {"bytes": 4, "sha256": "a" * 64}}
+    observed = {"manuscript/frozen.pdf": {"bytes": 5, "sha256": "b" * 64}}
+    monkeypatch.setattr(verifier, "tagged_document_identity", lambda *_args: expected)
+    monkeypatch.setattr(verifier, "identity", lambda _paths: observed)
+
+    with pytest.raises(RuntimeError, match="Frozen document outputs differ"):
+        verifier.verify_frozen_document_outputs("a" * 40, {})
 
 
 def test_focused_verification_requires_tracked_manifest_inventory(
