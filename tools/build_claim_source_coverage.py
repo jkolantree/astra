@@ -8,32 +8,43 @@ import json
 import os
 import platform
 import re
+import struct
 import subprocess
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft7Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEMA_URL = "https://jkolantree.github.io/astra/schemas/claim-source-coverage-v1.schema.json"
-SCHEMA_PATH = ROOT / "schemas" / "claim-source-coverage-v1.schema.json"
+SCHEMA_URL = (
+    "https://jkolantree.github.io/astra/schemas/"
+    "claim-source-coverage-overlay-m1.schema.json"
+)
+SCHEMA_PATH = ROOT / "schemas" / "claim-source-coverage-overlay-m1.schema.json"
 FROZEN_OUTPUT = ROOT / "evidence" / "claim_source_coverage_v1.0.7.json"
 OVERLAY_RELATIVE_PATH = "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"
 DEFAULT_OUTPUT = ROOT / OVERLAY_RELATIVE_PATH
-GENERATOR_VERSION = "0.3.0"
+GENERATOR_VERSION = "0.4.0"
 AUTHORITATIVE_RUNTIME_IDENTITY = "python==3.12.10"
 RUNTIME_IDENTITY = f"python=={platform.python_version()}"
 RUNTIME_CLASSIFICATION = (
     "release_authoritative"
-    if RUNTIME_IDENTITY == AUTHORITATIVE_RUNTIME_IDENTITY
+    if (
+        platform.python_implementation() == "CPython"
+        and RUNTIME_IDENTITY == AUTHORITATIVE_RUNTIME_IDENTITY
+    )
     else "environment_limited"
 )
-SOURCE_CANDIDATE_PATHS = frozenset(
+MILESTONE_SOURCE_PATHS = frozenset(
     {
         "AGENTS.md",
         "LICENSE_MAP.md",
+        "README.md",
+        "evidence/README.md",
         "manuscript/manuscript.md",
-        "schemas/claim-source-coverage-v1.schema.json",
+        "schemas/README.md",
+        "schemas/claim-source-coverage-overlay-m1.schema.json",
         "tests/test_claim_source_coverage.py",
         "tests/test_document_contract.py",
         "tools/build_claim_source_coverage.py",
@@ -43,6 +54,15 @@ SOURCE_CANDIDATE_PATHS = frozenset(
 IDENTITY_CLOSURE_PATHS = frozenset({"MANIFEST.sha256", OVERLAY_RELATIVE_PATH})
 BASE_COMMIT = "f66027da807a35a1682033ba41348e81f9ceb7e7"
 BASE_TREE = "2854b9c0ea13cf08d1f6c559cb471acee7e2b74e"
+RELEASE_TAG = "v1.0.7"
+RELEASE_TAG_OBJECT = "b5dc469dc05e07d62d736a4c3ddc749a54e8ebbd"
+RELEASE_COMMIT = "7454b8134cf28c233fe54a11ae4b65e256844821"
+RELEASE_TREE = "3aaa2ec8c62d7c5c925e557cd79b3b43446aaf1d"
+SOURCE_PROJECTION_SCHEME = "astra-source-projection-v1"
+SOURCE_PROJECTION_SCOPE = "astra-core-integrity-m1-repository-source-v1"
+SOURCE_PROJECTION_SERIALIZATION = "astra-binary-length-prefixed-v1"
+RUNTIME_PATH = "RUNTIME.json"
+LOCK_PATH = "requirements-lock.txt"
 GIT_CONTROL_VARIABLES = {
     "GIT_ALTERNATE_OBJECT_DIRECTORIES",
     "GIT_CEILING_DIRECTORIES",
@@ -69,12 +89,16 @@ LOCATOR_RE = re.compile(
 )
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+@dataclass(frozen=True)
+class SnapshotEntry:
+    path: str
+    mode: str
+    object_id: str
+    data: bytes
+
+    @property
+    def sha256(self) -> str:
+        return sha256_bytes(self.data)
 
 
 def sha256_bytes(value: bytes) -> str:
@@ -153,38 +177,6 @@ def git_path_set(arguments: list[str], *, root: Path = ROOT) -> set[str]:
     }
 
 
-def tracked_paths(root: Path = ROOT, *, revision: str | None = None) -> set[str]:
-    arguments = (
-        ["ls-files", "-z"]
-        if revision is None
-        else ["ls-tree", "-r", "--name-only", "-z", revision]
-    )
-    return git_path_set(arguments, root=root)
-
-
-def worktree_changed_paths(root: Path = ROOT) -> set[str]:
-    return (
-        git_path_set(["diff", "--no-renames", "--name-only", "-z"], root=root)
-        | git_path_set(
-            ["diff", "--cached", "--no-renames", "--name-only", "-z"], root=root
-        )
-        | git_path_set(["ls-files", "--others", "--exclude-standard", "-z"], root=root)
-    )
-
-
-def commit_changed_paths(base: str, tip: str, *, root: Path = ROOT) -> set[str]:
-    return git_path_set(
-        ["diff", "--no-renames", "--name-only", "-z", base, tip, "--"], root=root
-    )
-
-
-def single_parent(commit: str, *, root: Path = ROOT) -> str:
-    parts = str(git_command(["rev-list", "--parents", "-n", "1", commit], cwd=root)).split()
-    if len(parts) != 2 or parts[0] != commit:
-        raise RuntimeError(f"Candidate source commit must have exactly one parent: {commit}")
-    return parts[1]
-
-
 def commit_tree(commit: str, *, root: Path = ROOT) -> str:
     return str(git_command(["rev-parse", f"{commit}^{{tree}}"], cwd=root)).strip()
 
@@ -204,99 +196,223 @@ def assert_no_hidden_index_flags(root: Path = ROOT) -> None:
         raise RuntimeError("Unmerged index entries block candidate identity")
 
 
-def source_candidate_identity(
-    root: Path, *, candidate_source_commit: str | None
-) -> dict[str, Any]:
+def baseline_source_changes(root: Path = ROOT) -> set[str]:
+    return git_path_set(
+        ["diff", "--cached", "--no-renames", "--name-only", "-z", BASE_COMMIT, "--"],
+        root=root,
+    ) - IDENTITY_CLOSURE_PATHS
+
+
+def _validate_snapshot_path(path: str) -> None:
+    try:
+        path.encode("ascii")
+    except UnicodeEncodeError as error:
+        raise RuntimeError(f"Source-projection path is not ASCII: {path!r}") from error
+    parts = path.split("/")
+    if (
+        not path
+        or "\\" in path
+        or path.startswith("/")
+        or any(part in {"", ".", ".."} for part in parts)
+    ):
+        raise RuntimeError(f"Unsafe source-projection path: {path!r}")
+
+
+def _index_metadata(root: Path) -> tuple[bytes, dict[str, tuple[str, str]]]:
+    raw = git_command(["ls-files", "--stage", "-z"], cwd=root, binary=True)
+    if not isinstance(raw, bytes):
+        raise TypeError("Expected binary Git index output")
+    entries: dict[str, tuple[str, str]] = {}
+    casefolded: dict[str, str] = {}
+    for record in raw.split(b"\0"):
+        if not record:
+            continue
+        header, separator, encoded_path = record.partition(b"\t")
+        if not separator:
+            raise RuntimeError("Malformed Git index record")
+        fields = header.split()
+        if len(fields) != 3:
+            raise RuntimeError("Malformed Git index metadata")
+        mode, object_id, stage = (field.decode("ascii") for field in fields)
+        if stage != "0":
+            raise RuntimeError("Unmerged Git index stage blocks source projection")
+        if mode not in {"100644", "100755"}:
+            raise RuntimeError(f"Unsupported source-projection Git mode: {mode}")
+        if not re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", object_id) or set(object_id) == {"0"}:
+            raise RuntimeError("Invalid or intent-to-add Git index object")
+        path = encoded_path.decode("ascii")
+        _validate_snapshot_path(path)
+        if path in entries:
+            raise RuntimeError(f"Duplicate Git index path: {path}")
+        folded = path.casefold()
+        if folded in casefolded:
+            raise RuntimeError(
+                f"Case-fold-colliding Git index paths: {casefolded[folded]} and {path}"
+            )
+        casefolded[folded] = path
+        entries[path] = (mode, object_id)
+    return raw, entries
+
+
+def repository_snapshot(root: Path = ROOT) -> dict[str, SnapshotEntry]:
     assert_no_hidden_index_flags(root)
-    head = str(git_command(["rev-parse", "HEAD"], cwd=root)).strip()
-    changed = worktree_changed_paths(root)
-    if candidate_source_commit is None:
-        expected = SOURCE_CANDIDATE_PATHS | IDENTITY_CLOSURE_PATHS
-        head_tree = commit_tree(head, root=root)
-        if head != BASE_COMMIT or head_tree != BASE_TREE:
-            raise RuntimeError(
-                "Uncommitted maintenance draft must remain on the frozen baseline: "
-                f"expected={BASE_COMMIT}/{BASE_TREE}, observed={head}/{head_tree}"
-            )
-        if changed != expected:
-            raise RuntimeError(
-                "Uncommitted maintenance scope differs from the declared milestone: "
-                f"expected={sorted(expected)}, observed={sorted(changed)}"
-            )
-        return {
-            "source_state": "uncommitted_worktree",
-            "base_commit": head,
-            "base_tree": head_tree,
-            "candidate_source_commit": None,
-            "candidate_source_tree": None,
+    if commit_tree(BASE_COMMIT, root=root) != BASE_TREE:
+        raise RuntimeError("Frozen maintenance baseline tree identity drift")
+    untracked = git_path_set(["ls-files", "--others", "--exclude-standard", "-z"], root=root)
+    if untracked:
+        raise RuntimeError(
+            "Untracked nonignored paths block source projection: " + ", ".join(sorted(untracked))
+        )
+    unstaged = git_path_set(["diff", "--no-renames", "--name-only", "-z"], root=root)
+    unexpected_unstaged = unstaged - IDENTITY_CLOSURE_PATHS
+    if unexpected_unstaged:
+        raise RuntimeError(
+            "Source files must be staged before projection: "
+            + ", ".join(sorted(unexpected_unstaged))
+        )
+    index_before, metadata = _index_metadata(root)
+    source_changes = baseline_source_changes(root)
+    missing_milestone_paths = MILESTONE_SOURCE_PATHS - source_changes
+    if missing_milestone_paths:
+        raise RuntimeError(
+            "Indexed source no longer contains every declared milestone change: "
+            + ", ".join(sorted(missing_milestone_paths))
+        )
+    snapshot: dict[str, SnapshotEntry] = {}
+    for path, (mode, object_id) in metadata.items():
+        data = git_command(["cat-file", "blob", object_id], cwd=root, binary=True)
+        if not isinstance(data, bytes):
+            raise TypeError("Expected binary Git blob output")
+        if path not in IDENTITY_CLOSURE_PATHS:
+            worktree_path = root / path
+            if worktree_path.is_symlink() or not worktree_path.is_file():
+                raise RuntimeError(f"Projected source path is not a regular file: {path}")
+            if worktree_path.read_bytes() != data:
+                raise RuntimeError(f"Working-tree bytes differ from staged source blob: {path}")
+        snapshot[path] = SnapshotEntry(path, mode, object_id, data)
+    index_after, _ = _index_metadata(root)
+    if index_after != index_before:
+        raise RuntimeError("Git index changed while source projection was being read")
+    missing_projected_paths = MILESTONE_SOURCE_PATHS - set(snapshot)
+    if missing_projected_paths:
+        raise RuntimeError(
+            "Declared milestone paths are absent from the source projection: "
+            + ", ".join(sorted(missing_projected_paths))
+        )
+    return snapshot
+
+
+def snapshot_bytes(snapshot: dict[str, SnapshotEntry], path: str) -> bytes:
+    try:
+        return snapshot[path].data
+    except KeyError as error:
+        raise RuntimeError(f"Required source path is absent from the Git snapshot: {path}") from error
+
+
+def snapshot_json(snapshot: dict[str, SnapshotEntry], path: str) -> dict[str, Any]:
+    value = json.loads(snapshot_bytes(snapshot, path).decode("utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError(f"Expected a JSON object at {path}")
+    return value
+
+
+def _length_prefixed(value: bytes) -> bytes:
+    if len(value) > 0xFFFFFFFF:
+        raise RuntimeError("Source-projection field exceeds the uint32 framing limit")
+    return struct.pack(">I", len(value)) + value
+
+
+def serialize_source_projection(
+    entries: list[dict[str, Any]], excluded_paths: list[str]
+) -> bytes:
+    normalized_exclusions = sorted(excluded_paths)
+    if len(set(normalized_exclusions)) != len(normalized_exclusions):
+        raise RuntimeError("Duplicate source-projection exclusion")
+    payload = bytearray(b"ASTRA\0SOURCE-PROJECTION\0V1\0")
+    payload.extend(_length_prefixed(SOURCE_PROJECTION_SCOPE.encode("ascii")))
+    payload.extend(struct.pack(">I", len(normalized_exclusions)))
+    for path in normalized_exclusions:
+        _validate_snapshot_path(path)
+        payload.extend(_length_prefixed(path.encode("ascii")))
+    normalized_entries = sorted(entries, key=lambda entry: str(entry["path"]))
+    paths = [str(entry["path"]) for entry in normalized_entries]
+    if len(set(paths)) != len(paths):
+        raise RuntimeError("Duplicate source-projection entry")
+    if len({path.casefold() for path in paths}) != len(paths):
+        raise RuntimeError("Case-fold-colliding source-projection entries")
+    payload.extend(struct.pack(">I", len(normalized_entries)))
+    for entry in normalized_entries:
+        if set(entry) != {"path", "mode", "bytes", "sha256"}:
+            raise RuntimeError("Malformed source-projection entry")
+        path = str(entry["path"])
+        mode = str(entry["mode"])
+        byte_count = entry["bytes"]
+        digest = str(entry["sha256"])
+        _validate_snapshot_path(path)
+        if mode not in {"100644", "100755"}:
+            raise RuntimeError(f"Unsupported source-projection mode: {mode}")
+        if not isinstance(byte_count, int) or isinstance(byte_count, bool) or byte_count < 0:
+            raise RuntimeError("Invalid source-projection byte count")
+        if not re.fullmatch(r"[0-9a-f]{64}", digest):
+            raise RuntimeError("Invalid source-projection SHA-256")
+        payload.extend(_length_prefixed(path.encode("ascii")))
+        payload.extend(_length_prefixed(mode.encode("ascii")))
+        payload.extend(struct.pack(">Q", byte_count))
+        payload.extend(bytes.fromhex(digest))
+    return bytes(payload)
+
+
+def build_source_projection(snapshot: dict[str, SnapshotEntry]) -> dict[str, Any]:
+    entries = [
+        {
+            "path": path,
+            "mode": entry.mode,
+            "bytes": len(entry.data),
+            "sha256": entry.sha256,
         }
-
-    if not re.fullmatch(r"[0-9a-f]{40}", candidate_source_commit):
-        raise RuntimeError("Candidate source commit must be a full lowercase 40-hex Git ID")
-    resolved = str(
-        git_command(["rev-parse", "--verify", f"{candidate_source_commit}^{{commit}}"], cwd=root)
-    ).strip()
-    if resolved != candidate_source_commit:
-        raise RuntimeError("Candidate source commit did not resolve to itself")
-    base_commit = single_parent(resolved, root=root)
-    base_tree = commit_tree(base_commit, root=root)
-    if base_commit != BASE_COMMIT or base_tree != BASE_TREE:
-        raise RuntimeError(
-            "Candidate source parent differs from the frozen baseline: "
-            f"expected={BASE_COMMIT}/{BASE_TREE}, observed={base_commit}/{base_tree}"
-        )
-    source_paths = commit_changed_paths(base_commit, resolved, root=root)
-    if source_paths != SOURCE_CANDIDATE_PATHS:
-        raise RuntimeError(
-            "Candidate source commit scope differs from the declared milestone: "
-            f"expected={sorted(SOURCE_CANDIDATE_PATHS)}, observed={sorted(source_paths)}"
-        )
-
-    if head == resolved:
-        if changed != IDENTITY_CLOSURE_PATHS:
-            raise RuntimeError(
-                "Before identity closure, only overlay and manifest may differ: "
-                f"expected={sorted(IDENTITY_CLOSURE_PATHS)}, observed={sorted(changed)}"
-            )
-    else:
-        if changed:
-            raise RuntimeError(
-                "Committed identity closure requires a clean worktree; "
-                f"observed={sorted(changed)}"
-            )
-        closure_parent = single_parent(head, root=root)
-        if closure_parent != resolved:
-            raise RuntimeError(
-                f"Identity-closure parent {closure_parent} differs from {resolved}"
-            )
-        closure_paths = commit_changed_paths(resolved, head, root=root)
-        if closure_paths != IDENTITY_CLOSURE_PATHS:
-            raise RuntimeError(
-                "Identity-closure commit scope differs from overlay and manifest: "
-                f"expected={sorted(IDENTITY_CLOSURE_PATHS)}, observed={sorted(closure_paths)}"
-            )
-
+        for path, entry in sorted(snapshot.items())
+        if path not in IDENTITY_CLOSURE_PATHS
+    ]
+    exclusions = sorted(IDENTITY_CLOSURE_PATHS)
+    payload = serialize_source_projection(entries, exclusions)
     return {
-        "source_state": "committed_source_candidate",
-        "base_commit": base_commit,
-        "base_tree": base_tree,
-        "candidate_source_commit": resolved,
-        "candidate_source_tree": commit_tree(resolved, root=root),
+        "scheme": SOURCE_PROJECTION_SCHEME,
+        "scope": SOURCE_PROJECTION_SCOPE,
+        "digest_algorithm": "sha256",
+        "canonical_byte_domain": "git-index-blob",
+        "serialization": SOURCE_PROJECTION_SERIALIZATION,
+        "path_encoding": "ascii-posix",
+        "entry_count": len(entries),
+        "canonical_bytes": len(payload),
+        "excluded_paths": exclusions,
+        "entries": entries,
+        "sha256": sha256_bytes(payload),
     }
 
 
+def verify_release_identity(root: Path, release_tag: str) -> dict[str, str]:
+    if release_tag != RELEASE_TAG:
+        raise RuntimeError(f"Unexpected release tag in RELEASE_SPEC.json: {release_tag}")
+    identity = tag_identity(release_tag, root=root, require_head=False)
+    expected = {
+        "tag_object": RELEASE_TAG_OBJECT,
+        "commit": RELEASE_COMMIT,
+        "tree": RELEASE_TREE,
+    }
+    if identity != expected:
+        raise RuntimeError(f"Immutable v1.0.7 tag identity drift: {identity}")
+    return identity
+
+
 def maintenance_overlay_identity(
-    root: Path, *, candidate_source_commit: str | None = None
+    root: Path, snapshot: dict[str, SnapshotEntry]
 ) -> dict[str, Any]:
-    release_spec = load_json(root / "RELEASE_SPEC.json")
+    release_spec = snapshot_json(snapshot, "RELEASE_SPEC.json")
     release_tag = str(release_spec["tag"])
-    release_identity = tag_identity(release_tag, root=root, require_head=False)
-    source_identity = source_candidate_identity(
-        root, candidate_source_commit=candidate_source_commit
-    )
+    release_identity = verify_release_identity(root, release_tag)
     frozen_relative = FROZEN_OUTPUT.relative_to(ROOT).as_posix()
-    frozen_path = root / frozen_relative
-    frozen_digest = sha256_file(frozen_path)
+    frozen_bytes = snapshot_bytes(snapshot, frozen_relative)
+    frozen_digest = sha256_bytes(frozen_bytes)
     tagged_frozen_bytes = git_command(
         ["show", f"{release_identity['commit']}:{frozen_relative}"],
         cwd=root,
@@ -304,16 +420,34 @@ def maintenance_overlay_identity(
     )
     if not isinstance(tagged_frozen_bytes, bytes):
         raise TypeError("Expected binary Git output")
-    if sha256_bytes(tagged_frozen_bytes) != frozen_digest:
+    if tagged_frozen_bytes != frozen_bytes:
         raise RuntimeError("Frozen v1.0.7 coverage bytes differ from the release tag")
+    for contract_path in (RUNTIME_PATH, LOCK_PATH):
+        tagged_contract = git_command(
+            ["show", f"{release_identity['commit']}:{contract_path}"],
+            cwd=root,
+            binary=True,
+        )
+        if not isinstance(tagged_contract, bytes):
+            raise TypeError("Expected binary Git output")
+        if tagged_contract != snapshot_bytes(snapshot, contract_path):
+            raise RuntimeError(
+                f"Runtime contract differs from immutable v1.0.7 bytes: {contract_path}"
+            )
     source_path = "manuscript/manuscript.md"
     return {
         "overlay_id": "astra-core-integrity-m1",
         "promotion_status": "unpromoted_source_repair",
-        **source_identity,
+        "baseline_commit": BASE_COMMIT,
+        "baseline_tree": BASE_TREE,
+        "milestone_changed_paths": sorted(MILESTONE_SOURCE_PATHS),
+        "additional_baseline_changed_paths": sorted(
+            baseline_source_changes(root) - MILESTONE_SOURCE_PATHS
+        ),
+        "source_projection": build_source_projection(snapshot),
         "identity_closure_paths": sorted(IDENTITY_CLOSURE_PATHS),
         "authoritative_source_path": source_path,
-        "authoritative_source_sha256": sha256_file(root / source_path),
+        "authoritative_source_sha256": snapshot[source_path].sha256,
         "frozen_record_path": frozen_relative,
         "frozen_record_sha256": frozen_digest,
         "release_tag": release_tag,
@@ -517,17 +651,18 @@ def claim_coverage(
     }
 
 
-def build_record(
-    root: Path = ROOT, *, candidate_source_commit: str | None = None
-) -> dict[str, Any]:
-    claim_matrix = load_json(root / "CLAIM_MATRIX.json")
-    source_inventory = load_json(root / "SOURCE_INVENTORY.json")
-    tracked = tracked_paths(root, revision=candidate_source_commit)
-    tracked_hashes = {
-        path: sha256_file(root / path)
-        for path in tracked
-        if (root / path).is_file()
-    }
+def build_record(root: Path = ROOT) -> dict[str, Any]:
+    snapshot = repository_snapshot(root)
+    claim_matrix = snapshot_json(snapshot, "CLAIM_MATRIX.json")
+    source_inventory = snapshot_json(snapshot, "SOURCE_INVENTORY.json")
+    runtime_contract = snapshot_json(snapshot, RUNTIME_PATH)
+    required_runtime = f"python=={runtime_contract['python']}"
+    if required_runtime != AUTHORITATIVE_RUNTIME_IDENTITY:
+        raise RuntimeError(
+            "RUNTIME.json Python identity differs from the generator's audited contract"
+        )
+    tracked = set(snapshot) - IDENTITY_CLOSURE_PATHS
+    tracked_hashes = {path: snapshot[path].sha256 for path in tracked}
     artifact_hashes = {item["sha256"].lower() for item in source_inventory["artifacts"]}
 
     claims = [
@@ -596,25 +731,33 @@ def build_record(
             "version": "1.0.7",
             "identity_status": "immutable_release_with_local_overlay",
             "claim_matrix_path": "CLAIM_MATRIX.json",
-            "claim_matrix_sha256": sha256_file(root / "CLAIM_MATRIX.json"),
+            "claim_matrix_sha256": snapshot["CLAIM_MATRIX.json"].sha256,
             "source_inventory_path": "SOURCE_INVENTORY.json",
-            "source_inventory_sha256": sha256_file(root / "SOURCE_INVENTORY.json"),
+            "source_inventory_sha256": snapshot["SOURCE_INVENTORY.json"].sha256,
             "bibliography_path": "manuscript/references.bib",
-            "bibliography_sha256": sha256_file(root / "manuscript" / "references.bib"),
+            "bibliography_sha256": snapshot["manuscript/references.bib"].sha256,
         },
         "generator": {
             "path": "tools/build_claim_source_coverage.py",
             "version": GENERATOR_VERSION,
             "runtime": RUNTIME_IDENTITY,
+            "runtime_implementation": platform.python_implementation(),
             "required_runtime": AUTHORITATIVE_RUNTIME_IDENTITY,
             "runtime_classification": RUNTIME_CLASSIFICATION,
+            "runtime_classification_scope": (
+                "cpython-version-and-tagged-runtime-lock-contracts"
+            ),
+            "runtime_contract_path": RUNTIME_PATH,
+            "runtime_contract_sha256": snapshot[RUNTIME_PATH].sha256,
+            "dependency_lock_path": LOCK_PATH,
+            "dependency_lock_sha256": snapshot[LOCK_PATH].sha256,
             "output_path": OVERLAY_RELATIVE_PATH,
         },
         "input_files": [
             {
                 "path": path,
-                "sha256": sha256_file(root / path),
-                "bytes": (root / path).stat().st_size,
+                "sha256": snapshot[path].sha256,
+                "bytes": len(snapshot[path].data),
             }
             for path in (
                 "CLAIM_MATRIX.json",
@@ -622,7 +765,7 @@ def build_record(
                 "manuscript/references.bib",
                 "manuscript/manuscript.md",
                 "tools/build_claim_source_coverage.py",
-                "schemas/claim-source-coverage-v1.schema.json",
+                "schemas/claim-source-coverage-overlay-m1.schema.json",
             )
         ],
         "summary": {
@@ -661,9 +804,7 @@ def build_record(
         "source_records": source_records,
         "discovered_aliases": aliases,
         "duplicate_evidence_rules": source_inventory["duplicate_evidence_rules"],
-        "maintenance_overlay": maintenance_overlay_identity(
-            root, candidate_source_commit=candidate_source_commit
-        ),
+        "maintenance_overlay": maintenance_overlay_identity(root, snapshot),
         "known_gaps": [
             "Legacy CLAIM_MATRIX.json stores support as free text rather than source IDs and machine-addressable locators.",
             "Legacy claim records do not bind claims to admitted release-byte hashes.",
@@ -671,7 +812,8 @@ def build_record(
             "External citation identity and claim-local entailment were not reverified by this structural generator.",
             "Exact execution commands, runtimes, and run identifiers are not present in the legacy claim records.",
             "This unpromoted core-integrity-m1 maintenance overlay does not alter or supersede the immutable v1.0.7 coverage record and is not a publication decision.",
-            "The candidate_source_commit and candidate_source_tree identify the source-phase commit before the overlay and manifest identity-closure commit; the closure commit is bound externally by its Git tree, tracked manifest, and archive verification to avoid self-reference.",
+            "The source projection binds every staged repository source blob, path, mode, and byte length except the explicitly self-excluded overlay and manifest; tracked-manifest and archive verification bind those closure files after commit.",
+            "Runtime classification here binds the CPython version plus the immutable tagged RUNTIME.json and dependency-lock contracts. Exact executable/distribution and installed-environment provenance require the separate runtime verifier and hash-locked replay.",
             *(
                 [
                     f"ENVIRONMENT_LIMITED: generated with {RUNTIME_IDENTITY} rather than the release-authoritative {AUTHORITATIVE_RUNTIME_IDENTITY}."
@@ -692,10 +834,6 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--validate-only", action="store_true")
-    parser.add_argument(
-        "--candidate-source-commit",
-        help="full source-phase commit ID used by the two-commit identity closure",
-    )
     args = parser.parse_args()
     output = args.output if args.output.is_absolute() else ROOT / args.output
     if output.resolve() != DEFAULT_OUTPUT.resolve():
@@ -703,7 +841,7 @@ def main() -> None:
             f"output must be {OVERLAY_RELATIVE_PATH}; "
             f"the frozen {FROZEN_OUTPUT.relative_to(ROOT).as_posix()} record is immutable"
         )
-    record = build_record(candidate_source_commit=args.candidate_source_commit)
+    record = build_record()
     validate_record(record)
     if not args.validate_only:
         output.parent.mkdir(parents=True, exist_ok=True)

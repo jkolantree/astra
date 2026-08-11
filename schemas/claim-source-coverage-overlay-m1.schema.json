@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://jkolantree.github.io/astra/schemas/claim-source-coverage-v1.schema.json",
-  "title": "SPPT/ASTRA structured claim-to-source coverage record v1",
+  "$id": "https://jkolantree.github.io/astra/schemas/claim-source-coverage-overlay-m1.schema.json",
+  "title": "SPPT/ASTRA core-integrity M1 claim-to-source maintenance overlay",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -16,22 +16,19 @@
     "source_records",
     "discovered_aliases",
     "duplicate_evidence_rules",
+    "maintenance_overlay",
     "known_gaps"
   ],
   "properties": {
     "schema": {
-      "const": "https://jkolantree.github.io/astra/schemas/claim-source-coverage-v1.schema.json"
+      "const": "https://jkolantree.github.io/astra/schemas/claim-source-coverage-overlay-m1.schema.json"
     },
     "title": {
       "type": "string",
       "minLength": 1
     },
     "status": {
-      "enum": [
-        "maintenance_draft",
-        "maintenance_record",
-        "candidate_only"
-      ]
+      "const": "candidate_only"
     },
     "reference_release": {
       "type": "object",
@@ -84,6 +81,14 @@
         "path",
         "version",
         "runtime",
+        "runtime_implementation",
+        "required_runtime",
+        "runtime_classification",
+        "runtime_classification_scope",
+        "runtime_contract_path",
+        "runtime_contract_sha256",
+        "dependency_lock_path",
+        "dependency_lock_sha256",
         "output_path"
       ],
       "properties": {
@@ -91,15 +96,89 @@
           "const": "tools/build_claim_source_coverage.py"
         },
         "version": {
-          "const": "0.1.0"
+          "const": "0.4.0"
         },
         "runtime": {
+          "pattern": "^python==[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "runtime_implementation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_runtime": {
           "const": "python==3.12.10"
         },
+        "runtime_classification": {
+          "enum": [
+            "environment_limited",
+            "release_authoritative"
+          ]
+        },
+        "runtime_classification_scope": {
+          "const": "cpython-version-and-tagged-runtime-lock-contracts"
+        },
+        "runtime_contract_path": {
+          "const": "RUNTIME.json"
+        },
+        "runtime_contract_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "dependency_lock_path": {
+          "const": "requirements-lock.txt"
+        },
+        "dependency_lock_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
         "output_path": {
-          "const": "evidence/claim_source_coverage_v1.0.7.json"
+          "const": "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"
         }
-      }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "runtime": {
+              "const": "python==3.12.10"
+            },
+            "runtime_implementation": {
+              "const": "CPython"
+            },
+            "runtime_classification": {
+              "const": "release_authoritative"
+            }
+          }
+        },
+        {
+          "properties": {
+            "runtime_classification": {
+              "const": "environment_limited"
+            }
+          },
+          "not": {
+            "allOf": [
+              {
+                "required": [
+                  "runtime"
+                ],
+                "properties": {
+                  "runtime": {
+                    "const": "python==3.12.10"
+                  }
+                }
+              },
+              {
+                "required": [
+                  "runtime_implementation"
+                ],
+                "properties": {
+                  "runtime_implementation": {
+                    "const": "CPython"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
     },
     "input_files": {
       "type": "array",
@@ -242,6 +321,9 @@
         "minLength": 1
       }
     },
+    "maintenance_overlay": {
+      "$ref": "#/definitions/maintenanceOverlay"
+    },
     "known_gaps": {
       "type": "array",
       "items": {
@@ -260,6 +342,195 @@
         "string",
         "null"
       ]
+    },
+    "gitObject": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "maintenanceOverlay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overlay_id",
+        "promotion_status",
+        "baseline_commit",
+        "baseline_tree",
+        "milestone_changed_paths",
+        "additional_baseline_changed_paths",
+        "source_projection",
+        "identity_closure_paths",
+        "authoritative_source_path",
+        "authoritative_source_sha256",
+        "frozen_record_path",
+        "frozen_record_sha256",
+        "release_tag",
+        "release_tag_object",
+        "release_commit",
+        "release_tree"
+      ],
+      "properties": {
+        "overlay_id": {
+          "const": "astra-core-integrity-m1"
+        },
+        "promotion_status": {
+          "const": "unpromoted_source_repair"
+        },
+        "baseline_commit": {
+          "const": "f66027da807a35a1682033ba41348e81f9ceb7e7"
+        },
+        "baseline_tree": {
+          "const": "2854b9c0ea13cf08d1f6c559cb471acee7e2b74e"
+        },
+        "milestone_changed_paths": {
+          "const": [
+            "AGENTS.md",
+            "LICENSE_MAP.md",
+            "README.md",
+            "evidence/README.md",
+            "manuscript/manuscript.md",
+            "schemas/README.md",
+            "schemas/claim-source-coverage-overlay-m1.schema.json",
+            "tests/test_claim_source_coverage.py",
+            "tests/test_document_contract.py",
+            "tools/build_claim_source_coverage.py",
+            "tools/check_repository.py"
+          ]
+        },
+        "additional_baseline_changed_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/safePath"
+          }
+        },
+        "source_projection": {
+          "$ref": "#/definitions/sourceProjection"
+        },
+        "identity_closure_paths": {
+          "const": [
+            "MANIFEST.sha256",
+            "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"
+          ]
+        },
+        "authoritative_source_path": {
+          "const": "manuscript/manuscript.md"
+        },
+        "authoritative_source_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "frozen_record_path": {
+          "const": "evidence/claim_source_coverage_v1.0.7.json"
+        },
+        "frozen_record_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "release_tag": {
+          "const": "v1.0.7"
+        },
+        "release_tag_object": {
+          "$ref": "#/definitions/gitObject"
+        },
+        "release_commit": {
+          "$ref": "#/definitions/gitObject"
+        },
+        "release_tree": {
+          "$ref": "#/definitions/gitObject"
+        }
+      }
+    },
+    "sourceProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheme",
+        "scope",
+        "digest_algorithm",
+        "canonical_byte_domain",
+        "serialization",
+        "path_encoding",
+        "entry_count",
+        "canonical_bytes",
+        "excluded_paths",
+        "entries",
+        "sha256"
+      ],
+      "properties": {
+        "scheme": {
+          "const": "astra-source-projection-v1"
+        },
+        "scope": {
+          "const": "astra-core-integrity-m1-repository-source-v1"
+        },
+        "digest_algorithm": {
+          "const": "sha256"
+        },
+        "canonical_byte_domain": {
+          "const": "git-index-blob"
+        },
+        "serialization": {
+          "const": "astra-binary-length-prefixed-v1"
+        },
+        "path_encoding": {
+          "const": "ascii-posix"
+        },
+        "entry_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "canonical_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "excluded_paths": {
+          "const": [
+            "MANIFEST.sha256",
+            "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/sourceProjectionEntry"
+          }
+        },
+        "sha256": {
+          "$ref": "#/definitions/sha256"
+        }
+      }
+    },
+    "sourceProjectionEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "mode",
+        "bytes",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/definitions/safePath"
+        },
+        "mode": {
+          "enum": [
+            "100644",
+            "100755"
+          ]
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "$ref": "#/definitions/sha256"
+        }
+      }
+    },
+    "safePath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*//)(?!.*(?:^|/)\\.{1,2}(?:/|$))[A-Za-z0-9._/-]+$"
     },
     "inputFile": {
       "type": "object",

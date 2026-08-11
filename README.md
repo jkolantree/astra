@@ -11,6 +11,8 @@ This repository contains the reference package for **Solar-Planetary Phase-Parti
 > **Status.** The core work is a **not-peer-reviewed perspective and mathematical framework with reduced synthetic demonstrations**. It is not an empirical planetary validation, a mission-data retrieval, a general hybrid-system theorem, or evidence of scientific priority. The benchmark is transparent and deliberately favorable; its generation constants are public.
 >
 > **Citation boundary.** [SPPT/ASTRA v1.0.7](https://github.com/jkolantree/astra/releases/tag/v1.0.7) is the current stable core citation and reproduction target. The immutable [v1.0.6 release](https://github.com/jkolantree/astra/releases/tag/v1.0.6) remains the historical core baseline. Supplemental releases and namespaced research drafts retain their own identities and do not inherit the v1.0.7 claim matrix unless the release record says so.
+>
+> **Default-branch maintenance boundary.** The repository source includes an **unpromoted core-integrity M1 source-repair draft** that differs from the immutable v1.0.7 reading assets. It is not v1.0.8, a release candidate, or a published erratum. Cite and reproduce v1.0.7 from its tagged release and versioned Pages route unless a later release explicitly promotes the repaired source.
 
 ## In plain English: what this is and why it matters
 
@@ -50,12 +52,13 @@ The bare `/latest/` route and repository-level `CITATION.cff` refer only to the 
 - [v1.0.7 preprint PDF](manuscript/SPPT_ASTRA_preprint_v1.0.7.pdf)
 - [Downloadable v1.0.7 technical-supplement HTML](manuscript/SPPT_ASTRA_technical_supplement_v1.0.7.html) — download the file, then open it in a web browser
 - [v1.0.7 technical supplement PDF](manuscript/SPPT_ASTRA_technical_supplement_v1.0.7.pdf)
-- [Authoritative preprint source](manuscript/manuscript.md)
+- [Unpromoted core-integrity M1 preprint-source draft](manuscript/manuscript.md) — differs from immutable v1.0.7 reading assets and has no release identity
 - [Authoritative supplement source](manuscript/supplement.md)
 - [Claim-admission matrix](CLAIM_MATRIX.json)
-- [Structured claim-to-source coverage](evidence/claim_source_coverage_v1.0.7.json)
+- [Immutable v1.0.7 structured claim-to-source coverage](evidence/claim_source_coverage_v1.0.7.json)
+- [Unpromoted core-integrity M1 maintenance overlay](evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json)
 
-The versioned Pages editions are the primary accessible reading path for the reference package and published supplemental line. The downloadable HTML files are self-contained; the PDFs are synchronized tagged visual editions. Native MathML is available in HTML, while the PDFs do not claim a native MathML expression tree. Repository-visible unpromoted drafts remain source-tree artifacts rather than Pages editions. The structured coverage draft is maintenance evidence, not a new release or proof of sentence-level completeness.
+The versioned Pages editions are the primary accessible reading path for the reference package and published supplemental line. The downloadable HTML files are self-contained; the PDFs are synchronized tagged visual editions. Native MathML is available in HTML, while the PDFs do not claim a native MathML expression tree. Repository-visible unpromoted drafts remain source-tree artifacts rather than Pages editions. The frozen v1.0.7 coverage record and unpromoted M1 overlay have distinct schema and identity boundaries; neither overlay status nor default-branch source changes create a release or prove sentence-level completeness.
 
 ## Supplemental line: *Earth Is the Instrument*
 

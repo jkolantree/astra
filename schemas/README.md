@@ -11,11 +11,18 @@ Supplemental resources use the namespaced release schemas
 SPPT/ASTRA release contract.
 
 The maintenance `claim-source-coverage-v1.schema.json` describes the
-structured claim/source audit under `evidence/`. It is an audit-layer schema,
+immutable v1.0.7 claim/source audit under `evidence/`. It is an audit-layer schema,
 not a replacement for `claim-matrix-v1.schema.json`, and it does not promote
 source-asserted or structurally linked material to independently verified
 evidence. The schema is available through the versioned Pages build when the
 v1.0.7 release-bound deployment completes.
+
+The unpromoted core-integrity M1 overlay declares the distinct candidate schema
+`claim-source-coverage-overlay-m1.schema.json`. That new filename preserves the
+published v1 schema bytes and makes the local candidate contract explicit. Its
+canonical Pages URL is reserved but is not claimed live until a separately
+authorized publication promotes that schema; local validation uses the shipped
+candidate file.
 
 Schema names carry an independent revision (`v1`). A scientific release may
 therefore update from, for example, v1.0.6 to v1.0.7 without changing a schema

@@ -944,6 +944,9 @@ def check_publication_map() -> None:
     required_readme_values = (
         "Publication map",
         "v1.0.7 — current stable reference edition",
+        "Unpromoted core-integrity M1 preprint-source draft",
+        "claim_source_coverage_v1.0.7_maintenance_overlay_m1.json",
+        "differs from the immutable v1.0.7 reading assets",
         "v0.3.0 — current supplemental edition",
         "v0.1 — historical edition",
         "The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line",
@@ -1014,14 +1017,22 @@ def check_publication_map() -> None:
     if (
         "v1.0.7 reference package" not in evidence_readme
         or "--all --workers 4" not in evidence_readme
+        or "claim_source_coverage_v1.0.7_maintenance_overlay_m1.json" not in evidence_readme
+        or "does not amend" not in evidence_readme
     ):
-        raise RuntimeError("Evidence README does not identify the core release and command")
+        raise RuntimeError(
+            "Evidence README does not identify the release, overlay boundary, and command"
+        )
     schemas_readme = (ROOT / "schemas" / "README.md").read_text(encoding="utf-8")
     if (
         "currently **v1.0.7**" not in schemas_readme
         or "Supplemental resources" not in schemas_readme
+        or "claim-source-coverage-overlay-m1.schema.json" not in schemas_readme
+        or "not claimed live" not in schemas_readme
     ):
-        raise RuntimeError("Schema README does not identify its publication-line scope")
+        raise RuntimeError(
+            "Schema README does not identify its publication and candidate boundaries"
+        )
 
 
 def check_text_privacy(paths: list[Path]) -> None:
