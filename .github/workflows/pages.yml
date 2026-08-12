@@ -1,10 +1,10 @@
 name: Publish accessible reading room
 
 # Manual by design: stable paths are assembled from annotated, immutable releases.
-# The current stable release is the Pages baseline. A later main commit is
-# admitted only when its post-release changes stay in the explicit communications
-# allowlist below. The repository's Pages source is GitHub Actions; this workflow
-# remains manual so deployment follows release lock.
+# HEAD-sourced communications are admitted only above an exact post-M1 baseline
+# and through the bounded cover-publication allowlist below. The repository's
+# Pages source is GitHub Actions; this workflow remains manual so deployment
+# follows release lock.
 on:
   workflow_dispatch:
 
@@ -128,20 +128,25 @@ jobs:
           framework_commit="$(git rev-parse "${framework_ref}^{commit}")"
           git merge-base --is-ancestor "$framework_commit" HEAD
 
-          # The v0.3.0 framework tag predates the v1.0.7 core promotion. Compare
-          # later documentation-only commits with the current stable release,
-          # otherwise the first stable core promotion is rejected as if it were
-          # an unreleased communications overlay.
-          if test "$(git rev-parse HEAD)" != "$current_commit"; then
+          # Bind the publication boundary to the exact merged M1 state. This
+          # preserves the immutable v1.0.7 release while refusing unrelated
+          # post-M1 source changes in the HEAD-sourced Pages payload.
+          communications_base_commit="5743f09daf924ea695d25053934b4f576aac594b"
+          communications_base_tree="1ac773d75142558ed6503b9504c298fb30327b7c"
+          test "$(git cat-file -t "$communications_base_commit")" = commit
+          test "$(git rev-parse "${communications_base_commit}^{tree}")" = "$communications_base_tree"
+          git merge-base --is-ancestor "$communications_base_commit" HEAD
+
+          if test "$(git rev-parse HEAD)" != "$communications_base_commit"; then
             while IFS= read -r changed_path; do
               case "$changed_path" in
-                .github/ISSUE_TEMPLATE/accessibility.yml|.github/ISSUE_TEMPLATE/config.yml|.github/ISSUE_TEMPLATE/reproducibility.yml|.github/ISSUE_TEMPLATE/scientific-correction.yml|.github/workflows/pages.yml|CHANGELOG.md|LICENSE_MAP.md|MANIFEST.sha256|README.md|RELEASE_NOTES_earth-instrument-framework-v0.3.0.md|RELEASE_NOTES_earth-instrument-wp-0.1.md|THIRD_PARTY_NOTICES.md|docs/404.html|docs/index.html|docs/style.css|docs/resources/index.html|docs/resources/earth-is-the-instrument/v0.1/index.html|docs/resources/earth-is-the-instrument/v0.3.0/audit-form/index.html|docs/resources/earth-is-the-instrument/v0.3.0/errata/index.html|docs/resources/earth-is-the-instrument/v0.3.0/ground-reading/index.html|docs/resources/earth-is-the-instrument/v0.3.0/index.html|evidence/README.md|resources/README.md|resources/earth-is-the-instrument/v0.1/README.md|resources/earth-is-the-instrument/v0.3.0/ERRATA.md|resources/earth-is-the-instrument/v0.3.0/README.md|schemas/README.md|tests/test_pages_contract.py|tests/test_resource_contract.py|tools/check_repository.py) ;;
+                .github/workflows/pages.yml|MANIFEST.sha256|README.md|docs/index.html|docs/sppt-astra-cover.svg|evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json|tests/test_pages_contract.py) ;;
                 *)
-                  echo "Unreleased non-communications change cannot enter Pages: $changed_path" >&2
+                  echo "Unexpected post-M1 change cannot enter Pages: $changed_path" >&2
                   exit 1
                   ;;
               esac
-            done < <(git diff --name-only "${current_ref}^{commit}" HEAD)
+            done < <(git diff --name-only "$communications_base_commit" HEAD)
           fi
 
           paper_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${paper_tag}")"
