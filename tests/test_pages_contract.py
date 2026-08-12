@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
@@ -12,6 +13,23 @@ from ruamel.yaml import YAML
 ROOT = Path(__file__).resolve().parents[1]
 PAGES_WORKFLOW = ROOT / ".github" / "workflows" / "pages.yml"
 VERIFY_WORKFLOW = ROOT / ".github" / "workflows" / "verify.yml"
+COVER_SVG = ROOT / "docs" / "sppt-astra-cover.svg"
+COVER_ALT = (
+    "Conceptual SPPT/ASTRA network with observed boundary signals, a latent state, "
+    "candidate paths, and an observe-infer-test sequence"
+)
+
+COMMUNICATIONS_BASE_COMMIT = "5743f09daf924ea695d25053934b4f576aac594b"
+COMMUNICATIONS_BASE_TREE = "1ac773d75142558ed6503b9504c298fb30327b7c"
+PAGES_COVER_MILESTONE_PATHS = (
+    ".github/workflows/pages.yml",
+    "MANIFEST.sha256",
+    "README.md",
+    "docs/index.html",
+    "docs/sppt-astra-cover.svg",
+    "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json",
+    "tests/test_pages_contract.py",
+)
 
 ACTION_PINS = {
     "actions/checkout": "3d3c42e5aac5ba805825da76410c181273ba90b1",  # v7.0.1
@@ -107,49 +125,242 @@ def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
     assert all(gate in script for gate in required_release_gates)
     assert 'latest_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/latest")"' in script
     assert "$(jq -er '.id' <<<\"$latest_release\")" in script
-    assert 'if test "$(git rev-parse HEAD)" != "$current_commit"' in script
-    assert 'git diff --name-only "${current_ref}^{commit}" HEAD' in script
-    for allowed in (
-        ".github/ISSUE_TEMPLATE/accessibility.yml",
-        ".github/ISSUE_TEMPLATE/config.yml",
-        ".github/ISSUE_TEMPLATE/reproducibility.yml",
-        ".github/ISSUE_TEMPLATE/scientific-correction.yml",
-        ".github/workflows/pages.yml",
-        "CHANGELOG.md",
-        "LICENSE_MAP.md",
-        "MANIFEST.sha256",
-        "README.md",
-        "RELEASE_NOTES_earth-instrument-framework-v0.3.0.md",
-        "RELEASE_NOTES_earth-instrument-wp-0.1.md",
-        "THIRD_PARTY_NOTICES.md",
-        "docs/404.html",
-        "docs/index.html",
-        "docs/style.css",
-        "docs/resources/index.html",
-        "docs/resources/earth-is-the-instrument/v0.1/index.html",
-        "docs/resources/earth-is-the-instrument/v0.3.0/audit-form/index.html",
-        "docs/resources/earth-is-the-instrument/v0.3.0/errata/index.html",
-        "docs/resources/earth-is-the-instrument/v0.3.0/ground-reading/index.html",
-        "docs/resources/earth-is-the-instrument/v0.3.0/index.html",
-        "evidence/README.md",
-        "resources/README.md",
-        "resources/earth-is-the-instrument/v0.1/README.md",
-        "resources/earth-is-the-instrument/v0.3.0/ERRATA.md",
-        "resources/earth-is-the-instrument/v0.3.0/README.md",
-        "schemas/README.md",
-        "tests/test_pages_contract.py",
-        "tests/test_resource_contract.py",
-        "tools/check_repository.py",
-    ):
-        assert allowed in script
+    assert f'communications_base_commit="{COMMUNICATIONS_BASE_COMMIT}"' in script
+    assert f'communications_base_tree="{COMMUNICATIONS_BASE_TREE}"' in script
+    assert 'test "$(git cat-file -t "$communications_base_commit")" = commit' in script
+    assert (
+        'test "$(git rev-parse "${communications_base_commit}^{tree}")" = '
+        '"$communications_base_tree"' in script
+    )
+    assert 'git merge-base --is-ancestor "$communications_base_commit" HEAD' in script
+    assert 'if test "$(git rev-parse HEAD)" != "$communications_base_commit"' in script
+    assert 'git diff --name-only "$communications_base_commit" HEAD' in script
+    allowlist = re.search(r'case "\$changed_path" in\s*\n\s*([^\n]+)\) ;;', script)
+    assert allowlist is not None
+    assert tuple(allowlist.group(1).split("|")) == PAGES_COVER_MILESTONE_PATHS
+    assert 'git diff --name-only "${current_ref}^{commit}" HEAD' not in script
     assert "docs/resources/earth-is-the-instrument/v0.3.0/*" not in script
     assert "resources/earth-is-the-instrument/v0.3.0/*" not in script
-    assert "Unreleased non-communications change cannot enter Pages" in script
+    assert "Unexpected post-M1 change cannot enter Pages" in script
 
     deploy = workflow["jobs"]["deploy"]
     assert deploy["needs"] == "build"
     assert deploy["environment"]["name"] == "github-pages"
     assert deploy["permissions"] == {"pages": "write", "id-token": "write"}
+
+
+def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> None:
+    raw = COVER_SVG.read_bytes()
+    assert not raw.startswith(b"\xef\xbb\xbf")
+    source = raw.decode("utf-8")
+    root = ET.fromstring(source)
+    assert root.tag == "{http://www.w3.org/2000/svg}svg"
+    assert root.attrib["viewBox"] == "0 0 1600 900"
+    assert root.attrib["role"] == "img"
+    assert root.attrib["aria-labelledby"] == "cover-title cover-desc"
+    assert root.attrib["preserveAspectRatio"] == "xMidYMid meet"
+
+    elements_by_id: dict[str, ET.Element] = {}
+    for element in root.iter():
+        element_id = element.attrib.get("id")
+        if element_id is not None:
+            assert element_id not in elements_by_id
+            elements_by_id[element_id] = element
+    assert elements_by_id["cover-title"].text == (
+        "SPPT and ASTRA: a planet as a constrained network"
+    )
+    description = elements_by_id["cover-desc"].text or ""
+    assert "Observed boundary signals" in description
+    assert "observe, infer, and test" in description
+    assert "not a scale model, measurement, or claim of planetary validation" in description
+    for consumer in (ROOT / "README.md", ROOT / "docs" / "index.html"):
+        consumer_text = consumer.read_text(encoding="utf-8")
+        assert f'alt="{COVER_ALT}"' in consumer_text
+        assert "observe boundary signals, infer candidate graphs, then reject what fails" in consumer_text
+        assert "sppt-astra-cover.svg" in consumer_text
+    circle_tag = "{http://www.w3.org/2000/svg}circle"
+    assert elements_by_id["observed-key"].tag == circle_tag
+    assert elements_by_id["boundary-node-top"].tag == circle_tag
+    assert (
+        elements_by_id["observed-key"].attrib["fill"]
+        == elements_by_id["boundary-node-top"].attrib["fill"]
+    )
+    assert elements_by_id["latent-key"].tag == circle_tag
+    assert elements_by_id["deep-state"].tag == circle_tag
+    assert (
+        elements_by_id["latent-key"].attrib["fill"]
+        == elements_by_id["deep-state"].attrib["fill"]
+    )
+    assert (
+        elements_by_id["candidate-key"].attrib["stroke"]
+        == elements_by_id["candidate-path-primary"].attrib["stroke"]
+    )
+
+    semantic_text = " ".join("".join(root.itertext()).split())
+    for phrase in (
+        "A PLANET AS A CONSTRAINED NETWORK",
+        "BOUNDARY SIGNALS",
+        "SURFACE measured response",
+        "DEEP STATE",
+        "PATHS testable links",
+        "01 / OBSERVE Measure surface signals.",
+        "02 / INFER Infer candidate graphs.",
+        "03 / TEST Reject what fails.",
+        "GATES / CONSERVATION",
+        "HELD-OUT PREDICTION",
+    ):
+        assert phrase in semantic_text
+
+    svg_namespace = "{http://www.w3.org/2000/svg}"
+    text_elements = list(root.iter(f"{svg_namespace}text"))
+    assert len(text_elements) <= 26
+    assert all("".join(element.itertext()).strip() for element in text_elements)
+    font_sizes = [int(value) for value in re.findall(r"font-size:[ \t]*(\d+)px", source)]
+    assert font_sizes
+    assert min(font_sizes) >= 24
+
+    forbidden_tags = {
+        "script",
+        "foreignObject",
+        "image",
+        "filter",
+        "linearGradient",
+        "radialGradient",
+        "mask",
+        "pattern",
+    }
+    assert not {element.tag.removeprefix(svg_namespace) for element in root.iter()}.intersection(
+        forbidden_tags
+    )
+    assert "url(" not in source
+    assert "@font-face" not in source
+    assert "href=" not in source
+    assert " xlink:" not in source
+    assert " rx=" not in source
+
+    def channel(component: int) -> float:
+        normalized = component / 255
+        return normalized / 12.92 if normalized <= 0.04045 else ((normalized + 0.055) / 1.055) ** 2.4
+
+    def luminance(color: str) -> float:
+        values = tuple(int(color[index : index + 2], 16) for index in (1, 3, 5))
+        red, green, blue = (channel(value) for value in values)
+        return 0.2126 * red + 0.7152 * green + 0.0722 * blue
+
+    def contrast(first: str, second: str) -> float:
+        light, dark = sorted((luminance(first), luminance(second)), reverse=True)
+        return (light + 0.05) / (dark + 0.05)
+
+    assert contrast("#111111", "#f1e9d2") >= 4.5
+    assert contrast("#d8d0bd", "#111111") >= 4.5
+    for band_text in ("#d94b3d", "#4b88c9", "#a77a00"):
+        assert contrast(band_text, "#111111") >= 4.5
+    for paper_accent in ("#d94b3d", "#2c69ae", "#a77a00"):
+        assert contrast(paper_accent, "#f1e9d2") >= 3
+    assert contrast("#111111", "#d94b3d") >= 4.5
+
+
+def test_bauhaus_cover_has_measured_label_clearance_at_repository_scale() -> None:
+    source = COVER_SVG.read_text(encoding="utf-8")
+    clearance_ids = (
+        "boundary-label",
+        "boundary-node-top",
+        "surface-label",
+        "surface-note",
+        "surface-node-left",
+        "network-boundary",
+        "deep-label",
+        "deep-note",
+        "paths-label",
+        "paths-note",
+        "process-band",
+        "observe-index",
+        "observe-title",
+        "observe-copy",
+        "infer-index",
+        "infer-title",
+        "infer-copy",
+        "test-index",
+        "test-title",
+        "test-copy",
+        "gates-label",
+    )
+
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(headless=True, args=["--disable-gpu"])
+        page = browser.new_page(viewport={"width": 1600, "height": 900})
+        page.set_content(
+            "<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden}"
+            "svg{display:block;width:1600px;height:900px}</style>" + source,
+            wait_until="load",
+        )
+        boxes = page.evaluate(
+            """ids => Object.fromEntries(ids.map(id => {
+                const element = document.getElementById(id);
+                if (element === null) throw new Error(`missing element: ${id}`);
+                const box = element.getBoundingClientRect();
+                return [id, {left: box.left, top: box.top, right: box.right,
+                             bottom: box.bottom, width: box.width, height: box.height}];
+            }))""",
+            clearance_ids,
+        )
+
+        assert boxes["boundary-node-top"]["top"] - boxes["boundary-label"]["bottom"] >= 28
+        assert (
+            boxes["surface-node-left"]["left"]
+            - max(boxes["surface-label"]["right"], boxes["surface-note"]["right"])
+            >= 32
+        )
+        assert boxes["paths-label"]["left"] - boxes["network-boundary"]["right"] >= 48
+        assert boxes["process-band"]["top"] - boxes["network-boundary"]["bottom"] >= 48
+
+        for title_id, copy_id in (
+            ("surface-label", "surface-note"),
+            ("deep-label", "deep-note"),
+            ("paths-label", "paths-note"),
+            ("observe-index", "observe-title"),
+            ("observe-title", "observe-copy"),
+            ("infer-index", "infer-title"),
+            ("infer-title", "infer-copy"),
+            ("test-index", "test-title"),
+            ("test-title", "test-copy"),
+        ):
+            assert boxes[copy_id]["top"] - boxes[title_id]["bottom"] >= 10
+
+        assert boxes["observe-title"]["right"] <= 535 - 32
+        assert boxes["infer-title"]["right"] <= 1045 - 32
+        assert boxes["test-copy"]["right"] <= 1512
+
+        text_boxes = page.locator("svg text").evaluate_all(
+            """nodes => nodes.map(node => {
+                const box = node.getBoundingClientRect();
+                return {left: box.left, top: box.top, right: box.right,
+                        bottom: box.bottom};
+            })"""
+        )
+        assert min(box["left"] for box in text_boxes) >= 64
+        assert min(box["top"] for box in text_boxes) >= 64
+        assert max(box["right"] for box in text_boxes) <= 1600 - 64
+        assert max(box["bottom"] for box in text_boxes) <= 900 - 64
+
+        page.set_viewport_size({"width": 960, "height": 540})
+        page.set_content(
+            "<style>html,body{margin:0;width:960px;height:540px;overflow:hidden}"
+            "svg{display:block;width:960px;height:540px}</style>" + source,
+            wait_until="load",
+        )
+        repository_font_sizes = page.locator("svg text").evaluate_all(
+            """nodes => nodes.map(node => {
+                const matrix = node.getScreenCTM();
+                if (matrix === null) throw new Error("missing screen transform");
+                const scaleY = Math.hypot(matrix.b, matrix.d);
+                return parseFloat(getComputedStyle(node).fontSize) * scaleY;
+            })"""
+        )
+        assert min(repository_font_sizes) >= 14.4 - 0.01
+        assert page.evaluate("document.documentElement.scrollWidth") == 960
+        assert page.evaluate("document.documentElement.scrollHeight") == 540
+        browser.close()
 
 
 def test_pages_workflow_verifies_exact_release_assets_before_copying() -> None:
