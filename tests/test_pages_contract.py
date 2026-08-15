@@ -277,7 +277,9 @@ def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> 
         "".join(element.itertext())
         for element in root.iter("{http://www.w3.org/2000/svg}style")
     )
-    assert re.search(r"\b(?:color|fill|stroke)[ \t]*:", style_text) is None
+    assert re.search(
+        r"\b(?:color|fill|stroke)[ \t]*:", style_text, flags=re.IGNORECASE
+    ) is None
     observed_accent_uses = {color: set() for color in semantic_accents}
     for element in root.iter():
         for attribute in ("fill", "stroke"):
