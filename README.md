@@ -1,10 +1,10 @@
 # Phase-Reservoir Topology as a Hidden State Variable in Planetary Evolution
 
 <p align="center">
-  <a href="docs/sppt-astra-cover.svg"><img src="docs/sppt-astra-cover.svg" width="960" alt="Conceptual SPPT/ASTRA network with observed boundary signals, a latent state, candidate paths, and an observe-infer-test sequence"></a>
+  <a href="docs/sppt-astra-cover.svg"><img src="docs/sppt-astra-cover.svg" width="960" alt="Conceptual SPPT/ASTRA network with observed boundary and surface data, a latent state, candidate graph paths, and an observe-infer-test sequence"></a>
 </p>
 
-*Reading order: observe boundary signals, infer candidate graphs, then reject what fails declared gates. [Open the full-size vector](docs/sppt-astra-cover.svg). This is not an observational image, scale model, or data visualization.*
+*Reading order: observe boundary signals and measured responses, infer a conditional latent state, then test candidate graphs against declared gates. [Open the full-size vector](docs/sppt-astra-cover.svg). This is not an observational image, scale model, or data visualization.*
 
 This repository contains the reference package for **Solar-Planetary Phase-Partition Theory (SPPT)** and its inference layer, **ASTRA — Astronomical State-Topology and Reservoir Analysis**. SPPT represents planetary material and energy reservoirs as a physically constrained network whose topology may itself be a latent state; ASTRA compares admissible candidate networks against observations and simpler baselines.
 

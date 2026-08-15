@@ -1,6 +1,6 @@
 <svg id="astra-cover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="cover-title cover-desc" preserveAspectRatio="xMidYMid meet">
   <title id="cover-title">SPPT and ASTRA: a planet as a constrained network</title>
-  <desc id="cover-desc">A Bauhaus-inspired conceptual diagram. Observed boundary signals surround surface responses, a deep latent state, and candidate transport paths. The reading sequence is observe, infer, and test. The diagram is not a scale model, measurement, or claim of planetary validation.</desc>
+  <desc id="cover-desc">A Bauhaus-inspired conceptual diagram. Blue marks observed boundary signals and measured surface responses, red marks the latent state, and ochre marks candidate graph links and nodes. The same colors coordinate the reading sequence: observe, infer, and test. The diagram is not a scale model, measurement, or claim of planetary validation.</desc>
   <style>
     .type { font-family: "Segoe UI", Arial, sans-serif; }
     .kicker { font-size: 24px; font-weight: 750; letter-spacing: 5px; }
@@ -21,7 +21,6 @@
   <rect width="1600" height="900" fill="#f1e9d2"/>
   <rect width="24" height="900" fill="#111111"/>
   <rect x="80" y="58" width="600" height="4" fill="#111111"/>
-  <rect x="80" y="58" width="94" height="18" fill="#d94b3d"/>
 
   <g class="type" fill="#111111">
     <!-- Deliberately asymmetric title block. -->
@@ -32,14 +31,16 @@
     <text x="88" y="426" class="intro">Observe the boundary.</text>
     <text x="88" y="467" class="intro">Infer topology. Test what survives.</text>
 
-    <!-- Color and shape repeat each distinction; color never carries meaning alone. -->
+    <!-- Each accent has one meaning, repeated in its key, network marks, and reading step. -->
     <g transform="translate(88 522)">
-      <circle id="observed-key" cx="13" cy="13" r="13" fill="#2c69ae"/>
-      <text x="42" y="22" class="key">OBSERVED</text>
-      <circle id="latent-key" cx="245" cy="13" r="13" fill="#d94b3d"/>
-      <text x="278" y="22" class="key">LATENT</text>
-      <path id="candidate-key" d="M 432 13 H 486" fill="none" stroke="#a77a00" stroke-width="10"/>
-      <text x="512" y="22" class="key">CANDIDATE</text>
+      <path id="observed-key-line" d="M 0 13 H 26" fill="none" stroke="#3d7fc4" stroke-width="18" stroke-linecap="square"/>
+      <circle id="observed-key" cx="13" cy="13" r="13" fill="#3d7fc4" stroke="#111111" stroke-width="5"/>
+      <text id="observed-key-label" x="42" y="22" class="key">OBSERVED</text>
+      <circle id="latent-key" cx="245" cy="13" r="13" fill="#d94b3d" stroke="#111111" stroke-width="5"/>
+      <text id="latent-key-label" x="278" y="22" class="key">LATENT</text>
+      <path id="candidate-key" d="M 432 13 H 486" fill="none" stroke="#b17800" stroke-width="18" stroke-linecap="square"/>
+      <rect id="candidate-key-node" x="473" y="0" width="26" height="26" fill="#b17800" stroke="#111111" stroke-width="5"/>
+      <text id="candidate-key-label" x="512" y="22" class="key">CANDIDATE</text>
     </g>
 
     <!-- The geometry is the concept: boundary, response, hidden state, candidate links. -->
@@ -49,28 +50,27 @@
       <circle cx="1130" cy="345" r="137" fill="none" stroke="#111111" stroke-width="4"/>
       <circle cx="1130" cy="345" r="88" fill="none" stroke="#111111" stroke-width="4"/>
 
-      <!-- Observed boundary arc and three independent signal markers. -->
-      <path d="M 990 209 A 195 195 0 0 1 1270 209" fill="none" stroke="#2c69ae" stroke-width="18"/>
-      <g fill="#2c69ae" stroke="#111111" stroke-width="7">
-        <circle cx="1003" cy="196" r="16"/>
-        <circle id="boundary-node-top" cx="1130" cy="150" r="16" fill="#2c69ae"/>
-        <circle cx="1257" cy="196" r="16"/>
+      <!-- Blue means observed data: boundary signals and measured surface response. -->
+      <path id="observed-boundary-arc" d="M 990 209 A 195 195 0 0 1 1270 209" fill="none" stroke="#3d7fc4" stroke-width="18" stroke-linecap="square"/>
+      <g>
+        <circle id="observed-node-left" cx="1003" cy="196" r="16" fill="#3d7fc4" stroke="#111111" stroke-width="7"/>
+        <circle id="boundary-node-top" cx="1130" cy="150" r="16" fill="#3d7fc4" stroke="#111111" stroke-width="7"/>
+        <circle id="observed-node-right" cx="1257" cy="196" r="16" fill="#3d7fc4" stroke="#111111" stroke-width="7"/>
       </g>
 
-      <!-- Candidate paths are drawn before nodes so junctions stay optically clean. -->
-      <path d="M 935 345 C 1005 274 1055 274 1130 345 C 1205 274 1255 274 1325 345" fill="none" stroke="#2c69ae" stroke-width="18" stroke-linecap="square"/>
-      <path d="M 955 345 C 1014 397 1068 402 1130 345 C 1192 402 1246 397 1305 345" fill="none" stroke="#111111" stroke-width="6" stroke-dasharray="16 14"/>
-      <path id="candidate-path-primary" d="M 1130 345 C 1098 405 1061 456 1025 498 C 1110 522 1190 517 1252 475" fill="none" stroke="#a77a00" stroke-width="18" stroke-linecap="square"/>
-      <path d="M 1130 345 C 1181 397 1220 439 1252 475" fill="none" stroke="#a77a00" stroke-width="18" stroke-linecap="square"/>
+      <!-- Semantic paths are drawn before nodes so junctions stay optically clean. -->
+      <path id="observed-response-path" d="M 935 345 C 1005 274 1055 274 1130 345 C 1205 274 1255 274 1325 345" fill="none" stroke="#3d7fc4" stroke-width="18" stroke-linecap="square"/>
+      <path id="candidate-path-primary" d="M 1130 345 C 1098 405 1061 456 1025 498 C 1110 522 1190 517 1252 475" fill="none" stroke="#b17800" stroke-width="18" stroke-linecap="square"/>
+      <path id="candidate-path-secondary" d="M 1130 345 C 1181 397 1220 439 1252 475" fill="none" stroke="#b17800" stroke-width="18" stroke-linecap="square"/>
 
-      <!-- Node shape repeats the observed/latent distinction. -->
-      <g fill="#f1e9d2" stroke="#111111" stroke-width="10">
-        <rect id="surface-node-left" x="906" y="316" width="58" height="58"/>
-        <rect x="1296" y="316" width="58" height="58"/>
+      <!-- Squares are measured responses; candidate nodes repeat their path color. -->
+      <g>
+        <rect id="surface-node-left" x="906" y="316" width="58" height="58" fill="#3d7fc4" stroke="#111111" stroke-width="10"/>
+        <rect id="surface-node-right" x="1296" y="316" width="58" height="58" fill="#3d7fc4" stroke="#111111" stroke-width="10"/>
       </g>
       <circle id="deep-state" cx="1130" cy="345" r="76" fill="#d94b3d" stroke="#111111" stroke-width="12"/>
-      <circle cx="1025" cy="498" r="43" fill="#a77a00" stroke="#111111" stroke-width="10"/>
-      <rect x="1217" y="440" width="70" height="70" fill="#a77a00" stroke="#111111" stroke-width="10"/>
+      <circle id="candidate-node-round" cx="1025" cy="498" r="43" fill="#b17800" stroke="#111111" stroke-width="10"/>
+      <rect id="candidate-node-square" x="1217" y="440" width="70" height="70" fill="#b17800" stroke="#111111" stroke-width="10"/>
       </g>
 
       <!-- Four literal labels occupy dedicated clear space; no connector crosses type. -->
@@ -92,17 +92,17 @@
       <line x1="535" y1="28" x2="535" y2="160" stroke="#f1e9d2" stroke-opacity="0.35" stroke-width="2"/>
       <line x1="1045" y1="28" x2="1045" y2="160" stroke="#f1e9d2" stroke-opacity="0.35" stroke-width="2"/>
 
-      <text id="observe-index" x="88" y="55" class="step-index" fill="#d94b3d">01 / OBSERVE</text>
+      <text id="observe-index" x="88" y="55" class="step-index" fill="#3d7fc4">01 / OBSERVE</text>
       <text id="observe-title" x="88" y="108" class="step-title" fill="#fff9e9">Measure surface signals.</text>
       <text id="observe-copy" x="88" y="158" class="step-copy" fill="#d8d0bd">Start with observable outputs.</text>
 
-      <text id="infer-index" x="580" y="55" class="step-index" fill="#4b88c9">02 / INFER</text>
-      <text id="infer-title" x="580" y="108" class="step-title" fill="#fff9e9">Infer candidate graphs.</text>
-      <text id="infer-copy" x="580" y="158" class="step-copy" fill="#d8d0bd">Keep hidden structure conditional.</text>
+      <text id="infer-index" x="580" y="55" class="step-index" fill="#d94b3d">02 / INFER</text>
+      <text id="infer-title" x="580" y="108" class="step-title" fill="#fff9e9">Infer latent structure.</text>
+      <text id="infer-copy" x="580" y="158" class="step-copy" fill="#d8d0bd">Keep the hidden state conditional.</text>
 
-      <text id="test-index" x="1090" y="55" class="step-index" fill="#a77a00">03 / TEST</text>
-      <text id="test-title" x="1090" y="108" class="step-title" fill="#fff9e9">Reject what fails.</text>
-      <text id="test-copy" x="1090" y="158" class="step-copy" fill="#d8d0bd">Claims must earn predictive value.</text>
+      <text id="test-index" x="1090" y="55" class="step-index" fill="#b17800">03 / TEST</text>
+      <text id="test-title" x="1090" y="108" class="step-title" fill="#fff9e9">Test candidate graphs.</text>
+      <text id="test-copy" x="1090" y="158" class="step-copy" fill="#d8d0bd">Reject what fails declared gates.</text>
 
       <line x1="88" y1="176" x2="1512" y2="176" stroke="#f1e9d2" stroke-opacity="0.45" stroke-width="2"/>
       <text id="gates-label" x="88" y="220" class="gates" fill="#fff9e9">GATES / CONSERVATION &#183; CLOSURE &#183; IDENTIFIABILITY &#183; INTERVENTION &#183; HELD-OUT PREDICTION</text>

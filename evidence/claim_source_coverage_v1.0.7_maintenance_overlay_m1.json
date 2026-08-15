@@ -1965,7 +1965,7 @@
           "precision": "file_level"
         },
         {
-          "file_sha256": "fa39babf52cf7c58e781ccc51057f1f39f093e469ac4ccbc47c78e00455f2e78",
+          "file_sha256": "3b2a741e80eeb93f3c0c2ac9b8886c64247d90e519bb8b5e5ff534a18a3b7809",
           "locator": "evidence/",
           "path": "README.md",
           "precision": "file_level"
@@ -2021,7 +2021,7 @@
         },
         {
           "admitted_path": "README.md",
-          "admitted_sha256": "fa39babf52cf7c58e781ccc51057f1f39f093e469ac4ccbc47c78e00455f2e78",
+          "admitted_sha256": "3b2a741e80eeb93f3c0c2ac9b8886c64247d90e519bb8b5e5ff534a18a3b7809",
           "entailment_status": "structural_link_only",
           "kind": "tracked_file",
           "raw_support": "evidence/README.md",
@@ -4090,10 +4090,10 @@
           "sha256": "44d1d2bcf338b53f40e47b3a060266be9d5937831c74839f7a00df927104e3fa"
         },
         {
-          "bytes": 24115,
+          "bytes": 24175,
           "mode": "100644",
           "path": "README.md",
-          "sha256": "fa39babf52cf7c58e781ccc51057f1f39f093e469ac4ccbc47c78e00455f2e78"
+          "sha256": "3b2a741e80eeb93f3c0c2ac9b8886c64247d90e519bb8b5e5ff534a18a3b7809"
         },
         {
           "bytes": 5713,
@@ -4252,10 +4252,10 @@
           "sha256": "a91310bc6769721b10f65c1e0ac0505f40d8f3ca8cb382e676ea5a461d773bea"
         },
         {
-          "bytes": 8458,
+          "bytes": 8518,
           "mode": "100644",
           "path": "docs/index.html",
-          "sha256": "09bd2de3519c6c15b2ea215083ee019a97034ac6be023e89bd5b9a714a048995"
+          "sha256": "5a8a0d311a2b872669f80e09ac485aea595fee950bb342ec159b1f84d87b8929"
         },
         {
           "bytes": 15624,
@@ -4300,10 +4300,10 @@
           "sha256": "2dde4ae235fb488273616fe367dec0c9622a871f09a63b947c9449f9c82ebdea"
         },
         {
-          "bytes": 7492,
+          "bytes": 8161,
           "mode": "100644",
           "path": "docs/sppt-astra-cover.svg",
-          "sha256": "046c1829b586f5e77c061c648d487508252a21758e91fb31f5c90f34ee5f6015"
+          "sha256": "680b3eb2ac0de91be846b777758cc3a632b2ae2e7773704a2c9a77eecc131280"
         },
         {
           "bytes": 5670,
@@ -5464,10 +5464,10 @@
           "sha256": "ac2c43e9a9ec0aa5771424b33cec66360e86ab279258bd1481c1f99decabc96f"
         },
         {
-          "bytes": 38216,
+          "bytes": 43193,
           "mode": "100644",
           "path": "tests/test_pages_contract.py",
-          "sha256": "3917046f08020bd7b4b5440adc393a56e9238fd6752a019cd44323d50ec95333"
+          "sha256": "6ac76cf2e8789bfb5e30c6978623bde203845534a346c1a569381ba13a6a74fa"
         },
         {
           "bytes": 58383,
@@ -5539,7 +5539,7 @@
       "scheme": "astra-source-projection-v1",
       "scope": "astra-core-integrity-m1-repository-source-v1",
       "serialization": "astra-binary-length-prefixed-v1",
-      "sha256": "30f8bd46d24cd5b941bbb6e0115ee9cd141335285034453bd367d1a17697d790"
+      "sha256": "c2bef56052b29104f74b4c9f550f79663034fa2a47d46fb748530bc85c1dc187"
     }
   },
   "reference_release": {
