@@ -273,13 +273,21 @@ def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> 
         if (value := element.attrib.get(attribute)) is not None
     }
     assert paint_values <= approved_palette | {"none"}
-    style_text = " ".join(
-        "".join(element.itertext())
-        for element in root.iter("{http://www.w3.org/2000/svg}style")
-    )
-    assert re.search(
-        r"\b(?:color|fill|stroke)[ \t]*:", style_text, flags=re.IGNORECASE
-    ) is None
+    style_elements = list(root.iter("{http://www.w3.org/2000/svg}style"))
+    assert len(style_elements) == 1
+    style_text = "".join(style_elements[0].itertext())
+    assert "@" not in style_text
+    assert "\\" not in style_text
+    assert "/*" not in style_text
+    assert "*/" not in style_text
+    declaration_names = re.findall(r"([a-zA-Z][a-zA-Z-]*)[ \t]*:", style_text)
+    assert len(declaration_names) == style_text.count(":")
+    assert {name.casefold() for name in declaration_names} == {
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+    }
     observed_accent_uses = {color: set() for color in semantic_accents}
     for element in root.iter():
         for attribute in ("fill", "stroke"):
@@ -320,24 +328,104 @@ def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> 
     assert font_sizes
     assert min(font_sizes) >= 24
 
-    forbidden_tags = {
-        "script",
-        "foreignObject",
-        "image",
-        "filter",
-        "linearGradient",
-        "radialGradient",
-        "mask",
-        "pattern",
+    allowed_tags = {
+        "circle",
+        "desc",
+        "g",
+        "line",
+        "path",
+        "rect",
+        "style",
+        "svg",
+        "text",
+        "title",
     }
-    assert not {element.tag.removeprefix(svg_namespace) for element in root.iter()}.intersection(
-        forbidden_tags
+    assert {element.tag.removeprefix(svg_namespace) for element in root.iter()} == allowed_tags
+    allowed_attributes = {
+        "aria-labelledby",
+        "class",
+        "cx",
+        "cy",
+        "d",
+        "fill",
+        "height",
+        "id",
+        "preserveAspectRatio",
+        "r",
+        "role",
+        "stroke",
+        "stroke-linecap",
+        "stroke-opacity",
+        "stroke-width",
+        "text-anchor",
+        "transform",
+        "viewBox",
+        "width",
+        "x",
+        "x1",
+        "x2",
+        "y",
+        "y1",
+        "y2",
+    }
+    attribute_names = {
+        attribute.rsplit("}", 1)[-1]
+        for element in root.iter()
+        for attribute in element.attrib
+    }
+    assert attribute_names == allowed_attributes
+    assert all(
+        attribute.rsplit("}", 1)[-1].casefold() != "href"
+        for element in root.iter()
+        for attribute in element.attrib
     )
-    assert "url(" not in source
-    assert "@font-face" not in source
-    assert "href=" not in source
-    assert " xlink:" not in source
-    assert " rx=" not in source
+    assert re.search(r"\burl[ \t\r\n]*\(", source, flags=re.IGNORECASE) is None
+    assert "<?" not in source
+    assert "<!doctype" not in source.casefold()
+
+    opacity_elements = [
+        (element.tag.removeprefix(svg_namespace), element.attrib)
+        for element in root.iter()
+        if "stroke-opacity" in element.attrib
+    ]
+    assert opacity_elements == [
+        (
+            "line",
+            {
+                "x1": "535",
+                "y1": "28",
+                "x2": "535",
+                "y2": "160",
+                "stroke": "#f1e9d2",
+                "stroke-opacity": "0.35",
+                "stroke-width": "2",
+            },
+        ),
+        (
+            "line",
+            {
+                "x1": "1045",
+                "y1": "28",
+                "x2": "1045",
+                "y2": "160",
+                "stroke": "#f1e9d2",
+                "stroke-opacity": "0.35",
+                "stroke-width": "2",
+            },
+        ),
+        (
+            "line",
+            {
+                "x1": "88",
+                "y1": "176",
+                "x2": "1512",
+                "y2": "176",
+                "stroke": "#f1e9d2",
+                "stroke-opacity": "0.45",
+                "stroke-width": "2",
+            },
+        ),
+    ]
 
     def channel(component: int) -> float:
         normalized = component / 255
