@@ -15,8 +15,8 @@ PAGES_WORKFLOW = ROOT / ".github" / "workflows" / "pages.yml"
 VERIFY_WORKFLOW = ROOT / ".github" / "workflows" / "verify.yml"
 COVER_SVG = ROOT / "docs" / "sppt-astra-cover.svg"
 COVER_ALT = (
-    "Conceptual SPPT/ASTRA network with observed boundary signals, a latent state, "
-    "candidate paths, and an observe-infer-test sequence"
+    "Conceptual SPPT/ASTRA network with observed boundary and surface data, a latent "
+    "state, candidate graph paths, and an observe-infer-test sequence"
 )
 
 COMMUNICATIONS_BASE_COMMIT = "5743f09daf924ea695d25053934b4f576aac594b"
@@ -170,31 +170,140 @@ def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> 
         "SPPT and ASTRA: a planet as a constrained network"
     )
     description = elements_by_id["cover-desc"].text or ""
-    assert "Observed boundary signals" in description
+    assert "Blue marks observed boundary signals and measured surface responses" in description
+    assert "red marks the latent state" in description
+    assert "ochre marks candidate graph links and nodes" in description
     assert "observe, infer, and test" in description
     assert "not a scale model, measurement, or claim of planetary validation" in description
     for consumer in (ROOT / "README.md", ROOT / "docs" / "index.html"):
         consumer_text = consumer.read_text(encoding="utf-8")
         assert f'alt="{COVER_ALT}"' in consumer_text
-        assert "observe boundary signals, infer candidate graphs, then reject what fails" in consumer_text
+        assert (
+            "observe boundary signals and measured responses, infer a conditional "
+            "latent state, then test candidate graphs against declared gates"
+            in consumer_text
+        )
         assert "sppt-astra-cover.svg" in consumer_text
     circle_tag = "{http://www.w3.org/2000/svg}circle"
+    rect_tag = "{http://www.w3.org/2000/svg}rect"
     assert elements_by_id["observed-key"].tag == circle_tag
     assert elements_by_id["boundary-node-top"].tag == circle_tag
-    assert (
-        elements_by_id["observed-key"].attrib["fill"]
-        == elements_by_id["boundary-node-top"].attrib["fill"]
-    )
+    for attribute in ("fill", "stroke"):
+        assert (
+            elements_by_id["observed-key"].attrib[attribute]
+            == elements_by_id["boundary-node-top"].attrib[attribute]
+        )
+    for hero_path in ("observed-boundary-arc", "observed-response-path"):
+        for attribute in ("stroke", "stroke-width", "stroke-linecap"):
+            assert (
+                elements_by_id["observed-key-line"].attrib[attribute]
+                == elements_by_id[hero_path].attrib[attribute]
+            )
+    for surface_node in ("surface-node-left", "surface-node-right"):
+        assert (
+            elements_by_id[surface_node].attrib["fill"]
+            == elements_by_id["observed-key"].attrib["fill"]
+        )
     assert elements_by_id["latent-key"].tag == circle_tag
     assert elements_by_id["deep-state"].tag == circle_tag
-    assert (
-        elements_by_id["latent-key"].attrib["fill"]
-        == elements_by_id["deep-state"].attrib["fill"]
-    )
-    assert (
-        elements_by_id["candidate-key"].attrib["stroke"]
-        == elements_by_id["candidate-path-primary"].attrib["stroke"]
-    )
+    for attribute in ("fill", "stroke"):
+        assert (
+            elements_by_id["latent-key"].attrib[attribute]
+            == elements_by_id["deep-state"].attrib[attribute]
+        )
+    assert elements_by_id["candidate-key-node"].tag == rect_tag
+    assert elements_by_id["candidate-node-square"].tag == rect_tag
+    for candidate_path in ("candidate-path-primary", "candidate-path-secondary"):
+        for attribute in ("stroke", "stroke-width", "stroke-linecap"):
+            assert (
+                elements_by_id["candidate-key"].attrib[attribute]
+                == elements_by_id[candidate_path].attrib[attribute]
+            )
+    for candidate_node in ("candidate-key-node", "candidate-node-round", "candidate-node-square"):
+        assert (
+            elements_by_id[candidate_node].attrib["fill"]
+            == elements_by_id["candidate-key"].attrib["stroke"]
+        )
+
+    semantic_accents = {
+        "#3d7fc4": {
+            ("observed-key-line", "stroke"),
+            ("observed-key", "fill"),
+            ("observed-boundary-arc", "stroke"),
+            ("observed-node-left", "fill"),
+            ("boundary-node-top", "fill"),
+            ("observed-node-right", "fill"),
+            ("observed-response-path", "stroke"),
+            ("surface-node-left", "fill"),
+            ("surface-node-right", "fill"),
+            ("observe-index", "fill"),
+        },
+        "#d94b3d": {
+            ("latent-key", "fill"),
+            ("deep-state", "fill"),
+            ("infer-index", "fill"),
+        },
+        "#b17800": {
+            ("candidate-key", "stroke"),
+            ("candidate-key-node", "fill"),
+            ("candidate-path-primary", "stroke"),
+            ("candidate-path-secondary", "stroke"),
+            ("candidate-node-round", "fill"),
+            ("candidate-node-square", "fill"),
+            ("test-index", "fill"),
+        },
+    }
+    approved_palette = {
+        "#111111",
+        "#3d7fc4",
+        "#b17800",
+        "#d8d0bd",
+        "#d94b3d",
+        "#f1e9d2",
+        "#fff9e9",
+    }
+    assert set(re.findall(r"#[0-9a-fA-F]{6}\b", source)) == approved_palette
+    assert "rgb(" not in source.casefold()
+    assert "hsl(" not in source.casefold()
+    assert all("style" not in element.attrib for element in root.iter())
+    paint_values = {
+        value
+        for element in root.iter()
+        for attribute in ("fill", "stroke")
+        if (value := element.attrib.get(attribute)) is not None
+    }
+    assert paint_values <= approved_palette | {"none"}
+    style_elements = list(root.iter("{http://www.w3.org/2000/svg}style"))
+    assert len(style_elements) == 1
+    style_text = "".join(style_elements[0].itertext())
+    assert "@" not in style_text
+    assert "\\" not in style_text
+    assert "/*" not in style_text
+    assert "*/" not in style_text
+    declaration_names = re.findall(r"([a-zA-Z][a-zA-Z-]*)[ \t]*:", style_text)
+    assert len(declaration_names) == style_text.count(":")
+    assert {name.casefold() for name in declaration_names} == {
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+    }
+    observed_accent_uses = {color: set() for color in semantic_accents}
+    for element in root.iter():
+        for attribute in ("fill", "stroke"):
+            value = element.attrib.get(attribute)
+            if value in observed_accent_uses:
+                element_id = element.attrib.get("id")
+                assert element_id is not None
+                observed_accent_uses[value].add((element_id, attribute))
+    assert observed_accent_uses == semantic_accents
+    assert elements_by_id["observe-index"].attrib["fill"] == "#3d7fc4"
+    assert elements_by_id["infer-index"].attrib["fill"] == "#d94b3d"
+    assert elements_by_id["test-index"].attrib["fill"] == "#b17800"
+    assert "#2c69ae" not in source
+    assert "#4b88c9" not in source
+    assert "#a77a00" not in source
+    assert "stroke-dasharray" not in source
 
     semantic_text = " ".join("".join(root.itertext()).split())
     for phrase in (
@@ -204,8 +313,8 @@ def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> 
         "DEEP STATE",
         "PATHS testable links",
         "01 / OBSERVE Measure surface signals.",
-        "02 / INFER Infer candidate graphs.",
-        "03 / TEST Reject what fails.",
+        "02 / INFER Infer latent structure.",
+        "03 / TEST Test candidate graphs.",
         "GATES / CONSERVATION",
         "HELD-OUT PREDICTION",
     ):
@@ -219,24 +328,104 @@ def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> 
     assert font_sizes
     assert min(font_sizes) >= 24
 
-    forbidden_tags = {
-        "script",
-        "foreignObject",
-        "image",
-        "filter",
-        "linearGradient",
-        "radialGradient",
-        "mask",
-        "pattern",
+    allowed_tags = {
+        "circle",
+        "desc",
+        "g",
+        "line",
+        "path",
+        "rect",
+        "style",
+        "svg",
+        "text",
+        "title",
     }
-    assert not {element.tag.removeprefix(svg_namespace) for element in root.iter()}.intersection(
-        forbidden_tags
+    assert {element.tag for element in root.iter()} == {
+        f"{svg_namespace}{tag}" for tag in allowed_tags
+    }
+    allowed_attributes = {
+        "aria-labelledby",
+        "class",
+        "cx",
+        "cy",
+        "d",
+        "fill",
+        "height",
+        "id",
+        "preserveAspectRatio",
+        "r",
+        "role",
+        "stroke",
+        "stroke-linecap",
+        "stroke-opacity",
+        "stroke-width",
+        "text-anchor",
+        "transform",
+        "viewBox",
+        "width",
+        "x",
+        "x1",
+        "x2",
+        "y",
+        "y1",
+        "y2",
+    }
+    attributes = [attribute for element in root.iter() for attribute in element.attrib]
+    assert all(not attribute.startswith("{") for attribute in attributes)
+    attribute_names = set(attributes)
+    assert attribute_names == allowed_attributes
+    assert all(
+        attribute.rsplit("}", 1)[-1].casefold() != "href"
+        for element in root.iter()
+        for attribute in element.attrib
     )
-    assert "url(" not in source
-    assert "@font-face" not in source
-    assert "href=" not in source
-    assert " xlink:" not in source
-    assert " rx=" not in source
+    assert re.search(r"\burl[ \t\r\n]*\(", source, flags=re.IGNORECASE) is None
+    assert "<?" not in source
+    assert "<!doctype" not in source.casefold()
+
+    opacity_elements = [
+        (element.tag.removeprefix(svg_namespace), element.attrib)
+        for element in root.iter()
+        if "stroke-opacity" in element.attrib
+    ]
+    assert opacity_elements == [
+        (
+            "line",
+            {
+                "x1": "535",
+                "y1": "28",
+                "x2": "535",
+                "y2": "160",
+                "stroke": "#f1e9d2",
+                "stroke-opacity": "0.35",
+                "stroke-width": "2",
+            },
+        ),
+        (
+            "line",
+            {
+                "x1": "1045",
+                "y1": "28",
+                "x2": "1045",
+                "y2": "160",
+                "stroke": "#f1e9d2",
+                "stroke-opacity": "0.35",
+                "stroke-width": "2",
+            },
+        ),
+        (
+            "line",
+            {
+                "x1": "88",
+                "y1": "176",
+                "x2": "1512",
+                "y2": "176",
+                "stroke": "#f1e9d2",
+                "stroke-opacity": "0.45",
+                "stroke-width": "2",
+            },
+        ),
+    ]
 
     def channel(component: int) -> float:
         normalized = component / 255
@@ -252,11 +441,11 @@ def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> 
         return (light + 0.05) / (dark + 0.05)
 
     assert contrast("#111111", "#f1e9d2") >= 4.5
+    assert contrast("#fff9e9", "#111111") >= 4.5
     assert contrast("#d8d0bd", "#111111") >= 4.5
-    for band_text in ("#d94b3d", "#4b88c9", "#a77a00"):
-        assert contrast(band_text, "#111111") >= 4.5
-    for paper_accent in ("#d94b3d", "#2c69ae", "#a77a00"):
-        assert contrast(paper_accent, "#f1e9d2") >= 3
+    for semantic_accent in semantic_accents:
+        assert contrast(semantic_accent, "#111111") >= 4.5
+        assert contrast(semantic_accent, "#f1e9d2") >= 3
     assert contrast("#111111", "#d94b3d") >= 4.5
 
 
@@ -269,6 +458,12 @@ def test_bauhaus_cover_has_measured_label_clearance_at_repository_scale() -> Non
         "surface-note",
         "surface-node-left",
         "network-boundary",
+        "observed-key",
+        "observed-key-label",
+        "latent-key",
+        "latent-key-label",
+        "candidate-key-node",
+        "candidate-key-label",
         "deep-label",
         "deep-note",
         "paths-label",
@@ -313,6 +508,18 @@ def test_bauhaus_cover_has_measured_label_clearance_at_repository_scale() -> Non
         )
         assert boxes["paths-label"]["left"] - boxes["network-boundary"]["right"] >= 48
         assert boxes["process-band"]["top"] - boxes["network-boundary"]["bottom"] >= 48
+        for mark_id, label_id in (
+            ("observed-key", "observed-key-label"),
+            ("latent-key", "latent-key-label"),
+            ("candidate-key-node", "candidate-key-label"),
+        ):
+            assert boxes[label_id]["left"] - boxes[mark_id]["right"] >= 10
+        assert boxes["latent-key"]["left"] - boxes["observed-key-label"]["right"] >= 32
+        assert (
+            boxes["candidate-key-node"]["left"] - boxes["latent-key-label"]["right"]
+            >= 32
+        )
+        assert boxes["network-boundary"]["left"] - boxes["candidate-key-label"]["right"] >= 48
 
         for title_id, copy_id in (
             ("surface-label", "surface-note"),
