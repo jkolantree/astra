@@ -340,7 +340,9 @@ def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> 
         "text",
         "title",
     }
-    assert {element.tag.removeprefix(svg_namespace) for element in root.iter()} == allowed_tags
+    assert {element.tag for element in root.iter()} == {
+        f"{svg_namespace}{tag}" for tag in allowed_tags
+    }
     allowed_attributes = {
         "aria-labelledby",
         "class",
@@ -368,11 +370,9 @@ def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> 
         "y1",
         "y2",
     }
-    attribute_names = {
-        attribute.rsplit("}", 1)[-1]
-        for element in root.iter()
-        for attribute in element.attrib
-    }
+    attributes = [attribute for element in root.iter() for attribute in element.attrib]
+    assert all(not attribute.startswith("{") for attribute in attributes)
+    attribute_names = set(attributes)
     assert attribute_names == allowed_attributes
     assert all(
         attribute.rsplit("}", 1)[-1].casefold() != "href"

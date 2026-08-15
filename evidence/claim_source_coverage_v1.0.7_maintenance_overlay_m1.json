@@ -5464,10 +5464,10 @@
           "sha256": "ac2c43e9a9ec0aa5771424b33cec66360e86ab279258bd1481c1f99decabc96f"
         },
         {
-          "bytes": 45481,
+          "bytes": 45562,
           "mode": "100644",
           "path": "tests/test_pages_contract.py",
-          "sha256": "90ae7dfc8f3561c549ee630d05d7de02c28954dee1a1afd19b8c67a3f12f5b09"
+          "sha256": "7bcc7b049320dbcca96c57b6933714388234b3abf1cc62118e687bb573fc975f"
         },
         {
           "bytes": 58383,
@@ -5539,7 +5539,7 @@
       "scheme": "astra-source-projection-v1",
       "scope": "astra-core-integrity-m1-repository-source-v1",
       "serialization": "astra-binary-length-prefixed-v1",
-      "sha256": "191154ee07fa1a8a362438ae123af7be643281ee4546444d8905015d58c434d2"
+      "sha256": "0a39f7eef53869dda5ef299fe6f257e22144cb32d525b2bf560d3fd91592e014"
     }
   },
   "reference_release": {
