@@ -1,0 +1,1202 @@
+{
+  "schema": "https://jkolantree.github.io/astra/schemas/claim-matrix-v1.schema.json",
+  "title": "SPPT/ASTRA v1.0.7 consequential claim-admission matrix",
+  "evidence_classes": [
+    "source_asserted",
+    "hand_checked",
+    "independently_reproduced",
+    "mechanically_replayed",
+    "kernel_verified",
+    "externally_published",
+    "structural_inference",
+    "proposed_only",
+    "deferred",
+    "rejected"
+  ],
+  "claims": [
+    {
+      "id": "SPPT-C001",
+      "statement": "For the stated node-edge incidence convention, internal transport conserves whole-network inventory, and a weighted inventory is conserved when the declared reaction weights annihilate the stoichiometric matrix and external source minus escape is zero.",
+      "claim_type": "theorem",
+      "hypotheses": [
+        "finite reservoir and edge sets",
+        "dimensionally compatible species inventories and edge fluxes",
+        "each internal edge has one -1 tail and one +1 head",
+        "w^T N = 0",
+        "S-E = 0 for the closed inventory"
+      ],
+      "domain_units_signs_boundary_quantifiers": "All reservoir inventories use a common unit per species; flux signs follow the directed incidence convention; the result holds for every internal flux and reaction rate satisfying the hypotheses.",
+      "support": [
+        "manuscript/manuscript.md Proposition 1, equations 3-4, and inline proof",
+        "src/sppt_core.py",
+        "tests/test_sppt_core.py"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Fails for undeclared sources, sinks, escape, dimension mismatch, or nonconserving reaction weights."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "SPPT-C002",
+      "statement": "The declared linear constitutive closure has nonnegative local entropy production when its phenomenological matrix is positive semidefinite on the declared force-flux domain.",
+      "claim_type": "thermodynamic admissibility condition",
+      "hypotheses": [
+        "conjugate forces and fluxes are consistently defined",
+        "the symmetric dissipative part is positive semidefinite",
+        "Casimir-antisymmetric terms do not contribute to the quadratic entropy production"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Temperature is positive; chemical/electrical signs use the manuscript convention; the statement is local and near-equilibrium unless a constitutive law establishes a wider domain.",
+      "support": [
+        "manuscript/manuscript.md equations 7-8",
+        "Onsager I/II and Casimir sources in manuscript/references.bib"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "It is not a proof that every proposed nonlinear or far-from-equilibrium edge law is admissible."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C003",
+      "statement": "The steady periodic solution of dM/dt = c0 + c1 cos(omega t) - M/tau and the signed loop integral integral M dc equal the displayed formulas.",
+      "claim_type": "analytic calculation",
+      "hypotheses": [
+        "omega > 0",
+        "tau > 0",
+        "steady periodic regime after transients",
+        "c(t)=c0+c1 cos(omega t)"
+      ],
+      "domain_units_signs_boundary_quantifiers": "M has inventory units, c has inventory/time units, tau is time, and omega is inverse time; the loop sign follows increasing time and the manuscript's M-versus-c orientation.",
+      "support": [
+        "manuscript/manuscript.md equations 17-19 and Appendix A.1",
+        "src/sppt_core.py",
+        "tests/test_sppt_core.py"
+      ],
+      "evidence_class": "independently_reproduced",
+      "limitations_or_counterexamples": [
+        "The result is for a linear single-timescale trap, not a general nonlinear phase reservoir."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "SPPT-C004",
+      "statement": "At fixed positive forcing frequency, the raw inventory-loop magnitude increases monotonically with release time, whereas the release-normalized loop magnitude has its unique maximum at omega*tau = 1.",
+      "claim_type": "monotonicity and extremum result",
+      "hypotheses": [
+        "omega > 0",
+        "tau > 0",
+        "nonzero forcing amplitude for a nonzero loop"
+      ],
+      "domain_units_signs_boundary_quantifiers": "The raw and normalized areas are distinct quantities; the result quantifies all positive tau at fixed omega.",
+      "support": [
+        "manuscript/manuscript.md equation 19 and the unnumbered release-normalized loop expression in section 4.2",
+        "data/trap_memory_loops.csv",
+        "tests/test_sppt_core.py"
+      ],
+      "evidence_class": "independently_reproduced",
+      "limitations_or_counterexamples": [
+        "Claiming that the raw loop itself peaks at omega*tau=1 is rejected."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "SPPT-C005",
+      "statement": "For a nonempty proper cut in a connected positive-weight conductance graph with strictly positive node capacities, the first nonzero generalized relaxation eigenvalue is bounded above by the displayed cut Rayleigh quotient.",
+      "claim_type": "spectral theorem",
+      "hypotheses": [
+        "finite undirected conductance graph",
+        "every node capacity is strictly positive",
+        "positive-weight graph is connected",
+        "cut is a nonempty proper node set",
+        "cut conductance is the sum of crossing positive weights"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Conductances and capacities are nonnegative/positive with compatible rate units; the bound applies to every eligible cut.",
+      "support": [
+        "manuscript/manuscript.md Proposition 2, equation 23, and Appendix A.2",
+        "src/sppt_core.py",
+        "tests/test_sppt_core.py"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Disconnected positive-weight graphs have additional zero modes and do not satisfy the stated positive-lambda2 interpretation."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C006",
+      "statement": "The complete derivative of K(psi)(Td-Tu) with respect to Td is K(1-dTu/dTd) + (Td-Tu) K'(psi) dpsi/dTd; the fixed-upper-state toy closure sets dTu/dTd=0 explicitly.",
+      "claim_type": "calculus identity and software contract",
+      "hypotheses": [
+        "K and psi are differentiable in the declared local domain",
+        "Tu may depend on Td, so dTu/dTd is retained unless fixed explicitly"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Derivative signs follow Td increase; K is positive in the toy model; temperatures share units.",
+      "support": [
+        "manuscript/manuscript.md state-dependent transport section",
+        "src/sppt_core.py effective_flux_slope",
+        "tests/test_sppt_core.py"
+      ],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": [
+        "A negative local slope is only a fold precursor, not proof of a global bifurcation."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C007",
+      "statement": "The displayed ideal classical nucleation barrier is multiplied by the stated substrate-dependent wetting factor for the ideal spherical-cap heterogeneous case.",
+      "claim_type": "standard-model formula",
+      "hypotheses": [
+        "classical nucleation approximation",
+        "positive interfacial energy",
+        "nonzero bulk driving free-energy density",
+        "spherical-cap nucleus on a planar substrate",
+        "isotropic interfacial tensions",
+        "negligible line tension",
+        "contact angle measured through the nucleating phase in 0 <= theta <= pi"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Barrier energy is nonnegative; the homogeneous result is recovered at the appropriate wetting-factor limit.",
+      "support": [
+        "manuscript/manuscript.md equations 34-35",
+        "Fitzner et al. DOI 10.1038/s41467-017-02300-x in manuscript/references.bib"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Microscopic line tension, anisotropy, nonclassical pathways, and complex substrates are outside this formula."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C008",
+      "statement": "In the declared two-reservoir static model, if K>0, an equilibrium exists, and the radiation law is injective on the physical temperature domain, the boundary temperature depends on total forcing but not on the deep conductance; the deep temperature remains conductance-dependent.",
+      "claim_type": "non-identifiability proposition",
+      "hypotheses": [
+        "fixed conductance K>0",
+        "Fstar+H lies in the range of the radiation law",
+        "radiation law is injective on the declared physical temperature domain",
+        "static equilibrium exists"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Power signs and temperatures follow equations 37-38; the statement is restricted to this two-reservoir static closure.",
+      "support": [
+        "manuscript/manuscript.md Proposition 3, equations 37-38, and Appendix A.3",
+        "src/sppt_core.py static_two_reservoir_equilibrium",
+        "tests/test_sppt_core.py"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "K=0, noninjective radiation, absent equilibria, multiple sinks, or different closures can invalidate the result."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C009",
+      "statement": "The graph/guard/reset equations provide a proposed syntax for topology-changing phase-reservoir models.",
+      "claim_type": "framework proposal",
+      "hypotheses": [
+        "model-specific flows, guards, and reset maps are supplied before use"
+      ],
+      "domain_units_signs_boundary_quantifiers": "No universal domain is asserted; each application must define one.",
+      "support": [
+        "manuscript/manuscript.md topology-change section"
+      ],
+      "evidence_class": "source_asserted",
+      "limitations_or_counterexamples": [
+        "No general existence or uniqueness theorem",
+        "no simultaneous-guard priority",
+        "no reset-map closure theorem",
+        "no chattering exclusion or non-Zeno theorem"
+      ],
+      "disposition": "proposed_only"
+    },
+    {
+      "id": "SPPT-C010",
+      "statement": "The ideal four-electron CO2-to-carbon throughput and reversible-power scales follow from Faraday's law and the supplied standard-state electrochemical free energy.",
+      "claim_type": "order-of-magnitude calculation",
+      "hypotheses": [
+        "four electrons per CO2",
+        "declared Faradaic efficiency in (0,1]",
+        "standard-state delta G is used only as an ideal minimum",
+        "positive current direction is supplied electrical work"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Current is amperes, mass throughput kg/year, energy J/kg, power watts; all reported scales are idealized.",
+      "support": [
+        "manuscript/manuscript.md Carbon Phase Relay section",
+        "src/sppt_core.py",
+        "tests/test_sppt_core.py",
+        "Ratso et al. DOI 10.1038/s41467-026-70977-0 for the experimental motivation"
+      ],
+      "evidence_class": "independently_reproduced",
+      "limitations_or_counterexamples": [
+        "This is not latent heat",
+        "not spontaneous planetary sequestration",
+        "not a demonstrated planetary mechanism",
+        "kinetics, overpotential, transport, and side reactions are omitted"
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "ASTRA-C011",
+      "statement": "Under the frozen released synthetic protocol, training BIC selects the generating two-edge chain in 64 of 64 Gaussian-noise realizations.",
+      "claim_type": "synthetic numerical result",
+      "hypotheses": [
+        "fixed capacities, sink, forcing, noise scale, candidate set, bounds, seeds, and 20-start generic design",
+        "generating graph is included",
+        "selection is training BIC only",
+        "every admitted optimizer run passes the convergence and materially-better-endpoint gates"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Normalized model units; seeds 20260801 through 20260864 inclusive; 64 results exactly.",
+      "support": [
+        "scripts/benchmark_ensemble.py",
+        "data/synthetic_topology_ensemble.json",
+        "data/synthetic_topology_ensemble.csv",
+        "tests/test_data_integrity.py"
+      ],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": [
+        "Not blinded",
+        "not external",
+        "not empirical",
+        "does not estimate a general false-positive rate",
+        "CSV and JSON are duplicate serializations",
+        "The release-frozen 20-start design was adopted after replay of this same benchmark exposed a missed endpoint under the earlier 12-start design; these reruns are post-audit regression evidence, not untouched evaluation",
+        "This is pointwise selection, not family-wide topology identification: under the same capacities and surface-only port, surface_star [k02,k12]=[5,6] and deep_star [k01,k02]=[30/11,11] have identical transfer functions"
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "ASTRA-C012",
+      "statement": "In the post-selection unseen-forcing comparison, the overconnected triangle has lower held-out RMSE than the chain in 23 of 64 realizations; this negative outcome is preserved.",
+      "claim_type": "synthetic negative result",
+      "hypotheses": [
+        "same frozen protocol as ASTRA-C011",
+        "held-out RMSE does not select the graph"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Counts all 64 frozen seeds; smaller RMSE is better.",
+      "support": [
+        "data/synthetic_topology_ensemble.json",
+        "tests/test_data_integrity.py"
+      ],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": [
+        "The result neither proves nor refutes the framework; it limits the interpretation of 64/64 BIC selection.",
+        "The strengthened start design was informed by behavior of this same benchmark, so the rerun is regression evidence rather than untouched evaluation."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "ASTRA-C013",
+      "statement": "All retained benchmark graph fits have positive solver termination, finite parameters and cost, and cost-scaled first-order optimality at most 1e-4 under the frozen 20-start generic design; a retained fit is rejected if a non-admitted endpoint produces a materially lower cost.",
+      "claim_type": "optimizer diagnostic result",
+      "hypotheses": [
+        "exact implemented sensitivities",
+        "declared log-conductance box",
+        "all 20 distinct generic starts attempted for every fitted two- or three-parameter graph family",
+        "acceptance gate applied before selection"
+      ],
+      "domain_units_signs_boundary_quantifiers": "The criterion applies to each retained graph fit; lower-bound active parameters remain flagged rather than treated as interior estimates.",
+      "support": [
+        "src/astra_optimization.py",
+        "scripts/synthetic_topology_benchmark.py",
+        "scripts/benchmark_ensemble.py",
+        "data/synthetic_topology_benchmark.json",
+        "data/synthetic_topology_ensemble.json",
+        "tests/test_optimizer.py"
+      ],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": [
+        "Local multistart coverage is not a proof of a global optimum",
+        "termination without the declared diagnostic is rejected",
+        "29 of 64 shortcut estimates are lower-bound active",
+        "The 20-start design was strengthened after the same benchmark exposed a missed endpoint under 12 starts; current results are post-audit regression evidence"
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "ASTRA-C014",
+      "statement": "For the declared two-reservoir synthetic model, multi-frequency complex response localizes the grid minimum near the generating capacity-conductance pair more tightly than one low-frequency amplitude.",
+      "claim_type": "synthetic identifiability demonstration",
+      "hypotheses": [
+        "linear time-invariant two-reservoir model",
+        "declared frequency grid and observation operator",
+        "no structural discrepancy",
+        "normalized parameters"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Applies only to the finite released grid and response features.",
+      "support": [
+        "scripts/generate_astra_figures.py",
+        "data/inverse_demo_summary.json",
+        "data/inverse_objective_landscapes.csv",
+        "figures/supplement_figure_S2_single_frequency_degeneracy.png",
+        "figures/supplement_figure_S3_multifrequency_localization.png"
+      ],
+      "evidence_class": "mechanically_replayed",
+      "limitations_or_counterexamples": [
+        "Astronomical observations cannot generally choose their forcing spectrum",
+        "not empirical validation or a uniqueness theorem",
+        "The one-frequency objective uses amplitude only; one exact nonzero complex response can generically supply two real constraints, so the comparison demonstrates conditioning and finite-grid localization rather than the structural necessity of 24 frequencies"
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "ASTRA-C026",
+      "statement": "For C=(8,3,1), surface loss 1.2, equilibrium initialization, and node 2 as the sole input-output port, surface_star [k02,k12]=[5,6] and deep_star [k01,k02]=[30/11,11] have exactly the same rational surface transfer function for every surface forcing although their labeled supports and hidden states differ; the triangle family also has strictly positive two-point fibers, and its balance locus 8*k12=3*k02 contains an unobservable hidden mode.",
+      "claim_type": "structural non-identifiability counterexample",
+      "hypotheses": [
+        "linear three-reservoir model",
+        "known capacities and surface sink",
+        "constant deep power",
+        "each realization starts at its own equilibrium",
+        "surface forcing and surface observation only",
+        "positive conductances in the declared fitting bounds"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Normalized benchmark units; exact equality holds for the complete surface input-output law, not only the sampled training and held-out waveforms.",
+      "support": [
+        "manuscript/supplement.md Algebraic-statistical audit of dynamic identifiability across supports",
+        "tests/test_benchmark.py",
+        "src/astra_reservoir.py"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "The released chain point (0.22,1.40) has no second realization in the nonnegative candidate domain, so this counterexample limits but does not contradict the frozen 64/64 pointwise result",
+        "A spatially distinct time-varying input, another observation channel, an intervention, or independently justified structural constraints may separate the displayed equivalence, but identifiability must be recomputed for the augmented design",
+        "This is a reduced synthetic linear result, not planetary evidence"
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C015",
+      "statement": "Planetary phase-reservoir connectivity should be promoted as a latent model state only when it produces calibrated held-out predictive gain over physically matched fixed-topology baselines.",
+      "claim_type": "testable methodological proposal",
+      "hypotheses": [
+        "candidate graph families are physically admissible",
+        "comparisons use independent held-out observations or controlled interventions",
+        "complexity and discrepancy are treated fairly"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Applies prospectively to specified planetary or exoplanet inference tasks.",
+      "support": [
+        "manuscript/manuscript.md central claim, ASTRA workflow, falsifiers, and hypotheses"
+      ],
+      "evidence_class": "source_asserted",
+      "limitations_or_counterexamples": [
+        "No mission-data or exoplanet retrieval is supplied",
+        "failure to improve prediction requires demotion",
+        "not a universality claim"
+      ],
+      "disposition": "proposed_only"
+    },
+    {
+      "id": "SPPT-C016",
+      "statement": "The proposed contribution is the specific integration of inferable phase-reservoir connectivity with physical admissibility and held-out promotion, not priority over network thermodynamics, graph inference, or planetary phase modeling.",
+      "claim_type": "bounded novelty statement",
+      "hypotheses": [
+        "bounded exact-name and closest-formulation searches current to 2026-08-01"
+      ],
+      "domain_units_signs_boundary_quantifiers": "The negative search is limited to searched scholarly and repository records and cannot establish global priority.",
+      "support": [
+        "manuscript/manuscript.md novelty boundary",
+        "canonical literature records in manuscript/references.bib"
+      ],
+      "evidence_class": "externally_published",
+      "limitations_or_counterexamples": [
+        "No first-discovery, priority, universality, predictive-superiority, proof, or empirical-validation claim is admitted."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "SPPT-C020",
+      "statement": "A published study reports an approximately 35 micrometer mixed goethite-hematite-magnetite inclusion completely encapsulated within one Juína diamond with no observed present fracture or exterior connection, and interprets the assemblage as a possible retrograde record of high-pressure epsilon-FeOOH.",
+      "claim_type": "qualified external example",
+      "hypotheses": [
+        "one unpolished diamond specimen",
+        "tomography shows no observed fracture or exterior connection to the selected inclusion",
+        "phase assignments use the published diffraction and spectroscopy analyses",
+        "the epsilon-FeOOH path is treated as a hypothesis rather than a unique inversion"
+      ],
+      "domain_units_signs_boundary_quantifiers": "The reported inclusion is approximately 35 micrometers and the statement applies only to that specimen; no global deep-water flux, frequency, or population rate is inferred.",
+      "support": [
+        "Camarda et al. 2026, DOI 10.1038/s41598-026-46683-8",
+        "manuscript/manuscript.md section 12.4"
+      ],
+      "evidence_class": "externally_published",
+      "limitations_or_counterexamples": [
+        "present isolation does not measure permeability or past exchange",
+        "later infiltration, epigenetic alteration, multi-stage encapsulation, and syn-growth histories remain alternatives to compare",
+        "one specimen cannot establish planetary prevalence or global volatile transport",
+        "the study does not validate SPPT or ASTRA"
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "ASTRA-C021",
+      "statement": "A future ASTRA methods extension may type physical flux, active control, observation, retained history, and verification as distinct coupled structures, but this tuple and its edge-availability syntax are proposed only and are not implemented by v1.0.6.",
+      "claim_type": "research-outlook proposal",
+      "hypotheses": [
+        "each graph type receives a domain-specific definition",
+        "any coupling into the physical flux graph has an explicit constitutive bridge",
+        "units, kinetics, observation laws, and certificate failure classes are declared before use"
+      ],
+      "domain_units_signs_boundary_quantifiers": "The displayed tuple and equations are abstract syntax without universal units; any application must instantiate its own state spaces, domains, signs, time scales, and boundary conditions.",
+      "support": [
+        "manuscript/manuscript.md section 12.4",
+        "source input pasted-text.txt SHA-256 d5780e8ec084d51cbb7c454bf6b6e935f4620b4d80723fa30084b3da429ae711"
+      ],
+      "evidence_class": "source_asserted",
+      "limitations_or_counterexamples": [
+        "no cross-domain implementation, theorem, benchmark, or empirical evaluation is supplied",
+        "auxiliary graph labels cannot substitute for constitutive mechanisms",
+        "the physical SPPT core remains unchanged"
+      ],
+      "disposition": "proposed_only"
+    },
+    {
+      "id": "ASTRA-C022",
+      "statement": "The moonlight spectroscopy, doped-Clifford sampling, and xenophagocytosis studies are used only as observation, certificate, and active-control analogies; their results are not evidence for planetary transport or SPPT validity.",
+      "claim_type": "cross-domain evidence boundary",
+      "hypotheses": [
+        "canonical primary records are cited",
+        "adjacent wording remains within each source's reported system",
+        "no constitutive bridge to planetary matter or energy transport is asserted"
+      ],
+      "domain_units_signs_boundary_quantifiers": "The boundary applies to all uses of the three nonplanetary studies in this release; no quantitative parameter or edge is transferred between domains.",
+      "support": [
+        "Dominy and Hobaiter 2026, DOI 10.1080/1751696X.2026.2696260",
+        "Martiel et al. 2026, arXiv:2607.25941v1",
+        "Wang et al. 2026, DOI 10.1016/j.cell.2026.05.016",
+        "manuscript/manuscript.md section 12.4"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "spectral resemblance does not establish cultural causation",
+        "a device-dependent fidelity lower bound does not certify arbitrary models",
+        "a specified embryo mechanism does not establish a universal biological gate",
+        "none of the studies validates SPPT"
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "SPPT-C023",
+      "statement": "An observational resemblance, semantic association, biological recognition signal, or computational certificate cannot be treated as a physical matter-or-energy transport edge without an explicit constitutive bridge.",
+      "claim_type": "no-go condition",
+      "hypotheses": [
+        "the physical SPPT graph represents matter, energy, or declared physical transformations",
+        "auxiliary observations, controls, semantics, or certificates have not independently supplied a constitutive transport law"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Applies to every proposed edge in the physical SPPT graph; the bridge must declare domain, units, signs, kinetics, and boundary conditions.",
+      "support": [
+        "manuscript/manuscript.md no-go condition N6",
+        "source input pasted-text.txt SHA-256 d5780e8ec084d51cbb7c454bf6b6e935f4620b4d80723fa30084b3da429ae711"
+      ],
+      "evidence_class": "source_asserted",
+      "limitations_or_counterexamples": [
+        "The rule does not prohibit a future coupling when a lawful, tested constitutive bridge is supplied."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "ASTRA-C024",
+      "statement": "The proposed general claim that stronger boundary selection monotonically improves retained-state conformity while reducing throughput, diversity, or integration is not established by the quantum and embryo studies and is deferred.",
+      "claim_type": "deferred cross-domain hypothesis",
+      "hypotheses": [
+        "a common selection parameter and comparable quality and yield quantities can be defined",
+        "all other mechanisms and resources are controlled",
+        "monotonicity is tested over a declared domain"
+      ],
+      "domain_units_signs_boundary_quantifiers": "No universal domain or units are admitted; the quantum paper reports one state-fidelity-rate tradeoff and the embryo paper reports intervention-specific donor-chimerism changes.",
+      "support": [
+        "Martiel et al. 2026, arXiv:2607.25941v1",
+        "Wang et al. 2026, DOI 10.1016/j.cell.2026.05.016",
+        "manuscript/manuscript.md section 12.4"
+      ],
+      "evidence_class": "source_asserted",
+      "limitations_or_counterexamples": [
+        "specificity, repair, parallelism, or added resources can change both quality and throughput",
+        "two domain-specific observations cannot establish a general law"
+      ],
+      "disposition": "deferred"
+    },
+    {
+      "id": "PROV-C025",
+      "statement": "The dream, three-diagram collage, and OpenAI ChatGPT conversation are recorded as the author-reported conceptual origin of the cold-trap/Saturn idea, while later OpenAI assistance is recorded as workflow provenance; none is treated as scientific evidence.",
+      "claim_type": "author-reported provenance",
+      "hypotheses": [
+        "the report is attributed to the public pseudonym only",
+        "the unprovided collage and chat are excluded",
+        "scientific support remains bound to public primary sources, calculations, data, and tests"
+      ],
+      "domain_units_signs_boundary_quantifiers": "This is an authorial provenance statement without scientific units or evidentiary authority; it does not date or independently verify the private event.",
+      "support": [
+        "explicit 2026-08-01 author publication instruction",
+        "SOURCE_INVENTORY.json pasted-text.txt record",
+        "manuscript/manuscript.md acknowledgments"
+      ],
+      "evidence_class": "source_asserted",
+      "limitations_or_counterexamples": [
+        "The account is not independently verified",
+        "the collage component rights were not established",
+        "no private account, device, location, legal name, or unprovided image is published"
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "CITE-C017",
+      "statement": "Consequential adjacent literature statements are supported by the corrected 42-entry canonical bibliography, including Saturn article 5045 for DOI 10.1038/s41467-024-48969-9, Lukas Delaye in current arXiv:2607.16713 v2, and the four primary records used by the typed-layer outlook.",
+      "claim_type": "citation identity and support audit",
+      "hypotheses": [
+        "publisher, DOI, arXiv, or institutional records checked as of 2026-08-01",
+        "paraphrases remain within the cited source's scope"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Applies to the 42-entry released bibliography and its adjacent wording.",
+      "support": [
+        "manuscript/references.bib",
+        "tests/test_document_contract.py",
+        "publisher records linked by DOI"
+      ],
+      "evidence_class": "externally_published",
+      "limitations_or_counterexamples": [
+        "Literature supports the cited component facts, not the full SPPT/ASTRA framework or its empirical success."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "VERIFY-C018",
+      "statement": "Release promotion is fail-closed unless the discovered automated suite passes for the exact admitted commit/tree and checks implemented equations, evidence boundaries, deterministic outputs, metadata, and release invariants under the declared runtime.",
+      "claim_type": "verification gate",
+      "hypotheses": [
+        "CPython 3.12.10",
+        "hash-locked dependencies",
+        "verified single-thread NumPy and SciPy OpenBLAS Haswell kernels on a Windows x86-64 CPU with AVX2 and FMA3",
+        "clean repository state",
+        "canonical tools/verify.py invocation"
+      ],
+      "domain_units_signs_boundary_quantifiers": "The gate applies only to the exact commit/tree and runtime identities reported by the eventual release identity; a dirty local candidate or controller-invalid trial does not satisfy it.",
+      "support": [
+        "tests/",
+        "tools/verify.py",
+        "requirements-lock.txt",
+        ".github/workflows/verify.yml"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "A pass must be bound to the exact clean release commit and valid controller; tests establish consistency with implemented equations, not completeness of planetary physics, mathematical proof beyond the checked propositions, or external truth."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "VERIFY-C019",
+      "statement": "The supplied 99-byte test transcript and duplicate CSV/JSON serialization are not counted as independent execution or evidence.",
+      "claim_type": "evidence-provenance rule",
+      "hypotheses": [
+        "artifact identity and derivation relationships in SOURCE_INVENTORY.json"
+      ],
+      "domain_units_signs_boundary_quantifiers": "Applies to this release candidate's evidence accounting.",
+      "support": [
+        "SOURCE_INVENTORY.json",
+        "evidence/README.md",
+        "tests/test_data_integrity.py"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [],
+      "disposition": "admit"
+    },
+    {
+      "id": "V107-R001",
+      "statement": "The public repository preserves SPPT/ASTRA v1.0.6 as an immutable historical release while v1.0.7 is the current stable core and successor resources remain separately namespaced.",
+      "claim_type": "repository audit",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "astraRepo2026",
+        "astraRelease106",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-R001"
+      ],
+      "evidence_class": "source_asserted",
+      "limitations_or_counterexamples": [
+        "Repository state can change after the audited commit.",
+        "Next test or falsifier: Re-audit exact tree before any release."
+      ],
+      "disposition": "deferred"
+    },
+    {
+      "id": "V107-R002",
+      "statement": "The audited main snapshot is commit f999536111ebff5dfa488cd178a50db8c8f07930. This is a historical pre-merge audit record, not the v1.0.7 source identity.",
+      "claim_type": "repository audit",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "astraRepo2026",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-R002"
+      ],
+      "evidence_class": "source_asserted",
+      "limitations_or_counterexamples": [
+        "Applies only to the 9 August 2026 snapshot.",
+        "Next test or falsifier: Record a new base commit if integration proceeds."
+      ],
+      "disposition": "deferred"
+    },
+    {
+      "id": "V107-M001",
+      "statement": "A finite coupling matrix decomposes uniquely into symmetric and antisymmetric parts.",
+      "claim_type": "mathematical identity",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "candidate manuscript, section 8",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-M001"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Purely algebraic; physical interpretation requires a declared model.",
+        "Next test or falsifier: Exact symbolic replay."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "V107-M002",
+      "statement": "In the declared two-particle asymmetric-attraction toy model, the center velocity is (a_LS-a_SL)r/2.",
+      "claim_type": "mathematical identity",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "candidate manuscript, section 8",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-M002"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Restricted to the stated one-dimensional toy equations.",
+        "Next test or falsifier: Differentiate the declared center coordinate."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "V107-M003",
+      "statement": "A nonzero reduced pair-force residual requires an environment or boundary term when the enlarged momentum ledger is closed.",
+      "claim_type": "bookkeeping identity",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "candidate manuscript, section 9",
+        "Hara et al. 2026",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-M003"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Does not identify the microscopic mediator by itself.",
+        "Next test or falsifier: Measure particle, fluid, field, and boundary momentum exchange together."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-M004",
+      "statement": "The active-support aggregate has a multiplicative normalization gauge unless a normalization convention is fixed.",
+      "claim_type": "mathematical identity",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "candidate manuscript, section 12",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-M004"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Applies to the declared factorized weighting form.",
+        "Next test or falsifier: Rescale kernel and local law inversely and verify invariant output."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "V107-M005",
+      "statement": "Exact equality of observation distributions defines an equivalence relation on a declared candidate set.",
+      "claim_type": "mathematical identity",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "candidate manuscript, section 14",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-M005"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Approximate equality needs a threshold and can lose transitivity.",
+        "Next test or falsifier: Check reflexivity, symmetry, and transitivity under exact equality."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "V107-M006",
+      "statement": "The valid unconditioned quantum observation is Tr[M_d E(rho)], while postselected branches require trace-nonincreasing instruments.",
+      "claim_type": "measurement correction",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "sectorCompleteAlpha",
+        "candidate manuscript, section 14",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-M006"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Quantum formalism only; other data types need their own likelihoods and units.",
+        "Next test or falsifier: Trace normalization and positivity tests."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "V107-F001",
+      "statement": "Stateful-edge syntax separates fixed topology, evolving edge state, active support, and topology change.",
+      "claim_type": "framework proposal",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "candidate manuscript, sections 5-7",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-F001"
+      ],
+      "evidence_class": "proposed_only",
+      "limitations_or_counterexamples": [
+        "Not a new universal physical law; every domain needs constitutive closure.",
+        "Next test or falsifier: Compare held-out prediction against fixed-edge and topology-only baselines."
+      ],
+      "disposition": "proposed_only"
+    },
+    {
+      "id": "V107-F002",
+      "statement": "Closure-conditioned reciprocity is a useful admission rule for reduced directed interactions.",
+      "claim_type": "framework proposal",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "Hara et al. 2026",
+        "candidate manuscript, sections 8-10",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-F002"
+      ],
+      "evidence_class": "structural_inference",
+      "limitations_or_counterexamples": [
+        "Requires measurable environment channels; may be underdetermined experimentally.",
+        "Next test or falsifier: Close momentum and energy budgets in an independent replication."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-F003",
+      "statement": "Dynamic arrest should require bounded characteristic scale together with persistent turnover.",
+      "claim_type": "operational definition",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "Hara et al. 2026",
+        "candidate manuscript, section 10",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-F003"
+      ],
+      "evidence_class": "proposed_only",
+      "limitations_or_counterexamples": [
+        "Different systems need domain-specific scale and turnover metrics.",
+        "Next test or falsifier: Show saturation with nonzero fragment/reassembly flux over longer windows."
+      ],
+      "disposition": "proposed_only"
+    },
+    {
+      "id": "V107-F004",
+      "statement": "A self-rewriting edge can be decomposed into fast reversible state and slow irreversible history.",
+      "claim_type": "framework proposal",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "Redondo et al. 2026",
+        "candidate manuscript, section 11",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-F004"
+      ],
+      "evidence_class": "structural_inference",
+      "limitations_or_counterexamples": [
+        "Timescale separation may fail or need more than two state classes.",
+        "Next test or falsifier: Operando strain/composition measurements under reversal and cycling."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-F005",
+      "statement": "Mode-resolved active support records where, when, and in which spectral or geometric measure a coupling is effective.",
+      "claim_type": "framework proposal",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "activeSupportDraft",
+        "candidate manuscript, section 12",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-F005"
+      ],
+      "evidence_class": "proposed_only",
+      "limitations_or_counterexamples": [
+        "A bookkeeping layer until tied to measured kernels and units.",
+        "Next test or falsifier: Selective perturbation of predicted support with fixed total input."
+      ],
+      "disposition": "proposed_only"
+    },
+    {
+      "id": "V107-F006",
+      "statement": "Sector completeness means measuring or bounding plausible declared sectors and reporting unresolved generator classes, not measuring every imaginable sector.",
+      "claim_type": "methodological criterion",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "sectorCompleteAlpha",
+        "candidate manuscript, section 14",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-F006"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Completeness remains relative to the frozen candidate family.",
+        "Next test or falsifier: Omitted-generator and goodness-of-fit control."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "V107-F007",
+      "statement": "Visibility and sampling must be represented as typed operators between source residue and terminal data.",
+      "claim_type": "methodological criterion",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "cosmicVisibilityDraft",
+        "candidate manuscript, section 15",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-F007"
+      ],
+      "evidence_class": "structural_inference",
+      "limitations_or_counterexamples": [
+        "Operators may be coupled and cannot always be scalarized.",
+        "Next test or falsifier: Joint source-operator inference with matched controls."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-F008",
+      "statement": "Dynamical rent and epistemic rent are distinct promotion tests for an added seam or edge state.",
+      "claim_type": "methodological criterion",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "earthInstrument030",
+        "candidate manuscript, section 17",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-F008"
+      ],
+      "evidence_class": "structural_inference",
+      "limitations_or_counterexamples": [
+        "Both are model- and protocol-dependent.",
+        "Next test or falsifier: Ablation against equal-budget baselines on held-out data."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-E001",
+      "statement": "Bidisperse colloids driven by AC electric fields form persistent active clusters sustained by nonreciprocal electrohydrodynamic interactions.",
+      "claim_type": "external experimental result",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "hara2026",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-E001"
+      ],
+      "evidence_class": "externally_published",
+      "limitations_or_counterexamples": [
+        "Applies to the reported open driven colloid-fluid-field-electrode system.",
+        "Next test or falsifier: Independent replication with mediator-flow mapping."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-E002",
+      "statement": "The colloid experiment does not establish failure of momentum conservation or Newtonian action-reaction in the full closed system.",
+      "claim_type": "scope correction",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "hara2026",
+        "candidate manuscript, section 9",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-E002"
+      ],
+      "evidence_class": "hand_checked",
+      "limitations_or_counterexamples": [
+        "Full closure was not reconstructed from raw data here.",
+        "Next test or falsifier: Direct environment momentum-flux measurement."
+      ],
+      "disposition": "admit"
+    },
+    {
+      "id": "V107-E003",
+      "statement": "Compressed Cu3Pt thin film reached a reported 855 mV at 1.0 mA cm^-2 versus 856 mV for Pt under the study conditions, while tensile strain reached 840 mV.",
+      "claim_type": "external experimental result",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "redondo2026",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-E003"
+      ],
+      "evidence_class": "externally_published",
+      "limitations_or_counterexamples": [
+        "One thin-film metric under declared conditions; not commercial parity.",
+        "Next test or falsifier: Independent operando replication with uncertainty and active-area normalization."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-E004",
+      "statement": "Cycling of the Cu3Pt film selectively removed Cu and produced a 5-10 nm Pt-enriched surface region.",
+      "claim_type": "external experimental result",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "redondo2026",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-E004"
+      ],
+      "evidence_class": "externally_published",
+      "limitations_or_counterexamples": [
+        "Surface evolution may depend on electrolyte, cycling, and film geometry.",
+        "Next test or falsifier: Time-resolved composition/strain mapping during cycling."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-E005",
+      "statement": "The Cu3Pt study establishes a commercial low-platinum fuel-cell catalyst.",
+      "claim_type": "overclaim audit",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "redondo2026",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-E005"
+      ],
+      "evidence_class": "rejected",
+      "limitations_or_counterexamples": [
+        "No full-cell durability, manufacturing, lifecycle, or cost certificate.",
+        "Next test or falsifier: Membrane-electrode assembly tests with Pt mass activity and long-duration durability."
+      ],
+      "disposition": "rejected"
+    },
+    {
+      "id": "V107-A001",
+      "statement": "The colloid case supports representing directed effective edges with an explicit environment ledger.",
+      "claim_type": "cross-domain structural inference",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "hara2026",
+        "candidate manuscript",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-A001"
+      ],
+      "evidence_class": "structural_inference",
+      "limitations_or_counterexamples": [
+        "Does not validate planetary stateful edges.",
+        "Next test or falsifier: Synthetic benchmark plus a real closed-budget experiment."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-A002",
+      "statement": "The Cu3Pt case supports representing an interface whose constitutive response changes through both strain and operating history.",
+      "claim_type": "cross-domain structural inference",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "redondo2026",
+        "candidate manuscript",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-A002"
+      ],
+      "evidence_class": "structural_inference",
+      "limitations_or_counterexamples": [
+        "Does not prove that every catalyst interface requires this state representation.",
+        "Next test or falsifier: Compare equal-budget stateful and memoryless models on held-out cycles."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-D001",
+      "statement": "The two new experiments empirically validate SPPT for planetary interiors.",
+      "claim_type": "scope firewall",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "candidate manuscript",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-D001"
+      ],
+      "evidence_class": "rejected",
+      "limitations_or_counterexamples": [
+        "No planetary data or equations of state are fitted.",
+        "Next test or falsifier: Planetary forward-model comparison on independent observables."
+      ],
+      "disposition": "rejected"
+    },
+    {
+      "id": "V107-D002",
+      "statement": "The integrated methods identify dark matter, a universal hidden medium, or a simulation substrate.",
+      "claim_type": "scope firewall",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "candidate manuscript",
+        "darkMatterCoherence2026",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-D002"
+      ],
+      "evidence_class": "rejected",
+      "limitations_or_counterexamples": [
+        "Only methodological analogies and bounded detector logic are supplied.",
+        "Next test or falsifier: A concrete interaction Hamiltonian and cross-channel prospective signal."
+      ],
+      "disposition": "rejected"
+    },
+    {
+      "id": "V107-D003",
+      "statement": "The v1.0.7 candidate is ready for immediate repository release.",
+      "claim_type": "release disposition",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "candidate manuscript, Part VI",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-D003"
+      ],
+      "evidence_class": "deferred",
+      "limitations_or_counterexamples": [
+        "No frozen integrated code tree, full replay, CI, independent builds, or release identity yet.",
+        "Next test or falsifier: Pass every promotion gate in section 25."
+      ],
+      "disposition": "deferred"
+    },
+    {
+      "id": "V107-E006",
+      "statement": "Koivurova, Robson, and Ornigotti published and analyzed an accelerating-wave equation with a positive-time solution interpretation in a 2023 peer-reviewed Optica article.",
+      "claim_type": "external theoretical result",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "koivurova2023",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-E006"
+      ],
+      "evidence_class": "externally_published",
+      "limitations_or_counterexamples": [
+        "Establishes the published derivation and interpretation, not experimental proof of a universal microscopic arrow of time.",
+        "Next test or falsifier: Exact independent derivation audit and a preregistered experiment comparing unique predictions with standard Maxwell/Floquet models."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-A003",
+      "statement": "The accelerating-wave paper and temporal-interface literature support an ASTRA audit that separates medium history, control schedule, reference frame, branch selection, observable basis, and the enlarged energy-momentum ledger.",
+      "claim_type": "cross-domain structural inference",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "koivurova2023",
+        "galiffi2022",
+        "moussa2023",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-A003"
+      ],
+      "evidence_class": "structural_inference",
+      "limitations_or_counterexamples": [
+        "This is a methods bridge, not a claim that the wave equation uniquely explains the physical arrow of time.",
+        "Next test or falsifier: Show that the added audit variables provide no distinct prediction or diagnostic beyond a standard fully specified time-varying-medium model."
+      ],
+      "disposition": "admit_with_qualification"
+    },
+    {
+      "id": "V107-D004",
+      "statement": "The accelerating-wave equation has experimentally proved a universal microscopic arrow of time.",
+      "claim_type": "scope firewall",
+      "hypotheses": [
+        "The statement is restricted to the declared model, source record, or protocol.",
+        "No broader physical or empirical conclusion is implied."
+      ],
+      "domain_units_signs_boundary_quantifiers": "The domain, units, quantifiers, and boundary are those declared in the v1.0.7 manuscript and the cited support; this record does not widen them.",
+      "support": [
+        "brighterSide2026",
+        "koivurova2023",
+        "galiffi2022",
+        "moussa2023",
+        "manuscript/manuscript.md; v1.0.7 claim ledger locator V107-D004"
+      ],
+      "evidence_class": "rejected",
+      "limitations_or_counterexamples": [
+        "The primary work is theoretical; existing temporal-interface experiments manipulate waves in forward laboratory time and do not establish a universal microscopic time direction.",
+        "Next test or falsifier: A preregistered experiment must isolate a prediction unique to the positive-time branch after reversing the complete field-medium-pump protocol and excluding standard models."
+      ],
+      "disposition": "rejected"
+    }
+  ]
+}

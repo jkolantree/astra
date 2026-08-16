@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+import csv
+import hashlib
+import json
+import re
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import pytest
@@ -11,6 +16,16 @@ ROOT = Path(__file__).resolve().parents[1]
 RESOURCE = ROOT / "resources" / "earth-is-the-instrument" / "v0.1"
 PDF = RESOURCE / "ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf"
 FRAMEWORK_RESOURCE = ROOT / "resources" / "earth-is-the-instrument" / "v0.3.0"
+V108_RESOURCE = ROOT / check_repository.SPPT_ASTRA_V108_CANDIDATE_ROOT
+V108_PACKAGE = V108_RESOURCE / "package"
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def test_working_paper_resource_contract() -> None:
@@ -142,11 +157,209 @@ def test_framework_v030_pdfs_are_tagged_searchable_and_bounded(name: str, pages:
     assert all((page.extract_text() or "").strip() for page in reader.pages)
 
 
+def test_sppt_astra_v108_candidate_resource_contract() -> None:
+    check_repository.check_sppt_astra_v108_candidate_resource()
+
+
+def test_sppt_astra_v108_candidate_is_explicitly_unpromoted_and_origin_bound() -> None:
+    text = " ".join((V108_RESOURCE / "README.md").read_text(encoding="utf-8").split())
+    assert "Status: repository-visible, unpromoted successor candidate." in text
+    assert "not the stable SPPT/ASTRA release" in text
+    assert "not peer reviewed" in text
+    assert "no tag, GitHub Release, Pages route, DOI, or Zenodo record" in text
+    assert "Immutable SPPT/ASTRA v1.0.7 remains the stable citation target." in text
+    assert check_repository.SPPT_ASTRA_V108_FROZEN_COMMIT in text
+    assert check_repository.SPPT_ASTRA_V108_ORIGIN_SHA256 in text
+
+
+def test_sppt_astra_v108_candidate_remains_under_privacy_and_license_checks() -> None:
+    paths = [
+        V108_RESOURCE / relative for relative in check_repository.SPPT_ASTRA_V108_CANDIDATE_FILES
+    ]
+    fixture_exemptions = {
+        path.relative_to(ROOT).as_posix()
+        for path in paths
+        if path.relative_to(ROOT).as_posix() in check_repository.PATTERN_FIXTURE_FILES
+    }
+    assert fixture_exemptions == set()
+    check_repository.check_text_privacy(paths)
+    check_repository.check_license_map(paths)
+    check_repository.check_png_metadata(paths)
+
+
+def test_sppt_astra_v108_ledger_preserves_v107_ids_and_adds_20_without_collision() -> None:
+    matrix_path = ROOT / "CLAIM_MATRIX.json"
+    embedded_matrix_path = V108_PACKAGE / "source" / "CLAIM_MATRIX_v1.0.7.json"
+    assert file_sha256(matrix_path) == check_repository.SPPT_ASTRA_V107_MATRIX_SHA256
+    assert file_sha256(embedded_matrix_path) == check_repository.SPPT_ASTRA_V107_MATRIX_SHA256
+    assert embedded_matrix_path.read_bytes() == matrix_path.read_bytes()
+
+    matrix = json.loads(embedded_matrix_path.read_text(encoding="utf-8"))
+    additions = json.loads(
+        (V108_PACKAGE / "source" / "claim_ledger_v1.0.8_additions.json").read_text(encoding="utf-8")
+    )
+    ledger = json.loads((V108_PACKAGE / "claim_ledger.json").read_text(encoding="utf-8"))
+    canonical_claims = matrix["claims"]
+    canonical_ids = [claim["id"] for claim in canonical_claims]
+    addition_ids = [claim["claim_id"] for claim in additions]
+    ledger_ids = [claim["claim_id"] for claim in ledger]
+
+    assert len(canonical_claims) == len(set(canonical_ids)) == 55
+    assert len(additions) == len(set(addition_ids)) == 20
+    assert set(canonical_ids).isdisjoint(addition_ids)
+    assert all(claim_id.startswith("V108-") for claim_id in addition_ids)
+    assert len(ledger) == len(set(ledger_ids)) == 75
+    assert ledger_ids == canonical_ids + addition_ids
+
+    status_by_disposition = {
+        "admit": "Admitted",
+        "admit_with_qualification": "Admitted with qualification",
+        "proposed_only": "Proposed only",
+        "deferred": "Deferred",
+        "rejected": "Rejected",
+    }
+    inherited_falsifier = (
+        "No separate field exists in the frozen v1.0.7 matrix; use its "
+        "preserved limitations and cited support."
+    )
+    for canonical, projected in zip(canonical_claims, ledger[:55], strict=True):
+        assert projected == {
+            "claim_id": canonical["id"],
+            "statement": canonical["statement"],
+            "claim_type": canonical["claim_type"],
+            "scientific_status": status_by_disposition[canonical["disposition"]],
+            "evidence_class": canonical["evidence_class"],
+            "disposition": canonical["disposition"],
+            "support": " || ".join(canonical["support"]),
+            "limitations": " || ".join(canonical["limitations_or_counterexamples"]),
+            "falsifier_or_next_test": inherited_falsifier,
+        }
+
+    with (V108_PACKAGE / "claim_ledger.csv").open(encoding="utf-8", newline="") as handle:
+        assert list(csv.DictReader(handle)) == ledger
+
+
+def test_sppt_astra_v108_has_exactly_18_live_text_self_contained_figure_pairs() -> None:
+    figures = V108_PACKAGE / "figures"
+    pngs = sorted(figures.glob("*.png"))
+    svgs = sorted(figures.glob("*.svg"))
+    expected_stems = set(check_repository.SPPT_ASTRA_V108_FIGURE_STEMS)
+    assert len(pngs) == len(svgs) == 18
+    assert {path.stem for path in pngs} == expected_stems
+    assert {path.stem for path in svgs} == expected_stems
+
+    svg_namespace = "http://www.w3.org/2000/svg"
+    dc_namespace = "http://purl.org/dc/elements/1.1/"
+    url_pattern = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
+    for path in svgs:
+        raw = path.read_text(encoding="utf-8")
+        assert "<!DOCTYPE" not in raw.upper()
+        root = ET.fromstring(raw)
+        assert any(
+            "".join(node.itertext()).strip() for node in root.findall(f".//{{{svg_namespace}}}text")
+        )
+        metadata = root.find(f"{{{svg_namespace}}}metadata")
+        assert metadata is not None
+        assert [
+            (node.text or "").strip() for node in metadata.findall(f".//{{{dc_namespace}}}date")
+        ] == [check_repository.SPPT_ASTRA_V108_SVG_DATE]
+        assert [
+            (node.text or "").strip()
+            for node in metadata.findall(f".//{{{dc_namespace}}}description")
+        ] == ["Original ASTRA candidate figure"]
+        assert [
+            (node.text or "").strip() for node in metadata.findall(f".//{{{dc_namespace}}}format")
+        ] == ["image/svg+xml"]
+        assert [
+            (node.text or "").strip() for node in metadata.findall(f".//{{{dc_namespace}}}title")
+        ] == ["ASTRA / Jacko T."]
+        for element in root.iter():
+            assert element.tag.rsplit("}", 1)[-1] not in {"foreignObject", "script"}
+            values = [*element.attrib.values(), element.text or ""]
+            for attribute, value in element.attrib.items():
+                if attribute.rsplit("}", 1)[-1] in {"href", "src"}:
+                    assert value.startswith(("#", "data:"))
+            assert all("@import" not in value.lower() for value in values)
+            assert all(
+                match.group(2).strip().startswith("#")
+                for value in values
+                for match in url_pattern.finditer(value)
+            )
+
+
+def test_sppt_astra_v108_manifest_and_checksums_bind_exact_package_bytes() -> None:
+    package_files = {
+        path.relative_to(V108_PACKAGE).as_posix()
+        for path in V108_PACKAGE.rglob("*")
+        if path.is_file()
+    }
+    sums_path = V108_PACKAGE / "SHA256SUMS.txt"
+    checksum_lines = sums_path.read_text(encoding="utf-8").splitlines()
+    checksum_records: dict[str, str] = {}
+    checksum_names: list[str] = []
+    for line in checksum_lines:
+        match = re.fullmatch(r"([0-9a-f]{64})  ([^\r\n]+)", line)
+        assert match is not None
+        digest, name = match.groups()
+        assert name not in checksum_records
+        checksum_records[name] = digest
+        checksum_names.append(name)
+    assert checksum_names == sorted(checksum_names)
+    assert set(checksum_names) == package_files - {"SHA256SUMS.txt"}
+    assert all(
+        file_sha256(V108_PACKAGE / name) == digest for name, digest in checksum_records.items()
+    )
+
+    manifest = json.loads(
+        (V108_PACKAGE / "candidate_package_manifest.json").read_text(encoding="utf-8")
+    )
+    assert manifest["status"] == "reviewed_unpromoted_candidate"
+    assert manifest["source_package_sha256"] == check_repository.SPPT_ASTRA_V108_ORIGIN_SHA256
+    assert manifest["repository_basis"]["audited_commit"] == (
+        check_repository.SPPT_ASTRA_V108_FROZEN_COMMIT
+    )
+    assert manifest["repository_basis"]["stable_release"] == "v1.0.7"
+    assert manifest["verification"]["verdict"] == "REVIEWED_UNPROMOTED_CANDIDATE"
+    payload = manifest["payload"]
+    payload_names = [entry["path"] for entry in payload]
+    expected_payload = package_files - {"SHA256SUMS.txt", "candidate_package_manifest.json"}
+    assert payload_names == sorted(payload_names)
+    assert set(payload_names) == expected_payload
+    assert len(payload_names) == manifest["payload_file_count_excluding_manifest_and_sha256sums"]
+    assert (
+        sum((V108_PACKAGE / name).stat().st_size for name in payload_names)
+        == manifest["payload_total_bytes_excluding_manifest_and_sha256sums"]
+    )
+    for entry in payload:
+        path = V108_PACKAGE / entry["path"]
+        assert set(entry) == {"path", "bytes", "sha256"}
+        assert entry["bytes"] == path.stat().st_size
+        assert entry["sha256"] == file_sha256(path)
+
+
+def test_candidate_docx_suffix_is_admitted_only_at_the_exact_contract_path(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    exact = tmp_path / check_repository.SPPT_ASTRA_V108_DOCX_PATH
+    exact.parent.mkdir(parents=True)
+    exact.write_bytes(b"candidate-docx")
+    monkeypatch.setattr(check_repository, "ROOT", tmp_path)
+    assert [path.relative_to(tmp_path).as_posix() for path in check_repository.public_files()] == [
+        check_repository.SPPT_ASTRA_V108_DOCX_PATH
+    ]
+
+    rogue = exact.with_name("unregistered.docx")
+    rogue.write_bytes(b"rogue-docx")
+    with pytest.raises(RuntimeError, match="Unregistered supplemental resource"):
+        check_repository.public_files()
+
+
 @pytest.mark.parametrize(
     "relative",
     (
         "resources/earth-is-the-instrument/v0.1/nested/unreviewed.pdf",
         "resources/unregistered/v0.1/README.md",
+        "resources/sppt-astra-v1.0.8-candidate/package/unregistered.docx",
     ),
 )
 def test_public_files_rejects_unregistered_resources(

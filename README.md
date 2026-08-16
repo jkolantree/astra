@@ -26,6 +26,11 @@ This matters because many planetary measurements are made at the boundary: tempe
 - **v1.0.6 — historical immutable core baseline.** [Read its versioned edition](https://jkolantree.github.io/astra/v1.0.6/preprint/) or open the [release](https://github.com/jkolantree/astra/releases/tag/v1.0.6).
 - **v0.3.0 — current supplemental edition (*Earth Is the Instrument*), a working-paper release.** [Read the supplemental edition](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/latest/) or open its immutable [release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0).
 - **v1.0.7 Candidate Revision 2 — superseded public integration package.** [View the immutable prerelease](https://github.com/jkolantree/astra/releases/tag/sppt-astra-v1.0.7-rc.2) and its self-contained review archive. It records the review snapshot that preceded the stable v1.0.7 integration; its bytes and identity remain unchanged, and it has no separate Pages route, DOI, or Zenodo record.
+- **Unpromoted v1.0.8 successor candidate — Endogenous Visibility.** The
+  [repository-visible candidate](resources/sppt-astra-v1.0.8-candidate/) is a
+  repaired review package for joint source-and-transducer inference. It does
+  not replace v1.0.7, enter the stable claim matrix, or create a tag, Release,
+  Pages route, DOI, or Zenodo record.
 - **Public namespaced alpha — Sector-Complete Instrument v0.1.0-alpha.1.** This synthetic methods module lives under [`resources/sector-complete-instrument/v0.1.0-alpha.1/`](resources/sector-complete-instrument/v0.1.0-alpha.1/); it is not ASTRA v0.3.2, does not amend either immutable line, and has no Pages route, DOI, or Zenodo record. Open the [GitHub prerelease](https://github.com/jkolantree/astra/releases/tag/sector-complete-instrument-v0.1.0-alpha.1).
 - **Unpromoted methods draft — Mode-resolved active-support audit.** The default-branch [draft](resources/active-support-audit/draft-v0.1.0/) is a long-form ASTRA methods perspective on mode, waveform, geometry, phase matching, and observation. It remains separate from the v1.0.7 claim matrix and immutable assets.
 - **v0.1 — historical edition (*Earth Is the Instrument* Working Paper).** [Read historical v0.1](https://jkolantree.github.io/astra/resources/earth-is-the-instrument/v0.1/) or open its immutable [release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-wp-0.1).
@@ -39,6 +44,9 @@ This matters because many planetary measurements are made at the boundary: tempe
 - **Supplemental working-paper release:** *Earth Is the Instrument* v0.3.0 is a complete, separately versioned working-paper snapshot; it is supplemental and does not inherit the core claim matrix or verification.
 - **Research preview:** Sector-Complete Instrument v0.1.0-alpha.1 is an explicitly alpha, synthetic methods module.
 - **Integration candidate:** v1.0.7 Candidate Revision 2 is a superseded package-only review snapshot; the admitted stable core version is v1.0.7.
+- **Unpromoted successor candidate:** the v1.0.8 endogenous-visibility
+  resource is repository-visible for review only and has no release identity
+  or publication route.
 
 GitHub's **Pre-release** badge remains on the supplemental, preview, and candidate lines because they are not the core/latest line. It is a distribution/status flag, not a claim that every artifact is unfinished or that peer review has occurred.
 

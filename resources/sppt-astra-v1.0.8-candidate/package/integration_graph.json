@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "audited_repository": {
+    "repository": "jkolantree/astra",
+    "main_commit": "f8b32ef0af9cb6804f256490b4daafbdba43740e",
+    "stable_tag": "v1.0.7",
+    "stable_commit": "7454b8134cf28c233fe54a11ae4b65e256844821"
+  },
+  "nodes": [
+    {
+      "id": "sppt_v107",
+      "type": "stable_core",
+      "status": "immutable_published_reference"
+    },
+    {
+      "id": "main_m1",
+      "type": "maintenance_overlay",
+      "status": "repository_visible_unpromoted"
+    },
+    {
+      "id": "earth_v030",
+      "type": "supplement",
+      "status": "separate_working_paper_release"
+    },
+    {
+      "id": "sector_complete",
+      "type": "methods_module",
+      "status": "public_alpha"
+    },
+    {
+      "id": "active_support",
+      "type": "methods_draft",
+      "status": "unpromoted"
+    },
+    {
+      "id": "bridge_protocol",
+      "type": "executable_prototype",
+      "status": "unpromoted"
+    },
+    {
+      "id": "cosmic_visibility",
+      "type": "methods_draft",
+      "status": "unpromoted"
+    },
+    {
+      "id": "coherence_cell",
+      "type": "methods_scaffold",
+      "status": "unpromoted"
+    },
+    {
+      "id": "v108_candidate",
+      "type": "successor_candidate",
+      "status": "local_artifact_only"
+    }
+  ],
+  "edges": [
+    {
+      "source": "sppt_v107",
+      "target": "v108_candidate",
+      "relation": "retained_core"
+    },
+    {
+      "source": "main_m1",
+      "target": "v108_candidate",
+      "relation": "correction_input",
+      "content": [
+        "weak_cut_wording",
+        "dynamic_arrest_logic",
+        "coverage_scope"
+      ]
+    },
+    {
+      "source": "earth_v030",
+      "target": "v108_candidate",
+      "relation": "method_admission",
+      "content": [
+        "dual_rent",
+        "FOG",
+        "local_to_global_certificates",
+        "residue_and_archive_methods"
+      ]
+    },
+    {
+      "source": "sector_complete",
+      "target": "v108_candidate",
+      "relation": "method_admission",
+      "content": [
+        "observation_equation",
+        "observational_quotient",
+        "sector_coverage"
+      ]
+    },
+    {
+      "source": "active_support",
+      "target": "v108_candidate",
+      "relation": "method_admission",
+      "content": [
+        "mode_resolved_active_support",
+        "normalization_gauge"
+      ]
+    },
+    {
+      "source": "bridge_protocol",
+      "target": "v108_candidate",
+      "relation": "method_admission",
+      "content": [
+        "closure_to_heldout_prediction_chain"
+      ]
+    },
+    {
+      "source": "cosmic_visibility",
+      "target": "v108_candidate",
+      "relation": "method_admission",
+      "content": [
+        "visibility_composition",
+        "sampling_operator",
+        "source_visibility_degeneracy"
+      ]
+    },
+    {
+      "source": "coherence_cell",
+      "target": "v108_candidate",
+      "relation": "method_admission",
+      "content": [
+        "AEOF",
+        "novelty_boundary",
+        "precision_null"
+      ]
+    }
+  ],
+  "non_equivalence_note": "Method admission does not imply shared physical mechanism, empirical validation, or inheritance of a source line's release status."
+}

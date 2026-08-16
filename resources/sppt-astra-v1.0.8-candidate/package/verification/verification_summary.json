@@ -1,0 +1,72 @@
+{
+  "verdict": "REVIEWED_UNPROMOTED_CANDIDATE",
+  "source_package_sha256": "55b8962176680859064fa2ebc009bb45ddc0cce987bce0bc16206faa4c7c387a",
+  "repository_main_commit": "f8b32ef0af9cb6804f256490b4daafbdba43740e",
+  "stable_release": "v1.0.7",
+  "build_runtime": "CPython 3.12.10",
+  "documents": {
+    "canonical": {
+      "pages": 81,
+      "outlines": 173,
+      "annotations": 349,
+      "uri_links": 88,
+      "tagged": false,
+      "language": "en-US",
+      "bytes": 2959868,
+      "sha256": "294849890d62bc4c2d72c887f90c77e439760b5ba197b638787dbf237fab94ee"
+    },
+    "peer_review": {
+      "pages": 128,
+      "outlines": 172,
+      "annotations": 396,
+      "uri_links": 125,
+      "tagged": false,
+      "language": "en-US",
+      "bytes": 2997480,
+      "sha256": "47d901b1a929ac085e0b449892e2de73032e9471010fd3803b5c673391c475a7"
+    },
+    "tagged_reading": {
+      "pages": 80,
+      "outlines": 173,
+      "annotations": 335,
+      "uri_links": 71,
+      "tagged": true,
+      "language": "en-US",
+      "bytes": 3137255,
+      "sha256": "dd67e8be02d13b91c87224e1d61df2b630b9d658ec1fc7664526bbc0d97dc596"
+    },
+    "verification_report": {
+      "pages": 4,
+      "outlines": 8,
+      "annotations": 7,
+      "uri_links": 0,
+      "tagged": true,
+      "language": "en-US",
+      "bytes": 107354,
+      "sha256": "c5050dfcf83a065d46f3db4e055b036409131361cf8783313950f276254764c3"
+    }
+  },
+  "docx": {
+    "media_files": 18,
+    "described_drawings": 18,
+    "member_timestamp": "2026-08-16T00:00:00Z",
+    "bytes": 2480471,
+    "sha256": "8259085d1f05b21a29a8057d894fe52c48d7631c56a575b8cc792ac6eb1982ef"
+  },
+  "claim_count": 75,
+  "source_count": 51,
+  "figure_count": 18,
+  "acceptance_gate_counts": {
+    "DEFERRED": 1,
+    "ENVIRONMENT_LIMITED": 2,
+    "NOT_RUN": 6,
+    "PASS": 31
+  },
+  "not_certified": [
+    "release promotion or immutable v1.0.8 identity",
+    "external peer review",
+    "independent experimental or raw-data reproduction",
+    "DOCX page-layout equivalence in Word or LibreOffice",
+    "PDF/UA conformance"
+  ]
+}

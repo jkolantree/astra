@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import csv
 import fnmatch
 import hashlib
 import json
 import os
 import re
 import tomllib
+import xml.etree.ElementTree as ET
 from datetime import UTC, date, datetime
 from html.parser import HTMLParser
 from pathlib import Path
@@ -70,7 +72,20 @@ DIRECTORY_RULES = {
     "figures": {".png", ".pdf", ".svg"},
     "licenses": {".txt"},
     "manuscript": {".bib", ".css", ".html", ".json", ".md", ".pdf"},
-    "resources": {".cff", ".csv", ".html", ".json", ".md", ".pdf", ".png", ".py", ".sha256", ".svg", ".txt"},
+    "resources": {
+        ".bib",
+        ".cff",
+        ".csv",
+        ".html",
+        ".json",
+        ".md",
+        ".pdf",
+        ".png",
+        ".py",
+        ".sha256",
+        ".svg",
+        ".txt",
+    },
     "docs": {".css", ".html", ".json", ".md", ".png", ".svg", ".txt"},
     "schemas": {".json", ".md"},
     "scripts": {".py"},
@@ -291,6 +306,80 @@ COSMIC_VISIBILITY_RESOURCE_FILES = (
     "figures/evidence_ladder.svg",
     "figures/visibility_kernel_chain.svg",
 )
+SPPT_ASTRA_V108_CANDIDATE_ROOT = "resources/sppt-astra-v1.0.8-candidate"
+SPPT_ASTRA_V108_ORIGIN_SHA256 = "55b8962176680859064fa2ebc009bb45ddc0cce987bce0bc16206faa4c7c387a"
+SPPT_ASTRA_V107_MATRIX_SHA256 = "c7b52c0afc887342ad4bdc42f91f979fc49e1cd0b21b8e7c1c31946033de9bed"
+SPPT_ASTRA_V108_FROZEN_COMMIT = "f8b32ef0af9cb6804f256490b4daafbdba43740e"
+SPPT_ASTRA_V108_SVG_DATE = "2026-08-16T00:00:00Z"
+SPPT_ASTRA_V108_FIGURE_STEMS = (
+    "figure_01_repository_architecture",
+    "figure_02_stateful_edge_architecture",
+    "figure_03_edge_contract",
+    "figure_04_nonreciprocity_closure",
+    "figure_05_arrested_coarsening_model",
+    "figure_06_catalyst_self_rewriting_edge",
+    "figure_07_orr_reported_values",
+    "figure_08_operator_stack",
+    "figure_09_bridge_protocol",
+    "figure_10_dual_rent",
+    "figure_11_application_map",
+    "figure_12_promotion_gates",
+    "figure_13_temporal_interface_audit",
+    "figure_14_endogenous_visibility",
+    "figure_15_source_shell_separation",
+    "figure_16_cross_channel_rescue",
+    "figure_17_self_detuning_plasma",
+    "figure_18_catastrophic_tomography",
+)
+SPPT_ASTRA_V108_CANDIDATE_FILES = (
+    "README.md",
+    "package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.docx",
+    "package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.pdf",
+    "package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate_Peer_Review.pdf",
+    "package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate_Tagged_Reading_Edition.pdf",
+    "package/LICENSES.md",
+    "package/README.md",
+    "package/SHA256SUMS.txt",
+    "package/THIRD_PARTY_NOTICES.md",
+    "package/candidate_package_manifest.json",
+    "package/candidate_release_notes.md",
+    "package/change_log_from_v1.0.7.md",
+    "package/claim_ledger.csv",
+    "package/claim_ledger.json",
+    "package/formatting_and_submission_guide.md",
+    "package/integration_graph.json",
+    "package/repository_audit.md",
+    "package/source/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.md",
+    "package/source/CLAIM_MATRIX_v1.0.7.json",
+    "package/source/build_candidate.py",
+    "package/source/claim_ledger_v1.0.8_additions.json",
+    "package/source/finalize_candidate.py",
+    "package/source/generate_ledgers.py",
+    "package/source/make_figures.py",
+    "package/source/references.bib",
+    "package/source/source_ledger_v1.0.8_records.json",
+    "package/source_audit_and_correction_log.md",
+    "package/source_ledger.csv",
+    "package/source_ledger.json",
+    "package/verification/ASTRA_SPPT_v1.0.8_Candidate_Verification_Report.pdf",
+    "package/verification/acceptance_gate_matrix.csv",
+    "package/verification/docx_a11y_report.json",
+    "package/verification/verification_report.md",
+    "package/verification/verification_summary.json",
+    "package/visual_manifest.csv",
+    "package/visual_manifest.json",
+    "package/visual_preflight_report.md",
+    *(
+        f"package/figures/{stem}.{suffix}"
+        for stem in SPPT_ASTRA_V108_FIGURE_STEMS
+        for suffix in ("png", "svg")
+    ),
+)
+SPPT_ASTRA_V108_DOCX_PATH = (
+    f"{SPPT_ASTRA_V108_CANDIDATE_ROOT}/package/"
+    "ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.docx"
+)
+RESOURCE_EXACT_SUFFIX_ALLOWLIST = {SPPT_ASTRA_V108_DOCX_PATH}
 FRAMEWORK_RESOURCE_COVER = "cover.png"
 RESOURCE_PATH_ALLOWLIST = {
     "resources/README.md",
@@ -312,10 +401,8 @@ RESOURCE_PATH_ALLOWLIST = {
     *(f"{ACTIVE_SUPPORT_RESOURCE_ROOT}/{name}" for name in ACTIVE_SUPPORT_RESOURCE_FILES),
     *(f"{COHERENCE_CELL_RESOURCE_ROOT}/{name}" for name in COHERENCE_CELL_RESOURCE_FILES),
     *(f"{SPPT_BRIDGE_RESOURCE_ROOT}/{name}" for name in SPPT_BRIDGE_RESOURCE_FILES),
-    *(
-        f"{COSMIC_VISIBILITY_RESOURCE_ROOT}/{name}"
-        for name in COSMIC_VISIBILITY_RESOURCE_FILES
-    ),
+    *(f"{COSMIC_VISIBILITY_RESOURCE_ROOT}/{name}" for name in COSMIC_VISIBILITY_RESOURCE_FILES),
+    *(f"{SPPT_ASTRA_V108_CANDIDATE_ROOT}/{name}" for name in SPPT_ASTRA_V108_CANDIDATE_FILES),
 }
 
 
@@ -361,10 +448,15 @@ def public_files() -> list[Path]:
                 ),
                 None,
             )
-            if matched is None or path.suffix.lower() not in DIRECTORY_RULES[matched]:
+            if matched is None:
                 raise RuntimeError(f"Unexpected repository path: {relative.as_posix()}")
             if matched == "resources" and relative.as_posix() not in RESOURCE_PATH_ALLOWLIST:
                 raise RuntimeError(f"Unregistered supplemental resource: {relative.as_posix()}")
+            suffix_allowed = path.suffix.lower() in DIRECTORY_RULES[matched]
+            if matched == "resources" and relative.as_posix() in RESOURCE_EXACT_SUFFIX_ALLOWLIST:
+                suffix_allowed = True
+            if not suffix_allowed:
+                raise RuntimeError(f"Unexpected repository path: {relative.as_posix()}")
         files.append(path)
     return sorted(files, key=lambda item: item.relative_to(ROOT).as_posix())
 
@@ -939,6 +1031,274 @@ def check_framework_v030_resource() -> None:
         raise RuntimeError("License map omits ASTRA Framework v0.3.0 errata")
 
 
+def _check_sppt_astra_v108_claim_ledger(package_root: Path) -> None:
+    matrix_path = ROOT / "CLAIM_MATRIX.json"
+    embedded_matrix_path = package_root / "source" / "CLAIM_MATRIX_v1.0.7.json"
+    if sha256(matrix_path) != SPPT_ASTRA_V107_MATRIX_SHA256:
+        raise RuntimeError("Repository v1.0.7 claim matrix bytes drifted")
+    if sha256(embedded_matrix_path) != SPPT_ASTRA_V107_MATRIX_SHA256:
+        raise RuntimeError("Candidate embedded v1.0.7 claim matrix bytes drifted")
+
+    matrix = json.loads(embedded_matrix_path.read_text(encoding="utf-8"))
+    additions = json.loads(
+        (package_root / "source" / "claim_ledger_v1.0.8_additions.json").read_text(encoding="utf-8")
+    )
+    ledger = json.loads((package_root / "claim_ledger.json").read_text(encoding="utf-8"))
+    canonical_claims = matrix.get("claims")
+    if not isinstance(canonical_claims, list) or len(canonical_claims) != 55:
+        raise RuntimeError("Candidate v1.0.7 matrix must contain exactly 55 claims")
+    if not isinstance(additions, list) or len(additions) != 20:
+        raise RuntimeError("Candidate v1.0.8 additions must contain exactly 20 claims")
+    if not isinstance(ledger, list) or len(ledger) != 75:
+        raise RuntimeError("Candidate successor ledger must contain exactly 75 claims")
+
+    canonical_ids = [claim.get("id") for claim in canonical_claims]
+    addition_ids = [claim.get("claim_id") for claim in additions]
+    ledger_ids = [claim.get("claim_id") for claim in ledger]
+    if len(set(canonical_ids)) != 55:
+        raise RuntimeError("Frozen v1.0.7 claim matrix contains duplicate identifiers")
+    if len(set(addition_ids)) != 20 or set(canonical_ids) & set(addition_ids):
+        raise RuntimeError("Candidate claim identifiers collide with each other or v1.0.7")
+    if any(
+        not isinstance(claim_id, str) or not claim_id.startswith("V108-")
+        for claim_id in addition_ids
+    ):
+        raise RuntimeError("Candidate additions must use distinct V108 claim identifiers")
+    if ledger_ids != canonical_ids + addition_ids or len(set(ledger_ids)) != 75:
+        raise RuntimeError("Candidate ledger order, coverage, or identifier uniqueness drifted")
+
+    status_by_disposition = {
+        "admit": "Admitted",
+        "admit_with_qualification": "Admitted with qualification",
+        "proposed_only": "Proposed only",
+        "deferred": "Deferred",
+        "rejected": "Rejected",
+    }
+    inherited_falsifier = (
+        "No separate field exists in the frozen v1.0.7 matrix; use its "
+        "preserved limitations and cited support."
+    )
+    for canonical, projected in zip(canonical_claims, ledger[:55], strict=True):
+        expected = {
+            "claim_id": canonical["id"],
+            "statement": canonical["statement"],
+            "claim_type": canonical["claim_type"],
+            "scientific_status": status_by_disposition[canonical["disposition"]],
+            "evidence_class": canonical["evidence_class"],
+            "disposition": canonical["disposition"],
+            "support": " || ".join(canonical["support"]),
+            "limitations": " || ".join(canonical["limitations_or_counterexamples"]),
+            "falsifier_or_next_test": inherited_falsifier,
+        }
+        if projected != expected:
+            raise RuntimeError(f"Candidate projection drifted for v1.0.7 claim {canonical['id']}")
+
+    with (package_root / "claim_ledger.csv").open(encoding="utf-8", newline="") as handle:
+        csv_ledger = list(csv.DictReader(handle))
+    if csv_ledger != ledger:
+        raise RuntimeError("Candidate claim ledger CSV and JSON disagree")
+
+
+def _check_sppt_astra_v108_svg(path: Path) -> None:
+    raw = path.read_text(encoding="utf-8")
+    if "<!DOCTYPE" in raw.upper():
+        raise RuntimeError(f"Candidate SVG contains an external-DTD surface: {path.name}")
+    try:
+        root = ET.fromstring(raw)
+    except ET.ParseError as error:
+        raise RuntimeError(f"Candidate SVG is not well formed: {path.name}") from error
+
+    svg_namespace = "http://www.w3.org/2000/svg"
+    dc_namespace = "http://purl.org/dc/elements/1.1/"
+    if root.tag != f"{{{svg_namespace}}}svg":
+        raise RuntimeError(f"Candidate SVG has the wrong root element: {path.name}")
+    live_text = [
+        "".join(node.itertext()).strip() for node in root.findall(f".//{{{svg_namespace}}}text")
+    ]
+    if not any(live_text):
+        raise RuntimeError(f"Candidate SVG has no live text: {path.name}")
+
+    metadata = root.find(f"{{{svg_namespace}}}metadata")
+    if metadata is None:
+        raise RuntimeError(f"Candidate SVG has no fixed metadata: {path.name}")
+
+    def metadata_values(name: str) -> list[str]:
+        return [
+            (node.text or "").strip() for node in metadata.findall(f".//{{{dc_namespace}}}{name}")
+        ]
+
+    if metadata_values("date") != [SPPT_ASTRA_V108_SVG_DATE]:
+        raise RuntimeError(f"Candidate SVG creation date is not fixed: {path.name}")
+    if metadata_values("description") != ["Original ASTRA candidate figure"]:
+        raise RuntimeError(f"Candidate SVG description metadata drifted: {path.name}")
+    if metadata_values("format") != ["image/svg+xml"]:
+        raise RuntimeError(f"Candidate SVG format metadata drifted: {path.name}")
+    if metadata_values("title") != ["ASTRA / Jacko T."]:
+        raise RuntimeError(f"Candidate SVG creator metadata drifted: {path.name}")
+
+    url_pattern = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
+    for element in root.iter():
+        local_tag = element.tag.rsplit("}", 1)[-1]
+        if local_tag in {"foreignObject", "script"}:
+            raise RuntimeError(
+                f"Candidate SVG contains active/external-capable content: {path.name}"
+            )
+        values = [*element.attrib.values(), element.text or ""]
+        for attribute, value in element.attrib.items():
+            local_attribute = attribute.rsplit("}", 1)[-1]
+            if local_attribute in {"href", "src"} and not value.startswith(("#", "data:")):
+                raise RuntimeError(f"Candidate SVG contains an external reference: {path.name}")
+        for value in values:
+            if "@import" in value.lower():
+                raise RuntimeError(f"Candidate SVG contains a stylesheet import: {path.name}")
+            for match in url_pattern.finditer(value):
+                if not match.group(2).strip().startswith("#"):
+                    raise RuntimeError(f"Candidate SVG contains an external URL: {path.name}")
+
+
+def _check_sppt_astra_v108_package_identity(package_root: Path) -> None:
+    package_roster = {
+        name.removeprefix("package/")
+        for name in SPPT_ASTRA_V108_CANDIDATE_FILES
+        if name.startswith("package/")
+    }
+    sums_path = package_root / "SHA256SUMS.txt"
+    manifest_path = package_root / "candidate_package_manifest.json"
+    if not sums_path.is_file() and not manifest_path.is_file():
+        return
+    if not sums_path.is_file() or not manifest_path.is_file():
+        raise RuntimeError("Candidate manifest and checksum sidecar must be present together")
+
+    checksum_text = sums_path.read_text(encoding="utf-8")
+    if not checksum_text.endswith("\n"):
+        raise RuntimeError("Candidate checksum sidecar must end with a newline")
+    checksum_records: dict[str, str] = {}
+    checksum_names: list[str] = []
+    for line in checksum_text.splitlines():
+        match = re.fullmatch(r"([0-9a-f]{64})  ([^\r\n]+)", line)
+        if match is None:
+            raise RuntimeError(f"Malformed candidate checksum line: {line!r}")
+        digest, name = match.groups()
+        parts = name.split("/")
+        if (
+            name.startswith("/")
+            or "\\" in name
+            or ":" in parts[0]
+            or any(part in {"", ".", ".."} for part in parts)
+        ):
+            raise RuntimeError(f"Unsafe candidate checksum path: {name}")
+        if name in checksum_records:
+            raise RuntimeError(f"Duplicate candidate checksum path: {name}")
+        checksum_records[name] = digest
+        checksum_names.append(name)
+
+    expected_checksum_names = package_roster - {"SHA256SUMS.txt"}
+    if set(checksum_names) != expected_checksum_names or checksum_names != sorted(checksum_names):
+        raise RuntimeError("Candidate checksum roster or canonical ordering drifted")
+    for name, expected_digest in checksum_records.items():
+        if sha256(package_root / name) != expected_digest:
+            raise RuntimeError(f"Candidate checksum mismatch: {name}")
+
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("status") != "reviewed_unpromoted_candidate":
+        raise RuntimeError("Candidate manifest does not preserve the unpromoted boundary")
+    if manifest.get("source_package_sha256") != SPPT_ASTRA_V108_ORIGIN_SHA256:
+        raise RuntimeError("Candidate manifest origin-package identity drifted")
+    repository_basis = manifest.get("repository_basis")
+    if not isinstance(repository_basis, dict) or (
+        repository_basis.get("audited_commit") != SPPT_ASTRA_V108_FROZEN_COMMIT
+        or repository_basis.get("stable_release") != "v1.0.7"
+    ):
+        raise RuntimeError("Candidate manifest repository basis drifted")
+    verification = manifest.get("verification")
+    if not isinstance(verification, dict) or (
+        verification.get("verdict") != "REVIEWED_UNPROMOTED_CANDIDATE"
+    ):
+        raise RuntimeError("Candidate verification verdict does not preserve its boundary")
+    payload = manifest.get("payload")
+    if not isinstance(payload, list):
+        raise RuntimeError("Candidate package manifest has no payload list")
+    payload_names: list[str] = []
+    payload_records: dict[str, dict[str, object]] = {}
+    for entry in payload:
+        if not isinstance(entry, dict) or set(entry) != {"path", "bytes", "sha256"}:
+            raise RuntimeError("Candidate manifest payload entry has the wrong fields")
+        name = entry["path"]
+        if not isinstance(name, str) or name in payload_records:
+            raise RuntimeError("Candidate manifest payload paths are invalid or duplicated")
+        payload_names.append(name)
+        payload_records[name] = entry
+
+    expected_payload_names = package_roster - {
+        "SHA256SUMS.txt",
+        "candidate_package_manifest.json",
+    }
+    if set(payload_names) != expected_payload_names or payload_names != sorted(payload_names):
+        raise RuntimeError("Candidate manifest payload roster or canonical ordering drifted")
+    expected_total_bytes = 0
+    for name, entry in payload_records.items():
+        path = package_root / name
+        size = path.stat().st_size
+        digest = sha256(path)
+        expected_total_bytes += size
+        if entry["bytes"] != size or entry["sha256"] != digest:
+            raise RuntimeError(f"Candidate manifest payload identity mismatch: {name}")
+    if manifest.get("payload_file_count_excluding_manifest_and_sha256sums") != len(
+        expected_payload_names
+    ):
+        raise RuntimeError("Candidate manifest payload count drifted")
+    if manifest.get("payload_total_bytes_excluding_manifest_and_sha256sums") != (
+        expected_total_bytes
+    ):
+        raise RuntimeError("Candidate manifest payload byte total drifted")
+
+
+def check_sppt_astra_v108_candidate_resource() -> None:
+    resource_root = ROOT / SPPT_ASTRA_V108_CANDIDATE_ROOT
+    if not resource_root.is_dir():
+        raise RuntimeError("SPPT/ASTRA v1.0.8 candidate resource directory is missing")
+    observed_roster = {
+        path.relative_to(resource_root).as_posix()
+        for path in resource_root.rglob("*")
+        if path.is_file()
+    }
+    expected_roster = set(SPPT_ASTRA_V108_CANDIDATE_FILES)
+    if observed_roster != expected_roster:
+        raise RuntimeError(
+            "SPPT/ASTRA v1.0.8 candidate roster differs from its contract: "
+            f"missing={sorted(expected_roster - observed_roster)}, "
+            f"unexpected={sorted(observed_roster - expected_roster)}"
+        )
+
+    readme = " ".join((resource_root / "README.md").read_text(encoding="utf-8").split())
+    required_boundaries = (
+        "Status: repository-visible, unpromoted successor candidate.",
+        "not the stable SPPT/ASTRA release",
+        "not peer reviewed",
+        "no tag, GitHub Release, Pages route, DOI, or Zenodo record",
+        "Immutable SPPT/ASTRA v1.0.7 remains the stable citation target.",
+        SPPT_ASTRA_V108_FROZEN_COMMIT,
+        SPPT_ASTRA_V108_ORIGIN_SHA256,
+    )
+    for boundary in required_boundaries:
+        if boundary not in readme:
+            raise RuntimeError(f"SPPT/ASTRA v1.0.8 candidate boundary omits: {boundary}")
+
+    package_root = resource_root / "package"
+    figures_root = package_root / "figures"
+    png_stems = {path.stem for path in figures_root.glob("*.png")}
+    svg_paths = sorted(figures_root.glob("*.svg"))
+    svg_stems = {path.stem for path in svg_paths}
+    expected_stems = set(SPPT_ASTRA_V108_FIGURE_STEMS)
+    if png_stems != expected_stems or svg_stems != expected_stems:
+        raise RuntimeError("Candidate must contain the exact 18 PNG/SVG figure pairs")
+    for svg_path in svg_paths:
+        _check_sppt_astra_v108_svg(svg_path)
+
+    _check_sppt_astra_v108_claim_ledger(package_root)
+    _check_sppt_astra_v108_package_identity(package_root)
+
+
 def check_publication_map() -> None:
     readme = " ".join((ROOT / "README.md").read_text(encoding="utf-8").replace("**", "").split())
     required_readme_values = (
@@ -1468,6 +1828,7 @@ def main() -> None:
     check_png_metadata(paths)
     check_working_paper_resource()
     check_framework_v030_resource()
+    check_sppt_astra_v108_candidate_resource()
     check_publication_map()
     check_metadata_agreement()
     check_claim_matrix()

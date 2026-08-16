@@ -1,0 +1,222 @@
+[
+  {
+    "claim_id": "V108-M001",
+    "statement": "A source-coupled visibility model must evolve transducer state when source-induced change is non-negligible.",
+    "claim_type": "framework inference",
+    "scientific_status": "Strong inference",
+    "evidence_class": "structural_inference",
+    "disposition": "admit_with_qualification",
+    "support": "candidate manuscript section 17.1; oleary2009; jiang2017",
+    "limitations": "Joint source/operator inference is established prior art; the candidate contribution is the typed, stateful admission rule and requires a domain-specific state equation and constrained nuisances.",
+    "falsifier_or_next_test": "Compare fixed and stateful visibility models on held-out interventions."
+  },
+  {
+    "claim_id": "V108-M002",
+    "statement": "Xi_br = |delta omega_medium| / Gamma_res is a proposed diagnostic for backreaction-induced detuning.",
+    "claim_type": "proposed diagnostic",
+    "scientific_status": "Plausible",
+    "evidence_class": "proposed_only",
+    "disposition": "proposed_only",
+    "support": "candidate manuscript section 17.3",
+    "limitations": "Not a universal threshold theorem; numerator and width are domain-specific.",
+    "falsifier_or_next_test": "Measure both resonance shift and effective width under independent drive changes."
+  },
+  {
+    "claim_id": "V108-F002",
+    "statement": "Over a declared observation window, dynamic arrest is classified by preregistered boundedness or statistical stationarity of a declared characteristic-scale process together with resolved persistent turnover; vanishing logarithmic slope alone is neither necessary nor sufficient.",
+    "claim_type": "framework proposal",
+    "scientific_status": "Proposed",
+    "evidence_class": "proposed_only",
+    "disposition": "proposed_only",
+    "support": "candidate manuscript section 6.1; astraMainM1",
+    "limitations": "The window, ensemble, scale statistic, turnover event, sampling resolution, noise treatment, and thresholds are application-specific.",
+    "falsifier_or_next_test": "Preregister the classifier and distinguish frozen, drifting, and dynamically renewed states on held-out trajectories."
+  },
+  {
+    "claim_id": "V108-R001",
+    "statement": "The default-branch M1 repair corrects weak-cut wording, dynamic-arrest logic, and claim-source coverage language without rewriting immutable v1.0.7 assets.",
+    "claim_type": "repository audit",
+    "scientific_status": "Established",
+    "evidence_class": "source_asserted",
+    "disposition": "admit",
+    "support": "astraMainM1",
+    "limitations": "M1 is not a release or external scientific validation.",
+    "falsifier_or_next_test": "Promote only through a new frozen release identity and complete verification."
+  },
+  {
+    "claim_id": "V108-R002",
+    "statement": "The frozen repository basis for this v1.0.8 candidate is main commit f8b32ef0af9cb6804f256490b4daafbdba43740e.",
+    "claim_type": "repository audit",
+    "scientific_status": "Established",
+    "evidence_class": "source_asserted",
+    "disposition": "admit",
+    "support": "astraRepo2026; exact Git commit and tree inspection",
+    "limitations": "This is a dated candidate basis, not a claim about later mutable main-branch state or a v1.0.8 release identity.",
+    "falsifier_or_next_test": "Record and re-audit a new exact base commit if the candidate is rebased."
+  },
+  {
+    "claim_id": "V108-E001",
+    "statement": "MoM-BH*-1 has the reported extreme Balmer spectrum at z=7.7569.",
+    "claim_type": "external observation",
+    "scientific_status": "Established",
+    "evidence_class": "externally_published",
+    "disposition": "admit",
+    "support": "naidu2026",
+    "limitations": "Measurement and calibration uncertainties remain; one object does not define a population.",
+    "falsifier_or_next_test": "Repeat spectroscopy and same-instrument monitoring."
+  },
+  {
+    "claim_id": "V108-A001",
+    "statement": "A dense gas envelope around an accreting black hole is the strongest current explanation of MoM-BH*-1.",
+    "claim_type": "astrophysical inference",
+    "scientific_status": "Strong inference",
+    "evidence_class": "structural_inference",
+    "disposition": "admit_with_qualification",
+    "support": "naidu2026",
+    "limitations": "Cloudy model is highly simplified; exact geometry, mass, and accretion history are open.",
+    "falsifier_or_next_test": "Jointly fit continuum, line transfer, variability, X-rays, and host kinematics."
+  },
+  {
+    "claim_id": "V108-D001",
+    "statement": "The exact MoM-BH*-1 black-hole mass and accretion regime are established.",
+    "claim_type": "overclaim",
+    "scientific_status": "Unsupported",
+    "evidence_class": "rejected",
+    "disposition": "rejected",
+    "support": "naidu2026",
+    "limitations": "Mass depends on radiative-transfer and Eddington assumptions.",
+    "falsifier_or_next_test": "Direct reverberation or dynamical constraints would change status."
+  },
+  {
+    "claim_id": "V108-E002a",
+    "statement": "EP250827b is associated with SN 2025wkm, a broad-line Type Ic supernova.",
+    "claim_type": "external observation",
+    "scientific_status": "Established",
+    "evidence_class": "externally_published",
+    "disposition": "admit",
+    "support": "srinivasaragavan2026",
+    "limitations": "The X-ray trigger was marginal in isolation; the association depends on the multiwavelength network.",
+    "falsifier_or_next_test": "Replicate the trigger-to-supernova association in a selection-complete sample with explicit false-association control."
+  },
+  {
+    "claim_id": "V108-E002b",
+    "statement": "The reported plateau requires a sustained power source beyond a simple radioactive-decay light curve.",
+    "claim_type": "external inference",
+    "scientific_status": "Strong inference",
+    "evidence_class": "externally_published",
+    "disposition": "admit_with_qualification",
+    "support": "srinivasaragavan2026",
+    "limitations": "The exact engine decomposition among magnetar, disk, and circumstellar interaction is model-dependent.",
+    "falsifier_or_next_test": "Use late-time radio, nebular spectroscopy, and a trigger-complete comparison sample to separate engine models."
+  },
+  {
+    "claim_id": "V108-A002",
+    "statement": "The EP250827b discovery demonstrates cross-channel rescue: orthogonal observations converted a marginal trigger into a bounded causal classification.",
+    "claim_type": "methodological inference",
+    "scientific_status": "Strong inference",
+    "evidence_class": "structural_inference",
+    "disposition": "admit_with_qualification",
+    "support": "srinivasaragavan2026",
+    "limitations": "Specific to the reported observing network and selection function.",
+    "falsifier_or_next_test": "Simulate discovery completeness with and without each messenger."
+  },
+  {
+    "claim_id": "V108-D002",
+    "statement": "Every soft-X-ray-flash supernova has the same magnetar-disk engine.",
+    "claim_type": "overclaim",
+    "scientific_status": "Unsupported",
+    "evidence_class": "rejected",
+    "disposition": "rejected",
+    "support": "srinivasaragavan2026",
+    "limitations": "The population is heterogeneous and selection-biased.",
+    "falsifier_or_next_test": "A complete population model would be required."
+  },
+  {
+    "claim_id": "V108-E003",
+    "statement": "The reported particle-in-cell simulations saturate dark-photon resonant transfer through nonlinear plasma detuning within the declared model.",
+    "claim_type": "external computational result",
+    "scientific_status": "Established",
+    "evidence_class": "externally_published",
+    "disposition": "admit_with_qualification",
+    "support": "hook2026",
+    "limitations": "Long-time cosmological hierarchy, collisions, and full expansion are not completely simulated.",
+    "falsifier_or_next_test": "Independent 2D/3D collisional expanding-plasma replay."
+  },
+  {
+    "claim_id": "V108-A003",
+    "statement": "Earlier linear cosmological dark-photon constraints are substantially weakened under the reported nonlinear model.",
+    "claim_type": "cosmological inference",
+    "scientific_status": "Strong inference",
+    "evidence_class": "structural_inference",
+    "disposition": "admit_with_qualification",
+    "support": "hook2026",
+    "limitations": "Final quantitative exclusion map remains sensitive to unresolved plasma physics.",
+    "falsifier_or_next_test": "Recompute constraints after independent nonlinear validation."
+  },
+  {
+    "claim_id": "V108-D003",
+    "statement": "Dark photons have been detected.",
+    "claim_type": "overclaim",
+    "scientific_status": "Unsupported",
+    "evidence_class": "rejected",
+    "disposition": "rejected",
+    "support": "hook2026; xenon2026",
+    "limitations": "The work revises a constraint; it is not a positive detection.",
+    "falsifier_or_next_test": "A reproducible multi-channel excess with model closure is required."
+  },
+  {
+    "claim_id": "V108-E004",
+    "statement": "Neptune inner moons and rings show the reported hydrated and magnesium-rich phyllosilicate spectral signatures.",
+    "claim_type": "external observation",
+    "scientific_status": "Established",
+    "evidence_class": "externally_published",
+    "disposition": "admit",
+    "support": "davis2026",
+    "limitations": "Spectral identification and surface mixture remain subject to laboratory analog calibration.",
+    "falsifier_or_next_test": "Obtain broader spectra and cryogenic laboratory matches."
+  },
+  {
+    "claim_id": "V108-A004",
+    "statement": "The Neptune material likely derives from aqueously altered interiors of larger destroyed bodies.",
+    "claim_type": "planetary inference",
+    "scientific_status": "Strong inference",
+    "evidence_class": "structural_inference",
+    "disposition": "admit_with_qualification",
+    "support": "davis2026; belyakov2026",
+    "limitations": "Parent bodies and destruction sequence are not uniquely identified; missing water ice remains unexplained.",
+    "falsifier_or_next_test": "Coupled capture, fragmentation, volatile-loss, and reaccretion models must fit all moon spectra."
+  },
+  {
+    "claim_id": "V108-D004",
+    "statement": "The exact Triton-capture destruction and reaccretion history is established.",
+    "claim_type": "overclaim",
+    "scientific_status": "Unsupported",
+    "evidence_class": "rejected",
+    "disposition": "rejected",
+    "support": "davis2026; belyakov2026",
+    "limitations": "Several parent and sorting histories remain viable.",
+    "falsifier_or_next_test": "Discriminating composition and dynamical predictions are required."
+  },
+  {
+    "claim_id": "V108-F001",
+    "statement": "Catastrophic tomography can expose deep material while reducing provenance and chronology information.",
+    "claim_type": "archive method",
+    "scientific_status": "Strong inference",
+    "evidence_class": "structural_inference",
+    "disposition": "admit_with_qualification",
+    "support": "candidate manuscript section 21; davis2026",
+    "limitations": "General methodological statement; every application requires its own transport and alteration model.",
+    "falsifier_or_next_test": "Quantify information gain and loss in a synthetic remapping benchmark."
+  },
+  {
+    "claim_id": "V108-D005",
+    "statement": "The four new calibration cases demonstrate one common physical mechanism.",
+    "claim_type": "cross-domain overclaim",
+    "scientific_status": "Unsupported",
+    "evidence_class": "rejected",
+    "disposition": "rejected",
+    "support": "naidu2026; srinivasaragavan2026; hook2026; davis2026",
+    "limitations": "Only the inverse-problem structure is shared.",
+    "falsifier_or_next_test": "A common unit-consistent constitutive law would be required."
+  }
+]

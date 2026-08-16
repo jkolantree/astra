@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+- Adds the namespaced, unpromoted SPPT/ASTRA v1.0.8 Endogenous Visibility
+  successor candidate for repository review without changing the v1.0.7
+  release identity, claim matrix, reading assets, runtime, or citation target.
+- Records the supplied archive identity and repairs public claim-ID reuse,
+  incomplete inherited claim coverage, drifting source locators, outlined SVG
+  labels, producer portability, visible content loss on five PDF pages, unsafe
+  Figure 9 label clearance, and an unexplained Figure 10 color mark before
+  admission.
+- Keeps tag, Release, Pages, DOI, Zenodo, and stable-claim promotion explicitly
+  deferred.
+
 ## 1.0.7 — 2026-08-10
 
 - Promotes SPPT/ASTRA v1.0.7 as the stable current core reference edition with its own source tree, claim matrix, source inventory, generated documents, manifest, and release identity; v1.0.6 remains immutable historical provenance.
