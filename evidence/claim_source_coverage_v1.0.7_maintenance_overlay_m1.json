@@ -1965,7 +1965,7 @@
           "precision": "file_level"
         },
         {
-          "file_sha256": "3b2a741e80eeb93f3c0c2ac9b8886c64247d90e519bb8b5e5ff534a18a3b7809",
+          "file_sha256": "8b7a7e6bff9aaf4f9f234946f18e41eb239fc76807c2f32230402a86570f7e61",
           "locator": "evidence/",
           "path": "README.md",
           "precision": "file_level"
@@ -2021,7 +2021,7 @@
         },
         {
           "admitted_path": "README.md",
-          "admitted_sha256": "3b2a741e80eeb93f3c0c2ac9b8886c64247d90e519bb8b5e5ff534a18a3b7809",
+          "admitted_sha256": "8b7a7e6bff9aaf4f9f234946f18e41eb239fc76807c2f32230402a86570f7e61",
           "entailment_status": "structural_link_only",
           "kind": "tracked_file",
           "raw_support": "evidence/README.md",
@@ -3953,10 +3953,86 @@
   "maintenance_overlay": {
     "additional_baseline_changed_paths": [
       ".github/workflows/pages.yml",
+      "CHANGELOG.md",
       "docs/index.html",
       "docs/sppt-astra-cover.svg",
+      "resources/README.md",
+      "resources/sppt-astra-v1.0.8-candidate/README.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.docx",
+      "resources/sppt-astra-v1.0.8-candidate/package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.pdf",
+      "resources/sppt-astra-v1.0.8-candidate/package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate_Peer_Review.pdf",
+      "resources/sppt-astra-v1.0.8-candidate/package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate_Tagged_Reading_Edition.pdf",
+      "resources/sppt-astra-v1.0.8-candidate/package/LICENSES.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/README.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/SHA256SUMS.txt",
+      "resources/sppt-astra-v1.0.8-candidate/package/THIRD_PARTY_NOTICES.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/candidate_package_manifest.json",
+      "resources/sppt-astra-v1.0.8-candidate/package/candidate_release_notes.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/change_log_from_v1.0.7.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/claim_ledger.csv",
+      "resources/sppt-astra-v1.0.8-candidate/package/claim_ledger.json",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_01_repository_architecture.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_01_repository_architecture.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_02_stateful_edge_architecture.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_02_stateful_edge_architecture.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_03_edge_contract.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_03_edge_contract.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_04_nonreciprocity_closure.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_04_nonreciprocity_closure.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_05_arrested_coarsening_model.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_05_arrested_coarsening_model.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_06_catalyst_self_rewriting_edge.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_06_catalyst_self_rewriting_edge.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_07_orr_reported_values.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_07_orr_reported_values.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_08_operator_stack.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_08_operator_stack.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_09_bridge_protocol.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_09_bridge_protocol.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_10_dual_rent.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_10_dual_rent.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_11_application_map.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_11_application_map.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_12_promotion_gates.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_12_promotion_gates.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_13_temporal_interface_audit.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_13_temporal_interface_audit.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_14_endogenous_visibility.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_14_endogenous_visibility.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_15_source_shell_separation.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_15_source_shell_separation.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_16_cross_channel_rescue.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_16_cross_channel_rescue.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_17_self_detuning_plasma.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_17_self_detuning_plasma.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_18_catastrophic_tomography.png",
+      "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_18_catastrophic_tomography.svg",
+      "resources/sppt-astra-v1.0.8-candidate/package/formatting_and_submission_guide.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/integration_graph.json",
+      "resources/sppt-astra-v1.0.8-candidate/package/repository_audit.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/source/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/source/CLAIM_MATRIX_v1.0.7.json",
+      "resources/sppt-astra-v1.0.8-candidate/package/source/build_candidate.py",
+      "resources/sppt-astra-v1.0.8-candidate/package/source/claim_ledger_v1.0.8_additions.json",
+      "resources/sppt-astra-v1.0.8-candidate/package/source/finalize_candidate.py",
+      "resources/sppt-astra-v1.0.8-candidate/package/source/generate_ledgers.py",
+      "resources/sppt-astra-v1.0.8-candidate/package/source/make_figures.py",
+      "resources/sppt-astra-v1.0.8-candidate/package/source/references.bib",
+      "resources/sppt-astra-v1.0.8-candidate/package/source/source_ledger_v1.0.8_records.json",
+      "resources/sppt-astra-v1.0.8-candidate/package/source_audit_and_correction_log.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/source_ledger.csv",
+      "resources/sppt-astra-v1.0.8-candidate/package/source_ledger.json",
+      "resources/sppt-astra-v1.0.8-candidate/package/verification/ASTRA_SPPT_v1.0.8_Candidate_Verification_Report.pdf",
+      "resources/sppt-astra-v1.0.8-candidate/package/verification/acceptance_gate_matrix.csv",
+      "resources/sppt-astra-v1.0.8-candidate/package/verification/docx_a11y_report.json",
+      "resources/sppt-astra-v1.0.8-candidate/package/verification/verification_report.md",
+      "resources/sppt-astra-v1.0.8-candidate/package/verification/verification_summary.json",
+      "resources/sppt-astra-v1.0.8-candidate/package/visual_manifest.csv",
+      "resources/sppt-astra-v1.0.8-candidate/package/visual_manifest.json",
+      "resources/sppt-astra-v1.0.8-candidate/package/visual_preflight_report.md",
       "tests/test_pages_contract.py",
       "tests/test_release_integrity.py",
+      "tests/test_resource_contract.py",
       "tools/verify.py"
     ],
     "authoritative_source_path": "manuscript/manuscript.md",
@@ -3990,7 +4066,7 @@
     "release_tree": "3aaa2ec8c62d7c5c925e557cd79b3b43446aaf1d",
     "source_projection": {
       "canonical_byte_domain": "git-index-blob",
-      "canonical_bytes": 26939,
+      "canonical_bytes": 36873,
       "digest_algorithm": "sha256",
       "entries": [
         {
@@ -4060,10 +4136,10 @@
           "sha256": "c2ad3c196e62d554069b2188c8530a467d084bfd9fa2e977e1cdc7d071e8be3c"
         },
         {
-          "bytes": 9576,
+          "bytes": 10229,
           "mode": "100644",
           "path": "CHANGELOG.md",
-          "sha256": "03a13d0c7f09d696400a5bce04e7ac12ff18c9c6942dfa9d05b1491bfc7ab322"
+          "sha256": "02ff9ffe494e75ad0d1462eaa7316c930dd3059aec6bb799a6e26eb053a846bf"
         },
         {
           "bytes": 1499,
@@ -4084,16 +4160,16 @@
           "sha256": "6920a0fa22ffc180d62fc8d5446c61ed79ae0187cea6a241a37140b30356b67a"
         },
         {
-          "bytes": 6445,
+          "bytes": 6910,
           "mode": "100644",
           "path": "LICENSE_MAP.md",
-          "sha256": "44d1d2bcf338b53f40e47b3a060266be9d5937831c74839f7a00df927104e3fa"
+          "sha256": "59893a747f9ea9cd8df42b6ebcf1c6e28d756ff64d538bbd32af0729d3bfa39c"
         },
         {
-          "bytes": 24175,
+          "bytes": 24694,
           "mode": "100644",
           "path": "README.md",
-          "sha256": "3b2a741e80eeb93f3c0c2ac9b8886c64247d90e519bb8b5e5ff534a18a3b7809"
+          "sha256": "8b7a7e6bff9aaf4f9f234946f18e41eb239fc76807c2f32230402a86570f7e61"
         },
         {
           "bytes": 5713,
@@ -4702,10 +4778,10 @@
           "sha256": "0adde2c7df88a69cb4fede233d9fdb4035a0095ccfef403e18a05e3e5abdb6d9"
         },
         {
-          "bytes": 6764,
+          "bytes": 7600,
           "mode": "100644",
           "path": "resources/README.md",
-          "sha256": "168fa27e073d76b543e7a07debff9082f0c76a4e886420ff4b84ab92ed382e59"
+          "sha256": "a15982d07a6dcc05306fc68864895367406180a38118b070031b2d4cfde6d951"
         },
         {
           "bytes": 1002,
@@ -5266,6 +5342,444 @@
           "sha256": "966f43b4b8cf0f68c096e9540a4bfeaf7b32aff569709068d573e1ffdcdd24de"
         },
         {
+          "bytes": 2245,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/README.md",
+          "sha256": "f142716e27cfa4e1740574497f4caf3da8452b5412a7f2587cb64b3b426ab36f"
+        },
+        {
+          "bytes": 2480471,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.docx",
+          "sha256": "8259085d1f05b21a29a8057d894fe52c48d7631c56a575b8cc792ac6eb1982ef"
+        },
+        {
+          "bytes": 2959868,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.pdf",
+          "sha256": "294849890d62bc4c2d72c887f90c77e439760b5ba197b638787dbf237fab94ee"
+        },
+        {
+          "bytes": 2997480,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate_Peer_Review.pdf",
+          "sha256": "47d901b1a929ac085e0b449892e2de73032e9471010fd3803b5c673391c475a7"
+        },
+        {
+          "bytes": 3137255,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate_Tagged_Reading_Edition.pdf",
+          "sha256": "dd67e8be02d13b91c87224e1d61df2b630b9d658ec1fc7664526bbc0d97dc596"
+        },
+        {
+          "bytes": 630,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/LICENSES.md",
+          "sha256": "64f3c77148eab62a0c6f5290d865ca6771f918fc79880b1c484421d83181efff"
+        },
+        {
+          "bytes": 4702,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/README.md",
+          "sha256": "07fa23900841a1e72285afe4b888503d4f321c3321cbb6fca82bc0319f7562fe"
+        },
+        {
+          "bytes": 7376,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/SHA256SUMS.txt",
+          "sha256": "3a13f92311e7f770e13d6c6f90759e017bf5e34107f484246cd91362395e38d0"
+        },
+        {
+          "bytes": 621,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/THIRD_PARTY_NOTICES.md",
+          "sha256": "986054045a33e57cc0bdc046b8852b9bb2799501b54a24f29e07ea4f7636260c"
+        },
+        {
+          "bytes": 15395,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/candidate_package_manifest.json",
+          "sha256": "c0bcbcbd6ccc4d39746d7218e9398f8efc991c6b7f4981ecb1a8a4b5935b6e6d"
+        },
+        {
+          "bytes": 1987,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/candidate_release_notes.md",
+          "sha256": "73bdd619cd518a4a7ae35baebe9a4b6b3a2e50576a4bcd9955ae4ebc0ebc8e23"
+        },
+        {
+          "bytes": 3266,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/change_log_from_v1.0.7.md",
+          "sha256": "11c6eaa808ce95004e2b44dcd47d968654a066bbf9262e4155ca5a1648370611"
+        },
+        {
+          "bytes": 43541,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/claim_ledger.csv",
+          "sha256": "fc6d46da95eeda7c87f0ddf51188237863148a417bae1881e6c3ce3751261227"
+        },
+        {
+          "bytes": 59448,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/claim_ledger.json",
+          "sha256": "0c1ea81e74334b8ec96a6be53dc2ae75fed6835ae95973800e6798a5c1080f7b"
+        },
+        {
+          "bytes": 152597,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_01_repository_architecture.png",
+          "sha256": "196c9adbe72df6138e6e7fe8b7bdc42c1b5de5094b9d47282a380304b219bb68"
+        },
+        {
+          "bytes": 10705,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_01_repository_architecture.svg",
+          "sha256": "9f5d4501538a9bf7a89a1d816186eafd73251180a95a675e7d1242c64e72bb2b"
+        },
+        {
+          "bytes": 188724,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_02_stateful_edge_architecture.png",
+          "sha256": "5e817ad11b84b38a89b6f5ccd5f8e4117c6bc3877ec3b3f90ae42b3fb6eae9e7"
+        },
+        {
+          "bytes": 16509,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_02_stateful_edge_architecture.svg",
+          "sha256": "b5de8a378ba8aa8c616f014da72e9d6a8e3f59633e0d410c0c39f50e1c802915"
+        },
+        {
+          "bytes": 165797,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_03_edge_contract.png",
+          "sha256": "bb5a7be858eab07aee7402cbae089ac29e3aac4d7b0cdcd40898896c9467c094"
+        },
+        {
+          "bytes": 18151,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_03_edge_contract.svg",
+          "sha256": "b87d26cccbc66e0310e344057e815bdc8136f546b9469e563e3c53145d171ba4"
+        },
+        {
+          "bytes": 112358,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_04_nonreciprocity_closure.png",
+          "sha256": "4ad956e031426b4fe203c5cbed16516c2417e4f10018812da9bc29fa840fbd94"
+        },
+        {
+          "bytes": 9480,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_04_nonreciprocity_closure.svg",
+          "sha256": "92ea8f1bda5d2e00b7972e2a07d1da9424360424eef7d6662fea8b5d06bf38ea"
+        },
+        {
+          "bytes": 146928,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_05_arrested_coarsening_model.png",
+          "sha256": "39a7e770bb7d41ade09069a84cddda4eaffc48875d0c8dfea80f168a7d6ab824"
+        },
+        {
+          "bytes": 21869,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_05_arrested_coarsening_model.svg",
+          "sha256": "7e65cff4cc99a67d6b16b1395c44fcd08547f92edfadd0fdb87c561216568c2f"
+        },
+        {
+          "bytes": 116598,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_06_catalyst_self_rewriting_edge.png",
+          "sha256": "ecbc2e8905b6aa474d1e9f9eaf09e0bcec4fcffb89928c80be395d8073712c99"
+        },
+        {
+          "bytes": 10148,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_06_catalyst_self_rewriting_edge.svg",
+          "sha256": "032ed44a5aa11aece11ad266c817da80caecc89197fbf1379ed0d3c2d437b112"
+        },
+        {
+          "bytes": 104963,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_07_orr_reported_values.png",
+          "sha256": "3a2c2499b8b5dc77d5d50a4806445759d3291b755e027ef18c7de3c4e931b2d6"
+        },
+        {
+          "bytes": 15833,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_07_orr_reported_values.svg",
+          "sha256": "7e6ae013e15255c37d5bcd1f7d8285f28431d57f2037659ae1f4ef5ccd957844"
+        },
+        {
+          "bytes": 161127,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_08_operator_stack.png",
+          "sha256": "20e1acb911cc8919b203f4ad68735e5fd7610e2932e441f3b618943d3704990c"
+        },
+        {
+          "bytes": 13245,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_08_operator_stack.svg",
+          "sha256": "7628885a62342371a70baa04e7ef4bf2842c7597426a04ac0b4cda7cff26d0b8"
+        },
+        {
+          "bytes": 87999,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_09_bridge_protocol.png",
+          "sha256": "8aaa74ec5f1c7a6ca46b81adac8311076e63271a70443667d268946cbf5d0e5c"
+        },
+        {
+          "bytes": 8140,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_09_bridge_protocol.svg",
+          "sha256": "ca25a7a50a2e8db1b9ca746395479a32f4c7e22e1d862be22584b8c4e94b7527"
+        },
+        {
+          "bytes": 111955,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_10_dual_rent.png",
+          "sha256": "22ab06804e140aecd7e58a118b635ebbac0f2b34e6205de7344f14a336c03a10"
+        },
+        {
+          "bytes": 16212,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_10_dual_rent.svg",
+          "sha256": "85e1132fbff09cf3b0ee4d9dd97a96f6cf5056b04c098e38d3a463be406d8374"
+        },
+        {
+          "bytes": 186987,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_11_application_map.png",
+          "sha256": "e9e3350c67e801085e228bcea3db8115bc4ee42fd9f5bc8c2f8cb81f24f72930"
+        },
+        {
+          "bytes": 12810,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_11_application_map.svg",
+          "sha256": "2a0acc0a7f0e28f1ee2404f15246df6fd18ff87cca7dd290a3a55330d79ea870"
+        },
+        {
+          "bytes": 157730,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_12_promotion_gates.png",
+          "sha256": "d5ffd1fbb88031f80d543a398b6ebe8ca3508e792edf61e1ce5938f3ba558ccb"
+        },
+        {
+          "bytes": 10915,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_12_promotion_gates.svg",
+          "sha256": "ab9c7da24b205272e5e97954550a9fdb0bf76150910e13c454bf5d027ca7572e"
+        },
+        {
+          "bytes": 208961,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_13_temporal_interface_audit.png",
+          "sha256": "b3a8fb2554d95789d04acf7f25aa9c301f78d66a626ff6e0f7bf25fc849354a6"
+        },
+        {
+          "bytes": 17284,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_13_temporal_interface_audit.svg",
+          "sha256": "1c302c9377f64e2fcb6d0e89a525552c4f252fd347792f256dd5958c2ab8fa29"
+        },
+        {
+          "bytes": 159019,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_14_endogenous_visibility.png",
+          "sha256": "61e8977b06b083625332a540cdb2fba9a2ebd98f35e7ccce13a0d61127d2ca25"
+        },
+        {
+          "bytes": 13271,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_14_endogenous_visibility.svg",
+          "sha256": "60206a82e83ade2e25be6bcb9f571d2fbf277caee354f0949fe4e420043b9fdc"
+        },
+        {
+          "bytes": 208772,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_15_source_shell_separation.png",
+          "sha256": "d5d5ae44f6219204c01cbb87f79477a177c8cd22bc150ce042f2473fdd790db8"
+        },
+        {
+          "bytes": 12479,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_15_source_shell_separation.svg",
+          "sha256": "9fabbee8a135a06b826b70bc45848a36de5d76f1e08118695a0378bb9985aefd"
+        },
+        {
+          "bytes": 144118,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_16_cross_channel_rescue.png",
+          "sha256": "95320e9cd81fbe814779d423a50dd3ecc64622bff7b217a7264a44362b64ce9e"
+        },
+        {
+          "bytes": 11746,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_16_cross_channel_rescue.svg",
+          "sha256": "17c709e645c98b8c0c009041135a2e80a9089cfd9f3ea592a784fc348d4a5271"
+        },
+        {
+          "bytes": 140446,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_17_self_detuning_plasma.png",
+          "sha256": "01e640359599f47ff5cfb0789bffbd22715fac0e28f329d4a8b1076ad811b488"
+        },
+        {
+          "bytes": 17369,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_17_self_detuning_plasma.svg",
+          "sha256": "be0599bed51f30e7d943b1d04e7659331a0f811935bc82dd0daa50f974554930"
+        },
+        {
+          "bytes": 153508,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_18_catastrophic_tomography.png",
+          "sha256": "8112dadb77a997e32603c4300156d71e4d4001520c01da47345610cc5c3b3591"
+        },
+        {
+          "bytes": 12162,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/figures/figure_18_catastrophic_tomography.svg",
+          "sha256": "b13d5078f7ec8577a122cafbf9c2515a5d1f9138553da772afee38108a346ea5"
+        },
+        {
+          "bytes": 3560,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/formatting_and_submission_guide.md",
+          "sha256": "8a034713472aad19a1abcfc37127ecf9a7323aef1de04af69da5373b94ac16e1"
+        },
+        {
+          "bytes": 3155,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/integration_graph.json",
+          "sha256": "f1bca3f1d79d0e20dce0473f9c67ba6f278b7218afca2bcba29b92788cd0a9ad"
+        },
+        {
+          "bytes": 3505,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/repository_audit.md",
+          "sha256": "70c3760545fb92f877751cd94ddf7ebf61a5bfd22a0569bcedfbe5364dbce737"
+        },
+        {
+          "bytes": 133499,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source/ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.md",
+          "sha256": "74824c144716a8ac1cb364b293ca1c87ec722178e2381d53d1a6209ab0e6b5f0"
+        },
+        {
+          "bytes": 64852,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source/CLAIM_MATRIX_v1.0.7.json",
+          "sha256": "c7b52c0afc887342ad4bdc42f91f979fc49e1cd0b21b8e7c1c31946033de9bed"
+        },
+        {
+          "bytes": 33679,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source/build_candidate.py",
+          "sha256": "04cc447f59b1c5bb85cee3e0153ece1f4e4a7a08ccf34886124611c82ba45629"
+        },
+        {
+          "bytes": 11741,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source/claim_ledger_v1.0.8_additions.json",
+          "sha256": "407e6066956af5a299deb8d703e7159b8b9f55139ede25ff3fb2dfb39e0ea439"
+        },
+        {
+          "bytes": 15711,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source/finalize_candidate.py",
+          "sha256": "4403ecf7513125e7f9405d9594a980de1ab4f895e2b0bc1274038391e990a053"
+        },
+        {
+          "bytes": 9260,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source/generate_ledgers.py",
+          "sha256": "85cbd8cac22728b8ddd4a4a471c53bda68fcf85947f46ea7ad5f343f75348da5"
+        },
+        {
+          "bytes": 32348,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source/make_figures.py",
+          "sha256": "e38460290a979d5f727bfb5a14181fd4e29712ab5d54b39b48bcc0bea60b5ff3"
+        },
+        {
+          "bytes": 18060,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source/references.bib",
+          "sha256": "1852ef219a1a2c2fcf2648828d98a3ca29ccc2a67bde8733b85afedd1b172743"
+        },
+        {
+          "bytes": 38434,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source/source_ledger_v1.0.8_records.json",
+          "sha256": "3a06142ed8a3b197f45f69bd130f8770032c86b9897c5f931ff680ddf06feffa"
+        },
+        {
+          "bytes": 5245,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source_audit_and_correction_log.md",
+          "sha256": "a20d7f2b7810da64e8d5ef40f34e334b0cf25f990cd43bd2b8bf63cccb1e38f0"
+        },
+        {
+          "bytes": 24413,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source_ledger.csv",
+          "sha256": "bdfe1ff578ab1eabbb2cbb8eb786ba649f79794e70acd0e86d738f92e827c555"
+        },
+        {
+          "bytes": 38434,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/source_ledger.json",
+          "sha256": "3a06142ed8a3b197f45f69bd130f8770032c86b9897c5f931ff680ddf06feffa"
+        },
+        {
+          "bytes": 107354,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/verification/ASTRA_SPPT_v1.0.8_Candidate_Verification_Report.pdf",
+          "sha256": "c5050dfcf83a065d46f3db4e055b036409131361cf8783313950f276254764c3"
+        },
+        {
+          "bytes": 3916,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/verification/acceptance_gate_matrix.csv",
+          "sha256": "c09d1fa416bb344c0fbf1b217c8fe157dafe5caa96a4640578467cff619fcb5f"
+        },
+        {
+          "bytes": 14551,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/verification/docx_a11y_report.json",
+          "sha256": "24df30836b58dfb8663dd7a6af027f524ae930cefc454feef1607cd68bf84a29"
+        },
+        {
+          "bytes": 4403,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/verification/verification_report.md",
+          "sha256": "93f8509a2acb5f8eaa4883efafe9733b8637430699b4344365eba5813d45465a"
+        },
+        {
+          "bytes": 2063,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/verification/verification_summary.json",
+          "sha256": "4481cce06fd614ab0c6a7be496fecefc2c938146ab6cc9af461d9382416ae7c3"
+        },
+        {
+          "bytes": 15083,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/visual_manifest.csv",
+          "sha256": "a4f41d9af8549fab7b1dfe8d1f139d7c4e184ffeeb3eac5a303515413f843dc6"
+        },
+        {
+          "bytes": 21924,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/visual_manifest.json",
+          "sha256": "ef8ef265f232013df6bebc0154003809454b87b87ad8300b146642d92b8c8c3b"
+        },
+        {
+          "bytes": 3115,
+          "mode": "100644",
+          "path": "resources/sppt-astra-v1.0.8-candidate/package/visual_preflight_report.md",
+          "sha256": "6831913ad043767300bb707da424d2c9803af643fbd913a887876e26d01d9fc5"
+        },
+        {
           "bytes": 619,
           "mode": "100644",
           "path": "resources/sppt-bridge-protocol/draft-v0.1.0/BRIDGE_MANIFEST.sha256",
@@ -5476,10 +5990,10 @@
           "sha256": "0e3994ed6deb2c81ffd125f3db857cf408166a51bb7b76b358dc550b528668af"
         },
         {
-          "bytes": 6801,
+          "bytes": 16513,
           "mode": "100644",
           "path": "tests/test_resource_contract.py",
-          "sha256": "1af0bd8be65f0b8f84eb31a9c29129a9d637128426c57af88beb1d760cdea612"
+          "sha256": "f8baf2c1802e18134f7695fa586ef5bfa9a2b1f98ff4e851275ff1df6d2c40e4"
         },
         {
           "bytes": 2571,
@@ -5506,10 +6020,10 @@
           "sha256": "ea0a36834239bb93bdf623f822627082041df69edfb76fe0737543ffb22c5bc8"
         },
         {
-          "bytes": 65344,
+          "bytes": 82422,
           "mode": "100644",
           "path": "tools/check_repository.py",
-          "sha256": "62c79038b6719477b05352e89109bbcab2de295c61db2ea60807210b2cdaf53c"
+          "sha256": "50815c3e2d9c9380eb73d3bd7c4cc50d6ad19c807e0d82a78cdd6f13a9099a4f"
         },
         {
           "bytes": 22973,
@@ -5530,7 +6044,7 @@
           "sha256": "ee5409fe537b45fd8d1c27e592e09f11838dd688752b213b2de9ba9a56406e13"
         }
       ],
-      "entry_count": 256,
+      "entry_count": 329,
       "excluded_paths": [
         "MANIFEST.sha256",
         "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"
@@ -5539,7 +6053,7 @@
       "scheme": "astra-source-projection-v1",
       "scope": "astra-core-integrity-m1-repository-source-v1",
       "serialization": "astra-binary-length-prefixed-v1",
-      "sha256": "0a39f7eef53869dda5ef299fe6f257e22144cb32d525b2bf560d3fd91592e014"
+      "sha256": "ba4277bf11cb5a2b4d5d247f33433361636b93d5ec71d7ce29939be40f3ca52f"
     }
   },
   "reference_release": {

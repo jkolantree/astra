@@ -40,6 +40,21 @@ integration. Its ZIP and document assets remain fixed to the audited pre-merge
 own source tree and identity. It has no separate Pages edition, DOI, or Zenodo
 record.
 
+## Unpromoted v1.0.8 successor candidate
+
+The [SPPT / ASTRA v1.0.8 Endogenous Visibility
+candidate](sppt-astra-v1.0.8-candidate/) is a repository-visible, repaired
+successor package. It develops source-coupled transducers, cross-channel
+rescue, self-detuning media, and catastrophic archives as distinct
+calibration problems under one bounded inverse-problem audit. Its generic
+joint-inference structure is not claimed as a newly discovered field, and its
+four calibration cases are not claimed to share one physical mechanism.
+
+The candidate is not peer reviewed, has no release identity, and does not
+modify or supersede the immutable v1.0.7 release. It has no GitHub Release,
+Pages route, DOI, or Zenodo record. The resource README records the supplied
+archive hash and the integration repairs required before repository admission.
+
 ## Public namespaced alpha module
 
 [`Sector-Complete Instrument v0.1.0-alpha.1`](sector-complete-instrument/v0.1.0-alpha.1/)
