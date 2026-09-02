@@ -164,7 +164,7 @@ def static_checks(path: Path) -> AtlasHTMLParser:
     levels = [level for level, _text in parser.headings]
     if any(
         current > previous + 1
-        for previous, current in zip(levels, levels[1:])
+        for previous, current in zip(levels, levels[1:], strict=False)
     ):
         failures.append("heading hierarchy skips a level")
     skip = [

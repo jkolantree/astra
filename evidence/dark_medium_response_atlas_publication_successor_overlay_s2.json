@@ -2723,10 +2723,10 @@
         "sha256": "60999dc8b9baa628cafd9d30b4cd8aeb8aa8b6f9ee7b01fa14de08963afe3180"
       },
       {
-        "bytes": 12859,
+        "bytes": 12873,
         "mode": "100644",
         "path": "tools/check_dark_medium_response_atlas_html.py",
-        "sha256": "7d617ec79662a4293f88ba7d130f835bf1bfba59dc3cc2ad2a61b118187dd13d"
+        "sha256": "605daf79a27cd1733812bd53fe035304138eb3e2954787b9c845d15affff9697"
       },
       {
         "bytes": 5345,
@@ -2822,7 +2822,7 @@
     "scheme": "astra-source-projection-v1",
     "scope": "astra-dark-medium-response-atlas-publication-successor-s2-repository-source-v1",
     "serialization": "astra-binary-length-prefixed-v1",
-    "sha256": "88534a74c09a3e9bee864191351767747552d1413851d6e8e6593a26dac89225"
+    "sha256": "8614c2c2c5df71c6de6f8294d393c01fbe0f055c36bff788f942c4b2b60f0144"
   },
   "status": "publication_candidate",
   "verification_scope": {
