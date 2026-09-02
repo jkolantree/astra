@@ -2585,10 +2585,10 @@
         "sha256": "a4616c142e0f6240bb0063691ab8685b3fbd0b6790114180504660b470ea1172"
       },
       {
-        "bytes": 16997,
+        "bytes": 17011,
         "mode": "100644",
         "path": "tests/test_claim_source_coverage.py",
-        "sha256": "d1588b843919451f4797cf0061cdf0654e31e5d85e0ba55e69621f6707b878f0"
+        "sha256": "1e410a8fb20e513640267c54daff1bde86d4dff3cbc019b10ca7d8783ef4c646"
       },
       {
         "bytes": 1712,
@@ -2822,7 +2822,7 @@
     "scheme": "astra-source-projection-v1",
     "scope": "astra-dark-medium-response-atlas-publication-successor-s2-repository-source-v1",
     "serialization": "astra-binary-length-prefixed-v1",
-    "sha256": "fa13ebd79067777d8eebf8b8582df185faf0d987357fe15aadc0c367b328742d"
+    "sha256": "88534a74c09a3e9bee864191351767747552d1413851d6e8e6593a26dac89225"
   },
   "status": "publication_candidate",
   "verification_scope": {

@@ -120,7 +120,9 @@ def test_claim_source_coverage_overlay_is_historical_s2_predecessor() -> None:
 
 def test_live_m1_generator_fails_closed_on_s2_successor_tree() -> None:
     _verified_s2_predecessor_commit()
-    with pytest.raises(RuntimeError, match="missing milestone changes: AGENTS\\.md"):
+    with pytest.raises(
+        RuntimeError, match="declared milestone change: AGENTS\\.md"
+    ):
         build_record(ROOT)
 
 
