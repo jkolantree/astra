@@ -39,7 +39,7 @@ jobs:
           }
           $installRoot = Join-Path $env:RUNNER_TEMP 'astra-git'
           $process = Start-Process -FilePath $installer -ArgumentList @(
-            '/VERYSILENT', '/NORESTART', '/SUPPRESSMSGBOXES', "/DIR=$installRoot"
+            '/VERYSILENT', '/NORESTART', '/SUPPRESSMSGBOXES', '/ALLOWDOWNGRADE', "/DIR=$installRoot"
           ) -Wait -PassThru
           if ($process.ExitCode -ne 0) {
             throw "Git installer failed with exit code $($process.ExitCode)"

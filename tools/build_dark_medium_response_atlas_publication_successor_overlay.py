@@ -177,6 +177,7 @@ SOURCE_CHANGE_ROSTER = frozenset(
         "tests/test_link_audits.py",
         "tests/test_pages_admission.py",
         "tests/test_pages_contract.py",
+        "tests/test_release_integrity.py",
         "tools/assemble_pages.py",
         GENERATOR_RELATIVE_PATH,
         "tools/build_dark_medium_response_atlas_documents.py",

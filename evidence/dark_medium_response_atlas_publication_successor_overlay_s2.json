@@ -92,6 +92,7 @@
       "tests/test_link_audits.py",
       "tests/test_pages_admission.py",
       "tests/test_pages_contract.py",
+      "tests/test_release_integrity.py",
       "tools/assemble_pages.py",
       "tools/build_dark_medium_response_atlas_documents.py",
       "tools/build_dark_medium_response_atlas_publication_successor_overlay.py",
@@ -184,6 +185,7 @@
       "tests/test_link_audits.py",
       "tests/test_pages_admission.py",
       "tests/test_pages_contract.py",
+      "tests/test_release_integrity.py",
       "tools/assemble_pages.py",
       "tools/build_dark_medium_response_atlas_documents.py",
       "tools/build_dark_medium_response_atlas_publication_successor_overlay.py",
@@ -473,16 +475,16 @@
         "sha256": "20afe4e26be75bf49b631982d48021ebb4048a866f961fb750eef4d1343a85ed"
       },
       {
-        "bytes": 12334,
+        "bytes": 12353,
         "mode": "100644",
         "path": ".github/workflows/release-dark-medium-response-atlas.yml",
-        "sha256": "808abf22ec730b8e451f59f87724aa9f16ec24e2851c08013634fe6ae33eec8d"
+        "sha256": "223da479dcc59180d002548192a47a4ab51f8fb36033ba51ced222e0f36a6676"
       },
       {
-        "bytes": 3278,
+        "bytes": 3297,
         "mode": "100644",
         "path": ".github/workflows/verify.yml",
-        "sha256": "6ecf40b1dce5577863babec40ef10c0121485519312b97466c61341348228a26"
+        "sha256": "93666b5ffe6ac78b67e0c88392bc8667e94d891452b5da2342da3e514babf008"
       },
       {
         "bytes": 131,
@@ -2657,10 +2659,10 @@
         "sha256": "2f593611a1682647b84c7a1c0909861927652237ea33a31eb2880951a64253bb"
       },
       {
-        "bytes": 58383,
+        "bytes": 58881,
         "mode": "100644",
         "path": "tests/test_release_integrity.py",
-        "sha256": "0e3994ed6deb2c81ffd125f3db857cf408166a51bb7b76b358dc550b528668af"
+        "sha256": "30e7e32eac454006a0359f0996677a0c5d103f4a5f00a9d832017b34e3550e5a"
       },
       {
         "bytes": 16513,
@@ -2699,10 +2701,10 @@
         "sha256": "77f72d12bd69009169029443bea6b42117a78b1b4020151d51e8a3e8ce45eb2d"
       },
       {
-        "bytes": 44112,
+        "bytes": 44155,
         "mode": "100644",
         "path": "tools/build_dark_medium_response_atlas_publication_successor_overlay.py",
-        "sha256": "ddb1309f181d80684f1a2d0f6c4017bf9d4d9581189fdc9f210962bd56af88bf"
+        "sha256": "c8cc6944706c93e4220277b7c051e64fac37d1759dfa648a24402801339ee159"
       },
       {
         "bytes": 26376,
@@ -2822,7 +2824,7 @@
     "scheme": "astra-source-projection-v1",
     "scope": "astra-dark-medium-response-atlas-publication-successor-s2-repository-source-v1",
     "serialization": "astra-binary-length-prefixed-v1",
-    "sha256": "929daae9c22071842b22b10831f3b3724f56e1a089f0dd89db81cc857e56860c"
+    "sha256": "60241c031694db569487ecda4a3592770c4ee87b02403af3ff58b1bc954b6194"
   },
   "status": "publication_candidate",
   "verification_scope": {

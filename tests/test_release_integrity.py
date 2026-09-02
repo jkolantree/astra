@@ -979,6 +979,22 @@ def test_tag_workflow_does_not_shell_interpolate_ref_name() -> None:
     assert "git fetch" not in workflow
 
 
+@pytest.mark.parametrize(
+    "workflow_path",
+    (
+        ".github/workflows/verify.yml",
+        ".github/workflows/release-dark-medium-response-atlas.yml",
+    ),
+)
+def test_exact_git_installation_allows_an_isolated_pinned_downgrade(
+    workflow_path: str,
+) -> None:
+    workflow = (PROJECT_ROOT / workflow_path).read_text(encoding="utf-8")
+    assert "'/ALLOWDOWNGRADE'" in workflow
+    assert '"/DIR=$installRoot"' in workflow
+    assert "Start-Process -FilePath $installer" in workflow
+
+
 def test_clean_worktree_rejects_hidden_index_flags(monkeypatch: pytest.MonkeyPatch) -> None:
     def fake_git(arguments, **kwargs):
         assert arguments == ["ls-files", "-v", "-z"]
