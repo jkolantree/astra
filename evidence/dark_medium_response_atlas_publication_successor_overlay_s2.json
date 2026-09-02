@@ -475,16 +475,16 @@
         "sha256": "20afe4e26be75bf49b631982d48021ebb4048a866f961fb750eef4d1343a85ed"
       },
       {
-        "bytes": 12353,
+        "bytes": 12325,
         "mode": "100644",
         "path": ".github/workflows/release-dark-medium-response-atlas.yml",
-        "sha256": "223da479dcc59180d002548192a47a4ab51f8fb36033ba51ced222e0f36a6676"
+        "sha256": "69fabda1ba1644c8f3533d32d94377303ac13dab1e5c9c398560ed44c5f15904"
       },
       {
-        "bytes": 3297,
+        "bytes": 3269,
         "mode": "100644",
         "path": ".github/workflows/verify.yml",
-        "sha256": "93666b5ffe6ac78b67e0c88392bc8667e94d891452b5da2342da3e514babf008"
+        "sha256": "ff8768c089be7f10ea4350b6ff69b308e9b18b9fa8818a4950cfa1ab1a80a50a"
       },
       {
         "bytes": 131,
@@ -2659,10 +2659,10 @@
         "sha256": "2f593611a1682647b84c7a1c0909861927652237ea33a31eb2880951a64253bb"
       },
       {
-        "bytes": 58881,
+        "bytes": 59062,
         "mode": "100644",
         "path": "tests/test_release_integrity.py",
-        "sha256": "30e7e32eac454006a0359f0996677a0c5d103f4a5f00a9d832017b34e3550e5a"
+        "sha256": "79cf1d05cb972488407861dd9ec6b3b1fb428e3202493ba7bd2a9f1b5cbe37e4"
       },
       {
         "bytes": 16513,
@@ -2824,7 +2824,7 @@
     "scheme": "astra-source-projection-v1",
     "scope": "astra-dark-medium-response-atlas-publication-successor-s2-repository-source-v1",
     "serialization": "astra-binary-length-prefixed-v1",
-    "sha256": "60241c031694db569487ecda4a3592770c4ee87b02403af3ff58b1bc954b6194"
+    "sha256": "b3a8b6c02e0e974b37579e55c2539e1d92a64e78f44be5b415504451ae09066d"
   },
   "status": "publication_candidate",
   "verification_scope": {

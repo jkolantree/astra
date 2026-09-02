@@ -986,13 +986,17 @@ def test_tag_workflow_does_not_shell_interpolate_ref_name() -> None:
         ".github/workflows/release-dark-medium-response-atlas.yml",
     ),
 )
-def test_exact_git_installation_allows_an_isolated_pinned_downgrade(
+def test_exact_git_installation_uses_a_pinned_archive_not_global_installer(
     workflow_path: str,
 ) -> None:
     workflow = (PROJECT_ROOT / workflow_path).read_text(encoding="utf-8")
-    assert "'/ALLOWDOWNGRADE'" in workflow
-    assert '"/DIR=$installRoot"' in workflow
-    assert "Start-Process -FilePath $installer" in workflow
+    assert "MinGit-2.55.0.3-64-bit.zip" in workflow
+    assert (
+        "f48e2d2dc74a24454adc6d8fd0ac25bf9c2386f19cfb06202b9465aaad4f9f05"
+        in workflow
+    )
+    assert "Expand-Archive -LiteralPath $archive -DestinationPath $installRoot" in workflow
+    assert "Start-Process -FilePath $installer" not in workflow
 
 
 def test_clean_worktree_rejects_hidden_index_flags(monkeypatch: pytest.MonkeyPatch) -> None:
