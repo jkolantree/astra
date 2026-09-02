@@ -3,8 +3,10 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import os
 import platform
 import struct
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -32,15 +34,18 @@ from tools.build_claim_source_coverage import (
     SOURCE_PROJECTION_SCOPE,
     SOURCE_PROJECTION_SERIALIZATION,
     build_record,
-    build_source_projection,
-    repository_snapshot,
     serialize_source_projection,
 )
 from tools.release_integrity import git, tag_identity
+from tools.verify import atlas_publication_overlay_present
 
 FROZEN_RECORD_RELATIVE = "evidence/claim_source_coverage_v1.0.7.json"
 FROZEN_SCHEMA_RELATIVE = "schemas/claim-source-coverage-v1.schema.json"
 OVERLAY_SCHEMA_RELATIVE = "schemas/claim-source-coverage-overlay-m1.schema.json"
+ATLAS_S2_OVERLAY_RELATIVE = (
+    "evidence/dark_medium_response_atlas_publication_successor_overlay_s2.json"
+)
+ATLAS_S2_OVERLAY_PATH = ROOT / ATLAS_S2_OVERLAY_RELATIVE
 UNSAFE_PROJECTION_PATHS = (
     "/x",
     "a//b",
@@ -97,10 +102,26 @@ def test_frozen_v107_coverage_internal_hashes_match_tagged_files() -> None:
                 )
 
 
-def test_claim_source_coverage_overlay_matches_deterministic_generator() -> None:
-    expected = _load_record(DEFAULT_OUTPUT)
-    actual = build_record(ROOT)
-    assert actual == expected
+def test_claim_source_coverage_overlay_is_historical_s2_predecessor() -> None:
+    predecessor_commit = _verified_s2_predecessor_commit()
+    m1_bytes = DEFAULT_OUTPUT.read_bytes()
+    assert m1_bytes == _tagged_bytes(predecessor_commit, DEFAULT_OUTPUT.relative_to(ROOT).as_posix())
+
+    m1_record = _load_record(DEFAULT_OUTPUT)
+    s2_record = _load_record(ATLAS_S2_OVERLAY_PATH)
+    predecessor = s2_record["live_predecessor"]["m1"]
+    assert predecessor["path"] == DEFAULT_OUTPUT.relative_to(ROOT).as_posix()
+    assert predecessor["sha256"] == hashlib.sha256(m1_bytes).hexdigest()
+    assert (
+        predecessor["source_projection_sha256"]
+        == m1_record["maintenance_overlay"]["source_projection"]["sha256"]
+    )
+
+
+def test_live_m1_generator_fails_closed_on_s2_successor_tree() -> None:
+    _verified_s2_predecessor_commit()
+    with pytest.raises(RuntimeError, match="missing milestone changes: AGENTS\\.md"):
+        build_record(ROOT)
 
 
 def test_claim_source_coverage_overlay_matches_schema_and_runtime() -> None:
@@ -126,13 +147,14 @@ def test_claim_source_coverage_overlay_identity_is_unpromoted_and_bound() -> Non
     record = _load_record(DEFAULT_OUTPUT)
     overlay = record["maintenance_overlay"]
     identity = tag_identity(overlay["release_tag"], require_head=False)
+    predecessor_commit = _verified_s2_predecessor_commit()
 
     assert overlay["promotion_status"] == "unpromoted_source_repair"
     assert overlay["identity_closure_paths"] == sorted(IDENTITY_CLOSURE_PATHS)
     assert overlay["baseline_commit"] == BASE_COMMIT
     assert overlay["baseline_tree"] == BASE_TREE
     assert overlay["milestone_changed_paths"] == sorted(MILESTONE_SOURCE_PATHS)
-    changed_from_baseline = _independent_baseline_source_changes()
+    changed_from_baseline = _independent_baseline_source_changes(predecessor_commit)
     assert MILESTONE_SOURCE_PATHS <= changed_from_baseline
     assert overlay["additional_baseline_changed_paths"] == sorted(
         changed_from_baseline - MILESTONE_SOURCE_PATHS
@@ -160,7 +182,6 @@ def test_claim_source_coverage_overlay_identity_is_unpromoted_and_bound() -> Non
         "candidate_source_tree",
     } & set(overlay)
     projection = overlay["source_projection"]
-    assert projection == build_source_projection(repository_snapshot(ROOT))
     assert projection["scheme"] == SOURCE_PROJECTION_SCHEME
     assert projection["scope"] == SOURCE_PROJECTION_SCOPE
     assert projection["serialization"] == SOURCE_PROJECTION_SERIALIZATION
@@ -176,8 +197,8 @@ def test_claim_source_coverage_overlay_identity_is_unpromoted_and_bound() -> Non
     assert overlay["release_commit"] == RELEASE_COMMIT
     assert overlay["release_tree"] == RELEASE_TREE
     assert overlay["frozen_record_sha256"] == _sha256(FROZEN_OUTPUT)
-    assert overlay["authoritative_source_sha256"] == _sha256(
-        ROOT / overlay["authoritative_source_path"]
+    assert overlay["authoritative_source_sha256"] == _revision_sha256(
+        predecessor_commit, overlay["authoritative_source_path"]
     )
 
 
@@ -204,21 +225,27 @@ def test_claim_source_coverage_overlay_preserves_structural_unknowns() -> None:
 
 def test_claim_source_coverage_overlay_internal_hashes_match_files() -> None:
     record = _load_record(DEFAULT_OUTPUT)
+    predecessor_commit = _verified_s2_predecessor_commit()
     for item in record["input_files"]:
-        assert item["sha256"] == _sha256(ROOT / item["path"])
+        assert item["sha256"] == _revision_sha256(predecessor_commit, item["path"])
     for claim in record["claims"]:
         for locator in claim["claim_locators"]:
-            assert locator["file_sha256"] == _sha256(ROOT / locator["path"])
+            assert locator["file_sha256"] == _revision_sha256(
+                predecessor_commit, locator["path"]
+            )
         for link in claim["source_links"]:
             path = link["admitted_path"]
             if path is not None:
-                assert link["admitted_sha256"] == _sha256(ROOT / path)
+                assert link["admitted_sha256"] == _revision_sha256(
+                    predecessor_commit, path
+                )
 
 
 def test_overlay_source_projection_matches_index_blobs_independently() -> None:
     record = _load_record(DEFAULT_OUTPUT)
     projection = record["maintenance_overlay"]["source_projection"]
-    expected = _independent_index_projection_entries()
+    predecessor_commit = _verified_s2_predecessor_commit()
+    expected = _independent_tree_projection_entries(predecessor_commit)
     assert projection["entries"] == expected
     assert projection["entry_count"] == len(expected)
     payload = _independent_source_projection_payload(
@@ -333,8 +360,23 @@ def _tagged_sha256(commit: str, path: str, observed: dict[str, str]) -> str:
     return observed[path]
 
 
-def _independent_index_projection_entries() -> list[dict[str, Any]]:
-    value = git(["ls-files", "--stage", "-z"], binary=True)
+@lru_cache(maxsize=1)
+def _verified_s2_predecessor_commit() -> str:
+    assert atlas_publication_overlay_present(os.environ.copy())
+    s2_record = _load_record(ATLAS_S2_OVERLAY_PATH)
+    current_main_base = s2_record["current_main_base"]
+    assert current_main_base["relationship"] == "fresh_current_main_publication_base"
+    commit = current_main_base["commit"]
+    assert isinstance(commit, str)
+    return commit
+
+
+def _revision_sha256(commit: str, path: str) -> str:
+    return hashlib.sha256(_tagged_bytes(commit, path)).hexdigest()
+
+
+def _independent_tree_projection_entries(commit: str) -> list[dict[str, Any]]:
+    value = git(["ls-tree", "-r", "-z", commit], binary=True)
     if not isinstance(value, bytes):
         raise TypeError("Expected binary Git output")
     entries: list[dict[str, Any]] = []
@@ -342,8 +384,8 @@ def _independent_index_projection_entries() -> list[dict[str, Any]]:
         if not record:
             continue
         header, encoded_path = record.split(b"\t", 1)
-        mode, object_id, stage = header.decode("ascii").split()
-        assert stage == "0"
+        mode, object_type, object_id = header.decode("ascii").split()
+        assert object_type == "blob"
         path = encoded_path.decode("ascii")
         if path in IDENTITY_CLOSURE_PATHS:
             continue
@@ -361,9 +403,17 @@ def _independent_index_projection_entries() -> list[dict[str, Any]]:
     return sorted(entries, key=lambda entry: entry["path"])
 
 
-def _independent_baseline_source_changes() -> set[str]:
+def _independent_baseline_source_changes(candidate_commit: str) -> set[str]:
     value = git(
-        ["diff", "--cached", "--no-renames", "--name-only", "-z", BASE_COMMIT, "--"],
+        [
+            "diff",
+            "--no-renames",
+            "--name-only",
+            "-z",
+            BASE_COMMIT,
+            candidate_commit,
+            "--",
+        ],
         binary=True,
     )
     if not isinstance(value, bytes):

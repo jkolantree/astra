@@ -168,6 +168,7 @@ SOURCE_CHANGE_ROSTER = frozenset(
         "schemas/supplemental-release-identity-v2.schema.json",
         RELEASE_SPEC_SCHEMA_PATH,
         "tests/conftest.py",
+        "tests/test_claim_source_coverage.py",
         "tests/test_dark_medium_response_atlas_documents.py",
         "tests/test_dark_medium_response_atlas_publication_successor_overlay_s2.py",
         "tests/test_dark_medium_response_atlas_release.py",

@@ -83,6 +83,7 @@
       "schemas/supplemental-release-identity-v2.schema.json",
       "schemas/supplemental-release-spec-v2.schema.json",
       "tests/conftest.py",
+      "tests/test_claim_source_coverage.py",
       "tests/test_dark_medium_response_atlas_documents.py",
       "tests/test_dark_medium_response_atlas_publication_successor_overlay_s2.py",
       "tests/test_dark_medium_response_atlas_release.py",
@@ -174,6 +175,7 @@
       "schemas/supplemental-release-identity-v2.schema.json",
       "schemas/supplemental-release-spec-v2.schema.json",
       "tests/conftest.py",
+      "tests/test_claim_source_coverage.py",
       "tests/test_dark_medium_response_atlas_documents.py",
       "tests/test_dark_medium_response_atlas_publication_successor_overlay_s2.py",
       "tests/test_dark_medium_response_atlas_release.py",
@@ -2583,10 +2585,10 @@
         "sha256": "a4616c142e0f6240bb0063691ab8685b3fbd0b6790114180504660b470ea1172"
       },
       {
-        "bytes": 15032,
+        "bytes": 16997,
         "mode": "100644",
         "path": "tests/test_claim_source_coverage.py",
-        "sha256": "8e4117ef2481df64a3d57ed1081b0eccc7e0e1091fea9507b132838c531e2bce"
+        "sha256": "d1588b843919451f4797cf0061cdf0654e31e5d85e0ba55e69621f6707b878f0"
       },
       {
         "bytes": 1712,
@@ -2697,10 +2699,10 @@
         "sha256": "77f72d12bd69009169029443bea6b42117a78b1b4020151d51e8a3e8ce45eb2d"
       },
       {
-        "bytes": 44065,
+        "bytes": 44112,
         "mode": "100644",
         "path": "tools/build_dark_medium_response_atlas_publication_successor_overlay.py",
-        "sha256": "5b79282aafad21792ea9cd455b6fd6d116fdb73d73de4630bad3e7a91c0e87d7"
+        "sha256": "ddb1309f181d80684f1a2d0f6c4017bf9d4d9581189fdc9f210962bd56af88bf"
       },
       {
         "bytes": 26376,
@@ -2820,7 +2822,7 @@
     "scheme": "astra-source-projection-v1",
     "scope": "astra-dark-medium-response-atlas-publication-successor-s2-repository-source-v1",
     "serialization": "astra-binary-length-prefixed-v1",
-    "sha256": "be09ba079c1a683c526e5d24f610c22d509423558756ea8018eeb3f435aa5d20"
+    "sha256": "fa13ebd79067777d8eebf8b8582df185faf0d987357fe15aadc0c367b328742d"
   },
   "status": "publication_candidate",
   "verification_scope": {
