@@ -64,6 +64,34 @@ def test_pages_audit_covers_redirect_canonical_asset_and_fragment(tmp_path: Path
         check_pages_links(tmp_path)
 
 
+def test_pages_audit_resolves_parent_directory_links_to_root_index(tmp_path: Path) -> None:
+    (tmp_path / "index.html").write_text(
+        "<!doctype html><html><body><main id=\"home\">Home</main></body></html>\n",
+        encoding="utf-8",
+    )
+    editions = tmp_path / "editions"
+    editions.mkdir()
+    (editions / "index.html").write_text(
+        "<!doctype html><html><body><a href=\"../\">Home</a></body></html>\n",
+        encoding="utf-8",
+    )
+    nested = tmp_path / "resources" / "line" / "v0.1.0"
+    nested.mkdir(parents=True)
+    (nested / "index.html").write_text(
+        "<!doctype html><html><body><a href=\"../../../\">Home</a></body></html>\n",
+        encoding="utf-8",
+    )
+
+    result = check_pages_links(tmp_path)
+
+    assert result["html_files"] == 3
+    assert result["internal_references"] == 2
+
+    (tmp_path / "index.html").unlink()
+    with pytest.raises(RuntimeError, match="target is missing"):
+        check_pages_links(tmp_path)
+
+
 def test_external_probe_classifies_404_as_missing(monkeypatch: pytest.MonkeyPatch) -> None:
     def missing(*_args: object, **_kwargs: object) -> object:
         raise urllib.error.HTTPError(
