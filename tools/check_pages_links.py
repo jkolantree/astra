@@ -28,8 +28,6 @@ def _target(site: Path, page_relative: str, destination: str) -> tuple[Path | No
     if kind == "unsafe" or "\\" in destination:
         raise RuntimeError(f"Unsafe Pages destination: {destination!r}")
     relative, fragment = site_reference_path(page_relative, destination)
-    if not relative:
-        relative = "index.html"
     candidate = site / relative
     if destination.split("#", 1)[0].endswith("/") or candidate.is_dir():
         candidate /= "index.html"
