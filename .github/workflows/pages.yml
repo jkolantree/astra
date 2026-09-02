@@ -28,6 +28,11 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
+      - name: Set up the pinned Python runtime
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version-file: .python-version
+
       - name: Build release-bound reading room
         shell: bash
         env:
@@ -39,7 +44,7 @@ jobs:
           downloads="$RUNNER_TEMP/astra-pages-downloads"
           rm -rf -- "$site" "$downloads"
           mkdir -p -- "$site" "$downloads"
-          cp -R -- docs/. "$site/"
+          python -I -B tools/check_pages_admission.py --copy-to "$site"
 
           current_version="$(jq -er '.version | select(test("^[0-9]+[.][0-9]+[.][0-9]+$"))' RELEASE_SPEC.json)"
           current_tag="v${current_version}"
@@ -127,27 +132,6 @@ jobs:
           test "$(git cat-file -t "$framework_ref")" = tag
           framework_commit="$(git rev-parse "${framework_ref}^{commit}")"
           git merge-base --is-ancestor "$framework_commit" HEAD
-
-          # Bind the publication boundary to the exact merged M1 state. This
-          # preserves the immutable v1.0.7 release while refusing unrelated
-          # post-M1 source changes in the HEAD-sourced Pages payload.
-          communications_base_commit="5743f09daf924ea695d25053934b4f576aac594b"
-          communications_base_tree="1ac773d75142558ed6503b9504c298fb30327b7c"
-          test "$(git cat-file -t "$communications_base_commit")" = commit
-          test "$(git rev-parse "${communications_base_commit}^{tree}")" = "$communications_base_tree"
-          git merge-base --is-ancestor "$communications_base_commit" HEAD
-
-          if test "$(git rev-parse HEAD)" != "$communications_base_commit"; then
-            while IFS= read -r changed_path; do
-              case "$changed_path" in
-                .github/workflows/pages.yml|MANIFEST.sha256|README.md|docs/index.html|docs/sppt-astra-cover.svg|evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json|tests/test_pages_contract.py) ;;
-                *)
-                  echo "Unexpected post-M1 change cannot enter Pages: $changed_path" >&2
-                  exit 1
-                  ;;
-              esac
-            done < <(git diff --name-only "$communications_base_commit" HEAD)
-          fi
 
           paper_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${paper_tag}")"
           paper_asset_json="$(jq -cn --args '$ARGS.positional | sort' "${paper_assets[@]}")"
@@ -436,6 +420,61 @@ jobs:
             <(printf '%s\n' "${framework_pages_roster[@]}" | sort) \
             <(find "$framework_target_dir" -type f -printf '%P\n' | sort)
 
+          atlas_tag="dark-medium-response-atlas-v0.1.0"
+          atlas_ref="refs/tags/${atlas_tag}"
+          atlas_assets=(
+            "dark-medium-response-atlas-v0.1.0.html"
+            "dark-medium-response-atlas-v0.1.0.pdf"
+            "dark-medium-response-atlas-v0.1.0-source.tar.gz"
+            "SHA256SUMS"
+            "dark-medium-response-atlas-v0.1.0-release-identity.json"
+          )
+          atlas_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${atlas_tag}")"
+          atlas_asset_json="$(jq -cn --args '$ARGS.positional | sort' "${atlas_assets[@]}")"
+          jq -e '
+            .tag_name == $tag and
+            .draft == false and
+            .prerelease == true and
+            .immutable == true and
+            (.assets | map(.name) | sort) == $assets
+          ' --arg tag "$atlas_tag" --argjson assets "$atlas_asset_json" \
+            <<<"$atlas_release" >/dev/null
+
+          atlas_release_dir="$downloads/$atlas_tag"
+          atlas_extract_dir="$downloads/${atlas_tag}-source"
+          mkdir -p -- "$atlas_release_dir" "$atlas_extract_dir"
+          atlas_download_args=()
+          for asset in "${atlas_assets[@]}"; do
+            atlas_download_args+=(--pattern "$asset")
+          done
+          gh release download "$atlas_tag" \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir "$atlas_release_dir" \
+            "${atlas_download_args[@]}"
+          for asset in "${atlas_assets[@]}"; do
+            test -f "$atlas_release_dir/$asset"
+            api_digest="$(jq -er '
+              .assets[] |
+              select(.name == $name) |
+              .digest |
+              select(test("^sha256:[0-9a-f]{64}$"))
+            ' --arg name "$asset" <<<"$atlas_release")"
+            actual_digest="sha256:$(sha256sum "$atlas_release_dir/$asset" | awk '{print $1}')"
+            test "$actual_digest" = "$api_digest"
+          done
+          git fetch --no-tags origin "${atlas_ref}:${atlas_ref}"
+          test "$(git cat-file -t "$atlas_ref")" = tag
+          python -I -B tools/dark_medium_response_atlas_release.py verify \
+            --tag "$atlas_tag" \
+            --assets "$atlas_release_dir" \
+            --extract-to "$atlas_extract_dir" \
+            --allow-tag-ancestor
+          python -I -B tools/assemble_pages.py \
+            --site "$site" \
+            --atlas-assets "$atlas_release_dir" \
+            --atlas-source "$atlas_extract_dir/dark-medium-response-atlas-v0.1.0-source" \
+            --preserve-existing
+
           cat > "$site/editions/index.html" <<'HTML'
           <!doctype html>
           <html lang="en-US">
@@ -527,6 +566,7 @@ jobs:
           write_redirect "$site/latest/supplement" "../../${current_tag}/supplement/" "Current SPPT/ASTRA technical supplement"
           write_redirect "$site/resources/earth-is-the-instrument" "./${framework_version}/" "Current Earth Is the Instrument framework"
           write_redirect "$site/resources/earth-is-the-instrument/latest" "../${framework_version}/" "Current Earth Is the Instrument framework"
+          python -I -B tools/check_pages_links.py "$site"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

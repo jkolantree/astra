@@ -6,6 +6,24 @@ its own review status, integrity record, source or provenance record, and rights
 boundary; published editions additionally state their citation and reading
 route.
 
+## Dark-Medium Response Atlas publication line
+
+- **Working paper — [Dark-Medium Response Atlas
+  v0.1.0](dark-medium-response-atlas/v0.1.0/).** *Path, Compensation, Memory,
+  and Observation* begins with response rather than a presumed hidden
+  substance. It separates gravitational, plasma, condensate, and
+  preferred-frame roles; keeps conditional derivations distinct from
+  observations; and records what could falsify or narrow the proposal. Read
+  the [immutable versioned
+  edition](https://jkolantree.github.io/astra/resources/dark-medium-response-atlas/v0.1.0/)
+  or inspect its [namespaced GitHub
+  prerelease](https://github.com/jkolantree/astra/releases/tag/dark-medium-response-atlas-v0.1.0).
+
+The namespace-local `dark-medium-response-atlas/latest/` route is a convenience
+pointer. Citation metadata names the versioned route and tag instead. The
+preserved `draft-v0.1.0/` package and its S1 admission record remain historical
+source evidence; they are not alternate publication assets.
+
 ## *Earth Is the Instrument* publication line
 
 - **Supplemental working-paper release — [ASTRA Framework

@@ -102,6 +102,16 @@ main {
   padding-block: 2rem 4rem;
 }
 
+.quick-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.25rem;
+  align-items: center;
+  padding-block: 0.4rem 1rem;
+  border-bottom: 1px solid var(--line);
+  font-weight: 700;
+}
+
 section,
 .notice {
   margin-block: 2rem;
@@ -157,6 +167,42 @@ section,
   border-radius: 0.35rem;
   font-weight: 700;
   background: var(--wash);
+}
+
+.publication-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
+  gap: 1rem;
+}
+
+.publication-card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1rem, 3vw, 1.4rem);
+  border: 1px solid var(--line);
+  border-radius: 0.45rem;
+  background: var(--wash);
+}
+
+.publication-card h3 {
+  margin-block: 0.25rem 0.7rem;
+}
+
+.publication-card > p:not(.publication-status) {
+  margin-top: 0;
+}
+
+.publication-card .actions {
+  margin-top: auto;
+}
+
+.publication-status {
+  margin: 0;
+  color: #5f4300;
+  font-size: 0.9rem;
+  font-weight: 750;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
 }
 
 .feature {
@@ -245,6 +291,8 @@ section,
 }
 
 .resource-list {
+  display: grid;
+  gap: 0.9rem;
   padding: 0;
   list-style: none;
 }
@@ -262,6 +310,19 @@ section,
 
 .resource-list p {
   margin-top: 0.45rem;
+}
+
+.compact-list li {
+  padding-block: 0.85rem;
+}
+
+.path-list {
+  padding-left: 1.4rem;
+}
+
+.path-list li {
+  margin-block: 0.55rem;
+  padding-left: 0.2rem;
 }
 
 .reading-map,
@@ -362,12 +423,60 @@ footer p {
     display: block;
     text-align: center;
   }
+
+  .quick-nav {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .quick-nav a {
+    display: block;
+  }
+}
+
+@media print {
+  header {
+    padding-block: 1.5rem;
+    color: #000000;
+    background: #ffffff;
+  }
+
+  .skip-link,
+  .quick-nav {
+    display: none;
+  }
+
+  .publication-grid {
+    display: block;
+  }
+
+  .publication-card,
+  .notice,
+  .resource-list li {
+    break-inside: avoid;
+    margin-block: 1rem;
+    color: #000000;
+    background: #ffffff;
+  }
+
+  a {
+    color: #000000;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
 }
 
 @media (forced-colors: active) {
   .notice,
   .cards a,
   .feature,
+  .publication-card,
   .paper-cover,
   .resource-list li,
   .status-badge,

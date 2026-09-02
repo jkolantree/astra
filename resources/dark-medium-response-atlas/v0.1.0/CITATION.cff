@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "Please cite the immutable versioned Atlas route and tagged prerelease."
+type: article
+title: "Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and Observation"
+abstract: >-
+  A not-peer-reviewed supplemental working paper and methods proposal that
+  classifies possible hidden sectors by response, path dependence, parameter
+  compensation, phase structure, and observation. Conditional analytic
+  derivations and calibration cases are separated from empirical claims.
+authors:
+  - name: "Jacko T."
+version: 0.1.0
+date-released: 2026-09-01
+repository-code: "https://github.com/jkolantree/astra"
+url: "https://jkolantree.github.io/astra/resources/dark-medium-response-atlas/v0.1.0/"
+license: CC-BY-4.0
+keywords:
+  - dark matter
+  - dark plasma
+  - response theory
+  - identifiability
+  - path dependence
+  - parameter compensation
+  - hidden sectors
+  - ASTRA

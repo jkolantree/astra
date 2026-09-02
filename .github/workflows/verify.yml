@@ -3,7 +3,7 @@ name: Verify
 on:
   push:
     branches: [main]
-    tags: ["v*"]
+    tags: ["v*", "dark-medium-response-atlas-v*"]
   pull_request:
   workflow_dispatch:
 
@@ -58,14 +58,14 @@ jobs:
           python-version-file: .python-version
 
       - name: Restore authoritative annotated release tag
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/v')
         run: python -I -B tools/release_integrity.py restore-tag-ref
 
       - name: Install hash-locked dependencies
         run: python -I -B -m pip install --require-hashes -r requirements-lock.txt
 
       - name: Verify annotated release-tag identity
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/v')
         run: python -I -B tools/release_integrity.py verify-tag
 
       - name: Install the Playwright-pinned Chromium build
@@ -75,6 +75,7 @@ jobs:
         run: python -I -B tools/verify.py --all --workers 4
 
       - name: Verify git-archive inventory and bytes
+        if: github.ref_type != 'tag' || startsWith(github.ref, 'refs/tags/v')
         run: python -I -B tools/release_integrity.py verify-git-archive
 
       - name: Reject an unexplained worktree

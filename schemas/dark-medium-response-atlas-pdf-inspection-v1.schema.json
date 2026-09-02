@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-pdf-inspection-v1.schema.json",
+  "title": "Dark-Medium Response Atlas PDF inspection report v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema", "file", "bytes", "sha256", "pages", "normalized_text_sha256", "tagged", "pdf_ua_claim", "outline_titles_match_html", "formula_tags", "table_tags", "table_caption_tags", "link_annotation_count", "external_links", "fonts", "source_font_identities", "metadata", "xmp"],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-pdf-inspection-v1.schema.json"},
+    "file": {"const": "dark-medium-response-atlas-v0.1.0.pdf"},
+    "bytes": {"type": "integer", "minimum": 1},
+    "sha256": {"$ref": "#/definitions/sha256"},
+    "pages": {"type": "integer", "minimum": 1},
+    "normalized_text_sha256": {"$ref": "#/definitions/sha256"},
+    "tagged": {"const": true},
+    "pdf_ua_claim": {"const": false},
+    "outline_titles_match_html": {"const": true},
+    "formula_tags": {"type": "integer", "minimum": 1},
+    "table_tags": {"const": 4},
+    "table_caption_tags": {"const": 4},
+    "figure_tags": {"type": "integer", "minimum": 0},
+    "link_annotation_count": {"type": "integer", "minimum": 1},
+    "external_links": {"type": "array", "uniqueItems": true, "items": {"type": "string", "format": "uri"}},
+    "fonts": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "source_font_identities": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "metadata": {"type": "object"},
+    "xmp": {"type": "object"}
+  },
+  "definitions": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

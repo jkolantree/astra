@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-publication-identity-v1.schema.json",
+  "title": "Dark-Medium Response Atlas publication identity v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "publication_line_id",
+    "version",
+    "title",
+    "canonical_url",
+    "build_epoch",
+    "identity_excludes_self",
+    "inputs",
+    "font_sources",
+    "artifacts",
+    "pdf_pages",
+    "pdf_normalized_text_sha256",
+    "runtime",
+    "accessibility"
+  ],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-publication-identity-v1.schema.json"},
+    "publication_line_id": {"const": "dark-medium-response-atlas"},
+    "version": {"const": "0.1.0"},
+    "title": {"const": "Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and Observation"},
+    "canonical_url": {"const": "https://jkolantree.github.io/astra/resources/dark-medium-response-atlas/v0.1.0/"},
+    "build_epoch": {"const": "2026-09-01T00:00:00Z"},
+    "identity_excludes_self": {"const": true},
+    "inputs": {"$ref": "#/definitions/fileRecords"},
+    "font_sources": {"$ref": "#/definitions/fontRecords"},
+    "artifacts": {"$ref": "#/definitions/fileRecords"},
+    "pdf_pages": {"type": "integer", "minimum": 1},
+    "pdf_normalized_text_sha256": {"$ref": "#/definitions/sha256"},
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["python", "pandoc", "pikepdf", "pypdf", "playwright", "browser", "matplotlib"],
+      "properties": {
+        "python": {"const": "3.12.10"},
+        "pandoc": {"type": "string", "minLength": 1},
+        "pikepdf": {"type": "string", "minLength": 1},
+        "pypdf": {"type": "string", "minLength": 1},
+        "playwright": {"type": "string", "minLength": 1},
+        "browser": {"type": "string", "minLength": 1},
+        "matplotlib": {"type": "string", "minLength": 1}
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary_reading_edition", "fixed_layout_edition", "pdf_claim"],
+      "properties": {
+        "primary_reading_edition": {"const": "dark-medium-response-atlas-v0.1.0.html"},
+        "fixed_layout_edition": {"const": "dark-medium-response-atlas-v0.1.0.pdf"},
+        "pdf_claim": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "fileRecords": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "bytes", "sha256"],
+        "properties": {
+          "path": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$"},
+          "bytes": {"type": "integer", "minimum": 1},
+          "sha256": {"$ref": "#/definitions/sha256"}
+        }
+      }
+    },
+    "fontRecords": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "bytes", "sha256"],
+        "properties": {
+          "file": {"type": "string", "minLength": 1},
+          "bytes": {"type": "integer", "minimum": 1},
+          "sha256": {"$ref": "#/definitions/sha256"}
+        }
+      }
+    }
+  }
+}

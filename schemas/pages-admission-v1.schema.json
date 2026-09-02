@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/pages-admission-v1.schema.json",
+  "title": "ASTRA Pages admission manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "manifest_version", "base", "head_shell", "release_routes", "policy"],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/pages-admission-v1.schema.json"},
+    "manifest_version": {"const": "1.0.0"},
+    "base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit", "tree", "relationship"],
+      "properties": {
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "tree": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "relationship": {"const": "fresh_current_main_pages_admission_base"}
+      }
+    },
+    "head_shell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "files"],
+      "properties": {
+        "root": {"const": "docs"},
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/definitions/file"}
+        }
+      }
+    },
+    "release_routes": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["line", "tag", "versioned_route", "latest_route", "kind", "asset_allowlist"],
+        "properties": {
+          "line": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+          "tag": {"type": "string", "minLength": 1},
+          "versioned_route": {"type": "string", "pattern": "^/[a-z0-9./-]+/$"},
+          "latest_route": {"type": ["string", "null"], "pattern": "^/[a-z0-9./-]+/$"},
+          "kind": {"enum": ["core-release", "supplemental-release"]},
+          "asset_allowlist": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"}}
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["copy_exact_head_shell_only", "release_bytes_required_for_publication_routes", "reject_unadmitted_docs", "reject_draft_and_candidate_content"],
+      "properties": {
+        "copy_exact_head_shell_only": {"const": true},
+        "release_bytes_required_for_publication_routes": {"const": true},
+        "reject_unadmitted_docs": {"const": true},
+        "reject_draft_and_candidate_content": {"const": true}
+      }
+    }
+  },
+  "definitions": {
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"},
+        "bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

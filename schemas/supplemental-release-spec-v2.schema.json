@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/supplemental-release-spec-v2.schema.json",
+  "title": "ASTRA namespaced supplemental release specification v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "identity_schema",
+    "contract_version",
+    "publication_line_id",
+    "title",
+    "version",
+    "tag",
+    "release_date",
+    "build_epoch",
+    "build_epoch_unix",
+    "namespace",
+    "scientific_classification",
+    "repository",
+    "repository_id",
+    "author",
+    "licenses",
+    "release_asset_allowlist",
+    "checksum_asset_names",
+    "identity_excludes_self",
+    "github_release",
+    "pages",
+    "external_identifiers",
+    "authority"
+  ],
+  "properties": {
+    "schema": {
+      "const": "https://jkolantree.github.io/astra/schemas/supplemental-release-spec-v2.schema.json"
+    },
+    "identity_schema": {
+      "const": "https://jkolantree.github.io/astra/schemas/supplemental-release-identity-v2.schema.json"
+    },
+    "contract_version": {"const": "2.0.0"},
+    "publication_line_id": {"$ref": "#/definitions/slug"},
+    "title": {"type": "string", "minLength": 1},
+    "version": {"$ref": "#/definitions/semver"},
+    "tag": {"$ref": "#/definitions/portableBasename"},
+    "release_date": {"type": "string", "format": "date"},
+    "build_epoch": {"type": "string", "format": "date-time"},
+    "build_epoch_unix": {"type": "integer", "minimum": 0},
+    "namespace": {"$ref": "#/definitions/safePath"},
+    "scientific_classification": {"type": "string", "minLength": 1},
+    "repository": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://github\\.com/"
+    },
+    "repository_id": {"type": "integer", "minimum": 1},
+    "author": {"type": "string", "minLength": 1},
+    "licenses": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 1},
+      "minProperties": 1
+    },
+    "release_asset_allowlist": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {"$ref": "#/definitions/portableBasename"}
+    },
+    "checksum_asset_names": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {"$ref": "#/definitions/portableBasename"}
+    },
+    "identity_excludes_self": {"const": true},
+    "github_release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["draft", "prerelease", "make_latest", "immutable_required"],
+      "properties": {
+        "draft": {"const": false},
+        "prerelease": {"const": true},
+        "make_latest": {"const": false},
+        "immutable_required": {"const": true}
+      }
+    },
+    "pages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publish", "versioned_route", "latest_route", "citation_route"],
+      "properties": {
+        "publish": {"const": true},
+        "versioned_route": {"$ref": "#/definitions/pagesRoute"},
+        "latest_route": {"$ref": "#/definitions/pagesRoute"},
+        "citation_route": {"$ref": "#/definitions/pagesRoute"}
+      }
+    },
+    "external_identifiers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["doi", "zenodo"],
+      "properties": {
+        "doi": {"const": false},
+        "zenodo": {"const": false}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "core_release_authority",
+        "core_claim_authority",
+        "empirical_validation_authority",
+        "peer_review_authority",
+        "priority_authority"
+      ],
+      "properties": {
+        "scope": {"type": "string", "minLength": 1},
+        "core_release_authority": {"const": "none"},
+        "core_claim_authority": {"const": "none"},
+        "empirical_validation_authority": {"const": "none"},
+        "peer_review_authority": {"const": "none"},
+        "priority_authority": {"const": "none"}
+      }
+    }
+  },
+  "definitions": {
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "portableBasename": {
+      "type": "string",
+      "pattern": "^(?!\\.{1,2}$)(?!.*[\\x00-\\x1F\\x7F/:\\\\])[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "safePath": {
+      "type": "string",
+      "pattern": "^(?!.*[\\x00-\\x1F\\x7F])(?!/)(?!.*//)(?!.*(?:^|/)\\.{1,2}(?:/|$))[A-Za-z0-9._/-]*[A-Za-z0-9._-]$"
+    },
+    "pagesRoute": {
+      "type": "string",
+      "pattern": "^/resources/[a-z0-9][a-z0-9./-]*/$"
+    }
+  }
+}

@@ -39,14 +39,17 @@ ROOT_ALLOWLIST = {
     ".gitignore",
     ".mailmap",
     ".python-version",
-    "AGENTS.md",
     "CHANGELOG.md",
+    "CONTRIBUTING.md",
     "CITATION.cff",
     "CLAIM_MATRIX.json",
     "LICENSE",
     "LICENSE_MAP.md",
     "MANIFEST.sha256",
+    "PROVENANCE.md",
+    "PUBLICATIONS.md",
     "README.md",
+    "REPRODUCING.md",
     "RELEASE_NOTES_earth-instrument-framework-v0.3.0.md",
     "RELEASE_NOTES_earth-instrument-wp-0.1.md",
     "RELEASE_NOTES_v1.0.1.md",
@@ -75,6 +78,7 @@ DIRECTORY_RULES = {
     "resources": {
         ".bib",
         ".cff",
+        ".css",
         ".csv",
         ".html",
         ".json",
@@ -123,8 +127,14 @@ PRIVATE_PATTERNS = {
 }
 PATTERN_FIXTURE_FILES = {
     "tools/build_documents.py",
+    "tools/build_dark_medium_response_atlas_documents.py",
+    "tools/check_dark_medium_response_atlas_html.py",
+    "tools/check_external_links.py",
+    "tools/check_pages_links.py",
+    "tools/check_repository_links.py",
     "tools/check_repository.py",
     "tools/inspect_pdf.py",
+    "tools/inspect_dark_medium_response_atlas_pdf.py",
     "tests/test_document_contract.py",
     "tests/test_release_integrity.py",
     "resources/cosmic-visibility-framework/draft-v0.1.0/build_framework_pdf.py",
@@ -306,6 +316,37 @@ COSMIC_VISIBILITY_RESOURCE_FILES = (
     "figures/evidence_ladder.svg",
     "figures/visibility_kernel_chain.svg",
 )
+DARK_MEDIUM_RESOURCE_ROOT = "resources/dark-medium-response-atlas"
+DARK_MEDIUM_DRAFT_FILES = (
+    "CHANGE_LOG.md",
+    "DARK_MEDIUM_RESPONSE_ATLAS.md",
+    "LICENSE_MAP.md",
+    "README.md",
+    "claim_ledger.csv",
+    "draft_metadata.json",
+    "novelty_ledger.csv",
+    "source_ledger.csv",
+)
+DARK_MEDIUM_FINAL_FILES = (
+    "CHANGELOG.md",
+    "CITATION.cff",
+    "LICENSE_MAP.md",
+    "README.md",
+    "RELEASE_NOTES.md",
+    "RELEASE_SPEC.json",
+    "claim-ledger.csv",
+    "dark-medium-response-atlas-v0.1.0.css",
+    "dark-medium-response-atlas-v0.1.0.html",
+    "dark-medium-response-atlas-v0.1.0.md",
+    "dark-medium-response-atlas-v0.1.0.pdf",
+    "external-link-observations.json",
+    "html-accessibility.json",
+    "novelty-ledger.csv",
+    "pdf-inspection.json",
+    "publication-identity.json",
+    "source-ledger.csv",
+    "visual-review.json",
+)
 SPPT_ASTRA_V108_CANDIDATE_ROOT = "resources/sppt-astra-v1.0.8-candidate"
 SPPT_ASTRA_V108_ORIGIN_SHA256 = "55b8962176680859064fa2ebc009bb45ddc0cce987bce0bc16206faa4c7c387a"
 SPPT_ASTRA_V107_MATRIX_SHA256 = "c7b52c0afc887342ad4bdc42f91f979fc49e1cd0b21b8e7c1c31946033de9bed"
@@ -402,6 +443,11 @@ RESOURCE_PATH_ALLOWLIST = {
     *(f"{COHERENCE_CELL_RESOURCE_ROOT}/{name}" for name in COHERENCE_CELL_RESOURCE_FILES),
     *(f"{SPPT_BRIDGE_RESOURCE_ROOT}/{name}" for name in SPPT_BRIDGE_RESOURCE_FILES),
     *(f"{COSMIC_VISIBILITY_RESOURCE_ROOT}/{name}" for name in COSMIC_VISIBILITY_RESOURCE_FILES),
+    *(
+        f"{DARK_MEDIUM_RESOURCE_ROOT}/draft-v0.1.0/{name}"
+        for name in DARK_MEDIUM_DRAFT_FILES
+    ),
+    *(f"{DARK_MEDIUM_RESOURCE_ROOT}/v0.1.0/{name}" for name in DARK_MEDIUM_FINAL_FILES),
     *(f"{SPPT_ASTRA_V108_CANDIDATE_ROOT}/{name}" for name in SPPT_ASTRA_V108_CANDIDATE_FILES),
 }
 
@@ -1299,25 +1345,258 @@ def check_sppt_astra_v108_candidate_resource() -> None:
     _check_sppt_astra_v108_package_identity(package_root)
 
 
+def check_private_operator_policy_boundary() -> None:
+    """Keep private operator policy out of the future public repository tree."""
+
+    if (ROOT / "AGENTS.md").exists():
+        raise RuntimeError("Private AGENTS.md remains in the public repository root")
+    ignored = (ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()
+    if "/AGENTS.md" not in ignored:
+        raise RuntimeError("Root .gitignore does not reserve private AGENTS.md")
+
+
+def _atlas_csv(path: Path, required_fields: set[str]) -> list[dict[str, str]]:
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        if reader.fieldnames is None or set(reader.fieldnames) != required_fields:
+            raise RuntimeError(f"Atlas CSV header drift: {path.relative_to(ROOT)}")
+        rows = list(reader)
+    if not rows:
+        raise RuntimeError(f"Atlas CSV is empty: {path.relative_to(ROOT)}")
+    return rows
+
+
+def _atlas_file_record(path: Path) -> dict[str, object]:
+    return {"path": path.name, "bytes": path.stat().st_size, "sha256": sha256(path)}
+
+
+def check_dark_medium_response_atlas_resource() -> None:
+    """Verify the bounded, namespaced Atlas package without core promotion."""
+
+    root = ROOT / DARK_MEDIUM_RESOURCE_ROOT
+    draft = root / "draft-v0.1.0"
+    package = root / "v0.1.0"
+    observed_draft = {path.name for path in draft.iterdir() if path.is_file()}
+    observed_final = {path.name for path in package.iterdir() if path.is_file()}
+    if observed_draft != set(DARK_MEDIUM_DRAFT_FILES):
+        raise RuntimeError(
+            "Dark-Medium historical draft roster drifted: "
+            f"expected={sorted(DARK_MEDIUM_DRAFT_FILES)}, observed={sorted(observed_draft)}"
+        )
+    if observed_final != set(DARK_MEDIUM_FINAL_FILES):
+        raise RuntimeError(
+            "Dark-Medium final package roster drifted: "
+            f"expected={sorted(DARK_MEDIUM_FINAL_FILES)}, observed={sorted(observed_final)}"
+        )
+
+    spec = json.loads((package / "RELEASE_SPEC.json").read_text(encoding="utf-8"))
+    expected_spec = {
+        "publication_line_id": "dark-medium-response-atlas",
+        "version": "0.1.0",
+        "tag": "dark-medium-response-atlas-v0.1.0",
+        "namespace": "resources/dark-medium-response-atlas/v0.1.0",
+        "identity_excludes_self": True,
+        "github_release": {
+            "draft": False,
+            "prerelease": True,
+            "make_latest": False,
+            "immutable_required": True,
+        },
+        "pages": {
+            "publish": True,
+            "versioned_route": "/resources/dark-medium-response-atlas/v0.1.0/",
+            "latest_route": "/resources/dark-medium-response-atlas/latest/",
+            "citation_route": "/resources/dark-medium-response-atlas/v0.1.0/",
+        },
+        "external_identifiers": {"doi": False, "zenodo": False},
+    }
+    for key, expected in expected_spec.items():
+        if spec.get(key) != expected:
+            raise RuntimeError(f"Dark-Medium release specification drift for {key}")
+    asset_names = spec.get("release_asset_allowlist")
+    checksum_names = spec.get("checksum_asset_names")
+    if (
+        asset_names
+        != [
+            "dark-medium-response-atlas-v0.1.0.html",
+            "dark-medium-response-atlas-v0.1.0.pdf",
+            "dark-medium-response-atlas-v0.1.0-source.tar.gz",
+            "SHA256SUMS",
+            "dark-medium-response-atlas-v0.1.0-release-identity.json",
+        ]
+        or checksum_names != asset_names[:3]
+    ):
+        raise RuntimeError("Dark-Medium release-asset contract is not exact")
+
+    cff = YAML(typ="safe").load((package / "CITATION.cff").read_text(encoding="utf-8"))
+    if not isinstance(cff, dict) or {
+        "version": str(cff.get("version", "")),
+        "date-released": str(cff.get("date-released", "")),
+        "url": str(cff.get("url", "")),
+        "license": str(cff.get("license", "")),
+    } != {
+        "version": "0.1.0",
+        "date-released": "2026-09-01",
+        "url": "https://jkolantree.github.io/astra/resources/dark-medium-response-atlas/v0.1.0/",
+        "license": "CC-BY-4.0",
+    }:
+        raise RuntimeError("Dark-Medium citation metadata does not bind the versioned route")
+
+    html = package / "dark-medium-response-atlas-v0.1.0.html"
+    pdf = package / "dark-medium-response-atlas-v0.1.0.pdf"
+    html_report = json.loads((package / "html-accessibility.json").read_text(encoding="utf-8"))
+    pdf_report = json.loads((package / "pdf-inspection.json").read_text(encoding="utf-8"))
+    visual_review = json.loads((package / "visual-review.json").read_text(encoding="utf-8"))
+    identity = json.loads((package / "publication-identity.json").read_text(encoding="utf-8"))
+    if (
+        html_report.get("file") != html.name
+        or html_report.get("bytes") != html.stat().st_size
+        or html_report.get("sha256") != sha256(html)
+    ):
+        raise RuntimeError("Dark-Medium HTML accessibility record does not match its artifact")
+    if (
+        pdf_report.get("file") != pdf.name
+        or pdf_report.get("bytes") != pdf.stat().st_size
+        or pdf_report.get("sha256") != sha256(pdf)
+    ):
+        raise RuntimeError("Dark-Medium PDF inspection record does not match its artifact")
+    if (
+        visual_review.get("file") != pdf.name
+        or visual_review.get("sha256") != sha256(pdf)
+        or visual_review.get("page_count") != pdf_report.get("pages")
+        or visual_review.get("render_dpi", 0) < 144
+        or visual_review.get("result") != "PASS"
+    ):
+        raise RuntimeError("Dark-Medium visual-review record does not bind the inspected PDF")
+    reviewed_pages = visual_review.get("reviewed_pages")
+    if (
+        not isinstance(reviewed_pages, list)
+        or [item.get("page") for item in reviewed_pages if isinstance(item, dict)]
+        != list(range(1, int(pdf_report["pages"]) + 1))
+        or any(not isinstance(item, dict) or item.get("status") != "PASS" for item in reviewed_pages)
+    ):
+        raise RuntimeError("Dark-Medium visual review is not a complete passing page record")
+
+    canonical = "https://jkolantree.github.io/astra/resources/dark-medium-response-atlas/v0.1.0/"
+    if (
+        identity.get("canonical_url") != canonical
+        or identity.get("publication_line_id") != spec["publication_line_id"]
+        or identity.get("version") != spec["version"]
+        or identity.get("pdf_pages") != pdf_report.get("pages")
+        or identity.get("pdf_normalized_text_sha256")
+        != pdf_report.get("normalized_text_sha256")
+    ):
+        raise RuntimeError("Dark-Medium publication identity does not match the package")
+    expected_identity_artifacts = [
+        _atlas_file_record(path)
+        for path in (html, pdf, package / "html-accessibility.json", package / "pdf-inspection.json")
+    ]
+    if identity.get("artifacts") != expected_identity_artifacts:
+        raise RuntimeError("Dark-Medium publication identity artifact roster drifted")
+
+    source_rows = _atlas_csv(
+        package / "source-ledger.csv",
+        {
+            "source_id",
+            "title",
+            "authors_or_group",
+            "record_date",
+            "venue_or_record",
+            "canonical_url",
+            "identifier",
+            "record_status",
+            "rights_status",
+            "role",
+            "source_bytes_archived",
+            "alias_of",
+            "notes",
+        },
+    )
+    source_ids = {row["source_id"] for row in source_rows}
+    if len(source_ids) != len(source_rows) or any(not value.startswith("S") for value in source_ids):
+        raise RuntimeError("Dark-Medium source ledger identifiers are not unique")
+    claim_rows = _atlas_csv(
+        package / "claim-ledger.csv",
+        {
+            "claim_id",
+            "claim_type",
+            "claim_statement",
+            "assumptions_or_boundary",
+            "observable_or_endpoint",
+            "null_model",
+            "falsifier_or_next_test",
+            "source_ids",
+            "evidence_status",
+            "disposition",
+            "limitations",
+        },
+    )
+    claim_ids = [row["claim_id"] for row in claim_rows]
+    if len(set(claim_ids)) != len(claim_ids) or any(not value.startswith("DMA-") for value in claim_ids):
+        raise RuntimeError("Dark-Medium claim identifiers are not unique")
+    for row in claim_rows:
+        declared = [value.strip() for value in row["source_ids"].split(";") if value.strip()]
+        if not declared or not set(declared) <= source_ids:
+            raise RuntimeError(f"Dark-Medium claim has unknown source IDs: {row['claim_id']}")
+    novelty_rows = _atlas_csv(
+        package / "novelty-ledger.csv",
+        {
+            "novelty_id",
+            "proposition",
+            "contribution_type",
+            "prior_art_source_ids",
+            "delta_from_prior",
+            "predicted_artifact",
+            "falsifier_or_stop",
+            "search_scope",
+            "novelty_status",
+            "evidence_status",
+            "priority_language",
+        },
+    )
+    for row in novelty_rows:
+        declared = [value.strip() for value in row["prior_art_source_ids"].split(";") if value.strip()]
+        if not declared or not set(declared) <= source_ids:
+            raise RuntimeError(f"Dark-Medium novelty row has unknown sources: {row['novelty_id']}")
+        if not row["priority_language"].strip():
+            raise RuntimeError(f"Dark-Medium novelty row lacks its priority-language field: {row['novelty_id']}")
+
+    observations = json.loads(
+        (package / "external-link-observations.json").read_text(encoding="utf-8")
+    )
+    records = observations.get("observations") if isinstance(observations, dict) else None
+    if not isinstance(records, list) or not records or observations.get("generated_at") is None:
+        raise RuntimeError("Dark-Medium external-link audit has not been recorded")
+    urls = [item.get("url") for item in records if isinstance(item, dict)]
+    if urls != sorted(set(urls)) or any(item.get("outcome") in {"missing", "not_checked"} for item in records):
+        raise RuntimeError("Dark-Medium external-link audit is incomplete or has a definite failure")
+
+    readme = (package / "README.md").read_text(encoding="utf-8")
+    source = (package / "dark-medium-response-atlas-v0.1.0.md").read_text(encoding="utf-8")
+    public_text = re.sub(r"\s+", " ", readme + "\n" + source).casefold()
+    for boundary in (
+        "not peer reviewed",
+        "did not claim a dark-matter detection",
+        "not the citation identity",
+    ):
+        if boundary not in public_text:
+            raise RuntimeError(f"Dark-Medium public boundary is absent: {boundary}")
+
+
 def check_publication_map() -> None:
     readme = " ".join((ROOT / "README.md").read_text(encoding="utf-8").replace("**", "").split())
     required_readme_values = (
-        "Publication map",
-        "v1.0.7 — current stable reference edition",
-        "Unpromoted core-integrity M1 preprint-source draft",
-        "claim_source_coverage_v1.0.7_maintenance_overlay_m1.json",
-        "differs from the immutable v1.0.7 reading assets",
-        "v0.3.0 — current supplemental edition",
-        "v0.1 — historical edition",
-        "The bare `/latest/` route and repository-level `CITATION.cff` refer only to the SPPT/ASTRA reference line",
-        "resources/earth-is-the-instrument/latest/",
-        "resources/earth-is-the-instrument/v0.3.0/ground-reading/",
-        "resources/earth-is-the-instrument/v0.3.0/audit-form/",
-        "earth-instrument-framework-v0.3.0",
-        "earth-instrument-wp-0.1",
-        "supersedes the internal v0.2.1 predecessor preserved in its release archive",
-        "No public v0.2.1 tag or GitHub Release was created",
-        "core reference tags matching `v*`",
+        "SPPT/ASTRA v1.0.7 is the Current core reference",
+        "Dark-Medium Response Atlas v0.1.0",
+        "Working paper",
+        "not peer reviewed",
+        "methods proposals, not empirical validation",
+        "publication history",
+        "repository-level `CITATION.cff` belongs only to the Current SPPT/ASTRA core",
+        "REPRODUCING.md",
+        "PROVENANCE.md",
+        "CONTRIBUTING.md",
+        "release assets and checksums are the fixed distribution record",
     )
     for value in required_readme_values:
         if value not in readme:
@@ -1327,6 +1606,7 @@ def check_publication_map() -> None:
 
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     for heading in (
+        "## Unreleased",
         "## Earth Is the Instrument framework 0.3.0 — 2026-08-06",
         "## Earth Is the Instrument working paper 0.1 — 2026-08-05",
         "## 1.0.6 — 2026-08-02",
@@ -1379,6 +1659,10 @@ def check_publication_map() -> None:
         or "--all --workers 4" not in evidence_readme
         or "claim_source_coverage_v1.0.7_maintenance_overlay_m1.json" not in evidence_readme
         or "does not amend" not in evidence_readme
+        or "dark_medium_response_atlas_publication_successor_overlay_s2.json"
+        not in evidence_readme
+        or "no peer-review, empirical-validation, priority, DOI, core-claim, or"
+        not in evidence_readme
     ):
         raise RuntimeError(
             "Evidence README does not identify the release, overlay boundary, and command"
@@ -1388,7 +1672,9 @@ def check_publication_map() -> None:
         "currently **v1.0.7**" not in schemas_readme
         or "Supplemental resources" not in schemas_readme
         or "claim-source-coverage-overlay-m1.schema.json" not in schemas_readme
-        or "not claimed live" not in schemas_readme
+        or "dark-medium-response-atlas-publication-successor-overlay-s2.schema.json"
+        not in schemas_readme
+        or "supplemental-release-identity-v2.schema.json" not in schemas_readme
     ):
         raise RuntimeError(
             "Schema README does not identify its publication and candidate boundaries"
@@ -1714,6 +2000,9 @@ def check_public_json_schemas() -> None:
         ROOT / "SOURCE_INVENTORY.json",
         ROOT / "evidence" / "claim_source_coverage_v1.0.7.json",
         ROOT / "evidence" / "claim_source_coverage_v1.0.7_maintenance_overlay_m1.json",
+        ROOT / "evidence" / "dark_medium_response_atlas_successor_overlay_s1.json",
+        ROOT / "evidence" / "dark_medium_response_atlas_publication_successor_overlay_s2.json",
+        ROOT / "evidence" / "pages_admission_v1.json",
         ROOT / "RUNTIME.json",
         ROOT / "manuscript" / "document_semantic_identity.json",
         ROOT / "manuscript" / "pdf_inspection.json",
@@ -1722,6 +2011,36 @@ def check_public_json_schemas() -> None:
         / "sector-complete-instrument"
         / "v0.1.0-alpha.1"
         / "RELEASE_SPEC.json",
+        ROOT
+        / "resources"
+        / "dark-medium-response-atlas"
+        / "v0.1.0"
+        / "RELEASE_SPEC.json",
+        ROOT
+        / "resources"
+        / "dark-medium-response-atlas"
+        / "v0.1.0"
+        / "external-link-observations.json",
+        ROOT
+        / "resources"
+        / "dark-medium-response-atlas"
+        / "v0.1.0"
+        / "html-accessibility.json",
+        ROOT
+        / "resources"
+        / "dark-medium-response-atlas"
+        / "v0.1.0"
+        / "pdf-inspection.json",
+        ROOT
+        / "resources"
+        / "dark-medium-response-atlas"
+        / "v0.1.0"
+        / "publication-identity.json",
+        ROOT
+        / "resources"
+        / "dark-medium-response-atlas"
+        / "v0.1.0"
+        / "visual-review.json",
     )
     referenced_schema_files: set[Path] = set()
     for record_path in records:
@@ -1820,6 +2139,7 @@ def check_runtime_identity() -> None:
 
 def main() -> None:
     check_cache_boundaries()
+    check_private_operator_policy_boundary()
     paths = public_files()
     spec = json.loads((ROOT / "RELEASE_SPEC.json").read_text(encoding="utf-8"))
     version = str(spec["version"])
@@ -1829,6 +2149,7 @@ def main() -> None:
     check_working_paper_resource()
     check_framework_v030_resource()
     check_sppt_astra_v108_candidate_resource()
+    check_dark_medium_response_atlas_resource()
     check_publication_map()
     check_metadata_agreement()
     check_claim_matrix()

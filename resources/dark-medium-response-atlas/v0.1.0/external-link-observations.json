@@ -1,0 +1,197 @@
+{
+  "schema": "https://jkolantree.github.io/astra/schemas/external-link-observations-v1.schema.json",
+  "scope": "dark-medium-response-atlas-v0.1.0",
+  "generated_at": "2026-09-02T02:51:55Z",
+  "policy": {
+    "definite_missing_statuses": [
+      404,
+      410
+    ],
+    "transport_unresolved_statuses": [
+      401,
+      403,
+      429,
+      451
+    ],
+    "network_errors_are_not_dead_links": true,
+    "canonical_doi_is_retained_when_publisher_transport_is_blocked": true
+  },
+  "observations": [
+    {
+      "url": "https://arxiv.org/abs/0810.5126",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/0810.5126",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://arxiv.org/abs/1209.5752",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/1209.5752",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://arxiv.org/abs/1507.01019",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/1507.01019",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://arxiv.org/abs/1802.04303",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/1802.04303",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://arxiv.org/abs/1807.06209",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/1807.06209",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://arxiv.org/abs/2101.08275",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/2101.08275",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://arxiv.org/abs/2411.11958",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/2411.11958",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://arxiv.org/abs/astro-ph/0608407",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/astro-ph/0608407",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://doi.org/10.1007/s00220-026-05700-7",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "redirect_ok",
+      "status": 200,
+      "final_url": "https://link.springer.com/article/10.1007/s00220-026-05700-7",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://doi.org/10.1038/s41586-020-2300-2",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "redirect_ok",
+      "status": 200,
+      "final_url": "https://www.nature.com/articles/s41586-020-2300-2",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://doi.org/10.1038/s41586-020-2878-4",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "redirect_ok",
+      "status": 200,
+      "final_url": "https://www.nature.com/articles/s41586-020-2878-4",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://doi.org/10.1039/D5TA10373H",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "transport_unresolved",
+      "status": 403,
+      "final_url": "https://pubs.rsc.org/ta/article-lookup/doi/10.1039/D5TA10373H",
+      "detail": "HTTP 403"
+    },
+    {
+      "url": "https://doi.org/10.1086/508162",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "redirect_ok",
+      "status": 200,
+      "final_url": "https://validate.perfdrive.com/fb803c746e9148689b3984a31fccd902/",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://doi.org/10.1103/PhysRevD.111.095031",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "transport_unresolved",
+      "status": 403,
+      "final_url": "https://link.aps.org/doi/10.1103/PhysRevD.111.095031",
+      "detail": "HTTP 403"
+    },
+    {
+      "url": "https://doi.org/10.1103/PhysRevD.64.024028",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "transport_unresolved",
+      "status": 403,
+      "final_url": "https://link.aps.org/doi/10.1103/PhysRevD.64.024028",
+      "detail": "HTTP 403"
+    },
+    {
+      "url": "https://doi.org/10.3847/2041-8213/ad1606",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "redirect_ok",
+      "status": 200,
+      "final_url": "https://validate.perfdrive.com/fb803c746e9148689b3984a31fccd902/",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://doi.org/10.3847/PSJ/ae685c",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "redirect_ok",
+      "status": 200,
+      "final_url": "https://validate.perfdrive.com/fb803c746e9148689b3984a31fccd902/",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://github.com/jkolantree/astra/issues/new/choose",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "redirect_ok",
+      "status": 200,
+      "final_url": "https://github.com/login",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://lz.lbl.gov/wp-content/uploads/sites/6/2026/08/LZ_Preprint_260901_Dark_Matter_EFT_Nuclear_Recoil_Search_at_Higher_Energies.pdf",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://lz.lbl.gov/wp-content/uploads/sites/6/2026/08/LZ_Preprint_260901_Dark_Matter_EFT_Nuclear_Recoil_Search_at_Higher_Energies.pdf",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://phys.org/news/2026-09-gravity-particles-mathematical.html",
+      "checked_at": "2026-09-02T02:51:53Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://phys.org/news/2026-09-gravity-particles-mathematical.html",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://phys.org/news/2026-09-nanoparticles-real-uncovers-link-microwave.html",
+      "checked_at": "2026-09-02T02:51:54Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://phys.org/news/2026-09-nanoparticles-real-uncovers-link-microwave.html",
+      "detail": "HTTP 200"
+    },
+    {
+      "url": "https://phys.org/news/2026-09-saturn-encounter-distant-centaur-path.html",
+      "checked_at": "2026-09-02T02:51:54Z",
+      "outcome": "http_ok",
+      "status": 200,
+      "final_url": "https://phys.org/news/2026-09-saturn-encounter-distant-centaur-path.html",
+      "detail": "HTTP 200"
+    }
+  ]
+}

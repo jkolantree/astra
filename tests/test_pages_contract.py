@@ -13,22 +13,22 @@ from ruamel.yaml import YAML
 ROOT = Path(__file__).resolve().parents[1]
 PAGES_WORKFLOW = ROOT / ".github" / "workflows" / "pages.yml"
 VERIFY_WORKFLOW = ROOT / ".github" / "workflows" / "verify.yml"
+ATLAS_RELEASE_WORKFLOW = (
+    ROOT / ".github" / "workflows" / "release-dark-medium-response-atlas.yml"
+)
 COVER_SVG = ROOT / "docs" / "sppt-astra-cover.svg"
 COVER_ALT = (
     "Conceptual SPPT/ASTRA network with observed boundary and surface data, a latent "
     "state, candidate graph paths, and an observe-infer-test sequence"
 )
 
-COMMUNICATIONS_BASE_COMMIT = "5743f09daf924ea695d25053934b4f576aac594b"
-COMMUNICATIONS_BASE_TREE = "1ac773d75142558ed6503b9504c298fb30327b7c"
-PAGES_COVER_MILESTONE_PATHS = (
-    ".github/workflows/pages.yml",
-    "MANIFEST.sha256",
-    "README.md",
-    "docs/index.html",
-    "docs/sppt-astra-cover.svg",
-    "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json",
-    "tests/test_pages_contract.py",
+ATLAS_RELEASE_TAG = "dark-medium-response-atlas-v0.1.0"
+ATLAS_RELEASE_ASSETS = (
+    "dark-medium-response-atlas-v0.1.0.html",
+    "dark-medium-response-atlas-v0.1.0.pdf",
+    "dark-medium-response-atlas-v0.1.0-source.tar.gz",
+    "SHA256SUMS",
+    "dark-medium-response-atlas-v0.1.0-release-identity.json",
 )
 
 ACTION_PINS = {
@@ -53,6 +53,19 @@ def action_uses(workflow: dict[str, Any]) -> list[str]:
         for step in job.get("steps", [])
         if "uses" in step
     ]
+
+
+def named_step(workflow: dict[str, Any], job: str, name: str) -> dict[str, Any]:
+    return next(
+        step
+        for step in workflow["jobs"][job]["steps"]
+        if step.get("name") == name
+    )
+
+
+def pages_build_script() -> str:
+    workflow = load_yaml(PAGES_WORKFLOW)
+    return str(named_step(workflow, "build", "Build release-bound reading room")["run"])
 
 
 class LandingPageParser(HTMLParser):
@@ -109,7 +122,7 @@ def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
     assert build["if"] == "github.ref == 'refs/heads/main'"
     assert build["permissions"] == {"contents": "read"}
 
-    script = str(build["steps"][1]["run"])
+    script = pages_build_script()
     required_release_gates = (
         'current_ref="refs/tags/${current_tag}"',
         'test "$(git cat-file -t "$current_ref")" = tag',
@@ -125,28 +138,100 @@ def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
     assert all(gate in script for gate in required_release_gates)
     assert 'latest_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/latest")"' in script
     assert "$(jq -er '.id' <<<\"$latest_release\")" in script
-    assert f'communications_base_commit="{COMMUNICATIONS_BASE_COMMIT}"' in script
-    assert f'communications_base_tree="{COMMUNICATIONS_BASE_TREE}"' in script
-    assert 'test "$(git cat-file -t "$communications_base_commit")" = commit' in script
-    assert (
-        'test "$(git rev-parse "${communications_base_commit}^{tree}")" = '
-        '"$communications_base_tree"' in script
+    assert 'python -I -B tools/check_pages_admission.py --copy-to "$site"' in script
+    assert f'atlas_tag="{ATLAS_RELEASE_TAG}"' in script
+    assert 'atlas_ref="refs/tags/${atlas_tag}"' in script
+    assert 'git fetch --no-tags origin "${atlas_ref}:${atlas_ref}"' in script
+    assert 'test "$(git cat-file -t "$atlas_ref")" = tag' in script
+    assert "tools/dark_medium_response_atlas_release.py verify" in script
+    assert "--allow-tag-ancestor" in script
+    assert "tools/assemble_pages.py" in script
+    assert "--atlas-source" in script
+    assert script.index('git fetch --no-tags origin "${atlas_ref}:${atlas_ref}"') < script.index(
+        "tools/dark_medium_response_atlas_release.py verify"
     )
-    assert 'git merge-base --is-ancestor "$communications_base_commit" HEAD' in script
-    assert 'if test "$(git rev-parse HEAD)" != "$communications_base_commit"' in script
-    assert 'git diff --name-only "$communications_base_commit" HEAD' in script
-    allowlist = re.search(r'case "\$changed_path" in\s*\n\s*([^\n]+)\) ;;', script)
-    assert allowlist is not None
-    assert tuple(allowlist.group(1).split("|")) == PAGES_COVER_MILESTONE_PATHS
-    assert 'git diff --name-only "${current_ref}^{commit}" HEAD' not in script
-    assert "docs/resources/earth-is-the-instrument/v0.3.0/*" not in script
-    assert "resources/earth-is-the-instrument/v0.3.0/*" not in script
-    assert "Unexpected post-M1 change cannot enter Pages" in script
 
     deploy = workflow["jobs"]["deploy"]
     assert deploy["needs"] == "build"
     assert deploy["environment"]["name"] == "github-pages"
     assert deploy["permissions"] == {"pages": "write", "id-token": "write"}
+
+
+def test_verify_workflow_keeps_core_release_controls_off_atlas_tags() -> None:
+    workflow = load_yaml(VERIFY_WORKFLOW)
+    assert workflow["on"]["push"]["tags"] == ["v*", "dark-medium-response-atlas-v*"]
+    steps = {step["name"]: step for step in workflow["jobs"]["verify"]["steps"]}
+    assert steps["Restore authoritative annotated release tag"]["if"] == (
+        "startsWith(github.ref, 'refs/tags/v')"
+    )
+    assert steps["Verify annotated release-tag identity"]["if"] == (
+        "startsWith(github.ref, 'refs/tags/v')"
+    )
+    assert steps["Verify git-archive inventory and bytes"]["if"] == (
+        "github.ref_type != 'tag' || startsWith(github.ref, 'refs/tags/v')"
+    )
+    assert "tools/verify.py --all --workers 4" in str(
+        steps["Run canonical complete verification"]["run"]
+    )
+
+
+def test_atlas_release_workflow_is_tag_bound_and_remotely_reverified() -> None:
+    workflow = load_yaml(ATLAS_RELEASE_WORKFLOW)
+    assert workflow["on"] == {"push": {"tags": [ATLAS_RELEASE_TAG]}}
+    assert workflow["permissions"] == {"contents": "write"}
+    release = workflow["jobs"]["release"]
+    assert release["if"] == f"github.ref == 'refs/tags/{ATLAS_RELEASE_TAG}'"
+    assert release["runs-on"] == "windows-latest"
+    assert release["timeout-minutes"] == 120
+
+    script = "\n".join(str(step.get("run", "")) for step in release["steps"])
+    for value in (
+        "refs/tags/$tag",
+        "git cat-file -t",
+        "$event.created -ne $true",
+        "$event.deleted -ne $false",
+        "$event.forced -ne $false",
+        "git fetch --no-tags --no-recurse-submodules origin",
+        "refs/heads/main:refs/remotes/origin/main",
+        "git merge-base --is-ancestor $tagCommit refs/remotes/origin/main",
+        "Atlas release tag target is not a merged origin/main commit.",
+        "Fetched Atlas tag object differs from the push-event tag object.",
+        "tools/verify.py --all --workers 4",
+        "tools/build_dark_medium_response_atlas_publication_successor_overlay.py --verify-commit HEAD",
+        "repos/$env:GITHUB_REPOSITORY/immutable-releases",
+        "$immutable.enabled -ne $true",
+        "tools/dark_medium_response_atlas_release.py build --tag $tag --output-dir $assets",
+        "tools/dark_medium_response_atlas_release.py verify --tag $tag --assets $assets",
+        "--replay-source",
+        "--verify-tag",
+        "--prerelease",
+        "--latest=false",
+        "releases?per_page=100",
+        "$priorReleases.Count -ge 100",
+        "repos/$env:GITHUB_REPOSITORY/releases/tags/$tag",
+        "$release.immutable -ne $true",
+        "repos/$env:GITHUB_REPOSITORY/releases/latest",
+        "gh @downloadArguments",
+        "Get-FileHash -Algorithm SHA256",
+    ):
+        assert value in script
+    for asset in ATLAS_RELEASE_ASSETS:
+        assert asset in script
+    assert script.index("tools/verify.py --all --workers 4") < script.index(
+        "tools/build_dark_medium_response_atlas_publication_successor_overlay.py --verify-commit HEAD"
+    )
+    assert script.index(
+        "tools/build_dark_medium_response_atlas_publication_successor_overlay.py --verify-commit HEAD"
+    ) < script.index(
+        "tools/dark_medium_response_atlas_release.py build"
+    )
+    assert script.index("immutable-releases") < script.index("gh @releaseArguments")
+    assert script.index("gh @releaseArguments") < script.index(
+        "$releaseJson = gh api"
+    )
+    assert script.rindex("tools/dark_medium_response_atlas_release.py verify") > script.index(
+        "gh @downloadArguments"
+    )
 
 
 def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> None:
@@ -571,8 +656,7 @@ def test_bauhaus_cover_has_measured_label_clearance_at_repository_scale() -> Non
 
 
 def test_pages_workflow_verifies_exact_release_assets_before_copying() -> None:
-    workflow = load_yaml(PAGES_WORKFLOW)
-    script = str(workflow["jobs"]["build"]["steps"][1]["run"])
+    script = pages_build_script()
 
     required_assets = (
         'preprint="SPPT_ASTRA_preprint_${tag}.html"',
@@ -597,8 +681,7 @@ def test_pages_workflow_verifies_exact_release_assets_before_copying() -> None:
 
 
 def test_pages_workflow_admits_only_the_verified_supplemental_releases() -> None:
-    workflow = load_yaml(PAGES_WORKFLOW)
-    script = str(workflow["jobs"]["build"]["steps"][1]["run"])
+    script = pages_build_script()
 
     required_values = (
         'paper_version="v0.1"',
@@ -652,7 +735,11 @@ def test_pages_workflow_admits_only_the_verified_supplemental_releases() -> None
 
 
 def test_workflow_actions_use_current_immutable_pins() -> None:
-    uses = action_uses(load_yaml(VERIFY_WORKFLOW)) + action_uses(load_yaml(PAGES_WORKFLOW))
+    uses = (
+        action_uses(load_yaml(VERIFY_WORKFLOW))
+        + action_uses(load_yaml(PAGES_WORKFLOW))
+        + action_uses(load_yaml(ATLAS_RELEASE_WORKFLOW))
+    )
     assert uses
     assert all(re.fullmatch(r"[^@]+@[0-9a-f]{40}", value) for value in uses)
     for action, pin in ACTION_PINS.items():
@@ -672,19 +759,16 @@ def test_landing_page_links_to_current_versioned_and_schema_paths() -> None:
         "#main-content",
         "./v1.0.7/preprint/",
         "./v1.0.7/supplement/",
-        "./latest/",
-        "./editions/",
         "./resources/",
+        "./resources/dark-medium-response-atlas/v0.1.0/",
         "./resources/earth-is-the-instrument/v0.3.0/",
         "./resources/earth-is-the-instrument/v0.3.0/ground-reading/",
-        "./resources/earth-is-the-instrument/v0.3.0/errata/",
-        "./resources/earth-is-the-instrument/v0.1/",
         "./schemas/",
     } <= links
     skip_links = [link for link in parser.links if "skip-link" in link.get("class", "").split()]
     assert skip_links == [{"class": "skip-link", "href": "#main-content"}]
 
-    script = str(load_yaml(PAGES_WORKFLOW)["jobs"]["build"]["steps"][1]["run"])
+    script = pages_build_script()
     assert 'version_dir="$site/$tag"' in script
     assert 'write_redirect "$site/latest" "../${current_tag}/"' in script
     assert 'write_redirect "$site/latest/preprint" "../../${current_tag}/preprint/"' in script
@@ -908,20 +992,24 @@ def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> N
 def test_pages_home_scopes_rights_and_separates_publication_tracks() -> None:
     html = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
     semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
-    assert "Current reference framework — v1.0.7" in semantic
-    assert "Current supplemental framework — v0.3.0" in semantic
-    assert "ASTRA Framework v0.3.0" in semantic
-    assert "supersedes an internal v0.2.1 predecessor preserved in its archive" in semantic
-    assert "no public v0.2.1 tag or GitHub Release was created" in semantic
-    assert "does not amend or supersede stable SPPT/ASTRA v1.0.7, enter its claim-admission matrix, inherit its verification" in semantic
-    assert "inherit its verification, or provide empirical validation" in semantic
-    assert "Separately supplied resources retain the rights stated" in semantic
-    assert "Original manuscript, documentation, figures, and data" not in semantic
+    for value in (
+        "SPPT/ASTRA v1.0.7 is Current.",
+        "Dark-Medium Response Atlas v0.1.0",
+        "Working paper publications with separate identities.",
+        "They are not peer reviewed.",
+        "methods proposals, not empirical validation.",
+        "Each Working paper carries its own citation metadata.",
+        "OpenAI systems provided substantive assistance; model output is not scientific evidence or peer review.",
+        "package-specific rights still apply.",
+    ):
+        assert value in semantic
     assert 'href="./v1.0.7/preprint/"' in html
     assert 'href="./v1.0.7/supplement/"' in html
-    assert 'href="./latest/"' in html
+    assert 'href="./resources/dark-medium-response-atlas/v0.1.0/"' in html
+    assert 'href="https://github.com/jkolantree/astra/releases/tag/dark-medium-response-atlas-v0.1.0"' in html
+    assert 'href="./resources/earth-is-the-instrument/v0.3.0/"' in html
     assert 'href="./resources/earth-is-the-instrument/v0.3.0/ground-reading/"' in html
-    assert 'href="./resources/earth-is-the-instrument/v0.3.0/audit-form/"' in html
+    assert 'href="https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0"' in html
 
     css = (ROOT / "docs" / "style.css").read_text(encoding="utf-8")
     assert re.search(r"[.]cover-link,\s*[.]cover-link img,\s*[.]paper-cover", css)
@@ -978,19 +1066,21 @@ def test_pages_home_and_working_paper_reflow_at_narrow_widths() -> None:
         browser.close()
 
 
-def test_resource_index_marks_v030_current_without_changing_core_version() -> None:
+def test_resource_index_labels_working_papers_without_changing_core_version() -> None:
     html = (ROOT / "docs" / "resources" / "index.html").read_text(encoding="utf-8")
     semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
-    assert "ASTRA Framework v0.3.0" in semantic
-    assert "Current supplemental edition" in semantic
-    assert "supersedes an internal v0.2.1 predecessor preserved in its archive" in semantic
-    assert "not a public v0.2.1 release" in semantic
+    assert "The Current SPPT/ASTRA core remains v1.0.7" in semantic
+    assert "Working paper has its own version and publication record." in semantic
+    assert "Dark-Medium Response Atlas" in semantic
+    assert "Earth Is the Instrument" in semantic
+    assert "GitHub’s prerelease badge is a distribution flag for non-core lines, not a peer-review judgment." in semantic
     assert "Working Paper 0.1" in semantic
-    assert "Historical edition" in semantic
-    assert "separate from stable SPPT/ASTRA v1.0.7" in semantic
+    assert "Archive preserves history." in semantic
     assert "| Edition |" not in (
         ROOT / "resources" / "README.md"
     ).read_text(encoding="utf-8")
+    assert "./dark-medium-response-atlas/v0.1.0/" in html
+    assert "./dark-medium-response-atlas/latest/" in html
     assert "./earth-is-the-instrument/latest/" in html
     assert "./earth-is-the-instrument/v0.3.0/errata/" in html
 
@@ -998,17 +1088,15 @@ def test_resource_index_marks_v030_current_without_changing_core_version() -> No
 def test_resource_index_separates_published_routes_from_repository_drafts() -> None:
     html = (ROOT / "docs" / "resources" / "index.html").read_text(encoding="utf-8")
     semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
-    assert (
-        "Published editions have reading routes; unpromoted drafts remain source-tree-only."
-        in semantic
-    )
-    assert "Other versioned package" in semantic
+    assert "Draft can change." in semantic
+    assert "moving source-tree research objects" in semantic
+    assert "not permanent scientific citation" in semantic
+    assert "use a fixed commit if you need to refer to exact bytes." in semantic
     assert "Sector-Complete Instrument" in semantic
-    assert "has no Pages route, DOI, or Zenodo record" in semantic
-    assert "Repository-visible unpromoted drafts" in semantic
-    assert "not Pages editions or release assets" in semantic
-    assert "do not enter the v1.0.7 claim matrix" in semantic
+    assert "does not replace Current v1.0.7." in semantic
     for relative in (
+        "sppt-astra-v1.0.8-candidate",
+        "sector-complete-instrument/v0.1.0-alpha.1",
         "cosmic-visibility-framework/draft-v0.1.0",
         "sppt-bridge-protocol/draft-v0.1.0",
         "coherence-cell-exploration/draft-v0.1.0",

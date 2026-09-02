@@ -1,0 +1,372 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-publication-successor-overlay-s2.schema.json",
+  "title": "ASTRA Dark-Medium Response Atlas publication-successor overlay S2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "schema_version",
+    "overlay_id",
+    "overlay_kind",
+    "status",
+    "prepared_date",
+    "current_main_base",
+    "historical_s1",
+    "live_predecessor",
+    "change_roster",
+    "package",
+    "release_contract",
+    "source_projection",
+    "authority",
+    "generator",
+    "verification_scope"
+  ],
+  "properties": {
+    "schema": {
+      "const": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-publication-successor-overlay-s2.schema.json"
+    },
+    "schema_version": {"const": "2.0.0"},
+    "overlay_id": {"const": "dark-medium-response-atlas-publication-successor-s2"},
+    "overlay_kind": {"const": "supplemental_publication_admission"},
+    "status": {"enum": ["publication_candidate", "published_immutable_prerelease"]},
+    "prepared_date": {"type": "string", "format": "date"},
+    "current_main_base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit", "tree", "relationship"],
+      "properties": {
+        "commit": {"const": "3c1a1325b6b365ba457a03b87cc73139d0c6a629"},
+        "tree": {"const": "ff03d152c98deb65c7246fdd2283cebee71b5857"},
+        "relationship": {"const": "fresh_current_main_publication_base"}
+      }
+    },
+    "historical_s1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "overlay_id",
+        "status",
+        "base_commit",
+        "base_tree",
+        "source_projection_sha256",
+        "package_aggregate_sha256",
+        "s1_era_m1",
+        "relationship",
+        "inherited_authority"
+      ],
+      "properties": {
+        "path": {"const": "evidence/dark_medium_response_atlas_successor_overlay_s1.json"},
+        "sha256": {"const": "9d879d9a638dd5882aa546914204ab4b1ea40221adcdfa11f3820dd583628291"},
+        "overlay_id": {"const": "dark-medium-response-atlas-successor-s1"},
+        "status": {"const": "unpromoted_supplemental_resource_admission"},
+        "base_commit": {"const": "f8b32ef0af9cb6804f256490b4daafbdba43740e"},
+        "base_tree": {"const": "251895700cdfc80addf180d46178b5aa8c43528c"},
+        "source_projection_sha256": {"const": "e59d518f7892d94b0f7a035879b3bb16c1b0bc9cb95c83bc4f038ab36052bdba"},
+        "package_aggregate_sha256": {"const": "5993bcf52c786a1b48f05e303228b99ae5e7f22fd879058efd2af12b754abaf5"},
+        "s1_era_m1": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256", "relationship"],
+          "properties": {
+            "path": {"const": "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"},
+            "sha256": {"const": "a655277bb9f241d8aa28a3ab11eacd03ae097befa5650c02dc50a66385555fd9"},
+            "relationship": {"const": "historical_s1_predecessor_bytes_not_live_current_main"}
+          }
+        },
+        "relationship": {"const": "historical_unpromoted_source_admission_preserved_byte_for_byte"},
+        "inherited_authority": {"const": false}
+      }
+    },
+    "live_predecessor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["m1", "v1_0_8_candidate", "relationship", "inherited_authority"],
+      "properties": {
+        "m1": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256", "source_projection_sha256", "status"],
+          "properties": {
+            "path": {"const": "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"},
+            "sha256": {"const": "4287e047fabe501db944791fce0423f93ca556e67922bb50386f566a2e9466ad"},
+            "source_projection_sha256": {"const": "ba4277bf11cb5a2b4d5d247f33433361636b93d5ec71d7ce29939be40f3ca52f"},
+            "status": {"const": "candidate_only"}
+          }
+        },
+        "v1_0_8_candidate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["manifest_path", "manifest_sha256", "source_package_sha256", "status"],
+          "properties": {
+            "manifest_path": {"const": "resources/sppt-astra-v1.0.8-candidate/package/candidate_package_manifest.json"},
+            "manifest_sha256": {"const": "c0bcbcbd6ccc4d39746d7218e9398f8efc991c6b7f4981ecb1a8a4b5935b6e6d"},
+            "source_package_sha256": {"const": "55b8962176680859064fa2ebc009bb45ddc0cce987bce0bc16206faa4c7c387a"},
+            "status": {"const": "reviewed_unpromoted_candidate"}
+          }
+        },
+        "relationship": {"const": "live_current_main_m1_and_v1_0_8_era_boundary_not_promoted"},
+        "inherited_authority": {"const": false}
+      }
+    },
+    "change_roster": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expected_paths", "source_paths", "identity_closure_paths"],
+      "properties": {
+        "expected_paths": {"$ref": "#/definitions/pathSet"},
+        "source_paths": {"$ref": "#/definitions/pathSet"},
+        "identity_closure_paths": {
+          "const": [
+            "MANIFEST.sha256",
+            "evidence/dark_medium_response_atlas_publication_successor_overlay_s2.json"
+          ]
+        }
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "status", "roster", "file_count", "files", "aggregate"],
+      "properties": {
+        "root": {"const": "resources/dark-medium-response-atlas/v0.1.0"},
+        "status": {"const": "supplemental_working_paper_v0.1.0"},
+        "roster": {
+          "const": [
+            "resources/dark-medium-response-atlas/v0.1.0/CHANGELOG.md",
+            "resources/dark-medium-response-atlas/v0.1.0/CITATION.cff",
+            "resources/dark-medium-response-atlas/v0.1.0/LICENSE_MAP.md",
+            "resources/dark-medium-response-atlas/v0.1.0/README.md",
+            "resources/dark-medium-response-atlas/v0.1.0/RELEASE_NOTES.md",
+            "resources/dark-medium-response-atlas/v0.1.0/RELEASE_SPEC.json",
+            "resources/dark-medium-response-atlas/v0.1.0/claim-ledger.csv",
+            "resources/dark-medium-response-atlas/v0.1.0/dark-medium-response-atlas-v0.1.0.css",
+            "resources/dark-medium-response-atlas/v0.1.0/dark-medium-response-atlas-v0.1.0.html",
+            "resources/dark-medium-response-atlas/v0.1.0/dark-medium-response-atlas-v0.1.0.md",
+            "resources/dark-medium-response-atlas/v0.1.0/dark-medium-response-atlas-v0.1.0.pdf",
+            "resources/dark-medium-response-atlas/v0.1.0/external-link-observations.json",
+            "resources/dark-medium-response-atlas/v0.1.0/html-accessibility.json",
+            "resources/dark-medium-response-atlas/v0.1.0/novelty-ledger.csv",
+            "resources/dark-medium-response-atlas/v0.1.0/pdf-inspection.json",
+            "resources/dark-medium-response-atlas/v0.1.0/publication-identity.json",
+            "resources/dark-medium-response-atlas/v0.1.0/source-ledger.csv",
+            "resources/dark-medium-response-atlas/v0.1.0/visual-review.json"
+          ]
+        },
+        "file_count": {"const": 18},
+        "files": {
+          "type": "array",
+          "minItems": 18,
+          "maxItems": 18,
+          "items": {"$ref": "#/definitions/fileEntry"}
+        },
+        "aggregate": {"$ref": "#/definitions/packageAggregate"}
+      }
+    },
+    "release_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec_path",
+        "spec_sha256",
+        "version",
+        "tag",
+        "asset_allowlist",
+        "checksum_asset_names",
+        "github_release",
+        "versioned_pages_route",
+        "latest_pages_route",
+        "citation_pages_route"
+      ],
+      "properties": {
+        "spec_path": {"const": "resources/dark-medium-response-atlas/v0.1.0/RELEASE_SPEC.json"},
+        "spec_sha256": {"$ref": "#/definitions/sha256"},
+        "version": {"const": "0.1.0"},
+        "tag": {"const": "dark-medium-response-atlas-v0.1.0"},
+        "asset_allowlist": {
+          "const": [
+            "dark-medium-response-atlas-v0.1.0.html",
+            "dark-medium-response-atlas-v0.1.0.pdf",
+            "dark-medium-response-atlas-v0.1.0-source.tar.gz",
+            "SHA256SUMS",
+            "dark-medium-response-atlas-v0.1.0-release-identity.json"
+          ]
+        },
+        "checksum_asset_names": {
+          "const": [
+            "dark-medium-response-atlas-v0.1.0.html",
+            "dark-medium-response-atlas-v0.1.0.pdf",
+            "dark-medium-response-atlas-v0.1.0-source.tar.gz"
+          ]
+        },
+        "github_release": {
+          "const": {
+            "draft": false,
+            "immutable_required": true,
+            "make_latest": false,
+            "prerelease": true
+          }
+        },
+        "versioned_pages_route": {"const": "/resources/dark-medium-response-atlas/v0.1.0/"},
+        "latest_pages_route": {"const": "/resources/dark-medium-response-atlas/latest/"},
+        "citation_pages_route": {"const": "/resources/dark-medium-response-atlas/v0.1.0/"}
+      }
+    },
+    "source_projection": {"$ref": "#/definitions/sourceProjection"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["grants", "does_not_grant", "supersedes_s1", "supersedes_m1", "promotes_v1_0_8"],
+      "properties": {
+        "grants": {
+          "const": [
+            "exact_dark_medium_response_atlas_v0.1.0_repository_admission",
+            "exact_five_asset_namespaced_github_prerelease_admission",
+            "exact_versioned_and_namespace_latest_pages_admission"
+          ]
+        },
+        "does_not_grant": {
+          "const": [
+            "astra_core_authority",
+            "m1_promotion",
+            "v1.0.8_promotion",
+            "empirical_validation",
+            "peer_review",
+            "dark_matter_detection",
+            "doi_or_zenodo_authority",
+            "scientific_priority"
+          ]
+        },
+        "supersedes_s1": {"const": false},
+        "supersedes_m1": {"const": false},
+        "promotes_v1_0_8": {"const": false}
+      }
+    },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "version",
+        "runtime",
+        "runtime_implementation",
+        "runtime_contract_path",
+        "runtime_contract_sha256",
+        "dependency_lock_path",
+        "dependency_lock_sha256",
+        "schema_path",
+        "schema_sha256",
+        "output_path"
+      ],
+      "properties": {
+        "path": {"const": "tools/build_dark_medium_response_atlas_publication_successor_overlay.py"},
+        "version": {"const": "2.0.0"},
+        "runtime": {"const": "python==3.12.10"},
+        "runtime_implementation": {"const": "CPython"},
+        "runtime_contract_path": {"const": "RUNTIME.json"},
+        "runtime_contract_sha256": {"$ref": "#/definitions/sha256"},
+        "dependency_lock_path": {"const": "requirements-lock.txt"},
+        "dependency_lock_sha256": {"$ref": "#/definitions/sha256"},
+        "schema_path": {"const": "schemas/dark-medium-response-atlas-publication-successor-overlay-s2.schema.json"},
+        "schema_sha256": {"$ref": "#/definitions/sha256"},
+        "output_path": {"const": "evidence/dark_medium_response_atlas_publication_successor_overlay_s2.json"}
+      }
+    },
+    "verification_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binds", "rejects", "closure_note"],
+      "properties": {
+        "binds": {
+          "const": [
+            "historical_s1_exact_bytes_and_its_s1_era_m1_hash",
+            "live_current_main_m1_and_v1.0.8_candidate_boundary",
+            "exact_current_main_base_delta",
+            "full_staged_git_index_except_identity_closure",
+            "exact_final_commit_tree_reconstruction_and_s2_byte_identity",
+            "exact_v0.1.0_package_roster_modes_and_bytes",
+            "exact_stable_resource_version_and_prerelease_publication_contract"
+          ]
+        },
+        "rejects": {
+          "const": [
+            "unexpected_or_missing_changed_paths",
+            "hidden_or_unmerged_index_state",
+            "unstaged_or_untracked_source_content",
+            "schema_valid_but_nonreconstructed_s2_record",
+            "package_roster_or_byte_drift",
+            "s1_or_live_m1_byte_drift",
+            "v1.0.8_candidate_promotion",
+            "core_release_or_latest_authority_transfer"
+          ]
+        },
+        "closure_note": {
+          "const": "MANIFEST.sha256 and this S2 JSON are excluded from the self-referential source projection; the final clean commit, tracked manifest, annotated tag, and detached release identity close those two identities."
+        }
+      }
+    }
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "safePath": {
+      "type": "string",
+      "pattern": "^(?!.*[\\x00-\\x1F\\x7F])(?!/)(?!.*//)(?!.*(?:^|/)\\.{1,2}(?:/|$))[A-Za-z0-9._/-]*[A-Za-z0-9._-]$"
+    },
+    "pathSet": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/definitions/safePath"}
+    },
+    "fileEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "mode", "bytes", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/definitions/safePath"},
+        "mode": {"enum": ["100644", "100755"]},
+        "bytes": {"type": "integer", "minimum": 0},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "packageAggregate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scheme", "scope", "digest_algorithm", "canonical_byte_domain", "serialization", "canonical_bytes", "sha256"],
+      "properties": {
+        "scheme": {"const": "astra-package-roster-v1"},
+        "scope": {"const": "astra-dark-medium-response-atlas-v0.1.0-publication-package-v1"},
+        "digest_algorithm": {"const": "sha256"},
+        "canonical_byte_domain": {"const": "git-index-blob"},
+        "serialization": {"const": "astra-binary-length-prefixed-v1"},
+        "canonical_bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "sourceProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scheme", "scope", "digest_algorithm", "canonical_byte_domain", "serialization", "path_encoding", "entry_count", "canonical_bytes", "excluded_paths", "entries", "sha256"],
+      "properties": {
+        "scheme": {"const": "astra-source-projection-v1"},
+        "scope": {"const": "astra-dark-medium-response-atlas-publication-successor-s2-repository-source-v1"},
+        "digest_algorithm": {"const": "sha256"},
+        "canonical_byte_domain": {"const": "git-index-blob"},
+        "serialization": {"const": "astra-binary-length-prefixed-v1"},
+        "path_encoding": {"const": "ascii-posix"},
+        "entry_count": {"type": "integer", "minimum": 1},
+        "canonical_bytes": {"type": "integer", "minimum": 1},
+        "excluded_paths": {
+          "const": [
+            "MANIFEST.sha256",
+            "evidence/dark_medium_response_atlas_publication_successor_overlay_s2.json"
+          ]
+        },
+        "entries": {"type": "array", "minItems": 1, "items": {"$ref": "#/definitions/fileEntry"}},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    }
+  }
+}

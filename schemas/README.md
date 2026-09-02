@@ -10,6 +10,13 @@ Supplemental resources use the namespaced release schemas
 `supplemental-release-identity-v1.schema.json`; they do not change the core
 SPPT/ASTRA release contract.
 
+The separately versioned
+`supplemental-release-spec-v2.schema.json` and
+`supplemental-release-identity-v2.schema.json` contracts admit a stable
+resource version such as `0.1.0` while still requiring its GitHub object to be
+a prerelease that cannot displace the stable core line. Existing v1 schemas
+and their consumers remain unchanged.
+
 The maintenance `claim-source-coverage-v1.schema.json` describes the
 immutable v1.0.7 claim/source audit under `evidence/`. It is an audit-layer schema,
 not a replacement for `claim-matrix-v1.schema.json`, and it does not promote
@@ -23,6 +30,14 @@ published v1 schema bytes and makes the local candidate contract explicit. Its
 canonical Pages URL is reserved but is not claimed live until a separately
 authorized publication promotes that schema; local validation uses the shipped
 candidate file.
+
+The historical Dark-Medium Response Atlas admission record uses
+`dark-medium-response-atlas-successor-overlay-s1.schema.json`. The live
+publication-successor record uses the distinct
+`dark-medium-response-atlas-publication-successor-overlay-s2.schema.json` and
+owns only the exact Atlas package and Pages admission it names. The two
+contracts deliberately do not transfer authority between older and current
+repository bases.
 
 Schema names carry an independent revision (`v1`). A scientific release may
 therefore update from, for example, v1.0.6 to v1.0.7 without changing a schema

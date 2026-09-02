@@ -1,0 +1,44 @@
+{
+  "browser": "151.0.7922.34",
+  "bytes": 5076317,
+  "file": "dark-medium-response-atlas-v0.1.0.html",
+  "headings": 40,
+  "keyboard": {
+    "first_stop": "skip-link",
+    "minimum_focus_contrast": 5.984934612252126,
+    "skip_target": "main-content"
+  },
+  "links": 83,
+  "mathml_formulas": 209,
+  "print": {
+    "mainDisplay": "block",
+    "rootClient": 816,
+    "rootScroll": 816
+  },
+  "reduced_motion": {
+    "active_animation_count": 0
+  },
+  "schema": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-html-accessibility-v1.schema.json",
+  "sha256": "cec20143a17ebc0e4c59e98a57356bfec9bfc8c286baa3187918f18e7ff78b39",
+  "tables": 4,
+  "viewports": {
+    "1440": {
+      "bodyScroll": 1188,
+      "client": 1440,
+      "rootScroll": 1440,
+      "viewport": 1440
+    },
+    "320": {
+      "bodyScroll": 320,
+      "client": 320,
+      "rootScroll": 320,
+      "viewport": 320
+    },
+    "400": {
+      "bodyScroll": 400,
+      "client": 400,
+      "rootScroll": 400,
+      "viewport": 400
+    }
+  }
+}

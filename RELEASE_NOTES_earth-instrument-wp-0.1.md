@@ -1,7 +1,7 @@
 > **Archived immutable release-body record.** The text below preserves the body
 > published with `earth-instrument-wp-0.1`. Working Paper 0.1 is now a historical
 > edition; the current supplemental line is [ASTRA Framework v0.3.0](resources/earth-is-the-instrument/v0.3.0/).
-> The repository's [project-level disclosure](README.md#name-assistance-and-independence)
+> The repository's [project-level disclosure](PROVENANCE.md#human-authorship-and-model-assistance)
 > records substantive ChatGPT assistance, human responsibility, the Kansas-motto
 > and dated OpenAI-Astra naming inspirations, and the project's independence and
 > no-affiliation boundary. The immutable release body begins below.

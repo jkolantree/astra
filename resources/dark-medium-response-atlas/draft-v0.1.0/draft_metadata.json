@@ -1,0 +1,24 @@
+{
+  "schema": "astra-dark-medium-response-atlas-draft-v1",
+  "title": "ASTRA Dark-Medium Response Atlas",
+  "version": "draft-v0.1.0",
+  "status": "unpromoted_supplemental_research_draft",
+  "prepared_date": "2026-09-01",
+  "audited_base_commit": "f8b32ef0af9cb6804f256490b4daafbdba43740e",
+  "audited_base_tree": "251895700cdfc80addf180d46178b5aa8c43528c",
+  "successor_overlay_id": "dark-medium-response-atlas-successor-s1",
+  "predecessor_overlay": "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json",
+  "release_identity": null,
+  "publication": {
+    "github_release": false,
+    "pages": false,
+    "zenodo": false,
+    "doi": false
+  },
+  "scope": "Supplemental response-first methods note; no SPPT core change",
+  "evidence_policy": "Observed, model-supported, inferred, derived, proposed, unknown, and rejected statements remain distinct.",
+  "source_policy": "Citation-level records only; no third-party source bytes are redistributed or claimed independently reproduced.",
+  "rights_boundary": "Original package prose is CC BY 4.0 only to the extent the project author holds the rights; cited works and third-party material retain their own terms.",
+  "assistance": "Substantive drafting and analysis assistance from OpenAI Codex; human responsibility retained.",
+  "dynamic_fields": []
+}
