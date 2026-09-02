@@ -473,6 +473,15 @@ def test_verifier_requires_isolated_python(monkeypatch: pytest.MonkeyPatch) -> N
         verifier.require_isolated_mode()
 
 
+def test_s2_verification_bridge_uses_an_isolated_child_controller() -> None:
+    source = (PROJECT_ROOT / "tools" / "verify.py").read_text(encoding="utf-8")
+    start = source.index("def atlas_publication_overlay_present")
+    end = source.index("\ndef verify_candidate_not_at_tag", start)
+    bridge = source[start:end]
+    assert "isolated_python(" in bridge
+    assert "controlled_python(" not in bridge
+
+
 @pytest.mark.parametrize("script_name", ["verify.py", "release_integrity.py"])
 def test_controller_refuses_nonisolated_startup_before_shadowable_imports(
     script_name: str, tmp_path: Path

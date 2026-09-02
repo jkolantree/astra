@@ -849,7 +849,7 @@ def atlas_publication_overlay_present(environment: dict[str, str]) -> bool:
         if blob != current_bytes:
             continue
         run(
-            controlled_python(
+            isolated_python(
                 "tools/build_dark_medium_response_atlas_publication_successor_overlay.py",
                 "--verify-commit",
                 candidate,

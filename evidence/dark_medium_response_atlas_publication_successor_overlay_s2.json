@@ -2659,10 +2659,10 @@
         "sha256": "2f593611a1682647b84c7a1c0909861927652237ea33a31eb2880951a64253bb"
       },
       {
-        "bytes": 59062,
+        "bytes": 59471,
         "mode": "100644",
         "path": "tests/test_release_integrity.py",
-        "sha256": "79cf1d05cb972488407861dd9ec6b3b1fb428e3202493ba7bd2a9f1b5cbe37e4"
+        "sha256": "66bbbe36cca4570e9c00be193313fea2ebb92ebc3209a93aed33b7e1d8245f1e"
       },
       {
         "bytes": 16513,
@@ -2809,10 +2809,10 @@
         "sha256": "d0b0b0dc3b25edb3ac9d091dc56c5f5a02a7ea090c479015adfb5c70678d3390"
       },
       {
-        "bytes": 43756,
+        "bytes": 43754,
         "mode": "100644",
         "path": "tools/verify.py",
-        "sha256": "e37279c9150c73777543fff01ea074c02d855af765f743c3bce2ce53803ba736"
+        "sha256": "499c5961166fd64a766e5df78595f9af2ce65d1e119fc7c90148928a137aae31"
       }
     ],
     "entry_count": 396,
@@ -2824,7 +2824,7 @@
     "scheme": "astra-source-projection-v1",
     "scope": "astra-dark-medium-response-atlas-publication-successor-s2-repository-source-v1",
     "serialization": "astra-binary-length-prefixed-v1",
-    "sha256": "b3a8b6c02e0e974b37579e55c2539e1d92a64e78f44be5b415504451ae09066d"
+    "sha256": "5d88487da43b607a5624bdac9dea9d9541b52815ff712d845d136f15d0b9a751"
   },
   "status": "publication_candidate",
   "verification_scope": {
