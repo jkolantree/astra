@@ -1,0 +1,249 @@
+name: Publish Dark-Medium Response Atlas v0.1.0
+
+on:
+  push:
+    tags: ["dark-medium-response-atlas-v0.1.0"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dark-medium-response-atlas-v0.1.0-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.ref == 'refs/tags/dark-medium-response-atlas-v0.1.0'
+    runs-on: windows-latest
+    timeout-minutes: 120
+    env:
+      OPENBLAS_CORETYPE: HASWELL
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - name: Checkout exact annotated tag revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Install and verify exact Git for Windows
+        shell: pwsh
+        run: |
+          $runtime = Get-Content -Raw RUNTIME.json | ConvertFrom-Json
+          $archive = Join-Path $env:RUNNER_TEMP 'MinGit-2.55.0.3-64-bit.zip'
+          $archiveSource = 'https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.3/MinGit-2.55.0.3-64-bit.zip'
+          $archiveSha256 = 'f48e2d2dc74a24454adc6d8fd0ac25bf9c2386f19cfb06202b9465aaad4f9f05'
+          Invoke-WebRequest -Uri $archiveSource -OutFile $archive
+          $digest = (Get-FileHash -Algorithm SHA256 -LiteralPath $archive).Hash.ToLowerInvariant()
+          if ($digest -ne $archiveSha256) {
+            throw "Git bootstrap archive digest mismatch: $digest"
+          }
+          $installRoot = Join-Path $env:RUNNER_TEMP 'astra-git'
+          Expand-Archive -LiteralPath $archive -DestinationPath $installRoot
+          $gitPath = Join-Path $installRoot 'cmd'
+          $gitExe = Join-Path $gitPath 'git.exe'
+          $gitDigest = (Get-FileHash -Algorithm SHA256 -LiteralPath $gitExe).Hash.ToLowerInvariant()
+          if ($gitDigest -ne $runtime.git.executable_sha256) {
+            throw "Git executable digest mismatch: $gitDigest"
+          }
+          $gitPath | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - name: Install exact Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version-file: .python-version
+
+      - name: Require the exact annotated Atlas tag context
+        shell: pwsh
+        run: |
+          $tag = 'dark-medium-response-atlas-v0.1.0'
+          $ref = "refs/tags/$tag"
+          if ($env:GITHUB_EVENT_NAME -ne 'push' -or $env:GITHUB_REF -ne $ref -or $env:GITHUB_REF_TYPE -ne 'tag' -or $env:GITHUB_REF_NAME -ne $tag) {
+            throw 'Release workflow did not receive the exact Dark-Medium Response Atlas tag event.'
+          }
+          $event = Get-Content -Raw $env:GITHUB_EVENT_PATH | ConvertFrom-Json
+          $zero = ('0' * 40) -join ''
+          if ($event.ref -ne $ref -or $event.created -ne $true -or $event.deleted -ne $false -or $event.forced -ne $false -or $event.before -ne $zero) {
+            throw 'Atlas publication requires a newly created, non-forced tag reference.'
+          }
+          if ($event.after -notmatch '^[0-9a-f]{40}$' -or $event.repository.full_name -ine $env:GITHUB_REPOSITORY -or $event.repository.id -ne 1319077150) {
+            throw 'Atlas tag push-event identity does not match the declared repository.'
+          }
+          git fetch --no-tags --no-recurse-submodules origin "+${ref}:${ref}"
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not fetch the pushed Atlas tag object from origin.'
+          }
+          if ((git cat-file -t "refs/tags/$tag") -ne 'tag') {
+            throw 'Dark-Medium Response Atlas release tag must be annotated.'
+          }
+          if ((git rev-parse "refs/tags/$tag").Trim() -ne $event.after) {
+            throw 'Fetched Atlas tag object differs from the push-event tag object.'
+          }
+          if ($env:GITHUB_SHA -notmatch '^[0-9a-f]{40}$' -or (git rev-parse "refs/tags/$tag^{commit}").Trim() -ne $env:GITHUB_SHA -or (git rev-parse "refs/tags/$tag^{commit}").Trim() -ne (git rev-parse HEAD).Trim()) {
+            throw 'Checkout HEAD does not equal the annotated Dark-Medium Response Atlas tag target.'
+          }
+          git fetch --no-tags --no-recurse-submodules origin '+refs/heads/main:refs/remotes/origin/main'
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not fetch origin/main for the Atlas merged-main gate.'
+          }
+          $tagCommit = (git rev-parse "refs/tags/$tag^{commit}").Trim()
+          git merge-base --is-ancestor $tagCommit refs/remotes/origin/main
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Atlas release tag target is not a merged origin/main commit.'
+          }
+
+      - name: Install hash-locked dependencies
+        run: python -I -B -m pip install --require-hashes -r requirements-lock.txt
+
+      - name: Install the Playwright-pinned Chromium build
+        run: python -I -B -m playwright install chromium
+
+      - name: Run canonical complete verification
+        run: python -I -B tools/verify.py --all --workers 4
+
+      - name: Verify the final S2 publication boundary from the tagged commit
+        run: python -I -B tools/build_dark_medium_response_atlas_publication_successor_overlay.py --verify-commit HEAD
+
+      - name: Require enabled immutable GitHub Releases
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $immutableJson = gh api "repos/$env:GITHUB_REPOSITORY/immutable-releases"
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not read the repository immutable-release setting.'
+          }
+          $immutable = $immutableJson | ConvertFrom-Json
+          if ($immutable.enabled -ne $true) {
+            throw 'Immutable GitHub Releases are not enabled; refusing to publish Atlas assets.'
+          }
+
+      - name: Build and locally verify the exact five Atlas assets
+        shell: pwsh
+        run: |
+          $tag = 'dark-medium-response-atlas-v0.1.0'
+          $assets = Join-Path $env:RUNNER_TEMP 'dark-medium-response-atlas-v0.1.0-assets'
+          $expected = @(
+            'dark-medium-response-atlas-v0.1.0.html',
+            'dark-medium-response-atlas-v0.1.0.pdf',
+            'dark-medium-response-atlas-v0.1.0-source.tar.gz',
+            'SHA256SUMS',
+            'dark-medium-response-atlas-v0.1.0-release-identity.json'
+          )
+          New-Item -ItemType Directory -Path $assets | Out-Null
+          python -I -B tools/dark_medium_response_atlas_release.py build --tag $tag --output-dir $assets
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Atlas release controller could not build the tagged asset set.'
+          }
+          python -I -B tools/dark_medium_response_atlas_release.py verify --tag $tag --assets $assets --replay-source
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Atlas release controller could not verify the locally built asset set.'
+          }
+          $actual = @(Get-ChildItem -LiteralPath $assets -File | ForEach-Object Name | Sort-Object)
+          if ((Compare-Object -ReferenceObject ($expected | Sort-Object) -DifferenceObject $actual)) {
+            throw 'Atlas release controller produced an unexpected asset roster.'
+          }
+          "ATLAS_RELEASE_ASSETS=$assets" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: Create and remotely re-verify immutable Atlas prerelease
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = 'dark-medium-response-atlas-v0.1.0'
+          $assets = $env:ATLAS_RELEASE_ASSETS
+          $expected = @(
+            'dark-medium-response-atlas-v0.1.0.html',
+            'dark-medium-response-atlas-v0.1.0.pdf',
+            'dark-medium-response-atlas-v0.1.0-source.tar.gz',
+            'SHA256SUMS',
+            'dark-medium-response-atlas-v0.1.0-release-identity.json'
+          )
+          if ([string]::IsNullOrWhiteSpace($assets) -or -not (Test-Path -LiteralPath $assets -PathType Container)) {
+            throw 'The locally verified Atlas asset directory is unavailable.'
+          }
+
+          $priorReleasesJson = gh api "repos/$env:GITHUB_REPOSITORY/releases?per_page=100"
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not list existing releases before Atlas prerelease publication.'
+          }
+          $priorReleases = @($priorReleasesJson | ConvertFrom-Json)
+          if ($priorReleases.Count -ge 100) {
+            throw 'Release listing reached its bounded page size; refusing to infer that the Atlas tag is unused.'
+          }
+          if (@($priorReleases | Where-Object { $_.tag_name -eq $tag }).Count -ne 0) {
+            throw 'An Atlas release already exists for this immutable tag; refusing to alter it.'
+          }
+
+          $releaseArguments = @(
+            'release', 'create', $tag,
+            '--repo', $env:GITHUB_REPOSITORY,
+            '--verify-tag',
+            '--title', 'Dark-Medium Response Atlas v0.1.0',
+            '--notes-file', 'resources/dark-medium-response-atlas/v0.1.0/RELEASE_NOTES.md',
+            '--prerelease',
+            '--latest=false'
+          )
+          foreach ($asset in $expected) {
+            $releaseArguments += (Join-Path $assets $asset)
+          }
+          & gh @releaseArguments
+          if ($LASTEXITCODE -ne 0) {
+            throw 'GitHub rejected Atlas prerelease creation.'
+          }
+
+          $releaseJson = gh api "repos/$env:GITHUB_REPOSITORY/releases/tags/$tag"
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not re-read the newly published Atlas release.'
+          }
+          $release = $releaseJson | ConvertFrom-Json
+          $actual = @($release.assets | ForEach-Object name | Sort-Object)
+          if (
+            $release.tag_name -ne $tag -or
+            $release.draft -ne $false -or
+            $release.prerelease -ne $true -or
+            $release.immutable -ne $true -or
+            (Compare-Object -ReferenceObject ($expected | Sort-Object) -DifferenceObject $actual)
+          ) {
+            throw 'The remotely published Atlas release does not have the exact immutable prerelease contract.'
+          }
+          $latestJson = gh api "repos/$env:GITHUB_REPOSITORY/releases/latest"
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not verify GitHub Latest after Atlas prerelease publication.'
+          }
+          if (($latestJson | ConvertFrom-Json).tag_name -eq $tag) {
+            throw 'Atlas prerelease was marked GitHub Latest.'
+          }
+
+          $downloadDirectory = Join-Path $env:RUNNER_TEMP 'dark-medium-response-atlas-v0.1.0-remote-assets'
+          New-Item -ItemType Directory -Path $downloadDirectory | Out-Null
+          $downloadArguments = @('release', 'download', $tag, '--repo', $env:GITHUB_REPOSITORY, '--dir', $downloadDirectory)
+          foreach ($asset in $expected) {
+            $downloadArguments += '--pattern'
+            $downloadArguments += $asset
+          }
+          & gh @downloadArguments
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not download the newly published Atlas release assets.'
+          }
+          $downloaded = @(Get-ChildItem -LiteralPath $downloadDirectory -File | ForEach-Object Name | Sort-Object)
+          if (Compare-Object -ReferenceObject ($expected | Sort-Object) -DifferenceObject $downloaded) {
+            throw 'The downloaded Atlas release has an unexpected asset roster.'
+          }
+          foreach ($asset in $expected) {
+            $remoteAsset = @($release.assets | Where-Object { $_.name -eq $asset })
+            if ($remoteAsset.Count -ne 1 -or $remoteAsset[0].digest -notmatch '^sha256:[0-9a-f]{64}$') {
+              throw "GitHub did not return exactly one SHA-256 digest for $asset."
+            }
+            $actualDigest = 'sha256:' + (Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $downloadDirectory $asset)).Hash.ToLowerInvariant()
+            if ($actualDigest -ne $remoteAsset[0].digest) {
+              throw "Remote Atlas asset digest mismatch for $asset."
+            }
+          }
+          python -I -B tools/dark_medium_response_atlas_release.py verify --tag $tag --assets $downloadDirectory --replay-source
+          if ($LASTEXITCODE -ne 0) {
+            throw 'The downloaded Atlas release assets failed tag-bound verification.'
+          }

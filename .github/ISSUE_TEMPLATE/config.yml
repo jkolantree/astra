@@ -2,7 +2,10 @@ blank_issues_enabled: true
 contact_links:
   - name: Read the current SPPT/ASTRA reference edition
     url: https://jkolantree.github.io/astra/latest/
-    about: "Current core reference release: v1.0.6."
+    about: "Current core reference release: v1.0.7."
   - name: Read the current Earth Is the Instrument edition
     url: https://jkolantree.github.io/astra/resources/earth-is-the-instrument/latest/
     about: "Current supplemental edition: v0.3.0, separate from the core reference release."
+  - name: Read the Dark-Medium Response Atlas
+    url: https://jkolantree.github.io/astra/resources/dark-medium-response-atlas/v0.1.0/
+    about: "Supplemental working paper v0.1.0; not peer reviewed and separate from the core reference release."

@@ -1,0 +1,59 @@
+{
+  "schema": "https://jkolantree.github.io/astra/schemas/supplemental-release-spec-v2.schema.json",
+  "identity_schema": "https://jkolantree.github.io/astra/schemas/supplemental-release-identity-v2.schema.json",
+  "contract_version": "2.0.0",
+  "publication_line_id": "dark-medium-response-atlas",
+  "title": "Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and Observation",
+  "version": "0.1.0",
+  "tag": "dark-medium-response-atlas-v0.1.0",
+  "release_date": "2026-09-01",
+  "build_epoch": "2026-09-01T00:00:00Z",
+  "build_epoch_unix": 1788220800,
+  "namespace": "resources/dark-medium-response-atlas/v0.1.0",
+  "scientific_classification": "supplemental, not-peer-reviewed working paper and methods proposal",
+  "repository": "https://github.com/jkolantree/astra",
+  "repository_id": 1319077150,
+  "author": "Jacko T.",
+  "licenses": {
+    "original_publication_content": "CC-BY-4.0",
+    "publication_tooling": "MIT",
+    "embedded_fonts": "third-party terms recorded in licenses/DEJAVU-FONTS.txt and licenses/STIX-FONTS.txt"
+  },
+  "release_asset_allowlist": [
+    "dark-medium-response-atlas-v0.1.0.html",
+    "dark-medium-response-atlas-v0.1.0.pdf",
+    "dark-medium-response-atlas-v0.1.0-source.tar.gz",
+    "SHA256SUMS",
+    "dark-medium-response-atlas-v0.1.0-release-identity.json"
+  ],
+  "checksum_asset_names": [
+    "dark-medium-response-atlas-v0.1.0.html",
+    "dark-medium-response-atlas-v0.1.0.pdf",
+    "dark-medium-response-atlas-v0.1.0-source.tar.gz"
+  ],
+  "identity_excludes_self": true,
+  "github_release": {
+    "draft": false,
+    "prerelease": true,
+    "make_latest": false,
+    "immutable_required": true
+  },
+  "pages": {
+    "publish": true,
+    "versioned_route": "/resources/dark-medium-response-atlas/v0.1.0/",
+    "latest_route": "/resources/dark-medium-response-atlas/latest/",
+    "citation_route": "/resources/dark-medium-response-atlas/v0.1.0/"
+  },
+  "external_identifiers": {
+    "doi": false,
+    "zenodo": false
+  },
+  "authority": {
+    "scope": "Publication admission for this exact supplemental Atlas package only.",
+    "core_release_authority": "none",
+    "core_claim_authority": "none",
+    "empirical_validation_authority": "none",
+    "peer_review_authority": "none",
+    "priority_authority": "none"
+  }
+}

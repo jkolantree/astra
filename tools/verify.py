@@ -90,6 +90,18 @@ DRAFT_MILESTONE_PATHS = [
     "tools/build_claim_source_coverage.py",
     "tools/check_repository.py",
 ]
+ATLAS_S2_OVERLAY_RELATIVE = Path(
+    "evidence/dark_medium_response_atlas_publication_successor_overlay_s2.json"
+)
+ATLAS_RELEASE_TAG = "dark-medium-response-atlas-v0.1.0"
+ATLAS_PACKAGE = ROOT / "resources" / "dark-medium-response-atlas" / "v0.1.0"
+ATLAS_DOCUMENT_OUTPUTS = (
+    ATLAS_PACKAGE / "dark-medium-response-atlas-v0.1.0.html",
+    ATLAS_PACKAGE / "dark-medium-response-atlas-v0.1.0.pdf",
+    ATLAS_PACKAGE / "html-accessibility.json",
+    ATLAS_PACKAGE / "pdf-inspection.json",
+    ATLAS_PACKAGE / "publication-identity.json",
+)
 INHERITED_CONTROL_VARIABLES = {
     "GIT_ALTERNATE_OBJECT_DIRECTORIES",
     "GIT_CEILING_DIRECTORIES",
@@ -577,6 +589,9 @@ def verify_focused(environment: dict[str, str]) -> None:
         controlled_python("-m", "ruff", "check", "."),
         controlled_python("-m", "mypy", "src"),
         cffconvert_command(),
+        controlled_python("tools/check_repository_links.py"),
+        controlled_python("tools/check_external_links.py"),
+        controlled_python("tools/check_pages_admission.py"),
         controlled_python("tools/inspect_pdf.py"),
     )
     for command in commands:
@@ -793,12 +808,80 @@ def verify_candidate_baseline_delta(
     )
 
 
-def verify_candidate_not_at_tag(environment: dict[str, str]) -> None:
+def atlas_publication_overlay_present(environment: dict[str, str]) -> bool:
+    """Require the committed S2 reconstruction before it can replace the M1 delta gate."""
+
+    path = ROOT / ATLAS_S2_OVERLAY_RELATIVE
+    if not path.exists():
+        return False
+    if is_link_or_junction(path) or not path.is_file():
+        raise RuntimeError("Atlas S2 publication overlay must be a regular file")
+    record = strict_json_object(path)
+    expected = {
+        "overlay_id": "dark-medium-response-atlas-publication-successor-s2",
+        "status": "publication_candidate",
+    }
+    if {key: record.get(key) for key in expected} != expected:
+        raise RuntimeError("Atlas S2 publication overlay identity is malformed")
+    dirty = str(
+        capture_git(["status", "--porcelain=v1", "--untracked-files=no"], environment=environment)
+    ).strip()
+    if dirty:
+        raise RuntimeError("Atlas S2 boundary requires a clean committed worktree")
+    current_bytes = path.read_bytes()
+    revisions = str(
+        capture_git(
+            ["rev-list", "HEAD", "--", ATLAS_S2_OVERLAY_RELATIVE.as_posix()],
+            environment=environment,
+        )
+    ).splitlines()
+    for revision in revisions:
+        candidate = revision.strip()
+        if re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", candidate) is None:
+            raise RuntimeError("Atlas S2 history contains an invalid commit identity")
+        blob = capture_git(
+            ["show", f"{candidate}:{ATLAS_S2_OVERLAY_RELATIVE.as_posix()}"],
+            environment=environment,
+            binary=True,
+        )
+        if not isinstance(blob, bytes):
+            raise TypeError("Expected binary Atlas S2 blob")
+        if blob != current_bytes:
+            continue
+        run(
+            isolated_python(
+                "tools/build_dark_medium_response_atlas_publication_successor_overlay.py",
+                "--verify-commit",
+                candidate,
+            ),
+            environment=environment,
+        )
+        return True
+    raise RuntimeError(
+        "Atlas S2 publication overlay is not byte-verified from a committed candidate"
+    )
+
+
+def verify_candidate_not_at_tag(
+    environment: dict[str, str], *, allow_atlas_tag: bool = False
+) -> None:
     github_ref = environment.get("GITHUB_REF", "")
     if github_ref.startswith("refs/tags/") or environment.get("GITHUB_REF_TYPE") == "tag":
+        if (
+            allow_atlas_tag
+            and github_ref == f"refs/tags/{ATLAS_RELEASE_TAG}"
+            and environment.get("GITHUB_REF_TYPE") == "tag"
+        ):
+            return
         raise RuntimeError("An unpromoted draft overlay cannot authorize a tag-event verification")
-    tags_at_head = str(capture_git(["tag", "--points-at", "HEAD"], environment=environment))
-    if tags_at_head.splitlines():
+    tags_at_head = [
+        tag
+        for tag in str(
+            capture_git(["tag", "--points-at", "HEAD"], environment=environment)
+        ).splitlines()
+        if tag
+    ]
+    if tags_at_head and not (allow_atlas_tag and tags_at_head == [ATLAS_RELEASE_TAG]):
         raise RuntimeError("An unpromoted draft overlay cannot authorize verification at a tag")
 
 
@@ -832,8 +915,10 @@ def candidate_document_commit(environment: dict[str, str]) -> str | None:
     if record is None:
         return None
     overlay = record["maintenance_overlay"]
-    verify_candidate_baseline_delta(overlay, environment)
-    verify_candidate_not_at_tag(environment)
+    atlas_s2 = atlas_publication_overlay_present(environment)
+    if not atlas_s2:
+        verify_candidate_baseline_delta(overlay, environment)
+    verify_candidate_not_at_tag(environment, allow_atlas_tag=atlas_s2)
 
     tag = DRAFT_RELEASE_IDENTITY["tag"]
     observed_tag = strict_tag_identity(tag, environment)
@@ -908,6 +993,29 @@ def verify_document_boundary(environment: dict[str, str]) -> str:
     return "frozen_v1.0.7"
 
 
+def verify_atlas_document_replay(environment: dict[str, str]) -> None:
+    """Replay the separate Atlas producer twice without touching core outputs."""
+
+    before = identity(list(ATLAS_DOCUMENT_OUTPUTS))
+    command = controlled_python("tools/build_dark_medium_response_atlas_documents.py")
+    run(command, environment=environment)
+    first = identity(list(ATLAS_DOCUMENT_OUTPUTS))
+    if first != before:
+        difference = identity_difference(before, first)
+        raise RuntimeError(
+            "Atlas document outputs were stale or non-deterministic: "
+            + json.dumps(difference, sort_keys=True)
+        )
+    run(command, environment=environment)
+    second = identity(list(ATLAS_DOCUMENT_OUTPUTS))
+    if second != first:
+        difference = identity_difference(first, second)
+        raise RuntimeError(
+            "Consecutive Atlas document builds are not byte-identical: "
+            + json.dumps(difference, sort_keys=True)
+        )
+
+
 def verify_full_replay(environment: dict[str, str], workers: int) -> None:
     verify_focused(environment)
     science_before = identity(scientific_outputs())
@@ -935,14 +1043,15 @@ def verify_full_replay(environment: dict[str, str], workers: int) -> None:
         )
 
     document_mode = verify_document_boundary(environment)
+    verify_atlas_document_replay(environment)
     verify_focused(environment)
     if document_mode == "strict_replay":
-        print("Full deterministic scientific and document replay passed.")
+        print("Full deterministic scientific, core-document, and Atlas-document replay passed.")
     else:
         print(
             "Full deterministic scientific replay passed; immutable v1.0.7 document bytes "
-            "match the annotated release tag. Current-source document replay is DEFERRED "
-            "until the repaired source receives a successor release identity."
+            "match the annotated release tag and the separate Atlas document producer "
+            "replayed byte-identically."
         )
 
 

@@ -1,0 +1,342 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-successor-overlay-s1.schema.json",
+  "title": "ASTRA Dark-Medium Response Atlas successor overlay S1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "schema_version",
+    "overlay_id",
+    "overlay_kind",
+    "status",
+    "prepared_date",
+    "base_identity",
+    "predecessor_overlay",
+    "change_roster",
+    "package",
+    "source_projection",
+    "authority",
+    "generator",
+    "verification_scope"
+  ],
+  "properties": {
+    "schema": {
+      "const": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-successor-overlay-s1.schema.json"
+    },
+    "schema_version": {"const": "1.0.0"},
+    "overlay_id": {"const": "dark-medium-response-atlas-successor-s1"},
+    "overlay_kind": {"const": "supplemental_resource_admission"},
+    "status": {"const": "unpromoted_supplemental_resource_admission"},
+    "prepared_date": {"const": "2026-09-01"},
+    "base_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit", "tree", "relationship"],
+      "properties": {
+        "commit": {"const": "f8b32ef0af9cb6804f256490b4daafbdba43740e"},
+        "tree": {"const": "251895700cdfc80addf180d46178b5aa8c43528c"},
+        "relationship": {"const": "audited_repository_base"}
+      }
+    },
+    "predecessor_overlay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "relationship",
+        "authoritative_source_path",
+        "authoritative_source_sha256",
+        "inherited_authority"
+      ],
+      "properties": {
+        "path": {
+          "const": "evidence/claim_source_coverage_v1.0.7_maintenance_overlay_m1.json"
+        },
+        "sha256": {
+          "const": "a655277bb9f241d8aa28a3ab11eacd03ae097befa5650c02dc50a66385555fd9"
+        },
+        "relationship": {
+          "const": "immutable_predecessor_not_regenerated_or_superseded"
+        },
+        "authoritative_source_path": {"const": "manuscript/manuscript.md"},
+        "authoritative_source_sha256": {
+          "const": "ce55ea375ae5fbc28d06a52e3a2ea6e118294fc2b5925aef99365c39a637c292"
+        },
+        "inherited_authority": {"const": false}
+      }
+    },
+    "change_roster": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expected_paths", "source_paths", "identity_closure_paths"],
+      "properties": {
+        "expected_paths": {"const": [
+          "LICENSE_MAP.md",
+          "MANIFEST.sha256",
+          "README.md",
+          "evidence/README.md",
+          "evidence/dark_medium_response_atlas_successor_overlay_s1.json",
+          "resources/README.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/CHANGE_LOG.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/DARK_MEDIUM_RESPONSE_ATLAS.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/LICENSE_MAP.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/README.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/claim_ledger.csv",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/draft_metadata.json",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/novelty_ledger.csv",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/source_ledger.csv",
+          "schemas/README.md",
+          "schemas/dark-medium-response-atlas-successor-overlay-s1.schema.json",
+          "tests/test_claim_source_coverage.py",
+          "tests/test_dark_medium_response_atlas_successor_overlay.py",
+          "tools/build_dark_medium_response_atlas_successor_overlay.py",
+          "tools/check_repository.py",
+          "tools/verify.py"
+        ]},
+        "source_paths": {"const": [
+          "LICENSE_MAP.md",
+          "README.md",
+          "evidence/README.md",
+          "resources/README.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/CHANGE_LOG.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/DARK_MEDIUM_RESPONSE_ATLAS.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/LICENSE_MAP.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/README.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/claim_ledger.csv",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/draft_metadata.json",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/novelty_ledger.csv",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/source_ledger.csv",
+          "schemas/README.md",
+          "schemas/dark-medium-response-atlas-successor-overlay-s1.schema.json",
+          "tests/test_claim_source_coverage.py",
+          "tests/test_dark_medium_response_atlas_successor_overlay.py",
+          "tools/build_dark_medium_response_atlas_successor_overlay.py",
+          "tools/check_repository.py",
+          "tools/verify.py"
+        ]},
+        "identity_closure_paths": {"const": [
+          "MANIFEST.sha256",
+          "evidence/dark_medium_response_atlas_successor_overlay_s1.json"
+        ]}
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "status", "roster", "file_count", "files", "aggregate"],
+      "properties": {
+        "root": {"const": "resources/dark-medium-response-atlas/draft-v0.1.0"},
+        "status": {"const": "unpromoted_supplemental_research_draft"},
+        "roster": {"const": [
+          "resources/dark-medium-response-atlas/draft-v0.1.0/CHANGE_LOG.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/DARK_MEDIUM_RESPONSE_ATLAS.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/LICENSE_MAP.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/README.md",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/claim_ledger.csv",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/draft_metadata.json",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/novelty_ledger.csv",
+          "resources/dark-medium-response-atlas/draft-v0.1.0/source_ledger.csv"
+        ]},
+        "file_count": {"const": 8},
+        "files": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "items": {"$ref": "#/definitions/fileEntry"}
+        },
+        "aggregate": {"$ref": "#/definitions/packageAggregate"}
+      }
+    },
+    "source_projection": {"$ref": "#/definitions/sourceProjection"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "core_claim_authority",
+        "scientific_validation_authority",
+        "release_authority",
+        "publication_authority",
+        "supersedes_predecessor"
+      ],
+      "properties": {
+        "scope": {"const": "repository_admission_and_byte_identity_only"},
+        "core_claim_authority": {"const": "none"},
+        "scientific_validation_authority": {"const": "none"},
+        "release_authority": {"const": "none"},
+        "publication_authority": {"const": "none"},
+        "supersedes_predecessor": {"const": false}
+      }
+    },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "version",
+        "runtime",
+        "runtime_implementation",
+        "required_runtime",
+        "permitted_environment_limited_runtime",
+        "runtime_classification",
+        "runtime_classification_scope",
+        "runtime_contract_path",
+        "runtime_contract_sha256",
+        "dependency_lock_path",
+        "dependency_lock_sha256",
+        "schema_path",
+        "schema_sha256",
+        "output_path",
+        "environment_note"
+      ],
+      "properties": {
+        "path": {"const": "tools/build_dark_medium_response_atlas_successor_overlay.py"},
+        "version": {"const": "1.0.0"},
+        "runtime": {"enum": ["python==3.12.10", "python==3.12.13"]},
+        "runtime_implementation": {"const": "CPython"},
+        "required_runtime": {"const": "python==3.12.10"},
+        "permitted_environment_limited_runtime": {"const": "python==3.12.13"},
+        "runtime_classification": {
+          "enum": ["release_authoritative", "environment_limited"]
+        },
+        "runtime_classification_scope": {
+          "const": "cpython-version-and-repository-runtime-contract-bytes"
+        },
+        "runtime_contract_path": {"const": "RUNTIME.json"},
+        "runtime_contract_sha256": {"$ref": "#/definitions/sha256"},
+        "dependency_lock_path": {"const": "requirements-lock.txt"},
+        "dependency_lock_sha256": {"$ref": "#/definitions/sha256"},
+        "schema_path": {
+          "const": "schemas/dark-medium-response-atlas-successor-overlay-s1.schema.json"
+        },
+        "schema_sha256": {"$ref": "#/definitions/sha256"},
+        "output_path": {
+          "const": "evidence/dark_medium_response_atlas_successor_overlay_s1.json"
+        },
+        "environment_note": {"type": ["string", "null"]}
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "runtime": {"const": "python==3.12.10"},
+            "runtime_classification": {"const": "release_authoritative"},
+            "environment_note": {"type": "null"}
+          }
+        },
+        {
+          "properties": {
+            "runtime": {"const": "python==3.12.13"},
+            "runtime_classification": {"const": "environment_limited"},
+            "environment_note": {
+              "const": "ENVIRONMENT_LIMITED: generated with python==3.12.13; release-authoritative regeneration requires python==3.12.10."
+            }
+          }
+        }
+      ]
+    },
+    "verification_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binds", "does_not_establish", "closure_note"],
+      "properties": {
+        "binds": {"const": [
+          "immutable_m1_predecessor_bytes",
+          "exact_declared_base_delta",
+          "full_staged_git_index_except_identity_closure",
+          "exact_eight_file_package_roster_and_bytes"
+        ]},
+        "does_not_establish": {"const": [
+          "core_claim_authority",
+          "scientific_validation",
+          "peer_review",
+          "release_authority",
+          "publication_authority"
+        ]},
+        "closure_note": {
+          "const": "MANIFEST.sha256 and this S1 JSON are intentionally excluded from the self-referential source projection; tracked-manifest and archive checks must bind them after candidate serialization."
+        }
+      }
+    }
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "safePath": {
+      "type": "string",
+      "pattern": "^(?!.*[\\x00-\\x1F\\x7F])(?!/)(?!.*//)(?!.*(?:^|/)\\.{1,2}(?:/|$))[A-Za-z0-9._/-]*[A-Za-z0-9._-]$"
+    },
+    "fileEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "mode", "bytes", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/definitions/safePath"},
+        "mode": {"enum": ["100644", "100755"]},
+        "bytes": {"type": "integer", "minimum": 0},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "packageAggregate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheme",
+        "scope",
+        "digest_algorithm",
+        "canonical_byte_domain",
+        "serialization",
+        "canonical_bytes",
+        "sha256"
+      ],
+      "properties": {
+        "scheme": {"const": "astra-package-roster-v1"},
+        "scope": {"const": "astra-dark-medium-response-atlas-draft-v0.1.0-package-v1"},
+        "digest_algorithm": {"const": "sha256"},
+        "canonical_byte_domain": {"const": "git-index-blob"},
+        "serialization": {"const": "astra-binary-length-prefixed-v1"},
+        "canonical_bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "sourceProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheme",
+        "scope",
+        "digest_algorithm",
+        "canonical_byte_domain",
+        "serialization",
+        "path_encoding",
+        "entry_count",
+        "canonical_bytes",
+        "excluded_paths",
+        "entries",
+        "sha256"
+      ],
+      "properties": {
+        "scheme": {"const": "astra-source-projection-v1"},
+        "scope": {
+          "const": "astra-dark-medium-response-atlas-successor-s1-repository-source-v1"
+        },
+        "digest_algorithm": {"const": "sha256"},
+        "canonical_byte_domain": {"const": "git-index-blob"},
+        "serialization": {"const": "astra-binary-length-prefixed-v1"},
+        "path_encoding": {"const": "ascii-posix"},
+        "entry_count": {"type": "integer", "minimum": 1},
+        "canonical_bytes": {"type": "integer", "minimum": 1},
+        "excluded_paths": {"const": [
+          "MANIFEST.sha256",
+          "evidence/dark_medium_response_atlas_successor_overlay_s1.json"
+        ]},
+        "entries": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/definitions/fileEntry"}
+        },
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    }
+  }
+}

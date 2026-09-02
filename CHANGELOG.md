@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Adds *Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and
+  Observation* as a separately versioned supplemental working-paper line with
+  semantic HTML, fixed-layout PDF, deterministic source archive, checksums,
+  citation metadata, claim/source/novelty ledgers, and a namespaced prerelease
+  and Pages identity.
+- Rebuilds the mutable reader shell around Current, Working paper, Draft, and
+  Archive statuses; adds focused publication, reproduction, provenance, and
+  contribution guides; and replaces the obsolete post-M1 Pages path list with
+  exact admission and assembled-site contracts.
+- Preserves the historical Atlas S1 bytes and adds a distinct S2
+  publication-successor boundary for current-main bytes. Removes private
+  `AGENTS.md` from the future repository tip without rewriting its public
+  history.
+
 - Adds the namespaced, unpromoted SPPT/ASTRA v1.0.8 Endogenous Visibility
   successor candidate for repository review without changing the v1.0.7
   release identity, claim matrix, reading assets, runtime, or citation target.

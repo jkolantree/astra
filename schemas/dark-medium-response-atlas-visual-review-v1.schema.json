@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-visual-review-v1.schema.json",
+  "title": "Dark-Medium Response Atlas complete PDF visual review v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "file", "sha256", "render_dpi", "page_count", "reviewed_pages", "inspection_scope", "reviewed_at", "reviewer", "result", "limitations"],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-visual-review-v1.schema.json"},
+    "file": {"const": "dark-medium-response-atlas-v0.1.0.pdf"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "render_dpi": {"type": "integer", "minimum": 144},
+    "page_count": {"type": "integer", "minimum": 1},
+    "reviewed_pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["page", "render", "bytes", "sha256", "status", "notes"],
+        "properties": {
+          "page": {"type": "integer", "minimum": 1},
+          "render": {"type": "string", "pattern": "^page-[0-9]{4}\\.png$"},
+          "bytes": {"type": "integer", "minimum": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "status": {"enum": ["PASS", "FAIL"]},
+          "notes": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "inspection_scope": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true,
+      "items": {"enum": ["typography", "equations", "clipping", "overflow", "stranded_headings", "contrast", "link_annotations", "metadata", "page_numbering", "readability"]}
+    },
+    "reviewed_at": {"type": "string", "format": "date"},
+    "reviewer": {"type": "string", "minLength": 1},
+    "result": {"enum": ["PASS", "FAIL"]},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

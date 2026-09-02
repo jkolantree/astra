@@ -1,0 +1,386 @@
+:root {
+  color-scheme: light;
+  --ink: #16242d;
+  --muted: #4d5f69;
+  --deep: #0b3042;
+  --teal: #0b5c65;
+  --sky: #dff3f5;
+  --glow: #f3c96b;
+  --link: #005b8f;
+  --focus: #005fcc;
+  --rule: #b8c8ce;
+  --paper: #ffffff;
+  --wash: #f3f8f9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #eaf1f3;
+  color: var(--ink);
+  font-family: "SPPT DejaVu Serif", serif;
+  font-size: 18px;
+  line-height: 1.58;
+  scroll-behavior: smooth;
+}
+
+body {
+  max-width: 66rem;
+  margin: 2rem auto;
+  background: var(--paper);
+  box-shadow: 0 1rem 3rem rgb(11 48 66 / 12%);
+}
+
+header#title-block-header {
+  padding: clamp(2.2rem, 7vw, 5.5rem) clamp(1.25rem, 6vw, 4.5rem);
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 82% 18%, rgb(243 201 107 / 42%), transparent 26%),
+    linear-gradient(128deg, var(--deep), var(--teal) 68%, #35797a);
+}
+
+header#title-block-header h1 {
+  max-width: 18ch;
+  margin: 0;
+  color: inherit;
+  font-size: clamp(2.15rem, 6vw, 4.75rem);
+  letter-spacing: -0.025em;
+}
+
+header#title-block-header .subtitle {
+  max-width: 48ch;
+  margin-top: 1.1rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+}
+
+header#title-block-header .author,
+header#title-block-header .date {
+  margin-block: 0.45rem 0;
+  color: #e6f5f6;
+  font-family: "SPPT DejaVu Sans", sans-serif;
+}
+
+nav#TOC,
+main,
+footer {
+  padding-inline: clamp(1.25rem, 6vw, 4.5rem);
+}
+
+nav#TOC {
+  padding-block: 1.4rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--wash);
+}
+
+nav#TOC::before {
+  content: "In this atlas";
+  display: block;
+  margin-bottom: 0.55rem;
+  color: var(--deep);
+  font-family: "SPPT DejaVu Sans", sans-serif;
+  font-weight: 700;
+}
+
+nav#TOC ul {
+  columns: 2 18rem;
+  column-gap: 2rem;
+  padding-left: 1.25rem;
+}
+
+nav#TOC li {
+  break-inside: avoid;
+  margin-block: 0.2rem;
+}
+
+main {
+  padding-block: 1.5rem 4rem;
+}
+
+footer {
+  padding-block: 1.25rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  background: var(--wash);
+  font-size: 0.92rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--deep);
+  font-family: "SPPT DejaVu Sans", sans-serif;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+h2 {
+  margin-top: 2.6rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--rule);
+}
+
+h3 {
+  margin-top: 2rem;
+}
+
+p,
+li {
+  max-width: 76ch;
+}
+
+a {
+  color: var(--link);
+  text-decoration-thickness: 0.09em;
+  text-underline-offset: 0.16em;
+}
+
+a:hover {
+  text-decoration-thickness: 0.16em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+header#title-block-header :focus-visible {
+  outline-color: #ffffff;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.65rem 0.9rem;
+  transform: translateY(-180%);
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  background: var(--deep);
+  font-family: "SPPT DejaVu Sans", sans-serif;
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.status-box {
+  margin-block: 1.5rem 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #8aa5aa;
+  border-left: 0.4rem solid var(--teal);
+  background: linear-gradient(110deg, var(--sky), #fffaf0);
+}
+
+.status-box h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 1.15rem;
+}
+
+.status-box p {
+  margin: 0.45rem 0 0;
+}
+
+blockquote {
+  margin-inline: 0;
+  padding: 0.85rem 1.2rem;
+  border-left: 0.32rem solid var(--teal);
+  background: var(--wash);
+  font-size: 1.04rem;
+}
+
+.source-list {
+  font-size: 0.88rem;
+  line-height: 1.3;
+}
+
+table {
+  display: table;
+  width: 100%;
+  margin-block: 1.4rem;
+  border-collapse: collapse;
+  font-family: "SPPT DejaVu Sans", sans-serif;
+  font-size: 0.9rem;
+}
+
+caption {
+  padding-bottom: 0.5rem;
+  color: var(--deep);
+  font-weight: 700;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--deep);
+  background: #e8f1f3;
+}
+
+code,
+pre {
+  font-family: "SPPT DejaVu Sans Mono", monospace;
+}
+
+code {
+  overflow-wrap: anywhere;
+}
+
+pre {
+  max-width: 100%;
+  padding: 0.9rem;
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  background: var(--wash);
+}
+
+math {
+  max-width: 100%;
+  overflow-x: auto;
+  font-family: "SPPT STIX General", serif !important;
+}
+
+math[display="block"] {
+  margin-block: 1rem;
+}
+
+@media (max-width: 44rem) {
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    margin: 0;
+    box-shadow: none;
+  }
+
+  header#title-block-header,
+  nav#TOC,
+  main,
+  footer {
+    padding-inline: 1.1rem;
+  }
+
+  nav#TOC ul {
+    columns: 1;
+  }
+
+  table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    font-size: 0.86rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  @page {
+    size: Letter;
+    margin: 0.72in 0.72in 0.78in;
+
+    @bottom-center {
+      content: counter(page);
+      color: #4d5f69;
+      font-family: "SPPT DejaVu Serif", serif;
+      font-size: 8pt;
+    }
+  }
+
+  html,
+  body {
+    background: #ffffff;
+  }
+
+  body {
+    max-width: none;
+    margin: 0;
+    box-shadow: none;
+    font-size: 10.2pt;
+    line-height: 1.34;
+  }
+
+  header#title-block-header {
+    min-height: 8.5in;
+    padding: 0.45in;
+    color: var(--deep);
+    background: #ffffff;
+    border: 1pt solid var(--rule);
+    break-after: page;
+  }
+
+  header#title-block-header .author,
+  header#title-block-header .date {
+    color: var(--muted);
+  }
+
+  nav#TOC {
+    padding: 0;
+    border: 0;
+    background: #ffffff;
+    break-after: page;
+  }
+
+  nav#TOC ul {
+    columns: 2;
+  }
+
+  main,
+  footer {
+    padding: 0;
+  }
+
+  h2,
+  h3,
+  h4 {
+    break-after: avoid-page;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  table,
+  blockquote,
+  pre,
+  .status-box {
+    break-inside: avoid-page;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .skip-link,
+  footer {
+    display: none;
+  }
+}

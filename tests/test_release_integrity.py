@@ -473,6 +473,15 @@ def test_verifier_requires_isolated_python(monkeypatch: pytest.MonkeyPatch) -> N
         verifier.require_isolated_mode()
 
 
+def test_s2_verification_bridge_uses_an_isolated_child_controller() -> None:
+    source = (PROJECT_ROOT / "tools" / "verify.py").read_text(encoding="utf-8")
+    start = source.index("def atlas_publication_overlay_present")
+    end = source.index("\ndef verify_candidate_not_at_tag", start)
+    bridge = source[start:end]
+    assert "isolated_python(" in bridge
+    assert "controlled_python(" not in bridge
+
+
 @pytest.mark.parametrize("script_name", ["verify.py", "release_integrity.py"])
 def test_controller_refuses_nonisolated_startup_before_shadowable_imports(
     script_name: str, tmp_path: Path
@@ -977,6 +986,26 @@ def test_tag_workflow_does_not_shell_interpolate_ref_name() -> None:
     assert "verify-tag --ref-name" not in workflow
     assert "github.ref_name" not in workflow
     assert "git fetch" not in workflow
+
+
+@pytest.mark.parametrize(
+    "workflow_path",
+    (
+        ".github/workflows/verify.yml",
+        ".github/workflows/release-dark-medium-response-atlas.yml",
+    ),
+)
+def test_exact_git_installation_uses_a_pinned_archive_not_global_installer(
+    workflow_path: str,
+) -> None:
+    workflow = (PROJECT_ROOT / workflow_path).read_text(encoding="utf-8")
+    assert "MinGit-2.55.0.3-64-bit.zip" in workflow
+    assert (
+        "f48e2d2dc74a24454adc6d8fd0ac25bf9c2386f19cfb06202b9465aaad4f9f05"
+        in workflow
+    )
+    assert "Expand-Archive -LiteralPath $archive -DestinationPath $installRoot" in workflow
+    assert "Start-Process -FilePath $installer" not in workflow
 
 
 def test_clean_worktree_rejects_hidden_index_flags(monkeypatch: pytest.MonkeyPatch) -> None:

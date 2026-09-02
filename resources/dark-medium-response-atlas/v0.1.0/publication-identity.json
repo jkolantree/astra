@@ -1,0 +1,141 @@
+{
+  "accessibility": {
+    "fixed_layout_edition": "dark-medium-response-atlas-v0.1.0.pdf",
+    "pdf_claim": "tagged and structurally checked; no PDF/UA conformance claim is made",
+    "primary_reading_edition": "dark-medium-response-atlas-v0.1.0.html"
+  },
+  "artifacts": [
+    {
+      "bytes": 5076317,
+      "path": "dark-medium-response-atlas-v0.1.0.html",
+      "sha256": "cec20143a17ebc0e4c59e98a57356bfec9bfc8c286baa3187918f18e7ff78b39"
+    },
+    {
+      "bytes": 290486,
+      "path": "dark-medium-response-atlas-v0.1.0.pdf",
+      "sha256": "9e8688b2831762d71037452ecef733c750d951cf5d65c18a84e5a2a0cd956d91"
+    },
+    {
+      "bytes": 1028,
+      "path": "html-accessibility.json",
+      "sha256": "0109df8afa66adfd6bfa6c08d32feb0632bb81a7af3b54db4d7d6044a568b9d6"
+    },
+    {
+      "bytes": 4654,
+      "path": "pdf-inspection.json",
+      "sha256": "3c85baffdcf738695891326a6183b55de9c44e410b73b4f7872956c7e27ea423"
+    }
+  ],
+  "build_epoch": "2026-09-01T00:00:00Z",
+  "canonical_url": "https://jkolantree.github.io/astra/resources/dark-medium-response-atlas/v0.1.0/",
+  "font_sources": [
+    {
+      "bytes": 379740,
+      "file": "DejaVuSerif.ttf",
+      "sha256": "107244956e9962b9e96faccdc551825e0ae0898ae13737133e1b921a2fd35ffa"
+    },
+    {
+      "bytes": 355692,
+      "file": "DejaVuSerif-Bold.ttf",
+      "sha256": "c3753f2ed6bc673f15846dc45addbeb3b9c872f32fb18fd53a21f1bef1ed7676"
+    },
+    {
+      "bytes": 345612,
+      "file": "DejaVuSerif-Italic.ttf",
+      "sha256": "3e7994fbc54fa10ce3352a42d548fadd7d9cadb69cb1109bc9d960f6dac57f04"
+    },
+    {
+      "bytes": 347064,
+      "file": "DejaVuSerif-BoldItalic.ttf",
+      "sha256": "d93efec7a9d2e826768d1a2ee95b95870e15e29599a84f3484af1de1cec2e181"
+    },
+    {
+      "bytes": 756072,
+      "file": "DejaVuSans.ttf",
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22"
+    },
+    {
+      "bytes": 704128,
+      "file": "DejaVuSans-Bold.ttf",
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167"
+    },
+    {
+      "bytes": 340240,
+      "file": "DejaVuSansMono.ttf",
+      "sha256": "602ec86b8948cfcd956482fe64f94c36c867770149ef2f791d4613f443bcecb3"
+    },
+    {
+      "bytes": 448228,
+      "file": "STIXGeneral.ttf",
+      "sha256": "167378031e2dddc6216d67819c9260e9a06ffc4c478e4e23cb98a6fd44b183c2"
+    }
+  ],
+  "identity_excludes_self": true,
+  "inputs": [
+    {
+      "bytes": 58334,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/dark-medium-response-atlas-v0.1.0.md",
+      "sha256": "a4c0b2c2cc71df4ec430790039703d40497afe03bb13719fc52f62564e440310"
+    },
+    {
+      "bytes": 5999,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/dark-medium-response-atlas-v0.1.0.css",
+      "sha256": "704906551d1592a4d10a3176373a19b3e1eb09ab97a72fbda96a61bfff91faec"
+    },
+    {
+      "bytes": 2277,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/RELEASE_SPEC.json",
+      "sha256": "21a10e5a61e856163a4532eb06a09990afbaac4ed0b0c2c02e645687b9481634"
+    },
+    {
+      "bytes": 19101,
+      "path": "tools/build_dark_medium_response_atlas_documents.py",
+      "sha256": "77f72d12bd69009169029443bea6b42117a78b1b4020151d51e8a3e8ce45eb2d"
+    },
+    {
+      "bytes": 13519,
+      "path": "tools/dark_medium_response_atlas_document_helpers.py",
+      "sha256": "d43b6c42b5259d8bbc0392b8cc17a7e5bedc0987b028b6adf6548a5398f641f6"
+    },
+    {
+      "bytes": 12873,
+      "path": "tools/check_dark_medium_response_atlas_html.py",
+      "sha256": "605daf79a27cd1733812bd53fe035304138eb3e2954787b9c845d15affff9697"
+    },
+    {
+      "bytes": 9749,
+      "path": "tools/inspect_dark_medium_response_atlas_pdf.py",
+      "sha256": "bd8008422d2b9ece2378dc8f879b50ee0aa17120b5d3fdf54db094b53079958d"
+    },
+    {
+      "bytes": 9188,
+      "path": "tools/dark_medium_response_atlas_pdf_helpers.py",
+      "sha256": "a1ff7f9adf8a6c2f127c1d6eab14d995125df03065510265d7ccc85378d6579e"
+    },
+    {
+      "bytes": 4766,
+      "path": "RUNTIME.json",
+      "sha256": "f3fa00ed692fc6738b47f6c8a44e9c5ac062d269ac452cfbcf90c4ef8ff39485"
+    },
+    {
+      "bytes": 117332,
+      "path": "requirements-lock.txt",
+      "sha256": "69b83ca86466525e912ea7c2d4a614d426ab44411ccc2789febc32f54c255721"
+    }
+  ],
+  "pdf_normalized_text_sha256": "a3a2b9a6c0a5d13e2ca05f521a657853e053d8c50d2cde313ea5082f481a4991",
+  "pdf_pages": 28,
+  "publication_line_id": "dark-medium-response-atlas",
+  "runtime": {
+    "browser": "151.0.7922.34",
+    "matplotlib": "3.11.1",
+    "pandoc": "3.6.1",
+    "pikepdf": "10.11.0",
+    "playwright": "1.62.0",
+    "pypdf": "6.14.2",
+    "python": "3.12.10"
+  },
+  "schema": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-publication-identity-v1.schema.json",
+  "title": "Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and Observation",
+  "version": "0.1.0"
+}

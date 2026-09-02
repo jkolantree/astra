@@ -1,0 +1,131 @@
+{
+  "base": {
+    "commit": "3c1a1325b6b365ba457a03b87cc73139d0c6a629",
+    "relationship": "fresh_current_main_pages_admission_base",
+    "tree": "ff03d152c98deb65c7246fdd2283cebee71b5857"
+  },
+  "head_shell": {
+    "files": [
+      {
+        "bytes": 1105,
+        "path": "404.html",
+        "sha256": "459c1f2f37d161c60f6bc26d94d3625eeb39b376e8559ba99be14f5b421f3d19"
+      },
+      {
+        "bytes": 8435,
+        "path": "index.html",
+        "sha256": "fa431278354e800a8e057f4f6f9d98d472e0aaec28f828d0847ff650093041e2"
+      },
+      {
+        "bytes": 15624,
+        "path": "resources/earth-is-the-instrument/v0.1/index.html",
+        "sha256": "c452de948f874f3742b97528ac13286fe11b071e174ba0c5b47a6ffcf9239a70"
+      },
+      {
+        "bytes": 21072,
+        "path": "resources/earth-is-the-instrument/v0.3.0/audit-form/index.html",
+        "sha256": "1b4a594935db00ded99ab18b2c838ac6c0a3a918511165a9925c3a8831af4e56"
+      },
+      {
+        "bytes": 7099,
+        "path": "resources/earth-is-the-instrument/v0.3.0/companion.css",
+        "sha256": "6029d91114027e896caa7c7f8f181e9b1afdd3f4227b12f8f13caf1e2c4ebef7"
+      },
+      {
+        "bytes": 4003,
+        "path": "resources/earth-is-the-instrument/v0.3.0/errata/index.html",
+        "sha256": "7b271bded746373d184f3f7b9c9f4d9ed2365e992322f951ef9e15131b543645"
+      },
+      {
+        "bytes": 21490,
+        "path": "resources/earth-is-the-instrument/v0.3.0/ground-reading/index.html",
+        "sha256": "34ede59dca7bf547b0507eb4c20f9848c923824cb1400b2d7c57e156c773abf9"
+      },
+      {
+        "bytes": 16793,
+        "path": "resources/earth-is-the-instrument/v0.3.0/index.html",
+        "sha256": "50647f84f9b532e3b7d1d8bc68dbc11509f49d98460080136720cfbc668464ab"
+      },
+      {
+        "bytes": 6393,
+        "path": "resources/index.html",
+        "sha256": "73ff8cef713163f5eedf5d3eb32442731f61c7370ea91de6e915019f9c223ff1"
+      },
+      {
+        "bytes": 8161,
+        "path": "sppt-astra-cover.svg",
+        "sha256": "680b3eb2ac0de91be846b777758cc3a632b2ae2e7773704a2c9a77eecc131280"
+      },
+      {
+        "bytes": 7338,
+        "path": "style.css",
+        "sha256": "c6d06f8d367fb63a28e6032e6df28b1341565995d0b0ef302d55e2bc1a728330"
+      }
+    ],
+    "root": "docs"
+  },
+  "manifest_version": "1.0.0",
+  "policy": {
+    "copy_exact_head_shell_only": true,
+    "reject_draft_and_candidate_content": true,
+    "reject_unadmitted_docs": true,
+    "release_bytes_required_for_publication_routes": true
+  },
+  "release_routes": [
+    {
+      "asset_allowlist": [
+        "SPPT_ASTRA_preprint_v1.0.7.html",
+        "SPPT_ASTRA_technical_supplement_v1.0.7.html",
+        "SPPT_ASTRA_v1.0.7_source.tar.gz",
+        "SHA256SUMS"
+      ],
+      "kind": "core-release",
+      "latest_route": "/latest/",
+      "line": "sppt-astra-core",
+      "tag": "v1.0.7",
+      "versioned_route": "/v1.0.7/"
+    },
+    {
+      "asset_allowlist": [
+        "ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf",
+        "FONT_NOTICES.txt",
+        "SHA256SUMS.txt",
+        "cover.png"
+      ],
+      "kind": "supplemental-release",
+      "latest_route": null,
+      "line": "earth-is-the-instrument-working-paper",
+      "tag": "earth-instrument-wp-0.1",
+      "versioned_route": "/resources/earth-is-the-instrument/v0.1/"
+    },
+    {
+      "asset_allowlist": [
+        "ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf",
+        "ASTRA_v0.3.0_Public_Ground_Reading.pdf",
+        "ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf",
+        "ASTRA_v0.3.0_Verification_Report.pdf",
+        "SHA256SUMS.txt"
+      ],
+      "kind": "supplemental-release",
+      "latest_route": "/resources/earth-is-the-instrument/latest/",
+      "line": "earth-is-the-instrument-framework",
+      "tag": "earth-instrument-framework-v0.3.0",
+      "versioned_route": "/resources/earth-is-the-instrument/v0.3.0/"
+    },
+    {
+      "asset_allowlist": [
+        "dark-medium-response-atlas-v0.1.0.html",
+        "dark-medium-response-atlas-v0.1.0.pdf",
+        "dark-medium-response-atlas-v0.1.0-source.tar.gz",
+        "SHA256SUMS",
+        "dark-medium-response-atlas-v0.1.0-release-identity.json"
+      ],
+      "kind": "supplemental-release",
+      "latest_route": "/resources/dark-medium-response-atlas/latest/",
+      "line": "dark-medium-response-atlas",
+      "tag": "dark-medium-response-atlas-v0.1.0",
+      "versioned_route": "/resources/dark-medium-response-atlas/v0.1.0/"
+    }
+  ],
+  "schema": "https://jkolantree.github.io/astra/schemas/pages-admission-v1.schema.json"
+}

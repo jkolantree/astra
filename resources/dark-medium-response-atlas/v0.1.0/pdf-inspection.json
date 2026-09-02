@@ -1,0 +1,144 @@
+{
+  "bytes": 290486,
+  "canonical_structure_id_count": 25,
+  "external_links": [
+    "https://arxiv.org/abs/0810.5126",
+    "https://arxiv.org/abs/1209.5752",
+    "https://arxiv.org/abs/1507.01019",
+    "https://arxiv.org/abs/1802.04303",
+    "https://arxiv.org/abs/1807.06209",
+    "https://arxiv.org/abs/2101.08275",
+    "https://arxiv.org/abs/2411.11958",
+    "https://arxiv.org/abs/astro-ph/0608407",
+    "https://doi.org/10.1007/s00220-026-05700-7",
+    "https://doi.org/10.1038/s41586-020-2300-2",
+    "https://doi.org/10.1038/s41586-020-2878-4",
+    "https://doi.org/10.1039/D5TA10373H",
+    "https://doi.org/10.1103/PhysRevD.111.095031",
+    "https://doi.org/10.1103/PhysRevD.64.024028",
+    "https://doi.org/10.3847/2041-8213/ad1606",
+    "https://doi.org/10.3847/PSJ/ae685c",
+    "https://lz.lbl.gov/wp-content/uploads/sites/6/2026/08/LZ_Preprint_260901_Dark_Matter_EFT_Nuclear_Recoil_Search_at_Higher_Energies.pdf"
+  ],
+  "figure_tags": 0,
+  "file": "dark-medium-response-atlas-v0.1.0.pdf",
+  "fonts": [
+    {
+      "base_font": "/AAAAAA+DejaVuSerif",
+      "embedded": true,
+      "resource_name": "/F4",
+      "subtype": "/Type0",
+      "to_unicode": true
+    },
+    {
+      "base_font": "/BAAAAA+DejaVuSans-Bold",
+      "embedded": true,
+      "resource_name": "/F6",
+      "subtype": "/Type0",
+      "to_unicode": true
+    },
+    {
+      "base_font": "/CAAAAA+DejaVuSans",
+      "embedded": true,
+      "resource_name": "/F7",
+      "subtype": "/Type0",
+      "to_unicode": true
+    },
+    {
+      "base_font": "/DAAAAA+DejaVuSerif-Bold",
+      "embedded": true,
+      "resource_name": "/F100",
+      "subtype": "/Type0",
+      "to_unicode": true
+    },
+    {
+      "base_font": "/EAAAAA+DejaVuSansMono",
+      "embedded": true,
+      "resource_name": "/F103",
+      "subtype": "/Type0",
+      "to_unicode": true
+    },
+    {
+      "base_font": "/FAAAAA+STIXGeneral-Regular",
+      "embedded": true,
+      "resource_name": "/F108",
+      "subtype": "/Type0",
+      "to_unicode": true
+    }
+  ],
+  "formula_tags": 209,
+  "link_annotation_count": 127,
+  "metadata": {
+    "/Author": "Jacko T.",
+    "/CreationDate": "D:20260901000000Z",
+    "/Creator": "Pandoc 3.6.1 and Playwright 1.62.0 Chromium",
+    "/Keywords": "ASTRA, dark medium, response theory, identifiability, path dependence",
+    "/ModDate": "D:20260901000000Z",
+    "/Producer": "ASTRA Dark-Medium Response Atlas deterministic build v0.1.0; pikepdf 10.11.0",
+    "/Subject": "ASTRA supplemental working paper and methods proposal; not peer reviewed",
+    "/Title": "Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and Observation"
+  },
+  "normalized_text_sha256": "a3a2b9a6c0a5d13e2ca05f521a657853e053d8c50d2cde313ea5082f481a4991",
+  "outline_titles_match_html": true,
+  "pages": 28,
+  "pdf_ua_claim": false,
+  "schema": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-pdf-inspection-v1.schema.json",
+  "sha256": "9e8688b2831762d71037452ecef733c750d951cf5d65c18a84e5a2a0cd956d91",
+  "source_font_identities": [
+    {
+      "bytes": 379740,
+      "file": "DejaVuSerif.ttf",
+      "sha256": "107244956e9962b9e96faccdc551825e0ae0898ae13737133e1b921a2fd35ffa"
+    },
+    {
+      "bytes": 355692,
+      "file": "DejaVuSerif-Bold.ttf",
+      "sha256": "c3753f2ed6bc673f15846dc45addbeb3b9c872f32fb18fd53a21f1bef1ed7676"
+    },
+    {
+      "bytes": 345612,
+      "file": "DejaVuSerif-Italic.ttf",
+      "sha256": "3e7994fbc54fa10ce3352a42d548fadd7d9cadb69cb1109bc9d960f6dac57f04"
+    },
+    {
+      "bytes": 347064,
+      "file": "DejaVuSerif-BoldItalic.ttf",
+      "sha256": "d93efec7a9d2e826768d1a2ee95b95870e15e29599a84f3484af1de1cec2e181"
+    },
+    {
+      "bytes": 756072,
+      "file": "DejaVuSans.ttf",
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22"
+    },
+    {
+      "bytes": 704128,
+      "file": "DejaVuSans-Bold.ttf",
+      "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167"
+    },
+    {
+      "bytes": 340240,
+      "file": "DejaVuSansMono.ttf",
+      "sha256": "602ec86b8948cfcd956482fe64f94c36c867770149ef2f791d4613f443bcecb3"
+    },
+    {
+      "bytes": 448228,
+      "file": "STIXGeneral.ttf",
+      "sha256": "167378031e2dddc6216d67819c9260e9a06ffc4c478e4e23cb98a6fd44b183c2"
+    }
+  ],
+  "table_caption_tags": 4,
+  "table_header_reference_count": 66,
+  "table_tags": 4,
+  "tagged": true,
+  "xmp": {
+    "created": "2026-09-01T00:00:00Z",
+    "creator": [
+      "Jacko T."
+    ],
+    "language": [
+      "en-US"
+    ],
+    "modified": "2026-09-01T00:00:00Z",
+    "title": "Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and Observation"
+  }
+}

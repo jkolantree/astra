@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-html-accessibility-v1.schema.json",
+  "title": "Dark-Medium Response Atlas HTML accessibility report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "file", "bytes", "sha256", "headings", "links", "tables", "mathml_formulas", "viewports", "keyboard", "print", "reduced_motion", "browser"],
+  "properties": {
+    "schema": {"const": "https://jkolantree.github.io/astra/schemas/dark-medium-response-atlas-html-accessibility-v1.schema.json"},
+    "file": {"const": "dark-medium-response-atlas-v0.1.0.html"},
+    "bytes": {"type": "integer", "minimum": 1},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "headings": {"type": "integer", "minimum": 1},
+    "links": {"type": "integer", "minimum": 1},
+    "tables": {"const": 4},
+    "mathml_formulas": {"type": "integer", "minimum": 1},
+    "viewports": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["1440", "400", "320"],
+      "properties": {
+        "1440": {"$ref": "#/definitions/viewport"},
+        "400": {"$ref": "#/definitions/viewport"},
+        "320": {"$ref": "#/definitions/viewport"}
+      }
+    },
+    "keyboard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["first_stop", "skip_target", "minimum_focus_contrast"],
+      "properties": {
+        "first_stop": {"const": "skip-link"},
+        "skip_target": {"const": "main-content"},
+        "minimum_focus_contrast": {"type": "number", "minimum": 3}
+      }
+    },
+    "print": {"$ref": "#/definitions/print"},
+    "reduced_motion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["active_animation_count"],
+      "properties": {"active_animation_count": {"const": 0}}
+    },
+    "browser": {"type": "string", "minLength": 1}
+  },
+  "definitions": {
+    "viewport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["viewport", "client", "rootScroll", "bodyScroll"],
+      "properties": {
+        "viewport": {"type": "integer", "minimum": 1},
+        "client": {"type": "integer", "minimum": 1},
+        "rootScroll": {"type": "integer", "minimum": 1},
+        "bodyScroll": {"type": "integer", "minimum": 1}
+      }
+    },
+    "print": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rootClient", "rootScroll", "mainDisplay"],
+      "properties": {
+        "rootClient": {"type": "integer", "minimum": 1},
+        "rootScroll": {"type": "integer", "minimum": 1},
+        "mainDisplay": {"type": "string", "not": {"const": "none"}}
+      }
+    }
+  }
+}
