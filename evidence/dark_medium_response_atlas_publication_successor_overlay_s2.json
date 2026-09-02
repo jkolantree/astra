@@ -265,7 +265,7 @@
       "scheme": "astra-package-roster-v1",
       "scope": "astra-dark-medium-response-atlas-v0.1.0-publication-package-v1",
       "serialization": "astra-binary-length-prefixed-v1",
-      "sha256": "cc7179e3da10b1faa75073950053d8c7a366464e1bfc23e796f0fdbbf7115c91"
+      "sha256": "d7cc504f4aaee99ddd71c632e7243667b70c894963c6a262ae0197f442f27b49"
     },
     "file_count": 18,
     "files": [
@@ -363,7 +363,7 @@
         "bytes": 4877,
         "mode": "100644",
         "path": "resources/dark-medium-response-atlas/v0.1.0/publication-identity.json",
-        "sha256": "67dd8f9367988ebbad674144efeb4667f8d9ab6d04ce4a809538ae19a9d04d6a"
+        "sha256": "34e0816ab34724ed9e4604dcb7500341503478e9910901103fb124416125a90d"
       },
       {
         "bytes": 6063,
@@ -1538,7 +1538,7 @@
         "bytes": 4877,
         "mode": "100644",
         "path": "resources/dark-medium-response-atlas/v0.1.0/publication-identity.json",
-        "sha256": "67dd8f9367988ebbad674144efeb4667f8d9ab6d04ce4a809538ae19a9d04d6a"
+        "sha256": "34e0816ab34724ed9e4604dcb7500341503478e9910901103fb124416125a90d"
       },
       {
         "bytes": 6063,
@@ -2822,7 +2822,7 @@
     "scheme": "astra-source-projection-v1",
     "scope": "astra-dark-medium-response-atlas-publication-successor-s2-repository-source-v1",
     "serialization": "astra-binary-length-prefixed-v1",
-    "sha256": "8614c2c2c5df71c6de6f8294d393c01fbe0f055c36bff788f942c4b2b60f0144"
+    "sha256": "929daae9c22071842b22b10831f3b3724f56e1a089f0dd89db81cc857e56860c"
   },
   "status": "publication_candidate",
   "verification_scope": {

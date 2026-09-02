@@ -98,9 +98,9 @@
       "sha256": "d43b6c42b5259d8bbc0392b8cc17a7e5bedc0987b028b6adf6548a5398f641f6"
     },
     {
-      "bytes": 12859,
+      "bytes": 12873,
       "path": "tools/check_dark_medium_response_atlas_html.py",
-      "sha256": "7d617ec79662a4293f88ba7d130f835bf1bfba59dc3cc2ad2a61b118187dd13d"
+      "sha256": "605daf79a27cd1733812bd53fe035304138eb3e2954787b9c845d15affff9697"
     },
     {
       "bytes": 9749,
