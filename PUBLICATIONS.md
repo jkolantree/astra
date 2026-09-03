@@ -36,6 +36,8 @@ The root `/latest/` route, GitHub Latest release, and repository-level `CITATION
 
 Its namespace-local `/resources/dark-medium-response-atlas/latest/` route is a convenience pointer, not an immutable citation target.
 
+**Publication metadata note.** The immutable v0.1.0 files record `2026-09-01` as the artifact and edition date. GitHub records creation of the annotated tag and publication of the release on `2026-09-02`. The GitHub release display label, *Dark-Medium Response Atlas v0.1.0*, is abbreviated; the canonical citation title is *Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and Observation*. This note clarifies the mutable public record; the immutable v0.1.0 files and release assets remain unchanged.
+
 ### *Earth Is the Instrument* v0.3.0
 
 This evidence-graded supplemental line studies dual-rent seams, local-to-global certificates, geological memory, evidence independence, and bounded arithmetic-seam tests. Version 0.3.0 supersedes an internal v0.2.1 predecessor preserved in its archive; no public v0.2.1 tag or release was created.

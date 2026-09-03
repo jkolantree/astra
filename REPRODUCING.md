@@ -33,6 +33,8 @@ Start from the [tagged Atlas release](https://github.com/jkolantree/astra/releas
 
 The Atlas builder is namespaced to its package. It does not rebuild or replace the SPPT/ASTRA v1.0.7 documents. Reproduction establishes the declared document and package contracts; it is not independent scientific validation of the paper’s proposed dark-sector models.
 
+Future Atlas publication tags use two separate GitHub authorities. A dedicated GitHub App, installed only on this repository with repository **Administration: read**, supplies a short-lived token solely for checking that immutable releases are explicitly enabled. The ordinary Actions token retains **Contents: write** for release creation and verification; it is never used as a fallback for the settings check. Repository operators must configure the App client ID as `ATLAS_RELEASE_APP_CLIENT_ID` and its private key as `ATLAS_RELEASE_APP_PRIVATE_KEY`. Until both values exist, the namespaced Atlas workflow stops as `BLOCKED_EXTERNAL_CONFIGURATION` before publication. Before creating a future Atlas tag, its candidate must update and verify every version-bound workflow input and evidence gate, including the artifact controller, successor verifier, release title and notes path, asset names and output paths, and allowlist. The wildcard trigger does not weaken those fail-closed package checks.
+
 ## *Earth Is the Instrument* v0.3.0
 
 Use the [versioned resource guide](resources/earth-is-the-instrument/v0.3.0/README.md) and [tagged release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0). That package retains its own source archive, checksum roster, environment disclosure, 90-check package gate, and known accessibility limits.

@@ -16,6 +16,7 @@ VERIFY_WORKFLOW = ROOT / ".github" / "workflows" / "verify.yml"
 ATLAS_RELEASE_WORKFLOW = (
     ROOT / ".github" / "workflows" / "release-dark-medium-response-atlas.yml"
 )
+ATLAS_PUBLISH_GUARD = ROOT / "tools" / "dark_medium_response_atlas_publish_guard.py"
 COVER_SVG = ROOT / "docs" / "sppt-astra-cover.svg"
 COVER_ALT = (
     "Conceptual SPPT/ASTRA network with observed boundary and surface data, a latent "
@@ -37,6 +38,7 @@ ACTION_PINS = {
     "actions/configure-pages": "45bfe0192ca1faeb007ade9deae92b16b8254a0d",  # v6.0.0
     "actions/upload-pages-artifact": "fc324d3547104276b827a68afc52ff2a11cc49c9",  # v5.0.0
     "actions/deploy-pages": "cd2ce8fcbc39b97be8ca5fce6e763baed58fa128",  # v5.0.0
+    "actions/create-github-app-token": "bcd2ba49218906704ab6c1aa796996da409d3eb1",  # v3.2.0
 }
 
 
@@ -177,20 +179,64 @@ def test_verify_workflow_keeps_core_release_controls_off_atlas_tags() -> None:
 
 def test_atlas_release_workflow_is_tag_bound_and_remotely_reverified() -> None:
     workflow = load_yaml(ATLAS_RELEASE_WORKFLOW)
-    assert workflow["on"] == {"push": {"tags": [ATLAS_RELEASE_TAG]}}
+    assert workflow["on"] == {"push": {"tags": ["dark-medium-response-atlas-v*"]}}
     assert workflow["permissions"] == {"contents": "write"}
     release = workflow["jobs"]["release"]
-    assert release["if"] == f"github.ref == 'refs/tags/{ATLAS_RELEASE_TAG}'"
+    assert release["if"] == (
+        "startsWith(github.ref, 'refs/tags/dark-medium-response-atlas-v')"
+    )
     assert release["runs-on"] == "windows-latest"
     assert release["timeout-minutes"] == 120
+
+    steps = {step["name"]: step for step in release["steps"]}
+    configuration = steps["Require dedicated immutable-settings authority configuration"]
+    assert configuration["env"] == {
+        "ATLAS_RELEASE_APP_CLIENT_ID": "${{ vars.ATLAS_RELEASE_APP_CLIENT_ID }}",
+        "ATLAS_RELEASE_APP_PRIVATE_KEY_CONFIGURED": (
+            "${{ secrets.ATLAS_RELEASE_APP_PRIVATE_KEY != '' }}"
+        ),
+    }
+    assert "BLOCKED_EXTERNAL_CONFIGURATION" in configuration["run"]
+
+    app_token = steps["Create short-lived immutable-settings reader token"]
+    assert app_token["uses"] == (
+        "actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1"
+    )
+    assert app_token["with"] == {
+        "client-id": "${{ vars.ATLAS_RELEASE_APP_CLIENT_ID }}",
+        "private-key": "${{ secrets.ATLAS_RELEASE_APP_PRIVATE_KEY }}",
+        "owner": "${{ github.repository_owner }}",
+        "repositories": "${{ github.event.repository.name }}",
+        "permission-administration": "read",
+    }
+
+    immutable_steps = [
+        steps["Require enabled immutable GitHub Releases"],
+        steps["Recheck enabled immutable GitHub Releases immediately before publication"],
+    ]
+    for step in immutable_steps:
+        assert step["env"] == {
+            "ATLAS_RELEASE_SETTINGS_TOKEN": "${{ steps.atlas-settings-token.outputs.token }}"
+        }
+        assert step["run"].endswith("require-immutable-releases")
+
+    collision_steps = [
+        steps["Require unused Atlas release tag"],
+        steps["Recheck Atlas release collision immediately before publication"],
+    ]
+    for step in collision_steps:
+        assert step["env"] == {"ATLAS_RELEASE_CONTENTS_TOKEN": "${{ github.token }}"}
+        assert step["run"].endswith("require-release-absent")
+
+    publication = steps["Create and remotely re-verify immutable Atlas prerelease"]
+    assert publication["env"] == {"GH_TOKEN": "${{ github.token }}"}
+    assert "ATLAS_RELEASE_SETTINGS_TOKEN" not in publication["env"]
 
     script = "\n".join(str(step.get("run", "")) for step in release["steps"])
     for value in (
         "refs/tags/$tag",
         "git cat-file -t",
-        "$event.created -ne $true",
-        "$event.deleted -ne $false",
-        "$event.forced -ne $false",
+        "tools/dark_medium_response_atlas_publish_guard.py require-new-tag-event",
         "git fetch --no-tags --no-recurse-submodules origin",
         "refs/heads/main:refs/remotes/origin/main",
         "git merge-base --is-ancestor $tagCommit refs/remotes/origin/main",
@@ -198,16 +244,14 @@ def test_atlas_release_workflow_is_tag_bound_and_remotely_reverified() -> None:
         "Fetched Atlas tag object differs from the push-event tag object.",
         "tools/verify.py --all --workers 4",
         "tools/build_dark_medium_response_atlas_publication_successor_overlay.py --verify-commit HEAD",
-        "repos/$env:GITHUB_REPOSITORY/immutable-releases",
-        "$immutable.enabled -ne $true",
+        "tools/dark_medium_response_atlas_publish_guard.py require-immutable-releases",
+        "tools/dark_medium_response_atlas_publish_guard.py require-release-absent",
         "tools/dark_medium_response_atlas_release.py build --tag $tag --output-dir $assets",
         "tools/dark_medium_response_atlas_release.py verify --tag $tag --assets $assets",
         "--replay-source",
         "--verify-tag",
         "--prerelease",
         "--latest=false",
-        "releases?per_page=100",
-        "$priorReleases.Count -ge 100",
         "repos/$env:GITHUB_REPOSITORY/releases/tags/$tag",
         "$release.immutable -ne $true",
         "repos/$env:GITHUB_REPOSITORY/releases/latest",
@@ -223,15 +267,33 @@ def test_atlas_release_workflow_is_tag_bound_and_remotely_reverified() -> None:
     assert script.index(
         "tools/build_dark_medium_response_atlas_publication_successor_overlay.py --verify-commit HEAD"
     ) < script.index(
-        "tools/dark_medium_response_atlas_release.py build"
+        "tools/dark_medium_response_atlas_publish_guard.py require-immutable-releases"
     )
-    assert script.index("immutable-releases") < script.index("gh @releaseArguments")
+    assert script.index(
+        "tools/dark_medium_response_atlas_publish_guard.py require-immutable-releases"
+    ) < script.index("tools/dark_medium_response_atlas_release.py build")
+    assert script.rindex(
+        "tools/dark_medium_response_atlas_publish_guard.py require-immutable-releases"
+    ) < script.index("gh @releaseArguments")
+    assert script.rindex(
+        "tools/dark_medium_response_atlas_publish_guard.py require-release-absent"
+    ) < script.index("gh @releaseArguments")
     assert script.index("gh @releaseArguments") < script.index(
         "$releaseJson = gh api"
     )
     assert script.rindex("tools/dark_medium_response_atlas_release.py verify") > script.index(
         "gh @downloadArguments"
     )
+    lowered = script.casefold()
+    assert "release edit" not in lowered
+    assert "release delete" not in lowered
+    assert "--clobber" not in lowered
+
+    guard = ATLAS_PUBLISH_GUARD.read_text(encoding="utf-8")
+    assert 'GITHUB_API_VERSION = "2026-03-10"' in guard
+    assert 'value.get("enabled")' in guard
+    assert "type(enabled) is not bool or enabled is not True" in guard
+    assert '"page": page' in guard
 
 
 def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> None:
@@ -1013,6 +1075,24 @@ def test_pages_home_scopes_rights_and_separates_publication_tracks() -> None:
 
     css = (ROOT / "docs" / "style.css").read_text(encoding="utf-8")
     assert re.search(r"[.]cover-link,\s*[.]cover-link img,\s*[.]paper-cover", css)
+
+
+def test_publication_history_clarifies_atlas_metadata_without_rewriting_the_edition() -> None:
+    publication_map = (ROOT / "PUBLICATIONS.md").read_text(encoding="utf-8")
+    semantic = " ".join(publication_map.replace("*", "").replace("`", "").split())
+    for value in (
+        "2026-09-01 as the artifact and edition date",
+        "creation of the annotated tag and publication of the release on 2026-09-02",
+        "GitHub release display label, Dark-Medium Response Atlas v0.1.0, is abbreviated",
+        "Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and Observation",
+        "immutable v0.1.0 files and release assets remain unchanged",
+    ):
+        assert value in semantic
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    resources = (ROOT / "docs" / "resources" / "index.html").read_text(encoding="utf-8")
+    assert "[publication history](PUBLICATIONS.md)" in readme
+    assert "https://github.com/jkolantree/astra/blob/main/PUBLICATIONS.md" in resources
 
 
 def test_pages_home_and_working_paper_reflow_at_narrow_widths() -> None:

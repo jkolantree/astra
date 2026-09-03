@@ -1,19 +1,19 @@
-name: Publish Dark-Medium Response Atlas v0.1.0
+name: Publish Dark-Medium Response Atlas
 
 on:
   push:
-    tags: ["dark-medium-response-atlas-v0.1.0"]
+    tags: ["dark-medium-response-atlas-v*"]
 
 permissions:
   contents: write
 
 concurrency:
-  group: dark-medium-response-atlas-v0.1.0-release
+  group: dark-medium-response-atlas-release-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   release:
-    if: github.ref == 'refs/tags/dark-medium-response-atlas-v0.1.0'
+    if: startsWith(github.ref, 'refs/tags/dark-medium-response-atlas-v')
     runs-on: windows-latest
     timeout-minutes: 120
     env:
@@ -59,19 +59,13 @@ jobs:
       - name: Require the exact annotated Atlas tag context
         shell: pwsh
         run: |
-          $tag = 'dark-medium-response-atlas-v0.1.0'
+          python -I -B tools/dark_medium_response_atlas_publish_guard.py require-new-tag-event
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Atlas tag-event guard failed.'
+          }
+          $tag = $env:GITHUB_REF_NAME
           $ref = "refs/tags/$tag"
-          if ($env:GITHUB_EVENT_NAME -ne 'push' -or $env:GITHUB_REF -ne $ref -or $env:GITHUB_REF_TYPE -ne 'tag' -or $env:GITHUB_REF_NAME -ne $tag) {
-            throw 'Release workflow did not receive the exact Dark-Medium Response Atlas tag event.'
-          }
           $event = Get-Content -Raw $env:GITHUB_EVENT_PATH | ConvertFrom-Json
-          $zero = ('0' * 40) -join ''
-          if ($event.ref -ne $ref -or $event.created -ne $true -or $event.deleted -ne $false -or $event.forced -ne $false -or $event.before -ne $zero) {
-            throw 'Atlas publication requires a newly created, non-forced tag reference.'
-          }
-          if ($event.after -notmatch '^[0-9a-f]{40}$' -or $event.repository.full_name -ine $env:GITHUB_REPOSITORY -or $event.repository.id -ne 1319077150) {
-            throw 'Atlas tag push-event identity does not match the declared repository.'
-          }
           git fetch --no-tags --no-recurse-submodules origin "+${ref}:${ref}"
           if ($LASTEXITCODE -ne 0) {
             throw 'Could not fetch the pushed Atlas tag object from origin.'
@@ -95,6 +89,19 @@ jobs:
             throw 'Atlas release tag target is not a merged origin/main commit.'
           }
 
+      - name: Require dedicated immutable-settings authority configuration
+        shell: pwsh
+        env:
+          ATLAS_RELEASE_APP_CLIENT_ID: ${{ vars.ATLAS_RELEASE_APP_CLIENT_ID }}
+          ATLAS_RELEASE_APP_PRIVATE_KEY_CONFIGURED: ${{ secrets.ATLAS_RELEASE_APP_PRIVATE_KEY != '' }}
+        run: |
+          if (
+            [string]::IsNullOrWhiteSpace($env:ATLAS_RELEASE_APP_CLIENT_ID) -or
+            $env:ATLAS_RELEASE_APP_PRIVATE_KEY_CONFIGURED -ne 'true'
+          ) {
+            throw 'BLOCKED_EXTERNAL_CONFIGURATION: configure the dedicated Atlas release GitHub App client ID and private key.'
+          }
+
       - name: Install hash-locked dependencies
         run: python -I -B -m pip install --require-hashes -r requirements-lock.txt
 
@@ -107,25 +114,31 @@ jobs:
       - name: Verify the final S2 publication boundary from the tagged commit
         run: python -I -B tools/build_dark_medium_response_atlas_publication_successor_overlay.py --verify-commit HEAD
 
+      - name: Create short-lived immutable-settings reader token
+        id: atlas-settings-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.ATLAS_RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.ATLAS_RELEASE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+          permission-administration: read
+
       - name: Require enabled immutable GitHub Releases
-        shell: pwsh
         env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          $immutableJson = gh api "repos/$env:GITHUB_REPOSITORY/immutable-releases"
-          if ($LASTEXITCODE -ne 0) {
-            throw 'Could not read the repository immutable-release setting.'
-          }
-          $immutable = $immutableJson | ConvertFrom-Json
-          if ($immutable.enabled -ne $true) {
-            throw 'Immutable GitHub Releases are not enabled; refusing to publish Atlas assets.'
-          }
+          ATLAS_RELEASE_SETTINGS_TOKEN: ${{ steps.atlas-settings-token.outputs.token }}
+        run: python -I -B tools/dark_medium_response_atlas_publish_guard.py require-immutable-releases
+
+      - name: Require unused Atlas release tag
+        env:
+          ATLAS_RELEASE_CONTENTS_TOKEN: ${{ github.token }}
+        run: python -I -B tools/dark_medium_response_atlas_publish_guard.py require-release-absent
 
       - name: Build and locally verify the exact five Atlas assets
         shell: pwsh
         run: |
-          $tag = 'dark-medium-response-atlas-v0.1.0'
-          $assets = Join-Path $env:RUNNER_TEMP 'dark-medium-response-atlas-v0.1.0-assets'
+          $tag = $env:GITHUB_REF_NAME
+          $assets = Join-Path $env:RUNNER_TEMP "$tag-assets"
           $expected = @(
             'dark-medium-response-atlas-v0.1.0.html',
             'dark-medium-response-atlas-v0.1.0.pdf',
@@ -148,12 +161,22 @@ jobs:
           }
           "ATLAS_RELEASE_ASSETS=$assets" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
+      - name: Recheck enabled immutable GitHub Releases immediately before publication
+        env:
+          ATLAS_RELEASE_SETTINGS_TOKEN: ${{ steps.atlas-settings-token.outputs.token }}
+        run: python -I -B tools/dark_medium_response_atlas_publish_guard.py require-immutable-releases
+
+      - name: Recheck Atlas release collision immediately before publication
+        env:
+          ATLAS_RELEASE_CONTENTS_TOKEN: ${{ github.token }}
+        run: python -I -B tools/dark_medium_response_atlas_publish_guard.py require-release-absent
+
       - name: Create and remotely re-verify immutable Atlas prerelease
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $tag = 'dark-medium-response-atlas-v0.1.0'
+          $tag = $env:GITHUB_REF_NAME
           $assets = $env:ATLAS_RELEASE_ASSETS
           $expected = @(
             'dark-medium-response-atlas-v0.1.0.html',
@@ -164,18 +187,6 @@ jobs:
           )
           if ([string]::IsNullOrWhiteSpace($assets) -or -not (Test-Path -LiteralPath $assets -PathType Container)) {
             throw 'The locally verified Atlas asset directory is unavailable.'
-          }
-
-          $priorReleasesJson = gh api "repos/$env:GITHUB_REPOSITORY/releases?per_page=100"
-          if ($LASTEXITCODE -ne 0) {
-            throw 'Could not list existing releases before Atlas prerelease publication.'
-          }
-          $priorReleases = @($priorReleasesJson | ConvertFrom-Json)
-          if ($priorReleases.Count -ge 100) {
-            throw 'Release listing reached its bounded page size; refusing to infer that the Atlas tag is unused.'
-          }
-          if (@($priorReleases | Where-Object { $_.tag_name -eq $tag }).Count -ne 0) {
-            throw 'An Atlas release already exists for this immutable tag; refusing to alter it.'
           }
 
           $releaseArguments = @(
