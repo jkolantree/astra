@@ -1604,6 +1604,23 @@ def check_publication_map() -> None:
     if "| Publication track |" in readme:
         raise RuntimeError("Root publication map regressed to a wide narrow-screen table")
 
+    publications = " ".join(
+        (ROOT / "PUBLICATIONS.md")
+        .read_text(encoding="utf-8")
+        .replace("*", "")
+        .replace("`", "")
+        .split()
+    )
+    for value in (
+        "2026-09-01 as the artifact and edition date",
+        "creation of the annotated tag and publication of the release on 2026-09-02",
+        "GitHub release display label, Dark-Medium Response Atlas v0.1.0, is abbreviated",
+        "Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and Observation",
+        "immutable v0.1.0 files and release assets remain unchanged",
+    ):
+        if value not in publications:
+            raise RuntimeError(f"Publication history omits Atlas metadata clarification: {value}")
+
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     for heading in (
         "## Unreleased",
