@@ -1,0 +1,18 @@
+{
+  "candidate": "response-null-candidate-1",
+  "data_provenance": "synthetic primitive species response plus independently seeded Gaussian component noise",
+  "identity_boundary": "input hashes exclude this record, results, root manifest and Git commit; outer manifest/commit bind outputs",
+  "inputs": {
+    "RUNTIME.json": "f3fa00ed692fc6738b47f6c8a44e9c5ac062d269ac452cfbcf90c4ef8ff39485",
+    "requirements-lock.txt": "69b83ca86466525e912ea7c2d4a614d426ab44411ccc2789febc32f54c255721",
+    "resources/dark-medium-response-atlas/v0.1.0/dark-medium-response-atlas-v0.1.0.md": "a4c0b2c2cc71df4ec430790039703d40497afe03bb13719fc52f62564e440310",
+    "resources/dark-medium-response-benchmark/draft-v0.1.0/benchmark.py": "0813d8be95df473723d76a6d06eaaa6bd65417dbb5ec30f8ef7964afb03c3d16",
+    "resources/dark-medium-response-benchmark/draft-v0.1.0/evaluation.json": "60fc1a5b763aef51ffb61bcbd9a63efda2a3589b93bbb77fbf9bd04cfa92d92b",
+    "tests/test_dark_medium_response_benchmark.py": "a174ced16da9178e1420d27ace8885143afb21e3b32c537ff3874a42412759dd"
+  },
+  "runtime": {
+    "implementation": "CPython",
+    "python": "3.12.10"
+  },
+  "status": "contract frozen before held-out scoring"
+}

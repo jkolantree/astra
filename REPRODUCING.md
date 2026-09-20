@@ -35,6 +35,22 @@ The Atlas builder is namespaced to its package. It does not rebuild or replace t
 
 Future Atlas publication tags use two separate GitHub authorities. A dedicated GitHub App, installed only on this repository with repository **Administration: read**, supplies a short-lived token solely for checking that immutable releases are explicitly enabled. The ordinary Actions token retains **Contents: write** for release creation and verification; it is never used as a fallback for the settings check. Repository operators must configure the App client ID as `ATLAS_RELEASE_APP_CLIENT_ID` and its private key as `ATLAS_RELEASE_APP_PRIVATE_KEY`. Until both values exist, the namespaced Atlas workflow stops as `BLOCKED_EXTERNAL_CONFIGURATION` before publication. Before creating a future Atlas tag, its candidate must update and verify every version-bound workflow input and evidence gate, including the artifact controller, successor verifier, release title and notes path, asset names and output paths, and allowlist. The wildcard trigger does not weaken those fail-closed package checks.
 
+### Nonpublishing authority check for repository operators
+
+The [Atlas release authority preflight](.github/workflows/atlas-release-preflight.yml) can be manually dispatched from `main` in `jkolantree/astra`, repository ID `1319077150`. It takes no inputs, uses **Contents: read**, and calls the same immutable-settings guard as publication. The App token is restricted to this repository and **Administration: read**. Token creation and revocation are handled by the pinned GitHub action; the settings check only reads the repository setting. The workflow contains no tag, release, asset, or repository-setting mutation step.
+
+If the configuration names are absent, the owner must complete this separately authorized checklist:
+
+1. Register a dedicated GitHub App with repository **Administration: read** and no additional requested permissions or webhooks. GitHub supplies the mandatory metadata access.
+2. Install that App for **Only select repositories**, selecting only `jkolantree/astra`.
+3. Store the App client ID in the repository Actions variable `ATLAS_RELEASE_APP_CLIENT_ID`.
+4. Generate the App private key and store it directly in the repository Actions secret `ATLAS_RELEASE_APP_PRIVATE_KEY` using GitHub's secure settings interface. Keep the key out of chat, source files, logs, reports, and artifacts.
+5. In Actions, select **Atlas release authority preflight**, choose **Run workflow** on `main`, and inspect the run summary and settings step. Do not create a tag or rerun the historical publication workflow to test authority.
+
+These steps follow [GitHub's App authentication guidance](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/making-authenticated-api-requests-with-a-github-app-in-a-github-actions-workflow) and the [immutable-settings API permission contract](https://docs.github.com/en/rest/repos/repos#check-if-immutable-releases-are-enabled-for-a-repository). Creating or installing the App and changing its configuration require separate owner authorization. If the guard reports disabled immutability, any settings change also requires separate authorization; the preflight cannot enable it.
+
+The summary distinguishes configuration presence, token creation, and the settings guard result. Only a successful settings step establishes authenticated settings access and literal Boolean `enabled: true`. Configuration names alone and mocked tests do not establish operational readiness. Actual publication remains **UNEXERCISED**, even after a successful preflight. The existing controller accepts only v0.1.0, whose published release already exists; a future version requires the explicit version-bound preparation above and fresh publication authorization. A green preflight does not authorize or exercise publication.
+
 ## *Earth Is the Instrument* v0.3.0
 
 Use the [versioned resource guide](resources/earth-is-the-instrument/v0.3.0/README.md) and [tagged release](https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0). That package retains its own source archive, checksum roster, environment disclosure, 90-check package gate, and known accessibility limits.

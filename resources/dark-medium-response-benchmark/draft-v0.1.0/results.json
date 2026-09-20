@@ -1,0 +1,426 @@
+{
+  "candidate": "response-null-candidate-1",
+  "comparative_utility": "UNESTABLISHED: coordinate re-expression is not a distinct inference method",
+  "controls": {
+    "broken_pressure_cross_response_max": 0.707389638161144,
+    "density_independent_frequency_ratio_exact": true,
+    "exact_rational_algebra_cases": 15,
+    "full_response_mixing_sign_difference": 2.7876857080669963,
+    "gain_drive_compensation_difference": 0.0,
+    "known_unit_drive_calibrated_gain": 2.0,
+    "mass_only_charge_scale_difference_at_symmetry": 3.580361673049448e-15,
+    "mass_only_exact_observational_classes": {
+      "p0-d0": [
+        "p0-d0",
+        "p0-d2"
+      ],
+      "p0-d1": [
+        "p0-d1",
+        "p1-d1"
+      ],
+      "p0-d2": [
+        "p0-d0",
+        "p0-d2"
+      ],
+      "p1-d0": [
+        "p1-d0",
+        "p1-d2"
+      ],
+      "p1-d1": [
+        "p0-d1",
+        "p1-d1"
+      ],
+      "p1-d2": [
+        "p1-d0",
+        "p1-d2"
+      ]
+    },
+    "mass_only_mixing_sign_difference": 2.0114655421281033e-15,
+    "max_independent_formulation_absolute_error": 9.111948763821684e-15,
+    "minimum_undamped_squared_frequency": 0.4238759838953434,
+    "noise_free_full_response_unique_recoveries": 6,
+    "second_k_compensation_difference": 0.3736219494992912,
+    "single_k_compensation_difference": 0.0,
+    "status": "PASS: declared algebra and controls only",
+    "symmetric_cross_response_max": 2.2887833992611187e-16,
+    "zero_drive_equivalent_candidates": 6,
+    "zero_drive_max_response": 0.0
+  },
+  "evaluation": {
+    "full_response": {
+      "baseline_score": {
+        "approximate_95_percent_interval": [
+          0.9729935720081708,
+          1.0052028765292313
+        ],
+        "independent_repetition_aggregates": 64,
+        "mean": 0.9890982242687011
+      },
+      "max_paired_absolute_score_difference": 1.6431300764452317e-14,
+      "paired_relative_advantage": {
+        "approximate_95_percent_interval": [
+          -6.575131305173611e-16,
+          2.0622455474144245e-16
+        ],
+        "independent_repetition_aggregates": 64,
+        "mean": -2.256442878879593e-16
+      },
+      "paired_trials": 384,
+      "practical_criterion_met": false,
+      "recovery_by_fixed_truth": {
+        "p0-d0": {
+          "retained_class_size_range": [
+            1,
+            1
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          }
+        },
+        "p0-d1": {
+          "retained_class_size_range": [
+            1,
+            1
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          }
+        },
+        "p0-d2": {
+          "retained_class_size_range": [
+            1,
+            1
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          }
+        },
+        "p1-d0": {
+          "retained_class_size_range": [
+            1,
+            1
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          }
+        },
+        "p1-d1": {
+          "retained_class_size_range": [
+            1,
+            1
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          }
+        },
+        "p1-d2": {
+          "retained_class_size_range": [
+            1,
+            1
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          }
+        }
+      },
+      "response_score": {
+        "approximate_95_percent_interval": [
+          0.972993572008171,
+          1.0052028765292316
+        ],
+        "independent_repetition_aggregates": 64,
+        "mean": 0.9890982242687013
+      },
+      "same_fitted_classes": 384
+    },
+    "mass_only": {
+      "baseline_score": {
+        "approximate_95_percent_interval": [
+          0.9496624871917267,
+          1.0032069075837917
+        ],
+        "independent_repetition_aggregates": 64,
+        "mean": 0.9764346973877592
+      },
+      "max_paired_absolute_score_difference": 5.695444116327053e-14,
+      "paired_relative_advantage": {
+        "approximate_95_percent_interval": [
+          3.8031875238956466e-16,
+          4.068829392470477e-15
+        ],
+        "independent_repetition_aggregates": 64,
+        "mean": 2.2245740724300208e-15
+      },
+      "paired_trials": 384,
+      "practical_criterion_met": false,
+      "recovery_by_fixed_truth": {
+        "p0-d0": {
+          "retained_class_size_range": [
+            2,
+            2
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 0.0,
+            "successes": 0,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.0,
+              0.05662405979280534
+            ]
+          }
+        },
+        "p0-d1": {
+          "retained_class_size_range": [
+            2,
+            2
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 0.0,
+            "successes": 0,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.0,
+              0.05662405979280534
+            ]
+          }
+        },
+        "p0-d2": {
+          "retained_class_size_range": [
+            2,
+            2
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 0.0,
+            "successes": 0,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.0,
+              0.05662405979280534
+            ]
+          }
+        },
+        "p1-d0": {
+          "retained_class_size_range": [
+            2,
+            2
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 0.0,
+            "successes": 0,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.0,
+              0.05662405979280534
+            ]
+          }
+        },
+        "p1-d1": {
+          "retained_class_size_range": [
+            2,
+            2
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 0.0,
+            "successes": 0,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.0,
+              0.05662405979280534
+            ]
+          }
+        },
+        "p1-d2": {
+          "retained_class_size_range": [
+            2,
+            2
+          ],
+          "truth_in_fitted_class": {
+            "rate": 1.0,
+            "successes": 64,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.9433759402071946,
+              1.0
+            ]
+          },
+          "unique_true_recovery": {
+            "rate": 0.0,
+            "successes": 0,
+            "trials": 64,
+            "wilson_95_percent_interval": [
+              0.0,
+              0.05662405979280534
+            ]
+          }
+        }
+      },
+      "response_score": {
+        "approximate_95_percent_interval": [
+          0.9496624871917247,
+          1.003206907583789
+        ],
+        "independent_repetition_aggregates": 64,
+        "mean": 0.9764346973877569
+      },
+      "same_fitted_classes": 384
+    }
+  },
+  "frozen_evaluation_sha256": "a2971d4a26550b4bc348fce7d618d9ca9789af1f6eaeb30e3291e10ddd95a793",
+  "input_identity": {
+    "candidate": "response-null-candidate-1",
+    "data_provenance": "synthetic primitive species response plus independently seeded Gaussian component noise",
+    "identity_boundary": "input hashes exclude this record, results, root manifest and Git commit; outer manifest/commit bind outputs",
+    "inputs": {
+      "RUNTIME.json": "f3fa00ed692fc6738b47f6c8a44e9c5ac062d269ac452cfbcf90c4ef8ff39485",
+      "requirements-lock.txt": "69b83ca86466525e912ea7c2d4a614d426ab44411ccc2789febc32f54c255721",
+      "resources/dark-medium-response-atlas/v0.1.0/dark-medium-response-atlas-v0.1.0.md": "a4c0b2c2cc71df4ec430790039703d40497afe03bb13719fc52f62564e440310",
+      "resources/dark-medium-response-benchmark/draft-v0.1.0/benchmark.py": "0813d8be95df473723d76a6d06eaaa6bd65417dbb5ec30f8ef7964afb03c3d16",
+      "resources/dark-medium-response-benchmark/draft-v0.1.0/evaluation.json": "60fc1a5b763aef51ffb61bcbd9a63efda2a3589b93bbb77fbf9bd04cfa92d92b",
+      "tests/test_dark_medium_response_benchmark.py": "a174ced16da9178e1420d27ace8885143afb21e3b32c537ff3874a42412759dd"
+    },
+    "runtime": {
+      "implementation": "CPython",
+      "python": "3.12.10"
+    },
+    "status": "contract frozen before held-out scoring"
+  },
+  "interpretation": "Additional drives/readouts resolve only the declared finite-library observational classes. Coordinate re-expression supplies no distinct method or general superiority result.",
+  "numeric_engine": "CPython standard-library complex arithmetic, random.Random.gauss, and exact Fraction controls; no external numeric kernel",
+  "scientific_ceiling": "Synthetic conditional fluid response only; no empirical validation, dark-matter detection, ontology, novelty, peer review, CRS superiority, core integration or publication authority.",
+  "status": "COMPLETED_SYNTHETIC_EXPERIMENT"
+}

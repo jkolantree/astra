@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 import json
+import urllib.error
+import urllib.request
 from collections.abc import Mapping
 from typing import Any
 
 import pytest
 
+import tools.dark_medium_response_atlas_publish_guard as guard
+import tools.dark_medium_response_atlas_release as release_controller
 from tools.dark_medium_response_atlas_publish_guard import (
     GITHUB_API_VERSION,
     GuardError,
@@ -177,3 +181,83 @@ def test_no_existing_release_is_accepted() -> None:
         transport=transport,
     )
     assert len(transport.calls) == 1
+
+
+@pytest.mark.parametrize("value", ({"enabled": 1}, {"enabled": None}, [], True, None))
+def test_nonboolean_or_nonobject_settings_cannot_establish_authority(value: Any) -> None:
+    with pytest.raises(GuardError):
+        require_immutable_releases_enabled(
+            REPOSITORY, SECRET_SENTINEL, transport=Responses(response(200, value))
+        )
+
+
+def test_invalid_utf8_settings_are_rejected_without_echoing_response() -> None:
+    with pytest.raises(GuardError, match="not valid UTF-8 JSON") as failure:
+        require_immutable_releases_enabled(
+            REPOSITORY,
+            SECRET_SENTINEL,
+            transport=Responses(response(200, b"\xff" + SECRET_SENTINEL.encode(), raw=True)),
+        )
+    assert SECRET_SENTINEL not in str(failure.value)
+
+
+@pytest.mark.parametrize("value", ("", " ", " secret", "secret ", "secret\nvalue"))
+def test_malformed_settings_tokens_fail_closed_without_echoing_value(value: str) -> None:
+    with pytest.raises(GuardError, match="BLOCKED_EXTERNAL_CONFIGURATION") as failure:
+        _token({"ATLAS_RELEASE_SETTINGS_TOKEN": value}, "ATLAS_RELEASE_SETTINGS_TOKEN")
+    assert "secret" not in str(failure.value)
+
+
+@pytest.mark.parametrize("status", (301, 302, 303, 307, 308))
+def test_settings_transport_never_follows_redirects(status: int) -> None:
+    request = urllib.request.Request("https://api.github.com/repos/jkolantree/astra/immutable-releases")
+    assert guard._RejectRedirects().redirect_request(
+        request, None, status, "redirect", {}, "https://other.example/settings"
+    ) is None
+
+
+def test_settings_transport_rejects_another_origin_before_sending_authority(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def unexpected_opener(*_args: Any) -> None:
+        pytest.fail("A foreign API origin must be rejected before opening a connection")
+
+    monkeypatch.setattr(guard.urllib.request, "build_opener", unexpected_opener)
+    with pytest.raises(GuardError, match="unexpected API origin"):
+        guard._https_get("https://api.github.com.other.example/settings", guard._headers(SECRET_SENTINEL))
+
+
+@pytest.mark.parametrize("status", (302, 401, 403))
+def test_settings_transport_uses_get_and_redacts_http_errors(
+    monkeypatch: pytest.MonkeyPatch, status: int,
+) -> None:
+    class DeniedOpener:
+        def open(self, request: urllib.request.Request, timeout: int) -> None:
+            assert request.get_method() == "GET"
+            assert request.data is None
+            assert timeout == 30
+            raise urllib.error.HTTPError(request.full_url, status, SECRET_SENTINEL, {}, None)
+
+    def build_opener(handler: Any) -> DeniedOpener:
+        assert isinstance(handler, guard._RejectRedirects)
+        return DeniedOpener()
+
+    monkeypatch.setattr(guard.urllib.request, "build_opener", build_opener)
+    with pytest.raises(GuardError, match=f"HTTP {status}") as failure:
+        guard._https_get(
+            "https://api.github.com/repos/jkolantree/astra/immutable-releases",
+            guard._headers(SECRET_SENTINEL),
+        )
+    assert SECRET_SENTINEL not in str(failure.value)
+
+
+@pytest.mark.parametrize("tag", ("dark-medium-response-atlas-v0.1.1", "dark-medium-response-atlas-v1.0.0"))
+def test_wildcard_tag_event_does_not_expand_supported_controller_versions(
+    monkeypatch: pytest.MonkeyPatch, tag: str,
+) -> None:
+    def unexpected_git(*_args: Any, **_kwargs: Any) -> None:
+        pytest.fail("Unsupported versions must be rejected before reading a tag")
+
+    monkeypatch.setattr(release_controller, "git", unexpected_git)
+    with pytest.raises(RuntimeError, match="Unexpected Dark-Medium Response Atlas release tag"):
+        release_controller.tag_identity(tag)
