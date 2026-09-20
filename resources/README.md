@@ -24,6 +24,16 @@ pointer. Citation metadata names the versioned route and tag instead. The
 preserved `draft-v0.1.0/` package and its S1 admission record remain historical
 source evidence; they are not alternate publication assets.
 
+## Draft response benchmark
+
+[Dark-medium response benchmark](dark-medium-response-benchmark/draft-v0.1.0/)
+is a separate **Draft**, unpromoted synthetic experiment on the Atlas's
+two-species linear response. It tests algebra, observation-induced ambiguity,
+parameter compensation, and recovery with additional measurements. Its
+conventional least-squares comparison does not establish a new inference
+method's advantage. Results belong to this benchmark alone; it has no Pages
+route or release and does not modify the published Atlas evidence or ASTRA core.
+
 ## *Earth Is the Instrument* publication line
 
 - **Supplemental working-paper release — [ASTRA Framework

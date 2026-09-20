@@ -1,0 +1,57 @@
+{
+  "candidate": "response-null-candidate-1",
+  "status": "Draft; experimental; unpromoted",
+  "python": "3.12.10",
+  "model": {
+    "mass_plus": 1.0,
+    "mass_minus": 1.0,
+    "number_density": 1.0,
+    "mean_sound_squared": 1.0,
+    "jeans_squared": 0.2,
+    "damping": 0.15,
+    "charge_squared_frequency_grid": [0.8, 1.6],
+    "half_sound_squared_difference_grid": [-0.2, 0.0, 0.2]
+  },
+  "operators": ["mass_only", "full_response"],
+  "sampling": {
+    "training": {"wave_numbers": [0.8, 1.2], "frequencies": [0.25, 0.65, 1.05, 1.45, 1.85]},
+    "held_out": {"wave_numbers": [1.0, 1.4], "frequencies": [0.45, 0.85, 1.25, 1.65, 2.05]},
+    "noise": "independent zero-mean Gaussian real and imaginary components",
+    "noise_component_sigma": 0.04,
+    "filter": "identity; no data-dependent filtering",
+    "development_seed": 14001,
+    "evaluation_seed": 910001,
+    "repetitions": 64,
+    "seed_derivation": "SHA256 of evaluation_seed:repetition:truth_id:operator:split; full digest as integer"
+  },
+  "inference": {
+    "established_baseline": "finite-library Gaussian weighted least squares in primitive species coordinates",
+    "response_formulation": "the same finite-library weighted least squares in mass-charge coordinates",
+    "candidate_budget_per_fit": 6,
+    "tuning_budget": 0,
+    "tie_cost_absolute_tolerance": 1e-9,
+    "tie_rule": "retain every minimizer within tolerance; first library index for prediction only",
+    "fixed_known_nuisance": ["drive amplitude", "sensor gain", "damping", "noise sigma", "mean sound squared", "Jeans squared"],
+    "information_policy": "both formulations receive exactly the same observations, candidate library, operator, noise model and budget"
+  },
+  "scoring": {
+    "primary": "held-out mean squared residual divided by noise variance, per real component",
+    "paired_advantage": "(baseline score - response score) / baseline score; first average six truths within each repetition",
+    "practical_relative_improvement": 0.05,
+    "uncertainty": "mean +/- 1.99834 times sample standard error over 64 independent repetition aggregates; approximate two-sided 95% Student interval",
+    "recovery_uncertainty": "Wilson 95% interval over repetitions, reported separately for each fixed truth and operator",
+    "method_equivalence_tolerance": 1e-9,
+    "allowed_null": "ties, unresolved parameter classes and no comparative gain are valid scientific outcomes",
+    "utility_claim": "UNESTABLISHED: coordinate re-expression is not a distinct inference method"
+  },
+  "controls": {
+    "algebra_tolerance": 1e-11,
+    "observable_equivalence_tolerance": 1e-10,
+    "required": ["exact rational species-to-mode algebra", "equal-pair decoupling", "unequal-mass equal-pressure decoupling", "unequal-pressure mixing", "density-independent frequency ratio", "zero-gravity and zero-charge limits", "noise-free full-response recovery", "zero-drive null", "mass-only charge-scale invisibility at zero mixing", "mass-only mixing-sign ambiguity", "single-wave-number pressure-gravity-charge compensation", "sensor-gain and drive-amplitude compensation", "second-wave-number compensation breaking"]
+  },
+  "failure_policy": {
+    "harness_failure": ["source or configuration identity mismatch", "runtime mismatch", "nonfinite value", "singular solve", "unexpected algebra or control failure", "changed candidate budget", "overlapping split points or reused split seeds"],
+    "scientific_failure": ["poor noisy recovery", "worse held-out prediction", "failure to resolve a parameter class"],
+    "post_evaluation_change": "substantive changes require a new candidate/run; reused cases become regression evidence"
+  }
+}

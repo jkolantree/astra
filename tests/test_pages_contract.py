@@ -16,6 +16,7 @@ VERIFY_WORKFLOW = ROOT / ".github" / "workflows" / "verify.yml"
 ATLAS_RELEASE_WORKFLOW = (
     ROOT / ".github" / "workflows" / "release-dark-medium-response-atlas.yml"
 )
+ATLAS_PREFLIGHT_WORKFLOW = ROOT / ".github" / "workflows" / "atlas-release-preflight.yml"
 ATLAS_PUBLISH_GUARD = ROOT / "tools" / "dark_medium_response_atlas_publish_guard.py"
 COVER_SVG = ROOT / "docs" / "sppt-astra-cover.svg"
 COVER_ALT = (
@@ -801,6 +802,7 @@ def test_workflow_actions_use_current_immutable_pins() -> None:
         action_uses(load_yaml(VERIFY_WORKFLOW))
         + action_uses(load_yaml(PAGES_WORKFLOW))
         + action_uses(load_yaml(ATLAS_RELEASE_WORKFLOW))
+        + action_uses(load_yaml(ATLAS_PREFLIGHT_WORKFLOW))
     )
     assert uses
     assert all(re.fullmatch(r"[^@]+@[0-9a-f]{40}", value) for value in uses)

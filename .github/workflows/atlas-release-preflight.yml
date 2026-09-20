@@ -1,0 +1,103 @@
+name: Atlas release authority preflight
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Require the declared repository and main dispatch
+        id: context
+        shell: pwsh
+        run: |
+          if (
+            $env:GITHUB_EVENT_NAME -cne 'workflow_dispatch' -or
+            $env:GITHUB_REPOSITORY -cne 'jkolantree/astra' -or
+            $env:GITHUB_REPOSITORY_ID -cne '1319077150' -or
+            $env:GITHUB_REF -cne 'refs/heads/main' -or
+            $env:GITHUB_REF_TYPE -cne 'branch' -or
+            $env:GITHUB_SHA -cnotmatch '^[0-9a-f]{40}$'
+          ) {
+            throw 'Atlas authority preflight requires the declared repository and an exact main dispatch.'
+          }
+
+      - name: Require dedicated immutable-settings authority configuration
+        id: configuration
+        shell: pwsh
+        env:
+          ATLAS_RELEASE_APP_CLIENT_ID: ${{ vars.ATLAS_RELEASE_APP_CLIENT_ID }}
+          ATLAS_RELEASE_APP_PRIVATE_KEY_CONFIGURED: ${{ secrets.ATLAS_RELEASE_APP_PRIVATE_KEY != '' }}
+        run: |
+          if (
+            [string]::IsNullOrWhiteSpace($env:ATLAS_RELEASE_APP_CLIENT_ID) -or
+            $env:ATLAS_RELEASE_APP_PRIVATE_KEY_CONFIGURED -cne 'true'
+          ) {
+            throw 'BLOCKED_EXTERNAL_CONFIGURATION: configure the dedicated Atlas release GitHub App client ID and private key.'
+          }
+
+      - name: Checkout the dispatched main commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Install exact Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version-file: .python-version
+
+      - name: Verify the declared CPython version
+        shell: pwsh
+        run: |
+          python -I -B -c "import json, platform; from pathlib import Path; required = json.loads(Path('RUNTIME.json').read_text(encoding='utf-8'))['python']; actual = platform.python_version(); assert platform.python_implementation() == 'CPython' and actual == required == Path('.python-version').read_text().strip(), 'Required CPython runtime unavailable'; print('CPython ' + actual)"
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Required CPython runtime unavailable.'
+          }
+
+      - name: Create short-lived immutable-settings reader token
+        id: atlas-settings-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.ATLAS_RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.ATLAS_RELEASE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+          permission-administration: read
+
+      - name: Require enabled immutable GitHub Releases
+        id: settings
+        shell: pwsh
+        env:
+          ATLAS_RELEASE_SETTINGS_TOKEN: ${{ steps.atlas-settings-token.outputs.token }}
+        run: |
+          python -I -B tools/dark_medium_response_atlas_publish_guard.py require-immutable-releases
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Immutable-release settings verification failed; publication remains unexercised.'
+          }
+
+      - name: Report the nonpublishing evidence boundary
+        if: always()
+        shell: pwsh
+        env:
+          CONTEXT_OUTCOME: ${{ steps.context.outcome }}
+          CONFIGURATION_OUTCOME: ${{ steps.configuration.outcome }}
+          TOKEN_OUTCOME: ${{ steps.atlas-settings-token.outcome }}
+          SETTINGS_OUTCOME: ${{ steps.settings.outcome }}
+        run: |
+          @(
+            '## Atlas release authority preflight',
+            '',
+            "- Repository and main dispatch: $env:CONTEXT_OUTCOME",
+            "- Configuration presence: $env:CONFIGURATION_OUTCOME",
+            "- App installation token creation: $env:TOKEN_OUTCOME",
+            "- Settings access and literal enabled:true: $env:SETTINGS_OUTCOME",
+            '- Actual publication: UNEXERCISED',
+            '',
+            'Only a successful settings step establishes settings access and enabled immutability. Failed or skipped steps establish neither operational readiness nor publication.',
+            'This workflow has no tag, release, asset, or repository-setting mutation step.'
+          ) | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append

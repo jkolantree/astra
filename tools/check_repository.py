@@ -421,6 +421,14 @@ SPPT_ASTRA_V108_DOCX_PATH = (
     "ASTRA_SPPT_v1.0.8_Endogenous_Visibility_Candidate.docx"
 )
 RESOURCE_EXACT_SUFFIX_ALLOWLIST = {SPPT_ASTRA_V108_DOCX_PATH}
+RESPONSE_BENCHMARK_ROOT = "resources/dark-medium-response-benchmark/draft-v0.1.0"
+RESPONSE_BENCHMARK_FILES = (
+    "README.md",
+    "evaluation.json",
+    "frozen-evaluation.json",
+    "benchmark.py",
+    "results.json",
+)
 FRAMEWORK_RESOURCE_COVER = "cover.png"
 RESOURCE_PATH_ALLOWLIST = {
     "resources/README.md",
@@ -449,6 +457,7 @@ RESOURCE_PATH_ALLOWLIST = {
     ),
     *(f"{DARK_MEDIUM_RESOURCE_ROOT}/v0.1.0/{name}" for name in DARK_MEDIUM_FINAL_FILES),
     *(f"{SPPT_ASTRA_V108_CANDIDATE_ROOT}/{name}" for name in SPPT_ASTRA_V108_CANDIDATE_FILES),
+    *(f"{RESPONSE_BENCHMARK_ROOT}/{name}" for name in RESPONSE_BENCHMARK_FILES),
 }
 
 
