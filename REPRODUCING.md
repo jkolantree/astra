@@ -10,8 +10,11 @@ hash-pinned Astral CPython 3.12.10 and Debian Git 2.47.3 archives into ignored `
 downloads hash-pinned Microsoft PowerShell 7.5.4 for the workflow guard tests,
 creates `.venv`, installs the existing hash-locked dependencies, and installs the
 Playwright-pinned Chromium. It does not change host packages or security settings.
-The host must already supply `python3` (3.12 or later), `dpkg-deb`, and Chromium's
-Linux shared libraries. CI declares these prerequisites explicitly.
+The host must already supply `python3` (3.12 or later), `dpkg-deb`, Chromium's
+Linux shared libraries, and Debian's `fonts-liberation` package for the SVG cover's
+Arial-compatible fallback. CI declares these prerequisites explicitly. The cover's
+measured label-clearance test remains unchanged; missing fallback fonts must not be
+worked around by relaxing that test.
 
 ```sh
 python3 -I -B tools/bootstrap_linux.py
