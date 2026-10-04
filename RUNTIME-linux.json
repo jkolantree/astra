@@ -41,7 +41,15 @@
     "libc": [
       "glibc",
       "2.41"
-    ]
+    ],
+    "test_shell": {
+      "provider": "Microsoft PowerShell",
+      "version": "7.5.4",
+      "asset": "powershell-7.5.4-linux-x64.tar.gz",
+      "source": "https://github.com/PowerShell/PowerShell/releases/download/v7.5.4/powershell-7.5.4-linux-x64.tar.gz",
+      "sha256": "1fd7983fe56ca9e6233f126925edb24bf6b6b33e356b69996d925c4db94e2fef",
+      "executable_sha256": "e0c6c82153c6655a842602be4ea7607d4e3a137b1956668ef44d1b1b7bf939b8"
+    }
   },
   "dependency_lock": {
     "file": "requirements-lock.txt",

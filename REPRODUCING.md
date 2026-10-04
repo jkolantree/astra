@@ -7,6 +7,7 @@ Choose the publication identity before choosing a command. The core and each sup
 New development uses [RUNTIME-linux.json](RUNTIME-linux.json). The supported host
 is Debian 13 x86-64 with glibc 2.41 and AVX2/FMA3. The local bootstrap downloads
 hash-pinned Astral CPython 3.12.10 and Debian Git 2.47.3 archives into ignored `tmp/`,
+downloads hash-pinned Microsoft PowerShell 7.5.4 for the workflow guard tests,
 creates `.venv`, installs the existing hash-locked dependencies, and installs the
 Playwright-pinned Chromium. It does not change host packages or security settings.
 The host must already supply `python3` (3.12 or later), `dpkg-deb`, and Chromium's
@@ -21,7 +22,7 @@ python3 -I -B tools/bootstrap_linux.py
 The Linux verifier checks the Python executable and shared-library hashes, exact
 Git executable, lockfile, installed distribution versions, numerical-library hashes,
 Haswell single-thread execution, CPU-feature restrictions, font bytes, Chromium
-revision/version and headless executable. It uses repository-local browser and tool
+revision/version and headless executable, plus the test-shell executable and version. It uses repository-local browser and tool
 paths rather than the shell's default Python or Git. No credentials are needed.
 Hash pins identify the retrieved upstream archives; they are not a claim of an
 independent signature audit. Host distribution and libc are checked, but the entire

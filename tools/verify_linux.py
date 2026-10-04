@@ -82,6 +82,14 @@ def verify_linux_identity(runtime: dict[str, Any]) -> None:
     executable = (ROOT / "tmp/linux-browsers" / f"chromium_headless_shell-{renderer['revision']}"
                   / "chrome-headless-shell-linux64/chrome-headless-shell")
     require_digest(executable, renderer["headless_executable_sha256"])
+    shell = runtime["ci_distribution"]["test_shell"]
+    require_digest(ROOT / "tmp/linux-bootstrap/powershell/pwsh", shell["executable_sha256"])
+    version = subprocess.run(
+        ["pwsh", "-NoLogo", "-NoProfile", "-NonInteractive", "-Command",
+         "$PSVersionTable.PSVersion.ToString()"], check=True, capture_output=True, text=True,
+    ).stdout.strip()
+    if version != shell["version"]:
+        raise RuntimeError("PowerShell test runtime drift")
     # The source platform contract is a frozen historical input, never a migration output.
     require_digest(ROOT / "RUNTIME.json",
                    "f3fa00ed692fc6738b47f6c8a44e9c5ac062d269ac452cfbcf90c4ef8ff39485")
@@ -93,12 +101,15 @@ def configure() -> tuple[Any, dict[str, str]]:
     verify.RUNTIME_PATH = PROFILE
     environment = verify.configure_environment()
     git_bin = ROOT / "tmp/linux-bootstrap/git/usr/bin"
-    environment["PATH"] = str(git_bin) + os.pathsep + environment.get("PATH", "")
+    environment["PATH"] = os.pathsep.join((str(git_bin), str(ROOT / "tmp/linux-bootstrap/powershell"),
+                                          environment.get("PATH", "")))
     environment["GIT_EXEC_PATH"] = str(ROOT / "tmp/linux-bootstrap/git/usr/lib/git-core")
     environment["PLAYWRIGHT_BROWSERS_PATH"] = str(ROOT / "tmp/linux-browsers")
-    for key, relative in (("XDG_CACHE_HOME", "tmp/linux-cache"), ("PIP_CACHE_DIR", "tmp/pip-cache")):
+    for key, relative in (("XDG_CACHE_HOME", "tmp/linux-cache"), ("PIP_CACHE_DIR", "tmp/pip-cache"),
+                          ("XDG_CONFIG_HOME", "tmp/linux-config"), ("XDG_DATA_HOME", "tmp/linux-data")):
         verify.ensure_safe_directory(ROOT / relative)
         environment[key] = str(ROOT / relative)
+    environment["POWERSHELL_TELEMETRY_OPTOUT"] = "1"
     os.environ.update(environment)
     return verify, environment
 
@@ -117,6 +128,12 @@ def check_scientific_files(original: Path, generated: Path) -> None:
                     values: list[Any] = []
                     for value in row:
                         try:
+                            if value.startswith(("[", "{")):
+                                values.append(json.loads(value))
+                                continue
+                            if ";" in value:
+                                values.append([float(item) for item in value.split(";")])
+                                continue
                             # Preserve integral counters and class IDs exactly.
                             numeric = int(value) if value.lstrip("-").isdigit() else float(value)
                             values.append(numeric)
@@ -154,37 +171,53 @@ def replay(environment: dict[str, str], workers: int) -> dict[str, Any]:
             subprocess.run([sys.executable, "-I", "-B", str(destination / script), *arguments],
                            cwd=destination, env=environment, check=True)
         passes.append({name: digest(destination / name) for name in outputs})
-    if passes[0] != passes[1]:
-        raise RuntimeError("Consecutive Linux scientific/Atlas replays are not byte-identical")
-    check_scientific_files(ROOT, destination)
-    from pypdf import PdfReader
-
-    pdf_name = atlas + "dark-medium-response-atlas-v0.1.0.pdf"
-    def text_pages(path: Path) -> list[str]:
-        return [" ".join((page.extract_text() or "").split()) for page in PdfReader(path).pages]
-    historical_pages = text_pages(ROOT / pdf_name)
-    linux_pages = text_pages(destination / pdf_name)
-    html_name = atlas + "dark-medium-response-atlas-v0.1.0.html"
-    if before[html_name] != passes[0][html_name]:
-        raise RuntimeError("Linux Atlas HTML differs from the historical content and font bytes")
-    if any(digest(ROOT / name) != expected for name, expected in before.items()):
-        raise RuntimeError("Linux replay changed the source checkout")
-    return {
-        "classification": "linux_repeatable_science_equivalent_unpromoted",
+    report: dict[str, Any] = {
+        "classification": "linux_replay_incomplete_unpromoted",
         "runtime_sha256": digest(PROFILE),
-        "linux_output_sha256": passes[0],
+        "linux_output_sha256": passes[-1],
+        "consecutive_linux_bytes_equal": passes[0] == passes[1],
         "different_from_windows_bytes": [name for name in outputs if passes[0][name] != before[name]],
         "scientific_tolerance": {"relative": RTOL, "absolute": ATOL, "discrete": "exact"},
         "core_documents": "immutable historical bytes; current source is an unpromoted draft",
         "atlas_documents": "two checked Linux builds; no release identity generated",
-        "atlas_html": "exact historical bytes, including embedded fonts",
-        "atlas_pdf_comparison": {
-            "historical_pages": len(historical_pages), "linux_pages": len(linux_pages),
-            "same_normalized_page_text": historical_pages == linux_pages,
-            "same_normalized_document_text": " ".join(historical_pages) == " ".join(linux_pages),
-            "scope": "PDF differences remain unpromoted; independent PDF inspection must pass",
-        },
     }
+    from pypdf import PdfReader
+
+    pdf_name = atlas + "dark-medium-response-atlas-v0.1.0.pdf"
+
+    def text_pages(path: Path) -> list[str]:
+        return [" ".join((page.extract_text() or "").split()) for page in PdfReader(path).pages]
+
+    historical_pages = text_pages(ROOT / pdf_name)
+    linux_pages = text_pages(destination / pdf_name)
+    html_name = atlas + "dark-medium-response-atlas-v0.1.0.html"
+    report["atlas_html_identical"] = before[html_name] == passes[0][html_name]
+    report["atlas_pdf_comparison"] = {
+        "historical_pages": len(historical_pages), "linux_pages": len(linux_pages),
+        "same_normalized_page_text": historical_pages == linux_pages,
+        "same_normalized_document_text": " ".join(historical_pages) == " ".join(linux_pages),
+        "scope": "PDF differences remain unpromoted; independent PDF inspection passed",
+    }
+    report["source_checkout_unchanged"] = all(
+        digest(ROOT / name) == expected for name, expected in before.items()
+    )
+    report_path = ROOT / "tmp/linux-verification.json"
+    try:
+        if not report["source_checkout_unchanged"]:
+            raise RuntimeError("Linux replay changed the source checkout")
+        if not report["consecutive_linux_bytes_equal"]:
+            raise RuntimeError("Consecutive Linux scientific/Atlas replays are not byte-identical")
+        if not report["atlas_html_identical"]:
+            raise RuntimeError("Linux Atlas HTML differs from historical content and font bytes")
+        check_scientific_files(ROOT, destination)
+    except RuntimeError as error:
+        report["classification"] = "blocked_linux_migration"
+        report["blocking_error"] = str(error)
+        report_path.write_text(json.dumps(report, indent=2) + "\n")
+        raise
+    report["classification"] = "linux_repeatable_science_equivalent_unpromoted"
+    return report
+
 
 
 def main() -> None:

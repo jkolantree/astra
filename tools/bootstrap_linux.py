@@ -35,17 +35,22 @@ def main() -> None:
     sys.path.insert(0, str(ROOT))
     from tools.verify import ensure_safe_directory
 
-    for directory in (destination, destination / "python", destination / "git"):
+    for directory in (destination, destination / "python", destination / "git", destination / "powershell"):
         ensure_safe_directory(directory)
     archive = download(runtime["reference_distribution"], destination)
     with tarfile.open(archive) as bundle:
         bundle.extractall(destination, filter="data")
     git_archive = download(runtime["git"], destination)
     subprocess.run(["dpkg-deb", "--extract", str(git_archive), str(destination / "git")], check=True)
+    shell_archive = download(runtime["ci_distribution"]["test_shell"], destination)
+    with tarfile.open(shell_archive) as bundle:
+        bundle.extractall(destination / "powershell", filter="data")
+    (destination / "powershell/pwsh").chmod(0o755)
     python = destination / "python/bin/python3.12"
     for executable, expected in (
         (python, runtime["reference_distribution"]["executable_sha256"]),
         (destination / "git/usr/bin/git", runtime["git"]["executable_sha256"]),
+        (destination / "powershell/pwsh", runtime["ci_distribution"]["test_shell"]["executable_sha256"]),
     ):
         if hashlib.sha256(executable.read_bytes()).hexdigest() != expected:
             raise RuntimeError("Extracted executable digest mismatch")

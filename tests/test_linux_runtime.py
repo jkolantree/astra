@@ -74,6 +74,77 @@ def test_runtime_digest_rejects_replaced_executable(tmp_path: Path) -> None:
         verify_linux.require_digest(executable, expected)
 
 
+def test_scientific_csv_gate_checks_embedded_optimizer_values(tmp_path: Path) -> None:
+    original, generated = tmp_path / "original", tmp_path / "generated"
+    for directory in (original, generated):
+        (directory / "data").mkdir(parents=True)
+    source = "graph,conductance\nchain,0.22;1.4\n"
+    (original / "data/fit.csv").write_text(source)
+    (generated / "data/fit.csv").write_text(source)
+    verify_linux.check_scientific_files(original, generated)
+    (generated / "data/fit.csv").write_text(source.replace("1.4", "1.4000001"))
+    with pytest.raises(RuntimeError, match="Scientific numeric drift"):
+        verify_linux.check_scientific_files(original, generated)
+
+
+def test_bootstrap_rejects_cached_archive_corruption(tmp_path: Path) -> None:
+    from tools.bootstrap_linux import download
+
+    path = tmp_path / "archive.tar.gz"
+    path.write_bytes(b"trusted")
+    expected = verify_linux.digest(path)
+    path.write_bytes(b"corrupt")
+    with pytest.raises(RuntimeError, match="Cached archive digest"):
+        download({"asset": path.name, "sha256": expected}, tmp_path)
+
+
+@pytest.mark.parametrize("unstable", [False, True])
+def test_replay_records_failure_without_overwriting_historical_inputs(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, unstable: bool
+) -> None:
+    from pypdf import PdfWriter
+
+    from tools import check_repository
+
+    root = tmp_path / "repository"
+    (root / "tmp").mkdir(parents=True)
+    (root / "data").mkdir()
+    source = root / "data/fit.csv"
+    source.write_text("value\n1.0\n")
+    profile = root / "RUNTIME-linux.json"
+    profile.write_text("{}\n")
+    atlas = Path("resources/dark-medium-response-atlas/v0.1.0")
+    (root / atlas).mkdir(parents=True)
+    for name in ("html-accessibility.json", "pdf-inspection.json"):
+        (root / atlas / name).write_text("{}\n")
+    (root / atlas / "dark-medium-response-atlas-v0.1.0.html").write_text("fixed HTML")
+    writer = PdfWriter()
+    writer.add_blank_page(width=200, height=200)
+    writer.write(root / atlas / "dark-medium-response-atlas-v0.1.0.pdf")
+    paths = [path for path in root.rglob("*") if path.is_file()]
+    monkeypatch.setattr(verify_linux, "ROOT", root)
+    monkeypatch.setattr(verify_linux, "PROFILE", profile)
+    monkeypatch.setattr(check_repository, "public_files", lambda: paths)
+    count = 0
+
+    def build(command: list[str], **kwargs: object) -> None:
+        nonlocal count
+        if command[3].endswith("scripts/make_figures.py"):
+            count += 1
+            destination = Path(command[3]).parents[1]
+            value = count + 1 if unstable else 2
+            (destination / "data/fit.csv").write_text(f"value\n{value}.0\n")
+
+    monkeypatch.setattr(verify_linux.subprocess, "run", build)
+    with pytest.raises(RuntimeError, match="not byte-identical" if unstable else "Scientific numeric drift"):
+        verify_linux.replay({}, 4)
+    report = json.loads((root / "tmp/linux-verification.json").read_text())
+    assert report["classification"] == "blocked_linux_migration"
+    assert report["consecutive_linux_bytes_equal"] is not unstable
+    assert report["source_checkout_unchanged"] is True
+    assert source.read_text() == "value\n1.0\n"
+
+
 def test_linux_ci_has_read_only_permissions_and_separate_release_gate() -> None:
     from ruamel.yaml import YAML
 

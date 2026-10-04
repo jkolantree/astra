@@ -426,7 +426,7 @@
     "scientific_ceiling": "Synthetic conditional fluid response only; no empirical validation, dark-matter detection, ontology, novelty, peer review, CRS superiority, core integration or publication authority.",
     "status": "COMPLETED_SYNTHETIC_EXPERIMENT"
   },
-  "runtime_sha256": "fdaffed97575a08b810d1798eeca90efb9d6a5f5fe97c19589ea17d6dc12a6cf",
+  "runtime_sha256": "5a42b87caff575718791d2bc591b17c91b915a4bbd77db5bcd6b5fa0effa8a81",
   "source_sha256": {
     "benchmark.py": "0813d8be95df473723d76a6d06eaaa6bd65417dbb5ec30f8ef7964afb03c3d16",
     "evaluation.json": "60fc1a5b763aef51ffb61bcbd9a63efda2a3589b93bbb77fbf9bd04cfa92d92b",
