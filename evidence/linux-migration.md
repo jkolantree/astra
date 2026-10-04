@@ -96,11 +96,118 @@ normalized extracted page text/order differs with line wrapping and mathematical
 layout. Its bytes and inspection report therefore differ. It remains an unpromoted
 Linux rendering; no publication identity is generated or replaced.
 
-## Remaining acceptance boundary
+## Completed numerical diagnosis
 
-Linux development checks and full historical reproduction are separate claims.
-A reviewed scientific acceptance policy for the nonlinear optimizer outputs, and
-a review of the changed PDF layout, are required before a Linux publication baseline
-can be established. The full migration gate must remain failed until that work is
-completed. No tolerance waiver, release promotion, remote write, or security change
-is included in this branch.
+The reproducible diagnostic is `tools/diagnose_linux_portability.py`; its reviewed
+result is [linux-portability-diagnosis.json](linux-portability-diagnosis.json).
+Run it against a completed replay directory with:
+
+```sh
+.venv/bin/python -I -B tools/diagnose_linux_portability.py --replay-root tmp/linux-replay-wtu8lp0c
+```
+
+The directory above identifies the retained local replay, not an input distributed
+with the repository. Substitute the directory produced by a new full replay.
+The diagnostic records input hashes and writes only an ignored diagnostic report.
+Five tests cover a known step integral, independent reference agreement for both
+forcing protocols, rejection of unknown forcing, and strict/discrete drift counts.
+It does not refit, modify a producer, or approve a baseline.
+
+Both completed Linux replays produced identical bytes for all 57 generated files
+(53 scientific files plus four Atlas outputs). Thirty-two matched historical bytes.
+The strict historical comparison still fails at rtol=atol=1e-12. The single-fit JSON
+has 451 changed floating leaves, 446 outside tolerance, and 82 changed discrete
+leaves; the ensemble has 27,133 changed floating leaves, 10,477 outside tolerance,
+and 470 changed discrete leaves. These counts include repeated diagnostic records,
+not independent scientific observations.
+
+| Graph | Held-out RMSE delta (Linux minus Windows) | BIC delta | Accepted starts | Selected start |
+|---|---:|---:|---|---|
+| chain | +5.4818e-10 | +2.3956e-6 | 8 to 6 | 4 to 9 |
+| triangle | +3.8880e-8 | -1.1491e-6 | 15 to 15 | 8 to 10 |
+| surface star | -2.6146e-9 | -4.6167e-5 | 3 to 4 | 13 to 13 |
+| deep star | +5.7606e-8 | -4.0235e-5 | 4 to 5 | 10 to 14 |
+
+The largest fitted conductance difference is 3.4180e-5, approximately 34.18 million
+times the strict absolute bound. The largest held-out RMSE difference is 57,606
+times that bound. The ensemble mean triangle held-out RMSE difference is 1.86045e-11
+(18.60 times the bound); median shortcut conductance differs by 8.79151e-9
+(8,791.5 times the bound). All 64 individual seeds retain their winner, held-out
+ordering, and shortcut-boundary classification. The headline counts remain 64/64,
+23/64, and 29/64 respectively, and all optimizers report convergence.
+
+A closed-form matrix-exponential convolution for the declared sine and step inputs
+was cross-checked against DOP853 integration split at every forcing discontinuity.
+The two independent forward calculations agree within 3.02e-14 for all four fitted
+graphs and both protocols, including states integrated alongside sensitivities.
+The original RK45 implementation integrates across step discontinuities at rtol=1e-9,
+atol=1e-11, max_step=0.05. Its state error against these references reaches 3.742e-7;
+sensitivity differences reach 6.929e-8. Its least-squares stopping tolerances are
+1e-11. Integration error therefore provides a demonstrated source of numerical
+noise larger than the optimizer stopping tolerance. Platform roundoff amplified by
+stopping and multistart selection is a plausible explanation, not an isolated proof
+of the Windows/Linux cause. The ensemble uses matrix exponentials and Frechet
+sensitivities, so the single-fit discontinuity issue does not explain all its drift.
+No matched Windows kernel experiment has isolated that remaining cause.
+
+Evaluating historical and Linux fitted parameters with the same independent forward
+reference gives maximum surface-response difference 1.63544e-6, or 0.0654% of the
+simulated observation-noise standard deviation. This supports stability of the
+exercised predictions and headline classifications, not strict optimizer-record
+or universal scientific equivalence. A justified future numerical improvement is
+discontinuity-aware integration or a validated closed-form forward model, followed
+by a reviewed refit with stopping criteria consistent with integration error.
+Such a change requires a separately versioned research baseline; it cannot repair
+historical equivalence by substituting new expected outputs.
+
+## Completed PDF review
+
+All 27 Linux pages were rendered and visually reviewed in three nine-page contact
+sheets, with full-size checks of dense equations, tables, contents, and ending pages.
+No missing section, clipped table/equation, or overlapping content was observed.
+PDFium glyph checks found zero glyphs outside physical page bounds in either PDF.
+Excluding page-footer glyphs below 32 PDF points, both PDFs contain exactly 42,321
+non-whitespace body characters with identical character multisets. This inventory
+is a content-loss check, not a proof of identical reading order. Byte-identical HTML
+and the existing structural/font/formula checks provide additional evidence.
+
+The 27-versus-28 page difference is reflow, with no content loss detected. The
+nested-column contents page is cramped and the last Linux page contains only a
+two-line rights paragraph. These are retained layout limitations, not publication
+approval. No PDF, CSS, manuscript, or historical artifact was changed. Local visual
+and geometry evidence is retained under `tmp/linux-pdf-full-qa/`.
+
+## Commit identity and privacy
+
+The four unpublished migration commits inherited an unrecognized non-noreply email
+from global Git configuration. That identity was absent from the historical ancestry.
+Only those four commits were reconstructed using the owner-authorized public GitHub
+noreply identity; trees, messages, timestamps, and original historical commits were
+preserved. Corrected migration head `82237f16c59f3ccb479b7c8ffc2b78b9dfc9ce90`
+is tree-identical to its predecessor. Subsequent diagnostic commits explicitly use
+the same approved public identity. No global identity or security setting changed.
+The former commits remain only in a private local backup ref and must not be included
+in a mirror/all-refs push. The corrected branch identity is suitable for public
+review; this does not authorize publication or attest to a full historical audit.
+
+The migration and diagnosis were prepared with OpenAI Codex assistance. Existing
+public authorship and responsibility statements remain authoritative.
+
+Separate hardening proposals remain outside this migration: include HTML/SVG in the
+general privacy scanner and replace its 12 whole-file exceptions with narrow,
+reviewed fixture matches and negative tests. An extended inspection found no private
+matches in HTML/SVG. The conceptual-origin anecdote in PROV-C025 has six retained
+copies; a successor could describe author-reported conceptual origins and AI
+assistance as workflow provenance only, never scientific evidence. Frozen records
+have not been silently rewritten. These proposals need their own scoped review.
+
+## Remaining scientific decision
+
+The development candidate is usable for Linux work, but exact historical scientific
+reproduction remains blocked. Keep the strict gate failed. Choose either a separately
+versioned Linux research baseline, with reviewed numerical-method changes and refits,
+or the historical Windows runtime when claiming reproduction of the Windows record.
+Stable headline results alone do not authorize an equivalence waiver. No production
+numerical fix was applied because no demonstrated environment misconfiguration could
+restore the historical optimizer outputs without changing the scientific calculation.
+No remote write, release promotion, or security change is included.
