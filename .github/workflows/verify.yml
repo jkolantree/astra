@@ -109,7 +109,7 @@ jobs:
       - name: Bootstrap pinned Linux tools
         run: python3 -I -B tools/bootstrap_linux.py
       - name: Verify Linux development and isolated replay
-        run: .venv/bin/python -I -B tools/verify.py --all --workers 4
+        run: .venv/bin/python -I -B tools/verify_linux_baseline.py --all --workers 4
       - name: Reject source or historical artifact mutation
         run: |
           git diff --exit-code

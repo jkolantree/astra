@@ -99,8 +99,9 @@ def test_bootstrap_rejects_cached_archive_corruption(tmp_path: Path) -> None:
 
 
 @pytest.mark.parametrize("unstable", [False, True])
+@pytest.mark.parametrize("historical_required", [False, True])
 def test_replay_records_failure_without_overwriting_historical_inputs(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, unstable: bool
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, unstable: bool, historical_required: bool
 ) -> None:
     from pypdf import PdfWriter
 
@@ -136,10 +137,15 @@ def test_replay_records_failure_without_overwriting_historical_inputs(
             (destination / "data/fit.csv").write_text(f"value\n{value}.0\n")
 
     monkeypatch.setattr(verify_linux.subprocess, "run", build)
-    with pytest.raises(RuntimeError, match="not byte-identical" if unstable else "Scientific numeric drift"):
-        verify_linux.replay({}, 4)
-    report = json.loads((root / "tmp/linux-verification.json").read_text())
-    assert report["classification"] == "blocked_linux_migration"
+    if unstable or historical_required:
+        with pytest.raises(RuntimeError, match="not byte-identical" if unstable else "Scientific numeric drift"):
+            verify_linux.replay({}, 4, historical_required=historical_required)
+        report = json.loads((root / "tmp/linux-verification.json").read_text())
+        assert report["classification"] == "blocked_linux_migration"
+    else:
+        report = verify_linux.replay({}, 4, historical_required=False)
+        assert report["classification"] == "linux_repeatable_historical_drift_unpromoted"
+        assert report["historical_scientific_equivalence"] == "FAIL"
     assert report["consecutive_linux_bytes_equal"] is not unstable
     assert report["source_checkout_unchanged"] is True
     assert source.read_text() == "value\n1.0\n"
@@ -155,4 +161,4 @@ def test_linux_ci_has_read_only_permissions_and_separate_release_gate() -> None:
     assert "refs/tags/" in workflow["jobs"]["verify"]["if"]
     steps = "\n".join(step.get("run", "") for step in job["steps"])
     assert "bootstrap_linux.py" in steps
-    assert "verify.py --all --workers 4" in steps
+    assert "verify_linux_baseline.py --all --workers 4" in steps

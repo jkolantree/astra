@@ -146,7 +146,9 @@ def check_scientific_files(original: Path, generated: Path) -> None:
             raise RuntimeError(f"Unclassified scientific byte drift: {path.name}")
 
 
-def replay(environment: dict[str, str], workers: int) -> dict[str, Any]:
+def replay(
+    environment: dict[str, str], workers: int, *, historical_required: bool = True
+) -> dict[str, Any]:
     from tools import check_repository
 
     destination = Path(tempfile.mkdtemp(prefix="linux-replay-", dir=ROOT / "tmp"))
@@ -166,13 +168,15 @@ def replay(environment: dict[str, str], workers: int) -> dict[str, Any]:
     for _ in range(2):
         for script, arguments in (
             ("scripts/make_figures.py", ["--workers", str(workers)]),
-            ("tools/build_dark_medium_response_atlas_documents.py", ["--no-identity"]),
+            ("tools/build_dark_medium_response_atlas_documents.py",
+             ["--no-identity", "--linux-layout"]),
         ):
             subprocess.run([sys.executable, "-I", "-B", str(destination / script), *arguments],
                            cwd=destination, env=environment, check=True)
         passes.append({name: digest(destination / name) for name in outputs})
     report: dict[str, Any] = {
         "classification": "linux_replay_incomplete_unpromoted",
+        "replay_directory": destination.relative_to(ROOT).as_posix(),
         "runtime_sha256": digest(PROFILE),
         "linux_output_sha256": passes[-1],
         "consecutive_linux_bytes_equal": passes[0] == passes[1],
@@ -209,13 +213,25 @@ def replay(environment: dict[str, str], workers: int) -> dict[str, Any]:
             raise RuntimeError("Consecutive Linux scientific/Atlas replays are not byte-identical")
         if not report["atlas_html_identical"]:
             raise RuntimeError("Linux Atlas HTML differs from historical content and font bytes")
-        check_scientific_files(ROOT, destination)
+        try:
+            check_scientific_files(ROOT, destination)
+        except RuntimeError as error:
+            report["historical_scientific_equivalence"] = "FAIL"
+            report["historical_comparison_error"] = str(error)
+            if historical_required:
+                raise
+        else:
+            report["historical_scientific_equivalence"] = "PASS"
     except RuntimeError as error:
         report["classification"] = "blocked_linux_migration"
         report["blocking_error"] = str(error)
         report_path.write_text(json.dumps(report, indent=2) + "\n")
         raise
-    report["classification"] = "linux_repeatable_science_equivalent_unpromoted"
+    report["classification"] = (
+        "linux_repeatable_science_equivalent_unpromoted"
+        if report["historical_scientific_equivalence"] == "PASS"
+        else "linux_repeatable_historical_drift_unpromoted"
+    )
     return report
 
 

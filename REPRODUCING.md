@@ -16,7 +16,7 @@ Linux shared libraries. CI declares these prerequisites explicitly.
 ```sh
 python3 -I -B tools/bootstrap_linux.py
 .venv/bin/python -I -B tools/verify.py --runtime-only
-.venv/bin/python -I -B tools/verify.py --all --workers 4
+.venv/bin/python -I -B tools/verify_linux_baseline.py --all --workers 4
 ```
 
 The Linux verifier checks the Python executable and shared-library hashes, exact
@@ -28,6 +28,13 @@ Hash pins identify the retrieved upstream archives; they are not a claim of an
 independent signature audit. Host distribution and libc are checked, but the entire
 OS image and all browser-linked system-library bytes are not yet frozen.
 
+The separately versioned [Linux research v1 baseline](evidence/linux-research-v1.md)
+fixes the existing experimental methods, fresh Linux refits, four-worker execution,
+and all 57 expected output hashes in `evidence/linux-research-v1.json`. The baseline
+controller never updates expected hashes. It requires two matching builds and an
+exact match to that versioned record. The Atlas uses an opt-in print-only Linux
+layout; historical HTML, CSS, PDFs and publication identity remain unchanged.
+
 The test suite and repository, lint, type, citation, link, PDF and manifest gates run
 before replay. `--all` builds scientific outputs and Atlas documents twice in a
 fresh ignored copy. Consecutive Linux bytes must agree. Scientific JSON/CSV values
@@ -35,7 +42,11 @@ must also agree with the historical outputs at relative and absolute tolerance
 1e-12 (tighter than the Draft benchmark's 1e-11 algebra gate); integer counts,
 classification outcomes, keys and identities remain exact. Rendered byte differences
 are reported separately and never treated as proof of scientific equivalence.
-The report is `tmp/linux-verification.json`; a failed comparison is a failed gate.
+The strict historical route remains `.venv/bin/python -I -B tools/verify.py --all
+--workers 4`; a failed historical comparison remains a failed gate. The separate
+Linux baseline route records that historical failure explicitly in
+`tmp/linux-baseline-verification.json` while judging Linux bytes against Linux v1.
+A Linux baseline pass is not a Windows equivalence claim.
 
 The Draft benchmark has a separate Linux byte fixture in
 [evidence/linux-benchmark-results.json](evidence/linux-benchmark-results.json),

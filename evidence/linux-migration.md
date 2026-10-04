@@ -25,7 +25,7 @@ publication or certify that Linux reproduces all historical Windows results.
   metadata, original data, figures, manuscripts, and published Atlas bytes remain
   unchanged. Historical release workflows retain their Windows authority boundary.
 - The Linux CI job has only `contents: read`. It invokes the complete Linux gate;
-  it is expected to remain red while scientific equivalence is unresolved. It has
+  it now exercises the separately versioned Linux v1 gate while retaining the failed historical comparison. It has
   not been run on GitHub. No workflow has been dispatched and no settings changed.
 
 ## Verification performed
@@ -201,13 +201,13 @@ copies; a successor could describe author-reported conceptual origins and AI
 assistance as workflow provenance only, never scientific evidence. Frozen records
 have not been silently rewritten. These proposals need their own scoped review.
 
-## Remaining scientific decision
+## Baseline decision and retained historical boundary
 
-The development candidate is usable for Linux work, but exact historical scientific
-reproduction remains blocked. Keep the strict gate failed. Choose either a separately
-versioned Linux research baseline, with reviewed numerical-method changes and refits,
-or the historical Windows runtime when claiming reproduction of the Windows record.
-Stable headline results alone do not authorize an equivalence waiver. No production
-numerical fix was applied because no demonstrated environment misconfiguration could
-restore the historical optimizer outputs without changing the scientific calculation.
-No remote write, release promotion, or security change is included.
+The owner authorized [Linux research v1](linux-research-v1.md) as a separate local
+research baseline. Its pinned output gate and reviewed method limitations are
+independent of the strict historical equivalence gate, which remains failed.
+The existing scientific methods are retained for reproducible fresh Linux refits;
+method improvements must be compared in a successor rather than silently substituted.
+The two layout issues above were subsequently fixed by an opt-in Linux print path;
+see the v1 report for the completed visual/content checks. Historical artifacts remain
+unchanged. No remote write, publication, merge, release or security change is included.
