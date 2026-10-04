@@ -61,6 +61,7 @@ ROOT_ALLOWLIST = {
     "RELEASE_NOTES_v1.0.7.md",
     "RELEASE_SPEC.json",
     "RUNTIME.json",
+    "RUNTIME-linux.json",
     "SOURCE_INVENTORY.json",
     "THIRD_PARTY_NOTICES.md",
     "pyproject.toml",
@@ -2030,6 +2031,7 @@ def check_public_json_schemas() -> None:
         ROOT / "evidence" / "dark_medium_response_atlas_publication_successor_overlay_s2.json",
         ROOT / "evidence" / "pages_admission_v1.json",
         ROOT / "RUNTIME.json",
+        ROOT / "RUNTIME-linux.json",
         ROOT / "manuscript" / "document_semantic_identity.json",
         ROOT / "manuscript" / "pdf_inspection.json",
         ROOT

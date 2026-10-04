@@ -1,0 +1,151 @@
+{
+  "schema": "https://jkolantree.github.io/astra/schemas/runtime-identity-v1.schema.json",
+  "reference_platform": "Debian 13 Linux x86-64, glibc 2.41, Haswell-compatible AVX2 and FMA3",
+  "python": "3.12.10",
+  "git": {
+    "provider": "Debian git binary package",
+    "version": "2.47.3",
+    "build_commit": "",
+    "asset": "git_2.47.3-0+deb13u1_amd64.deb",
+    "source": "https://deb.debian.org/debian/pool/main/g/git/git_2.47.3-0+deb13u1_amd64.deb",
+    "sha256": "3e35662fd5c46add561703e54031a1d8ad9df45811927689f0a51122b13be722",
+    "executable_sha256": "356db14e102d68a1a37d8a1ac577dfd678d45d46e92f468bef8b7154e7bfdc60"
+  },
+  "reference_distribution": {
+    "provider": "Astral python-build-standalone CPython",
+    "asset": "cpython-3.12.10+20250529-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+    "source": "https://github.com/astral-sh/python-build-standalone/releases/download/20250529/cpython-3.12.10%2B20250529-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+    "sha256": "f50d08e0304b15d752b22932047135c1dc02f81977b284e51288be9d90627bca",
+    "executable_sha256": "bb51835a056505237a67178912a78185ce18a378d65cc3a97f2bc1ed1629010c",
+    "libpython_sha256": "c363ada6e53ebec45d1cfff451d457c90427432f95dffaf1e3153a72dd3ee41e",
+    "system": "Linux",
+    "machine": "x86_64",
+    "distribution_id": "debian",
+    "distribution_version": "13",
+    "libc": [
+      "glibc",
+      "2.41"
+    ]
+  },
+  "ci_distribution": {
+    "provider": "Astral python-build-standalone CPython",
+    "asset": "cpython-3.12.10+20250529-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+    "source": "https://github.com/astral-sh/python-build-standalone/releases/download/20250529/cpython-3.12.10%2B20250529-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+    "sha256": "f50d08e0304b15d752b22932047135c1dc02f81977b284e51288be9d90627bca",
+    "executable_sha256": "bb51835a056505237a67178912a78185ce18a378d65cc3a97f2bc1ed1629010c",
+    "libpython_sha256": "c363ada6e53ebec45d1cfff451d457c90427432f95dffaf1e3153a72dd3ee41e",
+    "system": "Linux",
+    "machine": "x86_64",
+    "distribution_id": "debian",
+    "distribution_version": "13",
+    "libc": [
+      "glibc",
+      "2.41"
+    ]
+  },
+  "dependency_lock": {
+    "file": "requirements-lock.txt",
+    "sha256": "69b83ca86466525e912ea7c2d4a614d426ab44411ccc2789febc32f54c255721"
+  },
+  "numeric_kernel": {
+    "provider": "OpenBLAS",
+    "core_type": "HASWELL",
+    "threads": 1,
+    "required_cpu_features": [
+      "AVX2",
+      "FMA3"
+    ],
+    "numpy_disabled_cpu_features": [
+      "AVX512F",
+      "AVX512CD",
+      "AVX512_SKX",
+      "AVX512_CLX",
+      "AVX512_CNL",
+      "AVX512_ICL"
+    ],
+    "libraries": [
+      {
+        "consumer": "NumPy",
+        "distribution": "numpy",
+        "distribution_version": "2.3.5",
+        "openblas_version": "0.3.30",
+        "interface": "ILP64",
+        "library_directory": "numpy.libs",
+        "library_glob": "libscipy_openblas64_*.so",
+        "corename_symbol": "scipy_openblas_get_corename64_",
+        "num_threads_symbol": "scipy_openblas_get_num_threads64_",
+        "sha256": "ee2039cf13a45e1e89f04d0cea9585657d93ffaa425594e1935161013fdf4e12"
+      },
+      {
+        "consumer": "SciPy",
+        "distribution": "scipy",
+        "distribution_version": "1.18.0",
+        "openblas_version": "0.3.31.dev",
+        "interface": "LP64",
+        "library_directory": "scipy.libs",
+        "library_glob": "libscipy_openblas-*.so",
+        "corename_symbol": "scipy_openblas_get_corename",
+        "num_threads_symbol": "scipy_openblas_get_num_threads",
+        "sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981"
+      }
+    ]
+  },
+  "pandoc": {
+    "version": "3.6.1",
+    "provider": "pypandoc-binary 1.15"
+  },
+  "pdf_renderer": {
+    "provider": "playwright 1.62.0",
+    "browser": "Chromium",
+    "revision": "1234",
+    "version": "151.0.7922.34",
+    "font_sources": {
+      "provider": "matplotlib 3.11.1",
+      "directory": "mpl-data/fonts/ttf",
+      "files": [
+        {
+          "file": "DejaVuSerif.ttf",
+          "bytes": 379740,
+          "sha256": "107244956e9962b9e96faccdc551825e0ae0898ae13737133e1b921a2fd35ffa"
+        },
+        {
+          "file": "DejaVuSerif-Bold.ttf",
+          "bytes": 355692,
+          "sha256": "c3753f2ed6bc673f15846dc45addbeb3b9c872f32fb18fd53a21f1bef1ed7676"
+        },
+        {
+          "file": "DejaVuSerif-Italic.ttf",
+          "bytes": 345612,
+          "sha256": "3e7994fbc54fa10ce3352a42d548fadd7d9cadb69cb1109bc9d960f6dac57f04"
+        },
+        {
+          "file": "DejaVuSerif-BoldItalic.ttf",
+          "bytes": 347064,
+          "sha256": "d93efec7a9d2e826768d1a2ee95b95870e15e29599a84f3484af1de1cec2e181"
+        },
+        {
+          "file": "DejaVuSans.ttf",
+          "bytes": 756072,
+          "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22"
+        },
+        {
+          "file": "DejaVuSans-Bold.ttf",
+          "bytes": 704128,
+          "sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167"
+        },
+        {
+          "file": "DejaVuSansMono.ttf",
+          "bytes": 340240,
+          "sha256": "602ec86b8948cfcd956482fe64f94c36c867770149ef2f791d4613f443bcecb3"
+        },
+        {
+          "file": "STIXGeneral.ttf",
+          "bytes": 448228,
+          "sha256": "167378031e2dddc6216d67819c9260e9a06ffc4c478e4e23cb98a6fd44b183c2"
+        }
+      ]
+    },
+    "headless_executable_sha256": "e11fc9ce65c96313476f7ee9844b6fb6a9220fb048693cfe9eee00acf4170a9f"
+  },
+  "determinism_scope": "Linux development profile linux-v1. Two consecutive isolated replays must be byte-identical. Windows publication bytes in RUNTIME.json remain immutable historical evidence. Scientific equivalence is checked separately at rtol=1e-12 and atol=1e-12 with exact discrete outcomes. Linux artifacts are unpromoted and cannot authorize an existing release. Host rendering library variation is not claimed byte-equivalent until exercised."
+}
