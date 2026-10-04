@@ -96,6 +96,9 @@ def configure() -> tuple[Any, dict[str, str]]:
     environment["PATH"] = str(git_bin) + os.pathsep + environment.get("PATH", "")
     environment["GIT_EXEC_PATH"] = str(ROOT / "tmp/linux-bootstrap/git/usr/lib/git-core")
     environment["PLAYWRIGHT_BROWSERS_PATH"] = str(ROOT / "tmp/linux-browsers")
+    for key, relative in (("XDG_CACHE_HOME", "tmp/linux-cache"), ("PIP_CACHE_DIR", "tmp/pip-cache")):
+        verify.ensure_safe_directory(ROOT / relative)
+        environment[key] = str(ROOT / relative)
     os.environ.update(environment)
     return verify, environment
 
@@ -154,6 +157,16 @@ def replay(environment: dict[str, str], workers: int) -> dict[str, Any]:
     if passes[0] != passes[1]:
         raise RuntimeError("Consecutive Linux scientific/Atlas replays are not byte-identical")
     check_scientific_files(ROOT, destination)
+    from pypdf import PdfReader
+
+    pdf_name = atlas + "dark-medium-response-atlas-v0.1.0.pdf"
+    def text_pages(path: Path) -> list[str]:
+        return [" ".join((page.extract_text() or "").split()) for page in PdfReader(path).pages]
+    historical_pages = text_pages(ROOT / pdf_name)
+    linux_pages = text_pages(destination / pdf_name)
+    html_name = atlas + "dark-medium-response-atlas-v0.1.0.html"
+    if before[html_name] != passes[0][html_name]:
+        raise RuntimeError("Linux Atlas HTML differs from the historical content and font bytes")
     if any(digest(ROOT / name) != expected for name, expected in before.items()):
         raise RuntimeError("Linux replay changed the source checkout")
     return {
@@ -164,6 +177,13 @@ def replay(environment: dict[str, str], workers: int) -> dict[str, Any]:
         "scientific_tolerance": {"relative": RTOL, "absolute": ATOL, "discrete": "exact"},
         "core_documents": "immutable historical bytes; current source is an unpromoted draft",
         "atlas_documents": "two checked Linux builds; no release identity generated",
+        "atlas_html": "exact historical bytes, including embedded fonts",
+        "atlas_pdf_comparison": {
+            "historical_pages": len(historical_pages), "linux_pages": len(linux_pages),
+            "same_normalized_page_text": historical_pages == linux_pages,
+            "same_normalized_document_text": " ".join(historical_pages) == " ".join(linux_pages),
+            "scope": "PDF differences remain unpromoted; independent PDF inspection must pass",
+        },
     }
 
 
@@ -203,6 +223,13 @@ def main() -> None:
                    else verify.controlled_python(*arguments))
         verify.run(command, environment=environment)
     verify.run(["git", "diff", "--check"], environment=environment)
+    from tools import release_integrity
+
+    # Reuse the complete tracked-inventory/archive checks with the Linux tool
+    # identity, without invoking any tag, release, fetch, or publication operation.
+    release_integrity.RUNTIME_PATH = PROFILE
+    release_integrity.assert_clean_worktree()
+    release_integrity.verify_git_archive_inventory()
     if args.all:
         result = replay(environment, args.workers)
         (ROOT / "tmp/linux-verification.json").write_text(json.dumps(result, indent=2) + "\n")
