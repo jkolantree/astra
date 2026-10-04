@@ -112,5 +112,12 @@ jobs:
         run: .venv/bin/python -I -B tools/verify_linux_baseline.py --all --workers 4
       - name: Reject source or historical artifact mutation
         run: |
-          git diff --exit-code
-          test -z "$(git ls-files --others --exclude-standard)"
+          .venv/bin/python -I -B - <<'PYTHON'
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path.cwd()))
+          from tools import release_integrity, verify_linux
+          verify_linux.configure()
+          release_integrity.assert_clean_worktree()
+          print("Source and historical artifact worktree is clean.")
+          PYTHON
