@@ -23,6 +23,29 @@ def check_outputs(expected: dict[str, str], observed: dict[str, str]) -> None:
         raise RuntimeError("Linux baseline byte drift: " + ", ".join(changed))
 
 
+def check_replay_tree(
+    directory: Path, original: dict[str, str], outputs: set[str]
+) -> None:
+    """Reject extra files and changes to copied source, not just output hash drift."""
+    from tools.check_repository import IGNORED_NAMES
+    from tools.verify_linux import digest
+
+    actual = set()
+    for path in directory.rglob("*"):
+        relative = path.relative_to(directory)
+        if any(part in IGNORED_NAMES for part in relative.parts):
+            continue
+        if path.is_symlink():
+            raise RuntimeError("Linux replay contains a symbolic link")
+        if path.is_file():
+            actual.add(relative.as_posix())
+    if actual != original.keys():
+        raise RuntimeError("Linux replay file inventory changed")
+    for name in actual - outputs:
+        if digest(directory / name) != original[name]:
+            raise RuntimeError("Linux replay modified copied source: " + name)
+
+
 def main() -> None:
     if not sys.flags.isolated or not sys.dont_write_bytecode:
         raise RuntimeError("Run with -I -B")
@@ -45,8 +68,13 @@ def main() -> None:
         print("Linux research v1 source/runtime/development checks passed; replay not exercised.")
         return
     _, environment = verify_linux.configure()
+    from tools.check_repository import public_files
+
+    original = {p.relative_to(ROOT).as_posix(): verify_linux.digest(p) for p in public_files()}
     report = verify_linux.replay(environment, args.workers, historical_required=False)
     try:
+        check_replay_tree(ROOT / report["replay_directory"], original, set(record["output_sha256"]))
+        report["staged_inventory_and_sources_unchanged"] = True
         check_outputs(record["output_sha256"], report["linux_output_sha256"])
     except RuntimeError as error:
         report["linux_baseline_gate"] = "FAIL"

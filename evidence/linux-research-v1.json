@@ -69,7 +69,7 @@
     "tools/render_dark_medium_response_atlas_pdf.py": "d0b0b0dc3b25edb3ac9d091dc56c5f5a02a7ea090c479015adfb5c70678d3390",
     "tools/verify.py": "b110e870c02a7f9972209e9574340e55ef9d2f00f2936fb2f0d4480679fec64f",
     "tools/verify_linux.py": "55064bb1e086cee42289d69a6f50b0dce55b28a0c2af72a2f7a8afdd8b5f6592",
-    "tools/verify_linux_baseline.py": "1891755ae0e919375e53266df6d250d351f918dcbb6c59113e2c83fb0d76e1eb"
+    "tools/verify_linux_baseline.py": "2b58d164e70c50b643694a5cea6722113b08ec7bf40ffc94d2b4583be3d6b5d0"
   },
   "output_sha256": {
     "data/demo_summary.json": "6fa2e016b905f66b0568622e47dc4b62fa797bd6e75d6193cfd761e2988abd7d",

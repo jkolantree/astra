@@ -37,8 +37,8 @@ layout; historical HTML, CSS, PDFs and publication identity remain unchanged.
 
 The test suite and repository, lint, type, citation, link, PDF and manifest gates run
 before replay. `--all` builds scientific outputs and Atlas documents twice in a
-fresh ignored copy. Consecutive Linux bytes must agree. Scientific JSON/CSV values
-must also agree with the historical outputs at relative and absolute tolerance
+fresh ignored copy. Consecutive Linux bytes must agree. For historical equivalence, scientific JSON/CSV
+values must also agree with the historical outputs at relative and absolute tolerance
 1e-12 (tighter than the Draft benchmark's 1e-11 algebra gate); integer counts,
 classification outcomes, keys and identities remain exact. Rendered byte differences
 are reported separately and never treated as proof of scientific equivalence.

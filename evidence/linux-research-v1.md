@@ -7,15 +7,16 @@ portability diagnosis. Public release, merge, and remote publication remain outs
 that authorization.
 
 The machine-readable contract is [linux-research-v1.json](linux-research-v1.json).
-It pins 46 source/configuration files and 57 output hashes before a fresh two-pass
-refit and rendering run. The runtime is the exact executable, numerical-library,
+It pins 46 source/configuration files and 57 output hashes. Numerical/rendering
+inputs and expected output hashes were fixed before the fresh two-pass refit and
+rendering run; final verification-only hardening is described below. The runtime is the exact executable, numerical-library,
 font and browser contract in [RUNTIME-linux.json](../RUNTIME-linux.json), with the
 unchanged hash-locked dependencies. The whole OS image and every system shared
 library are not frozen; differing output bytes fail rather than being accepted.
 
 ## Method review and experimental scope
 
-V1 retains the existing scientific methods, seeds, noise, observations, objectives,
+V1 retains the existing scientific methods, seeds, noise, observation protocol, objectives,
 20-start optimizer, parameter bounds, stopping tolerances and acceptance rules.
 The single fit uses RK45 with forward sensitivities; the ensemble uses four-substep
 zero-order-hold matrix exponentials with Frechet sensitivities, 64 seeds beginning
@@ -49,7 +50,7 @@ remain meaningful next research constraints.
 The command verifies source hashes, the existing runtime and development gates,
 then generates science and the Atlas twice in an isolated copy. It requires:
 
-- no source-checkout mutation;
+- no source-checkout mutation, extra staged files, or modified copied source;
 - exact equality between all 57 outputs in both runs;
 - exact equality to every v1 output hash, with no missing or extra outputs;
 - byte-identical historical Atlas HTML;
@@ -93,3 +94,34 @@ OpenAI Codex assisted with implementation, diagnostics and review; this is not
 independent peer review. No credentials, security settings or publication records
 were changed. The previously documented scanner-hardening and optional provenance
 minimization proposals remain separate from this numerical baseline.
+
+## Completed local acceptance checks
+
+At generation commit `ec300b8`, the full baseline command passed the development
+gates and two complete refit/render passes. All 57 outputs were byte-identical
+between passes and matched the previously fixed v1 hashes. The historical scientific
+comparison was recorded as **FAIL**, not suppressed. The rerun of the independent
+numerical diagnosis matched the retained diagnostic report byte for byte.
+
+A final verification-only change checks the entire staged inventory and all copied
+non-output source bytes, with negative controls for missing files, extra files and
+modified producers. It passed on the completed 421-file replay tree. Only the
+controller's source pin changed; scientific producers, rendering code, runtime and
+all expected output hashes stayed fixed. The expensive refits were not repeated for
+that verification-only change. The final focused baseline checks are recorded in
+`tmp/linux-baseline-focused-final.log`; full replay evidence is in
+`tmp/linux-baseline-verification.json` and the added inventory check is in
+`tmp/linux-baseline-inventory-check.json`.
+
+The final artifact privacy review covered all 57 hash-matched outputs, including
+PDF text/metadata and PNG metadata, with no flags. Changed-source pattern matches
+were existing sanitizer/scanner definitions, not added private content. All new
+commits use the approved public noreply identity. No remote CI, push, publication,
+merge, release or security-setting change was exercised.
+
+The next controlled numerical study should hold the actual generated observations
+fixed while comparing improved integration and sensitivities. Reusing only the
+same seed while changing the truth generator would confound solver and data changes.
+A successor should quantify fitted-parameter stability, predictive error and model
+selection under solver/tolerance, noise and forcing variations before any broader
+scientific interpretation.
