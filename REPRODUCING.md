@@ -50,6 +50,9 @@ release-identity generation. Linux replay does **not** authorize publication or
 assert equality with historical Windows PDFs/figures. A future release needs a new
 publication identity and a reviewed Linux artifact baseline.
 
+The migration review and remaining blockers are recorded in
+[evidence/linux-migration.md](evidence/linux-migration.md).
+
 ## Historical Windows core: SPPT/ASTRA v1.0.7
 
 The canonical core environment is recorded in [RUNTIME.json](RUNTIME.json) and [.python-version](.python-version). It requires:
