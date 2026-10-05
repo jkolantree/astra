@@ -1,9 +1,9 @@
 # ASTRA explorer — unpromoted draft
 
 This static field guide is staged in the research-companion
-namespace. The intended future route is `/explore/`, beside the existing reading
-room. Keeping its source outside `docs/` preserves the exact production Pages
-allowlist while the complete candidate remains under review.
+namespace. The prepared route is `/explore/`, beside the existing reading
+room, with a versioned draft destination. Admission v2 explicitly enumerates
+the companion; it does not change the frozen release routes.
 Open `index.html` with a standards-compliant browser or serve this directory
 through an approved local preview. This executor has not passed browser review. No install, build step, external font,
 analytics, WebGL, or runtime dependency is required. Controls start stationary;
@@ -53,10 +53,12 @@ screen-reader checks remain open gates for site publication and merge readiness.
 The source can be reviewed in a Draft PR with those limitations prominent.
 Source checks alone do not establish accessibility conformance.
 
-The existing manual Pages workflow and admission boundary are unchanged. This
-new route is not admitted to production Pages. Future publication requires
-separate reviewed admission and link integration; copying this directory into
-an unreviewed deployment is not part of this draft.
+The Pages workflow remains manual and main-only. Its companion assembly step
+requires the exact candidate to pass an explicitly permitted browser review and
+final publication approval. The committed review record remains pending, so
+production assembly fails closed. Source-only assembly is available for review;
+it neither deploys nor certifies the result. The admission and original release
+asset checks run independently.
 
 Supplied media retain the package distribution status and component terms
 recorded in [the companion rights notice](../RIGHTS_AND_NOTICES.md).

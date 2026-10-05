@@ -40,7 +40,9 @@ rendering or accessibility certification. The executor's attempted browser
 navigation was blocked by administrator policy; no alternate browser route
 was attempted. Review on an explicitly approved browser surface remains open.
 
-The intended future explorer route is `/explore/`. This source remains outside
-production Pages admission. Browser runtime review and an explicit publication
-decision remain separate from this draft preparation. No release authority or
-deployment workflow is changed here.
+The prepared Pages integration adds `/explore/` as an entry point to this
+versioned draft namespace. Admission v2 pins the complete companion and retains
+the existing frozen release routes. The manual deployment workflow requires an
+exact-candidate browser review and final publication approval; its review record
+is currently pending. Preparing or assembling this draft does not deploy it.
+See the [Pages review procedure](https://github.com/jkolantree/astra/blob/main/evidence/RESEARCH_COMPANION_PAGES_REVIEW.md).

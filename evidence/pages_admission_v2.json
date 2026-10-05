@@ -1,0 +1,357 @@
+{
+  "base": {
+    "commit": "11a74c2ea98a2157c73d89dbea7f66975bbc68bf",
+    "relationship": "fresh_current_main_pages_admission_base",
+    "tree": "ef8506855487bbcd3c2a78e982ac65f1a997858f"
+  },
+  "head_shell": {
+    "files": [
+      {
+        "bytes": 1105,
+        "path": "404.html",
+        "sha256": "459c1f2f37d161c60f6bc26d94d3625eeb39b376e8559ba99be14f5b421f3d19"
+      },
+      {
+        "bytes": 9405,
+        "path": "index.html",
+        "sha256": "46df3b6ce0a50548e5be0b3e6c1d8bc472e8b9c2e0ca46b0e0dd1caff1454f97"
+      },
+      {
+        "bytes": 15624,
+        "path": "resources/earth-is-the-instrument/v0.1/index.html",
+        "sha256": "c452de948f874f3742b97528ac13286fe11b071e174ba0c5b47a6ffcf9239a70"
+      },
+      {
+        "bytes": 21072,
+        "path": "resources/earth-is-the-instrument/v0.3.0/audit-form/index.html",
+        "sha256": "1b4a594935db00ded99ab18b2c838ac6c0a3a918511165a9925c3a8831af4e56"
+      },
+      {
+        "bytes": 7099,
+        "path": "resources/earth-is-the-instrument/v0.3.0/companion.css",
+        "sha256": "6029d91114027e896caa7c7f8f181e9b1afdd3f4227b12f8f13caf1e2c4ebef7"
+      },
+      {
+        "bytes": 4003,
+        "path": "resources/earth-is-the-instrument/v0.3.0/errata/index.html",
+        "sha256": "7b271bded746373d184f3f7b9c9f4d9ed2365e992322f951ef9e15131b543645"
+      },
+      {
+        "bytes": 21490,
+        "path": "resources/earth-is-the-instrument/v0.3.0/ground-reading/index.html",
+        "sha256": "34ede59dca7bf547b0507eb4c20f9848c923824cb1400b2d7c57e156c773abf9"
+      },
+      {
+        "bytes": 16793,
+        "path": "resources/earth-is-the-instrument/v0.3.0/index.html",
+        "sha256": "50647f84f9b532e3b7d1d8bc68dbc11509f49d98460080136720cfbc668464ab"
+      },
+      {
+        "bytes": 6848,
+        "path": "resources/index.html",
+        "sha256": "8d959aad5e2b00cb6eab6103953cc2b9439892f96832fd96986a3590abfb4789"
+      },
+      {
+        "bytes": 8161,
+        "path": "sppt-astra-cover.svg",
+        "sha256": "680b3eb2ac0de91be846b777758cc3a632b2ae2e7773704a2c9a77eecc131280"
+      },
+      {
+        "bytes": 7338,
+        "path": "style.css",
+        "sha256": "c6d06f8d367fb63a28e6032e6df28b1341565995d0b0ef302d55e2bc1a728330"
+      }
+    ],
+    "root": "docs"
+  },
+  "manifest_version": "2.0.0",
+  "policy": {
+    "copy_exact_head_shell_only": true,
+    "reject_unadmitted_docs": true,
+    "reject_unadmitted_draft_and_candidate_content": true,
+    "release_bytes_required_for_publication_routes": true,
+    "research_companion_requires_separate_visual_approval": true
+  },
+  "release_routes": [
+    {
+      "asset_allowlist": [
+        "SPPT_ASTRA_preprint_v1.0.7.html",
+        "SPPT_ASTRA_technical_supplement_v1.0.7.html",
+        "SPPT_ASTRA_v1.0.7_source.tar.gz",
+        "SHA256SUMS"
+      ],
+      "kind": "core-release",
+      "latest_route": "/latest/",
+      "line": "sppt-astra-core",
+      "tag": "v1.0.7",
+      "versioned_route": "/v1.0.7/"
+    },
+    {
+      "asset_allowlist": [
+        "ASTRA_Earth_Is_the_Instrument_Working_Paper_v0.1.pdf",
+        "FONT_NOTICES.txt",
+        "SHA256SUMS.txt",
+        "cover.png"
+      ],
+      "kind": "supplemental-release",
+      "latest_route": null,
+      "line": "earth-is-the-instrument-working-paper",
+      "tag": "earth-instrument-wp-0.1",
+      "versioned_route": "/resources/earth-is-the-instrument/v0.1/"
+    },
+    {
+      "asset_allowlist": [
+        "ASTRA_Framework_v0.3.0_Earth_Is_The_Instrument.pdf",
+        "ASTRA_v0.3.0_Public_Ground_Reading.pdf",
+        "ASTRA_Dual_Rent_Local_to_Global_Audit_Form_v0.3.0.pdf",
+        "ASTRA_v0.3.0_Verification_Report.pdf",
+        "SHA256SUMS.txt"
+      ],
+      "kind": "supplemental-release",
+      "latest_route": "/resources/earth-is-the-instrument/latest/",
+      "line": "earth-is-the-instrument-framework",
+      "tag": "earth-instrument-framework-v0.3.0",
+      "versioned_route": "/resources/earth-is-the-instrument/v0.3.0/"
+    },
+    {
+      "asset_allowlist": [
+        "dark-medium-response-atlas-v0.1.0.html",
+        "dark-medium-response-atlas-v0.1.0.pdf",
+        "dark-medium-response-atlas-v0.1.0-source.tar.gz",
+        "SHA256SUMS",
+        "dark-medium-response-atlas-v0.1.0-release-identity.json"
+      ],
+      "kind": "supplemental-release",
+      "latest_route": "/resources/dark-medium-response-atlas/latest/",
+      "line": "dark-medium-response-atlas",
+      "tag": "dark-medium-response-atlas-v0.1.0",
+      "versioned_route": "/resources/dark-medium-response-atlas/v0.1.0/"
+    }
+  ],
+  "research_companion": {
+    "alias_route": "/explore/",
+    "files": [
+      {
+        "bytes": 33472,
+        "path": "FONT_NOTICES.txt",
+        "sha256": "8e63c09f033d11d7a303e1ba0ab7752a79d840046fe0eff0094098a2e69d5213"
+      },
+      {
+        "bytes": 2954,
+        "path": "README.md",
+        "sha256": "5beef2d6b98b17246f4a34c917b5411a110a5bbfbbac11eb0d3e189bab6ea0c2"
+      },
+      {
+        "bytes": 1886,
+        "path": "RIGHTS_AND_NOTICES.md",
+        "sha256": "5f34a2e0314b51cbdf133a12e826ec3bcaa5a5792b5725db683bf339084515b3"
+      },
+      {
+        "bytes": 3983,
+        "path": "explorer/README.md",
+        "sha256": "bf98c63bd9fd8ff14be6f65c5fc1de0cbdec388daf28d63516caf02b4a28c41a"
+      },
+      {
+        "bytes": 239407,
+        "path": "explorer/index.html",
+        "sha256": "cf91ae77616b19ba00b0ff64b5118ac90bdc0b63f5339c61da8f6ed094a807cc"
+      },
+      {
+        "bytes": 1581,
+        "path": "explorer/provenance.json",
+        "sha256": "51476d035af04746e772fa7f99e2713fda2e53276c0d6206826c4b6098be4519"
+      },
+      {
+        "bytes": 5225,
+        "path": "explorer/recurrence.md",
+        "sha256": "1f28d4e979f9a3448a3ec461ec2d7c20096447bd87463b1d9dc47f1af5464bc6"
+      },
+      {
+        "bytes": 3797,
+        "path": "package/MANIFEST.sha256",
+        "sha256": "43a01884d12ebd542158c235c285b09c60053ac7499cf94208542a50634bfeed"
+      },
+      {
+        "bytes": 5888,
+        "path": "package/README.md",
+        "sha256": "c6ed56d5abf94cba509a164740571c7600a7b57a4c0f4c20639bec593b3a5f7e"
+      },
+      {
+        "bytes": 88008,
+        "path": "package/research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.docx",
+        "sha256": "bed2437db587b5ee00d0aaf7e61cce727a6482649c24e3c672dc611e1d9cebd5"
+      },
+      {
+        "bytes": 498684,
+        "path": "package/research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.pdf",
+        "sha256": "5d5bd1ee5bccdd7626de1cc9394c2249ec113dd040593cbe9a2fe65e07653545"
+      },
+      {
+        "bytes": 10836875,
+        "path": "package/visuals/ASTRA_SPPT_SCM_Visual_Atlas_2026-10-05.pdf",
+        "sha256": "92ea4761bd060db3d464fd6bfc2ca8e69c769a0a9e50f100d7de29e096351325"
+      },
+      {
+        "bytes": 10626,
+        "path": "package/visuals/catalog.json",
+        "sha256": "1510c6ffd28f90fe8e4a3b3fae499d166148f763c16213361dcdcdb9851223e5"
+      },
+      {
+        "bytes": 1905382,
+        "path": "package/visuals/illustrations/images/01-saturn-ring-dust-illustration.png",
+        "sha256": "fa471a57d0480936dafcbc51f63d99c84c5e7afe3273ed1b4431226d41194034"
+      },
+      {
+        "bytes": 3162294,
+        "path": "package/visuals/illustrations/images/02-enceladus-plume-illustration.png",
+        "sha256": "6b8469d11f87bbc3cbacef752cf17e7dc9ce5da727d182b9309120a8b6cd98e2"
+      },
+      {
+        "bytes": 1678600,
+        "path": "package/visuals/illustrations/images/03-bent-filament-concept.png",
+        "sha256": "44f3dc34f063208a12662f2771d07b8392e284569ed93fecc610b22456927610"
+      },
+      {
+        "bytes": 13086,
+        "path": "package/visuals/illustrations/provenance.json",
+        "sha256": "d61ed52ef572e18ebcd4178b2d617d1d1e54900cf6d48d7ab634cc7c6f185820"
+      },
+      {
+        "bytes": 8974,
+        "path": "package/visuals/scientific/CAPTIONS_AND_SOURCES.md",
+        "sha256": "0d86530e1afe5f5a519500b6992acbd8704bd61675572a54047e78545a289494"
+      },
+      {
+        "bytes": 3965,
+        "path": "package/visuals/scientific/README.md",
+        "sha256": "75398185d459769b99b48a73e30a29b75e4deb84bebfac8fe855b5487ed03dc4"
+      },
+      {
+        "bytes": 4721647,
+        "path": "package/visuals/scientific/animations/A1_pattern_vs_material_motion.gif",
+        "sha256": "073abff5d5d1f0a97fe41ecce2ed8d2ca6e2d34f953b7f85ed99e88d5cbc19f9"
+      },
+      {
+        "bytes": 282074,
+        "path": "package/visuals/scientific/animations/A1_pattern_vs_material_motion.mp4",
+        "sha256": "baae6efdf08db87a2b9097604846b4af1caaa68c425094f87ce872f8d22d4a90"
+      },
+      {
+        "bytes": 114310,
+        "path": "package/visuals/scientific/animations/A1_pattern_vs_material_motion_poster.png",
+        "sha256": "f45f329cae4f58f5e3bded2155a3467fc39b9b78e6fa5ea0746b315b8956ee21"
+      },
+      {
+        "bytes": 3638390,
+        "path": "package/visuals/scientific/animations/A2_bending_graph_normal_frame.gif",
+        "sha256": "907dfc16378fd7f29615b83e7691e9e39f961fa37b5a313461051c41e18c879d"
+      },
+      {
+        "bytes": 144777,
+        "path": "package/visuals/scientific/animations/A2_bending_graph_normal_frame.mp4",
+        "sha256": "a622390a0eeeaff6013008757e2fe461bd0351adf2018a2ccfca3ef46028395c"
+      },
+      {
+        "bytes": 109381,
+        "path": "package/visuals/scientific/animations/A2_bending_graph_normal_frame_poster.png",
+        "sha256": "dcf4a1adf25945b8bb1ce88164ac437ae3d63380ada6c2593ebecb9bee8fa629"
+      },
+      {
+        "bytes": 249338,
+        "path": "package/visuals/scientific/figures/01_complete_observation_contract.png",
+        "sha256": "424aaabeecc2e5d54b9185212ed40f16051c33271f2055e465aef7ecd4ae7896"
+      },
+      {
+        "bytes": 22752,
+        "path": "package/visuals/scientific/figures/01_complete_observation_contract.svg",
+        "sha256": "0609778a878d423130662ffeddc1d60afff96b853521d9ef958341beae59d6fc"
+      },
+      {
+        "bytes": 251247,
+        "path": "package/visuals/scientific/figures/02_complex_graph_normal_plane.png",
+        "sha256": "3acb2f51f62d7089257c4b99a0cacc90cb46b55916173ab9523845fdcb7ad236"
+      },
+      {
+        "bytes": 18046,
+        "path": "package/visuals/scientific/figures/02_complex_graph_normal_plane.svg",
+        "sha256": "e9c8400f326650fcc09dfbfa102a57b66c51e53b2072f8c40a0734351689bd74"
+      },
+      {
+        "bytes": 248914,
+        "path": "package/visuals/scientific/figures/03_wki_discrete_growth_bands.png",
+        "sha256": "2c71010af2bda71cbeb7e62dcfe2d2791ac19952f8151a956cd13f96c309e3b8"
+      },
+      {
+        "bytes": 65659,
+        "path": "package/visuals/scientific/figures/03_wki_discrete_growth_bands.svg",
+        "sha256": "c17411413c6d57f33fa858b678e66de1850b02301969b08af1426151ed53b711"
+      },
+      {
+        "bytes": 383474,
+        "path": "package/visuals/scientific/figures/04_phase_coherence_entanglement.png",
+        "sha256": "2ea12cb8ca52dd8184b370aeae657d83cdcdb4e5e10b13e2f39f17a1116375c0"
+      },
+      {
+        "bytes": 116812,
+        "path": "package/visuals/scientific/figures/04_phase_coherence_entanglement.svg",
+        "sha256": "fdf86e08955259d1de1959583196cb33d1180f2771f5aca4aa95fa2b52dc968f"
+      },
+      {
+        "bytes": 274556,
+        "path": "package/visuals/scientific/figures/05_ring_inventory_optical_clock.png",
+        "sha256": "9afc90c490f280bc6a5491dcf136be7b7e8ae2fa86dc37bab4b62e4197cdb4ff"
+      },
+      {
+        "bytes": 39315,
+        "path": "package/visuals/scientific/figures/05_ring_inventory_optical_clock.svg",
+        "sha256": "1ec859c0ba1967f7f0bc1c0397b2c84722faa73c0ad2907b6e2d6617bdf4f0e6"
+      },
+      {
+        "bytes": 275852,
+        "path": "package/visuals/scientific/figures/06_planetary_transfer_comparison.png",
+        "sha256": "f205a6176616fe2bfe2795f4a4b2ccb676541a7e5e7ae4385cde9fbc1e6622ab"
+      },
+      {
+        "bytes": 14630,
+        "path": "package/visuals/scientific/figures/06_planetary_transfer_comparison.svg",
+        "sha256": "d27ed57cf6681d24733ca2610637b496255a31e2c5d4298f8724c1485c3b8cd0"
+      },
+      {
+        "bytes": 35444,
+        "path": "package/visuals/scientific/generate_scientific_atlas.py",
+        "sha256": "fb3b277278938eede5bf3401d2af4a5b7cad3111b3e5385b33f764c5bce9ac96"
+      },
+      {
+        "bytes": 17392,
+        "path": "package/visuals/scientific/manifest.json",
+        "sha256": "7ff4f44d08dae11adf93ddd520744a535cc1d5f7858eb6b613503487d29f9b22"
+      },
+      {
+        "bytes": 62834,
+        "path": "review.json",
+        "sha256": "88213a58ac5e6491f453585f91eff98251a25bdbac98b4307d52200f5604cc35"
+      }
+    ],
+    "root": "resources/sppt-scm-research-companion/draft-v0.1.0",
+    "status": "draft-unpromoted",
+    "support_files": [
+      {
+        "bytes": 1065,
+        "path": "LICENSE",
+        "sha256": "6920a0fa22ffc180d62fc8d5446c61ed79ae0187cea6a241a37140b30356b67a"
+      },
+      {
+        "bytes": 14527,
+        "path": "licenses/CC-BY-4.0.txt",
+        "sha256": "419896aea50c15d6e40c5b4baf4bd346f78223b9a354c7357ad00262afdc08ec"
+      },
+      {
+        "bytes": 4814,
+        "path": "licenses/DEJAVU-FONTS.txt",
+        "sha256": "4cd278de7d996bcef0e925206c53028241130a432908e3cbce9362db98168f9b"
+      }
+    ],
+    "versioned_route": "/resources/sppt-scm-research-companion/draft-v0.1.0/explorer/"
+  },
+  "schema": "https://jkolantree.github.io/astra/schemas/pages-admission-v2.schema.json"
+}

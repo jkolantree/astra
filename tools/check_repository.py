@@ -1760,7 +1760,7 @@ def check_publication_map() -> None:
 
 
 def check_research_companion() -> None:
-    """Admit only the supplied byte-pinned package, outside production Pages."""
+    """Admit only the supplied byte-pinned research package; Pages has a separate gate."""
     companion = ROOT / RESEARCH_COMPANION_ROOT
     package = companion / "package"
     expected = set(RESEARCH_PACKAGE_FILES)
@@ -2124,6 +2124,8 @@ def check_public_json_schemas() -> None:
         ROOT / "evidence" / "dark_medium_response_atlas_successor_overlay_s1.json",
         ROOT / "evidence" / "dark_medium_response_atlas_publication_successor_overlay_s2.json",
         ROOT / "evidence" / "pages_admission_v1.json",
+        ROOT / "evidence" / "pages_admission_v2.json",
+        ROOT / "evidence" / "research_companion_pages_review_v1.json",
         ROOT / "RUNTIME.json",
         ROOT / "RUNTIME-linux.json",
         ROOT / "manuscript" / "document_semantic_identity.json",

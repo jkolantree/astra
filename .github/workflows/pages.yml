@@ -566,6 +566,7 @@ jobs:
           write_redirect "$site/latest/supplement" "../../${current_tag}/supplement/" "Current SPPT/ASTRA technical supplement"
           write_redirect "$site/resources/earth-is-the-instrument" "./${framework_version}/" "Current Earth Is the Instrument framework"
           write_redirect "$site/resources/earth-is-the-instrument/latest" "../${framework_version}/" "Current Earth Is the Instrument framework"
+          python -I -B tools/assemble_research_companion_pages.py --site "$site" --require-reviewed
           python -I -B tools/check_pages_links.py "$site"
 
       - name: Upload Pages artifact
