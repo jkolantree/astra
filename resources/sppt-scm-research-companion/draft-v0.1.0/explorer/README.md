@@ -5,7 +5,8 @@ namespace. The prepared route is `/explore/`, beside the existing reading
 room, with a versioned draft destination. Admission v2 explicitly enumerates
 the companion; it does not change the frozen release routes.
 Open `index.html` with a standards-compliant browser or serve this directory
-through an approved local preview. This executor has not passed browser review. No install, build step, external font,
+through an approved local preview. The owner accepted the delivered preview’s
+general appearance on their own device. No install, build step, external font,
 analytics, WebGL, or runtime dependency is required. Controls start stationary;
 static SVG diagrams, text and equations remain available without JavaScript.
 
@@ -48,17 +49,17 @@ python -I -B -m pytest tests/test_explorer.py tests/test_astra_reservoir.py
 
 The optional JavaScript calculation diagnostic uses Node when available; no
 Node package installation is required. This is a development check, not a site
-runtime dependency. Browser rendering, keyboard interaction, mobile layout and
-screen-reader checks remain open gates for site publication and merge readiness.
-The source can be reviewed in a Draft PR with those limitations prominent.
-Source checks alone do not establish accessibility conformance.
+runtime dependency. The owner’s manual acceptance covers general appearance;
+detailed keyboard, mobile, reduced-motion, media, console and screen-reader
+coverage remains separately recorded as not tested. This is not accessibility
+certification, and private screenshots are not required for publication.
 
 The Pages workflow remains manual and main-only. Its companion assembly step
-requires the exact candidate to pass an explicitly permitted browser review and
-final publication approval. The committed review record remains pending, so
-production assembly fails closed. Source-only assembly is available for review;
-it neither deploys nor certifies the result. The admission and original release
-asset checks run independently.
+requires exact-byte integrity, manual visual acceptance and explicit final
+publication approval. Visual acceptance and owner publication authorization are
+recorded. Successful exact-head CI and the owner's merge remain separate
+requirements. Source-only assembly neither deploys nor certifies the result.
+The admission and original release asset checks run independently.
 
 Supplied media retain the package distribution status and component terms
 recorded in [the companion rights notice](../RIGHTS_AND_NOTICES.md).

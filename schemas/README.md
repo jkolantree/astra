@@ -43,9 +43,12 @@ The research companion introduces `pages-admission-v2.schema.json`, which
 separately enumerates its unpromoted draft files while retaining the existing
 release-route identities. `pages-admission-v1.schema.json` and its evidence
 record remain unchanged as the prior boundary. The companion's
-`research-companion-pages-review-v1.schema.json` binds browser-review evidence
-and final publication approval to an exact candidate digest. Its pending record
-blocks production assembly. These are repository validation contracts with
+`research-companion-pages-review-v1.schema.json` binds manual visual acceptance
+to rendered-content bytes and final publication approval to the exact candidate.
+Specialist coverage is recorded separately as passed, failed or not-tested;
+private screenshots are not required. Owner publication authorization is recorded;
+CI and the owner's merge remain independent requirements. These are repository
+validation contracts with
 reserved canonical URLs. This scoped integration does not publish the two new
 schema endpoints; their URLs are not claimed live after this deployment.
 

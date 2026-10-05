@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -12,23 +13,33 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from tools.build_pages_admission import COMPANION_PATHS, COMPANION_ROOT, SHELL_PATHS  # noqa: E402
 from tools.check_pages_admission import check_pages_admission  # noqa: E402
 
 REVIEW = ROOT / "evidence/research_companion_pages_review_v1.json"
 REVIEW_SCHEMA = "https://jkolantree.github.io/astra/schemas/research-companion-pages-review-v1.schema.json"
-CHECKS = (
-    "permitted_browser_surface",
+COVERAGE_CHECKS = (
     "desktop_and_mobile_layout",
     "keyboard_and_focus",
     "reduced_motion",
     "media_playback",
     "console_and_network",
     "assistive_technology",
-    "final_publication_approval",
+)
+COVERAGE_STATUSES = {"passed", "failed", "not-tested"}
+VISUAL_SUFFIXES = {".html", ".css", ".svg", ".png", ".gif", ".mp4", ".pdf", ".docx"}
+VISUAL_SOURCE_PATHS = tuple(
+    (f"docs/{name}", name) for name in SHELL_PATHS
+    if Path(name).suffix in VISUAL_SUFFIXES
+) + tuple(
+    (f"{COMPANION_ROOT}/{name}", f"{COMPANION_ROOT}/{name}") for name in COMPANION_PATHS
+    if Path(name).suffix in VISUAL_SUFFIXES
 )
 CANDIDATE_INPUTS = (
     ".github/workflows/pages.yml",
+    "evidence/RESEARCH_COMPANION_PAGES_REVIEW.md",
     "evidence/pages_admission_v2.json",
+    "schemas/README.md",
     "schemas/pages-admission-v2.schema.json",
     "schemas/research-companion-pages-review-v1.schema.json",
     "tools/assemble_research_companion_pages.py",
@@ -75,53 +86,67 @@ def reject_links(path: Path) -> None:
             raise RuntimeError("Pages inputs and destination must not use links or junctions")
 
 
-def require_visual_review(path: Path = REVIEW, *, root: Path = ROOT) -> None:
-    record = json.loads(path.read_text(encoding="utf-8"))
-    fields = {"schema", "status", "candidate_sha256", "surface", "checks", "evidence"}
-    if not isinstance(record, dict) or set(record) != fields or record["schema"] != REVIEW_SCHEMA:
-        raise RuntimeError("Research companion browser-review record is malformed")
+def visual_content_digest(root: Path = ROOT) -> str:
+    """Bind visual acceptance to the unchanged rendered pages and media.
+
+    Operational Markdown and gate code are excluded from this narrower digest;
+    they remain covered by admission and the final-publication candidate digest.
+    This allows a truthful owner review to survive a gate-only refinement.
+    """
+    values = [{"path": target, "sha256": digest(root / source)} for source, target in VISUAL_SOURCE_PATHS]
+    values.append({"path": "explore/index.html", "sha256": hashlib.sha256(ALIAS).hexdigest()})
+    values.sort(key=lambda item: item["path"])
+    return hashlib.sha256(json.dumps(values, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
+def _review_object(value: object, keys: set[str], label: str) -> dict[str, Any]:
+    if not isinstance(value, dict) or set(value) != keys:
+        raise RuntimeError(f"Research companion {label} is malformed")
+    return value
+
+
+def _review_text(value: object, label: str) -> None:
+    if not isinstance(value, str) or not value.strip():
+        raise RuntimeError(f"Research companion {label} must be stated")
+
+
+def require_visual_review(path: Path = REVIEW, *, root: Path = ROOT) -> dict[str, str]:
+    reject_links(path)
+    record = _review_object(
+        json.loads(path.read_text(encoding="utf-8")),
+        {"schema", "candidate_sha256", "visual_review", "coverage", "publication_approval"},
+        "publication review record",
+    )
+    if record["schema"] != REVIEW_SCHEMA:
+        raise RuntimeError("Research companion review schema identity drifted")
     if record["candidate_sha256"] != candidate_digest(root):
-        raise RuntimeError("Research companion browser review is stale for the current candidate")
-    if record["status"] != "approved":
-        raise RuntimeError("Research companion publication blocked: permitted browser review and final approval are pending")
-    if not isinstance(record["surface"], str) or not record["surface"].strip():
-        raise RuntimeError("Browser review must identify the explicitly permitted surface")
-    if record["checks"] != dict.fromkeys(CHECKS, True) or any(
-        value is not True for value in record["checks"].values()
-    ):
-        raise RuntimeError("Research companion browser-review checklist is incomplete")
-    evidence = record["evidence"]
-    if not isinstance(evidence, list) or not evidence:
-        raise RuntimeError("Browser review requires inspected screenshots and a written review")
-    seen: set[str] = set()
-    suffixes: set[str] = set()
-    for item in evidence:
-        if not isinstance(item, dict) or set(item) != {"path", "bytes", "sha256"}:
-            raise RuntimeError("Browser-review evidence record is malformed")
-        name = item["path"]
-        if not isinstance(name, str):
-            raise RuntimeError("Browser-review evidence path is malformed")
-        relative = Path(name)
-        if (
-            relative.as_posix() != name
-            or relative.is_absolute()
-            or ".." in relative.parts
-            or "\\" in name
-            or relative.parent != Path("evidence/research-companion-browser-review")
-            or relative.suffix not in {".png", ".md"}
-            or name in seen
-        ):
-            raise RuntimeError("Browser-review evidence must have unique, bounded public paths")
-        source = root / relative
-        reject_links(source)
-        if not source.is_file() or source.stat().st_size != item["bytes"] or digest(source) != item["sha256"]:
-            raise RuntimeError("Browser-review evidence bytes differ from the reviewed record")
-        if relative.suffix == ".png" and not source.read_bytes().startswith(b"\x89PNG\r\n\x1a\n"):
-            raise RuntimeError("Browser-review screenshot is not a PNG")
-        seen.add(name)
-        suffixes.add(relative.suffix)
-    if suffixes != {".png", ".md"}:
-        raise RuntimeError("Browser review requires both screenshots and a written review")
+        raise RuntimeError("Research companion publication approval is stale for the current candidate")
+    visual = _review_object(
+        record["visual_review"],
+        {"status", "basis", "surface", "scope", "content_sha256", "preview_candidate_sha256"},
+        "manual visual review",
+    )
+    if visual["status"] != "accepted":
+        raise RuntimeError("Research companion publication blocked: manual visual acceptance is pending")
+    for field in ("basis", "surface", "scope"):
+        _review_text(visual[field], f"visual review {field}")
+    preview_digest = visual["preview_candidate_sha256"]
+    if not isinstance(preview_digest, str) or re.fullmatch(r"[0-9a-f]{64}", preview_digest) is None:
+        raise RuntimeError("Research companion reviewed preview identity is malformed")
+    if visual["content_sha256"] != visual_content_digest(root):
+        raise RuntimeError("Research companion visual acceptance is stale for the rendered content")
+    coverage = _review_object(record["coverage"], set(COVERAGE_CHECKS), "specialist coverage")
+    if any(not isinstance(value, str) or value not in COVERAGE_STATUSES for value in coverage.values()):
+        raise RuntimeError("Research companion coverage must use passed, failed or not-tested")
+    if "failed" in coverage.values():
+        raise RuntimeError("Research companion publication blocked: a declared review check failed")
+    approval = _review_object(record["publication_approval"], {"status", "basis"}, "final publication approval")
+    if approval["status"] != "approved":
+        raise RuntimeError("Research companion publication blocked: final publication approval is pending")
+    _review_text(approval["basis"], "final publication approval basis")
+    # Unperformed specialist checks remain visible and do not become false
+    # passes. No private screenshot or other personal evidence is required.
+    return coverage
 
 
 def snapshot(site: Path) -> dict[str, str]:
@@ -135,8 +160,7 @@ def snapshot(site: Path) -> dict[str, str]:
 
 def assemble(site: Path, *, require_reviewed: bool = False) -> dict[str, Any]:
     record = check_pages_admission()
-    if require_reviewed:
-        require_visual_review()
+    coverage = require_visual_review() if require_reviewed else None
     reject_links(site)
     site = site.resolve()
     if site == ROOT or ROOT in site.parents or not site.is_dir():
@@ -182,7 +206,10 @@ def assemble(site: Path, *, require_reviewed: bool = False) -> dict[str, Any]:
     expected = set(before) | {item["path"] for item in copies} | {"explore/index.html"}
     if set(after) != expected:
         raise RuntimeError("Research companion assembly produced an unexpected file roster")
-    return {"new_files": len(after) - len(before), "preserved_files": len(before), "status": "draft-unpromoted"}
+    result: dict[str, Any] = {"new_files": len(after) - len(before), "preserved_files": len(before), "status": "draft-unpromoted"}
+    if coverage is not None:
+        result["review_coverage"] = coverage
+    return result
 
 
 def main() -> None:
@@ -190,10 +217,11 @@ def main() -> None:
     parser.add_argument("--site", type=Path)
     parser.add_argument("--require-reviewed", action="store_true")
     parser.add_argument("--candidate-digest", action="store_true")
+    parser.add_argument("--visual-content-digest", action="store_true")
     args = parser.parse_args()
-    if args.candidate_digest:
+    if args.candidate_digest or args.visual_content_digest:
         check_pages_admission()
-        print(candidate_digest())
+        print(visual_content_digest() if args.visual_content_digest else candidate_digest())
         return
     if args.site is None:
         parser.error("--site is required for assembly")

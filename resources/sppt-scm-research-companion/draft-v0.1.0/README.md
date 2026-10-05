@@ -38,11 +38,16 @@ Explorer checks cover exact pinned samples, independent matrix-exponential
 comparisons, analytic geometry and JavaScript callbacks. They are not browser
 rendering or accessibility certification. The executor's attempted browser
 navigation was blocked by administrator policy; no alternate browser route
-was attempted. Review on an explicitly approved browser surface remains open.
+was attempted. The owner subsequently inspected the delivered preview on their
+own device and accepted its general appearance. Missing images were resolved
+by extracting both ZIPs into the same folder; no image-path change was needed.
+Specialist test coverage remains separately recorded as not tested.
 
 The prepared Pages integration adds `/explore/` as an entry point to this
 versioned draft namespace. Admission v2 pins the complete companion and retains
 the existing frozen release routes. The manual deployment workflow requires an
-exact-candidate browser review and final publication approval; its review record
-is currently pending. Preparing or assembling this draft does not deploy it.
+exact-byte integrity, manual visual acceptance and final publication approval.
+Visual acceptance and owner publication authorization are recorded. Successful
+exact-head CI and the owner’s merge remain separate requirements.
+Preparing or assembling this draft does not deploy it.
 See the [Pages review procedure](https://github.com/jkolantree/astra/blob/main/evidence/RESEARCH_COMPANION_PAGES_REVIEW.md).

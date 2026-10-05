@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -123,78 +122,149 @@ def test_changed_manifest_companion_hash_is_rejected(tmp_path: Path) -> None:
 
 
 def review_fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> tuple[Path, dict]:
-    # Synthetic review records test enforcement only; they are never publication
-    # evidence and are not saved to the repository's pending real review.
+    # These synthetic records test enforcement only and are never saved as
+    # owner review or publication evidence.
     monkeypatch.setattr(companion, "CANDIDATE_INPUTS", ("source.txt",))
+    monkeypatch.setattr(companion, "VISUAL_SOURCE_PATHS", (("render.html", "index.html"),))
     (tmp_path / "source.txt").write_text("fixture candidate")
+    (tmp_path / "render.html").write_text("<title>Fixture appearance</title>")
     record = {
         "schema": companion.REVIEW_SCHEMA,
-        "status": "approved",
         "candidate_sha256": companion.candidate_digest(tmp_path),
-        "surface": "synthetic test fixture, not a browser review",
-        "checks": dict.fromkeys(companion.CHECKS, True),
-        "evidence": [],
+        "visual_review": {
+            "status": "accepted",
+            "basis": "Synthetic fixture only",
+            "surface": "Synthetic fixture only",
+            "scope": "Synthetic fixture only",
+            "content_sha256": companion.visual_content_digest(tmp_path),
+            "preview_candidate_sha256": companion.candidate_digest(tmp_path),
+        },
+        "coverage": dict.fromkeys(companion.COVERAGE_CHECKS, "not-tested"),
+        "publication_approval": {"status": "approved", "basis": "Synthetic fixture only"},
     }
-    directory = tmp_path / "evidence/research-companion-browser-review"
-    directory.mkdir(parents=True)
-    for name, content in (("desktop.png", b"\x89PNG\r\n\x1a\nfixture"), ("review.md", b"Synthetic test only")):
-        target = directory / name
-        target.write_bytes(content)
-        record["evidence"].append({"path": target.relative_to(tmp_path).as_posix(), "bytes": len(content), "sha256": hashlib.sha256(content).hexdigest()})
     path = tmp_path / "review.json"
     path.write_text(json.dumps(record))
     return path, record
 
 
-def test_visual_gate_rejects_pending_stale_and_incomplete_review(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_manual_acceptance_and_final_approval_do_not_require_specialist_passes_or_screenshots(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
     path, record = review_fixture(tmp_path, monkeypatch)
+    assert companion.require_visual_review(path, root=tmp_path) == record["coverage"]
+    assert set(record["coverage"].values()) == {"not-tested"}
+    assert not (tmp_path / "evidence").exists()
+    record["coverage"]["keyboard_and_focus"] = "passed"
+    path.write_text(json.dumps(record))
+    assert companion.require_visual_review(path, root=tmp_path)["keyboard_and_focus"] == "passed"
+
+
+@pytest.mark.parametrize("missing", ["visual", "publication"])
+def test_visual_gate_requires_both_explicit_acceptance_and_publication_approval(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, missing: str,
+) -> None:
+    path, record = review_fixture(tmp_path, monkeypatch)
+    field = "visual_review" if missing == "visual" else "publication_approval"
+    record[field]["status"] = "pending"
+    path.write_text(json.dumps(record))
+    with pytest.raises(RuntimeError, match="is pending"):
+        companion.require_visual_review(path, root=tmp_path)
+
+
+def test_changed_candidate_requires_new_final_approval_but_unchanged_visual_acceptance_survives(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    path, record = review_fixture(tmp_path, monkeypatch)
+    visual = record["visual_review"].copy()
+    (tmp_path / "source.txt").write_text("refined gate, same rendered content")
+    with pytest.raises(RuntimeError, match="stale for the current candidate"):
+        companion.require_visual_review(path, root=tmp_path)
+    record["candidate_sha256"] = companion.candidate_digest(tmp_path)
+    record["publication_approval"] = {"status": "pending", "basis": None}
+    path.write_text(json.dumps(record))
+    with pytest.raises(RuntimeError, match="final publication approval is pending"):
+        companion.require_visual_review(path, root=tmp_path)
+    assert record["visual_review"] == visual
+    record["publication_approval"] = {"status": "approved", "basis": "New synthetic approval"}
+    path.write_text(json.dumps(record))
     companion.require_visual_review(path, root=tmp_path)
-    record["status"] = "pending"
-    path.write_text(json.dumps(record))
-    with pytest.raises(RuntimeError, match="are pending"):
-        companion.require_visual_review(path, root=tmp_path)
-    record["status"] = "approved"
-    record["checks"]["keyboard_and_focus"] = False
-    path.write_text(json.dumps(record))
-    with pytest.raises(RuntimeError, match="checklist is incomplete"):
-        companion.require_visual_review(path, root=tmp_path)
-    record["checks"]["keyboard_and_focus"] = True
-    path.write_text(json.dumps(record))
-    (tmp_path / "source.txt").write_text("changed candidate")
-    with pytest.raises(RuntimeError, match="stale"):
-        companion.require_visual_review(path, root=tmp_path)
 
 
-@pytest.mark.parametrize("fault", ["bytes", "traversal", "missing_report", "link", "surface"])
-def test_visual_gate_requires_bounded_exact_evidence(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, fault: str) -> None:
+@pytest.mark.parametrize("change", ["page", "alias"])
+def test_changed_rendered_content_invalidates_visual_acceptance(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, change: str,
+) -> None:
     path, record = review_fixture(tmp_path, monkeypatch)
-    if fault == "bytes":
-        record["evidence"][0]["sha256"] = "0" * 64
-    elif fault == "traversal":
-        record["evidence"][0]["path"] = "evidence/research-companion-browser-review/../desktop.png"
-    elif fault == "missing_report":
-        record["evidence"] = record["evidence"][:1]
-    elif fault == "link":
-        image = tmp_path / record["evidence"][0]["path"]
-        image.unlink()
-        image.symlink_to(tmp_path / "source.txt")
+    if change == "page":
+        (tmp_path / "render.html").write_text("<title>Changed appearance</title>")
     else:
-        record["surface"] = None
+        monkeypatch.setattr(companion, "ALIAS", b"changed alias")
+    record["candidate_sha256"] = companion.candidate_digest(tmp_path)
+    path.write_text(json.dumps(record))
+    with pytest.raises(RuntimeError, match="stale for the rendered content"):
+        companion.require_visual_review(path, root=tmp_path)
+
+
+@pytest.mark.parametrize("fault", ["failed", "boolean", "missing", "unknown", "private_evidence", "approval_basis", "surface"])
+def test_review_rejects_false_passes_incomplete_records_and_declared_failures(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, fault: str,
+) -> None:
+    path, record = review_fixture(tmp_path, monkeypatch)
+    if fault == "failed":
+        record["coverage"]["keyboard_and_focus"] = "failed"
+    elif fault == "boolean":
+        record["coverage"]["keyboard_and_focus"] = True
+    elif fault == "missing":
+        del record["coverage"]["keyboard_and_focus"]
+    elif fault == "unknown":
+        record["coverage"]["keyboard_and_focus"] = "unknown"
+    elif fault == "private_evidence":
+        record["evidence"] = ["unrequested-private-screenshot.png"]
+    elif fault == "approval_basis":
+        record["publication_approval"]["basis"] = None
+    else:
+        record["visual_review"]["surface"] = None
     path.write_text(json.dumps(record))
     with pytest.raises(RuntimeError):
         companion.require_visual_review(path, root=tmp_path)
 
 
-def test_current_pending_gate_blocks_production_before_any_write(tmp_path: Path) -> None:
+def test_current_review_preserves_coverage_and_obeys_publication_decision(tmp_path: Path) -> None:
     record = json.loads(companion.REVIEW.read_text())
-    if record["status"] == "approved":
-        pytest.skip("An actual reviewed candidate must be checked by the deployment gate")
     assert record["candidate_sha256"] == companion.candidate_digest()
+    assert record["visual_review"]["status"] == "accepted"
+    assert record["visual_review"]["content_sha256"] == companion.visual_content_digest()
+    assert set(record["coverage"].values()) == {"not-tested"}
+    assert "evidence" not in record
     site = artifact(tmp_path)
     before = companion.snapshot(site)
-    with pytest.raises(RuntimeError, match="are pending"):
-        companion.assemble(site, require_reviewed=True)
-    assert companion.snapshot(site) == before
+    if record["publication_approval"]["status"] == "approved":
+        result = companion.assemble(site, require_reviewed=True)
+        assert result["new_files"] == 44
+        assert result["review_coverage"] == record["coverage"]
+        after = companion.snapshot(site)
+        assert all(after[name] == value for name, value in before.items())
+    else:
+        with pytest.raises(RuntimeError, match="final publication approval is pending"):
+            companion.assemble(site, require_reviewed=True)
+        assert companion.snapshot(site) == before
+
+
+def test_approved_fixture_assembly_reports_untested_coverage_without_private_evidence(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    original = companion.REVIEW.read_bytes()
+    record = json.loads(original)
+    record["publication_approval"] = {"status": "approved", "basis": "Synthetic integration test only"}
+    record["coverage"] = dict.fromkeys(companion.COVERAGE_CHECKS, "not-tested")
+    fixture = tmp_path / "synthetic-review.json"
+    fixture.write_text(json.dumps(record))
+    actual_validator = companion.require_visual_review
+    monkeypatch.setattr(companion, "require_visual_review", lambda: actual_validator(fixture))
+    result = companion.assemble(artifact(tmp_path), require_reviewed=True)
+    assert result["new_files"] == 44
+    assert result["review_coverage"] == record["coverage"]
+    assert companion.REVIEW.read_bytes() == original
 
 
 def test_frozen_release_routes_still_match_v1_and_workflow_requires_review() -> None:
