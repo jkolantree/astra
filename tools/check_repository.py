@@ -430,6 +430,54 @@ RESPONSE_BENCHMARK_FILES = (
     "benchmark.py",
     "results.json",
 )
+RESEARCH_COMPANION_ROOT = "resources/sppt-scm-research-companion/draft-v0.1.0"
+RESEARCH_COMPANION_FILES = ("README.md", "review.json", "RIGHTS_AND_NOTICES.md", "FONT_NOTICES.txt")
+RESEARCH_PACKAGE_FILES = (
+    'MANIFEST.sha256',
+    'README.md',
+    'research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.docx',
+    'research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.pdf',
+    'visuals/ASTRA_SPPT_SCM_Visual_Atlas_2026-10-05.pdf',
+    'visuals/catalog.json',
+    'visuals/illustrations/images/01-saturn-ring-dust-illustration.png',
+    'visuals/illustrations/images/02-enceladus-plume-illustration.png',
+    'visuals/illustrations/images/03-bent-filament-concept.png',
+    'visuals/illustrations/provenance.json',
+    'visuals/scientific/CAPTIONS_AND_SOURCES.md',
+    'visuals/scientific/README.md',
+    'visuals/scientific/animations/A1_pattern_vs_material_motion.gif',
+    'visuals/scientific/animations/A1_pattern_vs_material_motion.mp4',
+    'visuals/scientific/animations/A1_pattern_vs_material_motion_poster.png',
+    'visuals/scientific/animations/A2_bending_graph_normal_frame.gif',
+    'visuals/scientific/animations/A2_bending_graph_normal_frame.mp4',
+    'visuals/scientific/animations/A2_bending_graph_normal_frame_poster.png',
+    'visuals/scientific/figures/01_complete_observation_contract.png',
+    'visuals/scientific/figures/01_complete_observation_contract.svg',
+    'visuals/scientific/figures/02_complex_graph_normal_plane.png',
+    'visuals/scientific/figures/02_complex_graph_normal_plane.svg',
+    'visuals/scientific/figures/03_wki_discrete_growth_bands.png',
+    'visuals/scientific/figures/03_wki_discrete_growth_bands.svg',
+    'visuals/scientific/figures/04_phase_coherence_entanglement.png',
+    'visuals/scientific/figures/04_phase_coherence_entanglement.svg',
+    'visuals/scientific/figures/05_ring_inventory_optical_clock.png',
+    'visuals/scientific/figures/05_ring_inventory_optical_clock.svg',
+    'visuals/scientific/figures/06_planetary_transfer_comparison.png',
+    'visuals/scientific/figures/06_planetary_transfer_comparison.svg',
+    'visuals/scientific/generate_scientific_atlas.py',
+    'visuals/scientific/manifest.json',
+)
+RESEARCH_PACKAGE_MANIFEST_SHA256 = "43a01884d12ebd542158c235c285b09c60053ac7499cf94208542a50634bfeed"
+RESEARCH_GENERATOR_SHA256 = "fb3b277278938eede5bf3401d2af4a5b7cad3111b3e5385b33f764c5bce9ac96"
+RESEARCH_GENERATOR_PATH = (
+    f"{RESEARCH_COMPANION_ROOT}/package/visuals/scientific/generate_scientific_atlas.py"
+)
+RESOURCE_EXACT_SUFFIX_ALLOWLIST.update(
+    f"{RESEARCH_COMPANION_ROOT}/package/{name}"
+    for name in RESEARCH_PACKAGE_FILES
+    if Path(name).suffix in {".docx", ".gif", ".mp4"}
+)
+RESEARCH_EXPLORER_ROOT = f"{RESEARCH_COMPANION_ROOT}/explorer"
+RESEARCH_EXPLORER_FILES = ("README.md", "index.html", "provenance.json", "recurrence.md")
 FRAMEWORK_RESOURCE_COVER = "cover.png"
 RESOURCE_PATH_ALLOWLIST = {
     "resources/README.md",
@@ -459,6 +507,9 @@ RESOURCE_PATH_ALLOWLIST = {
     *(f"{DARK_MEDIUM_RESOURCE_ROOT}/v0.1.0/{name}" for name in DARK_MEDIUM_FINAL_FILES),
     *(f"{SPPT_ASTRA_V108_CANDIDATE_ROOT}/{name}" for name in SPPT_ASTRA_V108_CANDIDATE_FILES),
     *(f"{RESPONSE_BENCHMARK_ROOT}/{name}" for name in RESPONSE_BENCHMARK_FILES),
+    *(f"{RESEARCH_EXPLORER_ROOT}/{name}" for name in RESEARCH_EXPLORER_FILES),
+    *(f"{RESEARCH_COMPANION_ROOT}/{name}" for name in RESEARCH_COMPANION_FILES),
+    *(f"{RESEARCH_COMPANION_ROOT}/package/{name}" for name in RESEARCH_PACKAGE_FILES),
 }
 
 
@@ -1708,6 +1759,37 @@ def check_publication_map() -> None:
         )
 
 
+def check_research_companion() -> None:
+    """Admit only the supplied byte-pinned package, outside production Pages."""
+    companion = ROOT / RESEARCH_COMPANION_ROOT
+    package = companion / "package"
+    expected = set(RESEARCH_PACKAGE_FILES)
+    observed = {p.relative_to(package).as_posix() for p in package.rglob("*") if p.is_file()}
+    if observed != expected:
+        raise RuntimeError("Research companion payload roster drift")
+    manifest = package / "MANIFEST.sha256"
+    if hashlib.sha256(manifest.read_bytes()).hexdigest() != RESEARCH_PACKAGE_MANIFEST_SHA256:
+        raise RuntimeError("Research companion original manifest drift")
+    entries = {}
+    for line in manifest.read_text(encoding="utf-8").splitlines():
+        digest, name = line.split("  ", 1)
+        if name not in expected or name in entries:
+            raise RuntimeError("Unexpected or duplicated research payload manifest entry")
+        entries[name] = digest
+        if hashlib.sha256((package / name).read_bytes()).hexdigest() != digest:
+            raise RuntimeError(f"Research companion approved bytes changed: {name}")
+    if set(entries) != expected - {"MANIFEST.sha256"}:
+        raise RuntimeError("Incomplete research companion original manifest")
+    review = json.loads((companion / "review.json").read_text(encoding="utf-8"))
+    records = review["files"]
+    if len(records) != len(expected) or {r["path"] for r in records} != expected:
+        raise RuntimeError("Research companion file-by-file review roster drift")
+    for record in records:
+        payload = (package / record["path"]).read_bytes()
+        if record["bytes"] != len(payload) or record["sha256"] != hashlib.sha256(payload).hexdigest():
+            raise RuntimeError("Research companion review is not bound to the outgoing bytes")
+
+
 def check_text_privacy(paths: list[Path]) -> None:
     for path in paths:
         if path.suffix.lower() not in TEXT_SUFFIXES:
@@ -1718,8 +1800,20 @@ def check_text_privacy(paths: list[Path]) -> None:
             "307349551+jkolantree@users.noreply.github.com", "PUBLIC_GITHUB_NOREPLY"
         )
         for label, pattern in PRIVATE_PATTERNS.items():
-            if pattern.search(text):
-                raise RuntimeError(f"{label} in {path.relative_to(ROOT).as_posix()}")
+            if not pattern.search(text):
+                continue
+            if path.relative_to(ROOT).as_posix() == RESEARCH_GENERATOR_PATH:
+                # These four matches are code syntax in the approved, immutable source.
+                expected = {
+                    "local Windows path": ["m:" + chr(92)],
+                    "email address": ["M@M.T-np.eye", "P@P.T-np.eye", "rho0@U.conj"],
+                }
+                if (
+                    hashlib.sha256(path.read_bytes()).hexdigest() == RESEARCH_GENERATOR_SHA256
+                    and pattern.findall(text) == expected.get(label)
+                ):
+                    continue
+            raise RuntimeError(f"{label} in {path.relative_to(ROOT).as_posix()}")
 
 
 def check_license_map(paths: list[Path]) -> None:
@@ -2177,6 +2271,7 @@ def main() -> None:
     check_working_paper_resource()
     check_framework_v030_resource()
     check_sppt_astra_v108_candidate_resource()
+    check_research_companion()
     check_dark_medium_response_atlas_resource()
     check_publication_map()
     check_metadata_agreement()

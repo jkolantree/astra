@@ -21,6 +21,11 @@ cache-dir = "tmp/ruff"
 select = ["E", "F", "I", "B", "UP"]
 ignore = ["E501"]
 
+# Preserve the reviewed supplier generator byte-for-byte. The repository checker
+# pins its full SHA-256; these existing style/idiom findings apply only here.
+[tool.ruff.lint.per-file-ignores]
+"resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/generate_scientific_atlas.py" = ["B905", "E401", "E701", "E702", "E703", "E731", "E741", "F401", "I001"]
+
 [tool.mypy]
 python_version = "3.12"
 files = ["src"]

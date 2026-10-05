@@ -1,0 +1,42 @@
+{
+  "status": "Draft; unpromoted",
+  "base_commit": "11a74c2ea98a2157c73d89dbea7f66975bbc68bf",
+  "runtime_dependencies": [],
+  "modules": [
+    {
+      "id": "saturn",
+      "physics_status": "prescribed visual kinematics",
+      "provenance": "Original sixfold analytic schematic; separate from the supplied ten-lobed animation; no measured Saturn data"
+    },
+    {
+      "id": "reservoir",
+      "physics_status": "retained synthetic model output",
+      "source": "data/two_reservoir_step_response.csv",
+      "sha256": "b6d3563604e6a0789f86bba398da2a76e590d7b2100e88926733ac14c5a80d6a",
+      "samples": 2700
+    },
+    {
+      "id": "normal-plane",
+      "physics_status": "analytic geometry",
+      "provenance": "original helix and straight-line construction"
+    },
+    {
+      "id": "recurrence",
+      "physics_status": "source-attributed interpretation; proposed tests unexecuted",
+      "source": "https://doi.org/10.1038/s41567-026-03431-z",
+      "content": "recurrence.md"
+    }
+  ],
+  "absent": [
+    "recurrence numerical implementation and experimental data replay"
+  ],
+  "third_party_license_grant": false,
+  "empirical_validation_claim": false,
+  "package": {
+    "path": "../package",
+    "payload_files": 32,
+    "manifest_sha256": "43a01884d12ebd542158c235c285b09c60053ac7499cf94208542a50634bfeed",
+    "classification": "Original scientific figures, conditional models, prescribed animations, AI-generated conceptual illustrations; not empirical validation",
+    "rights": "Supplier authorized public reading and download; no new license assigned"
+  }
+}

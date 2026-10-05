@@ -1,0 +1,1700 @@
+{
+  "status": "Unpromoted draft; publication pending complete review",
+  "base_commit": "11a74c2ea98a2157c73d89dbea7f66975bbc68bf",
+  "incoming_archives": [
+    {
+      "name": "ASTRA_SPPT_SCM_Part_1_Research_and_Scientific_Visuals_2026-10-05.zip",
+      "bytes": 11059465,
+      "sha256": "7c75e8a58b4fc2d08165d6675dc7451194f31445cddcd08adc60faaf8d24d6df"
+    },
+    {
+      "name": "ASTRA_SPPT_SCM_Part_2_Generated_Illustrations_2026-10-05.zip",
+      "bytes": 6207010,
+      "sha256": "7482da5827e721fe2a3c42d626ce8856e5c2461976599ff7735287ba95a3b8de"
+    },
+    {
+      "name": "ASTRA_SPPT_SCM_Part_3_Visual_Atlas_2026-10-05.zip",
+      "bytes": 8784839,
+      "sha256": "ca79a5fe7337380cd2b090d9d908e34a1991427ef616eb120b377af4df448b9c"
+    }
+  ],
+  "payload_files": 32,
+  "archive_checks": [
+    "Exact upload sizes and SHA-256 matched approved values",
+    "No absolute, traversal, symlink, encrypted or duplicate entries within an archive",
+    "All duplicated files across parts byte-identical",
+    "Each split manifest and the original complete payload manifest verified",
+    "Only original 32-file payload admitted; six split wrappers and ZIP containers excluded"
+  ],
+  "generator_replay": {
+    "maximum_normal_frame_orthogonality_error": 4.440892098500626e-16,
+    "projection_orthonormality_error": 1.1102230246251565e-16,
+    "wki_m4_s1_growing_positive_indices": [
+      1,
+      2
+    ],
+    "wki_m1_s1_growing_positive_indices": [],
+    "wki_max_scaled_at_s1_qhalf": 0.125,
+    "quantum_negativity_controls": {
+      "a1_b1_delta_pi": 0.5,
+      "delta0": 0.0,
+      "a0": 0.0
+    },
+    "quantum_formula_vs_independent_partial_transpose_max_error": 2.220446049250313e-16,
+    "random_test_seed": 20261005
+  },
+  "limitations": [
+    "No empirical validation or literature-priority claim",
+    "Browser navigation blocked by administrator policy; no alternate navigation attempted",
+    "Browser rendering, mobile, keyboard and assistive-technology runtime review pending",
+    "No local C2PA signature-chain certification",
+    "Recurrence numerical integration and experimental data replay not executed",
+    "No canonical full release verification or deployment performed",
+    "Generator replay used Matplotlib 3.11.1 rather than delivered-build 3.10.8; zero of 18 re-rendered media files matched byte-for-byte. No replay output is substituted for approved media."
+  ],
+  "files": [
+    {
+      "path": "MANIFEST.sha256",
+      "bytes": 3797,
+      "sha256": "43a01884d12ebd542158c235c285b09c60053ac7499cf94208542a50634bfeed",
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Research text, generator, manifest, caption or provenance record",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5888,
+      "sha256": "c6ed56d5abf94cba509a164740571c7600a7b57a4c0f4c20639bec593b3a5f7e",
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Research text, generator, manifest, caption or provenance record",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.docx",
+      "bytes": 88008,
+      "sha256": "bed2437db587b5ee00d0aaf7e61cce727a6482649c24e3c672dc611e1d9cebd5",
+      "members": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "docProps/core.xml",
+        "docProps/app.xml",
+        "word/document.xml",
+        "word/_rels/document.xml.rels",
+        "word/styles.xml",
+        "word/stylesWithEffects.xml",
+        "word/settings.xml",
+        "word/webSettings.xml",
+        "word/fontTable.xml",
+        "word/theme/theme1.xml",
+        "word/numbering.xml",
+        "word/header1.xml",
+        "word/footer1.xml"
+      ],
+      "special_parts": [],
+      "external_relations": [
+        {
+          "Id": "rId11",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.science.org/doi/10.1126/sciadv.aee7256",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId12",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1080/00776297.2026.2719320",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId13",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s41467-026-77933-y",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId14",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.pnas.org/doi/10.1073/pnas.2615377123",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId15",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s41561-026-02102-1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId16",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s41598-026-65147-7.pdf",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId17",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2603.20044v2",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId18",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://pubs.acs.org/jacsat/article/doi/10.1021/jacs.6c12994/5421141/Local-pH-Control-Promotes-Oxygen-Atom-Transfer",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId19",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://journals.aps.org/prl/accepted/10.1103/xkht-64kc",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId20",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s41612-026-01382-z.pdf",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId21",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://pubmed.ncbi.nlm.nih.gov/42772768/",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId22",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2604.07588v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId23",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://journals.aps.org/prl/abstract/10.1103/jtkh-9lz5",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId24",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://journals.aps.org/prl/abstract/10.1103/drzq-lfn5",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId25",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2510.05201v2",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId26",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2602.09421v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId27",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://pubmed.ncbi.nlm.nih.gov/42767195/",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId28",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2607.27333v2",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId29",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2609.22434v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId30",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s41550-024-02472-9",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId31",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2503.14738v3",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId32",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2410.17036v3",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId33",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2404.04248v3",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId34",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2409.20549v2",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId35",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.pnas.org/doi/10.1073/pnas.2320844121",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId36",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.133.237401",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId37",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://journals.aps.org/prl/abstract/10.1103/rgfy-n6zd",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId38",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://journals.aps.org/prresearch/abstract/10.1103/qb8s-9c6y",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId39",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.sciencedirect.com/science/article/pii/S0960982224012272",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId40",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://pubmed.ncbi.nlm.nih.gov/39008671/",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId41",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://journals.aps.org/prxlife/abstract/10.1103/6wcm-z333",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId42",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://profiles.wustl.edu/en/publications/evidence-for-a-prolonged-pre-domestication-phase-8000-year-old-pe/",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId43",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/abs/1502.04525",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId44",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/soliton-on-a-vortex-filament/1A2FF58DD1B8DE20509866A4713531F3",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId45",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.sciencedirect.com/science/article/abs/pii/S0167278918303907",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId46",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/abs/quant-ph/0508092",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId47",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/abs/quant-ph/0102125",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId48",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.66.397",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId49",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.mathnet.ru/eng/tmf9197",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId50",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/abs/nlin/0409040",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId51",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.math.utoronto.ca/khesin/papers/hasimotoNonlinearity.pdf",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId52",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2607.01024v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId53",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/abs/1801.09811",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId54",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/abs/1309.6620",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId55",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2609.10697v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId56",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2211.09902v2",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId57",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2021.587083/full",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId58",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2604.19696v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId59",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2607.03429v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId60",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/abs/quant-ph/0302031",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId61",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/abs/1509.07127",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId62",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/abs/quant-ph/0605009",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId63",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2601.03214v2",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId64",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s41586-025-09595-7",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId65",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2608.07234v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId66",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2609.03016v2",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId67",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1126/sciadv.aee7256",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId68",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://meetingorganizer.copernicus.org/EPSC2026/EPSC2026-1326.html",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId69",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://pds.nasa.gov/ds-view/pds/viewBundle.jsp?identifier=urn:nasa:pds:cassini_cda&version=1.0",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId70",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2026EA005130",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId71",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/abs/0803.2786",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId72",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://hess-experiment.eu/2026/08/HESS-SOM32028/",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId73",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.elsi.jp/en/news_events/highlights/2026/enceladus_ocean_spray_diverse_ice_grains/",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId74",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1016/j.icarus.2026.117029",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId75",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2603.04102v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId76",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1126/sciadv.adf8537",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId77",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.3847/PSJ/ae18c1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId78",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s41586-025-09818-x",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId79",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1126/sciadv.aee4251",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId80",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://upcommons.upc.edu/entities/publication/b99b00a0-56a4-444a-bd26-6387088ccb7a",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId81",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://esahubble.org/news/heic2612/",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId82",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1029/2026JE009749",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId83",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1029/2025JA034657",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId84",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s41467-026-69666-9",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId85",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s43247-025-02399-7",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId86",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://researchdata.se/en/catalogue/dataset/2024-442",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId87",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2602.16567v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId88",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.57780/esa-jw5mh1u",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId89",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1126/sciadv.adm7074",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId90",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11296337/",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId91",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s41561-026-01933-2",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId92",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://zenodo.org/records/18059885",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId93",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s43247-025-02546-0",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId94",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s41561-026-02042-w",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId95",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.nature.com/articles/s43247-025-02960-4",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId96",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.hou.usra.edu/meetings/lpsc2026/pdf/1358.pdf",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId97",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://www.egu26.eu/EGU26-8526.html",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId98",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://pds.nasa.gov/ds-view/pds/viewBundle.jsp?identifier=urn:nasa:pds:clps_to_19d_lms&version=1.0",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId99",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://arxiv.org/html/2608.15512v1",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId100",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1016/j.epsl.2026.120196",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId101",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1029/2025JE009236",
+          "TargetMode": "External"
+        },
+        {
+          "Id": "rId102",
+          "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+          "Target": "https://doi.org/10.1126/sciadv.aei0167",
+          "TargetMode": "External"
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Research text, generator, manifest, caption or provenance record",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.pdf",
+      "bytes": 498684,
+      "sha256": "5d5bd1ee5bccdd7626de1cc9394c2249ec113dd040593cbe9a2fe65e07653545",
+      "pages": 35,
+      "metadata": {
+        "/Title": "Physics Synthesis and Research Priorities for ASTRA SPPT and SCM Public Research Draft",
+        "/Author": "Research synthesis prepared with AI assistance",
+        "/Subject": "A source aware synthesis of geometric models observation contracts and operational quantum gravity",
+        "/Keywords": "ASTRA, SPPT, SCM, skew, mean, curvature, flow, WKI, quantum, gravity, observation, contracts",
+        "/Creator": "Writer",
+        "/Producer": "LibreOfficeDev 26.8.0.0.alpha0 (X86_64)",
+        "/CreationDate": "D:20261005010056-05'00'"
+      },
+      "attachments": [],
+      "encrypted": false,
+      "active_catalog_keys": [],
+      "annotation_actions": [
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI",
+        "/URI"
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Unpromoted synthesis or illustrated research companion",
+      "visual_review": "All pages inspected in rendered contact sheets; not full-resolution typography certification",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/ASTRA_SPPT_SCM_Visual_Atlas_2026-10-05.pdf",
+      "bytes": 10836875,
+      "sha256": "92ea4761bd060db3d464fd6bfc2ca8e69c769a0a9e50f100d7de29e096351325",
+      "pages": 12,
+      "metadata": {
+        "/Author": "Research illustrations prepared with AI assistance",
+        "/CreationDate": "D:20000101000000+00'00'",
+        "/Creator": "Original visual atlas builder",
+        "/Keywords": "",
+        "/ModDate": "D:20000101000000+00'00'",
+        "/Producer": "ReportLab PDF Library - (opensource)",
+        "/Subject": "Original schematics, exact conditional model plots, analytic animation previews and generated conceptual art",
+        "/Title": "ASTRA SPPT SCM Visual Atlas - Public Research Draft",
+        "/Trapped": "/False"
+      },
+      "attachments": [],
+      "encrypted": false,
+      "active_catalog_keys": [],
+      "annotation_actions": [],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Unpromoted synthesis or illustrated research companion",
+      "visual_review": "All pages inspected in rendered contact sheets; not full-resolution typography certification",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/catalog.json",
+      "bytes": 10626,
+      "sha256": "1510c6ffd28f90fe8e4a3b3fae499d166148f763c16213361dcdcdb9851223e5",
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Research text, generator, manifest, caption or provenance record",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/illustrations/images/01-saturn-ring-dust-illustration.png",
+      "bytes": 1905382,
+      "sha256": "fa471a57d0480936dafcbc51f63d99c84c5e7afe3273ed1b4431226d41194034",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "frames": 1,
+      "metadata": {},
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "caBX",
+          "bytes": 21881
+        },
+        {
+          "type": "IDAT",
+          "bytes": 1883432
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "AI-generated conceptual/speculative illustration",
+      "visual_review": "Full standalone image inspected",
+      "c2pa": "Original caBX chunks retained; local signature-chain validation not performed",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/illustrations/images/02-enceladus-plume-illustration.png",
+      "bytes": 3162294,
+      "sha256": "6b8469d11f87bbc3cbacef752cf17e7dc9ce5da727d182b9309120a8b6cd98e2",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "frames": 1,
+      "metadata": {},
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "caBX",
+          "bytes": 21881
+        },
+        {
+          "type": "IDAT",
+          "bytes": 3140344
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "AI-generated conceptual/speculative illustration",
+      "visual_review": "Full standalone image inspected",
+      "c2pa": "Original caBX chunks retained; local signature-chain validation not performed",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/illustrations/images/03-bent-filament-concept.png",
+      "bytes": 1678600,
+      "sha256": "44f3dc34f063208a12662f2771d07b8392e284569ed93fecc610b22456927610",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "frames": 1,
+      "metadata": {},
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "caBX",
+          "bytes": 23654
+        },
+        {
+          "type": "IDAT",
+          "bytes": 1654877
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "AI-generated conceptual/speculative illustration",
+      "visual_review": "Full standalone image inspected",
+      "c2pa": "Original caBX chunks retained; local signature-chain validation not performed",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/illustrations/provenance.json",
+      "bytes": 13086,
+      "sha256": "d61ed52ef572e18ebcd4178b2d617d1d1e54900cf6d48d7ab634cc7c6f185820",
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Research text, generator, manifest, caption or provenance record",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/CAPTIONS_AND_SOURCES.md",
+      "bytes": 8974,
+      "sha256": "0d86530e1afe5f5a519500b6992acbd8704bd61675572a54047e78545a289494",
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Research text, generator, manifest, caption or provenance record",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/README.md",
+      "bytes": 3965,
+      "sha256": "75398185d459769b99b48a73e30a29b75e4deb84bebfac8fe855b5487ed03dc4",
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Research text, generator, manifest, caption or provenance record",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/animations/A1_pattern_vs_material_motion.gif",
+      "bytes": 4721647,
+      "sha256": "073abff5d5d1f0a97fe41ecce2ed8d2ca6e2d34f953b7f85ed99e88d5cbc19f9",
+      "dimensions": [
+        1100,
+        704
+      ],
+      "frames": 100,
+      "metadata": {
+        "version": "b'GIF89a'",
+        "background": "0",
+        "loop": "0",
+        "duration": "100",
+        "extension": "(b'NETSCAPE2.0', 795)"
+      },
+      "durations_ms": [
+        100
+      ],
+      "duration_ms": 10000,
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Analytically prescribed motion; no physical evolution solver",
+      "visual_review": "GIF and MP4 sampled frames inspected; full frame decoding checked",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/animations/A1_pattern_vs_material_motion.mp4",
+      "bytes": 282074,
+      "sha256": "baae6efdf08db87a2b9097604846b4af1caaa68c425094f87ce872f8d22d4a90",
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1100,
+            "height": 704,
+            "coded_width": 1100,
+            "coded_height": 704,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "pix_fmt": "yuv420p",
+            "level": 31,
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "10/1",
+            "avg_frame_rate": "10/1",
+            "time_base": "1/10240",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 102400,
+            "duration": "10.000000",
+            "bit_rate": "224019",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "100",
+            "extradata_size": 46,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "Lavc61.19.101 libx264"
+            }
+          }
+        ],
+        "format": {
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "10.000000",
+          "size": "282074",
+          "bit_rate": "225659",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf61.7.103"
+          }
+        }
+      },
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Analytically prescribed motion; no physical evolution solver",
+      "visual_review": "GIF and MP4 sampled frames inspected; full frame decoding checked",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/animations/A1_pattern_vs_material_motion_poster.png",
+      "bytes": 114310,
+      "sha256": "f45f329cae4f58f5e3bded2155a3467fc39b9b78e6fa5ea0746b315b8956ee21",
+      "dimensions": [
+        1100,
+        704
+      ],
+      "frames": 1,
+      "metadata": {},
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 48705
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Analytically prescribed motion; no physical evolution solver",
+      "visual_review": "GIF and MP4 sampled frames inspected; full frame decoding checked",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/animations/A2_bending_graph_normal_frame.gif",
+      "bytes": 3638390,
+      "sha256": "907dfc16378fd7f29615b83e7691e9e39f961fa37b5a313461051c41e18c879d",
+      "dimensions": [
+        1100,
+        704
+      ],
+      "frames": 80,
+      "metadata": {
+        "version": "b'GIF89a'",
+        "background": "0",
+        "loop": "0",
+        "duration": "100",
+        "extension": "(b'NETSCAPE2.0', 795)"
+      },
+      "durations_ms": [
+        100
+      ],
+      "duration_ms": 8000,
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Analytically prescribed motion; no physical evolution solver",
+      "visual_review": "GIF and MP4 sampled frames inspected; full frame decoding checked",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/animations/A2_bending_graph_normal_frame.mp4",
+      "bytes": 144777,
+      "sha256": "a622390a0eeeaff6013008757e2fe461bd0351adf2018a2ccfca3ef46028395c",
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1100,
+            "height": 704,
+            "coded_width": 1100,
+            "coded_height": 704,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "pix_fmt": "yuv420p",
+            "level": 31,
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "10/1",
+            "avg_frame_rate": "10/1",
+            "time_base": "1/10240",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 81920,
+            "duration": "8.000000",
+            "bit_rate": "142967",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "80",
+            "extradata_size": 46,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "Lavc61.19.101 libx264"
+            }
+          }
+        ],
+        "format": {
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "8.000000",
+          "size": "144777",
+          "bit_rate": "144777",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf61.7.103"
+          }
+        }
+      },
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Analytically prescribed motion; no physical evolution solver",
+      "visual_review": "GIF and MP4 sampled frames inspected; full frame decoding checked",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/animations/A2_bending_graph_normal_frame_poster.png",
+      "bytes": 109381,
+      "sha256": "dcf4a1adf25945b8bb1ce88164ac437ae3d63380ada6c2593ebecb9bee8fa629",
+      "dimensions": [
+        1100,
+        704
+      ],
+      "frames": 1,
+      "metadata": {},
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 43776
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Analytically prescribed motion; no physical evolution solver",
+      "visual_review": "GIF and MP4 sampled frames inspected; full frame decoding checked",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/01_complete_observation_contract.png",
+      "bytes": 249338,
+      "sha256": "424aaabeecc2e5d54b9185212ed40f16051c33271f2055e465aef7ecd4ae7896",
+      "dimensions": [
+        2160,
+        1368
+      ],
+      "frames": 1,
+      "metadata": {
+        "Software": "Matplotlib version3.10.8, https://matplotlib.org/",
+        "dpi": "(180.00979999999998, 180.00979999999998)"
+      },
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "tEXt",
+          "bytes": 58
+        },
+        {
+          "type": "pHYs",
+          "bytes": 9
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 52546
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/01_complete_observation_contract.svg",
+      "bytes": 22752,
+      "sha256": "0609778a878d423130662ffeddc1d60afff96b853521d9ef958341beae59d6fc",
+      "svg_active_elements": [],
+      "svg_external_refs": [],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/02_complex_graph_normal_plane.png",
+      "bytes": 251247,
+      "sha256": "3acb2f51f62d7089257c4b99a0cacc90cb46b55916173ab9523845fdcb7ad236",
+      "dimensions": [
+        2160,
+        1368
+      ],
+      "frames": 1,
+      "metadata": {
+        "Software": "Matplotlib version3.10.8, https://matplotlib.org/",
+        "dpi": "(180.00979999999998, 180.00979999999998)"
+      },
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "tEXt",
+          "bytes": 58
+        },
+        {
+          "type": "pHYs",
+          "bytes": 9
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 54455
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/02_complex_graph_normal_plane.svg",
+      "bytes": 18046,
+      "sha256": "e9c8400f326650fcc09dfbfa102a57b66c51e53b2072f8c40a0734351689bd74",
+      "svg_active_elements": [],
+      "svg_external_refs": [],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/03_wki_discrete_growth_bands.png",
+      "bytes": 248914,
+      "sha256": "2c71010af2bda71cbeb7e62dcfe2d2791ac19952f8151a956cd13f96c309e3b8",
+      "dimensions": [
+        2160,
+        1368
+      ],
+      "frames": 1,
+      "metadata": {
+        "Software": "Matplotlib version3.10.8, https://matplotlib.org/",
+        "dpi": "(180.00979999999998, 180.00979999999998)"
+      },
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "tEXt",
+          "bytes": 58
+        },
+        {
+          "type": "pHYs",
+          "bytes": 9
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 52122
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/03_wki_discrete_growth_bands.svg",
+      "bytes": 65659,
+      "sha256": "c17411413c6d57f33fa858b678e66de1850b02301969b08af1426151ed53b711",
+      "svg_active_elements": [],
+      "svg_external_refs": [],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/04_phase_coherence_entanglement.png",
+      "bytes": 383474,
+      "sha256": "2ea12cb8ca52dd8184b370aeae657d83cdcdb4e5e10b13e2f39f17a1116375c0",
+      "dimensions": [
+        2160,
+        1368
+      ],
+      "frames": 1,
+      "metadata": {
+        "Software": "Matplotlib version3.10.8, https://matplotlib.org/",
+        "dpi": "(180.00979999999998, 180.00979999999998)"
+      },
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "tEXt",
+          "bytes": 58
+        },
+        {
+          "type": "pHYs",
+          "bytes": 9
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 55586
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/04_phase_coherence_entanglement.svg",
+      "bytes": 116812,
+      "sha256": "fdf86e08955259d1de1959583196cb33d1180f2771f5aca4aa95fa2b52dc968f",
+      "svg_active_elements": [],
+      "svg_external_refs": [],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/05_ring_inventory_optical_clock.png",
+      "bytes": 274556,
+      "sha256": "9afc90c490f280bc6a5491dcf136be7b7e8ae2fa86dc37bab4b62e4197cdb4ff",
+      "dimensions": [
+        2160,
+        1368
+      ],
+      "frames": 1,
+      "metadata": {
+        "Software": "Matplotlib version3.10.8, https://matplotlib.org/",
+        "dpi": "(180.00979999999998, 180.00979999999998)"
+      },
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "tEXt",
+          "bytes": 58
+        },
+        {
+          "type": "pHYs",
+          "bytes": 9
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 12216
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/05_ring_inventory_optical_clock.svg",
+      "bytes": 39315,
+      "sha256": "1ec859c0ba1967f7f0bc1c0397b2c84722faa73c0ad2907b6e2d6617bdf4f0e6",
+      "svg_active_elements": [],
+      "svg_external_refs": [],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/06_planetary_transfer_comparison.png",
+      "bytes": 275852,
+      "sha256": "f205a6176616fe2bfe2795f4a4b2ccb676541a7e5e7ae4385cde9fbc1e6622ab",
+      "dimensions": [
+        2160,
+        1368
+      ],
+      "frames": 1,
+      "metadata": {
+        "Software": "Matplotlib version3.10.8, https://matplotlib.org/",
+        "dpi": "(180.00979999999998, 180.00979999999998)"
+      },
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13
+        },
+        {
+          "type": "tEXt",
+          "bytes": 58
+        },
+        {
+          "type": "pHYs",
+          "bytes": 9
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536
+        },
+        {
+          "type": "IDAT",
+          "bytes": 13512
+        },
+        {
+          "type": "IEND",
+          "bytes": 0
+        }
+      ],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/figures/06_planetary_transfer_comparison.svg",
+      "bytes": 14630,
+      "sha256": "d27ed57cf6681d24733ca2610637b496255a31e2c5d4298f8724c1485c3b8cd0",
+      "svg_active_elements": [],
+      "svg_external_refs": [],
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Original schematic or conditional model; see catalog and captions",
+      "visual_review": "Standalone PNG inspected; SVG structure scanned for active content and external references",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    },
+    {
+      "path": "visuals/scientific/generate_scientific_atlas.py",
+      "bytes": 35444,
+      "sha256": "fb3b277278938eede5bf3401d2af4a5b7cad3111b3e5385b33f764c5bce9ac96",
+      "privacy_pattern_flags": {
+        "local Windows path": {
+          "count": 1,
+          "resolution": "diagram newline syntax"
+        },
+        "email address": {
+          "count": 3,
+          "resolution": "matrix multiplication syntax"
+        }
+      },
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Research text, generator, manifest, caption or provenance record",
+      "privacy_review": "Four regex matches manually resolved as matrix-multiplication syntax or a diagram newline; exact source hash enforced"
+    },
+    {
+      "path": "visuals/scientific/manifest.json",
+      "bytes": 17392,
+      "sha256": "7ff4f44d08dae11adf93ddd520744a535cc1d5f7858eb6b613503487d29f9b22",
+      "privacy_pattern_flags": {},
+      "distribution_status": "Supplier-authorized public reading and download; no new reuse license assigned",
+      "scientific_status": "Research text, generator, manifest, caption or provenance record",
+      "privacy_review": "No flagged private-pattern content in inspected text/metadata"
+    }
+  ],
+  "generator_replay_runtime": {
+    "python": "3.12.10",
+    "numpy": "2.3.5",
+    "matplotlib": "3.11.1",
+    "pillow": "12.3.0",
+    "delivered_matplotlib": "3.10.8",
+    "media_compared": 18,
+    "media_byte_matches": 0,
+    "scope": "Conditional mathematical checks passed. Re-rendered media differ under the available plotting runtime; no byte-identical reproduction claim. All delivered package bytes remain unchanged."
+  }
+}
