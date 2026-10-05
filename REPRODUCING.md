@@ -19,7 +19,7 @@ worked around by relaxing that test.
 ```sh
 python3 -I -B tools/bootstrap_linux.py
 .venv/bin/python -I -B tools/verify.py --runtime-only
-.venv/bin/python -I -B tools/verify_linux_baseline.py --all --workers 4
+.venv/bin/python -I -B tools/verify_linux_companion.py --all --workers 4
 ```
 
 The Linux verifier checks the Python executable and shared-library hashes, exact
@@ -38,6 +38,13 @@ controller never updates expected hashes. It requires two matching builds and an
 exact match to that versioned record. The Atlas uses an opt-in print-only Linux
 layout; historical HTML, CSS, PDFs and publication identity remain unchanged.
 
+The companion branch uses a separate [operational-source admission](evidence/linux-companion-sources-v1.md)
+for exactly three reviewed Pages/repository helpers and the additional verification
+files. It preserves the original baseline record and controller, restores the
+original `pyproject.toml`, and inherits all runtime, scientific and 57 output pins.
+CI invokes `verify_linux_companion.py` explicitly; it never falls back after a v1
+failure. The historical v1 command remains strict and rejects this extended tree.
+
 The test suite and repository, lint, type, citation, link, PDF and manifest gates run
 before replay. `--all` builds scientific outputs and Atlas documents twice in a
 fresh ignored copy. Consecutive Linux bytes must agree. For historical equivalence, scientific JSON/CSV
@@ -49,7 +56,8 @@ The strict historical route remains `.venv/bin/python -I -B tools/verify.py --al
 --workers 4`; a failed historical comparison remains a failed gate. The separate
 Linux baseline route records that historical failure explicitly in
 `tmp/linux-baseline-verification.json` while judging Linux bytes against Linux v1.
-A Linux baseline pass is not a Windows equivalence claim.
+A Linux baseline pass is not a Windows equivalence claim. The companion controller
+writes its separately identified report to `tmp/linux-companion-verification.json`.
 
 The Draft benchmark has a separate Linux byte fixture in
 [evidence/linux-benchmark-results.json](evidence/linux-benchmark-results.json),

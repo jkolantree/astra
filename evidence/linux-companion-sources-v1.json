@@ -1,0 +1,34 @@
+{
+  "admission_id": "linux-companion-sources-v1",
+  "predecessor": {
+    "path": "evidence/linux-research-v1.json",
+    "sha256": "f261262b55b0d44cfd5f46c8f6823a89489d803ca8cb685f22b60833fff35078"
+  },
+  "source_replacements": {
+    "tools/build_pages_admission.py": {
+      "predecessor_sha256": "60999dc8b9baa628cafd9d30b4cd8aeb8aa8b6f9ee7b01fa14de08963afe3180",
+      "sha256": "38db5624df65016a721c9edd0af89c5cc967b39761578f42b978eb7c1bfa3af2",
+      "reason": "Reviewed admission v2 lists the exact companion files and preserves historical release routes."
+    },
+    "tools/check_pages_admission.py": {
+      "predecessor_sha256": "368a05346f6bb83fadaec72495385f0c3799d27c13b3efed899b840561937af5",
+      "sha256": "b7080918b0755909ca3ecc96c658cdf343a106f3cf0c914ff99a9d1d470bb86f",
+      "reason": "Reviewed admission v2 enforces the exact companion inventory and original release routes."
+    },
+    "tools/check_repository.py": {
+      "predecessor_sha256": "60101d695bf3bd6fca850a8787c2925aae4232d3c5f81b781a7070b342d06b74",
+      "sha256": "4594e1a6217a33ebd5230910211fa5aea15d476a238ad0342e5429a2004578a3",
+      "reason": "Reviewed companion inventory and supplier-byte checks, plus the exact root Ruff configuration path."
+    }
+  },
+  "additional_source_sha256": {
+    ".github/workflows/verify.yml": "df6cdd5ed6c6c442f9297160dbbc150a88b6ad07058cd090873f4d9efca1eb19",
+    "LICENSE_MAP.md": "66e57b9c65deb70034104dc5e729003b1d5e2bb67ffb39a47306de3c1eb71f52",
+    "REPRODUCING.md": "8eb794f202a44dbe98713370a73f3634344c946228a4b34c09550c0924905718",
+    "evidence/linux-companion-sources-v1.md": "b9638b269df4495c2ed1822eface7501247cf3e12f85c37e409bb24aa2dda5be",
+    "ruff.toml": "05aabb346eed1ae60a9e8d93a31deb032a710825ce0015bb795ee2a00448cb58",
+    "tests/test_linux_companion.py": "a45ab5f8754b347745a42fa637f2e187dfad42a333eec1b9425e65c7f4f2748c",
+    "tests/test_linux_runtime.py": "3a51250f4eecfcc7c0b0766025bd316399530102b5c542325a520562aab8b758",
+    "tools/verify_linux_companion.py": "75f9248f1e09c6d48b1634a4f4c666680c9992678a473ddb1e09b2e75e525829"
+  }
+}

@@ -161,4 +161,4 @@ def test_linux_ci_has_read_only_permissions_and_separate_release_gate() -> None:
     assert "refs/tags/" in workflow["jobs"]["verify"]["if"]
     steps = "\n".join(step.get("run", "") for step in job["steps"])
     assert "bootstrap_linux.py" in steps
-    assert "verify_linux_baseline.py --all --workers 4" in steps
+    assert "verify_linux_companion.py --all --workers 4" in steps

@@ -65,6 +65,7 @@ ROOT_ALLOWLIST = {
     "SOURCE_INVENTORY.json",
     "THIRD_PARTY_NOTICES.md",
     "pyproject.toml",
+    "ruff.toml",
     "requirements.in",
     "requirements-lock.txt",
 }
