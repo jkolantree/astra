@@ -262,7 +262,22 @@ def sanitize_pdf(
         )
 
 
-def build_pdf(spec: dict[str, Any]) -> str:
+# Opt-in print-only styling for an unpromoted Linux rendering. The historical
+# HTML, package stylesheet, default PDF route, and scientific text stay intact.
+LINUX_PRINT_CSS = """
+@media print {
+  nav#TOC { font-size: 10.2pt; line-height: 1.35; }
+  nav#TOC > ul { columns: 2; column-gap: 0.3in; }
+  nav#TOC ul ul { columns: auto; padding-left: 1rem; }
+  nav#TOC li { margin-block: 0.12rem; }
+  #selected-primary-sources { break-before: page; margin-top: 0; }
+  .source-list { font-size: 10.2pt; line-height: 1.35; break-inside: avoid-page; }
+  .source-list + p { break-before: avoid-page; }
+}
+"""
+
+
+def build_pdf(spec: dict[str, Any], *, linux_layout: bool = False) -> str:
     url = canonical_url(spec)
     with tempfile.TemporaryDirectory(prefix="atlas-pdf-", dir=TEMP_ROOT) as temp_dir:
         raw = Path(temp_dir) / "raw.pdf"
@@ -273,6 +288,8 @@ def build_pdf(spec: dict[str, Any]) -> str:
                 page = browser.new_page()
                 page.goto(HTML.resolve().as_uri(), wait_until="networkidle")
                 page.emulate_media(media="print", reduced_motion="reduce")
+                if linux_layout:
+                    page.add_style_tag(content=LINUX_PRINT_CSS)
                 page.evaluate("() => document.fonts.ready")
                 semantic = page.evaluate(
                     r"""({ formulaAltPrefix, transparentPixel, canonicalUrl, htmlName }) => {
@@ -443,7 +460,11 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--html-only", action="store_true")
     parser.add_argument("--no-identity", action="store_true")
+    parser.add_argument("--linux-layout", action="store_true",
+                        help="Apply unpromoted Linux print layout; requires --no-identity")
     args = parser.parse_args()
+    if args.linux_layout and not args.no_identity:
+        parser.error("--linux-layout requires --no-identity; it cannot create a release identity")
     ensure_safe_directory(ROOT / "tmp")
     ensure_safe_directory(TEMP_ROOT)
     os.environ.update(
@@ -464,7 +485,7 @@ def main() -> None:
     if args.html_only:
         print(f"Built and checked {HTML.name}.")
         return
-    browser_version = build_pdf(spec)
+    browser_version = build_pdf(spec, linux_layout=args.linux_layout)
     from tools.inspect_dark_medium_response_atlas_pdf import inspect_pdf
 
     inspect_pdf(PDF, write_report=True)

@@ -504,8 +504,9 @@ def verify_runtime(environment: dict[str, str]) -> None:
         raise RuntimeError(
             f"Python runtime drift: expected {runtime['python']}, observed {observed_python}"
         )
-    if platform.system() != "Windows" or platform.machine().lower() not in {"amd64", "x86_64"}:
-        raise RuntimeError("The deterministic reference build requires Windows x86-64")
+    required_system = runtime["reference_distribution"].get("system", "Windows")
+    if platform.system() != required_system or platform.machine().lower() not in {"amd64", "x86_64"}:
+        raise RuntimeError(f"The deterministic reference build requires {required_system} x86-64")
     lock_identity = runtime["dependency_lock"]
     if lock_identity != {"file": LOCK_PATH.name, "sha256": sha256(LOCK_PATH)}:
         raise RuntimeError("Dependency-lock identity drift")
@@ -1057,6 +1058,12 @@ def verify_full_replay(environment: dict[str, str], workers: int) -> None:
 
 def main() -> None:
     require_isolated_mode()
+    if platform.system() == "Linux":
+        subprocess.run(
+            isolated_python(str(ROOT / "tools/verify_linux.py"), *sys.argv[1:]),
+            check=True,
+        )
+        return
     parser = argparse.ArgumentParser()
     parser.add_argument("--all", action="store_true", help="Replay every scientific and document output twice.")
     parser.add_argument("--workers", type=int, default=4)

@@ -49,7 +49,7 @@ The Atlas extends this response-first discipline to dark-sector questions. Its p
 - **Read:** use the versioned links above or enter the [accessible reading room](https://jkolantree.github.io/astra/).
 - **Download:** use the tagged release attached to the publication you want; release assets and checksums are the fixed distribution record.
 - **Cite:** use that publication’s own citation metadata. The repository-level `CITATION.cff` belongs only to the Current SPPT/ASTRA core.
-- **Reproduce:** start with [REPRODUCING.md](REPRODUCING.md), then follow the selected publication’s runtime and package-local instructions.
+- **Reproduce:** use the Linux-first [REPRODUCING.md](REPRODUCING.md) guide (historical Windows release instructions are retained), then follow the selected publication’s runtime and package-local instructions.
 - **Inspect:** browse the [scientific source tree](resources/README.md), [claim register](CLAIM_MATRIX.json), and [evidence boundary](evidence/README.md).
 - **Question it:** [open a scientific, reproducibility, or accessibility issue](https://github.com/jkolantree/astra/issues/new/choose). A useful challenge names the version, claim, observation, and failure mode.
 

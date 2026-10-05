@@ -1,0 +1,1106 @@
+{
+  "scope": "diagnostic only; no published outputs or scientific generators changed",
+  "strict_comparison": {
+    "rtol": 1e-12,
+    "atol": 1e-12,
+    "discrete": "exact"
+  },
+  "original_solver": {
+    "single_ode_rtol": 1e-09,
+    "single_ode_atol": 1e-11,
+    "single_max_step": 0.05,
+    "single_least_squares_xtol_ftol_gtol": 1e-11,
+    "ensemble_least_squares_xtol_ftol_gtol": 2e-09,
+    "accepted_scaled_optimality_limit": 0.0001,
+    "observation_noise_sd": 0.0025
+  },
+  "differences": {
+    "synthetic_topology_benchmark.json": {
+      "/fits_ranked_by_bic/*/conductance/*": {
+        "changed": 9,
+        "strict_failures": 9,
+        "max_absolute_delta": 3.418021141243788e-05,
+        "max_strict_tolerance_multiple": 34180211.41243788,
+        "worst_pair": [
+          0.045813457239272604,
+          0.045779277027860166
+        ]
+      },
+      "/fits_ranked_by_bic/*/train_rss": {
+        "changed": 4,
+        "strict_failures": 4,
+        "max_absolute_delta": 1.577747923975359e-08,
+        "max_strict_tolerance_multiple": 15777.47923975359,
+        "worst_pair": [
+          0.14155922232219234,
+          0.1415592065447131
+        ]
+      },
+      "/fits_ranked_by_bic/*/train_rmse": {
+        "changed": 4,
+        "strict_failures": 4,
+        "max_absolute_delta": 1.1035320435226481e-09,
+        "max_strict_tolerance_multiple": 1103.532043522648,
+        "worst_pair": [
+          0.019802293042896962,
+          0.01980229193936492
+        ]
+      },
+      "/fits_ranked_by_bic/*/bic": {
+        "changed": 4,
+        "strict_failures": 4,
+        "max_absolute_delta": 4.616674777935259e-05,
+        "max_strict_tolerance_multiple": 14268.447406339566,
+        "worst_pair": [
+          -2819.875586331481,
+          -2819.875626566728
+        ]
+      },
+      "/fits_ranked_by_bic/*/heldout_rmse": {
+        "changed": 4,
+        "strict_failures": 4,
+        "max_absolute_delta": 5.76063095662771e-08,
+        "max_strict_tolerance_multiple": 57606.3095662771,
+        "worst_pair": [
+          0.02514680865181834,
+          0.025146866258127905
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_accepted": {
+        "discrete_changes": 3,
+        "examples": [
+          [
+            8,
+            6
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_best_start": {
+        "discrete_changes": 3,
+        "examples": [
+          [
+            4,
+            9
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            10,
+            14
+          ]
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_nfev": {
+        "discrete_changes": 4,
+        "examples": [
+          [
+            16,
+            17
+          ],
+          [
+            34,
+            32
+          ],
+          [
+            22,
+            28
+          ]
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_optimality": {
+        "changed": 4,
+        "strict_failures": 4,
+        "max_absolute_delta": 0.45485760570348066,
+        "max_strict_tolerance_multiple": 413152968914.09406,
+        "worst_pair": [
+          1.1009423625806212,
+          0.6460847568771405
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_scaled_optimality": {
+        "changed": 4,
+        "strict_failures": 4,
+        "max_absolute_delta": 4.0164950597394356e-05,
+        "max_strict_tolerance_multiple": 40164950.597394355,
+        "worst_pair": [
+          9.721570454050395e-05,
+          5.7050753943109595e-05
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_diagnostics/*/endpoint_log_conductance/*": {
+        "changed": 178,
+        "strict_failures": 173,
+        "max_absolute_delta": 0.022056003704327587,
+        "max_strict_tolerance_multiple": 3508216352.8689265,
+        "worst_pair": [
+          -6.286956528861389,
+          -6.264900525157062
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_diagnostics/*/cost": {
+        "changed": 80,
+        "strict_failures": 80,
+        "max_absolute_delta": 0.018787910157698207,
+        "max_strict_tolerance_multiple": 2163475.6020700387,
+        "worst_pair": [
+          739.101285422777,
+          739.1028844538349
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_diagnostics/*/optimality": {
+        "changed": 80,
+        "strict_failures": 80,
+        "max_absolute_delta": 153.09284244597663,
+        "max_strict_tolerance_multiple": 996330527221.9926,
+        "worst_pair": [
+          153.6566814557374,
+          0.5638390097607708
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_diagnostics/*/scaled_optimality": {
+        "changed": 80,
+        "strict_failures": 80,
+        "max_absolute_delta": 0.016715845923922182,
+        "max_strict_tolerance_multiple": 16715845923.922182,
+        "worst_pair": [
+          0.0003535137329383582,
+          0.01706935965686054
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_diagnostics/*/nfev": {
+        "discrete_changes": 62,
+        "examples": [
+          [
+            19,
+            17
+          ],
+          [
+            28,
+            25
+          ],
+          [
+            24,
+            19
+          ]
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_diagnostics/*/accepted": {
+        "discrete_changes": 6,
+        "examples": [
+          [
+            true,
+            false
+          ],
+          [
+            false,
+            true
+          ]
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_diagnostics/*/status": {
+        "discrete_changes": 3,
+        "examples": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ]
+      },
+      "/fits_ranked_by_bic/*/optimizer_diagnostics/*/active_mask/*": {
+        "discrete_changes": 1,
+        "examples": [
+          [
+            0,
+            -1
+          ]
+        ]
+      }
+    },
+    "synthetic_topology_ensemble.json": {
+      "/mean_chain_heldout_rmse": {
+        "changed": 1,
+        "strict_failures": 0,
+        "max_absolute_delta": 7.679431634870226e-13,
+        "max_strict_tolerance_multiple": 0.7679431634870226,
+        "worst_pair": [
+          0.00024863952992778274,
+          0.0002486395291598396
+        ]
+      },
+      "/mean_triangle_heldout_rmse": {
+        "changed": 1,
+        "strict_failures": 1,
+        "max_absolute_delta": 1.8604541410054132e-11,
+        "max_strict_tolerance_multiple": 18.604541410054132,
+        "worst_pair": [
+          0.0002696852247203885,
+          0.0002696852061158471
+        ]
+      },
+      "/median_delta_bic_triangle_minus_chain": {
+        "changed": 1,
+        "strict_failures": 1,
+        "max_absolute_delta": 2.546585164964199e-11,
+        "max_strict_tolerance_multiple": 4.3536482630584485,
+        "worst_pair": [
+          5.849313061326939,
+          5.8493130613524045
+        ]
+      },
+      "/minimum_delta_bic_triangle_minus_chain": {
+        "changed": 1,
+        "strict_failures": 1,
+        "max_absolute_delta": 2.000888343900442e-11,
+        "max_strict_tolerance_multiple": 19.346618850645495,
+        "worst_pair": [
+          1.0342315416182828,
+          1.034231541598274
+        ]
+      },
+      "/maximum_delta_bic_triangle_minus_chain": {
+        "changed": 1,
+        "strict_failures": 1,
+        "max_absolute_delta": 5.729816621169448e-11,
+        "max_strict_tolerance_multiple": 9.218252077141504,
+        "worst_pair": [
+          6.215730024759978,
+          6.21573002470268
+        ]
+      },
+      "/median_triangle_shortcut_conductance": {
+        "changed": 1,
+        "strict_failures": 1,
+        "max_absolute_delta": 8.791508603143289e-09,
+        "max_strict_tolerance_multiple": 8791.50860314329,
+        "worst_pair": [
+          0.0007648539645416172,
+          0.0007648627560502203
+        ]
+      },
+      "/results/*/chain_bic": {
+        "changed": 63,
+        "strict_failures": 0,
+        "max_absolute_delta": 1.0913936421275139e-10,
+        "max_strict_tolerance_multiple": 0.025348355058707105,
+        "worst_pair": [
+          -4305.57974905998,
+          -4305.579749059871
+        ]
+      },
+      "/results/*/triangle_bic": {
+        "changed": 62,
+        "strict_failures": 0,
+        "max_absolute_delta": 6.45741238258779e-11,
+        "max_strict_tolerance_multiple": 0.015015346725446358,
+        "worst_pair": [
+          -4300.54163960422,
+          -4300.541639604285
+        ]
+      },
+      "/results/*/delta_bic_triangle_minus_chain": {
+        "changed": 64,
+        "strict_failures": 53,
+        "max_absolute_delta": 9.094947017729282e-11,
+        "max_strict_tolerance_multiple": 19.346618850645495,
+        "worst_pair": [
+          1.0342315416182828,
+          1.034231541598274
+        ]
+      },
+      "/results/*/chain_heldout_rmse": {
+        "changed": 64,
+        "strict_failures": 61,
+        "max_absolute_delta": 2.2245399798213796e-09,
+        "max_strict_tolerance_multiple": 2224.53997982138,
+        "worst_pair": [
+          0.00018060149142246944,
+          0.00018059926688248962
+        ]
+      },
+      "/results/*/triangle_heldout_rmse": {
+        "changed": 64,
+        "strict_failures": 44,
+        "max_absolute_delta": 8.212073995535023e-10,
+        "max_strict_tolerance_multiple": 821.2073995535023,
+        "worst_pair": [
+          0.0002329295938874399,
+          0.00023292877268004034
+        ]
+      },
+      "/results/*/surface_star_heldout_rmse": {
+        "changed": 64,
+        "strict_failures": 37,
+        "max_absolute_delta": 1.284742811181322e-08,
+        "max_strict_tolerance_multiple": 12847.42811181322,
+        "worst_pair": [
+          0.006757732497566247,
+          0.0067577453449943585
+        ]
+      },
+      "/results/*/deep_star_heldout_rmse": {
+        "changed": 64,
+        "strict_failures": 1,
+        "max_absolute_delta": 8.791946337627365e-12,
+        "max_strict_tolerance_multiple": 8.791946337627365,
+        "worst_pair": [
+          0.02520139801203069,
+          0.025201398020822635
+        ]
+      },
+      "/results/*/triangle_shortcut_conductance": {
+        "changed": 58,
+        "strict_failures": 34,
+        "max_absolute_delta": 1.5190308055358127e-08,
+        "max_strict_tolerance_multiple": 15190.308055358128,
+        "worst_pair": [
+          0.0008076609393802979,
+          0.0008076761296883533
+        ]
+      },
+      "/results/*/optimizer_max_optimality": {
+        "changed": 64,
+        "strict_failures": 64,
+        "max_absolute_delta": 3.7617850013299536e-05,
+        "max_strict_tolerance_multiple": 37617850.01329954,
+        "worst_pair": [
+          0.09635244624608627,
+          0.09639006409609957
+        ]
+      },
+      "/results/*/optimizer_max_scaled_optimality": {
+        "changed": 64,
+        "strict_failures": 61,
+        "max_absolute_delta": 1.182596410188016e-05,
+        "max_strict_tolerance_multiple": 11825964.101880161,
+        "worst_pair": [
+          3.1818124947457436e-05,
+          1.9992160845577276e-05
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/best_start": {
+        "discrete_changes": 61,
+        "examples": [
+          [
+            8,
+            17
+          ],
+          [
+            7,
+            12
+          ],
+          [
+            16,
+            9
+          ]
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/selected_nfev": {
+        "discrete_changes": 52,
+        "examples": [
+          [
+            11,
+            10
+          ],
+          [
+            9,
+            6
+          ],
+          [
+            7,
+            10
+          ]
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/selected_cost": {
+        "changed": 64,
+        "strict_failures": 0,
+        "max_absolute_delta": 5.610445441561751e-11,
+        "max_strict_tolerance_multiple": 0.3036117325916581,
+        "worst_pair": [
+          184.7901394873236,
+          184.7901394873797
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/selected_optimality": {
+        "changed": 64,
+        "strict_failures": 64,
+        "max_absolute_delta": 0.0012602559803184697,
+        "max_strict_tolerance_multiple": 1260255980.3184698,
+        "worst_pair": [
+          0.0002254395857853194,
+          0.001485695566103789
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/selected_scaled_optimality": {
+        "changed": 64,
+        "strict_failures": 64,
+        "max_absolute_delta": 7.206788752565523e-06,
+        "max_strict_tolerance_multiple": 7206788.752565524,
+        "worst_pair": [
+          1.28917894189261e-06,
+          8.495967694458133e-06
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/starts/*/endpoint_log_conductance/*": {
+        "changed": 2558,
+        "strict_failures": 385,
+        "max_absolute_delta": 2.8125743134488346e-07,
+        "max_strict_tolerance_multiple": 184843.04612811215,
+        "worst_pair": [
+          -1.5216013652466418,
+          -1.5216010839892105
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/starts/*/cost": {
+        "changed": 1279,
+        "strict_failures": 1,
+        "max_absolute_delta": 2.3794655135134235e-10,
+        "max_strict_tolerance_multiple": 1.2224284208467515,
+        "worst_pair": [
+          194.6507028904242,
+          194.65070289066216
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/starts/*/optimality": {
+        "changed": 1280,
+        "strict_failures": 1280,
+        "max_absolute_delta": 0.007128141142694418,
+        "max_strict_tolerance_multiple": 7128141142.694418,
+        "worst_pair": [
+          7.542974605819915e-06,
+          0.007135684117300238
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/starts/*/scaled_optimality": {
+        "changed": 1280,
+        "strict_failures": 1259,
+        "max_absolute_delta": 3.795343943045251e-05,
+        "max_strict_tolerance_multiple": 37953439.43045251,
+        "worst_pair": [
+          4.016219994758043e-08,
+          3.799360163040009e-05
+        ]
+      },
+      "/results/*/optimizer_diagnostics/surface_star/best_start": {
+        "discrete_changes": 37,
+        "examples": [
+          [
+            10,
+            2
+          ],
+          [
+            8,
+            13
+          ],
+          [
+            2,
+            10
+          ]
+        ]
+      },
+      "/results/*/optimizer_diagnostics/surface_star/selected_nfev": {
+        "discrete_changes": 33,
+        "examples": [
+          [
+            10,
+            12
+          ],
+          [
+            11,
+            8
+          ],
+          [
+            12,
+            10
+          ]
+        ]
+      },
+      "/results/*/optimizer_diagnostics/surface_star/selected_cost": {
+        "changed": 64,
+        "strict_failures": 26,
+        "max_absolute_delta": 2.992237568832934e-09,
+        "max_strict_tolerance_multiple": 3.735244610578452,
+        "worst_pair": [
+          801.0820925482494,
+          801.0820925512417
+        ]
+      },
+      "/results/*/optimizer_diagnostics/surface_star/selected_optimality": {
+        "changed": 64,
+        "strict_failures": 64,
+        "max_absolute_delta": 0.00881648135284607,
+        "max_strict_tolerance_multiple": 8816481352.84607,
+        "worst_pair": [
+          0.023721017826944815,
+          0.014904536474098746
+        ]
+      },
+      "/results/*/optimizer_diagnostics/surface_star/selected_scaled_optimality": {
+        "changed": 64,
+        "strict_failures": 62,
+        "max_absolute_delta": 1.182596410188016e-05,
+        "max_strict_tolerance_multiple": 11825964.101880161,
+        "worst_pair": [
+          3.1818124947457436e-05,
+          1.9992160845577276e-05
+        ]
+      },
+      "/results/*/optimizer_diagnostics/surface_star/starts/*/endpoint_log_conductance/*": {
+        "changed": 1976,
+        "strict_failures": 0,
+        "max_absolute_delta": 2.1458390619955026e-12,
+        "max_strict_tolerance_multiple": 0.8719785496956892,
+        "worst_pair": [
+          -2.4608851476270566,
+          -2.4608851476249107
+        ]
+      },
+      "/results/*/optimizer_diagnostics/surface_star/starts/*/cost": {
+        "changed": 1230,
+        "strict_failures": 340,
+        "max_absolute_delta": 3.1984654924599454e-09,
+        "max_strict_tolerance_multiple": 4.283989381886226,
+        "worst_pair": [
+          712.7471184773948,
+          712.7471184743414
+        ]
+      },
+      "/results/*/optimizer_diagnostics/surface_star/starts/*/optimality": {
+        "changed": 1279,
+        "strict_failures": 1279,
+        "max_absolute_delta": 3.769248296120464e-08,
+        "max_strict_tolerance_multiple": 37692.482961204645,
+        "worst_pair": [
+          0.0519031986619128,
+          0.05190323635439576
+        ]
+      },
+      "/results/*/optimizer_diagnostics/surface_star/starts/*/scaled_optimality": {
+        "changed": 1279,
+        "strict_failures": 707,
+        "max_absolute_delta": 5.365836404759919e-11,
+        "max_strict_tolerance_multiple": 53.65836404759919,
+        "worst_pair": [
+          7.388880456755737e-05,
+          7.388885822592142e-05
+        ]
+      },
+      "/results/*/optimizer_diagnostics/deep_star/selected_cost": {
+        "changed": 64,
+        "strict_failures": 0,
+        "max_absolute_delta": 1.140506356023252e-09,
+        "max_strict_tolerance_multiple": 0.09478640509886196,
+        "worst_pair": [
+          12032.38328148007,
+          12032.38328148121
+        ]
+      },
+      "/results/*/optimizer_diagnostics/deep_star/selected_optimality": {
+        "changed": 64,
+        "strict_failures": 64,
+        "max_absolute_delta": 3.7617850013299536e-05,
+        "max_strict_tolerance_multiple": 37617850.01329954,
+        "worst_pair": [
+          0.09635244624608627,
+          0.09639006409609957
+        ]
+      },
+      "/results/*/optimizer_diagnostics/deep_star/selected_scaled_optimality": {
+        "changed": 64,
+        "strict_failures": 1,
+        "max_absolute_delta": 3.177736409332006e-09,
+        "max_strict_tolerance_multiple": 3177.736409332006,
+        "worst_pair": [
+          8.139292289419835e-06,
+          8.142470025829167e-06
+        ]
+      },
+      "/results/*/optimizer_diagnostics/deep_star/starts/*/endpoint_log_conductance/*": {
+        "changed": 2559,
+        "strict_failures": 0,
+        "max_absolute_delta": 2.0103918529912335e-12,
+        "max_strict_tolerance_multiple": 0.651704416778107,
+        "worst_pair": [
+          -3.0848215866464255,
+          -3.084821586648436
+        ]
+      },
+      "/results/*/optimizer_diagnostics/deep_star/starts/*/cost": {
+        "changed": 1279,
+        "strict_failures": 0,
+        "max_absolute_delta": 1.4024408301338553e-09,
+        "max_strict_tolerance_multiple": 0.1206259542276145,
+        "worst_pair": [
+          11626.360505197397,
+          11626.3605051988
+        ]
+      },
+      "/results/*/optimizer_diagnostics/deep_star/starts/*/optimality": {
+        "changed": 1280,
+        "strict_failures": 1277,
+        "max_absolute_delta": 1.5214532966822958e-08,
+        "max_strict_tolerance_multiple": 15214.532966822959,
+        "worst_pair": [
+          0.4506054980660007,
+          0.45060548285146773
+        ]
+      },
+      "/results/*/optimizer_diagnostics/deep_star/starts/*/scaled_optimality": {
+        "changed": 1280,
+        "strict_failures": 3,
+        "max_absolute_delta": 1.3181558844660782e-12,
+        "max_strict_tolerance_multiple": 1.3181558844660781,
+        "worst_pair": [
+          3.903950157934469e-05,
+          3.903950026118881e-05
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/best_start": {
+        "discrete_changes": 60,
+        "examples": [
+          [
+            16,
+            6
+          ],
+          [
+            16,
+            17
+          ],
+          [
+            2,
+            6
+          ]
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/selected_nfev": {
+        "discrete_changes": 56,
+        "examples": [
+          [
+            13,
+            17
+          ],
+          [
+            16,
+            14
+          ],
+          [
+            14,
+            18
+          ]
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/selected_cost": {
+        "changed": 63,
+        "strict_failures": 0,
+        "max_absolute_delta": 3.2798652682686225e-11,
+        "max_strict_tolerance_multiple": 0.17791014441960173,
+        "worst_pair": [
+          184.35515742896865,
+          184.35515742893585
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/selected_optimality": {
+        "changed": 64,
+        "strict_failures": 64,
+        "max_absolute_delta": 0.004039019010335672,
+        "max_strict_tolerance_multiple": 4039019010.335672,
+        "worst_pair": [
+          0.004162355942405726,
+          0.000123336932070054
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/selected_scaled_optimality": {
+        "changed": 64,
+        "strict_failures": 63,
+        "max_absolute_delta": 2.113150443637549e-05,
+        "max_strict_tolerance_multiple": 21131504.43637549,
+        "worst_pair": [
+          2.1776783629302835e-05,
+          6.452791929273431e-07
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/starts/*/endpoint_log_conductance/*": {
+        "changed": 3331,
+        "strict_failures": 944,
+        "max_absolute_delta": 6.973621160533128e-06,
+        "max_strict_tolerance_multiple": 1150037.296305061,
+        "worst_pair": [
+          -6.063814767585476,
+          -6.063821741206636
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/starts/*/cost": {
+        "changed": 1279,
+        "strict_failures": 0,
+        "max_absolute_delta": 1.2514647096395493e-09,
+        "max_strict_tolerance_multiple": 0.8996785546545937,
+        "worst_pair": [
+          175.0455105759287,
+          175.04551057608617
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/starts/*/optimality": {
+        "changed": 1280,
+        "strict_failures": 1279,
+        "max_absolute_delta": 0.0037643943225212973,
+        "max_strict_tolerance_multiple": 3764394322.5212975,
+        "worst_pair": [
+          0.003876433251682151,
+          0.0001120389291608539
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/starts/*/scaled_optimality": {
+        "changed": 1280,
+        "strict_failures": 891,
+        "max_absolute_delta": 2.029465377670846e-05,
+        "max_strict_tolerance_multiple": 20294653.77670846,
+        "worst_pair": [
+          2.089867957263246e-05,
+          6.04025795923999e-07
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/starts/*/nfev": {
+        "discrete_changes": 54,
+        "examples": [
+          [
+            15,
+            14
+          ],
+          [
+            12,
+            18
+          ],
+          [
+            15,
+            12
+          ]
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/starts/*/status": {
+        "discrete_changes": 28,
+        "examples": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            4,
+            3
+          ]
+        ]
+      },
+      "/results/*/optimizer_diagnostics/chain/starts/*/nfev": {
+        "discrete_changes": 42,
+        "examples": [
+          [
+            10,
+            11
+          ],
+          [
+            9,
+            7
+          ],
+          [
+            11,
+            9
+          ]
+        ]
+      },
+      "/results/*/optimizer_diagnostics/triangle/starts/*/status": {
+        "discrete_changes": 46,
+        "examples": [
+          [
+            3,
+            4
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            3
+          ]
+        ]
+      },
+      "/results/*/optimizer_diagnostics/deep_star/best_start": {
+        "discrete_changes": 1,
+        "examples": [
+          [
+            16,
+            11
+          ]
+        ]
+      }
+    }
+  },
+  "ensemble_conclusions": {
+    "winner_counts": {
+      "historical": {
+        "chain": 64
+      },
+      "linux": {
+        "chain": 64
+      },
+      "exact": true
+    },
+    "chain_selection_fraction": {
+      "historical": 1.0,
+      "linux": 1.0,
+      "exact": true
+    },
+    "triangle_lower_heldout_rmse_count": {
+      "historical": 23,
+      "linux": 23,
+      "exact": true
+    },
+    "triangle_shortcut_lower_bound_count": {
+      "historical": 29,
+      "linux": 29,
+      "exact": true
+    },
+    "optimizer_all_graphs_converged": {
+      "historical": true,
+      "linux": true,
+      "exact": true
+    }
+  },
+  "ensemble_per_seed": {
+    "same_winner": 64,
+    "same_heldout_ordering": 64,
+    "same_shortcut_boundary_flag": 64
+  },
+  "single_fit_diagnosis": [
+    {
+      "graph": "chain",
+      "metric_deltas": {
+        "train_rss": 1.496806584927457e-11,
+        "train_rmse": 8.293701229261652e-12,
+        "bic": 2.3955508368089795e-06,
+        "heldout_rmse": 5.481814395317565e-10
+      },
+      "accepted_starts": [
+        8,
+        6
+      ],
+      "selected_start": [
+        4,
+        9
+      ],
+      "conductance_pairs": [
+        [
+          0.22887601612574368,
+          0.22887602186647643
+        ],
+        [
+          1.393862770271663,
+          1.3938627473481648
+        ]
+      ],
+      "protocols": {
+        "train": {
+          "default_state_vs_oracle_max_abs": 5.63647786222532e-08,
+          "default_augmented_state_vs_oracle_max_abs": 5.902982758154707e-08,
+          "segmented_state_vs_oracle_max_abs": 7.105427357601002e-15,
+          "segmented_augmented_state_vs_oracle_max_abs": 1.0658141036401503e-14,
+          "default_vs_segmented_sensitivity_max_abs": 1.248104114504045e-08,
+          "old_vs_linux_fitted_surface_max_abs": 1.0772051028951068e-09,
+          "old_vs_linux_fitted_surface_rms": 6.384965164189473e-10,
+          "max_surface_shift_as_fraction_of_noise_sd": 4.3088204115804274e-07
+        },
+        "heldout": {
+          "default_state_vs_oracle_max_abs": 1.1005800049090908e-07,
+          "default_augmented_state_vs_oracle_max_abs": 2.3928455328281473e-07,
+          "segmented_state_vs_oracle_max_abs": 7.993605777301127e-15,
+          "segmented_augmented_state_vs_oracle_max_abs": 7.993605777301127e-15,
+          "default_vs_segmented_sensitivity_max_abs": 4.1750382692717913e-08,
+          "old_vs_linux_fitted_surface_max_abs": 1.562856177805827e-09,
+          "old_vs_linux_fitted_surface_rms": 6.75674077758957e-10,
+          "max_surface_shift_as_fraction_of_noise_sd": 6.251424711223308e-07
+        }
+      }
+    },
+    {
+      "graph": "triangle",
+      "metric_deltas": {
+        "train_rss": -7.175038774925868e-12,
+        "train_rmse": -3.976972830915804e-12,
+        "bic": -1.149093804997392e-06,
+        "heldout_rmse": 3.887955625102215e-08
+      },
+      "accepted_starts": [
+        15,
+        15
+      ],
+      "selected_start": [
+        8,
+        10
+      ],
+      "conductance_pairs": [
+        [
+          0.22503712042384474,
+          0.2250482824328034
+        ],
+        [
+          1.39001968953417,
+          1.390030845346199
+        ],
+        [
+          0.0018693601161850208,
+          0.0018638631346392992
+        ]
+      ],
+      "protocols": {
+        "train": {
+          "default_state_vs_oracle_max_abs": 1.0475866807357903e-07,
+          "default_augmented_state_vs_oracle_max_abs": 1.3274584420575053e-07,
+          "segmented_state_vs_oracle_max_abs": 9.769962616701378e-15,
+          "segmented_augmented_state_vs_oracle_max_abs": 9.769962616701378e-15,
+          "default_vs_segmented_sensitivity_max_abs": 2.8039920389050232e-08,
+          "old_vs_linux_fitted_surface_max_abs": 3.6549766069260414e-07,
+          "old_vs_linux_fitted_surface_rms": 1.92684600638418e-07,
+          "max_surface_shift_as_fraction_of_noise_sd": 0.00014619906427704166
+        },
+        "heldout": {
+          "default_state_vs_oracle_max_abs": 3.742461252009832e-08,
+          "default_augmented_state_vs_oracle_max_abs": 5.7798590580304676e-08,
+          "segmented_state_vs_oracle_max_abs": 7.993605777301127e-15,
+          "segmented_augmented_state_vs_oracle_max_abs": 1.0658141036401503e-14,
+          "default_vs_segmented_sensitivity_max_abs": 1.2211918479915207e-08,
+          "old_vs_linux_fitted_surface_max_abs": 5.561165143941338e-07,
+          "old_vs_linux_fitted_surface_rms": 2.3239012141896478e-07,
+          "max_surface_shift_as_fraction_of_noise_sd": 0.00022244660575765351
+        }
+      }
+    },
+    {
+      "graph": "surface_star",
+      "metric_deltas": {
+        "train_rss": -1.1815082592847581e-09,
+        "train_rmse": -3.234788019043644e-10,
+        "bic": -4.616674777935259e-05,
+        "heldout_rmse": -2.614616240528833e-09
+      },
+      "accepted_starts": [
+        3,
+        4
+      ],
+      "selected_start": [
+        13,
+        13
+      ],
+      "conductance_pairs": [
+        [
+          0.08732817835977066,
+          0.08732825625560793
+        ],
+        [
+          1.1969968924304155,
+          1.1969968554551045
+        ]
+      ],
+      "protocols": {
+        "train": {
+          "default_state_vs_oracle_max_abs": 1.894712509109553e-08,
+          "default_augmented_state_vs_oracle_max_abs": 2.6443934209030573e-07,
+          "segmented_state_vs_oracle_max_abs": 1.4210854715202004e-14,
+          "segmented_augmented_state_vs_oracle_max_abs": 1.4210854715202004e-14,
+          "default_vs_segmented_sensitivity_max_abs": 4.645986840037808e-08,
+          "old_vs_linux_fitted_surface_max_abs": 9.521882615715072e-09,
+          "old_vs_linux_fitted_surface_rms": 4.720586045632642e-09,
+          "max_surface_shift_as_fraction_of_noise_sd": 3.8087530462860286e-06
+        },
+        "heldout": {
+          "default_state_vs_oracle_max_abs": 2.2471687621816727e-08,
+          "default_augmented_state_vs_oracle_max_abs": 1.8578109006739396e-07,
+          "segmented_state_vs_oracle_max_abs": 1.2434497875801753e-14,
+          "segmented_augmented_state_vs_oracle_max_abs": 3.019806626980426e-14,
+          "default_vs_segmented_sensitivity_max_abs": 3.2957717157819366e-08,
+          "old_vs_linux_fitted_surface_max_abs": 1.3522207131799746e-08,
+          "old_vs_linux_fitted_surface_rms": 7.203911039250513e-09,
+          "max_surface_shift_as_fraction_of_noise_sd": 5.4088828527198984e-06
+        }
+      }
+    },
+    {
+      "graph": "deep_star",
+      "metric_deltas": {
+        "train_rss": -1.577747923975359e-08,
+        "train_rmse": -1.1035320435226481e-09,
+        "bic": -4.023524707008619e-05,
+        "heldout_rmse": 5.76063095662771e-08
+      },
+      "accepted_starts": [
+        4,
+        5
+      ],
+      "selected_start": [
+        10,
+        14
+      ],
+      "conductance_pairs": [
+        [
+          0.045813457239272604,
+          0.045779277027860166
+        ],
+        [
+          1.0847897739211272,
+          1.0847847093752703
+        ]
+      ],
+      "protocols": {
+        "train": {
+          "default_state_vs_oracle_max_abs": 2.7009433911651115e-08,
+          "default_augmented_state_vs_oracle_max_abs": 3.741671273926883e-07,
+          "segmented_state_vs_oracle_max_abs": 2.4424906541753444e-15,
+          "segmented_augmented_state_vs_oracle_max_abs": 1.5543122344752192e-15,
+          "default_vs_segmented_sensitivity_max_abs": 6.928968360230339e-08,
+          "old_vs_linux_fitted_surface_max_abs": 1.151107805741347e-06,
+          "old_vs_linux_fitted_surface_rms": 6.982957668728682e-07,
+          "max_surface_shift_as_fraction_of_noise_sd": 0.00046044312229653883
+        },
+        "heldout": {
+          "default_state_vs_oracle_max_abs": 2.051486907017619e-07,
+          "default_augmented_state_vs_oracle_max_abs": 4.949536469567306e-08,
+          "segmented_state_vs_oracle_max_abs": 3.9968028886505635e-15,
+          "segmented_augmented_state_vs_oracle_max_abs": 2.4424906541753444e-15,
+          "default_vs_segmented_sensitivity_max_abs": 2.7818523561096153e-09,
+          "old_vs_linux_fitted_surface_max_abs": 1.6354355812930876e-06,
+          "old_vs_linux_fitted_surface_rms": 1.00544788189086e-06,
+          "max_surface_shift_as_fraction_of_noise_sd": 0.0006541742325172351
+        }
+      }
+    }
+  ],
+  "reference_method": "Closed-form matrix-exponential convolution for declared sine/step forcing, cross-checked against discontinuity-segmented DOP853 at rtol=2.5e-14, atol=1e-15 and max_step=.025. The reference calculation does not refit or overwrite historical results.",
+  "input_sha256": {
+    "scripts/synthetic_topology_benchmark.py": "8107d0a974d47cfbb613e4832ef42a940a98a770a7c89ff216b5b6ad97cabb74",
+    "scripts/benchmark_ensemble.py": "a51342e7b832b569e01559e62762b774ce484d2bd4e2f74a551793e84713036d",
+    "src/astra_optimization.py": "64e075583ec9b2fdb5ec8f229d5027cbb57e6a463e2b5c627a74cba32062baff",
+    "RUNTIME.json": "f3fa00ed692fc6738b47f6c8a44e9c5ac062d269ac452cfbcf90c4ef8ff39485",
+    "RUNTIME-linux.json": "5a42b87caff575718791d2bc591b17c91b915a4bbd77db5bcd6b5fa0effa8a81",
+    "requirements-lock.txt": "69b83ca86466525e912ea7c2d4a614d426ab44411ccc2789febc32f54c255721"
+  },
+  "replay_input_sha256": {
+    "synthetic_topology_benchmark.json": "9ea8540378fd3384d6fc24f36f253f66b602d1bc0e2e7c972291e1f426859f12",
+    "synthetic_topology_ensemble.json": "b6f5c30d40808b51d6d5af8f66ef57c1d673a8f400aafff568e82a3e4b9612f0"
+  }
+}

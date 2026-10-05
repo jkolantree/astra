@@ -2,7 +2,72 @@
 
 Choose the publication identity before choosing a command. The core and each supplemental line have different source archives, runtimes, builders, and claims. A successful check for one line does not verify another.
 
-## Current core: SPPT/ASTRA v1.0.7
+## Linux development (default)
+
+New development uses [RUNTIME-linux.json](RUNTIME-linux.json). The supported host
+is Debian 13 x86-64 with glibc 2.41 and AVX2/FMA3. The local bootstrap downloads
+hash-pinned Astral CPython 3.12.10 and Debian Git 2.47.3 archives into ignored `tmp/`,
+downloads hash-pinned Microsoft PowerShell 7.5.4 for the workflow guard tests,
+creates `.venv`, installs the existing hash-locked dependencies, and installs the
+Playwright-pinned Chromium. It does not change host packages or security settings.
+The host must already supply `python3` (3.12 or later), `dpkg-deb`, Chromium's
+Linux shared libraries, and Debian's `fonts-liberation` package for the SVG cover's
+Arial-compatible fallback. CI declares these prerequisites explicitly. The cover's
+measured label-clearance test remains unchanged; missing fallback fonts must not be
+worked around by relaxing that test.
+
+```sh
+python3 -I -B tools/bootstrap_linux.py
+.venv/bin/python -I -B tools/verify.py --runtime-only
+.venv/bin/python -I -B tools/verify_linux_baseline.py --all --workers 4
+```
+
+The Linux verifier checks the Python executable and shared-library hashes, exact
+Git executable, lockfile, installed distribution versions, numerical-library hashes,
+Haswell single-thread execution, CPU-feature restrictions, font bytes, Chromium
+revision/version and headless executable, plus the test-shell executable and version. It uses repository-local browser and tool
+paths rather than the shell's default Python or Git. No credentials are needed.
+Hash pins identify the retrieved upstream archives; they are not a claim of an
+independent signature audit. Host distribution and libc are checked, but the entire
+OS image and all browser-linked system-library bytes are not yet frozen.
+
+The separately versioned [Linux research v1 baseline](evidence/linux-research-v1.md)
+fixes the existing experimental methods, fresh Linux refits, four-worker execution,
+and all 57 expected output hashes in `evidence/linux-research-v1.json`. The baseline
+controller never updates expected hashes. It requires two matching builds and an
+exact match to that versioned record. The Atlas uses an opt-in print-only Linux
+layout; historical HTML, CSS, PDFs and publication identity remain unchanged.
+
+The test suite and repository, lint, type, citation, link, PDF and manifest gates run
+before replay. `--all` builds scientific outputs and Atlas documents twice in a
+fresh ignored copy. Consecutive Linux bytes must agree. For historical equivalence, scientific JSON/CSV
+values must also agree with the historical outputs at relative and absolute tolerance
+1e-12 (tighter than the Draft benchmark's 1e-11 algebra gate); integer counts,
+classification outcomes, keys and identities remain exact. Rendered byte differences
+are reported separately and never treated as proof of scientific equivalence.
+The strict historical route remains `.venv/bin/python -I -B tools/verify.py --all
+--workers 4`; a failed historical comparison remains a failed gate. The separate
+Linux baseline route records that historical failure explicitly in
+`tmp/linux-baseline-verification.json` while judging Linux bytes against Linux v1.
+A Linux baseline pass is not a Windows equivalence claim.
+
+The Draft benchmark has a separate Linux byte fixture in
+[evidence/linux-benchmark-results.json](evidence/linux-benchmark-results.json),
+checked both against a fresh Linux evaluation and the original scientific values.
+The Linux suite explicitly deselects only the original Windows byte-equality test
+`test_retained_evaluation_reproduces_with_frozen_sources`, whose source is itself
+frozen. Its Linux replacement runs the same frozen-input gate, exact Linux byte
+comparison, all original outcome assertions, and scientific equivalence. Every
+other collected test remains admitted. No historical result or test is replaced. The current core manuscript is an unpromoted
+source revision; its release-bound reading copies stay frozen. Atlas replay omits
+release-identity generation. Linux replay does **not** authorize publication or
+assert equality with historical Windows PDFs/figures. A future release needs a new
+publication identity and a reviewed Linux artifact baseline.
+
+The migration review and remaining blockers are recorded in
+[evidence/linux-migration.md](evidence/linux-migration.md).
+
+## Historical Windows core: SPPT/ASTRA v1.0.7
 
 The canonical core environment is recorded in [RUNTIME.json](RUNTIME.json) and [.python-version](.python-version). It requires:
 
