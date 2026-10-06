@@ -15,7 +15,13 @@ from tools.assemble_pages import (
     sha256,
     verify_atlas_release_assets,
 )
-from tools.build_pages_admission import RELEASE_ROUTES, build_record
+from tools.build_pages_admission import (
+    BASE_COMMIT,
+    BASE_TREE,
+    RELEASE_ROUTES,
+    build_record,
+    companion_record,
+)
 from tools.check_pages_admission import SCHEMA
 
 
@@ -40,11 +46,11 @@ def test_pages_admission_rejects_an_extra_shell_file(tmp_path: Path, monkeypatch
     (docs / "index.html").write_text("home\n", encoding="utf-8")
     digest = hashlib.sha256((docs / "index.html").read_bytes()).hexdigest()
     manifest = {
-        "schema": "https://jkolantree.github.io/astra/schemas/pages-admission-v1.schema.json",
-        "manifest_version": "1.0.0",
+        "schema": "https://jkolantree.github.io/astra/schemas/pages-admission-v2.schema.json",
+        "manifest_version": "2.0.0",
         "base": {
-            "commit": "3c1a1325b6b365ba457a03b87cc73139d0c6a629",
-            "tree": "ff03d152c98deb65c7246fdd2283cebee71b5857",
+            "commit": BASE_COMMIT,
+            "tree": BASE_TREE,
             "relationship": "fresh_current_main_pages_admission_base",
         },
         "head_shell": {
@@ -58,11 +64,13 @@ def test_pages_admission_rejects_an_extra_shell_file(tmp_path: Path, monkeypatch
             ],
         },
         "release_routes": RELEASE_ROUTES,
+        "research_companion": companion_record(),
         "policy": {
             "copy_exact_head_shell_only": True,
             "release_bytes_required_for_publication_routes": True,
             "reject_unadmitted_docs": True,
-            "reject_draft_and_candidate_content": True,
+            "reject_unadmitted_draft_and_candidate_content": True,
+            "research_companion_requires_separate_visual_approval": True,
         },
     }
     path = tmp_path / "manifest.json"

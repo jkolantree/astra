@@ -1,0 +1,337 @@
+{
+  "title": "Scientific Visual Atlas: ASTRA SPPT SCM research companion",
+  "date": "2026-10-05",
+  "status": "Unpromoted research companion; synthetic / schematic figures; no empirical validation",
+  "assets": [
+    {
+      "id": "01_complete_observation_contract",
+      "kind": "static",
+      "files": [
+        "figures/01_complete_observation_contract.svg",
+        "figures/01_complete_observation_contract.png"
+      ],
+      "caption": "A schematic of the common observation contract, not a universal physical law. Classical source and conversion kernels are normalized over full states or daughter configurations; daughter counts instead require an intensity measure. A complete quantum instrument supplies outcome probabilities and conditional state updates. Detected, no-detection and veto outcomes are an illustrative partition only when the attempt denominator is operationally recorded. Missing coverage must remain distinct. The rejection criterion, units, conservation laws, controls and nuisance support stay model-specific.",
+      "parameters": {
+        "diagram": "Conceptual; no numerical inputs",
+        "outcomes": "Illustrative disjoint outcome classes for counted attempts"
+      },
+      "sources": [
+        {
+          "label": "Physics Synthesis and Research Priorities for ASTRA SPPT and SCM (5 Oct 2026), Section 2, equations 1-2",
+          "type": "supplied report"
+        },
+        {
+          "label": "Combes et al., post-selected metrology and full resource accounting (2014)",
+          "url": "https://arxiv.org/abs/1309.6620"
+        }
+      ],
+      "evidence": "Original schematic or exact conditional model calculation; no new empirical data.",
+      "sha256": {
+        "figures/01_complete_observation_contract.svg": "0609778a878d423130662ffeddc1d60afff96b853521d9ef958341beae59d6fc",
+        "figures/01_complete_observation_contract.png": "424aaabeecc2e5d54b9185212ed40f16051c33271f2055e465aef7ecd4ae7896"
+      }
+    },
+    {
+      "id": "02_complex_graph_normal_plane",
+      "kind": "static",
+      "files": [
+        "figures/02_complex_graph_normal_plane.svg",
+        "figures/02_complex_graph_normal_plane.png"
+      ],
+      "caption": "Exact analytic geometry for F(x)=(x,A cos(kx),A sin(kx)), shown in a fixed orthographic projection. T is the unit tangent, N the principal normal, and B=T cross N. The teal plane is normal to T. The orange fixed-x transverse plane contains the graph-height coordinates and is generally a different plane at finite slope. Their projected overlap is a perspective effect. An ambient binormal motion and a fixed graph gauge require different tangential bookkeeping. This original drawing is neither an evolved SCM solution nor a microscopic interpretation.",
+      "parameters": {
+        "A_in_L0": 0.6,
+        "k_in_inverse_L0": 1,
+        "x_range_in_L0": [
+          0,
+          8
+        ],
+        "frame_x_in_L0": 3.5,
+        "projection_rows": [
+          [
+            0.8660254037844386,
+            -0.5,
+            0.0
+          ],
+          [
+            0.19536556424463689,
+            0.3383830833210727,
+            0.9205048534524404
+          ]
+        ]
+      },
+      "sources": [
+        {
+          "label": "Report Section 3: graph gauge and encoding",
+          "type": "supplied report"
+        },
+        {
+          "label": "Hasimoto, A soliton on a vortex filament (1972)",
+          "url": "https://doi.org/10.1017/S0022112072002307"
+        }
+      ],
+      "evidence": "Original schematic or exact conditional model calculation; no new empirical data.",
+      "sha256": {
+        "figures/02_complex_graph_normal_plane.svg": "e9c8400f326650fcc09dfbfa102a57b66c51e53b2072f8c40a0734351689bd74",
+        "figures/02_complex_graph_normal_plane.png": "3acb2f51f62d7089257c4b99a0cacc90cb46b55916173ab9523845fdcb7ad236"
+      }
+    },
+    {
+      "id": "03_wki_discrete_growth_bands",
+      "kind": "static",
+      "files": [
+        "figures/03_wki_discrete_growth_bands.svg",
+        "figures/03_wki_discrete_growth_bands.png"
+      ],
+      "caption": "Exact linearized sideband growth of the report’s potential-WKI carrier. The continuum envelope is gamma/(beta k^2)=sqrt(max(0,q^2[s-(1+s)q^2]/(1+s)^3)). At s=1, m=4, the n=1 and n=2 pairs grow exponentially; n=3 and n=4 do not. A carrier with |m|=1 has no growing nonzero periodic sideband for finite s. The right panel counts allowed positive n, each representing a coupled plus/minus pair. Diamonds locate the n=1 threshold s=1/(m^2-1); the strict inequality excludes the cutoff. A nonzero cutoff may have a Jordan block and secular growth, and the zero mode needs its own norm/phase treatment. These results establish neither nonlinear stability nor experimental validation; the older transformed-background stability comparison remains unresolved.",
+      "parameters": {
+        "left_s": 1,
+        "left_carrier_m": 4,
+        "q_range": [
+          0,
+          1.02
+        ],
+        "right_m": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "right_s_range": [
+          0.01,
+          10
+        ],
+        "illustrative_units": "L0 and T0 arbitrary; beta has L0^2/T0, k and Q have 1/L0, gamma and omega have 1/T0",
+        "growth_equation": "gamma^2 = beta^2 Q^2 [k^2 s - (1+s)Q^2]/(1+s)^3 inside the band; gamma=0 outside",
+        "phase_relation": "omega/(beta k^2)=1/sqrt(1+s)"
+      },
+      "sources": [
+        {
+          "label": "Report Section 4, Eqs. 15-23; direct conditional linearization",
+          "type": "supplied report"
+        },
+        {
+          "label": "Zhang et al., Physica D (2019), equation source; transformed stability conventions not resolved here",
+          "url": "https://doi.org/10.1016/j.physd.2019.05.008"
+        }
+      ],
+      "evidence": "Original schematic or exact conditional model calculation; no new empirical data.",
+      "sha256": {
+        "figures/03_wki_discrete_growth_bands.svg": "c17411413c6d57f33fa858b678e66de1850b02301969b08af1426151ed53b711",
+        "figures/03_wki_discrete_growth_bands.png": "2c71010af2bda71cbeb7e62dcfe2d2791ac19952f8151a956cd13f96c309e3b8"
+      }
+    },
+    {
+      "id": "04_phase_coherence_entanglement",
+      "kind": "static",
+      "files": [
+        "figures/04_phase_coherence_entanglement.svg",
+        "figures/04_phase_coherence_entanglement.png"
+      ],
+      "caption": "An original plot of an established two-qubit partial-transpose result, attributed to Rizaldy et al. (September 2026 preprint) rather than claimed as new. Panel A shows negativity for the report’s balanced-path, deterministic-phase model with independent local Z dephasing and b=0.8. Gray denotes exact model separability, not an experimental nondetection threshold. The boundary is 4ab sin^2(delta/2)=(1-a^2)(1-b^2). Panel B specializes to equal constant rates and delta=kappa T. The ratio |kappa|/gamma=2 yields no entangling time; any positive negativity requires |kappa|>2gamma. All entangling times in that specialization obey gamma T<asinh(1). Other noise models, uncertain phase, finite witness sensitivity and a gravitational-origin inference require additional analysis. Coherence a is unrelated to the graph-encoding scale called a elsewhere.",
+      "parameters": {
+        "b_panel_A": 0.8,
+        "a_range": [
+          0,
+          1
+        ],
+        "delta_range_radians": [
+          0,
+          6.283185307179586
+        ],
+        "panel_B_kappa_over_gamma": [
+          2,
+          3,
+          5
+        ],
+        "gammaT_range": [
+          0,
+          1.5
+        ],
+        "noise": "independent local Z dephasing; balanced factorized initial path qubits"
+      },
+      "sources": [
+        {
+          "label": "Rizaldy, Sheehy, Zhou and Mazumdar (9 Sep 2026), preprint v1, Eqs. 28-30 and 61-62",
+          "url": "https://arxiv.org/html/2609.10697v1"
+        },
+        {
+          "label": "Report Section 5, Eqs. 24-30",
+          "type": "supplied report"
+        }
+      ],
+      "evidence": "Original schematic or exact conditional model calculation; no new empirical data.",
+      "sha256": {
+        "figures/04_phase_coherence_entanglement.svg": "fdf86e08955259d1de1959583196cb33d1180f2771f5aca4aa95fa2b52dc968f",
+        "figures/04_phase_coherence_entanglement.png": "2ea12cb8ca52dd8184b370aeae657d83cdcdb4e5e10b13e2f39f17a1116375c0"
+      }
+    },
+    {
+      "id": "05_ring_inventory_optical_clock",
+      "kind": "static",
+      "files": [
+        "figures/05_ring_inventory_optical_clock.svg",
+        "figures/05_ring_inventory_optical_clock.png"
+      ],
+      "caption": "An exact solution of a deliberately restricted inventory toy and a schematic of two distinct measurement targets. With constant ring mass, constant retained input a, constant physical contaminant removal lambda>0 and x(0)=0, the scaled inventory is lambda*x/a=1-exp(-lambda*t), while normalized time sensitivity is exp(-lambda*t). Approaching equilibrium makes inverse age ill-conditioned. The material ledger is not identical to optical absorption: chemical or structural alteration may change absorption without exporting the corresponding element. Variable total mass, changing input and unknown initial pollution add ambiguity. This is neither a ring formation age determination nor the complete published Ricerchi-Crida model. Use a/lambda<=1 for an all-time literal mass fraction, or restrict to a dilute valid interval.",
+      "parameters": {
+        "theta_range": [
+          0,
+          5
+        ],
+        "normalized_inventory": "1-exp(-theta)",
+        "normalized_sensitivity": "exp(-theta)",
+        "units": "x dimensionless; a and lambda inverse time",
+        "not_estimated": "No Saturn age, measured rate or contamination fraction"
+      },
+      "sources": [
+        {
+          "label": "Ricerchi & Crida, Saturn’s rings age I (2026), author manuscript v1; optical-removal realism remains uncertain",
+          "url": "https://arxiv.org/html/2603.04102v1"
+        },
+        {
+          "label": "Report Appendix C2, Eqs. P1-P2",
+          "type": "supplied report"
+        }
+      ],
+      "evidence": "Original schematic or exact conditional model calculation; no new empirical data.",
+      "sha256": {
+        "figures/05_ring_inventory_optical_clock.svg": "1ec859c0ba1967f7f0bc1c0397b2c84722faa73c0ad2907b6e2d6617bdf4f0e6",
+        "figures/05_ring_inventory_optical_clock.png": "9afc90c490f280bc6a5491dcf136be7b7e8ae2fa86dc37bab4b62e4197cdb4ff"
+      }
+    },
+    {
+      "id": "06_planetary_transfer_comparison",
+      "kind": "static",
+      "files": [
+        "figures/06_planetary_transfer_comparison.svg",
+        "figures/06_planetary_transfer_comparison.png"
+      ],
+      "caption": "An original comparison of two source-to-record designs. The Enceladus route preserves formation history, phase assemblage, fragmentation, elemental balance, physical survival, and instrument selection as distinct stages. The lunar route separates incident populations, production and negative-ion conversion, physical survival and angular transport, and the detector response. Similar diagram positions do not imply shared kernels or dynamics. Proposed laboratory controls include paired pre/post-drying phase and chemistry measurements and independently constrained detector calibration. The drawing does not imply Cassini CAT can identify crystallographic phases. The final slow-freezing methods/supplement and exact selected-event manifest were not recovered in the source review; rapid-decompression evidence remains conference-level. Lunar results retain their site, exposure and calibration limits.",
+      "parameters": {
+        "diagram": "Conceptual proposed measurement pathways; no measured counts or inferred proportions",
+        "distinction": "physical survival is not detector selection"
+      },
+      "sources": [
+        {
+          "label": "Postberg et al., slow-freezing and fragmentation, Science Advances (2026); full methods/supplement access incomplete",
+          "url": "https://doi.org/10.1126/sciadv.aee7256"
+        },
+        {
+          "label": "Hogan et al., EPSC2026-1326, conference abstract; freeze-dried residue analysis",
+          "url": "https://meetingorganizer.copernicus.org/EPSC2026/EPSC2026-1326.html"
+        },
+        {
+          "label": "Chang’e-6 negative-ion study (2025)",
+          "url": "https://www.nature.com/articles/s43247-025-02399-7"
+        },
+        {
+          "label": "Chang’e-6 negative-ion author manuscript (2026), calibration coupling",
+          "url": "https://arxiv.org/html/2602.16567v1"
+        },
+        {
+          "label": "Report Sections 6, C4 and C6",
+          "type": "supplied report"
+        }
+      ],
+      "evidence": "Original schematic or exact conditional model calculation; no new empirical data.",
+      "sha256": {
+        "figures/06_planetary_transfer_comparison.svg": "d27ed57cf6681d24733ca2610637b496255a31e2c5d4298f8724c1485c3b8cd0",
+        "figures/06_planetary_transfer_comparison.png": "f205a6176616fe2bfe2795f4a4b2ccb676541a7e5e7ae4385cde9fbc1e6622ab"
+      }
+    },
+    {
+      "id": "A1_pattern_vs_material_motion",
+      "kind": "animation",
+      "files": [
+        "animations/A1_pattern_vs_material_motion.gif",
+        "animations/A1_pattern_vs_material_motion_poster.png",
+        "animations/A1_pattern_vs_material_motion.mp4"
+      ],
+      "caption": "A looped analytic kinematic illustration motivated by the distinction between a planetary wave pattern and material motion. A synthetic polar trace r=1+0.065 cos[10(theta-Omega_p t)] advances by one wavelength in ten seconds, while prescribed orange markers at radius 0.84 make two complete circuits. The rates, radii and amplitudes are arbitrary display parameters, not measured Saturn quantities. The marker paths are not computed by advecting particles in a self-consistent fluid field. Neither the shape nor its animation is evidence for SCM or a shallow-water mechanism.",
+      "parameters": {
+        "loop_seconds": 10,
+        "lobes": 10,
+        "epsilon": 0.065,
+        "mean_radius_arbitrary_units": 1,
+        "tracer_radius": 0.84,
+        "Omega_pattern_radians_per_display_second": 0.06283185307179587,
+        "Omega_material_radians_per_display_second": 1.2566370614359172,
+        "tracers": 8,
+        "not_a_model_solution": true
+      },
+      "sources": [
+        {
+          "label": "ESA/Hubble, Saturn decagon release, 2 Sep 2026; observational motivation only",
+          "url": "https://esahubble.org/news/heic2612/"
+        },
+        {
+          "label": "Report Appendix C3",
+          "type": "supplied report"
+        }
+      ],
+      "frames": 100,
+      "fps": 10,
+      "duration_seconds": 10.0,
+      "sha256": {
+        "animations/A1_pattern_vs_material_motion.gif": "073abff5d5d1f0a97fe41ecce2ed8d2ca6e2d34f953b7f85ed99e88d5cbc19f9",
+        "animations/A1_pattern_vs_material_motion_poster.png": "f45f329cae4f58f5e3bded2155a3467fc39b9b78e6fa5ea0746b315b8956ee21",
+        "animations/A1_pattern_vs_material_motion.mp4": "baae6efdf08db87a2b9097604846b4af1caaa68c425094f87ce872f8d22d4a90"
+      }
+    },
+    {
+      "id": "A2_bending_graph_normal_frame",
+      "kind": "animation",
+      "files": [
+        "animations/A2_bending_graph_normal_frame.gif",
+        "animations/A2_bending_graph_normal_frame_poster.png",
+        "animations/A2_bending_graph_normal_frame.mp4"
+      ],
+      "caption": "A smooth loop through a prescribed family of helices F(x,t)=(x,A(t)cos(kx),A(t)sin(kx)), with A(t)/L0=0.55+0.15 cos(2*pi*t/8), k=1/L0 and fixed frame location x=3.5L0. Each frame recomputes the exact tangent, principal normal and binormal. The changing teal plane stays perpendicular to the tangent; the orange fixed-x plane contains transverse graph coordinates. This is a geometric interpolation with arbitrary display time, not an integrated SCM, WKI, binormal-flow or quantum-dynamical solution. It does not establish material content, spin, charge or gravity.",
+      "parameters": {
+        "A_mean_in_L0": 0.55,
+        "A_amplitude_in_L0": 0.15,
+        "k_in_inverse_L0": 1,
+        "x_range_in_L0": [
+          0,
+          8
+        ],
+        "frame_x_in_L0": 3.5,
+        "display_period_seconds": 8,
+        "projection_rows": [
+          [
+            0.8660254037844386,
+            -0.5,
+            0.0
+          ],
+          [
+            0.19536556424463689,
+            0.3383830833210727,
+            0.9205048534524404
+          ]
+        ],
+        "not_a_model_solution": true
+      },
+      "sources": [
+        {
+          "label": "Report Section 3: graph gauge and geometric caveats",
+          "type": "supplied report"
+        },
+        {
+          "label": "Hasimoto, A soliton on a vortex filament (1972)",
+          "url": "https://doi.org/10.1017/S0022112072002307"
+        }
+      ],
+      "frames": 80,
+      "fps": 10,
+      "duration_seconds": 8.0,
+      "sha256": {
+        "animations/A2_bending_graph_normal_frame.gif": "907dfc16378fd7f29615b83e7691e9e39f961fa37b5a313461051c41e18c879d",
+        "animations/A2_bending_graph_normal_frame_poster.png": "dcf4a1adf25945b8bb1ce88164ac437ae3d63380ada6c2593ebecb9bee8fa629",
+        "animations/A2_bending_graph_normal_frame.mp4": "a622390a0eeeaff6013008757e2fe461bd0351adf2018a2ccfca3ef46028395c"
+      }
+    }
+  ]
+}

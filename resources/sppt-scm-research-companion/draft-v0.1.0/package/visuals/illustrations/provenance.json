@@ -1,0 +1,82 @@
+{
+  "title": "Planetary concept art: raster series",
+  "created_utc_date": "2026-10-05",
+  "generation": {
+    "tool": "OpenAI built-in image_gen",
+    "software_label": "gpt-image (from embedded C2PA provenance)",
+    "model_version": "Precise model version unspecified",
+    "method": "Three independent text-to-image calls, one per final asset",
+    "input_images": [],
+    "attestation": "All three images were generated from text prompts only. No source image, user photograph, private image, attachment, or reference-image bytes were submitted. Public scientific background informed the written prompts. No simulation output or observational data were used to generate pixels.",
+    "postprocessing": "None. Generated PNG bytes were copied unchanged to stable project paths.",
+    "dimensions_pixels": [
+      1536,
+      1024
+    ],
+    "format": "PNG",
+    "color_mode": "RGB",
+    "metadata_review": "All three PNGs contain caBX/C2PA signed provenance. Independent publication review decoded the JUMBF/CBOR claims and signing certificates: they contain AI-generation labels, creation timestamps, per-image asset IDs and OpenAI/CA credentials, with no user, account, conversation, filesystem-path or prompt fields. Pillow's empty info dictionaries did not constitute a complete metadata scan. Complete pixel images were inspected. Original PNG bytes and signed provenance are preserved unchanged.",
+    "publication_note": "Keep each illustration's classification and caption with it. These are generated illustrations, not evidence for a physical theory."
+  },
+  "assets": [
+    {
+      "id": "saturn-ring-dust",
+      "file": "images/01-saturn-ring-dust-illustration.png",
+      "title": "Saturn: beyond the ring plane",
+      "classification": "AI-generated conceptual illustration",
+      "caption": "AI-generated illustration of Saturn's main rings with an artistically enhanced off-plane dust motif. Dust brightness, particle size and spatial distribution are illustrative, not measured; this is not a spacecraft image.",
+      "alt_text": "A softly gold Saturn in deep black space, crossed by thin pale concentric rings, with a diffuse field of fine bright dust above and below the ring plane.",
+      "scientific_scope": "The icy main-ring setting is physically informed. The visible dust is a compositional device, not a reconstruction of a particular silicate population, a measured halo boundary, or a demonstration of transport or ring age.",
+      "sources": [
+        {
+          "title": "NASA Cassini: Rings",
+          "url": "https://science.nasa.gov/mission/cassini/science/rings/",
+          "role": "Background on the icy main rings and distinct diffuse E ring; no source image used."
+        },
+        {
+          "title": "Linti et al. (2025), A Dust Halo from Saturn’s Main Rings Extending Several Saturnian Radii above the Ring Plane",
+          "url": "https://doi.org/10.3847/PSJ/ae18c1",
+          "role": "Background for an off-plane dust motif; no data or image reused. The image does not depict the paper's measured spatial distribution."
+        }
+      ],
+      "prompt": "Use case: scientific-educational.\nAsset type: original editorial illustration accompanying a planetary physics research report, landscape approximately 3:2.\nPrimary request: a restrained, magnificent, physically informed depiction of Saturn, its exceptionally thin main rings, and a subtle trace of off-plane dust. This is an artist's generated illustration, not a spacecraft photograph or a measured density map.\nScene and composition: Saturn occupies the right half of a wide deep-black field; the complete great elliptical ring system sweeps diagonally across the frame, reaching toward the left foreground. A low-oblique perspective, just above the plane, keeps the concentric circular rings in ONE coherent plane centered on the planet's equator. Leave some calm black space in the upper left. Show the main broad bright annuli, their delicately varied optical texture and a distinct dark Cassini Division. Never bend or warp the main ring plane. The near side of the ring obscures a narrow strip of the lower planet, while the far side is correctly hidden behind the globe.\nLighting and material: one distant sun beyond the upper-left edge, physically consistent soft-gold dayside and dark limb on Saturn, fine muted cream cloud bands parallel to its equator, correctly cast ring shadow on the globe and a dark planetary shadow across the far rings. Pale icy ring material, charcoal shadows, very restrained cool blue-white highlights. A few extremely faint, diffuse, widely dispersed scattering motes above and below the plane suggest an off-plane dust population; their visibility is artistically enhanced, no assigned trajectories, no neat halo boundary, no magnetic field curves, no false dust concentrations. Dust is sparse and fine, not giant floating boulders.\nStyle: masterful high-end realistic astronomical illustration, austere cold science, convincing subtle texture and restrained dynamic range, exceptional depth and negative space, no oversaturated nebula. No spacecraft, no people, no extra moons, no galaxies, no visible starfield, no lens flares. No text, letters, labels, arrows, graphs, axes, numerical scales, equations, logos, borders, or watermarks. Do not imitate a particular Cassini observation.",
+      "sha256": "fa471a57d0480936dafcbc51f63d99c84c5e7afe3273ed1b4431226d41194034",
+      "bytes": 1905382,
+      "visual_review": "Full image inspected. Coherent planar ring perspective, restrained planetary illumination, no text or charts. The dust is conspicuously enhanced and requires the supplied caption."
+    },
+    {
+      "id": "enceladus-plume",
+      "file": "images/02-enceladus-plume-illustration.png",
+      "title": "Enceladus: ice into space",
+      "classification": "AI-generated conceptual illustration",
+      "caption": "AI-generated illustration inspired by Enceladus's south-polar ice fractures and plumes. Terrain, jets, viewing geometry and scale are artistic; this is not a Cassini image or a measured reconstruction.",
+      "alt_text": "Silvery jets of fine ice rise from fractured blue-white terrain on a curved Enceladus-like horizon into black space.",
+      "scientific_scope": "Water-ice and vapor plumes from south-polar fissures motivate the scene. Individual fissures, jet locations and grain sizes are invented for the illustration. The image does not reveal subsurface structure, freezing history, ocean chemistry or biological activity.",
+      "sources": [
+        {
+          "title": "NASA: Bursting at the Seams",
+          "url": "https://science.nasa.gov/resource/bursting-at-the-seams/",
+          "role": "Background on south-polar tiger-stripe plumes; no source image used."
+        }
+      ],
+      "prompt": "Use case: scientific-educational.\nAsset type: original realistic editorial illustration for a planetary physics report; wide landscape approximately 3:2.\nPrimary request: Enceladus's active south-polar ice terrain and plume, viewed in an exceptionally beautiful low-altitude oblique artistic reconstruction. Scientific visual inspiration, not a replica of a Cassini photograph and not a reconstruction from measurement. Surface and plume arrangement are illustrative.\nComposition: the curved ice limb rises from the lower left and slopes toward the lower right, occupying the bottom two fifths. A handful of long subparallel fractured ridges, inspired by the south-polar tiger stripes, cut diagonally through the visible terrain. Fine translucent fans and irregular narrow jets of ice grains emerge from several positions along the fissures near the horizon, expand into a broad delicate plume, and reach upward through the upper half of a pure black sky. One main sweeping plume provides the composition's gesture; smaller jets remain secondary. The cracks and vents must connect geometrically to the ice surface. Emphasize airy negative space and the contrast between dense ancient ice and the fleeting spray.\nLight and texture: the hidden sun lies just beyond the limb, giving the plume cold silvery-white forward-scattered light, extremely fine dust and feathered streamers; faint realistic reflected light reveals softly blue-gray frozen ridges and chalk-white ice, strong shadow cavities. Only slight muted cyan in the ice shadows. Ice is brittle ridged and granular, not watery, no translucent ocean visible. Cold, austere, realistic materials and vacuum lighting, limited dynamic range without artificial glow.\nAccuracy boundaries: the jets are water vapor and tiny ice particles, not lava, flame, smoke or a liquid fountain in an atmosphere. Do not depict atmosphere, clouds, trees, life, spacecraft, a glowing crack, or human objects. Show no impossible enormous Saturn filling the sky and no other planets or moons. No fake stars, bokeh, lens flare, oversaturated nebula, charts, axes, labels, scale bars, numeric data, equations, text, logos, borders, or watermarks. Masterful scientific illustration with dramatic but credible composition; this is explicitly generated illustration, not observational evidence.",
+      "sha256": "6b8469d11f87bbc3cbacef752cf17e7dc9ce5da727d182b9309120a8b6cd98e2",
+      "bytes": 3162294,
+      "visual_review": "Full image inspected. Fractured ice and fine jets, convincing cold-light rendering, no text, scales or purported instrument data. Terrain and plume proportions are illustrative."
+    },
+    {
+      "id": "bent-filament",
+      "file": "images/03-bent-filament-concept.png",
+      "title": "Reaching and bending",
+      "classification": "AI-generated speculative concept art",
+      "caption": "AI-generated speculative concept art combining a bent-filament and normal-plane motif with a separate Saturn-like echo. It represents no measured field, computed solution or experimentally established connection.",
+      "alt_text": "A luminous white, cyan and faint amber filament bends in a sweeping S through delicate glass-like planes, with a small separate Saturn-like form against a dark background.",
+      "scientific_scope": "The ribbons and plane fragments are artistic motifs rather than a rigorous complex-plane frame, mathematical solution or physical field. Their proximity to a Saturn-like form does not assert that SCM describes Saturn or that SPPT or SCM has been experimentally validated.",
+      "sources": [],
+      "prompt": "Use case: stylized-concept.\nAsset type: original experimental concept art for a mathematical and planetary physics report, wide landscape approximately 3:2.\nPrimary request: a breathtaking abstract study of a bent filament, a complex normal-plane motif, and a distant Saturn-like ring echo. This is openly speculative conceptual art, not a measured field, simulation output, physical model validation, or diagram of a demonstrated mechanism.\nComposition: an extremely fine continuous pearly-white filament reaches from the lower-left foreground, rises into a sweeping asymmetric loop near the center, then bends and retreats toward the upper right. The gesture must feel tensile, spacious, and deliberate rather than tangled. A pair of narrow translucent cyan and muted amber ribbon-like traces follow the central bend, suggesting two transverse directions without depicting actual forces. Two or three barely visible glass-like plane fragments cut across the filament at separate positions; beautifully sharp and delicate, not gridded and not presented as a mathematically exact frame. Far behind, in a spacious dark region near the right edge, a small understated circular charcoal form and thin oblique silver ring make a visual echo of Saturn. The filament does not touch or emanate from the distant form.\nArt direction: cold-science precision meets experimental light sculpture, luminous frosted glass, restrained iridescence, pearl white and icy cyan with the faintest warm amber counterpoint on near-black navy. Crisp foreground filament, subtle depth and restrained bloom, enormous quiet negative space, microscopic-looking grain only on the surfaces, museum-quality abstract composition. A sense of reaching and bending, gently energetic, not chaotic. Material beauty and rigorous visual economy.\nKeep the distant Saturn echo as a purely compositional reference and distinct from the filament. Never show lines connecting a mathematical filament to a planet as a causal mechanism. No literal gravity-well grid, no wormhole, no tunnel, no glowing space portal, no electrical sparks, no atoms, no DNA, no nebula, no dense stars, no laboratory equipment. No text, equations, numbers, letters, glyphs, arrows, charts, axes, labels, logos, borders, or watermarks. Do not imply any new physics is experimentally established.",
+      "sha256": "44f3dc34f063208a12662f2771d07b8392e284569ed93fecc610b22456927610",
+      "bytes": 1678600,
+      "visual_review": "Full image inspected. Deliberate S-shaped filament composition, separate planet motif, no text or numerical markings. Plane fragments remain illustrative, not a claimed exact normal frame."
+    }
+  ]
+}

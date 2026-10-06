@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="864pt" height="547.2pt" viewBox="0 0 864 547.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Original deterministic research-companion figure</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 547.2 
+L 864 547.2 
+L 864 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 58.536 245.25504 
+L 203.9904 245.25504 
+Q 219.7152 245.25504 219.7152 239.1264 
+L 219.7152 141.06816 
+Q 219.7152 134.93952 203.9904 134.93952 
+L 58.536 134.93952 
+Q 42.8112 134.93952 42.8112 141.06816 
+L 42.8112 239.1264 
+Q 42.8112 245.25504 58.536 245.25504 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #eff5f8; stroke: #008477; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 259.0272 245.25504 
+L 404.4816 245.25504 
+Q 420.2064 245.25504 420.2064 239.1264 
+L 420.2064 141.06816 
+Q 420.2064 134.93952 404.4816 134.93952 
+L 259.0272 134.93952 
+Q 243.3024 134.93952 243.3024 141.06816 
+L 243.3024 239.1264 
+Q 243.3024 245.25504 259.0272 245.25504 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #eff5f8; stroke: #008477; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 459.5184 245.25504 
+L 604.9728 245.25504 
+Q 620.6976 245.25504 620.6976 239.1264 
+L 620.6976 141.06816 
+Q 620.6976 134.93952 604.9728 134.93952 
+L 459.5184 134.93952 
+Q 443.7936 134.93952 443.7936 141.06816 
+L 443.7936 239.1264 
+Q 443.7936 245.25504 459.5184 245.25504 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #eff5f8; stroke: #008477; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 660.0096 245.25504 
+L 805.464 245.25504 
+Q 821.1888 245.25504 821.1888 239.1264 
+L 821.1888 141.06816 
+Q 821.1888 134.93952 805.464 134.93952 
+L 660.0096 134.93952 
+Q 644.2848 134.93952 644.2848 141.06816 
+L 644.2848 239.1264 
+Q 644.2848 245.25504 660.0096 245.25504 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #eff5f8; stroke: #008477; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 220.142104 190.09728 
+Q 230.722842 190.09728 239.514726 190.09728 
+" clip-path="url(#pefe9dc7757)" style="fill: none; stroke: #008477; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 234.314726 187.49728 
+L 239.514726 190.09728 
+L 234.314726 192.69728 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #008477; stroke: #008477; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 420.633304 190.09728 
+Q 431.214042 190.09728 440.005926 190.09728 
+" clip-path="url(#pefe9dc7757)" style="fill: none; stroke: #008477; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 434.805926 187.49728 
+L 440.005926 190.09728 
+L 434.805926 192.69728 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #008477; stroke: #008477; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 621.124504 190.09728 
+Q 631.705242 190.09728 640.497126 190.09728 
+" clip-path="url(#pefe9dc7757)" style="fill: none; stroke: #008477; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 635.297126 187.49728 
+L 640.497126 190.09728 
+L 635.297126 192.69728 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #008477; stroke: #008477; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 58.536 401.53536 
+L 203.9904 401.53536 
+Q 219.7152 401.53536 219.7152 395.40672 
+L 219.7152 297.34848 
+Q 219.7152 291.21984 203.9904 291.21984 
+L 58.536 291.21984 
+Q 42.8112 291.21984 42.8112 297.34848 
+L 42.8112 395.40672 
+Q 42.8112 401.53536 58.536 401.53536 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #eff5f8; stroke: #006ead; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 259.0272 401.53536 
+L 404.4816 401.53536 
+Q 420.2064 401.53536 420.2064 395.40672 
+L 420.2064 297.34848 
+Q 420.2064 291.21984 404.4816 291.21984 
+L 259.0272 291.21984 
+Q 243.3024 291.21984 243.3024 297.34848 
+L 243.3024 395.40672 
+Q 243.3024 401.53536 259.0272 401.53536 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #eff5f8; stroke: #006ead; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 459.5184 401.53536 
+L 604.9728 401.53536 
+Q 620.6976 401.53536 620.6976 395.40672 
+L 620.6976 297.34848 
+Q 620.6976 291.21984 604.9728 291.21984 
+L 459.5184 291.21984 
+Q 443.7936 291.21984 443.7936 297.34848 
+L 443.7936 395.40672 
+Q 443.7936 401.53536 459.5184 401.53536 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #eff5f8; stroke: #006ead; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 660.0096 401.53536 
+L 805.464 401.53536 
+Q 821.1888 401.53536 821.1888 395.40672 
+L 821.1888 297.34848 
+Q 821.1888 291.21984 805.464 291.21984 
+L 660.0096 291.21984 
+Q 644.2848 291.21984 644.2848 297.34848 
+L 644.2848 395.40672 
+Q 644.2848 401.53536 660.0096 401.53536 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #eff5f8; stroke: #006ead; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 220.142104 346.3776 
+Q 230.722842 346.3776 239.514726 346.3776 
+" clip-path="url(#pefe9dc7757)" style="fill: none; stroke: #006ead; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 234.314726 343.7776 
+L 239.514726 346.3776 
+L 234.314726 348.9776 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #006ead; stroke: #006ead; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 420.633304 346.3776 
+Q 431.214042 346.3776 440.005926 346.3776 
+" clip-path="url(#pefe9dc7757)" style="fill: none; stroke: #006ead; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 434.805926 343.7776 
+L 440.005926 346.3776 
+L 434.805926 348.9776 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #006ead; stroke: #006ead; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 621.124504 346.3776 
+Q 631.705242 346.3776 640.497126 346.3776 
+" clip-path="url(#pefe9dc7757)" style="fill: none; stroke: #006ead; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 635.297126 343.7776 
+L 640.497126 346.3776 
+L 635.297126 348.9776 
+z
+" clip-path="url(#pefe9dc7757)" style="fill: #006ead; stroke: #006ead; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #008477" x="51.45984" y="119.61792" transform="rotate(-0 51.45984 119.61792)">ENCELADUS</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #008477" x="66.3984" y="161.379784" transform="rotate(-0 66.3984 161.379784)">Formation history</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(66.3984 185.438437)">Recipe + cooling</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(66.3984 199.295703)">Phase + microstructure</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #008477" x="266.8896" y="161.379784" transform="rotate(-0 266.8896 161.379784)">Daughter configuration</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(266.8896 185.438437)">Fragment sizes + marks</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(266.8896 199.295703)">Elemental balance</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #008477" x="467.3808" y="161.379784" transform="rotate(-0 467.3808 161.379784)">Physical survival</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(467.3808 185.438437)">Sublimation / transport</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(467.3808 199.295703)">Exposure + speed</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #008477" x="667.872" y="161.379784" transform="rotate(-0 667.872 161.379784)">Instrument record</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(667.872 185.438437)">Trigger + telemetry</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(667.872 199.295703)">Impact response</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #006ead" x="51.45984" y="275.89824" transform="rotate(-0 51.45984 275.89824)">LUNAR SURFACE</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #006ead" x="66.3984" y="317.660104" transform="rotate(-0 66.3984 317.660104)">Incident population</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(66.3984 341.718757)">Upstream source</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(66.3984 355.576023)">Material + disturbance</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #006ead" x="266.8896" y="317.660104" transform="rotate(-0 266.8896 317.660104)">Particle production</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(266.8896 341.718757)">Scattering / sputtering</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(266.8896 355.576023)">Charge conversion</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #006ead" x="467.3808" y="317.660104" transform="rotate(-0 467.3808 317.660104)">Physical survival</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(467.3808 341.718757)">Photodetachment</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(467.3808 355.576023)">Angular transport</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #006ead" x="667.872" y="317.660104" transform="rotate(-0 667.872 317.660104)">Instrument record</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(667.872 341.718757)">Acceptance + efficiency</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(667.872 355.576023)">Energy / species response</text>
+   </g>
+  </g>
+  <g id="text_19">
+   <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #008477" x="38.88" y="23.5296" transform="rotate(-0 38.88 23.5296)">06  /  SCIENTIFIC ATLAS</text>
+  </g>
+  <g id="text_20">
+   <text style="font-weight: 700; font-size: 22px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #142d40" x="38.88" y="47.6064" transform="rotate(-0 38.88 47.6064)">Formation is only the start of a detected sample</text>
+  </g>
+  <g id="text_21">
+   <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #516677" x="38.88" y="71.6832" transform="rotate(-0 38.88 71.6832)">Enceladus grains and lunar ions share an inference discipline, with different physics at every stage.</text>
+  </g>
+  <g id="text_22">
+   <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #008477" x="52.704" y="430.6464" transform="rotate(-0 52.704 430.6464)">Control the Enceladus comparison</text>
+  </g>
+  <g id="text_23">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(52.704 446.672491)">Measure chemistry and phase before and after drying.</text>
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(52.704 461.2896)">Compare the same grain, or a declared matched population.</text>
+  </g>
+  <g id="text_24">
+   <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #006ead" x="453.6" y="430.6464" transform="rotate(-0 453.6 430.6464)">Control the lunar comparison</text>
+  </g>
+  <g id="text_25">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(453.6 446.672491)">Separate ionization probability from detector calibration.</text>
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #142d40" transform="translate(453.6 461.2896)">Retain source exposure, angular support and non-detections.</text>
+  </g>
+  <g id="text_26">
+   <text style="font-size: 8.5px; font-family: 'DejaVu Sans'; fill: #516677" transform="translate(38.88 512.088523)">Proposed experimental / inference design, not a Cassini or lunar reconstruction. Physical loss precedes detector selection.</text>
+   <text style="font-size: 8.5px; font-family: 'DejaVu Sans'; fill: #516677" transform="translate(38.88 523.544266)">Sources: report Sections 6 and C4-C6; Postberg et al. (2026), EPSC2026-1326, and the Chang’e-6 studies (2025-2026).</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pefe9dc7757">
+   <rect x="38.88" y="101.232" width="786.24" height="306.432"/>
+  </clipPath>
+ </defs>
+</svg>

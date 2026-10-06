@@ -1,0 +1,7 @@
+# Keep the Linux research v1 project configuration byte-identical.
+extend = "pyproject.toml"
+
+# Preserve the reviewed supplier generator and its exact existing exceptions.
+# Its bytes are independently pinned by the repository checker.
+[lint.per-file-ignores]
+"resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/generate_scientific_atlas.py" = ["B905", "E401", "E701", "E702", "E703", "E731", "E741", "F401", "I001"]

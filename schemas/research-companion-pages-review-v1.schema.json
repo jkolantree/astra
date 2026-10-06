@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jkolantree.github.io/astra/schemas/research-companion-pages-review-v1.schema.json",
+  "title": "ASTRA research companion Pages review v1 (unpublished candidate)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "candidate_sha256",
+    "visual_review",
+    "coverage",
+    "publication_approval"
+  ],
+  "properties": {
+    "schema": {
+      "const": "https://jkolantree.github.io/astra/schemas/research-companion-pages-review-v1.schema.json"
+    },
+    "candidate_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "visual_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "basis",
+        "surface",
+        "scope",
+        "content_sha256",
+        "preview_candidate_sha256"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "accepted"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surface": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "preview_candidate_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "desktop_and_mobile_layout",
+        "keyboard_and_focus",
+        "reduced_motion",
+        "media_playback",
+        "console_and_network",
+        "assistive_technology"
+      ],
+      "properties": {
+        "desktop_and_mobile_layout": {
+          "enum": [
+            "passed",
+            "failed",
+            "not-tested"
+          ]
+        },
+        "keyboard_and_focus": {
+          "enum": [
+            "passed",
+            "failed",
+            "not-tested"
+          ]
+        },
+        "reduced_motion": {
+          "enum": [
+            "passed",
+            "failed",
+            "not-tested"
+          ]
+        },
+        "media_playback": {
+          "enum": [
+            "passed",
+            "failed",
+            "not-tested"
+          ]
+        },
+        "console_and_network": {
+          "enum": [
+            "passed",
+            "failed",
+            "not-tested"
+          ]
+        },
+        "assistive_technology": {
+          "enum": [
+            "passed",
+            "failed",
+            "not-tested"
+          ]
+        }
+      }
+    },
+    "publication_approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "basis"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "approved"
+          ]
+        },
+        "basis": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "https://jkolantree.github.io/astra/schemas/research-companion-pages-review-v1.schema.json",
+  "candidate_sha256": "deca7e082ef2697bc509f6735634e000baf22ecc193744b4a77d67bf8cbc81ad",
+  "visual_review": {
+    "status": "accepted",
+    "basis": "Owner-reported manual visual acceptance",
+    "surface": "Owner browser on their own device",
+    "scope": "General appearance of the delivered preview. Missing images were resolved by extracting both archives into the same folder. Detailed specialist coverage is recorded separately.",
+    "content_sha256": "14118663b76335ff17810ec5a475776a8e7a37b889456124c2c75afd552eadd8",
+    "preview_candidate_sha256": "c1cf27cbf0850e88bf63a90b38a95d8ee4558151b363fd4ff4ec3118558679a4"
+  },
+  "coverage": {
+    "desktop_and_mobile_layout": "not-tested",
+    "keyboard_and_focus": "not-tested",
+    "reduced_motion": "not-tested",
+    "media_playback": "not-tested",
+    "console_and_network": "not-tested",
+    "assistive_technology": "not-tested"
+  },
+  "publication_approval": {
+    "status": "approved",
+    "basis": "Owner authorized Pages publication of the manually reviewed, unchanged preview."
+  }
+}

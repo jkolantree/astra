@@ -1,0 +1,223 @@
+{
+  "title": "ASTRA SPPT SCM Visual Atlas",
+  "date": "2026-10-05",
+  "status": "Public unpromoted research draft; no empirical validation",
+  "contents": [
+    {
+      "id": "01_complete_observation_contract",
+      "label": "ORIGINAL SCIENTIFIC FIGURE",
+      "caption": "A common record-keeping discipline with distinct physical models. Include no-detection and veto outcomes only for operationally counted attempts. Missing coverage is not a negative result.",
+      "files": [
+        "scientific/figures/01_complete_observation_contract.svg",
+        "scientific/figures/01_complete_observation_contract.png"
+      ],
+      "sources": [
+        {
+          "label": "Physics Synthesis and Research Priorities for ASTRA SPPT and SCM (5 Oct 2026), Section 2, equations 1-2",
+          "type": "supplied report"
+        },
+        {
+          "label": "Combes et al., post-selected metrology and full resource accounting (2014)",
+          "url": "https://arxiv.org/abs/1309.6620"
+        }
+      ]
+    },
+    {
+      "id": "02_complex_graph_normal_plane",
+      "label": "ORIGINAL SCIENTIFIC FIGURE",
+      "caption": "Exact illustrative helix geometry. The fixed-x graph plane and the plane normal to the tangent generally differ at finite slope. This is neither a PDE solution nor a model of matter.",
+      "files": [
+        "scientific/figures/02_complex_graph_normal_plane.svg",
+        "scientific/figures/02_complex_graph_normal_plane.png"
+      ],
+      "sources": [
+        {
+          "label": "Report Section 3: graph gauge and encoding",
+          "type": "supplied report"
+        },
+        {
+          "label": "Hasimoto, A soliton on a vortex filament (1972)",
+          "url": "https://doi.org/10.1017/S0022112072002307"
+        }
+      ]
+    },
+    {
+      "id": "03_wki_discrete_growth_bands",
+      "label": "ORIGINAL SCIENTIFIC FIGURE",
+      "caption": "Synthetic, exact linearized WKI predictions. At s = 1 and m = 4, the n = 1 and n = 2 pairs grow exponentially. No growing mode does not prove nonlinear stability; marginal modes require separate analysis.",
+      "files": [
+        "scientific/figures/03_wki_discrete_growth_bands.svg",
+        "scientific/figures/03_wki_discrete_growth_bands.png"
+      ],
+      "sources": [
+        {
+          "label": "Report Section 4, Eqs. 15-23; direct conditional linearization",
+          "type": "supplied report"
+        },
+        {
+          "label": "Zhang et al., Physica D (2019), equation source; transformed stability conventions not resolved here",
+          "url": "https://doi.org/10.1016/j.physd.2019.05.008"
+        }
+      ]
+    },
+    {
+      "id": "04_phase_coherence_entanglement",
+      "label": "ORIGINAL SCIENTIFIC FIGURE",
+      "caption": "An original plot of an established two-qubit result. Independent local Z dephasing and a deterministic nonlocal phase are assumed. This is not an observed gravity signal, and no physical apparatus is simulated.",
+      "files": [
+        "scientific/figures/04_phase_coherence_entanglement.svg",
+        "scientific/figures/04_phase_coherence_entanglement.png"
+      ],
+      "sources": [
+        {
+          "label": "Rizaldy, Sheehy, Zhou and Mazumdar (9 Sep 2026), preprint v1, Eqs. 28-30 and 61-62",
+          "url": "https://arxiv.org/html/2609.10697v1"
+        },
+        {
+          "label": "Report Section 5, Eqs. 24-30",
+          "type": "supplied report"
+        }
+      ]
+    },
+    {
+      "id": "05_ring_inventory_optical_clock",
+      "label": "ORIGINAL SCIENTIFIC FIGURE",
+      "caption": "A constant-mass removal toy, not a Saturn ring-age fit. Near equilibrium, inventory changes carry little age information. Optical alteration and physical material export require separate measurements.",
+      "files": [
+        "scientific/figures/05_ring_inventory_optical_clock.svg",
+        "scientific/figures/05_ring_inventory_optical_clock.png"
+      ],
+      "sources": [
+        {
+          "label": "Ricerchi & Crida, Saturn’s rings age I (2026), author manuscript v1; optical-removal realism remains uncertain",
+          "url": "https://arxiv.org/html/2603.04102v1"
+        },
+        {
+          "label": "Report Appendix C2, Eqs. P1-P2",
+          "type": "supplied report"
+        }
+      ]
+    },
+    {
+      "id": "06_planetary_transfer_comparison",
+      "label": "ORIGINAL SCIENTIFIC FIGURE",
+      "caption": "Proposed source-to-record comparisons. Formation, physical survival and detector selection remain distinct. The two rows do not share a physical kernel, and the diagram makes no crystallographic claim for Cassini CAT.",
+      "files": [
+        "scientific/figures/06_planetary_transfer_comparison.svg",
+        "scientific/figures/06_planetary_transfer_comparison.png"
+      ],
+      "sources": [
+        {
+          "label": "Postberg et al., slow-freezing and fragmentation, Science Advances (2026); full methods/supplement access incomplete",
+          "url": "https://doi.org/10.1126/sciadv.aee7256"
+        },
+        {
+          "label": "Hogan et al., EPSC2026-1326, conference abstract; freeze-dried residue analysis",
+          "url": "https://meetingorganizer.copernicus.org/EPSC2026/EPSC2026-1326.html"
+        },
+        {
+          "label": "Chang’e-6 negative-ion study (2025)",
+          "url": "https://www.nature.com/articles/s43247-025-02399-7"
+        },
+        {
+          "label": "Chang’e-6 negative-ion author manuscript (2026), calibration coupling",
+          "url": "https://arxiv.org/html/2602.16567v1"
+        },
+        {
+          "label": "Report Sections 6, C4 and C6",
+          "type": "supplied report"
+        }
+      ]
+    },
+    {
+      "id": "A1_pattern_vs_material_motion",
+      "label": "ANALYTIC ANIMATION PREVIEW",
+      "caption": "Animation preview. A synthetic ten-lobed pattern advances one wavelength per loop while prescribed tracers complete two circuits. Display rates are arbitrary. No fluid or advection equations were solved.",
+      "files": [
+        "scientific/animations/A1_pattern_vs_material_motion.gif",
+        "scientific/animations/A1_pattern_vs_material_motion_poster.png",
+        "scientific/animations/A1_pattern_vs_material_motion.mp4"
+      ],
+      "sources": [
+        {
+          "label": "ESA/Hubble, Saturn decagon release, 2 Sep 2026; observational motivation only",
+          "url": "https://esahubble.org/news/heic2612/"
+        },
+        {
+          "label": "Report Appendix C3",
+          "type": "supplied report"
+        }
+      ]
+    },
+    {
+      "id": "A2_bending_graph_normal_frame",
+      "label": "ANALYTIC ANIMATION PREVIEW",
+      "caption": "Animation preview. The normal frame is recomputed through a prescribed helix family. Display time is an interpolation parameter. This is not integrated SCM, WKI, binormal-flow or quantum dynamics.",
+      "files": [
+        "scientific/animations/A2_bending_graph_normal_frame.gif",
+        "scientific/animations/A2_bending_graph_normal_frame_poster.png",
+        "scientific/animations/A2_bending_graph_normal_frame.mp4"
+      ],
+      "sources": [
+        {
+          "label": "Report Section 3: graph gauge and geometric caveats",
+          "type": "supplied report"
+        },
+        {
+          "label": "Hasimoto, A soliton on a vortex filament (1972)",
+          "url": "https://doi.org/10.1017/S0022112072002307"
+        }
+      ]
+    },
+    {
+      "id": "saturn-ring-dust",
+      "label": "AI-GENERATED CONCEPTUAL ILLUSTRATION",
+      "caption": "AI-generated illustration of Saturn's main rings with an artistically enhanced off-plane dust motif. Dust brightness, particle size and spatial distribution are illustrative, not measured; this is not a spacecraft image. The icy main-ring setting is physically informed. The visible dust is a compositional device, not a reconstruction of a particular silicate population, a measured halo boundary, or a demonstration of transport or ring age.",
+      "files": [
+        "illustrations/images/01-saturn-ring-dust-illustration.png"
+      ],
+      "sources": [
+        {
+          "title": "NASA Cassini: Rings",
+          "url": "https://science.nasa.gov/mission/cassini/science/rings/",
+          "role": "Background on the icy main rings and distinct diffuse E ring; no source image used."
+        },
+        {
+          "title": "Linti et al. (2025), A Dust Halo from Saturn’s Main Rings Extending Several Saturnian Radii above the Ring Plane",
+          "url": "https://doi.org/10.3847/PSJ/ae18c1",
+          "role": "Background for an off-plane dust motif; no data or image reused. The image does not depict the paper's measured spatial distribution."
+        }
+      ]
+    },
+    {
+      "id": "enceladus-plume",
+      "label": "AI-GENERATED CONCEPTUAL ILLUSTRATION",
+      "caption": "AI-generated illustration inspired by Enceladus's south-polar ice fractures and plumes. Terrain, jets, viewing geometry and scale are artistic; this is not a Cassini image or a measured reconstruction. Water-ice and vapor plumes from south-polar fissures motivate the scene. Individual fissures, jet locations and grain sizes are invented for the illustration. The image does not reveal subsurface structure, freezing history, ocean chemistry or biological activity.",
+      "files": [
+        "illustrations/images/02-enceladus-plume-illustration.png"
+      ],
+      "sources": [
+        {
+          "title": "NASA: Bursting at the Seams",
+          "url": "https://science.nasa.gov/resource/bursting-at-the-seams/",
+          "role": "Background on south-polar tiger-stripe plumes; no source image used."
+        }
+      ]
+    },
+    {
+      "id": "bent-filament",
+      "label": "AI-GENERATED SPECULATIVE CONCEPT ART",
+      "caption": "AI-generated speculative concept art combining a bent-filament and normal-plane motif with a separate Saturn-like echo. It represents no measured field, computed solution or experimentally established connection. The ribbons and plane fragments are artistic motifs rather than a rigorous complex-plane frame, mathematical solution or physical field. Their proximity to a Saturn-like form does not assert that SCM describes Saturn or that SPPT or SCM has been experimentally validated.",
+      "files": [
+        "illustrations/images/03-bent-filament-concept.png"
+      ],
+      "sources": []
+    }
+  ],
+  "detailed_provenance": [
+    "scientific/CAPTIONS_AND_SOURCES.md",
+    "scientific/manifest.json",
+    "illustrations/provenance.json"
+  ],
+  "rights": "No new license is assigned by this bundle. Scientific sources are cited rather than redistributed. The original generated-image provenance is retained."
+}

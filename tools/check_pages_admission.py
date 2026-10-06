@@ -13,14 +13,15 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-MANIFEST = ROOT / "evidence" / "pages_admission_v1.json"
-SCHEMA = ROOT / "schemas" / "pages-admission-v1.schema.json"
+MANIFEST = ROOT / "evidence" / "pages_admission_v2.json"
+SCHEMA = ROOT / "schemas" / "pages-admission-v2.schema.json"
 
 sys.path.insert(0, str(ROOT))
 from tools.build_pages_admission import (  # noqa: E402
     BASE_COMMIT,
     BASE_TREE,
     RELEASE_ROUTES,
+    companion_record,
     docs_entries,
 )
 
@@ -60,12 +61,12 @@ def validate_manifest_shape(value: dict[str, Any]) -> None:
 
     _require_exact_keys(
         value,
-        {"schema", "manifest_version", "base", "head_shell", "release_routes", "policy"},
+        {"schema", "manifest_version", "base", "head_shell", "release_routes", "research_companion", "policy"},
         "Pages admission manifest",
     )
-    if value["schema"] != "https://jkolantree.github.io/astra/schemas/pages-admission-v1.schema.json":
+    if value["schema"] != "https://jkolantree.github.io/astra/schemas/pages-admission-v2.schema.json":
         raise RuntimeError("Pages admission manifest schema identity drifted")
-    if value["manifest_version"] != "1.0.0":
+    if value["manifest_version"] != "2.0.0":
         raise RuntimeError("Pages admission manifest version drifted")
 
     base = value["base"]
@@ -136,6 +137,9 @@ def validate_manifest_shape(value: dict[str, Any]) -> None:
         if len(names) != len(set(names)):
             raise RuntimeError(f"Pages route {index} has duplicate assets")
 
+    if value["research_companion"] != companion_record():
+        raise RuntimeError("Research companion Pages admission differs from exact source bytes")
+
     policy = value["policy"]
     if not isinstance(policy, dict):
         raise RuntimeError("Pages admission policy must be an object")
@@ -143,7 +147,8 @@ def validate_manifest_shape(value: dict[str, Any]) -> None:
         "copy_exact_head_shell_only": True,
         "release_bytes_required_for_publication_routes": True,
         "reject_unadmitted_docs": True,
-        "reject_draft_and_candidate_content": True,
+        "reject_unadmitted_draft_and_candidate_content": True,
+        "research_companion_requires_separate_visual_approval": True,
     }
     _require_exact_keys(policy, set(expected_policy), "Pages admission policy")
     if policy != expected_policy:
