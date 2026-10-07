@@ -1,0 +1,46 @@
+{
+  "case_id": "synthetic:transport-boundary-channel-observation-archive",
+  "times_s": [
+    0,
+    0.5,
+    1,
+    1.5,
+    2
+  ],
+  "initial_mass_kg": [
+    3,
+    1
+  ],
+  "conductance_per_s": 0.2,
+  "capture_fraction": 0.25,
+  "reference_mass_kg": 1.0,
+  "boundary": {
+    "bulk_decay": 1.0,
+    "boundary_to_bulk": 0.4,
+    "direct_gain": 0.5,
+    "boundary_drive": 0.8,
+    "boundary_time": 0.75
+  },
+  "channel": {
+    "persistence": 0.5,
+    "drive": 0.2,
+    "direct_gain": 0.6,
+    "memory_gain": 0.3,
+    "interaction_gain": 0.1,
+    "offset": 0.0
+  },
+  "detector_count_per_kg": 100.0,
+  "efficiency": 0.5,
+  "reset_after_intervals": 2,
+  "archive_retention": 0.25,
+  "calibration": {
+    "status": "declared-verified",
+    "artifact_sha256s": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "training_root": "synthetic:training",
+    "calibration_root": "synthetic:calibration",
+    "holdout_root": "synthetic:holdout",
+    "unit": "count/kg"
+  }
+}

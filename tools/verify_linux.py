@@ -9,10 +9,12 @@ import math
 import os
 import platform
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
-from pathlib import Path
+from collections.abc import Collection
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,6 +22,35 @@ PROFILE = ROOT / "RUNTIME-linux.json"
 # An order of magnitude tighter than the benchmark's frozen algebra tolerance.
 # Discrete decisions, counts, keys, string identities and array lengths stay exact.
 RTOL = ATOL = 1e-12
+
+# Exact copied-input roles, not a directory-wide exclusion or runtime admission.
+# A successor source admission must bind these fixtures and this controller.
+REPLAY_COPIED_INPUTS = frozenset({
+    "data/integrated-core/bridge_contracts.json",
+    "data/integrated-core/integrated_case.json",
+})
+ATLAS_PREFIX = "resources/dark-medium-response-atlas/v0.1.0/"
+REPLAY_ATLAS_OUTPUTS = tuple(ATLAS_PREFIX + name for name in (
+    "dark-medium-response-atlas-v0.1.0.html", "dark-medium-response-atlas-v0.1.0.pdf",
+    "html-accessibility.json", "pdf-inspection.json",
+))
+
+
+def replay_output_names(source_names: Collection[str]) -> list[str]:
+    """Separate exact copied fixtures from generated data/figures/Atlas outputs.
+
+    Unknown data paths remain outputs and therefore fail a frozen output-inventory
+    check. This function does not admit input bytes or alter expected output hashes.
+    """
+    names = set(source_names)
+    missing = set(REPLAY_ATLAS_OUTPUTS) - names
+    if missing:
+        raise RuntimeError("Linux replay is missing declared Atlas outputs: " + ", ".join(sorted(missing)))
+    outputs = {
+        name for name in names
+        if name.startswith(("data/", "figures/")) and name not in REPLAY_COPIED_INPUTS
+    }
+    return sorted(outputs | set(REPLAY_ATLAS_OUTPUTS))
 
 
 def equivalent(expected: Any, observed: Any, path: str = "root") -> None:
@@ -118,7 +149,12 @@ def check_scientific_files(original: Path, generated: Path) -> None:
     for path in sorted((original / "data").rglob("*")):
         if not path.is_file():
             continue
-        other = generated / path.relative_to(original)
+        relative = path.relative_to(original)
+        other = generated / relative
+        if relative.as_posix() in REPLAY_COPIED_INPUTS:
+            if path.read_bytes() != other.read_bytes():
+                raise RuntimeError("Linux replay modified copied input: " + relative.as_posix())
+            continue
         if path.suffix == ".json":
             equivalent(json.loads(path.read_text()), json.loads(other.read_text()), str(path.name))
         elif path.suffix == ".csv":
@@ -146,26 +182,75 @@ def check_scientific_files(original: Path, generated: Path) -> None:
             raise RuntimeError(f"Unclassified scientific byte drift: {path.name}")
 
 
-def replay(
-    environment: dict[str, str], workers: int, *, historical_required: bool = True
-) -> dict[str, Any]:
-    from tools import check_repository
+def replay_path(directory: Path, name: str) -> Path:
+    """Check member spelling and every existing ancestor before any filesystem use."""
+    relative = PurePosixPath(name)
+    if relative.is_absolute() or relative.as_posix() != name or any(
+        part in {"", ".", ".."} for part in relative.parts
+    ):
+        raise RuntimeError("Unsafe Linux replay member: " + name)
+    path = directory
+    for part in relative.parts:
+        path = path / part
+        if path.is_symlink():
+            raise RuntimeError("Linux replay contains a symbolic link: " + name)
+    return path
 
-    destination = Path(tempfile.mkdtemp(prefix="linux-replay-", dir=ROOT / "tmp"))
-    paths = check_repository.public_files()
-    before = {p.relative_to(ROOT).as_posix(): digest(p) for p in paths}
-    for path in paths:
-        target = destination / path.relative_to(ROOT)
+
+def replay_file(directory: Path, name: str) -> Path:
+    """Resolve a regular, unlinked member without following parent symlinks."""
+    path = replay_path(directory, name)
+    info = path.stat()
+    if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+        raise RuntimeError("Linux replay requires an unlinked regular file: " + name)
+    return path
+
+
+def write_replay_report(report: dict[str, Any]) -> None:
+    """Replace a local receipt atomically without writing through a linked path."""
+    name = "tmp/linux-verification.json"
+    path = replay_path(ROOT, name)
+    if path.exists():
+        replay_file(ROOT, name)
+    descriptor, temporary_name = tempfile.mkstemp(prefix=".linux-receipt-", dir=path.parent)
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+            stream.write(json.dumps(report, indent=2) + "\n")
+        replay_path(ROOT, name)
+        if path.exists():
+            replay_file(ROOT, name)
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def fresh_replay_passes(
+    destination: Path, before: dict[str, str], outputs: list[str],
+    environment: dict[str, str], workers: int, report: dict[str, Any],
+) -> list[dict[str, str]]:
+    """Copy inputs only; require every output to be newly created on each pass.
+
+    Frozen output hashes are expectations only and are never written to this tree.
+    The caller checks the complete frozen inventory before staging anything.
+    """
+    from tools.verify_linux_baseline import check_replay_tree
+
+    for name in sorted(before.keys() - set(outputs)):
+        source = replay_file(ROOT, name)
+        target = destination / name
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(path, target)
-    outputs = [name for name in before if name.startswith(("data/", "figures/"))]
-    atlas = "resources/dark-medium-response-atlas/v0.1.0/"
-    outputs += [atlas + name for name in (
-        "dark-medium-response-atlas-v0.1.0.html", "dark-medium-response-atlas-v0.1.0.pdf",
-        "html-accessibility.json", "pdf-inspection.json",
-    )]
+        shutil.copyfile(source, target)
     passes = []
-    for _ in range(2):
+    for number in (1, 2):
+        report["active_pass"] = number
+        for name in outputs:
+            path = replay_path(destination, name)
+            # lexists semantics also catch broken symlinks. Validate before unlink.
+            if path.exists() or path.is_symlink():
+                replay_file(destination, name).unlink()
+            path.parent.mkdir(parents=True, exist_ok=True)
+        report["output_files_present_before_pass"] = 0
         for script, arguments in (
             ("scripts/make_figures.py", ["--workers", str(workers)]),
             ("tools/build_dark_medium_response_atlas_documents.py",
@@ -173,18 +258,101 @@ def replay(
         ):
             subprocess.run([sys.executable, "-I", "-B", str(destination / script), *arguments],
                            cwd=destination, env=environment, check=True)
-        passes.append({name: digest(destination / name) for name in outputs})
+        # Check fixture/source changes before diagnosing missing generated outputs.
+        for name in sorted(before.keys() - set(outputs)):
+            if digest(replay_file(destination, name)) != before[name]:
+                raise RuntimeError("Linux replay modified copied source: " + name)
+        observed = {}
+        for name in outputs:
+            path = destination / name
+            if path.exists() or path.is_symlink():
+                observed[name] = digest(replay_file(destination, name))
+        missing = sorted(set(outputs) - observed.keys())
+        report["pass_inventory"].append({
+            "pass": number, "required_count": len(outputs),
+            "generated_count": len(observed), "missing": missing,
+            "output_sha256": observed,
+        })
+        if missing:
+            raise RuntimeError("Linux replay missing freshly generated outputs: " + ", ".join(missing))
+        check_replay_tree(destination, before, set(outputs))
+        passes.append(observed)
+    return passes
+
+
+def replay(
+    environment: dict[str, str], workers: int, *, historical_required: bool = True
+) -> dict[str, Any]:
+    """Persist incomplete/failing receipts even for staging or child-process errors."""
     report: dict[str, Any] = {
         "classification": "linux_replay_incomplete_unpromoted",
-        "replay_directory": destination.relative_to(ROOT).as_posix(),
-        "runtime_sha256": digest(PROFILE),
+        "pass_inventory": [], "historical_scientific_equivalence": "NOT_RUN",
+        "linux_baseline_gate": "NOT_RUN", "source_checkout_unchanged": None,
+        "freshness_gate": "INCOMPLETE",
+    }
+    write_replay_report(report)
+    try:
+        result = _replay(environment, workers, historical_required=historical_required, report=report)
+    except Exception as error:
+        report["classification"] = "blocked_linux_migration"
+        if report["freshness_gate"] == "INCOMPLETE":
+            report["freshness_gate"] = "FAIL"
+        report["blocking_error"] = str(error)
+        report["error_type"] = type(error).__name__
+        if isinstance(error, subprocess.CalledProcessError):
+            report["child_exit_code"] = error.returncode
+        try:
+            write_replay_report(report)
+        except Exception as receipt_error:
+            error.add_note("Could not safely persist failure receipt: " + str(receipt_error))
+        raise
+    write_replay_report(report)
+    return result
+
+
+def _replay(
+    environment: dict[str, str], workers: int, *, historical_required: bool,
+    report: dict[str, Any],
+) -> dict[str, Any]:
+    from tools import check_repository
+    from tools.verify_linux_baseline import check_outputs
+
+    destination = Path(tempfile.mkdtemp(prefix="linux-replay-", dir=ROOT / "tmp"))
+    paths = check_repository.public_files()
+    before = {p.relative_to(ROOT).as_posix(): digest(replay_file(ROOT, p.relative_to(ROOT).as_posix()))
+              for p in paths}
+    outputs = replay_output_names(before)
+    baseline_path = ROOT / "evidence/linux-research-v1.json"
+    expected = json.loads(baseline_path.read_text())["output_sha256"]
+    if set(outputs) != expected.keys():
+        raise RuntimeError("Linux baseline output inventory changed before replay")
+    report.update(replay_directory=destination.relative_to(ROOT).as_posix(),
+                  baseline_record_sha256=digest(baseline_path), required_outputs=outputs,
+                  runtime_sha256=digest(PROFILE))
+    atlas = ATLAS_PREFIX
+    try:
+        passes = fresh_replay_passes(destination, before, outputs, environment, workers, report)
+        report["freshness_gate"] = "PASS"
+    finally:
+        # Preservation diagnostics must never replace the primary child failure.
+        try:
+            after = {p.relative_to(ROOT).as_posix():
+                     digest(replay_file(ROOT, p.relative_to(ROOT).as_posix()))
+                     for p in check_repository.public_files()}
+            report["source_checkout_unchanged"] = after == before
+        except Exception as source_error:
+            report["source_checkout_unchanged"] = False
+            report["source_preservation_error"] = str(source_error)
+    if not report["source_checkout_unchanged"]:
+        raise RuntimeError("Linux replay changed the source checkout")
+    report.update({
         "linux_output_sha256": passes[-1],
         "consecutive_linux_bytes_equal": passes[0] == passes[1],
         "different_from_windows_bytes": [name for name in outputs if passes[0][name] != before[name]],
         "scientific_tolerance": {"relative": RTOL, "absolute": ATOL, "discrete": "exact"},
         "core_documents": "immutable historical bytes; current source is an unpromoted draft",
         "atlas_documents": "two checked Linux builds; no release identity generated",
-    }
+    })
     from pypdf import PdfReader
 
     pdf_name = atlas + "dark-medium-response-atlas-v0.1.0.pdf"
@@ -202,15 +370,18 @@ def replay(
         "same_normalized_document_text": " ".join(historical_pages) == " ".join(linux_pages),
         "scope": "PDF differences remain unpromoted; independent PDF inspection passed",
     }
-    report["source_checkout_unchanged"] = all(
-        digest(ROOT / name) == expected for name, expected in before.items()
-    )
-    report_path = ROOT / "tmp/linux-verification.json"
     try:
         if not report["source_checkout_unchanged"]:
             raise RuntimeError("Linux replay changed the source checkout")
         if not report["consecutive_linux_bytes_equal"]:
             raise RuntimeError("Consecutive Linux scientific/Atlas replays are not byte-identical")
+        try:
+            for output_hashes in passes:
+                check_outputs(expected, output_hashes)
+        except RuntimeError:
+            report["linux_baseline_gate"] = "FAIL"
+            raise
+        report["linux_baseline_gate"] = "PASS"
         if not report["atlas_html_identical"]:
             raise RuntimeError("Linux Atlas HTML differs from historical content and font bytes")
         try:
@@ -225,7 +396,6 @@ def replay(
     except RuntimeError as error:
         report["classification"] = "blocked_linux_migration"
         report["blocking_error"] = str(error)
-        report_path.write_text(json.dumps(report, indent=2) + "\n")
         raise
     report["classification"] = (
         "linux_repeatable_science_equivalent_unpromoted"
@@ -281,7 +451,7 @@ def main() -> None:
     release_integrity.verify_git_archive_inventory()
     if args.all:
         result = replay(environment, args.workers)
-        (ROOT / "tmp/linux-verification.json").write_text(json.dumps(result, indent=2) + "\n")
+        write_replay_report(result)
         print("Linux replay passed; platform byte differences recorded in tmp/linux-verification.json.")
     print("Linux development gates passed. Historical Windows release replay was not exercised.")
 

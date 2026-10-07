@@ -1,0 +1,85 @@
+{
+  "status": "DECLARED_FIGURE_INPUTS_NOT_ADMISSION",
+  "renderer": "resources/integrated-edition-proposal/render_diagrams.py",
+  "expected_bytes_basis": "019 two fresh runs; successor generation must match these image bytes before embedding",
+  "figures": {
+    "../../resources/integrated-edition-proposal/generated/01_typed_pipeline.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/01_typed_pipeline.svg",
+      "sha256": "267bbbb1f4f8dd7311d86998c539d44cfa97fe16e6ce5d2884398993a738f08a",
+      "title": "One synthetic integrated pipeline",
+      "scope": "Arrows denote declared interfaces, not one shared microscopic law. No fitted or observed data."
+    },
+    "../../resources/integrated-edition-proposal/generated/02_reservoir_capture.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/02_reservoir_capture.svg",
+      "sha256": "61e3fd3e1a0bdf279301b29fb522b97a2bbc176720fb174e144fa501e26af643",
+      "title": "Conservative preparation and capture",
+      "scope": "Equal unit capacities and a closed two-reservoir fixture. Capture redistributes declared mass; it does not create it."
+    },
+    "../../resources/integrated-edition-proposal/generated/03_quantity_contract.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/03_quantity_contract.svg",
+      "sha256": "8936d71dd364bc77abb6e21bd6b2445c29e441e41f42a2bda8e548f1c1b30aa1",
+      "title": "Types constrain each interface",
+      "scope": "Type agreement is an engineering condition; it does not calibrate a detector or establish physical validity."
+    },
+    "../../resources/integrated-edition-proposal/generated/04_boundary_response.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/04_boundary_response.svg",
+      "sha256": "575f90f7d0954b9232956ac1e873befb39d7042afd2e8f33830c3567fdf6111f",
+      "title": "A relaxing boundary is an explicit state",
+      "scope": "This is the selected synthetic constitutive model. It is not a universal interface law or calibrated response."
+    },
+    "../../resources/integrated-edition-proposal/generated/05_discrete_memory.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/05_discrete_memory.svg",
+      "sha256": "f9fca1474a9ec6acffdea94182a89e9d35b2ec3f317533c137913f9d2a9f5530",
+      "title": "Memory is per exposure interval",
+      "scope": "Persistence belongs to the declared interval; changing the grid is not automatically the same physical model."
+    },
+    "../../resources/integrated-edition-proposal/generated/06_first_moment_observation.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/06_first_moment_observation.svg",
+      "sha256": "e9f7eac7c4a13f92c69c21e47a28ff43a11deb6bf824977454611366e797a38b",
+      "title": "Expected counts need an observation law",
+      "scope": "This does not specify Poisson noise, realized observations, likelihoods, posterior odds or null exclusion."
+    },
+    "../../resources/integrated-edition-proposal/generated/07_expected_archive.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/07_expected_archive.svg",
+      "sha256": "dae2dc5460e9955510fd87f65802d502ac7ccdd0cf3ccc60a9c19aa9582c82fd",
+      "title": "A record ledger is not an observation likelihood",
+      "scope": "Record-equivalents are neither physical mass nor measured records. Missingness does not identify its cause."
+    },
+    "../../resources/integrated-edition-proposal/generated/08_synthetic_evidence.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/08_synthetic_evidence.svg",
+      "sha256": "5275847ad812ee872155b162c1e72d1115c0450b7d363578f42b249728571ec0",
+      "title": "The executable result has a bounded meaning",
+      "scope": "The new runs execute the fixture. No random realization, planetary validation or SCM-to-core physical identification is supplied."
+    },
+    "../../resources/integrated-edition-proposal/generated/09_scm_controls.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/09_scm_controls.svg",
+      "sha256": "bd46782ad8082ecf53636f7596da69e001a814d33065146daca553116b7c568d",
+      "title": "SCM checks retain their counterexamples",
+      "scope": "No empirical quantum or gravity validation. Companion recurrence remains prose/proposed tests, without ODE/data replay."
+    },
+    "../../resources/integrated-edition-proposal/generated/10_balanced_d2.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/10_balanced_d2.svg",
+      "sha256": "a067f613f53af76573f5a4ca1abaf291293f370492e3a54c386454eb64bf9b5a",
+      "title": "Balanced gradients: a conditional d = 2 result",
+      "scope": "No d ≥ 3, arbitrary-boundary or nonsmooth theorem. No claim that balance persists under evolution."
+    },
+    "../../resources/integrated-edition-proposal/generated/11_potential_wki.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/11_potential_wki.svg",
+      "sha256": "3e2b274d6c52bdff8c9f3be2790f84b0b3c2216cad0bec8c8604608e87739014",
+      "title": "Potential WKI: local correspondence",
+      "scope": "The inherited correction records antecedents and incomplete access. This edition adds no literature-priority finding or global boundary equivalence."
+    },
+    "../../resources/integrated-edition-proposal/generated/12_wki_growth.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/12_wki_growth.svg",
+      "sha256": "fa1a450d9bc04baf01b52771fa99a1744579a9a50acf5f7a599057e34069ba6f",
+      "title": "Growth identity: what 1/8 does and does not show",
+      "scope": "Discrete-domain attainability, marginal sectors and the R6 transformed-background comparison remain unresolved."
+    },
+    "../../resources/integrated-edition-proposal/generated/13_edition_gates.svg": {
+      "source_path": "resources/integrated-edition-proposal/generated/13_edition_gates.svg",
+      "sha256": "93b822183c673751a35989c3ceccd4ce0a2d00b48bc0590c5b2ed2c564821e43",
+      "title": "Reproducibility and admission are separate",
+      "scope": "The historical v1.0.7 gate and failed comparisons stay authoritative for that edition. This proposal does not turn them into PASS."
+    }
+  }
+}

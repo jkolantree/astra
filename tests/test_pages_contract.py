@@ -323,7 +323,7 @@ def test_bauhaus_cover_is_accessible_self_contained_and_semantically_spare() -> 
     assert "ochre marks candidate graph links and nodes" in description
     assert "observe, infer, and test" in description
     assert "not a scale model, measurement, or claim of planetary validation" in description
-    for consumer in (ROOT / "README.md", ROOT / "docs" / "index.html"):
+    for consumer in (ROOT / "docs" / "library" / "index.html",):
         consumer_text = consumer.read_text(encoding="utf-8")
         assert f'alt="{COVER_ALT}"' in consumer_text
         assert (
@@ -812,22 +812,22 @@ def test_workflow_actions_use_current_immutable_pins() -> None:
         assert set(matching) == {f"{action}@{pin}"}
 
 
-def test_landing_page_links_to_current_versioned_and_schema_paths() -> None:
+def test_research_library_links_to_current_versioned_and_schema_paths() -> None:
     parser = LandingPageParser()
-    parser.feed((ROOT / "docs" / "index.html").read_text(encoding="utf-8"))
+    parser.feed((ROOT / "docs" / "library" / "index.html").read_text(encoding="utf-8"))
     assert parser.lang == "en-US"
     assert parser.main_ids == ["main-content"]
 
     links = {link.get("href", "") for link in parser.links}
     assert {
         "#main-content",
-        "./v1.0.7/preprint/",
-        "./v1.0.7/supplement/",
-        "./resources/",
-        "./resources/dark-medium-response-atlas/v0.1.0/",
-        "./resources/earth-is-the-instrument/v0.3.0/",
-        "./resources/earth-is-the-instrument/v0.3.0/ground-reading/",
-        "./schemas/",
+        "../v1.0.7/preprint/",
+        "../v1.0.7/supplement/",
+        "../resources/",
+        "../resources/dark-medium-response-atlas/v0.1.0/",
+        "../resources/earth-is-the-instrument/v0.3.0/",
+        "../resources/earth-is-the-instrument/v0.3.0/ground-reading/",
+        "../schemas/",
     } <= links
     skip_links = [link for link in parser.links if "skip-link" in link.get("class", "").split()]
     assert skip_links == [{"class": "skip-link", "href": "#main-content"}]
@@ -1053,8 +1053,8 @@ def test_framework_v030_pages_companions_are_accessible_and_release_bound() -> N
     assert "do not replace, edit, or reissue any PDF" in errata_semantic
 
 
-def test_pages_home_scopes_rights_and_separates_publication_tracks() -> None:
-    html = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+def test_research_library_scopes_rights_and_separates_publication_tracks() -> None:
+    html = (ROOT / "docs" / "library" / "index.html").read_text(encoding="utf-8")
     semantic = " ".join(re.sub(r"<[^>]+>", " ", html).split())
     for value in (
         "SPPT/ASTRA v1.0.7 is Current.",
@@ -1067,12 +1067,12 @@ def test_pages_home_scopes_rights_and_separates_publication_tracks() -> None:
         "package-specific rights still apply.",
     ):
         assert value in semantic
-    assert 'href="./v1.0.7/preprint/"' in html
-    assert 'href="./v1.0.7/supplement/"' in html
-    assert 'href="./resources/dark-medium-response-atlas/v0.1.0/"' in html
+    assert 'href="../v1.0.7/preprint/"' in html
+    assert 'href="../v1.0.7/supplement/"' in html
+    assert 'href="../resources/dark-medium-response-atlas/v0.1.0/"' in html
     assert 'href="https://github.com/jkolantree/astra/releases/tag/dark-medium-response-atlas-v0.1.0"' in html
-    assert 'href="./resources/earth-is-the-instrument/v0.3.0/"' in html
-    assert 'href="./resources/earth-is-the-instrument/v0.3.0/ground-reading/"' in html
+    assert 'href="../resources/earth-is-the-instrument/v0.3.0/"' in html
+    assert 'href="../resources/earth-is-the-instrument/v0.3.0/ground-reading/"' in html
     assert 'href="https://github.com/jkolantree/astra/releases/tag/earth-instrument-framework-v0.3.0"' in html
 
     css = (ROOT / "docs" / "style.css").read_text(encoding="utf-8")
@@ -1100,6 +1100,7 @@ def test_publication_history_clarifies_atlas_metadata_without_rewriting_the_edit
 def test_pages_home_and_working_paper_reflow_at_narrow_widths() -> None:
     paths = (
         ROOT / "docs" / "index.html",
+        ROOT / "docs" / "library" / "index.html",
         ROOT / "docs" / "resources" / "earth-is-the-instrument" / "v0.3.0" / "index.html",
         ROOT
         / "docs"

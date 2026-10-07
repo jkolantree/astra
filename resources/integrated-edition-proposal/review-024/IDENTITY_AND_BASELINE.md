@@ -1,0 +1,7 @@
+# SPPT/ASTRA Integrated Core 1.1.0-alpha.1 — private proposal
+
+The selected draft identity is `astra-integrated-core-v1.1.0-alpha.1`. This is the integrated-core successor alpha, containing the integrated code, synthetic case, SCM/WKI material, reading documents and gateway. It is not a companion-only release. No final tag, commit, release asset bytes or publication authorization exists. Historical v1.0.7 remains stable and its root citation, release specification and v* Windows contract remain unchanged. The older review-021 and 023 recommendations are preserved as historical review evidence and superseded by this draft identity.
+
+The separate Linux research-v1 baseline was already authorized, as recorded in `evidence/linux-research-v1.md`. Linux two-pass reproducibility and the separate retained-benchmark Linux comparison do not establish full historical Windows scientific equivalence. The unchanged full numeric comparison still fails. No expected bytes, tolerance, observations or scientific producer are changed here.
+
+The new source and Pages records are externally bound consistency proposals. Passing their validators demonstrates exact local bytes and rejection behavior; it cannot set admission flags or authorize a tag, deployment or publication. Historical tests and records remain intact. The final fresh-production output contract and final versioned reading documents remain to be completed.

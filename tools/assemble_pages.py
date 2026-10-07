@@ -43,6 +43,7 @@ sys.path.insert(0, str(ROOT))
 from tools.check_pages_admission import (  # noqa: E402
     check_pages_admission,
     copy_admitted_shell,
+    reject_linked_destination,
 )
 
 
@@ -335,6 +336,7 @@ def _verify_admitted_shell_in_site(site: Path) -> None:
 
 
 def assemble_atlas_routes(site: Path, assets: Path, source_root: Path) -> None:
+    reject_linked_destination(site)
     site = site.resolve()
     if site.is_symlink() or not site.is_dir():
         raise RuntimeError("Pages assembly destination must be a regular directory")
@@ -342,6 +344,8 @@ def assemble_atlas_routes(site: Path, assets: Path, source_root: Path) -> None:
     spec, asset_names, pages_records = verify_atlas_release_assets(assets, source_root)
     versioned = site / spec["pages"]["versioned_route"].strip("/")
     latest = site / spec["pages"]["latest_route"].strip("/")
+    reject_linked_destination(versioned)
+    reject_linked_destination(latest)
     if versioned.exists() or latest.exists():
         raise RuntimeError("Atlas Pages routes already exist in the assembly destination")
     versioned.mkdir(parents=True, exist_ok=False)
@@ -362,6 +366,7 @@ def assemble_atlas_routes(site: Path, assets: Path, source_root: Path) -> None:
 
 
 def assemble(site: Path, assets: Path, source_root: Path) -> None:
+    reject_linked_destination(site)
     site = site.resolve()
     if site.exists() and any(site.iterdir()):
         raise RuntimeError("Pages assembly destination must be empty")

@@ -1,0 +1,11 @@
+# Common model contract
+
+A Quantity has an explicit space, quantity, unit, ordered basis and immutable finite values. A StageContract carries an edge type, input/output types, model identity, mechanism, source-local claim keys and (for certificates) a failure scope. Physical transport cannot cast mass into counts or energy. Composition must match every type coordinate. Existing stricter SPPT/reservoir numerical guards remain the authority for their base calculations.
+
+The fixture prepares a closed two-reservoir tracer system with equal unit capacities and one linear exchange edge. The reviewed reservoir generator propagates the state; the SPPT species-tendency and weighted-inventory functions independently check its mass-rate accounting. A synthetic volume-1 sample is captured fractionally into a separate compartment with an explicit Gamma reset ledger. Preparation time ends before a new exposure clock starts.
+
+Captured mass divided by a declared reference mass drives the bounded linear boundary response. Its bulk component drives Xi's discrete memory channel, whose persistence is per declared exposure interval. The context changes detector efficiency through the explicit factor 1/(1+context), not physical transport. This is a synthetic design choice, not a fitted constitutive law. Each exposure reuses the same non-destructively observed sample under the declared toy response.
+
+Each exposure-bin expected count contributes one expected record-equivalent to a no-leak archive; a specified retention reset erases part of that expected stock. Record-equivalents are not physical mass or measured records. The archive uses interval counts divided by interval duration as a production rate. No random count realization or observation likelihood is assumed. A missing efficiency produces no invented archive stock.
+
+The public-facing common interface here is core_contracts.py plus integrated_case.py. Copied source-family functions remain bounded reference implementations with their original source version labels, not universal API guarantees. The integrated development layer has no published release version. SCM and WKI are separate mathematical checks, not a new shared microscopic law.

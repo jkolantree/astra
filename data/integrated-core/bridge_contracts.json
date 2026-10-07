@@ -1,0 +1,576 @@
+[
+  {
+    "contract_id": "BC001",
+    "relation_type": "direct-domain",
+    "source_ids": [
+      "paper:10.1126/sciadv.aee7256"
+    ],
+    "source_verification": "IDENTITY_VERIFIED_SUPPORT_BOUNDED_SEE_SOURCE_REFERENCES",
+    "units": {
+      "component_fraction": "1",
+      "droplet_size": "micrometre",
+      "temperature": "K",
+      "cooling_rate": "K/min",
+      "transit_time": "s",
+      "spectrum": "calibrated detector units"
+    },
+    "operators": [
+      {
+        "name": "ocean-to-droplet",
+        "version": "proposal-2026-10-04",
+        "input": "ocean composition and physical conditions",
+        "output": "droplet composition and size distribution",
+        "assumptions": [
+          "ocean/source support is declared",
+          "no identity-sampling assumption"
+        ]
+      },
+      {
+        "name": "freezing-segregation-and-fragmentation",
+        "version": "proposal-2026-10-04",
+        "input": "droplets and thermal/mechanical history",
+        "output": "grain distributions",
+        "assumptions": [
+          "species and energy accounting close",
+          "unknown vent geometry is a nuisance parameter"
+        ]
+      },
+      {
+        "name": "transport-selection-and-detection",
+        "version": "proposal-2026-10-04",
+        "input": "grain distributions",
+        "output": "predicted spectrum and occurrence fractions",
+        "assumptions": [
+          "response separately calibrated",
+          "acquisition selection retained"
+        ]
+      }
+    ],
+    "schema_version": "0.2.0",
+    "query": "Which source compositions remain distinguishable after droplet formation, conversion, fragmentation, transport, selection and response?",
+    "fog": {
+      "reference": "Ocean and independently measured analogue brine recipes",
+      "resolution": "Grain-resolved spectra, size/velocity bins and distinct abundance measures",
+      "generator_family": "Simple transfer; conversion-aware; heterogeneous source; matched flexible predictor",
+      "chronology": "Campaign chronology and calibration epochs",
+      "system_boundary": "Ocean-to-CDA source, transport and detector boundary"
+    },
+    "falsifier": "Extra conversion model fails held-out predictive gain, calibrated closure, or source/selection identifiability.",
+    "legal_interventions": [
+      "Computational structural checks only; domain interventions require a separately specified protocol."
+    ],
+    "nuisance_support": {
+      "declaration": "Unmeasured vent geometry, phase partition, fragmentation and speed-dependent response",
+      "numerical_support_status": "pending domain calibration; synthetic constants are separate"
+    },
+    "calibration": {
+      "status": "planned",
+      "artifact_hashes": [],
+      "required": "Independent measurement/operator calibration with units and covariance"
+    },
+    "dependence_roots": [
+      "paper:10.1126/sciadv.aee7256"
+    ],
+    "split": {
+      "policy": "prospective_enceladus.json",
+      "membership_status": "not materialized for empirical fitting"
+    },
+    "acceptance": {
+      "outcome": "Calibrated held-out value beyond matched alternatives with closure and adequacy checks",
+      "margin_status": "domain-specific margin must be frozen from uncertainty and prospective analysis before fitting"
+    },
+    "framework_validation": "not-empirically-validated",
+    "release_status": "unpromoted-research-candidate",
+    "supersedes": {
+      "contract_id": "BC001",
+      "role": "Earlier project proposal; no unpublished artifact fingerprint included."
+    }
+  },
+  {
+    "contract_id": "BC002",
+    "relation_type": "method-transfer",
+    "source_ids": [
+      "paper:10.1073/pnas.2615377123",
+      "paper:10.1073/pnas.2320844121"
+    ],
+    "source_verification": "IDENTITY_VERIFIED_SUPPORT_BOUNDED_SEE_SOURCE_REFERENCES",
+    "units": {
+      "evaporation_rate": "kg/(m^2 s)",
+      "irradiance": "W/m^2",
+      "wavelength": "nm",
+      "temperature": "K",
+      "relative_effect": "1"
+    },
+    "operators": [
+      {
+        "name": "support-and-sensitivity-audit",
+        "version": "proposal-2026-10-04",
+        "input": "versioned claims, apparatus supports and uncertainty",
+        "output": "comparability disposition and effect-domain record",
+        "assumptions": [
+          "positive proxy and mechanism split",
+          "no automatic contradiction or pooling",
+          "support declarations may be incomplete"
+        ]
+      }
+    ],
+    "schema_version": "0.2.0",
+    "query": "Does visible illumination change matched excess evaporation beyond thermal and transport explanations?",
+    "fog": {
+      "reference": "Dark and heating-matched flat neat-water controls",
+      "resolution": "Independent session flux contrasts and aligned spectroscopy",
+      "generator_family": "Thermal/transport null; intrinsic-interface alternative; geometry alternative",
+      "chronology": "Randomized blocks within independently restarted sessions",
+      "system_boundary": "Water, vessel, gas, illumination, controller and detector"
+    },
+    "falsifier": "Missing sensitivity, mismatched estimands, unknown support or unresolved thermal/transport confounds prevent a matched contradiction claim.",
+    "legal_interventions": [
+      "Computational structural checks only; domain interventions require a separately specified protocol."
+    ],
+    "nuisance_support": {
+      "declaration": "Thermal gradients, beam profile, airflow, humidity, probe effects and drift",
+      "numerical_support_status": "pending domain calibration; synthetic constants are separate"
+    },
+    "calibration": {
+      "status": "planned",
+      "artifact_hashes": [],
+      "required": "Independent measurement/operator calibration with units and covariance"
+    },
+    "dependence_roots": [
+      "paper:10.1073/pnas.2615377123",
+      "paper:10.1073/pnas.2320844121"
+    ],
+    "split": {
+      "policy": "prospective_evaporation.json",
+      "membership_status": "not materialized for empirical fitting"
+    },
+    "acceptance": {
+      "outcome": "Calibrated held-out value beyond matched alternatives with closure and adequacy checks",
+      "margin_status": "domain-specific margin must be frozen from uncertainty and prospective analysis before fitting"
+    },
+    "framework_validation": "not-empirically-validated",
+    "release_status": "unpromoted-research-candidate",
+    "supersedes": {
+      "contract_id": "BC002",
+      "role": "Earlier project proposal; no unpublished artifact fingerprint included."
+    }
+  },
+  {
+    "contract_id": "BC003",
+    "relation_type": "direct-domain",
+    "source_ids": [
+      "paper:10.1038/s41467-026-77933-y"
+    ],
+    "source_verification": "IDENTITY_VERIFIED_SUPPORT_BOUNDED_SEE_SOURCE_REFERENCES",
+    "units": {
+      "enhancement": "1",
+      "controlled_channels": "count",
+      "intensity": "calibrated detector units",
+      "sample_thickness": "m"
+    },
+    "operators": [
+      {
+        "name": "controlled-wavefront-to-enhancement-distribution",
+        "version": "proposal-2026-10-04",
+        "input": "input channels, transfer matrix and noise",
+        "output": "finite-size enhancement distribution",
+        "assumptions": [
+          "finite-size null retained",
+          "ensemble dependence declared",
+          "mean and variance are separate targets"
+        ]
+      }
+    ],
+    "schema_version": "0.2.0",
+    "query": "Does the full enhancement distribution require correlations after detector and finite-size controls?",
+    "fog": {
+      "reference": "Unoptimized illumination and declared correlation-free ensemble",
+      "resolution": "Individual realizations and controlled-channel counts",
+      "generator_family": "Correlated transfer matrix; finite-size independent null; drift/noise alternative",
+      "chronology": "Independent sample and acquisition blocks",
+      "system_boundary": "Illumination, scattering medium, optimized input and detector"
+    },
+    "falsifier": "Excess fluctuation prediction fails full-distribution testing or vanishes under drift/noise controls.",
+    "legal_interventions": [
+      "Computational structural checks only; domain interventions require a separately specified protocol."
+    ],
+    "nuisance_support": {
+      "declaration": "Channel calibration, optimization selection and sample dependence",
+      "numerical_support_status": "pending domain calibration; synthetic constants are separate"
+    },
+    "calibration": {
+      "status": "planned",
+      "artifact_hashes": [],
+      "required": "Independent measurement/operator calibration with units and covariance"
+    },
+    "dependence_roots": [
+      "paper:10.1038/s41467-026-77933-y"
+    ],
+    "split": {
+      "policy": "domain-specific holdout not materialized",
+      "membership_status": "not materialized for empirical fitting"
+    },
+    "acceptance": {
+      "outcome": "Calibrated held-out value beyond matched alternatives with closure and adequacy checks",
+      "margin_status": "domain-specific margin must be frozen from uncertainty and prospective analysis before fitting"
+    },
+    "framework_validation": "not-empirically-validated",
+    "release_status": "unpromoted-research-candidate",
+    "supersedes": {
+      "contract_id": "BC003",
+      "role": "Earlier project proposal; no unpublished artifact fingerprint included."
+    }
+  },
+  {
+    "contract_id": "BC004",
+    "relation_type": "method-transfer",
+    "source_ids": [
+      "paper:10.1103/jtkh-9lz5",
+      "paper:10.1103/PhysRevLett.133.237401"
+    ],
+    "source_verification": "IDENTITY_VERIFIED_SUPPORT_BOUNDED_SEE_SOURCE_REFERENCES",
+    "units": {
+      "time": "model-defined time unit",
+      "timescale_ratio": "1",
+      "state": "declared model coordinates",
+      "basin_width": "declared coordinate unit"
+    },
+    "operators": [
+      {
+        "name": "full-to-reduced-model-comparison",
+        "version": "proposal-2026-10-04",
+        "input": "equations, reduction map, finite timescale and initial-condition support",
+        "output": "basin mismatch and trajectory predictions",
+        "assumptions": [
+          "control adaptation law explicit",
+          "boundary sampling converged",
+          "local and global stability separately tested"
+        ]
+      }
+    ],
+    "schema_version": "0.2.0",
+    "query": "Does a reduction preserve full-model basin geometry at finite timescale?",
+    "fog": {
+      "reference": "Specified full-system equations and initial-condition support",
+      "resolution": "Boundary-refined finite-time trajectories",
+      "generator_family": "Full model; named reduction; alternate adaptation law",
+      "chronology": "Finite-time windows and frozen parameter regimes",
+      "system_boundary": "State, environment, control and reduced-state map"
+    },
+    "falsifier": "Claimed basin feature disappears under refinement, regime violation, or competing full-model analysis.",
+    "legal_interventions": [
+      "Computational structural checks only; domain interventions require a separately specified protocol."
+    ],
+    "nuisance_support": {
+      "declaration": "Timescale ratio, mesh density, stochastic drive and numerical tolerance",
+      "numerical_support_status": "pending domain calibration; synthetic constants are separate"
+    },
+    "calibration": {
+      "status": "planned",
+      "artifact_hashes": [],
+      "required": "Independent measurement/operator calibration with units and covariance"
+    },
+    "dependence_roots": [
+      "paper:10.1103/jtkh-9lz5",
+      "paper:10.1103/PhysRevLett.133.237401"
+    ],
+    "split": {
+      "policy": "equation-family and initial-condition holdout not materialized",
+      "membership_status": "not materialized for empirical fitting"
+    },
+    "acceptance": {
+      "outcome": "Calibrated held-out value beyond matched alternatives with closure and adequacy checks",
+      "margin_status": "domain-specific margin must be frozen from uncertainty and prospective analysis before fitting"
+    },
+    "framework_validation": "not-empirically-validated",
+    "release_status": "unpromoted-research-candidate",
+    "supersedes": {
+      "contract_id": "BC004",
+      "role": "Earlier project proposal; no unpublished artifact fingerprint included."
+    }
+  },
+  {
+    "contract_id": "BC005",
+    "relation_type": "direct-domain",
+    "source_ids": [
+      "paper:10.1038/s41612-026-01382-z",
+      "paper:10.1073/pnas.2406930121"
+    ],
+    "source_verification": "IDENTITY_VERIFIED_SUPPORT_BOUNDED_SEE_SOURCE_REFERENCES",
+    "units": {
+      "angular_momentum": "kg m^2/s",
+      "moment_of_inertia": "kg m^2",
+      "length_of_day": "s",
+      "length_of_day_rate": "ms/century",
+      "external_torque": "kg m^2/s^2"
+    },
+    "operators": [
+      {
+        "name": "reservoir-budget-to-rotation",
+        "version": "proposal-2026-10-04",
+        "input": "atmosphere, ocean, cryosphere, solid-Earth state and external torque",
+        "output": "joint length-of-day prediction",
+        "assumptions": [
+          "inertia and momentum exchange distinguished",
+          "shared mass products/covariance recorded",
+          "scenario and reconstruction intervals compatible"
+        ]
+      }
+    ],
+    "schema_version": "0.2.0",
+    "query": "Which reservoir exchanges explain a rotation observable without double counting?",
+    "fog": {
+      "reference": "Declared geodetic reference and consistent epochs",
+      "resolution": "Joint atmosphere/ocean/ice/solid-Earth budget",
+      "generator_family": "Shared-input reconstruction; alternate torque and inertia models",
+      "chronology": "Scenario and reconstruction intervals retained separately",
+      "system_boundary": "All relevant momentum reservoirs and external torques"
+    },
+    "falsifier": "Budget fails geodetic checks, attributed signal is not identifiable, or coupled contributions are double counted.",
+    "legal_interventions": [
+      "Computational structural checks only; domain interventions require a separately specified protocol."
+    ],
+    "nuisance_support": {
+      "declaration": "Input-product covariance, ocean-pressure response and structural uncertainty",
+      "numerical_support_status": "pending domain calibration; synthetic constants are separate"
+    },
+    "calibration": {
+      "status": "planned",
+      "artifact_hashes": [],
+      "required": "Independent measurement/operator calibration with units and covariance"
+    },
+    "dependence_roots": [
+      "paper:10.1038/s41612-026-01382-z",
+      "paper:10.1073/pnas.2406930121"
+    ],
+    "split": {
+      "policy": "time-block and product-family holdout not materialized",
+      "membership_status": "not materialized for empirical fitting"
+    },
+    "acceptance": {
+      "outcome": "Calibrated held-out value beyond matched alternatives with closure and adequacy checks",
+      "margin_status": "domain-specific margin must be frozen from uncertainty and prospective analysis before fitting"
+    },
+    "framework_validation": "not-empirically-validated",
+    "release_status": "unpromoted-research-candidate",
+    "supersedes": {
+      "contract_id": "BC005",
+      "role": "Earlier project proposal; no unpublished artifact fingerprint included."
+    }
+  },
+  {
+    "contract_id": "BC006",
+    "relation_type": "method-transfer",
+    "source_ids": [
+      "paper:10.1016/j.cub.2026.07.056",
+      "paper:10.1016/j.cub.2024.09.016",
+      "paper:10.1103/6wcm-z333"
+    ],
+    "source_verification": "IDENTITY_VERIFIED_SUPPORT_BOUNDED_SEE_SOURCE_REFERENCES",
+    "units": {
+      "bundle_geometry": "micrometre",
+      "stimulus_frequency": "Hz",
+      "water_motion": "m/s",
+      "neural_response": "declared electrophysiological units",
+      "energy": "J"
+    },
+    "operators": [
+      {
+        "name": "morphology-to-stimulus-response",
+        "version": "proposal-2026-10-04",
+        "input": "anatomical map and controlled mechanical stimulus",
+        "output": "regional transfer functions",
+        "assumptions": [
+          "anatomical similarity does not establish function",
+          "stimulus and cross-talk calibrated"
+        ]
+      },
+      {
+        "name": "perturbation-to-functional-change",
+        "version": "proposal-2026-10-04",
+        "input": "selective sensor/feedback intervention",
+        "output": "neural and behavioral contrasts",
+        "assumptions": [
+          "active energy source and boundary recorded",
+          "species translation separately tested"
+        ]
+      }
+    ],
+    "schema_version": "0.2.0",
+    "query": "Does the anatomical structure have the proposed sensory function under perturbation?",
+    "fog": {
+      "reference": "Species-specific anatomy and sham intervention",
+      "resolution": "Cell, neural and behavioral channels",
+      "generator_family": "Passive morphology; active sensor; cross-talk and alternate pathway",
+      "chronology": "Stimulus, intervention, recovery and developmental stage",
+      "system_boundary": "Stimulus, animal, sensor, active energy supply and measurement"
+    },
+    "falsifier": "Functional response fails calibration/perturbation or cross-species claim lacks its own evidence.",
+    "legal_interventions": [
+      "Computational structural checks only; domain interventions require a separately specified protocol."
+    ],
+    "nuisance_support": {
+      "declaration": "Species differences, active feedback, cross-talk and intervention specificity",
+      "numerical_support_status": "pending domain calibration; synthetic constants are separate"
+    },
+    "calibration": {
+      "status": "planned",
+      "artifact_hashes": [],
+      "required": "Independent measurement/operator calibration with units and covariance"
+    },
+    "dependence_roots": [
+      "paper:10.1016/j.cub.2026.07.056",
+      "paper:10.1016/j.cub.2024.09.016",
+      "paper:10.1103/6wcm-z333"
+    ],
+    "split": {
+      "policy": "animal-level functional holdout not materialized",
+      "membership_status": "not materialized for empirical fitting"
+    },
+    "acceptance": {
+      "outcome": "Calibrated held-out value beyond matched alternatives with closure and adequacy checks",
+      "margin_status": "domain-specific margin must be frozen from uncertainty and prospective analysis before fitting"
+    },
+    "framework_validation": "not-empirically-validated",
+    "release_status": "unpromoted-research-candidate",
+    "supersedes": {
+      "contract_id": "BC006",
+      "role": "Earlier project proposal; no unpublished artifact fingerprint included."
+    }
+  },
+  {
+    "contract_id": "BC007",
+    "relation_type": "method-transfer",
+    "source_ids": [
+      "paper:10.1038/s41598-026-65147-7"
+    ],
+    "source_verification": "IDENTITY_VERIFIED_SUPPORT_BOUNDED_SEE_SOURCE_REFERENCES",
+    "units": {
+      "participants": "people",
+      "validated_corrections": "count",
+      "argument_quality": "predeclared blinded coding score",
+      "review_effort": "min"
+    },
+    "operators": [
+      {
+        "name": "protected-challenge-to-review-outcomes",
+        "version": "proposal-2026-10-04",
+        "input": "human reviewers, intervention and matched effort",
+        "output": "validated corrections and calibration",
+        "assumptions": [
+          "preregistered multiple-stimulus design",
+          "persuasiveness separated from evidential accuracy",
+          "AI roles are not human replications"
+        ]
+      }
+    ],
+    "schema_version": "0.2.0",
+    "query": "Does protected challenge improve verified correction quality at matched effort?",
+    "fog": {
+      "reference": "Usual human review process",
+      "resolution": "Multiple texts, blinded correction ratings and calibration",
+      "generator_family": "Protected challenge; usual review; persuasive-but-false control",
+      "chronology": "Prospective randomized reviewer trial",
+      "system_boundary": "Human task, texts, review effort and follow-up verification"
+    },
+    "falsifier": "No reproducible accuracy/calibration gain, or increased persuasive false objections.",
+    "legal_interventions": [
+      "Computational structural checks only; domain interventions require a separately specified protocol."
+    ],
+    "nuisance_support": {
+      "declaration": "Fixed-stimulus effects, reviewer dependence and rhetorical persuasion",
+      "numerical_support_status": "pending domain calibration; synthetic constants are separate"
+    },
+    "calibration": {
+      "status": "planned",
+      "artifact_hashes": [],
+      "required": "Independent measurement/operator calibration with units and covariance"
+    },
+    "dependence_roots": [
+      "paper:10.1038/s41598-026-65147-7"
+    ],
+    "split": {
+      "policy": "reviewer/text-block holdout not materialized",
+      "membership_status": "not materialized for empirical fitting"
+    },
+    "acceptance": {
+      "outcome": "Calibrated held-out value beyond matched alternatives with closure and adequacy checks",
+      "margin_status": "domain-specific margin must be frozen from uncertainty and prospective analysis before fitting"
+    },
+    "framework_validation": "not-empirically-validated",
+    "release_status": "unpromoted-research-candidate",
+    "supersedes": {
+      "contract_id": "BC007",
+      "role": "Earlier project proposal; no unpublished artifact fingerprint included."
+    }
+  },
+  {
+    "contract_id": "BC008",
+    "relation_type": "source-version-tracing-test-case",
+    "source_ids": [
+      "paper:10.1098/rspb.2026.1077",
+      "paper:10.1103/drzq-lfn5",
+      "paper:10.1103/4dyc-z8zf"
+    ],
+    "source_verification": "IDENTITY_VERIFIED_SUPPORT_BOUNDED_SEE_SOURCE_REFERENCES",
+    "units": {
+      "source_version": "version identifier",
+      "statement_digest": "SHA-256 hex",
+      "archive_manifest_entries": "count"
+    },
+    "operators": [
+      {
+        "name": "versioned-source-to-atomic-claim",
+        "version": "proposal-2026-10-04",
+        "input": "primary version, access status and data/archive manifest",
+        "output": "version-qualified statement and supersession graph",
+        "assumptions": [
+          "claim identity includes version plus statement digest",
+          "published wording controls when narrower",
+          "availability is not executed reproduction"
+        ]
+      }
+    ],
+    "schema_version": "0.2.0",
+    "query": "Can a consequential statement be traced to the correct source version and artifact bytes?",
+    "fog": {
+      "reference": "Immutable source statement and exact artifact identity",
+      "resolution": "Version-qualified claim, locator, statement hash and dependence root",
+      "generator_family": "Correct source/version; stale locator; reused ID; missing payload",
+      "chronology": "Publication, acquisition, revision and retrieval dates distinguished",
+      "system_boundary": "Claim, source, code, output and bounded verification path"
+    },
+    "falsifier": "Wrong-version numerical import, unsupported stronger wording, stale locator or incomplete archive payload.",
+    "legal_interventions": [
+      "Computational structural checks only; domain interventions require a separately specified protocol."
+    ],
+    "nuisance_support": {
+      "declaration": "Unavailable full text, source-local entailment and incomplete manifests",
+      "numerical_support_status": "pending domain calibration; synthetic constants are separate"
+    },
+    "calibration": {
+      "status": "planned",
+      "artifact_hashes": [],
+      "required": "Independent measurement/operator calibration with units and covariance"
+    },
+    "dependence_roots": [
+      "paper:10.1098/rspb.2026.1077",
+      "paper:10.1103/drzq-lfn5",
+      "paper:10.1103/4dyc-z8zf"
+    ],
+    "split": {
+      "policy": "injected source/locator errors; real external entailment review remains open",
+      "membership_status": "not materialized for empirical fitting"
+    },
+    "acceptance": {
+      "outcome": "Calibrated held-out value beyond matched alternatives with closure and adequacy checks",
+      "margin_status": "domain-specific margin must be frozen from uncertainty and prospective analysis before fitting"
+    },
+    "framework_validation": "not-empirically-validated",
+    "release_status": "unpromoted-research-candidate",
+    "supersedes": {
+      "contract_id": "BC008",
+      "role": "Earlier project proposal; no unpublished artifact fingerprint included."
+    }
+  }
+]

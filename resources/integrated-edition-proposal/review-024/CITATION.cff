@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Draft citation proposal only; not a published release."
+type: software
+title: "SPPT/ASTRA Integrated Core 1.1.0-alpha.1"
+abstract: >-
+  Integrated-core successor alpha proposal with synthetic cases, SCM/WKI checks,
+  explanatory gateway and draft reading documents. Historical Windows scientific
+  equivalence remains unresolved. No empirical SCM/QG validation or novelty
+  priority is claimed. File-level rights and inherited exceptions remain in force;
+  this citation does not grant a new reuse license.
+authors:
+  - name: "Jacko T."
+version: 1.1.0-alpha.1
+repository-code: "https://github.com/jkolantree/astra"

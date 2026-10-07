@@ -44,6 +44,7 @@ CANDIDATE_INPUTS = (
     "schemas/research-companion-pages-review-v1.schema.json",
     "tools/assemble_research_companion_pages.py",
     "tools/build_pages_admission.py",
+    "tools/build_explorer_gateway.py",
     "tools/check_pages_admission.py",
     "tools/check_pages_links.py",
     "tools/link_audit_common.py",
@@ -53,13 +54,13 @@ ALIAS = """<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=../resources/sppt-scm-research-companion/draft-v0.1.0/explorer/">
+  <meta http-equiv="refresh" content="0; url=../">
   <title>Research companion · Draft | ASTRA</title>
 </head>
 <body><main>
-  <h1>SPPT / SCM research companion</h1>
+  <h1>ASTRA explorer</h1>
   <p>Unpromoted research draft. Stable SPPT/ASTRA v1.0.7 retains its separate authority.</p>
-  <p><a href="../resources/sppt-scm-research-companion/draft-v0.1.0/explorer/">Open the explorer</a></p>
+  <p><a href="../">Open the explorer</a></p>
 </main></body>
 </html>
 """.encode()

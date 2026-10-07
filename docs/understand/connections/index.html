@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Retention, access and recovery: testable connections among memory kernels, holographic encoding, geometry and perceptual history.">
+  <title>Connecting the threads · Elementary Understanding · ASTRA</title>
+  <link rel="stylesheet" href="../understand.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to reading</a>
+<header><div class="wrap top"><a class="brand" href="../../" aria-label="ASTRA explorer">ASTRA</a><nav aria-label="Main navigation"><a href="../">Elementary Understanding</a><a href="./" aria-current="page">Connecting the threads</a><a href="../predictions/">Predictions worth testing</a><a href="../persistence/">What persists?</a><a href="../../library/">Research library</a></nav></div></header>
+<main id="main" class="wrap">
+  <div class="lead">
+    <p class="eyebrow">Elementary Understanding / A serious hypothesis</p>
+    <h1>Connecting the threads</h1>
+    <p class="dek">What survives, who can recover it, and what geometry predicts.</p>
+    <div class="prose">
+      <p>A system can retain information that one observation cannot reveal. A later response may expose a changed interface or a neural history. A distributed encoding may preserve an unknown state even after some accessible parts are lost. These examples invite a common question: can one account predict retention, access and recovery together?</p>
+      <p>The ambitious holographic hypothesis goes further: a lower-dimensional quantum description could encode spacetime and its contents through a precise correspondence. Established examples make this a serious theoretical possibility. Extending it to our cosmology requires a dictionary that reproduces its states, matter and evolution, then delivers several predictions that can face alternatives.</p>
+      <p>ASTRA’s near-term opportunity is to construct a smaller, explicit bridge: identify retained variables, observation maps and interventions, then ask whether the same structure predicts responses and recoverability. That can succeed or fail before any claim about the universe as a whole is settled.</p>
+    </div>
+    <p class="status">Research companion · unpromoted draft, not peer reviewed. Stable core: <a href="../../v1.0.7/preprint/">SPPT/ASTRA v1.0.7</a>.</p>
+  </div>
+  <nav class="contents reading" aria-labelledby="contents-heading"><div><h2 id="contents-heading">Follow the argument</h2><ol>
+    <li><a href="#levels">Three levels of connection</a></li>
+    <li><a href="#holography">What holography contributes</a></li>
+    <li><a href="#retained-mode">One retained mode, several responses</a></li>
+    <li><a href="#recovery">Recovery after loss</a></li>
+    <li><a href="#geometry">Geometry must predict more than a picture</a></li>
+    <li><a href="#worked-example">Optional worked example: two compatible structures</a></li>
+    <li><a href="#scm">A route for SCM—and an obstruction</a></li>
+    <li><a href="#experience">What transfers to experience</a></li>
+    <li><a href="#recent-work">Recent results and counterevidence</a></li>
+    <li><a href="#cmb">A restrained observational lead: the CMB</a></li>
+    <li><a href="#next-step">The next useful result</a></li>
+  </ol></div></nav>
+  <div class="reading">
+    <section id="levels" aria-labelledby="levels-heading">
+      <h2 id="levels-heading">Three levels of connection</h2>
+      <dl>
+        <dt>Shared mathematics</dt><dd>The same equation, response kernel or cut constraint appears in different settings. Calculations and test designs can transfer, even when the physical carriers differ.</dd>
+        <dt>Shared causal structure</dt><dd>A stated map between inputs, retained states, readouts and interventions predicts the same counterfactual outcomes within a defined regime. This can establish a common effective mechanism.</dd>
+        <dt>Shared physical mechanism</dt><dd>Identified microscopic processes and coupling laws are shown to realize that structure. Matching an equation or a relaxation time alone does not supply this result.</dd>
+      </dl>
+      <p>Universality is a serious intermediate possibility: different materials can approach the same effective theory because symmetries, conservation laws and slow modes survive coarse-graining. Common scaling functions and controlled correction terms would be stronger evidence than one fitted exponential.</p>
+      <p>An exact duality is stronger in a different way: two descriptions represent the same states and physical predictions under a dictionary. If they are exactly equivalent, an experiment tests their shared content against other theories; it cannot select between them merely by renaming one description more fundamental.</p>
+    </section>
+    <section id="holography" aria-labelledby="holography-heading">
+      <h2 id="holography-heading">What established holography contributes</h2>
+      <p>Maldacena’s AdS/CFT proposal relates specified gravitational/string theories in anti-de Sitter spacetime to lower-dimensional conformal quantum field theories. Its strength is a quantitative dictionary. It does not say that every ordinary surface stores a readable copy of everything inside it. <a href="https://arxiv.org/abs/hep-th/9711200">Original proposal, submitted 27 November 1997; published 1998</a>.</p>
+      <p>In a static semiclassical setting, the Ryu–Takayanagi relation connects a boundary region’s von Neumann entropy to a minimal bulk surface. Quantum corrections include bulk entanglement; time-dependent settings require an extremal-surface formulation. This identifies a particular entropy and a particular geometric quantity, rather than equating all information with all area. <a href="https://arxiv.org/abs/hep-th/0603001">Ryu–Takayanagi, 2006</a> · <a href="https://arxiv.org/abs/1307.2892">Faulkner–Lewkowycz–Maldacena, 2013</a>.</p>
+      <p>Quantum error correction explains how a bulk observable can have multiple boundary representations without independent copies of its quantum state. Recovery applies to an appropriate code subspace and specified observables; an arbitrarily small fragment does not contain everything. Explicit tensor-network codes realize important parts of this architecture. <a href="https://arxiv.org/abs/1411.7041">Almheiri, Dong and Harlow, 2014</a> · <a href="https://arxiv.org/abs/1601.05416">Entanglement-wedge reconstruction, 2016</a> · <a href="https://arxiv.org/abs/1503.06237">HaPPY code, 2015</a>.</p>
+      <p>An SPPT interface is a physical subsystem whose retained condition can alter transport. A holographic boundary theory is an alternative description of the gravitational bulk. Adding both as independent material inventories would double-count the dual description. The useful meeting point is which information a description preserves and which observations can recover it.</p>
+    </section>
+    <section id="retained-mode" aria-labelledby="mode-heading">
+      <h2 id="mode-heading">One retained mode should predict several responses</h2>
+      <p>When a hidden variable is eliminated from a time-local model, its history can reappear as a memory kernel in the observed variables. That is an established reduction method. It does not require an extra force. <a href="https://doi.org/10.1143/PTP.33.423">Mori’s memory-function approach, 1965</a>.</p>
+      <p>For one stable scalar retained mode b, inputs u and readouts y, a simple linear model is:</p>
+      <p class="formula">τ db/dt = −b + Σⱼ χⱼuⱼ<br>
+      yᵢ = Σⱼ Dᵢⱼuⱼ + cᵢb<br>
+      Yᵢⱼ(s) = Dᵢⱼ + cᵢχⱼ/(1 + sτ)</p>
+      <p>Here τ is the positive recovery time, D the instantaneous response, χ the input coupling and c the readout coupling. The delayed response factors into an input vector and an output vector: its amplitude matrix has rank one. One τ must explain free decay, driven lag and the response pole in every channel coupled to that mode.</p>
+      <p>A concrete holographic comparison exists: poles of suitable retarded boundary correlators correspond to bulk quasinormal frequencies. One isolated, purely damped mode can yield this one-pole effective response. Oscillatory modes, degeneracy or additional slow modes require a larger model. <a href="https://arxiv.org/abs/hep-th/0205051">Son and Starinets, 2002</a>.</p>
+      <p>The proposed dictionary maps an interface state to a slow collective-mode amplitude, an imposed transport perturbation to a source, and measured flux to a response. A porosity coordinate is not thereby a black-hole mode. Calibrate one channel, predict new frequencies and cross-responses, then predict a physically specified selective reset. The holographic counterpart must be an explicitly defined preparation or source operation.</p>
+      <p>Incompatible poles, a higher-rank delayed response or the wrong reset outcome would reject the one-mode correspondence. A microscopic derivation that also predicts changes with temperature or geometry would be a substantial advance. An exponential fit alone would not establish a gravitational dual or irreversible loss of information from a complete quantum state.</p>
+    </section>
+    <section id="recovery" aria-labelledby="recovery-heading">
+      <h2 id="recovery-heading">Retention can mean recovery after loss</h2>
+      <p>Reconstructing a known pattern is weaker than preserving an unknown quantum state. A quantum code must recover the allowed information even when that state is entangled with an untouched reference. Otherwise an apparent return can be ordinary measurement followed by preparation of a replacement.</p>
+      <p>For an encoder V placing a logical state L into accessible parts A and B, the strong test erases B and recovers from A while preserving the joint state with reference R:</p>
+      <p class="formula">(idᵣ ⊗ recoveryₐ ∘ traceᵦ ∘ encodingᵥ)(ρᵣₗ) ≈ ρᵣₗ</p>
+      <p>The allowed logical states, noise, erasures, decoder and error tolerance must be stated. For a code protecting only a subalgebra, the promise concerns those observables rather than every degree of freedom. <a href="https://arxiv.org/abs/1607.03901">Harlow’s reconstruction and entropy result, 2016</a>.</p>
+      <p>For a d-dimensional logical state maximally entangled with its reference, an entirely measure-and-prepare recovery has overlap at most 1/d with the original entangled state. Thus a high score on known examples can coexist with failure to retain quantum information. <a href="https://arxiv.org/abs/quant-ph/0302031">Entanglement-breaking channels, 2003</a>.</p>
+      <p>Derive recoverable erasure patterns from one encoder and test unused patterns, superpositions and reference entanglement. Include noise, finite size and any postselection probability. Success validates that encoding and recovery structure. It does not establish the gravitational ontology of an ordinary interface. Hiding a readout and physically destroying an interface are different interventions.</p>
+    </section>
+    <section id="geometry" aria-labelledby="geometry-heading">
+      <h2 id="geometry-heading">Geometry must predict more than a picture</h2>
+      <p>Transport networks and holographic entropy share a genuine mathematical structure: the Ryu–Takayanagi minimal-surface calculation can be expressed as a norm-bounded maximum-flux problem. In this bit-thread formulation, the threads represent entanglement constraints; they are not molecules, neurons or SCM filaments. <a href="https://arxiv.org/abs/1604.00354">Freedman and Headrick, 2016</a>.</p>
+      <p>The capacity must be identified in each setting. Material conductance is not automatically a hard maximum-flow capacity. Tensor-network bond dimensions bound entanglement across a cut. A neural functional-connectivity estimate is not already a quantum entanglement capacity.</p>
+      <p>A strong organizational test holds the total resource budget fixed while moving it between redundant paths and a bottleneck. The same independently specified architecture should then predict transport, correlations or recovery regions, as appropriate. If every readout needs a redrawn geometry or a fresh rescaling, the single-geometry claim has failed.</p>
+      <p>Scale-organized entanglement provides a concrete guide to emergent geometry. An area law alone is weak evidence for gravity: ordinary gapped one-dimensional local quantum systems also obey entanglement area laws. <a href="https://arxiv.org/abs/0905.1317">Swingle, submitted 2009; published 2012</a> · <a href="https://arxiv.org/abs/0705.2024">Hastings, 2007</a>.</p>
+    </section>
+    <section id="worked-example" aria-labelledby="worked-heading">
+      <h2 id="worked-heading">Optional worked example: persistence through changing access</h2>
+      <p>One accessible response x exchanges influence with a retained coordinate m. Tracking both gives a time-local description; eliminating m gives a memory kernel; observing x through time can reconstruct m. These are three descriptions of the same specified dynamics.</p>
+      <p>We can then place their population coordinates inside an independently chosen quantum code. The dynamics and detector define a <strong>temporal Fisher-information geometry</strong>; the encoder defines a separate <strong>entropy and access graph</strong>. Their composition proves compatibility. It does not derive either geometry from the other.</p>
+      <h3 id="toy-dynamics">1. A retained coordinate leaves a delayed signal</h3>
+      <p>For τ &gt; 0 and 0 &lt; κ &lt; 1, take this added linear toy closure, with x and m in the same calibrated units and input u in those units per time:</p>
+      <p class="formula">dx/dt = (−x + κm)/τ + u(t)<br>
+      dm/dt = (κx − m)/τ, &nbsp; y = x<br>
+      K(t) = (κ²/τ²) exp(−t/τ)</p>
+      <p>Eliminating m gives the kernel K multiplying the past history of x, plus a separate term (κ/τ)exp(−t/τ)m(0) for the hidden initial condition. The coupled modes decay at rates (1 − κ)/τ and (1 + κ)/τ. The kernel’s τ is the decay time of m when x is clamped to zero, not either coupled-system decay time.</p>
+      <p>For two preparations with equal x(0), the same input and an initial hidden difference Δm(0):</p>
+      <p class="formula">Δy(t) = Δm(0) exp(−t/τ) sinh(κt/τ)<br>
+      t<sub>peak</sub> = τ atanh(κ)/κ<br>
+      At κ = 1/2: t<sub>peak</sub> = τ ln 3,<br>
+      |Δy(t<sub>peak</sub>)| = |Δm(0)|/(3√3)</p>
+      <p>In the ideal noiseless model, m = (τdy/dt + y − τu)/κ. A time record carries the missing information; one instantaneous scalar does not. With noise, fit the full trajectory instead of differentiating a noisy signal and calling the result exact recovery. <a href="https://doi.org/10.1143/PTP.33.423">Memory-function context</a>.</p>
+      <h3 id="toy-information">2. The observation model fixes distinguishability</h3>
+      <p>Write z = (x,m), A = τ⁻¹[[-1,κ],[κ,-1]] and C = [1,0]. Subtract the response to the known input. For an observation window T and fixed calibrated Gaussian noise, specify:</p>
+      <p class="formula">dYₜ = x(t)dt + √S<sub>y</sub>dBₜ<br>
+      W<sub>T</sub> = ∫₀ᵀ exp(Aᵀt) CᵀC exp(At) dt<br>
+      Fisher metric = W<sub>T</sub>/S<sub>y</sub><br>
+      D<sub>KL</sub> = ΔzᵀW<sub>T</sub>Δz/(2S<sub>y</sub>)</p>
+      <p>Bₜ is standard Brownian motion. If x has units q, S<sub>y</sub> has units q²·time. This is a flat <em>classical</em> metric for this linear Gaussian observation experiment, not quantum Fisher information or the metric of directly sampled categorical outcomes. Dynamics, readout and noise must be calibrated independently of the held-out discrimination data.</p>
+      <p>For T &gt; 0 and nonzero κ, W<sub>T</sub> is positive definite. At κ = 0 its hidden-state direction is null. For short windows, information about m(0) is approximately κ²T³/(12τ²S<sub>y</sub>) when x(0) is an unknown nuisance parameter, but κ²T³/(3τ²S<sub>y</sub>) when x(0) is known exactly. Confusing those cases gives a factor-of-four error.</p>
+      <p>For stable dynamics, the infinite-window matrix is finite:</p>
+      <p class="formula">W<sub>∞</sub> = τ/[4(1 − κ²)] ×<br>
+      [[2 − κ², κ], [κ, κ²]]</p>
+      <p>Initial-state information therefore saturates under the stated fixed-noise observation budget. More independent preparations change that budget. Process noise, parameter uncertainty, correlated noise or quantum measurement backaction need their own likelihood. Finite-ensemble quantum measurements also require a specified preparation budget, instrument and appropriate state-dependent noise model. This is not a non-disturbing continuous measurement of one arbitrary unknown quantum state.</p>
+      <p>Under z′ = Jz, W′ = J⁻ᵀWJ⁻¹. Distinguishability and rank are invariant; eigenvalues and coordinate ellipse area generally are not. A scalar response permits equivalent state-space realizations, so calibrated preparations and interventions must identify m physically. No physical spatial area or spacetime dimension has been derived. <a href="https://arxiv.org/abs/2111.13246">Gramian and Fisher-information connection</a>.</p>
+      <h3 id="toy-populations">3. A positive-rate realization has a narrower scope</h3>
+      <p>For three probabilities p₀ + p₁ + p₂ = 1, define x = (p₀ − p₁)/√2 and m = (p₀ + p₁ − 2p₂)/√6. Symmetric transition rates give the unforced equations above:</p>
+      <p class="formula">r₀₁ = 1/(3τ)<br>
+      r₀₂ = (1 − √3κ)/(3τ)<br>
+      r₁₂ = (1 + √3κ)/(3τ)<br>
+      dpᵢ/dt = Σⱼ≠ᵢ rᵢⱼ(pⱼ − pᵢ)</p>
+      <p>All rates are positive for <strong>0 &lt; κ &lt; 1/√3</strong>; κ = 1/2 is allowed. Initial x,m must lie in the triangle of nonnegative populations. These are ensemble coordinates, not a deterministic single-sample trajectory. Arbitrary additive input u can violate positivity; this realization covers u = 0, not every driven version of the stable linear toy.</p>
+      <p>Quantum jump operators √rᵢⱼ |i⟩⟨j| for every directed pair give an ordinary linear open-system realization. Populations close under that evolution; coherences require additional coordinates. No nonstandard quantum dynamics is assumed.</p>
+      <h3 id="toy-code">4. An independently chosen code supplies quantum recovery</h3>
+      <p>Encode the logical qutrit into three shares using arithmetic modulo 3:</p>
+      <p class="formula">V|j⟩ = (1/√3) Σᵣ₌₀² |r, r + j, r + 2j⟩<br>
+      First-two-share decoder:<br>
+      |a,b⟩ → |b − a, 2b − a⟩</p>
+      <p>Decoding produces the logical state together with a maximally entangled junk/third-share pair. Any two shares recover the full current logical state, including its entanglement with an untouched reference. Any single share is I/3, independent of the logical state, at a given time. That statement does not specify arbitrary invasive multi-time protocols. This is the established <a href="https://arxiv.org/abs/quant-ph/9901025">Cleve–Gottesman–Lo two-out-of-three code</a>.</p>
+      <p>Using natural logarithms and logical entropy S<sub>L</sub>, the exact entropies are:</p>
+      <p class="formula">S(one share) = ln 3<br>
+      S(two shares) = ln 3 + S<sub>L</sub><br>
+      S(all three) = S<sub>L</sub></p>
+      <p>A graph with one logical center and three boundary legs of fixed weight ln 3 reproduces them. For k shares, compare the costs k ln 3 when the logical center is excluded and (3 − k)ln 3 + S<sub>L</sub> when it is included. Their minimum matches k = 0,1,2,3 because 0 ≤ S<sub>L</sub> ≤ ln 3. Share dimension fixes the weights; they are not fitted to the entropies. At maximal S<sub>L</sub>, costs can tie, so the encoder and decoder—not a unique minimum—define access. <a href="https://arxiv.org/abs/1607.03901">Quantum error correction and entropy identities</a>.</p>
+      <p>Compose the two constructions as ρ<sub>boundary</sub>(t) = V Eₜ(ρ₀)V†, where Eₜ is the unforced logical channel. A two-share measurement can read x through time; those same two shares also allow m to be measured directly. Here m is hidden by the chosen readout, not by the code. Temporal reconstruction recovers population information; coherent decoding separately recovers the full current quantum state.</p>
+      <p>Changing τ or κ changes temporal observability without changing V, the two-of-three access rule or any cut weight. Diagonal logical states let x,m determine population entropy; general quantum states do not. Encoded jump operators need not be local on this graph. The composition supplies no local boundary propagation law, gravitational dynamics or physical spacetime geometry. The code corrects loss of a share; it does not reverse information already lost to the logical channel’s environment.</p>
+      <h3 id="toy-counterexamples">5. Exact counterexamples keep the connection honest</h3>
+      <ol>
+        <li><strong>Retained but inaccessible:</strong> at κ = 0, a nonzero m can decay over τ while y never depends on it.</li>
+        <li><strong>The same population history, different states:</strong> (|0⟩ + |1⟩)/√2 and (|0⟩ − |1⟩)/√2 are orthogonal but have identical x(t),m(t) under this channel. The scalar record cannot reconstruct their coherences.</li>
+        <li><strong>The same record, different entropy:</strong> the corresponding pure plus state and the equal incoherent mixture of |0⟩,|1⟩ have identical population histories. Initially their logical entropies are 0 and ln 2, so their two-share entropies differ by ln 2.</li>
+        <li><strong>Classical redundancy is insufficient:</strong> |j⟩ → |jjj⟩ retains basis labels, but losing one share removes relative phases of a superposition from the remainder. It cannot replace the quantum erasure code.</li>
+        <li><strong>Entropy cuts do not determine spacetime:</strong> different embeddings preserve this graph’s entropy identities without fixing lengths, angles, metric signature, a continuum limit or Einstein dynamics.</li>
+        <li><strong>The geometries vary independently:</strong> changing κ can eliminate temporal observability while leaving coherent two-share recovery and every cut weight unchanged.</li>
+      </ol>
+      <h3>What would make this construction fail in an apparatus?</h3>
+      <p>The classical claim requires calibrated τ, κ and the observation model to predict the delayed difference, its peak and reconstruction scaling together. Adding hidden dimensions or a new noise law after failure is a new model to test. The quantum claim separately requires recovery of unknown superpositions and reference entanglement, plus independently measured entropy identities. Ordinary memory models remain serious competitors; an ASTRA-specific advantage needs a specified physical closure that predicts better than those alternatives.</p>
+      <p>This analytic construction has one stable equilibrium. It does not produce rival percepts, switching or experience. Deriving a physical law that binds its temporal information geometry to its independently selected code geometry remains open. The example combines established ideas and makes no novelty or empirical-validation claim.</p>
+    </section>
+    <section id="scm" aria-labelledby="scm-heading">
+      <h2 id="scm-heading">A route for SCM—and a sharp obstruction</h2>
+      <p>SCM’s graph-area Hamiltonian generates a nonlinear field evolution. The Ryu–Takayanagi area represents a gravitational entropy relation. Their units, objects, observables and variational roles differ; a bridge has to derive their correspondence.</p>
+      <p>A promising route is collective dynamics. A linear, unitary many-body theory can yield nonlinear equations for classical fields or expectation values under a controlled approximation. Deriving an SCM-type response would require a specified collective variable, coefficients, noise and correction terms, plus a prediction of where the approximation breaks. The reviewed ASTRA material does not yet supply that derivation.</p>
+      <p>There is also an obstruction to an exact fundamental reading. If a fixed linear isometry V encodes logical states and a state-independent unitary U(t) preserves the code subspace, the induced logical evolution V†U(t)V is linear. It cannot simultaneously be genuinely nonlinear branch-by-branch evolution of arbitrary pure states with the ordinary measurement rules.</p>
+      <p>Holography therefore does not automatically resolve the <a href="../predictions/#ensemble">ensemble-consistency problem</a>. A successful collective-limit derivation could ground an emergent geometric description; irreducible branchwise quantum nonlinearity would instead challenge the usual linear-encoding assumptions. <a href="https://arxiv.org/abs/quant-ph/0102125">Simon, Bužek and Gisin, 2001</a>.</p>
+    </section>
+    <section id="experience" aria-labelledby="experience-heading">
+      <h2 id="experience-heading">What transfers to experience?</h2>
+      <p>The useful hypothesis concerns retained, distributed and updateable neural representations. Memory kernels suggest linked tests of persistence and response. Recovery tests ask which information remains accessible after some channels are lost. Multiscale geometry can organize relational structure.</p>
+      <p>These tools become a neural mechanism only with biologically specified states and content-sensitive readouts. On simulations or existing datasets, a coupling-history model must predict new perceptual transitions and interruptions better than ordinary adaptation or recurrent-network alternatives. Attention, report, arousal and conscious content need separate observation models. See <a href="../persistence/#neural-hypothesis">the write–survive–read proposal</a>.</p>
+      <p>Distributed classical storage is not the same claim as gravitational holography. An EEG sensor surface presents an inverse problem, not an established holographic boundary. Even a dual description of a brain would also describe nonconscious physical processes; it would not by itself determine which are experienced or why they feel like anything.</p>
+    </section>
+    <section id="recent-work" aria-labelledby="recent-heading">
+      <h2 id="recent-heading">Recent work sharpens both the case and the tests</h2>
+      <p><strong>November 2025 proposal, revised January 2026:</strong> a bottom-up de Sitter construction matches selected finite-time scalar and graviton quantities. It is relevant progress beyond the best-controlled AdS setting, while remaining a theory-to-theory calculation rather than an observational identification of our universe. <a href="https://arxiv.org/abs/2511.04511">Araujo-Regado, Thavanesan and Wall</a>.</p>
+      <p><strong>13 July 2026 preprint:</strong> a trapped-ion HaPPY-code experiment reports entropy relations, including a quantum-corrected relation within its toy model. This supports the implemented information architecture. It does not independently demonstrate dynamical physical spacetime. Out-of-training observables, reference-entanglement recovery, noise calibration and finite-size scaling would strengthen the result. <a href="https://arxiv.org/html/2607.12047v1">Biswas et al.</a>.</p>
+      <p><strong>23 July 2025 debate:</strong> the interpretation of a 2022 quantum-processor teleportation experiment remains contested. Critics found its small learned model’s signatures insufficiently distinctive and poorly generalized to untrained operators. The authors defended the implemented regime and argued that some proposed comparisons extend beyond its protocol. Both sides matter when deciding what a laboratory gravitational dictionary has established. <a href="https://doi.org/10.1038/s41586-022-05424-3">Original experiment</a> · <a href="https://arxiv.org/abs/2302.07897">critique</a> · <a href="https://arxiv.org/abs/2303.15423">reply preprint</a> · <a href="https://www.nature.com/articles/s41586-025-08995-z">2025 reply</a>.</p>
+      <p><strong>3 September 2025 publication:</strong> QUEST reported a null correlated-fluctuation result and broadband limits over 13–80 MHz. Earlier Holometer analyses also excluded or bounded specified shear and rotational fluctuation models. These are substantive counterevidence for those noise proposals, not a rejection of every holographic theory. An entropy bound or exact duality does not by itself require detectable noise of those forms. <a href="https://arxiv.org/abs/2410.09175">QUEST</a> · <a href="https://arxiv.org/abs/1703.08503">Holometer shear analysis</a> · <a href="https://arxiv.org/html/2012.06939v2">rotational-model limits</a>.</p>
+    </section>
+    <section id="cmb" aria-labelledby="cmb-heading">
+      <h2 id="cmb-heading">An observational lead worth testing: large-angle CMB correlations</h2>
+      <p>A paper published on 28 August 2025 reports unusually small even-parity temperature correlations near 90 degrees in cosmic microwave background maps. Its proposed causal-coherence symmetry specifies a central band from about 75.52 to 104.48 degrees. Reported Planck-map rank probabilities range from roughly 10⁻⁴·³ to 10⁻²·⁸ under the chosen standard-model statistic. <a href="https://academic.oup.com/mnras/article/543/1/108/8242734">Hogan et al., 2025</a>.</p>
+      <p>This is a specific observational lead, not a general prediction of AdS/CFT. Those numbers are tail probabilities for a chosen statistic, not probabilities that holography is true. Foreground treatment dominates the paper’s uncertainty estimate; multiple maps share the same sky. Ordinary cosmic variance, processing and foreground systematics, and selection of statistics after earlier anomalies are serious competing explanations.</p>
+      <p>The Planck collaboration confirmed several temperature anomalies but found no unambiguous corresponding polarization anomaly in its 2018-data analysis. That does not directly refute the later statistic, but it prevents claiming established corroboration across observables. <a href="https://arxiv.org/abs/1906.02552">Planck isotropy and statistics analysis</a>.</p>
+      <p>The useful next step is to reproduce the statistic with foreground and selection uncertainty, then require a fixed physical model to predict polarization or another unused observable after conditioning on temperature. A zero primordial correlation need not remain exactly zero after transfer effects and foreground processing. A robust contradiction of the full observed-sky prediction would reject that particular symmetry.</p>
+      <p>A separate holographic primordial-spectrum family achieved a comparable fit over a restricted range in a 2017 analysis; the full-data comparison favored the conventional spectrum. Its perturbative formula cannot be extended into the low-multipole region where it fails. A current joint temperature, polarization and lensing comparison would test that specified model, not assign a probability to “all holography.” <a href="https://arxiv.org/abs/1703.05385">Detailed primordial-spectrum comparison, 2017</a>.</p>
+    </section>
+    <section id="next-step" aria-labelledby="next-heading">
+      <h2 id="next-heading">The next useful result is a fixed dictionary that risks failure</h2>
+      <p>A serious bridge names its retained states, their dynamics, the observation map and the allowed interventions. It calibrates some quantities, predicts others, and competes with strong ordinary models. Shared poles, recovery regions and independently predicted geometric relations could then establish more than a verbal analogy.</p>
+      <p>Confidence should increase when one specified theory predicts several difficult observations before they are evaluated, with controlled systematics. It should decrease when mandatory predictions fail. A model that only accommodates existing data remains viable rather than confirmed. A new residual first establishes something to explain; its holographic origin requires a further quantitative comparison.</p>
+      <p class="source">This reading synthesizes the source review dated 6 October 2026. It includes primary theoretical papers, experiments, critiques and model-specific limits. No raw cosmological data, new significance calculation or detector calibration was produced here. The complete final wormhole reply was not independently inspected in that review. The cited 2026 HaPPY result is a preprint. No reviewed observation uniquely establishes world holography.</p>
+    </section>
+    <nav class="chapter-links next" aria-label="Continue reading"><a href="../#connections">← The short connection</a><a href="../predictions/">Predictions worth testing</a><a href="../persistence/">What persists?</a></nav>
+  </div>
+</main>
+<footer class="wrap"><a href="../../">ASTRA explorer</a> · <a href="../../library/">Research library and citation status</a></footer>
+</body>
+</html>

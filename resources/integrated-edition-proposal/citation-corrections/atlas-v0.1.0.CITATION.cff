@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Unpublished metadata correction proposal for the Atlas source package; prefer the article citation below. The published citation file is preserved unchanged."
+type: software
+title: "Dark-Medium Response Atlas source package — citation correction proposal"
+authors:
+  - name: "Jacko T."
+repository-code: "https://github.com/jkolantree/astra"
+url: "https://jkolantree.github.io/astra/resources/dark-medium-response-atlas/v0.1.0/"
+preferred-citation:
+  type: article
+  title: "Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and Observation"
+  authors:
+    - name: "Jacko T."
+  year: 2026
+  url: "https://jkolantree.github.io/astra/resources/dark-medium-response-atlas/v0.1.0/"

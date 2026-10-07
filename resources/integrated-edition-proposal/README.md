@@ -1,0 +1,17 @@
+# Integrated edition proposal
+
+Private, version-neutral successor preparation. This package adds thirteen newly authored explanatory schematics with inspectable declarative content and rendering code. It does not reproduce or replace the historical thirteen figures and does not select a release version or tag.
+
+[Output inventory](OUTPUTS.json) declares exactly 61 outputs: 31 retained scientific/Atlas outputs, 26 new diagram files, one accessible gallery and three bounded computation reports. [Diagram content](diagram-specs.json) binds exact local model/claim/test sources. New outputs are generated into `generated/` in two independent input-only trees; they are not stored as input fixtures in this proposal. The two new JSON fixtures remain copied inputs. Historical schematics are absent from each generation tree, remain preserved in the source snapshot, and are never counted as newly generated.
+
+[Runtime proposal](RUNTIME_PROPOSAL.json) routes retained science, synthetic integration, SCM and rendering to the existing Python 3.12.10 environment; WKI runs in the existing Python 3.12.14 environment and its unchanged payload validator is applied. The controller takes explicit interpreter paths. Its success means only fresh reproducible production under those two observed environments. The successor now adds an offline portable-bootstrap proposal with an explicit rebind step; construction and relocation probes do not admit the runtime or a public release.
+
+Run `verify_edition.py --science-python SCIENCE_PYTHON --wki-python WKI_PYTHON --work NEW_ABSOLUTE_DIRECTORY` using a separate existing interpreter. The work directory must be outside the source tree and absent. Each source file must match the root manifest. The [contract proposal](CONTRACT_PROPOSAL.md) specifies remaining admission and publication gates; [Pages proposal](PAGES_PROPOSAL.json) lists isolated routes. The renderer does not alter historical release metadata. Successor 022 reconciles the selected root gateway privately; all active workflows and historical admission records remain unchanged.
+
+The [rights boundary](RIGHTS.md) preserves existing component terms and supplies no blanket new reuse license. Matplotlib's DejaVu Sans font outlines use the notice retained at [DEJAVU-FONTS.txt](../../licenses/DEJAVU-FONTS.txt). Scientific antecedents remain in the source-local [WKI correction](../../docs/integrated-core/wki-correction.md) and [bounded source assessments](../../docs/integrated-core/source-references.json); this diagram assembly conducts no new literature-priority review.
+
+[Release integration draft](RELEASE_INTEGRATION_DRAFT.md) records the exact source/runtime/Pages admission proposals, portable input limits, four reading assets, citation correction and owner decisions. [Citation support disposition](CITATION_SUPPORT_DISPOSITION.md) keeps all 15 references within their inspected support boundaries.
+
+The retained [inactive workflow design](review-021/WORKFLOW_REVIEW.md) and destination safety regression controls remain separate from the [versioned successor contract](../integrated-core/v1.1.0-alpha.1/README.md). It preserves all 020 scientific/reading artifacts and does not claim their regeneration.
+
+The [gateway route plan](review-022/PREVIEW_ROUTES_DRAFT.json) records exact historical route composition and pending approval boundaries. The local preview combines the selected explorer-first gateway with integrated draft diagrams and retained reading assets.
