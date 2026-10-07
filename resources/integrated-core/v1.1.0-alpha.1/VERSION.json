@@ -1,0 +1,12 @@
+{
+  "candidate_tag": "astra-integrated-core-v1.1.0-alpha.1",
+  "pages_admitted": false,
+  "pep440_version": "1.1.0a1",
+  "project": "SPPT/ASTRA Integrated Core",
+  "publication_authorized": false,
+  "runtime_admitted": false,
+  "source_admitted": false,
+  "stable_version": "1.0.7",
+  "status": "UNPUBLISHED_ALPHA_CANDIDATE",
+  "version": "1.1.0-alpha.1"
+}

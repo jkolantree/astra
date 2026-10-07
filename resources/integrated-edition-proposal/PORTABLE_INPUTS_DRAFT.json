@@ -1,0 +1,854 @@
+{
+  "expected_packages": {
+    "ast-serialize": "0.6.0",
+    "attrs": "26.1.0",
+    "certifi": "2026.7.22",
+    "cffconvert": "2.0.0",
+    "cffi": "2.1.0",
+    "charset-normalizer": "3.4.9",
+    "click": "8.4.2",
+    "colorama": "0.4.6",
+    "contourpy": "1.3.3",
+    "cryptography": "50.0.0",
+    "cycler": "0.12.1",
+    "docopt": "0.6.2",
+    "fonttools": "4.63.0",
+    "greenlet": "3.5.4",
+    "idna": "3.18",
+    "iniconfig": "2.3.0",
+    "jsonschema": "3.2.0",
+    "kiwisolver": "1.5.0",
+    "librt": "0.13.0",
+    "lxml": "6.1.1",
+    "matplotlib": "3.11.1",
+    "mpmath": "1.3.0",
+    "mypy": "2.3.0",
+    "mypy-extensions": "1.1.0",
+    "numpy": "2.3.5",
+    "packaging": "26.2",
+    "pandas": "3.0.1",
+    "pathspec": "1.1.1",
+    "pdfminer-six": "20260107",
+    "pdfplumber": "0.11.10",
+    "pikepdf": "10.11.0",
+    "pillow": "12.3.0",
+    "playwright": "1.62.0",
+    "pluggy": "1.6.0",
+    "pycparser": "3.0",
+    "pyee": "13.0.1",
+    "pygments": "2.20.0",
+    "pykwalify": "1.8.0",
+    "pypandoc-binary": "1.15",
+    "pyparsing": "3.3.2",
+    "pypdf": "6.14.2",
+    "pypdfium2": "5.12.1",
+    "pyrsistent": "0.20.0",
+    "pytest": "9.1.1",
+    "python-dateutil": "2.9.0.post0",
+    "requests": "2.34.2",
+    "ruamel-yaml": "0.19.1",
+    "ruff": "0.16.1",
+    "scipy": "1.18.0",
+    "setuptools": "83.0.0",
+    "six": "1.17.0",
+    "sympy": "1.14.0",
+    "typing-extensions": "4.16.0",
+    "tzdata": "2026.3",
+    "urllib3": "2.7.0"
+  },
+  "items": [
+    {
+      "bytes": 1261693,
+      "file": "ast_serialize-0.6.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "kind": "wheel",
+      "package": "ast-serialize",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/ca/87/b4d6c38e0ccd5e85dc54cecdf933a152c60b28fe5d993a6d8a72fa6d5896/ast_serialize-0.6.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+      },
+      "sha256": "dcbed41e9386059fc0261d602445ede0976c2ecec2939688bcbcb9ed0b6f28b7",
+      "version": "0.6.0"
+    },
+    {
+      "bytes": 67548,
+      "file": "attrs-26.1.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "attrs",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl"
+      },
+      "sha256": "c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309",
+      "version": "26.1.0"
+    },
+    {
+      "bytes": 136983,
+      "file": "certifi-2026.7.22-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "certifi",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl"
+      },
+      "sha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+      "version": "2026.7.22"
+    },
+    {
+      "bytes": 183525,
+      "file": "cffconvert-2.0.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "cffconvert",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/42/ae/28c3d933b4343f61cc5d63748b53746e5d73b1f66c88e7a93477f22b8909/cffconvert-2.0.0-py3-none-any.whl"
+      },
+      "sha256": "573c825e4e16173d99396dc956bd22ff5d4f84215cc16b6ab05299124f5373bb",
+      "version": "2.0.0"
+    },
+    {
+      "bytes": 221844,
+      "file": "cffi-2.1.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "kind": "wheel",
+      "package": "cffi",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/62/f2/c9522a81c32132799a1972c39f5c5f8b4c8b9f00488a23feaa6c06f07741/cffi-2.1.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+      },
+      "sha256": "1e9f50d192a3e525b15a75ab5114e442d83d657b7ec29182a991bc9a88fd3a66",
+      "version": "2.1.0"
+    },
+    {
+      "bytes": 224256,
+      "file": "charset_normalizer-3.4.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "charset-normalizer",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/01/c4/4fa4c8b3097a11f3c5f09a35b72ed6855fb1d332469504962ab7bafcc702/charset_normalizer-3.4.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "5e226f6218febc71f6c1fc2fafb91c226f75bdc1d8fb12d66823716e891608fd",
+      "version": "3.4.9"
+    },
+    {
+      "bytes": 119243,
+      "file": "click-8.4.2-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "click",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/fb/e2/79c688af8b210d232694e31e59da9f6ec747bae31c3f5946e4e9b98860d5/click-8.4.2-py3-none-any.whl"
+      },
+      "sha256": "e6f9f66136c816745b9d65817da91d61d957fb16e02e4dcd0552553c5a197b76",
+      "version": "8.4.2"
+    },
+    {
+      "bytes": 25335,
+      "file": "colorama-0.4.6-py2.py3-none-any.whl",
+      "kind": "wheel",
+      "package": "colorama",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl"
+      },
+      "sha256": "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6",
+      "version": "0.4.6"
+    },
+    {
+      "bytes": 362601,
+      "file": "contourpy-1.3.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "contourpy",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/cc/8f/ec6289987824b29529d0dfda0d74a07cec60e54b9c92f3c9da4c0ac732de/contourpy-1.3.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "4d00e655fcef08aba35ec9610536bfe90267d7ab5ba944f7032549c55a146da1",
+      "version": "1.3.3"
+    },
+    {
+      "bytes": 4734462,
+      "file": "cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl",
+      "kind": "wheel",
+      "package": "cryptography",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/da/3a/f05e32c99d440c9bb891ea0e36c9091891e36be5a9a87ab2ee6ea20729f6/cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl"
+      },
+      "sha256": "82148ec5bddac30b51a5b3c1945075f896fa022cb93f8e4a01e9f6ee95292c5f",
+      "version": "50.0.0"
+    },
+    {
+      "bytes": 8321,
+      "file": "cycler-0.12.1-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "cycler",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/e7/05/c19819d5e3d95294a6f5947fb9b9629efb316b96de511b418c53d245aae6/cycler-0.12.1-py3-none-any.whl"
+      },
+      "sha256": "85cef7cff222d8644161529808465972e51340599459b8ac3ccbac5a854e0d30",
+      "version": "0.12.1"
+    },
+    {
+      "bytes": 13782,
+      "file": "docopt-0.6.2-py2.py3-none-any.whl",
+      "kind": "wheel",
+      "package": "docopt",
+      "provenance": {
+        "evidence_record_sha256": "d147c0dfacef41adb0d940f3da422bf1eea6761a2b56b22aa180844f6a9a40e8",
+        "kind": "reviewed_local_two_pass_wheel",
+        "source_sdist_sha256": "49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"
+      },
+      "sha256": "f8b8240cba6ffc767c595e63143b538b2cdbdf7cfc3076e2a0d58facb370f88e",
+      "version": "0.6.2"
+    },
+    {
+      "bytes": 4999800,
+      "file": "fonttools-4.63.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "kind": "wheel",
+      "package": "fonttools",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/77/c7/2342da9830e3e9d4870305ca5d2091d2a83284f2953079b7bdd3b5e029d8/fonttools-4.63.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+      },
+      "sha256": "58dc6bb86a78d782f00f9190ca02c119cf5bbe2807536e361e18d42019f877d8",
+      "version": "4.63.0"
+    },
+    {
+      "bytes": 621541,
+      "file": "greenlet-3.5.4-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "greenlet",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/50/6d/0b14bb9db2989f32cd9fe7f76afedea01ee8bee3f87c07e69f24adfe7e63/greenlet-3.5.4-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "f88193799d43dbf8c8a806d6405c9c52fe2af40bf75072a606357b33cc336c7f",
+      "version": "3.5.4"
+    },
+    {
+      "bytes": 65455,
+      "file": "idna-3.18-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "idna",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/1e/5e/d4e9f1a599fb8e573b7b87160658329fbf28d19eac2718f51fc3def3aa5a/idna-3.18-py3-none-any.whl"
+      },
+      "sha256": "7f952cbe720b688055e3f87de14f5c3e5fdaa8bc3928985c4077ca689de849a2",
+      "version": "3.18"
+    },
+    {
+      "bytes": 7484,
+      "file": "iniconfig-2.3.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "iniconfig",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl"
+      },
+      "sha256": "f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12",
+      "version": "2.3.0"
+    },
+    {
+      "bytes": 56305,
+      "file": "jsonschema-3.2.0-py2.py3-none-any.whl",
+      "kind": "wheel",
+      "package": "jsonschema",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/c5/8f/51e89ce52a085483359217bc72cdbf6e75ee595d5b1d4b5ade40c7e018b8/jsonschema-3.2.0-py2.py3-none-any.whl"
+      },
+      "sha256": "4e5b3cf8216f577bee9ce139cbe72eca3ea4f292ec60928ff24758ce626cd163",
+      "version": "3.2.0"
+    },
+    {
+      "bytes": 1477934,
+      "file": "kiwisolver-1.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "kind": "wheel",
+      "package": "kiwisolver",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/c4/13/680c54afe3e65767bed7ec1a15571e1a2f1257128733851ade24abcefbcc/kiwisolver-1.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+      },
+      "sha256": "bb5136fb5352d3f422df33f0c879a1b0c204004324150cc3b5e3c4f310c9049f",
+      "version": "1.5.0"
+    },
+    {
+      "bytes": 531786,
+      "file": "librt-0.13.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "librt",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/94/f0/f2283385bb6b950b26a1410f4ce51ec27231e0b3a4b925c46366d218b198/librt-0.13.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "b222493da6e7b6199db9bd79502436cf5a27da3c1f7fa83c7e285444fc93fd03",
+      "version": "0.13.0"
+    },
+    {
+      "bytes": 5240367,
+      "file": "lxml-6.1.1-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "lxml",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/08/f6/af32e23e563971ffb0fb86be52bc5be5c2c118858ffc119bf6a9039b173d/lxml-6.1.1-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "ebe6af670449830d6d9b752c256a983291c766a1365ba5d5460048f9e33a7818",
+      "version": "6.1.1"
+    },
+    {
+      "bytes": 10035615,
+      "file": "matplotlib-3.11.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "kind": "wheel",
+      "package": "matplotlib",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/c9/cf/b4ad2cc81b6672ea29ea04e64e350a9f9b493b0908ccd884c67eeff8f7b2/matplotlib-3.11.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+      },
+      "sha256": "ba8f811b8ddfac493734d6af0b2dff96919d0c28ca0d641858dab4262777c6ea",
+      "version": "3.11.1"
+    },
+    {
+      "bytes": 536198,
+      "file": "mpmath-1.3.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "mpmath",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl"
+      },
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+      "version": "1.3.0"
+    },
+    {
+      "bytes": 15286904,
+      "file": "mypy-2.3.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "mypy",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/66/80/e6d008bb19fe446e3662d85e0e2717bf9f2d611a2164fb29d6e067dbf46c/mypy-2.3.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "56c184d2c20ca6b6378d58d1960270a767f41f5e44acbbd27f05effef4f4e1d7",
+      "version": "2.3.0"
+    },
+    {
+      "bytes": 4963,
+      "file": "mypy_extensions-1.1.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "mypy-extensions",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/79/7b/2c79738432f5c924bef5071f933bcc9efd0473bac3b4aa584a6f7c1c8df8/mypy_extensions-1.1.0-py3-none-any.whl"
+      },
+      "sha256": "1be4cccdb0f2482337c4743e60421de3a356cd97508abadd57d47403e94f5505",
+      "version": "1.1.0"
+    },
+    {
+      "bytes": 16606086,
+      "file": "numpy-2.3.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "numpy",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/b6/23/2a1b231b8ff672b4c450dac27164a8b2ca7d9b7144f9c02d2396518352eb/numpy-2.3.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "0d8163f43acde9a73c2a33605353a4f1bc4798745a8b1d73183b28e5b435ae28",
+      "version": "2.3.5"
+    },
+    {
+      "bytes": 100195,
+      "file": "packaging-26.2-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "packaging",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/df/b2/87e62e8c3e2f4b32e5fe99e0b86d576da1312593b39f47d8ceef365e95ed/packaging-26.2-py3-none-any.whl"
+      },
+      "sha256": "5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e",
+      "version": "26.2"
+    },
+    {
+      "bytes": 10876435,
+      "file": "pandas-3.0.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "pandas",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/3d/fe/89d77e424365280b79d99b3e1e7d606f5165af2f2ecfaf0c6d24c799d607/pandas-3.0.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "532527a701281b9dd371e2f582ed9094f4c12dd9ffb82c0c54ee28d8ac9520c4",
+      "version": "3.0.1"
+    },
+    {
+      "bytes": 57328,
+      "file": "pathspec-1.1.1-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pathspec",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/f1/d9/7fb5aa316bc299258e68c73ba3bddbc499654a07f151cba08f6153988714/pathspec-1.1.1-py3-none-any.whl"
+      },
+      "sha256": "a00ce642f577bf7f473932318056212bc4f8bfdf53128c78bbd5af0b9b20b189",
+      "version": "1.1.1"
+    },
+    {
+      "bytes": 6592252,
+      "file": "pdfminer_six-20260107-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pdfminer-six",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/20/8b/28c4eaec9d6b036a52cb44720408f26b1a143ca9bce76cc19e8f5de00ab4/pdfminer_six-20260107-py3-none-any.whl"
+      },
+      "sha256": "366585ba97e80dffa8f00cebe303d2f381884d8637af4ce422f1df3ef38111a9",
+      "version": "20260107"
+    },
+    {
+      "bytes": 60047,
+      "file": "pdfplumber-0.11.10-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pdfplumber",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/a2/9a/07d658e1e7fad860f1c541ab941348125dbdab773be3a0afaf32361866c7/pdfplumber-0.11.10-py3-none-any.whl"
+      },
+      "sha256": "7741ea81bf165b474b153e6789d10d18e06b6ddcf3ec84289c3ef2fed6802580",
+      "version": "0.11.10"
+    },
+    {
+      "bytes": 2226785,
+      "file": "pikepdf-10.11.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "pikepdf",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/1b/64/dcf45d018a56bf1f91499290c2b9c27f6a3b4abefb60c00bf8b1d4917112/pikepdf-10.11.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "950ed9258afdc618dbcd15b3d12ed37b33a8e7441211e9a04988cbd6a1e0f187",
+      "version": "10.11.0"
+    },
+    {
+      "bytes": 6940830,
+      "file": "pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "pillow",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/84/21/a35af28dcc61f37ed850a2d64c65c701321dfbf25085e469d5559360cbbf/pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "78cb2c6865a35ab8ff8b75fd122f6033b92a62c82801110e48ddd6c936a45d91",
+      "version": "12.3.0"
+    },
+    {
+      "bytes": 47748926,
+      "file": "playwright-1.62.0-py3-none-manylinux1_x86_64.whl",
+      "kind": "wheel",
+      "package": "playwright",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/43/6b/b24aebc2b04bffcb342bccf96e287c78b363e1615bed5cea97500cc0393a/playwright-1.62.0-py3-none-manylinux1_x86_64.whl"
+      },
+      "sha256": "ba33bae6a13b3d9d354c751cb618af357d20fe1d57767cbcce52079bbef17ad3",
+      "version": "1.62.0"
+    },
+    {
+      "bytes": 20538,
+      "file": "pluggy-1.6.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pluggy",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl"
+      },
+      "sha256": "e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746",
+      "version": "1.6.0"
+    },
+    {
+      "bytes": 48172,
+      "file": "pycparser-3.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pycparser",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl"
+      },
+      "sha256": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992",
+      "version": "3.0"
+    },
+    {
+      "bytes": 15659,
+      "file": "pyee-13.0.1-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pyee",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/a0/c4/b4d4827c93ef43c01f599ef31453ccc1c132b353284fc6c87d535c233129/pyee-13.0.1-py3-none-any.whl"
+      },
+      "sha256": "af2f8fede4171ef667dfded53f96e2ed0d6e6bd7ee3bb46437f77e3b57689228",
+      "version": "13.0.1"
+    },
+    {
+      "bytes": 1231151,
+      "file": "pygments-2.20.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pygments",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/f4/7e/a72dd26f3b0f4f2bf1dd8923c85f7ceb43172af56d63c7383eb62b332364/pygments-2.20.0-py3-none-any.whl"
+      },
+      "sha256": "81a9e26dd42fd28a23a2d169d86d7ac03b46e2f8b59ed4698fb4785f946d0176",
+      "version": "2.20.0"
+    },
+    {
+      "bytes": 24860,
+      "file": "pykwalify-1.8.0-py2.py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pykwalify",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/1f/fd/ac2161cce19fd67a18c269073f8e86292b5511acec6f8ef6eab88615d032/pykwalify-1.8.0-py2.py3-none-any.whl"
+      },
+      "sha256": "731dfa87338cca9f559d1fca2bdea37299116e3139b73f78ca90a543722d6651",
+      "version": "1.8.0"
+    },
+    {
+      "bytes": 32649183,
+      "file": "pypandoc_binary-1.15-py3-none-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "kind": "wheel",
+      "package": "pypandoc-binary",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/cb/00/dc9377725392fa3c7d5f04dc42ab012d1cd40a0a0705b6eb794444559072/pypandoc_binary-1.15-py3-none-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+      },
+      "sha256": "df54edb00331a8fc80516c71cd81de69954512163037c3d4577c315091a0d6f6",
+      "version": "1.15"
+    },
+    {
+      "bytes": 122781,
+      "file": "pyparsing-3.3.2-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pyparsing",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/10/bd/c038d7cc38edc1aa5bf91ab8068b63d4308c66c4c8bb3cbba7dfbc049f9c/pyparsing-3.3.2-py3-none-any.whl"
+      },
+      "sha256": "850ba148bd908d7e2411587e247a1e4f0327839c40e2e5e6d05a007ecc69911d",
+      "version": "3.3.2"
+    },
+    {
+      "bytes": 349514,
+      "file": "pypdf-6.14.2-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pypdf",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/49/e6/136aa8993a2ae7214e0b0ef2edaa0d2e08d1d4e4982635b08a835ff31ec8/pypdf-6.14.2-py3-none-any.whl"
+      },
+      "sha256": "3f07891af76dc002657e04993ab9b4de81de29f9013b9761d0b7968bff12e946",
+      "version": "6.14.2"
+    },
+    {
+      "bytes": 3701734,
+      "file": "pypdfium2-5.12.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "kind": "wheel",
+      "package": "pypdfium2",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/23/16/21420a6f2bc5f981299c336817dd5d72709dad5fda30ac38cbd5f0f7b372/pypdfium2-5.12.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+      },
+      "sha256": "e10cbf41b21233ec5e20adfc170cf60edd77abead86a97dc708fff55a8a886c7",
+      "version": "5.12.1"
+    },
+    {
+      "bytes": 122335,
+      "file": "pyrsistent-0.20.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "kind": "wheel",
+      "package": "pyrsistent",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/07/3a/e56d6431b713518094fae6ff833a04a6f49ad0fbe25fb7c0dc7408e19d20/pyrsistent-0.20.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+      },
+      "sha256": "b14decb628fac50db5e02ee5a35a9c0772d20277824cfe845c8a8b717c15daa3",
+      "version": "0.20.0"
+    },
+    {
+      "bytes": 386536,
+      "file": "pytest-9.1.1-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "pytest",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl"
+      },
+      "sha256": "37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c",
+      "version": "9.1.1"
+    },
+    {
+      "bytes": 229892,
+      "file": "python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
+      "kind": "wheel",
+      "package": "python-dateutil",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
+      },
+      "sha256": "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427",
+      "version": "2.9.0.post0"
+    },
+    {
+      "bytes": 73075,
+      "file": "requests-2.34.2-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "requests",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl"
+      },
+      "sha256": "2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+      "version": "2.34.2"
+    },
+    {
+      "bytes": 118102,
+      "file": "ruamel_yaml-0.19.1-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "ruamel-yaml",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/b8/0c/51f6841f1d84f404f92463fc2b1ba0da357ca1e3db6b7fbda26956c3b82a/ruamel_yaml-0.19.1-py3-none-any.whl"
+      },
+      "sha256": "27592957fedf6e0b62f281e96effd28043345e0e66001f97683aa9a40c667c93",
+      "version": "0.19.1"
+    },
+    {
+      "bytes": 11468183,
+      "file": "ruff-0.16.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "kind": "wheel",
+      "package": "ruff",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/cd/90/c52e12e0d862e9572f2a33aa227409143520abe53111e9a6babbac7b4af8/ruff-0.16.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+      },
+      "sha256": "39897739f112253ee4fdd2e8aa9a4f9ded99fb2be367d5f31dfa4ded6025584c",
+      "version": "0.16.1"
+    },
+    {
+      "bytes": 35287115,
+      "file": "scipy-1.18.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "kind": "wheel",
+      "package": "scipy",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/dd/aa/1b939f6c67ed68635bb538e6752d3dacc02f66535182e939a89581a44e9c/scipy-1.18.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "sha256": "1f55797419e16e7f30cf88ffb3113ce0467f00cfe3f70d5c281730b21769bfc2",
+      "version": "1.18.0"
+    },
+    {
+      "bytes": 1008090,
+      "file": "setuptools-83.0.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "setuptools",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/5d/40/e1e72872c6354b306daef1703549e8e83b4d43cfea356311bf722a043752/setuptools-83.0.0-py3-none-any.whl"
+      },
+      "sha256": "29b23c360f22f414dc7336bb39178cc7bcbf6021ed2733cde173f09dba19abb3",
+      "version": "83.0.0"
+    },
+    {
+      "bytes": 11050,
+      "file": "six-1.17.0-py2.py3-none-any.whl",
+      "kind": "wheel",
+      "package": "six",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl"
+      },
+      "sha256": "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274",
+      "version": "1.17.0"
+    },
+    {
+      "bytes": 6299353,
+      "file": "sympy-1.14.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "sympy",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl"
+      },
+      "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+      "version": "1.14.0"
+    },
+    {
+      "bytes": 45571,
+      "file": "typing_extensions-4.16.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "typing-extensions",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl"
+      },
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "version": "4.16.0"
+    },
+    {
+      "bytes": 348168,
+      "file": "tzdata-2026.3-py2.py3-none-any.whl",
+      "kind": "wheel",
+      "package": "tzdata",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/e5/6d/b53b99a9f2766d095985947a5782f1702cabb129a34f7a802d7197af832f/tzdata-2026.3-py2.py3-none-any.whl"
+      },
+      "sha256": "dc096730c87af6cab1b171c9d532be840741ff5d459015e7f6947bd7d7e54931",
+      "version": "2026.3"
+    },
+    {
+      "bytes": 131087,
+      "file": "urllib3-2.7.0-py3-none-any.whl",
+      "kind": "wheel",
+      "package": "urllib3",
+      "provenance": {
+        "kind": "previously_acquired_publisher_wheel",
+        "url": "https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl"
+      },
+      "sha256": "9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897",
+      "version": "2.7.0"
+    },
+    {
+      "bytes": 34277962,
+      "file": "cpython-3.12.14+20260929-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+      "kind": "python_wki",
+      "provenance": {
+        "kind": "previously_acquired_provider_archive",
+        "url": "https://github.com/astral-sh/python-build-standalone/releases/download/20260929/cpython-3.12.14+20260929-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz"
+      },
+      "sha256": "ef605200f8174e87ecfc308e52a88127543f85dd5c940dc5e92cab244b98a003"
+    },
+    {
+      "bytes": 50340088,
+      "file": "uv",
+      "kind": "installer",
+      "provenance": {
+        "kind": "previously_acquired",
+        "limitation": null,
+        "publisher_archive_hash_verified": false,
+        "version": "0.12.19"
+      },
+      "sha256": "242e462a63f5a3c0421d68557006193ecbfb61321cba0fe8542213ac62d92563"
+    },
+    {
+      "bytes": 120231126,
+      "file": "chrome-headless-shell-linux64.zip",
+      "kind": "browser",
+      "provenance": {
+        "kind": "previously_acquired",
+        "limitation": "Chromium archive digest is local, while extracted executable agrees with prior repository pin; official archive SHA256 remains unavailable.",
+        "publisher_archive_hash_verified": false,
+        "version": "151.0.7922.34"
+      },
+      "sha256": "3cfc2bd00d1bafcf8a68dc74c9c92bb7150ddc8d26ade948a776316e1cec4f14"
+    },
+    {
+      "bytes": 8861572,
+      "file": "git_2.47.3-0+deb13u1_amd64.deb",
+      "kind": "git",
+      "provenance": {
+        "kind": "previously_acquired",
+        "limitation": null,
+        "publisher_archive_hash_verified": true,
+        "version": "2.47.3-0+deb13u1"
+      },
+      "sha256": "3e35662fd5c46add561703e54031a1d8ad9df45811927689f0a51122b13be722"
+    },
+    {
+      "bytes": 75396784,
+      "file": "powershell-7.5.4-linux-x64.tar.gz",
+      "kind": "powershell",
+      "provenance": {
+        "kind": "previously_acquired",
+        "limitation": null,
+        "publisher_archive_hash_verified": true,
+        "version": "7.5.4"
+      },
+      "sha256": "1fd7983fe56ca9e6233f126925edb24bf6b6b33e356b69996d925c4db94e2fef"
+    },
+    {
+      "bytes": 35493698,
+      "file": "python-3.12.10-existing-tree.tar.gz",
+      "kind": "python_science",
+      "provenance": {
+        "historical_provider_record": {
+          "asset": "cpython-3.12.10+20250529-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+          "distribution_id": "debian",
+          "distribution_version": "13",
+          "executable_sha256": "bb51835a056505237a67178912a78185ce18a378d65cc3a97f2bc1ed1629010c",
+          "libc": [
+            "glibc",
+            "2.41"
+          ],
+          "libpython_sha256": "c363ada6e53ebec45d1cfff451d457c90427432f95dffaf1e3153a72dd3ee41e",
+          "machine": "x86_64",
+          "provider": "Astral python-build-standalone CPython",
+          "sha256": "f50d08e0304b15d752b22932047135c1dc02f81977b284e51288be9d90627bca",
+          "source": "https://github.com/astral-sh/python-build-standalone/releases/download/20250529/cpython-3.12.10%2B20250529-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+          "system": "Linux"
+        },
+        "kind": "local_snapshot_of_previously_approved_installed_tree",
+        "upstream_archive_available": false,
+        "upstream_identity_claimed": false
+      },
+      "sha256": "22a087376d956f25598beba21ba56bddafe76b2169a1ba302f6428c57f97e7ac"
+    },
+    {
+      "bytes": 11358,
+      "file": "debian-common-license-Apache-2.0.txt",
+      "kind": "git_apache_notice",
+      "provenance": {
+        "distribution": "Debian common-licenses",
+        "kind": "existing_host_license_text",
+        "notice_name": "Apache-2.0",
+        "role": "satisfies the unchanged Debian Git documentation link; no package scripts executed"
+      },
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "bytes": 17984,
+      "file": "debian-common-license-GPL-2.txt",
+      "kind": "git_gpl_notice",
+      "provenance": {
+        "distribution": "Debian common-licenses",
+        "kind": "existing_host_license_text",
+        "notice_name": "GPL-2",
+        "role": "satisfies the unchanged Debian Git documentation link; no package scripts executed"
+      },
+      "sha256": "edaef632cbb643e4e7a221717a6c441a4c1a7c918e6e4d56debc3d8739b233f6"
+    }
+  ],
+  "network_required": false,
+  "new_acquisition_performed": false,
+  "platform": "Linux x86_64, glibc 2.41 reference; AVX2 and FMA3 required",
+  "python_expected": {
+    "science": {
+      "executable_sha256": "bb51835a056505237a67178912a78185ce18a378d65cc3a97f2bc1ed1629010c",
+      "libpython_sha256": "c363ada6e53ebec45d1cfff451d457c90427432f95dffaf1e3153a72dd3ee41e",
+      "version": "3.12.10"
+    },
+    "wki": {
+      "archive_sha256": "ef605200f8174e87ecfc308e52a88127543f85dd5c940dc5e92cab244b98a003",
+      "executable_sha256": "5ebcd7993f0e40cb4b16e15d2c4c3c343ecad419966299b8e8f6f9e6a36bf779",
+      "files_record_sha256": "1097c4cfc4627ff7bdb6e41ed89dfb4eb9f6b06586609a03a7745b297d44e064",
+      "libpython_sha256": "a9012a93269d50863ff5650422eed367022651090c0848043fc48ab71c9c7fd5",
+      "provider": "Astral python-build-standalone",
+      "release": "20260929",
+      "runtime_admitted": false,
+      "version": "3.12.14"
+    }
+  },
+  "runtime_admitted": false,
+  "schema": "astra-portable-inputs-draft-1",
+  "status": "PROPOSED_NOT_ADMITTED"
+}

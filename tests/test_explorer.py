@@ -278,6 +278,28 @@ def test_media_links_and_motion_defaults() -> None:
             if url.scheme:
                 assert url.scheme == "https"
                 assert tag == "a", "External resources must be links, not runtime requests"
+            elif url.path in {
+                "../../../../assets/astra-midnight-occultation.png",
+                "../../../../assets/midnight-occultation-provenance.json",
+            }:
+                target = ROOT / "docs/assets" / Path(url.path).name
+                assert target.is_file()
+                assert tag == ("img" if target.suffix == ".png" else "a")
+            elif url.path == "../../../../library/":
+                assert tag == "a" and key == "href"
+                assert (ROOT / "docs/library/index.html").is_file()
+            elif url.path in {
+                "../../../../understand/",
+                "../../../../understand/worlds/",
+                "../../../../understand/geometry/",
+            }:
+                from tools.link_audit_common import parse_html
+
+                assert tag == "a" and key == "href"
+                target = ROOT / "docs" / url.path.removeprefix("../../../../") / "index.html"
+                assert target.is_file()
+                if url.fragment:
+                    assert unquote(url.fragment) in parse_html(target).ids
             elif url.path:
                 resolved = (EXPLORER / unquote(url.path)).resolve()
                 assert resolved.is_relative_to(EXPLORER.parent)

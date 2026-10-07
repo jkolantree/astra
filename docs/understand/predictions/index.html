@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Proposed ASTRA tests: assumptions, independent predictions, competing explanations, failure criteria and optional mathematical detail.">
+  <title>Predictions worth testing · Elementary Understanding · ASTRA</title>
+  <link rel="stylesheet" href="../understand.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to reading</a>
+<header><div class="wrap top"><a class="brand" href="../../" aria-label="ASTRA explorer">ASTRA</a><nav aria-label="Main navigation"><a href="../">Elementary Understanding</a><a href="./" aria-current="page">Predictions worth testing</a><a href="../worlds/">Worlds and life</a><a href="../geometry/">Geometry and memory</a><a href="../../library/">Research library</a></nav></div></header>
+<main id="main" class="wrap">
+  <div class="lead">
+    <p class="eyebrow">Elementary Understanding / Test designs</p>
+    <h1>What would make these ideas stand or fall?</h1>
+    <div class="prose">
+      <p>Measure one response, then predict another without giving the model fresh freedom to fit it. These proposals turn that aim into explicit comparisons. The <a href="../#predictions">plain-language overview</a> introduces their implications; this page adds assumptions, alternatives and optional mathematics.</p>
+      <p>Before collecting the decisive data, fix the model, calibration, uncertainty and rejection criteria. An unmeasured loss channel or an insensitive detector makes a result inconclusive. Several proposals still need a suitable apparatus or numerical forecast before they can become complete experiments.</p>
+    </div>
+    <p class="status">Research companion · unpromoted draft, not peer reviewed. Stable core: <a href="../../v1.0.7/preprint/">SPPT/ASTRA v1.0.7</a>.</p>
+  </div>
+  <nav class="contents reading" aria-labelledby="contents-heading"><div><h2 id="contents-heading">Choose a test</h2><ol>
+    <li><a href="#comparison-standard">What would count as an improvement?</a></li>
+    <li><a href="#wave">Phase slowing, ripple growth and drift</a></li>
+    <li><a href="#gradient">Switching off a geometric correction</a></li>
+    <li><a href="#ensemble">A quantum consistency gate</a></li>
+    <li><a href="#boundary">One boundary state, one recovery clock</a></li>
+    <li><a href="#chemistry">Predicting a chemical timing optimum</a></li>
+    <li><a href="#rings">Saturn’s conserved pollution budget</a></li>
+    <li><a href="#grains">Reconstructing Enceladus’s source mixture</a></li>
+    <li><a href="#titan">Testing Titan’s interior independently</a></li>
+    <li><a href="#moon">Validating a lunar archive</a></li>
+    <li><a href="#methane">The hydrogen budget for methane</a></li>
+  </ol></div></nav>
+  <div class="reading">
+    <section id="comparison-standard" aria-labelledby="comparison-heading">
+      <h2 id="comparison-heading">What would count as an improvement?</h2>
+      <p>These tests propose possible advances. An analytical difference between equations, agreement with one observation or failure of a simple baseline does not establish superior prediction. The proposed ASTRA advantages here remain <strong>NOT_ASSESSED</strong> without comparative evidence.</p>
+      <p>Choose credible competitors, including competently tuned best-practice baselines. Fit, calibrate and tune each model only on development data, using model-appropriate procedures and comparable tuning effort. Disclose matched resource budgets and measurement access, plus any remaining differences. Declare parameter ranges, noise and nuisance assumptions, model complexity and regularization.</p>
+      <p>Freeze those choices before testing the same measured quantities on the same held-out data, with uncertainty and a stated performance measure. Hold out whole sources or trajectories where related samples could leak information across the split. A published benchmark reused while designing the model is development evidence. An untuned default is only a reference, not evidence of an advantage over that model family.</p>
+      <p>For boundary memory, include credible conventional multi-state models; a shared clock alone does not exclude them. For SCM, compare tuned cubic NLS/Kerr-medium wave models and physically relevant saturable or derivative alternatives. A demonstrated gain would apply to the tested observables, measurement access and resources. A nominal CMB anomaly likewise needs a specified physical alternative and quantitative comparison before it supports a particular causal theory; <a href="../connections/#cmb">the CMB discussion separates those claims</a>.</p>
+    </section>
+    <section id="wave" aria-labelledby="wave-heading">
+      <h2 id="wave-heading">A slowing wave should predict which ripples grow</h2>
+      <p><strong>Fix the setting.</strong> Use the stated one-dimensional graph equation, a smooth carrier on a periodic track of length L, no potential, a fixed laboratory frame and clock, and small seeded ripples. Calibrate the positive coefficient β in the weak-slope regime. Measure the carrier’s relative phase rate against a declared physical reference before using any growth data.</p>
+      <p><strong>Hold out the answer.</strong> That phase measurement must predict ripple wavelength, exponential growth and drift together. For a two-turn carrier, the first permitted ripple has an onset, a maximum and a decline as phase slows. Independently calibrate damping, noise and other nonlinearities; choose an early-time window before the perturbation becomes large.</p>
+      <p><strong>What could defeat it?</strong> A systematic error in onset, cutoff, growth or drift beyond uncertainty rejects this equation for that apparatus. Exponential growth for a one-turn carrier under the declared conditions would also contradict the stated spectrum. A null without a damping and sensitivity budget is inconclusive.</p>
+      <h3>Optional mathematics: one calibration, several predictions</h3>
+      <p>Let ψ be the complex graph height, a the encoding scale, k = 2πm/L the nonzero carrier wave number and Q = 2πn/L a permitted ripple wave number. Define the measured phase ratio r = Δω/(βk²), with 0 &lt; r ≤ 1. The proposed equation and its linearized predictions are:</p>
+      <p class="formula">iψₜ = −β ∂ₓ[ψₓ / √(1 + a²|ψₓ|²)]<br>
+      s = a²A²k², &nbsp; r = (1 + s)⁻¹ᐟ²<br>
+      γ² = β²Q²r⁴[k²(1 − r²) − Q²]<br>
+      c = βkr(1 + r²), &nbsp; Q²<sub>cutoff</sub> = k²(1 − r²)</p>
+      <p>Here γ is the real exponential growth rate only where the bracket is positive. Outside that band the exponential growth rate is zero; the signed expression describes an oscillatory spectrum. At the cutoff, secular growth can remain, and Q = 0 needs separate treatment. Absence of exponential sidebands is not a nonlinear stability theorem.</p>
+      <p>For m = 2 and |n| = 1, onset is below r = √3/2 ≈ 0.8660. The normalized growth is (r²/2)√(3/4 − r²), reaching 1/8 at r = 1/√2 ≈ 0.7071. It is about 0.10613 at r = 0.8 and 0.08839 at r = 0.5. No permitted nonzero sideband has exponential growth for |m| = 1 at finite slope. The r → 0 limit requires infinite slope.</p>
+      <p>An isolated carrier’s absolute phase is not an operational quantum observable. The constant-plus-carrier family B + A exp[i(kx − ωt)] supplies a mathematical reference for this equation, but the physical reference, populations and readout must be specified. With unit normalization, L(|B|² + |A|²) = 1; a pure carrier has A²L = 1. Amplitude and phase slowing cannot be varied independently with every other parameter fixed.</p>
+      <h3>Competing models and established mathematics</h3>
+      <p>A free linear wave has r = 1 and no such modulational growth. A standard focusing cubic nonlinear Schrödinger (NLS) model with a Kerr-medium response can also grow ripples. “Kerr” here refers to an intensity-dependent wave response in a medium; black-hole Kerr spacetime is a different use of the name. With a common calibrated frequency zero and an external coherent reference, the cubic wave model predicts drift 2βk and growth squared β²Q²[2k²(1 − r) − Q²] inside its unstable band. That growth rises as r falls; it does not reproduce this peak followed by decline. The constant-plus-carrier family is not invariant for that Kerr-medium comparator. These are analytical differences under the stated assumptions. More flexible saturable or derivative nonlinear media may mimic part of the pattern; an empirical comparison must tune credible alternatives and their nuisance effects under the <a href="#comparison-standard">comparison standard</a>.</p>
+      <p>Success would support the specified wave law in the apparatus. WKI equations, filament connections and instability methods have extensive prior art; priority for this test is unestablished. Published no-instability statements in modified-WKI work have not been reconciled with this fixed laboratory-coordinate problem. Transforming coordinates requires transforming the background, time, perturbations and boundary conditions too.</p>
+      <p class="source"><a href="../../resources/sppt-scm-research-companion/draft-v0.1.0/package/research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.pdf">Physics synthesis, sections 3–4, pages 5–10</a> · <a href="https://www.sciencedirect.com/science/article/abs/pii/S0167278918303907">2019 WKI paper</a> · <a href="https://www.mathnet.ru/eng/tmf9197">2017 modified-WKI paper</a> · <a href="https://doi.org/10.1017/S0022112072002307">Hasimoto’s original paper</a>.</p>
+    </section>
+    <section id="gradient" aria-labelledby="gradient-heading">
+      <h2 id="gradient-heading">The arrangement of gradients could switch the correction off</h2>
+      <p><strong>Fix the setting.</strong> Represent the complex graph by two real fields, u and v, on a base with at least two dimensions. Prepare their gradients with equal size while changing the angle between them. Keep their total ordinary gradient energy fixed, and establish how the measured field and energy correspond to this graph.</p>
+      <p><strong>Predict an unused control.</strong> Calibrate the correction on parallel-gradient preparations, then predict the response for other angles. Equal-strength perpendicular gradients across the whole prepared region give an exact instantaneous null of the correction. A zero at one point does not suffice after spatial differentiation, and the arrangement need not survive subsequent evolution.</p>
+      <p><strong>What could defeat it?</strong> A correction that remains in a properly calibrated near-null region beyond preparation and boundary errors, or the wrong controlled angular dependence, defeats this particular graph correction. Linear theory, density-dependent Kerr models and models depending only on total gradient strength are relevant comparisons; a tensorial nonlinear medium may share the directional response.</p>
+      <h3>Optional mathematics: a directional null</h3>
+      <p>Write T = |∇ψ|² and Ξ = ∇ψ · ∇ψ. For equal-strength real and imaginary gradients at angle θ, |Ξ|² = T² cos²θ. The metric determinant and leading energy deficit are:</p>
+      <p class="formula">det g = (1 + a²T/2)² − a⁴|Ξ|²/4<br>
+      H₀ − Hₐ = (ℏ²a²/8m) ∫|Ξ|² dx + O(a⁴)</p>
+      <p>At θ = π/2, the exact local energy density equals its linear value for every slope. If Ξ vanishes throughout a spatial slice, the instantaneous flux and generator also equal the free ones. Feasible boundary conditions still matter: an arbitrary nonconstant exact-null periodic scalar preparation on a flat two-torus is not guaranteed. Measuring graph area alone would check a geometric identity, not a physical energy law. A usable analogue apparatus and observable-energy mapping remain to be established.</p>
+      <p class="source"><a href="../../resources/sppt-scm-research-companion/draft-v0.1.0/package/research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.pdf">Physics synthesis, section 3, pages 5–6</a> · <a href="https://arxiv.org/abs/1502.04525">Song and Sun: skew mean curvature flow</a> · <a href="https://www.math.utoronto.ca/khesin/papers/hasimotoNonlinearity.pdf">Khesin and Yang: limits of a higher-dimensional Hasimoto generalization</a>. These supply mathematical context; no independent priority claim is established.</p>
+    </section>
+    <section id="ensemble" aria-labelledby="ensemble-heading">
+      <h2 id="ensemble-heading">A quantum interpretation must pass a consistency gate</h2>
+      <p>This is a conditional falsification test of applying the nonlinear equation separately to each prepared quantum branch. It is not a positive empirical prediction supplied by a complete SCM quantum theory.</p>
+      <p><strong>State the extra assumptions.</strong> Use deterministic branchwise nonlinear evolution, ordinary quantum measurement probabilities and the specified randomized mixtures. Two different ensembles can have the same initial density matrix. Under the same linear quantum channel they have the same future measured state; the proposed branchwise rule can instead separate their interference signals.</p>
+      <p><strong>Control the preparation.</strong> Matching the reduced density matrix is insufficient if preparation records, relevant environments or system–environment correlations produce different channels. Exclude label-dependent fields, controller memory, residual modes, timing, thermal differences and environmental feedback. Hiding labels from the experimenter alone does not accomplish this. Quantify initial tomography error and measurement visibility; select the readout phase from calibration before unblinding.</p>
+      <h3>Optional mathematics: how large is the conditional difference?</h3>
+      <p>On an interval of length L, use orthonormal modes f₀ = 1/√L and fₖ = exp(ikx)/√L. Compare equal mixtures of {f₀, fₖ} with equal mixtures of χ₁ = √p f₀ + √(1 − p) fₖ and χ₂ = √(1 − p) f₀ − √p fₖ. Both begin at I/2 in this subspace. With Ω₀ = βk² and η = a²k²/L:</p>
+      <p class="formula">Ω(q) = Ω₀ / √(1 + ηq)<br>
+      D(t) = √[p(1 − p)] |sin([Ω(1 − p) − Ω(p)]t/2)|</p>
+      <p>D is the largest absolute difference in the probability of one measurement event. For equally likely hypotheses the optimal single-shot success probability is (1 + D)/2, so the advantage over guessing is D/2.</p>
+      <p>For weak η and early times, the best p is (1 ± 1/√2)/2 and D ≈ βa²k⁴|t|/(16L). A calibrated bound D ≤ ε would then constrain a² ≲ 16εL/(βk⁴|t|), conditional on all those assumptions. That p is not asserted to optimize every finite coupling and time. Later sine zeros can make a null uninformative.</p>
+      <p><strong>What would the outcome mean?</strong> A precise null can reject the branchwise interpretation at the independently phase-calibrated scale, after visibility and noise are included. It does not reject a classical analogue, a different nonlinear completion or stochastic trajectories with linear averaged dynamics. A discrepancy first calls for checks of preparation, channel and model errors; it is not immediate evidence for new quantum dynamics. The underlying ensemble-dependence problem is established prior art.</p>
+      <p class="source"><a href="../../resources/sppt-scm-research-companion/draft-v0.1.0/package/research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.pdf">Physics synthesis, quantum-consistency requirements</a> · <a href="https://arxiv.org/abs/quant-ph/0102125">Simon, Bužek and Gisin: primary foundations result</a>.</p>
+      <p><a href="../connections/">Why a linear holographic encoding does not remove this consistency problem →</a></p>
+    </section>
+    <section id="boundary" aria-labelledby="boundary-heading">
+      <h2 id="boundary-heading">One boundary state should run on one clock</h2>
+      <p><strong>State the additional model.</strong> Suppose one slowly relaxing interface variable controls several measured transport processes in the small-response regime. Once other measured bulk responses are accounted for, that one-state closure predicts a shared relaxation time and a rank-one relation among cross-response amplitudes. The general SPPT framework alone does not impose this closure.</p>
+      <p><strong>Test new responses.</strong> Prepare different boundary histories while matching neighboring bulk conditions. Measure recovery in one channel, then predict the delays and linked cross-responses in other channels. A selective boundary reset should remove the assigned history effect.</p>
+      <p><strong>What could defeat it?</strong> Incompatible recovery times or cross-responses, or an effect that survives a genuinely selective reset contrary to the model, defeat that one-state explanation. A shared clock and rank-one response alone do not exclude conventional multi-state memory. Any claim of better forecasts must include credible fitted multi-state competitors under the <a href="#comparison-standard">comparison standard</a>. Bulk memory, changing contacts and instrumental drift also need controls. A reset that also changes the bulk is not decisive.</p>
+      <p>Boundary memory is familiar in friction, materials and electronics. The proposed advance is identifying one measurable state that predicts several new responses, rather than claiming memory itself is new.</p>
+      <p class="source"><a href="../../v1.0.7/preprint/">SPPT/ASTRA v1.0.7: stateful boundaries</a> · <a href="../geometry/#boundary-memory">Plain-language boundary chapter</a>.</p>
+      <p><a href="../persistence/">A proposed biological coupling-history test →</a></p>
+    </section>
+    <section id="chemistry" aria-labelledby="chemistry-heading">
+      <h2 id="chemistry-heading">A chemical timing optimum must be predicted before it is fitted</h2>
+      <p><strong>Use a specific added closure.</strong> In a simple formation-and-survival model, a reaction has time ℓ/v to form an intermediate and that intermediate must then survive a separate journey of duration d/v. Here v is the front speed, ℓ and d are independently measured distances, and τ<sub>f</sub> and τ<sub>d</sub> are constant formation and decay times. Put α = ℓ/τ<sub>f</sub> and δ = d/τ<sub>d</sub>.</p>
+      <p class="formula">Y/Y<sub>max</sub> = exp(−δ/v) − exp[−(α + δ)/v]<br>
+      v<sub>opt</sub> = α / ln(1 + α/δ), &nbsp; α, δ &gt; 0</p>
+      <p>This toy closure has one interior maximum. It assumes first-order saturating formation followed by a distinct survival interval. Loss during formation, coupled transport, distributed residence times, depletion or speed-dependent conditions can require a different model.</p>
+      <p><strong>Hold out changed conditions.</strong> Measure distances and lifetimes independently. Use them to predict both the best speed and how it shifts as conditions change, with total energy and chemical inventories controlled. A peak alone is nonspecific; missed predicted shifts reject this closure rather than every moving-front mechanism.</p>
+      <p>There is no universal optimum at a timing ratio of one. Choosing the ratio vτ<sub>f</sub>/ℓ gives an optimum 1/ln(1 + α/δ), about 1.44 when α = δ. Without a constraint on α/δ, it can be arbitrarily small or large. With no decay, δ = 0, no finite interior optimum is predicted. An optimum can also fall outside the accessible speed range.</p>
+      <p>Success would show how geological transport could sequence productive chemistry. Related geological concentration and sequencing mechanisms already have experimental support.</p>
+      <p class="source"><a href="../../v1.0.7/preprint/">SPPT/ASTRA v1.0.7, section 18.2</a> · <a href="https://www.nature.com/articles/s41586-024-07193-7">Primary geological chemistry example</a> · <a href="../geometry/#origins">Origins-of-life chapter</a>.</p>
+    </section>
+    <section id="rings" aria-labelledby="rings-heading">
+      <h2 id="rings-heading">Keeping a low bulk pollution fraction requires selective export</h2>
+      <p>This is a conservation test of a specified physical-export explanation for Saturn’s rings. “Cleaning” here means maintaining or lowering a constituent’s <em>bulk mass fraction</em>. Lowering absolute contaminant mass or optical darkness is a different claim.</p>
+      <p>Let M be total mass, x the bulk mass fraction of a conserved constituent, I the total retained input rate and O the total export rate through a declared boundary. Let f<sub>in</sub> and f<sub>out</sub> be their mass-weighted constituent fractions.</p>
+      <p class="formula">dM/dt = I − O<br>
+      M dx/dt = I(f<sub>in</sub> − x) − O(f<sub>out</sub> − x)<br>
+      At steady x and O &gt; 0:<br>
+      f<sub>out</sub> = x + (I/O)(f<sub>in</sub> − x)</p>
+      <p>This relation holds even if total ring mass changes. If retained input is dirtier than the rings, export with the rings’ own composition cannot maintain a steady low x. Actual reduction requires O(f<sub>out</sub> − x) &gt; I(f<sub>in</sub> − x). Physical feasibility also requires f<sub>out</sub> ≤ 1.</p>
+      <p><strong>Measure the whole budget.</strong> Distinguish retained input from raw incident dust; do not count rejected impactor material twice. Include clean replenishment, vapor and ion loss, radial transport, re-accretion and hidden-reservoir exchange. A detected grain sample need not represent the combined export. For variable flows, average constituent fluxes themselves; separately averaged rates and compositions can miss correlations.</p>
+      <p><strong>What could defeat it?</strong> Independently bounded pollutant export too small to balance the retained input rejects that physical-cleaning explanation. Missing loss channels make the test inconclusive. Optical alteration can remove a dark signature without exporting the conserved element; surface colour need not represent bulk x. One present observation does not establish steady composition. This budget cannot by itself determine ring age or exclude optical alteration.</p>
+      <p class="source"><a href="https://arxiv.org/html/2603.04102v1">Ricerchi and Crida: retention versus optical persistence</a> · <a href="https://doi.org/10.3847/PSJ/ae18c1">Cassini dust-halo study</a> · <a href="../worlds/#rings">Planetary chapter</a>.</p>
+    </section>
+    <section id="grains" aria-labelledby="grains-heading">
+      <h2 id="grains-heading">Different grain populations should reconstruct one source mixture</h2>
+      <p>Use known mixtures to calibrate freezing, salt separation, fragmentation, escape and collection. Freeze that source-and-transport model, fit selected grain populations and ask it to predict the others. Different reconstructed source compositions would reject that particular shared-source explanation.</p>
+      <p>Alternative cooling histories, including rapid decompression, and instrument selection must be compared. Unknown detector response or transport losses can prevent a decisive reconstruction. Preliminary conference salt maps made after freeze-drying cannot alone settle the pre-drying distribution.</p>
+      <p>A rich fragment could help guide sampling without representing the ocean average. Matching a common source would validate part of the reconstruction, not identify biology: chemistry without life remains a competing origin for any candidate signal.</p>
+      <p class="source"><a href="https://pubmed.ncbi.nlm.nih.gov/42789710/">Grain-segregation study</a> · <a href="https://meetingorganizer.copernicus.org/EPSC2026/EPSC2026-1326.html">Rapid-decompression conference comparison</a> · <a href="../worlds/#grain-journey">The sample’s journey</a>.</p>
+    </section>
+    <section id="titan" aria-labelledby="titan-heading">
+      <h2 id="titan-heading">Titan’s interior must explain more than the tides used to infer it</h2>
+      <p>The published warm, deformable high-pressure-ice interpretation of Titan’s tidal response implies roughly four trillion watts of heating. Use the same interior family to predict independent seismic signals and how heat escapes, rather than assigning each observation its own interior.</p>
+      <p>A failed independent forecast would force revision of that model or its assumptions. Compare other ice rheologies, dynamical ocean tides, variable dissipation, thermal disequilibrium and tracking-inversion systematics. The published comparison does not exclude every conceivable ocean. Numerical forecast families and quantitative rejection thresholds have not yet been computed here.</p>
+      <p>Success could establish a largely solid but warm, active interior in which strong deformation and heating do not reliably imply a global ocean. It would support that planetary interpretation, not a universal ASTRA law.</p>
+      <p class="source"><a href="https://www.nature.com/articles/s41586-025-09818-x">Titan tidal-response study</a> · <a href="../worlds/#titan">The response-timing chapter</a>.</p>
+    </section>
+    <section id="moon" aria-labelledby="moon-heading">
+      <h2 id="moon-heading">A lunar archive needs delivery, preservation and dates</h2>
+      <p>First use composition-resolved measurements to test predicted present-day delivery of terrestrial ions, including magnetotail crossings and negative-control intervals. Then freeze a species-dependent implantation and preservation model: fit selected isotope measurements and predict unused channels or extraction steps in matched samples.</p>
+      <p>Different elements cannot simply share one mixing fraction. Farside and nearside samples are controlled comparisons, not automatically identical substrates. Thermal-release patterns are not direct depth maps. Solar-wind fractionation, impact material, cosmic rays, mineralogy, gardening, thermal loss and contamination after collection are competing explanations.</p>
+      <p><strong>What could defeat it?</strong> A frozen terrestrial-source model that misses independent isotope or phase predictions while alternatives fit them fails that test. An identifiable terrestrial component without a preserved, dated exposure interval cannot yet supply a historical archive. Neither failure disproves every possible lunar archive.</p>
+      <p>Earth-to-Moon transport and archival applications have already been proposed in published work. The advance sought here is cross-species independent validation. No universal increase in atmospheric escape from magnetization follows: the cited transport model’s fixed-solar-wind comparison found reduced terrestrial flux with magnetization.</p>
+      <p class="source"><a href="https://www.nature.com/articles/s43247-025-02960-4">Earth-to-Moon transport study</a> · <a href="https://www.nature.com/articles/s41561-026-02042-w">Farside noble-gas study</a> · <a href="../worlds/#moon">The Moon chapter</a>.</p>
+    </section>
+    <section id="methane" aria-labelledby="methane-heading">
+      <h2 id="methane-heading">A methane explanation cannot spend hydrogen twice</h2>
+      <p>Sustained hydrogenotrophic methanogenesis requires four moles of hydrogen for each mole of newly produced methane. Once changing inventories and other pathways are bounded, the methane-production rate cannot exceed one quarter of the independently available hydrogen-supply rate.</p>
+      <p>Transport-corrected plume release is not automatically current production. Storage, clathrate release, dissolution and other sinks belong in the inventory. Constrain geological hydrogen supply independently of the methane fit, then predict methane, remaining hydrogen and carbon transformations. Laboratory tests need naturally justified replenishment rates, sterile controls and isotope tracing.</p>
+      <p>If the assigned steady biological contribution needs more hydrogen than the bounded supply permits, that pathway fails its budget. This does not reject life generally. Abiotic methane can share the same stoichiometry; primordial release, other metabolisms and transient depletion are alternatives. Staying within the bound is necessary, not evidence for organisms.</p>
+      <p>The cited Earth-microbe experiment used 60 mM dissolved Fe(II), above predicted natural-fluid concentrations, to accelerate hydrogen production. It demonstrated compatibility in that mixture, not an Enceladus biomass or replenishment budget.</p>
+      <p class="source"><a href="https://pmc.ncbi.nlm.nih.gov/articles/pmid/42789704/">Methanogenesis experiment</a> · <a href="../worlds/#microbial-experiment">What the laboratory result adds</a>.</p>
+    </section>
+    <section id="sources" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">What has been checked</h2>
+      <p>The supplied 6 October 2026 algebra review checked the wave spectrum, ensemble distance, moving-front optimum and conserved ring budget. The directional-gradient and boundary-memory protocols were outside that independent audit’s scope. The calculations are conditional deductions and added closures, not experimental replications or literature-priority determinations.</p>
+      <p>The full transformed-background comparison with modified-WKI stability claims remains open. Planetary access limits remain those described in the <a href="../worlds/#sources">planetary chapter</a>: ring-halo and grain-segregation supplementary material was not independently replayed, and the rapid-freezing comparison is conference evidence. Frozen companion reports retain their original scope.</p>
+      <p>The existing quantum-recurrence experiment has no established distinct ASTRA prediction here. Its ordinary quantum dynamics and stated controller supply the baseline. Any proposed comparison must match its measured quantity, preparation and control process.</p>
+    </section>
+    <nav class="chapter-links next" aria-label="Continue reading"><a href="../#predictions">← Predictions in plain language</a><a href="../worlds/">Worlds and life</a><a href="../geometry/">Geometry and memory</a></nav>
+  </div>
+</main>
+<footer class="wrap"><a href="../../">ASTRA explorer</a> · <a href="../../library/">Research library and citation status</a></footer>
+</body>
+</html>

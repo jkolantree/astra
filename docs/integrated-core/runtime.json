@@ -1,0 +1,11 @@
+{
+  "status": "PROPOSED_SPLIT_RUNTIME_NOT_ADMITTED",
+  "runtime_admitted": false,
+  "source_admitted": false,
+  "science_python": "3.12.10",
+  "wki_python": "3.12.14",
+  "contract": "resources/integrated-edition-proposal/RUNTIME_PROPOSAL.json",
+  "reason": "Retain scientific interpreter and unchanged WKI report validator; observed split route is not unified runtime admission.",
+  "historical_windows_scientific_comparison": "FAIL_PRESERVED",
+  "full_release_runtime_pass": false
+}

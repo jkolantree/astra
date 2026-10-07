@@ -122,6 +122,15 @@ def test_replay_records_failure_without_overwriting_historical_inputs(
     writer = PdfWriter()
     writer.add_blank_page(width=200, height=200)
     writer.write(root / atlas / "dark-medium-response-atlas-v0.1.0.pdf")
+    import hashlib
+
+    expected = {path.relative_to(root).as_posix(): verify_linux.digest(path)
+                for path in (root / atlas).iterdir()}
+    expected["data/fit.csv"] = hashlib.sha256(b"value\n2.0\n").hexdigest()
+    (root / "evidence").mkdir()
+    (root / "evidence/linux-research-v1.json").write_text(
+        json.dumps({"output_sha256": expected})
+    )
     paths = [path for path in root.rglob("*") if path.is_file()]
     monkeypatch.setattr(verify_linux, "ROOT", root)
     monkeypatch.setattr(verify_linux, "PROFILE", profile)
@@ -135,6 +144,14 @@ def test_replay_records_failure_without_overwriting_historical_inputs(
             destination = Path(command[3]).parents[1]
             value = count + 1 if unstable else 2
             (destination / "data/fit.csv").write_text(f"value\n{value}.0\n")
+        else:
+            destination = Path(command[3]).parents[1]
+            for name in ("html-accessibility.json", "pdf-inspection.json"):
+                (destination / atlas / name).write_text("{}\n")
+            (destination / atlas / "dark-medium-response-atlas-v0.1.0.html").write_text("fixed HTML")
+            produced = PdfWriter()
+            produced.add_blank_page(width=200, height=200)
+            produced.write(destination / atlas / "dark-medium-response-atlas-v0.1.0.pdf")
 
     monkeypatch.setattr(verify_linux.subprocess, "run", build)
     if unstable or historical_required:

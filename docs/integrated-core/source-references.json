@@ -1,0 +1,320 @@
+{
+  "scope": "Factual metadata and bounded independent source analysis; identity verification is not full-text, artifact, empirical, novelty or runtime admission. No third-party article or data bytes bundled.",
+  "references": [
+    {
+      "id": "paper:10.1126/sciadv.aee7256",
+      "url": "https://doi.org/10.1126/sciadv.aee7256",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 1,
+      "title": "Cassini CDA observes compositional segregation of Enceladus’ ice grains from slow freezing and fragmentation of oceanic spray",
+      "authors_display": "Frank Postberg et al.",
+      "bibliographic_version": "Science Advances 12(39), eaee7256; 25 September 2026",
+      "access_scope": "Published journal article; PubMed abstract inspected; publisher retrieval failed and PMC browser check; full text, supplement and license unverified.",
+      "verified_source_url": "https://pubmed.ncbi.nlm.nih.gov/42789710/",
+      "support_scope": "Grain heterogeneity and proposed freezing/fragmentation motivate source reconstruction. The complete transport, selection and detector inverse chain is not established by the abstract.",
+      "unresolved": "Full instrument response, uncertainty and identifiability of the complete chain remain unresolved.",
+      "relation_to_core": "direct-domain-question",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC001"
+      ]
+    },
+    {
+      "id": "paper:10.1073/pnas.2615377123",
+      "url": "https://doi.org/10.1073/pnas.2615377123",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 2,
+      "title": "Visible light leaves evaporation and interfacial structure of neat water unchanged at the air–water interface",
+      "authors_display": "Yucong Chen et al.",
+      "bibliographic_version": "PNAS 123(38), e2615377123; online 14 September, issue 22 September 2026",
+      "access_scope": "Published article; CC BY 4.0; indexed PMC methods/results inspected, direct browser check; supplement not inspected.",
+      "verified_source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13598155/",
+      "support_scope": "No measurable enhancement or structural change under the tested planar neat-water conditions. This bounded negative result must accompany the 2024 positive claim; it does not cover every material or geometry.",
+      "unresolved": "Supplement detection limits and matched-protocol reconciliation remain unresolved.",
+      "relation_to_core": "method-transfer",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC002"
+      ]
+    },
+    {
+      "id": "paper:10.1073/pnas.2320844121",
+      "url": "https://doi.org/10.1073/pnas.2320844121",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 3,
+      "title": "Photomolecular effect: Visible light interaction with air–water interface",
+      "authors_display": "Guangxin Lv; Yaodong Tu; James H. Zhang; Gang Chen",
+      "bibliographic_version": "PNAS 121(18), e2320844121; online 23 April, issue 30 April 2024",
+      "access_scope": "Published article; CC BY-NC-ND 4.0; indexed PMC sections inspected, direct browser check; supplement not inspected.",
+      "verified_source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11067046/",
+      "support_scope": "Authors report enhanced evaporation under particular illumination and removal conditions. Nonthermal cluster ejection is a disputed interpretation; the thermal-limit comparison depends on absorbed fraction.",
+      "unresolved": "Independent reanalysis and matched absorption, illumination, temperature, humidity, geometry and transport controls are needed.",
+      "relation_to_core": "method-transfer",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC002"
+      ]
+    },
+    {
+      "id": "paper:10.1038/s41467-026-77933-y",
+      "url": "https://doi.org/10.1038/s41467-026-77933-y",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 4,
+      "title": "Largest eigenvalue statistics of wavefront shaping in complex scattering media",
+      "authors_display": "Grégory Schehr; Hasan Yılmaz",
+      "bibliographic_version": "Nature Communications 17, 10129; 30 September 2026",
+      "access_scope": "Version of Record; CC BY 4.0; publisher Results/Discussion/Methods inspected; supplements not inspected; raw matrices on request.",
+      "verified_source_url": "https://www.nature.com/articles/s41467-026-77933-y",
+      "support_scope": "Finite-channel distribution theory applies when long-range correlations are negligible; excess fluctuations appear in strongly scattering cases. Finite channel count is not a general detector-aperture correction theorem.",
+      "unresolved": "Correlated extreme-eigenvalue prediction, detector-specific mapping and raw-data reproduction remain open.",
+      "relation_to_core": "direct-domain-question",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC003"
+      ]
+    },
+    {
+      "id": "paper:10.1103/jtkh-9lz5",
+      "url": "https://doi.org/10.1103/jtkh-9lz5",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 5,
+      "title": "Singular Basins in Multiscale Systems: Tunneling between Stable States",
+      "authors_display": "S. Yanchuk; S. Wieczorek; H. Jardón-Kojakhmetov; H. Alkhayuon",
+      "bibliographic_version": "Physical Review Letters 137, 147202; published 28 September, issue 2 October 2026",
+      "access_scope": "Published article; CC BY 4.0; seven-page publisher PDF inspected; supplement not inspected.",
+      "verified_source_url": "https://journals.aps.org/prl/abstract/10.1103/jtkh-9lz5",
+      "support_scope": "Singular funnels can change full-system basin geometry relative to a reduced model. This challenges a basin-preservation assumption; it does not show that ASTRA has or avoids such funnels.",
+      "unresolved": "Specify target equations, small parameter, perturbations and time horizon. Asymptotic basins are not finite observation-time guarantees.",
+      "relation_to_core": "method-transfer",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC004"
+      ]
+    },
+    {
+      "id": "paper:10.1103/PhysRevLett.133.237401",
+      "url": "https://doi.org/10.1103/PhysRevLett.133.237401",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 6,
+      "title": "Canard Cascading in Networks with Adaptive Mean-Field Coupling",
+      "authors_display": "Juan Balzer; Rico Berner; Kathy Lüdge; Sebastian Wieczorek; Jürgen Kurths; Serhiy Yanchuk",
+      "bibliographic_version": "Physical Review Letters 133, 237401; published 2 December, issue 6 December 2024",
+      "access_scope": "APS abstract inspected; journal PDF failed; Cork identifies an accepted manuscript not fetched; arXiv:2407.20758v1 is a separate preprint.",
+      "verified_source_url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.133.237401",
+      "support_scope": "Adaptive laser networks exhibit sequential slow-fast switching through canard dynamics. The example is not a basin-preservation theorem.",
+      "unresolved": "Journal full text and supplements are needed before assigning finite-timescale thresholds to the target model.",
+      "relation_to_core": "method-transfer",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC004"
+      ]
+    },
+    {
+      "id": "paper:10.1038/s41612-026-01382-z",
+      "url": "https://doi.org/10.1038/s41612-026-01382-z",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 7,
+      "title": "Anthropogenic warming-driven atmospheric circulation shifts and angular momentum increase: influence on the Earth’s rotation",
+      "authors_display": "Susmit Subhransu Satpathy et al.",
+      "bibliographic_version": "npj Climate and Atmospheric Science 9, 101; first publication 20 March; Version of Record 22 April 2026",
+      "access_scope": "Publisher full text inspected; Crossmark current in the audit; CC BY-NC-ND 4.0; earlier unedited PDF is a different version; code on request.",
+      "verified_source_url": "https://www.nature.com/articles/s41612-026-01382-z",
+      "support_scope": "Explicit atmospheric mass/motion bookkeeping and a simplified atmosphere/shell exchange motivate reservoir accounting. The scenarios do not certify an arbitrary combined rotation budget.",
+      "unresolved": "Combining with surface-mass transport requires compatible baselines, loading and pressure conventions and overlap checks.",
+      "relation_to_core": "direct-domain-question",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC005"
+      ]
+    },
+    {
+      "id": "paper:10.1073/pnas.2406930121",
+      "url": "https://doi.org/10.1073/pnas.2406930121",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 8,
+      "title": "The increasingly dominant role of climate change on length of day variations",
+      "authors_display": "Mostafa Kiani Shahvandi; Surendra Adhikari; Mathieu Dumberry; Siddhartha Mishra; Benedikt Soja",
+      "bibliographic_version": "PNAS 121(30), e2406930121; online 15 July, issue 23 July 2024",
+      "access_scope": "Published article; CC BY-NC-ND 4.0; ETH-hosted publisher PDF inspected (cover plus seven article pages); supplement not inspected.",
+      "verified_source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11287281/",
+      "support_scope": "Surface-mass contributions are compared with satellite-laser-ranging J2 and residual GIA treatment. Our accounting inference is that geodetic observables constrain a budget rather than form extra reservoirs.",
+      "unresolved": "Joint accounting still requires shared conventions, covariance and explicit overlap tests.",
+      "relation_to_core": "direct-domain-question",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC005"
+      ]
+    },
+    {
+      "id": "paper:10.1016/j.cub.2026.07.056",
+      "url": "https://doi.org/10.1016/j.cub.2026.07.056",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 9,
+      "title": "An anatomical map of squid lateral lines",
+      "authors_display": "Haoming Wang; Carsten Wolff; Nicolas Pintozzi; Anna-Maria Petriv; Brian M. McDermott Jr.",
+      "bibliographic_version": "Current Biology 36(18), R971–R972; 21 September 2026",
+      "access_scope": "Published article; PubMed bibliography/abstract inspected; publisher full text failed; license, supplement and perturbation protocol unverified.",
+      "verified_source_url": "https://pubmed.ncbi.nlm.nih.gov/42767195/",
+      "support_scope": "An anatomical map and projections in Doryteuthis pealeii paralarvae motivate functional tests. The likely sensory function is not a measured frequency-tuning law or demonstrated intervention effect.",
+      "unresolved": "Within-species response and perturbation evidence is needed; no human-hearing or cross-species mechanism transfer is established.",
+      "relation_to_core": "method-transfer",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC006"
+      ]
+    },
+    {
+      "id": "paper:10.1016/j.cub.2024.09.016",
+      "url": "https://doi.org/10.1016/j.cub.2024.09.016",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 10,
+      "title": "Auditory pathway for detection of vibration in the tokay gecko",
+      "authors_display": "Dawei Han; Catherine E. Carr",
+      "bibliographic_version": "Current Biology 34(21), 4908–4919.e3; online 4 October, issue 4 November 2024",
+      "access_scope": "PMC text is an author manuscript, available 4 November 2025, not publisher Version of Record. Dataset v1 landing page inspected, raw downloads/code not inspected.",
+      "verified_source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11537832/",
+      "support_scope": "Tract tracing and single-unit recordings connect anatomy with low-frequency vibration responses. Selectively altering the anatomy requires a separate causal experiment.",
+      "unresolved": "Mendeley r6fnxpnmmc/1 lists raw recordings under CC BY 4.0; actual bytes and analysis code need verification.",
+      "relation_to_core": "method-transfer",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC006"
+      ]
+    },
+    {
+      "id": "paper:10.1103/6wcm-z333",
+      "url": "https://doi.org/10.1103/6wcm-z333",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 11,
+      "title": "Thermodynamic Signatures of Sensing and Amplification by Periodically Driven Hair-Cell Bundles",
+      "authors_display": "Yanathip Thipmaungprom; Laila Saliekh; Rodrigo Alonso; Édgar Roldán; Florian Berger; Roman Belousov",
+      "bibliographic_version": "PRX Life 4, 013039; 31 March 2026",
+      "access_scope": "Publisher 13-page PDF inspected; CC BY 4.0. Supplement link redirected to article; individual data files not verified.",
+      "verified_source_url": "https://journals.aps.org/prxlife/abstract/10.1103/6wcm-z333",
+      "support_scope": "Bullfrog recordings inform a stochastic model with distinct energy-flow regimes under forcing. Separate measured outputs from latent model states and predictions.",
+      "unresolved": "This is not a squid/gecko perturbation study; no paper efficiency is ASTRA performance. Target-system transfer remains untested.",
+      "relation_to_core": "method-transfer",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC006"
+      ]
+    },
+    {
+      "id": "paper:10.1038/s41598-026-65147-7",
+      "url": "https://doi.org/10.1038/s41598-026-65147-7",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 12,
+      "title": "The role of group attachment security in minority opinion expression in decision making groups",
+      "authors_display": "Tae Hyun Kim; Sujin Lee; Zoe Kinias; Seungwon Jeong",
+      "bibliographic_version": "Scientific Reports; published 4 August 2026; final volume/article number unverified",
+      "access_scope": "Publisher explicitly labels early peer-reviewed accepted version, to be replaced by final Version of Record; abstract inspected; linked PDF failed; underlying data access unverified.",
+      "verified_source_url": "https://www.nature.com/articles/s41598-026-65147-7",
+      "support_scope": "Two experiments concern dissent focus, persuasiveness and uptake. Argument quality differs and omnibus interactions are generally non-significant. These outcomes are not independently verified correction quality.",
+      "unresolved": "A protected-challenge test needs matched resources, randomized conditions, independent answers, blinded scoring and false-correction costs.",
+      "relation_to_core": "method-transfer",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC007"
+      ]
+    },
+    {
+      "id": "paper:10.1098/rspb.2026.1077",
+      "url": "https://doi.org/10.1098/rspb.2026.1077",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 13,
+      "title": "Mini-breaths and vocal-fry-like laryngeal register alleviate respiratory constraints on tokay (Gekko gecko) mating vocalizations",
+      "authors_display": "Mathilde S. Fuglsang Thastum; Danuta M. Wisniewska; Jakob Christensen-Dalsgaard; Coen P. H. Elemans",
+      "bibliographic_version": "Proceedings of the Royal Society B 293(2079), 20261077; 23 September 2026",
+      "access_scope": "PubMed abstract inspected; publisher/university full-text retrieval failed; final CC BY PDF listing does not verify its bytes.",
+      "verified_source_url": "https://pubmed.ncbi.nlm.nih.gov/42772768/",
+      "support_scope": "Calling/respiratory associations and interpretation strength make a source-tracing case. Zenodo v1 lists 370.9 MB; v2 rendered a 7.2 kB README listing, which does not prove deletion or completeness.",
+      "unresolved": "Pin an exact statement, analysis and dataset version; retrieve/hash bytes. Listing and availability statements are not a completed provenance test.",
+      "relation_to_core": "source-version-tracing-test-case",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC008"
+      ]
+    },
+    {
+      "id": "paper:10.1103/drzq-lfn5",
+      "url": "https://doi.org/10.1103/drzq-lfn5",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 14,
+      "title": "Observation of Time-Reversal Symmetry Breaking in the Type-I Superconductor YbSb2",
+      "authors_display": "Anshu Kataria et al.",
+      "bibliographic_version": "Physical Review Letters 137, 136002; published 23 September 2026",
+      "access_scope": "Published APS abstract inspected; full text and supplements require subscription. arXiv:2601.07460v1 (12 January 2026) is a distinct preprint, not the journal version.",
+      "verified_source_url": "https://journals.aps.org/prl/abstract/10.1103/drzq-lfn5",
+      "support_scope": "Published language treats topological superconductivity/Majorana modes as possibilities; the preprint claims more strongly. Bind claim strength to version; broken time-reversal symmetry is not reversal of time or observed Majorana modes.",
+      "unresolved": "Exact source location and artifact bytes remain to be verified for a target provenance evaluation.",
+      "relation_to_core": "source-version-tracing-test-case",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC008"
+      ]
+    },
+    {
+      "id": "paper:10.1103/4dyc-z8zf",
+      "url": "https://doi.org/10.1103/4dyc-z8zf",
+      "status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "empirical_support_for_core": false,
+      "pointer": 15,
+      "title": "Dark Matter Search Results from 4.2 Tonne–Years of Exposure of the LUX-ZEPLIN (LZ) Experiment",
+      "authors_display": "J. Aalbers et al. (LZ Collaboration)",
+      "bibliographic_version": "Physical Review Letters 135, 011802; published 1 July, issue 2 July 2025; corrected 13 August 2025",
+      "access_scope": "Publisher 11-page PDF inspected; CC BY 4.0; correction concerns a production typo in an inline equation after Table I. Supplement/raw-data reanalysis not performed.",
+      "verified_source_url": "https://journals.aps.org/prl/abstract/10.1103/4dyc-z8zf",
+      "support_scope": "No excess over expected backgrounds and exclusion constraints, not a discovery. Use the corrected article as a version-grounding test; the correction does not imply changed detection conclusions.",
+      "unresolved": "A DOI is not an immutable byte identity. Pin selected corrected equation and supporting files; no local article/data hashes were computed in the citation audit.",
+      "relation_to_core": "source-version-tracing-test-case",
+      "checked_date": "2026-10-06",
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "bridge_ids": [
+        "BC008"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1097 @@
+{
+  "diagrams": [
+    {
+      "claim_status": "implemented synthetic fixture",
+      "edges": [
+        [
+          0,
+          1,
+          ""
+        ],
+        [
+          1,
+          2,
+          ""
+        ],
+        [
+          2,
+          3,
+          ""
+        ]
+      ],
+      "equation": "physical mass → declared response → expected counts → record-equivalents",
+      "id": "01_typed_pipeline",
+      "nodes": [
+        {
+          "body": "Two tracer reservoirs\nclosed linear exchange",
+          "title": "Preparation"
+        },
+        {
+          "body": "Fractional sample capture\nnormalized boundary drive",
+          "title": "Capture / context"
+        },
+        {
+          "body": "Discrete context channel\nexpected detector counts",
+          "title": "Observation"
+        },
+        {
+          "body": "Expected record-equivalents\nretention reset",
+          "title": "Archive"
+        }
+      ],
+      "scope": "Arrows denote declared interfaces, not one shared microscopic law. No fitted or observed data.",
+      "sources": [
+        {
+          "path": "src/integrated_case.py",
+          "sha256": "c39d7dd1cb670664871f711c30f4da34719ae3c786c146d5b70db74f41c15834"
+        },
+        {
+          "path": "docs/integrated-core/model-contract.md",
+          "sha256": "3d30a4eff3f8a75d14959b79f7ff628a459bcbd6639aed77fb621f6ae76239d5"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        },
+        {
+          "path": "tests/test_integration.py",
+          "sha256": "78bb0d4d28f3ca2624a29a010ce42c0347872701e906357a13694b9b371e7750"
+        }
+      ],
+      "title": "One synthetic integrated pipeline",
+      "related_scoped_claims": [
+        {
+          "claim_id": "Layers:C-01",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.CommonContractTests.test_wrong_units_quantity_basis_and_space_rejected"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "Gamma:C2",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.IntegratedCaseTests.test_capture_reallocates_existing_mass"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "Gamma:C6",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.IntegratedCaseTests.test_boundary_exact_matches_independent_numerical_path"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "Xi:C4",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.IntegratedCaseTests.test_context_memory_changes_observation_and_keeps_mass_fixed"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "october_framework:RI001",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.CommonContractTests.test_first_moments_do_not_supply_a_likelihood_or_exclusion"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "Layers:C-05",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.IntegratedCaseTests.test_record_reset_matches_independent_weighted_sum"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "implemented mass ledger",
+      "edges": [
+        [
+          0,
+          1,
+          "exchange"
+        ],
+        [
+          1,
+          0,
+          "exchange"
+        ],
+        [
+          1,
+          2,
+          "capture split"
+        ],
+        [
+          1,
+          3,
+          "capture split"
+        ]
+      ],
+      "equation": "dm0/dt = −k(m0 − m1);   dm1/dt = +k(m0 − m1)",
+      "id": "02_reservoir_capture",
+      "nodes": [
+        {
+          "body": "Tracer mass m0 [kg]",
+          "title": "Reservoir 0"
+        },
+        {
+          "body": "Tracer mass m1 [kg]",
+          "title": "Reservoir 1"
+        },
+        {
+          "body": "(1 − f) of selected sample",
+          "title": "Remaining"
+        },
+        {
+          "body": "f of selected sample",
+          "title": "Captured"
+        }
+      ],
+      "scope": "Equal unit capacities and a closed two-reservoir fixture. Capture redistributes declared mass; it does not create it.",
+      "sources": [
+        {
+          "path": "src/integrated_case.py",
+          "sha256": "c39d7dd1cb670664871f711c30f4da34719ae3c786c146d5b70db74f41c15834"
+        },
+        {
+          "path": "src/astra_reservoir.py",
+          "sha256": "7603f8610d349d69668d5b6ff1e8e005d5d35869463d27cf600c11eb90da0ab7"
+        },
+        {
+          "path": "src/boundary_state.py",
+          "sha256": "9cca6d2ab9deaa652a0041afa7c95bce70f6f4b86291c6a7e5a073c0ab0156af"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        },
+        {
+          "path": "tests/test_integration.py",
+          "sha256": "78bb0d4d28f3ca2624a29a010ce42c0347872701e906357a13694b9b371e7750"
+        }
+      ],
+      "title": "Conservative preparation and capture",
+      "related_scoped_claims": [
+        {
+          "claim_id": "Gamma:C2",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.IntegratedCaseTests.test_capture_reallocates_existing_mass"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "implemented engineering contract",
+      "edges": [
+        [
+          0,
+          1,
+          ""
+        ],
+        [
+          1,
+          2,
+          ""
+        ],
+        [
+          2,
+          3,
+          ""
+        ]
+      ],
+      "equation": "physical transport cannot cast mass into counts or energy",
+      "id": "03_quantity_contract",
+      "nodes": [
+        {
+          "body": "Space · quantity · unit\nordered basis · finite values",
+          "title": "Input identity"
+        },
+        {
+          "body": "Edge type and mechanism\nmodel identity and claim keys",
+          "title": "Stage contract"
+        },
+        {
+          "body": "All type coordinates match\ncontext declared separately",
+          "title": "Composition"
+        },
+        {
+          "body": "Only named ledger checks\nexplicit failure scope",
+          "title": "Certificate"
+        }
+      ],
+      "scope": "Type agreement is an engineering condition; it does not calibrate a detector or establish physical validity.",
+      "sources": [
+        {
+          "path": "src/core_contracts.py",
+          "sha256": "716b80c8c39cc43357f7095b9a591990a3724652c3bb9b012252a84bc31035c0"
+        },
+        {
+          "path": "src/integrated_case.py",
+          "sha256": "c39d7dd1cb670664871f711c30f4da34719ae3c786c146d5b70db74f41c15834"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        },
+        {
+          "path": "tests/test_integration.py",
+          "sha256": "78bb0d4d28f3ca2624a29a010ce42c0347872701e906357a13694b9b371e7750"
+        }
+      ],
+      "title": "Types constrain each interface",
+      "related_scoped_claims": [
+        {
+          "claim_id": "Layers:C-01",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.CommonContractTests.test_wrong_units_quantity_basis_and_space_rejected"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "Layers:C-06",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.IntegratedCaseTests.test_corrupt_conservation_path_fails"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "bounded linear model",
+      "edges": [
+        [
+          0,
+          1,
+          "drive"
+        ],
+        [
+          0,
+          2,
+          "direct"
+        ],
+        [
+          1,
+          2,
+          "coupling"
+        ],
+        [
+          2,
+          3,
+          "readout"
+        ]
+      ],
+      "equation": "a = bulk_decay; c = boundary_to_bulk; d = direct_gain; q = boundary_drive",
+      "id": "04_boundary_response",
+      "nodes": [
+        {
+          "body": "Captured mass / reference mass\nconstant during this exposure",
+          "title": "Declared forcing u"
+        },
+        {
+          "body": "db/dt = (q u − b) / τ\nfinite relaxation time τ > 0",
+          "title": "Boundary state b"
+        },
+        {
+          "body": "dx/dt = −a x + c b + d u\na > 0",
+          "title": "Bulk context x"
+        },
+        {
+          "body": "Bulk x feeds discrete channel\nno mass-to-count transport",
+          "title": "Output context"
+        }
+      ],
+      "scope": "This is the selected synthetic constitutive model. It is not a universal interface law or calibrated response.",
+      "sources": [
+        {
+          "path": "src/boundary_state.py",
+          "sha256": "9cca6d2ab9deaa652a0041afa7c95bce70f6f4b86291c6a7e5a073c0ab0156af"
+        },
+        {
+          "path": "src/integrated_case.py",
+          "sha256": "c39d7dd1cb670664871f711c30f4da34719ae3c786c146d5b70db74f41c15834"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        },
+        {
+          "path": "tests/test_integration.py",
+          "sha256": "78bb0d4d28f3ca2624a29a010ce42c0347872701e906357a13694b9b371e7750"
+        }
+      ],
+      "title": "A relaxing boundary is an explicit state",
+      "related_scoped_claims": [
+        {
+          "claim_id": "Gamma:C6",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.IntegratedCaseTests.test_boundary_exact_matches_independent_numerical_path"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "bounded discrete recurrence",
+      "edges": [
+        [
+          0,
+          2,
+          "direct"
+        ],
+        [
+          1,
+          2,
+          "memory"
+        ],
+        [
+          0,
+          3,
+          "drive"
+        ],
+        [
+          1,
+          3,
+          "persistence"
+        ]
+      ],
+      "equation": "y[n] = offset + direct_gain x[n] + memory_gain m[n] + interaction_gain x[n] m[n]",
+      "id": "05_discrete_memory",
+      "nodes": [
+        {
+          "body": "Bulk context at sample n",
+          "title": "Input x[n]"
+        },
+        {
+          "body": "Memory before the update",
+          "title": "Stored m[n]"
+        },
+        {
+          "body": "Direct + memory + interaction\nplus declared offset",
+          "title": "Output y[n]"
+        },
+        {
+          "body": "m[n+1] = r m[n] + d x[n]\n0 ≤ r < 1",
+          "title": "Next memory"
+        }
+      ],
+      "scope": "Persistence belongs to the declared interval; changing the grid is not automatically the same physical model.",
+      "sources": [
+        {
+          "path": "src/coupling_state.py",
+          "sha256": "cb84537ce762107d0ec81cb6b88a2b09cc1ea3fafd3642ff132da25b5596fe7f"
+        },
+        {
+          "path": "src/integrated_case.py",
+          "sha256": "c39d7dd1cb670664871f711c30f4da34719ae3c786c146d5b70db74f41c15834"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        },
+        {
+          "path": "tests/test_integration.py",
+          "sha256": "78bb0d4d28f3ca2624a29a010ce42c0347872701e906357a13694b9b371e7750"
+        }
+      ],
+      "title": "Memory is per exposure interval",
+      "related_scoped_claims": [
+        {
+          "claim_id": "Xi:C4",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.IntegratedCaseTests.test_context_memory_changes_observation_and_keeps_mass_fixed"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "implemented first moment only",
+      "edges": [
+        [
+          0,
+          1,
+          "input"
+        ],
+        [
+          1,
+          2,
+          "known efficiency"
+        ],
+        [
+          1,
+          3,
+          "unknown efficiency"
+        ]
+      ],
+      "equation": "expected count = mass × count-per-kg response × effective efficiency",
+      "id": "06_first_moment_observation",
+      "nodes": [
+        {
+          "body": "Same non-destructive sample\nreused each exposure",
+          "title": "Captured mass"
+        },
+        {
+          "body": "Declared count/kg scale\nefficiency / (1 + context)",
+          "title": "Detector response"
+        },
+        {
+          "body": "Expected count per interval\nzero is a valid expectation",
+          "title": "First moment"
+        },
+        {
+          "body": "Unavailable expectation\nno invented archive stock",
+          "title": "Missing efficiency"
+        }
+      ],
+      "scope": "This does not specify Poisson noise, realized observations, likelihoods, posterior odds or null exclusion.",
+      "sources": [
+        {
+          "path": "src/core_contracts.py",
+          "sha256": "716b80c8c39cc43357f7095b9a591990a3724652c3bb9b012252a84bc31035c0"
+        },
+        {
+          "path": "src/integrated_case.py",
+          "sha256": "c39d7dd1cb670664871f711c30f4da34719ae3c786c146d5b70db74f41c15834"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        },
+        {
+          "path": "tests/test_integration.py",
+          "sha256": "78bb0d4d28f3ca2624a29a010ce42c0347872701e906357a13694b9b371e7750"
+        }
+      ],
+      "title": "Expected counts need an observation law",
+      "related_scoped_claims": [
+        {
+          "claim_id": "october_framework:RI001",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.CommonContractTests.test_first_moments_do_not_supply_a_likelihood_or_exclusion"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "implemented expected-stock ledger",
+      "edges": [
+        [
+          0,
+          1,
+          ""
+        ],
+        [
+          1,
+          2,
+          ""
+        ],
+        [
+          2,
+          3,
+          ""
+        ]
+      ],
+      "equation": "one expected count maps to one expected record-equivalent in this toy adapter",
+      "id": "07_expected_archive",
+      "nodes": [
+        {
+          "body": "Expected count in each bin",
+          "title": "Interval expectation"
+        },
+        {
+          "body": "Bin expectation / duration\nno-leak archive model",
+          "title": "Production rate"
+        },
+        {
+          "body": "Keep declared fraction\nrecord erased expectation",
+          "title": "Retention reset"
+        },
+        {
+          "body": "Stock = produced − erased\nrecord-equivalent units",
+          "title": "Ledger closure"
+        }
+      ],
+      "scope": "Record-equivalents are neither physical mass nor measured records. Missingness does not identify its cause.",
+      "sources": [
+        {
+          "path": "src/integrated_case.py",
+          "sha256": "c39d7dd1cb670664871f711c30f4da34719ae3c786c146d5b70db74f41c15834"
+        },
+        {
+          "path": "docs/integrated-core/scientific-boundaries.md",
+          "sha256": "ae3b5fd4d1d3ca054ae45e4af0824407d03223da2f7bb03903fd2ed5588332b0"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        },
+        {
+          "path": "tests/test_integration.py",
+          "sha256": "78bb0d4d28f3ca2624a29a010ce42c0347872701e906357a13694b9b371e7750"
+        }
+      ],
+      "title": "A record ledger is not an observation likelihood",
+      "related_scoped_claims": [
+        {
+          "claim_id": "Layers:C-05",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.IntegratedCaseTests.test_record_reset_matches_independent_weighted_sum"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "synthetic computation and controls",
+      "edges": [
+        [
+          0,
+          1,
+          ""
+        ],
+        [
+          1,
+          2,
+          ""
+        ],
+        [
+          2,
+          3,
+          ""
+        ]
+      ],
+      "equation": "COMPLETED_SYNTHETIC does not mean empirical admission",
+      "id": "08_synthetic_evidence",
+      "nodes": [
+        {
+          "body": "Explicit times and parameters\nsynthetic case identity",
+          "title": "Frozen input"
+        },
+        {
+          "body": "Reservoir and boundary solve\ndiscrete memory / response",
+          "title": "Actual calculation"
+        },
+        {
+          "body": "Mass and record ledgers\nsource-bound result report",
+          "title": "Finite checks"
+        },
+        {
+          "body": "Calibration and empirical flags\nremain false",
+          "title": "Unmet evidence"
+        }
+      ],
+      "scope": "The new runs execute the fixture. No random realization, planetary validation or SCM-to-core physical identification is supplied.",
+      "sources": [
+        {
+          "path": "data/integrated-core/integrated_case.json",
+          "sha256": "1d2308d50d02fe93547093c68182e72cca8cd66f9f46dcc749d05110393b3a0a"
+        },
+        {
+          "path": "src/integrated_case.py",
+          "sha256": "c39d7dd1cb670664871f711c30f4da34719ae3c786c146d5b70db74f41c15834"
+        },
+        {
+          "path": "docs/integrated-core/scientific-boundaries.md",
+          "sha256": "ae3b5fd4d1d3ca054ae45e4af0824407d03223da2f7bb03903fd2ed5588332b0"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        },
+        {
+          "path": "tests/test_integration.py",
+          "sha256": "78bb0d4d28f3ca2624a29a010ce42c0347872701e906357a13694b9b371e7750"
+        }
+      ],
+      "title": "The executable result has a bounded meaning",
+      "related_scoped_claims": [
+        {
+          "claim_id": "Layers:C-06",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.IntegratedCaseTests.test_corrupt_conservation_path_fails"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "october_framework:RI003",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integration.CommonContractTests.test_digest_declaration_never_confers_readiness"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "nine finite replay families",
+      "edges": [
+        [
+          0,
+          1,
+          ""
+        ],
+        [
+          1,
+          2,
+          ""
+        ],
+        [
+          2,
+          3,
+          ""
+        ]
+      ],
+      "equation": "a passed control can demonstrate a failure of a naive proposal",
+      "id": "09_scm_controls",
+      "nodes": [
+        {
+          "body": "Selected algebra / residuals\nnot all 32 source claims",
+          "title": "Finite controls"
+        },
+        {
+          "body": "Norm preservation is not\ncommon linear unitarity",
+          "title": "Norm boundary"
+        },
+        {
+          "body": "Ordinary boost failure\nspectator / ensemble dependence",
+          "title": "Failure controls"
+        },
+        {
+          "body": "Density and instrument law\nno-signalling not admitted",
+          "title": "Open completion"
+        }
+      ],
+      "scope": "No empirical quantum or gravity validation. Companion recurrence remains prose/proposed tests, without ODE/data replay.",
+      "sources": [
+        {
+          "path": "scripts/scm_replay_checks.py",
+          "sha256": "3ce2c158e7a6daf9736dfa6394cbf97606ca3f32490b1bcd446e929128399043"
+        },
+        {
+          "path": "docs/integrated-core/scientific-boundaries.md",
+          "sha256": "ae3b5fd4d1d3ca054ae45e4af0824407d03223da2f7bb03903fd2ed5588332b0"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        }
+      ],
+      "title": "SCM checks retain their counterexamples",
+      "related_scoped_claims": [
+        {
+          "claim_id": "scm_corrected:G03",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "scripts/scm_replay_checks.py::variational_check"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "scm_corrected:G08",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "scripts/scm_replay_checks.py::ensemble_check"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "scm_corrected:G09",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "scripts/scm_replay_checks.py::ensemble_check"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "scm_corrected:G11",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "scripts/scm_replay_checks.py::spectator_check"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "scm_corrected:G12",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "scripts/scm_replay_checks.py::galilean_check"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "scm_corrected:G20",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "scripts/scm_replay_checks.py::scalar_mirror_check"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "bounded mathematical proposition",
+      "edges": [
+        [
+          0,
+          1,
+          "proof"
+        ],
+        [
+          1,
+          2,
+          "periodic"
+        ],
+        [
+          1,
+          3,
+          "square integrable"
+        ]
+      ],
+      "equation": "|∇u| = |∇v|   and   ∇u · ∇v = 0",
+      "id": "10_balanced_d2",
+      "nodes": [
+        {
+          "body": "u, v ∈ C² on connected planar Ω\nequal orthogonal gradients",
+          "title": "Assumptions"
+        },
+        {
+          "body": "Δu = Δv = 0\nincluding critical-set boundary",
+          "title": "Local result"
+        },
+        {
+          "body": "Smooth periodic scalar fields\nare constant",
+          "title": "Flat torus"
+        },
+        {
+          "body": "Additional L²(R²) assumption\nforces u = v = 0",
+          "title": "Whole plane"
+        }
+      ],
+      "scope": "No d ≥ 3, arbitrary-boundary or nonsmooth theorem. No claim that balance persists under evolution.",
+      "sources": [
+        {
+          "path": "docs/integrated-core/balanced-d2-proof.md",
+          "sha256": "396327b98bec994b4f0eeca0648889734db2089ab8f51b8a646f8074c3346db1"
+        },
+        {
+          "path": "docs/integrated-core/scientific-boundaries.md",
+          "sha256": "ae3b5fd4d1d3ca054ae45e4af0824407d03223da2f7bb03903fd2ed5588332b0"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        }
+      ],
+      "title": "Balanced gradients: a conditional d = 2 result",
+      "related_scoped_claims": [
+        {
+          "claim_id": "scm_corrected:G21",
+          "candidate_support": "INSPECTED_SCOPED_DERIVATION",
+          "test_locators": [],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "known-family identity; no novelty priority",
+      "edges": [
+        [
+          0,
+          1,
+          ""
+        ],
+        [
+          1,
+          2,
+          ""
+        ],
+        [
+          2,
+          3,
+          ""
+        ]
+      ],
+      "equation": "smooth local graph chart; a = 0 is a separate linear limit",
+      "id": "11_potential_wki",
+      "nodes": [
+        {
+          "body": "i ψ_t = −β ∂x[ψ_x / √(1+a²|ψ_x|²)]",
+          "title": "Potential equation"
+        },
+        {
+          "body": "w = a ψ_x\nconstant a > 0 and β > 0",
+          "title": "Differentiate"
+        },
+        {
+          "body": "i w_t + β ∂xx[w / √(1+|w|²)] = 0",
+          "title": "WKI slope equation"
+        },
+        {
+          "body": "Spatial mean / integration data\nneeded to recover the potential",
+          "title": "Recovery boundary"
+        }
+      ],
+      "scope": "The inherited correction records antecedents and incomplete access. This edition adds no literature-priority finding or global boundary equivalence.",
+      "sources": [
+        {
+          "path": "scripts/wki_check_algebra.py",
+          "sha256": "26446394735dac3262653fb18ff5d896ce7f36caab82e5a2a5904c8025d940d8"
+        },
+        {
+          "path": "docs/integrated-core/wki-correction.md",
+          "sha256": "b5cd86ea527970aa7ba14ad59c6cfe9cbd6e1ec883fa50dda3d6110b479b837e"
+        },
+        {
+          "path": "docs/integrated-core/scientific-boundaries.md",
+          "sha256": "ae3b5fd4d1d3ca054ae45e4af0824407d03223da2f7bb03903fd2ed5588332b0"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        }
+      ],
+      "title": "Potential WKI: local correspondence",
+      "related_scoped_claims": [
+        {
+          "claim_id": "wki_correction:CVG-03",
+          "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+          "test_locators": [
+            "scripts/wki_check_algebra.py::graph_gauge_equals_displayed_PDE",
+            "scripts/wki_check_algebra.py::graph_growth_equals_Hasimoto_NLS_growth",
+            "scripts/wki_check_algebra.py::maximum_growth_equals_beta_curvature_squared_over_two"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "six finite symbolic groups",
+      "edges": [
+        [
+          0,
+          1,
+          ""
+        ],
+        [
+          1,
+          2,
+          ""
+        ],
+        [
+          2,
+          3,
+          ""
+        ]
+      ],
+      "equation": "finite symbolic equality ≠ a PDE spectrum or nonlinear integration",
+      "id": "12_wki_growth",
+      "nodes": [
+        {
+          "body": "Declared constant parameters\ncurvature χ, axial wave Q",
+          "title": "Helical background"
+        },
+        {
+          "body": "p = Q / √g\non the unperturbed helix",
+          "title": "Coordinate relation"
+        },
+        {
+          "body": "γ² = β² p²(χ² − p²)\ncontinuous-mode maximum",
+          "title": "Growth identity"
+        },
+        {
+          "body": "γmax = βχ² / 2 = 1/8\nwhen β = a = A = k = 1",
+          "title": "Normalized value"
+        }
+      ],
+      "scope": "Discrete-domain attainability, marginal sectors and the R6 transformed-background comparison remain unresolved.",
+      "sources": [
+        {
+          "path": "scripts/wki_check_algebra.py",
+          "sha256": "26446394735dac3262653fb18ff5d896ce7f36caab82e5a2a5904c8025d940d8"
+        },
+        {
+          "path": "docs/integrated-core/wki-correction.md",
+          "sha256": "b5cd86ea527970aa7ba14ad59c6cfe9cbd6e1ec883fa50dda3d6110b479b837e"
+        },
+        {
+          "path": "docs/integrated-core/scientific-boundaries.md",
+          "sha256": "ae3b5fd4d1d3ca054ae45e4af0824407d03223da2f7bb03903fd2ed5588332b0"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        }
+      ],
+      "title": "Growth identity: what 1/8 does and does not show",
+      "related_scoped_claims": [
+        {
+          "claim_id": "wki_correction:CVG-03",
+          "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+          "test_locators": [
+            "scripts/wki_check_algebra.py::graph_gauge_equals_displayed_PDE",
+            "scripts/wki_check_algebra.py::graph_growth_equals_Hasimoto_NLS_growth",
+            "scripts/wki_check_algebra.py::maximum_growth_equals_beta_curvature_squared_over_two"
+          ],
+          "whole_source_claim_validated": false
+        },
+        {
+          "claim_id": "wki_correction:CVG-04",
+          "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+          "test_locators": [
+            "scripts/wki_check_algebra.py::maximum_growth_equals_beta_curvature_squared_over_two",
+            "scripts/wki_check_algebra.py::normalized_maximum_growth"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    },
+    {
+      "claim_status": "private successor proposal",
+      "edges": [
+        [
+          0,
+          1,
+          ""
+        ],
+        [
+          1,
+          2,
+          ""
+        ],
+        [
+          2,
+          3,
+          ""
+        ]
+      ],
+      "equation": "no version, tag, clean committed release identity or public admission is selected",
+      "id": "13_edition_gates",
+      "nodes": [
+        {
+          "body": "Exact source and tool identities\nexplicit split interpreter routes",
+          "title": "Source / runtime"
+        },
+        {
+          "body": "Empty output locations twice\nexact inventory and byte comparison",
+          "title": "Fresh production"
+        },
+        {
+          "body": "Historical comparisons retained\nnew schematics non-equivalent",
+          "title": "Scientific boundary"
+        },
+        {
+          "body": "Source, runtime, Pages admission\nthen separately authorized release",
+          "title": "Review / publication"
+        }
+      ],
+      "scope": "The historical v1.0.7 gate and failed comparisons stay authoritative for that edition. This proposal does not turn them into PASS.",
+      "sources": [
+        {
+          "path": "docs/integrated-core/scientific-boundaries.md",
+          "sha256": "ae3b5fd4d1d3ca054ae45e4af0824407d03223da2f7bb03903fd2ed5588332b0"
+        },
+        {
+          "path": "docs/integrated-core/model-contract.md",
+          "sha256": "3d30a4eff3f8a75d14959b79f7ff628a459bcbd6639aed77fb621f6ae76239d5"
+        },
+        {
+          "path": "docs/integrated-core/claims.json",
+          "sha256": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30"
+        },
+        {
+          "path": "docs/integrated-core/claim-test-map.json",
+          "sha256": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5"
+        },
+        {
+          "path": "tests/test_integrated_claim_scope.py",
+          "sha256": "d4f8dfb502864555ff4bb13bed27bd706c6e4a7e8a92f25a44a8ba95e7cc5fff"
+        },
+        {
+          "path": "tests/test_integration.py",
+          "sha256": "78bb0d4d28f3ca2624a29a010ce42c0347872701e906357a13694b9b371e7750"
+        }
+      ],
+      "title": "Reproducibility and admission are separate",
+      "related_scoped_claims": [
+        {
+          "claim_id": "october_framework:RI008",
+          "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+          "test_locators": [
+            "test_integrated_claim_scope.PublicClaimScopeTests.test_exact_claim_coverage_and_no_empirical_promotion",
+            "test_integration.CommonContractTests.test_digest_declaration_never_confers_readiness"
+          ],
+          "whole_source_claim_validated": false
+        }
+      ]
+    }
+  ],
+  "empirical_admission": false,
+  "historical_equivalence": false,
+  "schema": "astra-integrated-diagrams-proposal-1",
+  "status": "PRIVATE_NEW_EDITION_PROPOSAL"
+}

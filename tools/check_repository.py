@@ -1648,23 +1648,35 @@ def check_dark_medium_response_atlas_resource() -> None:
 def check_publication_map() -> None:
     readme = " ".join((ROOT / "README.md").read_text(encoding="utf-8").replace("**", "").split())
     required_readme_values = (
-        "SPPT/ASTRA v1.0.7 is the Current core reference",
-        "Dark-Medium Response Atlas v0.1.0",
-        "Working paper",
+        "Astronomical State-Topology and Reservoir Analysis",
+        "https://jkolantree.github.io/astra/",
         "not peer reviewed",
-        "methods proposals, not empirical validation",
-        "publication history",
-        "repository-level `CITATION.cff` belongs only to the Current SPPT/ASTRA core",
+        "Draft",
+        "does not establish empirical validation",
+        "[publication history](PUBLICATIONS.md)",
+        "PUBLICATIONS.md#research-overview",
         "REPRODUCING.md",
         "PROVENANCE.md",
         "CONTRIBUTING.md",
-        "release assets and checksums are the fixed distribution record",
+        "LICENSE_MAP.md",
     )
     for value in required_readme_values:
         if value not in readme:
-            raise RuntimeError(f"Root publication map omits: {value}")
+            raise RuntimeError(f"Root gateway omits: {value}")
     if "| Publication track |" in readme:
-        raise RuntimeError("Root publication map regressed to a wide narrow-screen table")
+        raise RuntimeError("Root gateway regressed to a wide narrow-screen table")
+    overview = (ROOT / "PUBLICATIONS.md").read_text(encoding="utf-8")
+    for value in (
+        "Solar-Planetary Phase-Partition Theory (SPPT)",
+        "SPPT/ASTRA v1.0.7",
+        "Dark-Medium Response Atlas v0.1.0",
+        "Working paper",
+        "repository-level `CITATION.cff` belongs only to the Current SPPT/ASTRA core",
+        "release assets and checksums are the fixed distribution record",
+        "Interactive research companion",
+    ):
+        if value not in overview:
+            raise RuntimeError(f"Publication guide omits: {value}")
 
     publications = " ".join(
         (ROOT / "PUBLICATIONS.md")
@@ -1686,15 +1698,17 @@ def check_publication_map() -> None:
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     for heading in (
         "## Unreleased",
+        "## Dark-Medium Response Atlas v0.1.0 — 2026-09-02",
         "## Earth Is the Instrument framework 0.3.0 — 2026-08-06",
         "## Earth Is the Instrument working paper 0.1 — 2026-08-05",
         "## 1.0.6 — 2026-08-02",
     ):
         if heading not in changelog:
             raise RuntimeError(f"Changelog omits released publication section: {heading}")
-    unreleased = changelog.split("## Earth Is the Instrument framework 0.3.0", 1)[0]
+    unreleased = changelog.split("## Unreleased", 1)[1].split("\n## ", 1)[0]
     if (
-        "Adds *ASTRA Framework v0.3.0" in unreleased
+        "Adds *Dark-Medium Response Atlas v0.1.0" in unreleased
+        or "Adds *ASTRA Framework v0.3.0" in unreleased
         or "Publishes *Earth Is the Instrument* Working Paper 0.1" in unreleased
     ):
         raise RuntimeError("Published supplemental releases remain under Unreleased")
@@ -1938,7 +1952,7 @@ def check_metadata_agreement() -> None:
     notes_path = ROOT / f"RELEASE_NOTES_v{version}.md"
     if not notes_path.is_file():
         raise RuntimeError(f"Current release notes are missing: {notes_path.name}")
-    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    publication_guide = (ROOT / "PUBLICATIONS.md").read_text(encoding="utf-8")
     expected_documents = (
         f"manuscript/SPPT_ASTRA_preprint_v{version}.html",
         f"manuscript/SPPT_ASTRA_preprint_v{version}.pdf",
@@ -1966,8 +1980,8 @@ def check_metadata_agreement() -> None:
         f"{pages_root}/{tag}/preprint/",
         f"{pages_root}/{tag}/supplement/",
     )
-    if any(value not in readme for value in required_readme_values):
-        raise RuntimeError("README current-release links differ from RELEASE_SPEC.json")
+    if any(value not in publication_guide for value in required_readme_values):
+        raise RuntimeError("Publication guide current-release links differ from RELEASE_SPEC.json")
 
     identity = json.loads(
         (ROOT / "manuscript" / "document_semantic_identity.json").read_text(encoding="utf-8")

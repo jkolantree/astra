@@ -190,21 +190,50 @@ def check_pages_admission(path: Path = MANIFEST) -> dict[str, Any]:
     return record
 
 
+def reject_linked_destination(destination: Path) -> None:
+    """Inspect the lexical path before resolve can erase an alias."""
+    for path in (destination, *destination.parents):
+        junction_check = getattr(path, "is_junction", None)
+        if path.is_symlink() or bool(junction_check and junction_check()):
+            raise RuntimeError("Pages destination must not be a link or junction")
+
+
 def copy_admitted_shell(destination: Path, manifest: Path = MANIFEST) -> None:
+    reject_linked_destination(destination)
     record = check_pages_admission(manifest)
     destination = destination.resolve()
     if destination in {ROOT.resolve(), DOCS.resolve()}:
         raise RuntimeError("Pages destination must not overwrite a source directory")
-    junction_check = getattr(destination, "is_junction", None)
-    if destination.is_symlink() or bool(junction_check and junction_check()):
-        raise RuntimeError("Pages destination must not be a link or junction")
+    expected = {str(item["path"]): item for item in record["head_shell"]["files"]}
+    for path in destination.rglob("*"):
+        reject_linked_destination(path)
+        if path.is_dir():
+            continue
+        relative = path.relative_to(destination).as_posix()
+        if relative not in expected:
+            raise RuntimeError("Pages shell destination contains an unexpected file")
+        if not path.is_file() or path.stat().st_nlink != 1:
+            raise RuntimeError("Pages shell target must be a regular unshared file")
+        item = expected[relative]
+        if path.stat().st_size != item["bytes"] or sha256(path) != item["sha256"]:
+            raise RuntimeError("Pages shell destination contains a differing file")
+    # Check every target before copying the first byte. A late linked target
+    # must not leave a partially modified site or overwrite its external victim.
+    for item in record["head_shell"]["files"]:
+        target = destination / str(item["path"])
+        reject_linked_destination(target)
+        if target.exists() and (not target.is_file() or target.stat().st_nlink != 1):
+            raise RuntimeError("Pages shell target must be a regular unshared file")
+        if any(path.exists() and not path.is_dir() for path in target.parents):
+            raise RuntimeError("Pages shell target parent must be a directory")
     destination.mkdir(parents=True, exist_ok=True)
     for item in record["head_shell"]["files"]:
         relative = Path(str(item["path"]))
         source = DOCS / relative
         target = destination / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source, target)
+        if not target.exists():
+            shutil.copyfile(source, target)
         if target.stat().st_size != item["bytes"] or sha256(target) != item["sha256"]:
             raise RuntimeError(f"Pages shell copy mismatch: {relative.as_posix()}")
     observed = {

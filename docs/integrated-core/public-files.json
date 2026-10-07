@@ -1,0 +1,306 @@
+{
+  "scope": "Exact proposed integrated core PR paths only; no private provenance or approval artifacts. Existing repository files retain their own notices.",
+  "publication_authorized": false,
+  "files": [
+    {
+      "path": "LICENSE_MAP.md",
+      "license": "CC-BY-4.0",
+      "role": "Root integration/documentation update"
+    },
+    {
+      "path": "MANIFEST.sha256",
+      "license": "CC-BY-4.0",
+      "role": "Regenerated full repository byte manifest"
+    },
+    {
+      "path": "README.md",
+      "license": "CC-BY-4.0",
+      "role": "Root integration/documentation update"
+    },
+    {
+      "path": "data/integrated-core/bridge_contracts.json",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "data/integrated-core/integrated_case.json",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/README.md",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/balanced-d2-proof.md",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/claim-test-map.json",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/claims.json",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/flow.svg",
+      "license": "CC-BY-4.0; embedded fonts retain existing third-party terms",
+      "role": "Version-neutral integrated reading draft source/tooling; not a release asset"
+    },
+    {
+      "path": "docs/integrated-core/licenses.md",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/limitations.json",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/migration-proposal.md",
+      "license": "CC-BY-4.0",
+      "role": "Non-admitting source/runtime/release migration proposal"
+    },
+    {
+      "path": "docs/integrated-core/model-contract.md",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/public-files.json",
+      "license": "CC-BY-4.0",
+      "role": "Exact public addition/license scope (current hashes in PR manifest)"
+    },
+    {
+      "path": "docs/integrated-core/runtime.json",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/scientific-boundaries.md",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/scope.json",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/source-references.json",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "docs/integrated-core/wki-correction.md",
+      "license": "CC-BY-4.0",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "licenses/integrated-core-CC-BY-4.0-NOTICE.txt",
+      "license": "PRESERVE-NOTICE",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "licenses/integrated-core-MIT.txt",
+      "license": "PRESERVE-NOTICE",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "licenses/integrated-core-base-MIT.txt",
+      "license": "PRESERVE-NOTICE",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "licenses/integrated-core-gamma-LICENSE_CODE_MIT.txt",
+      "license": "PRESERVE-NOTICE",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "licenses/integrated-core-gamma-LICENSE_TEXT_CC_BY_4.0.txt",
+      "license": "PRESERVE-NOTICE",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "licenses/integrated-core-layers-LICENSE_CODE_MIT.txt",
+      "license": "PRESERVE-NOTICE",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "licenses/integrated-core-layers-LICENSE_TEXT_CC_BY_4.0.txt",
+      "license": "PRESERVE-NOTICE",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "licenses/integrated-core-xi-LICENSE_CODE_MIT.txt",
+      "license": "PRESERVE-NOTICE",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "licenses/integrated-core-xi-LICENSE_TEXT_CC_BY_4.0.txt",
+      "license": "PRESERVE-NOTICE",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "manuscript/integrated-draft/README.md",
+      "license": "CC-BY-4.0",
+      "role": "Version-neutral integrated reading draft source/tooling; not a release asset"
+    },
+    {
+      "path": "manuscript/integrated-draft/document-plan.json",
+      "license": "CC-BY-4.0",
+      "role": "Version-neutral integrated reading draft source/tooling; not a release asset"
+    },
+    {
+      "path": "manuscript/integrated-draft/manuscript.md",
+      "license": "CC-BY-4.0",
+      "role": "Version-neutral integrated reading draft source/tooling; not a release asset"
+    },
+    {
+      "path": "manuscript/integrated-draft/source-snapshot.json",
+      "license": "CC-BY-4.0",
+      "role": "Version-neutral integrated reading draft source/tooling; not a release asset"
+    },
+    {
+      "path": "manuscript/integrated-draft/supplement.md",
+      "license": "CC-BY-4.0",
+      "role": "Version-neutral integrated reading draft source/tooling; not a release asset"
+    },
+    {
+      "path": "scripts/run_scm_checks.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "scripts/scm_replay_checks.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "scripts/wki_check_algebra.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "scripts/wki_fault_control.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "src/admission.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "src/astra_layers.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "src/boundary_state.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "src/core_contracts.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "src/coupling_state.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "src/evidence_contracts.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "src/integrated_case.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "src/research_candidate.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tests/test_admission.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tests/test_astra_layers.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tests/test_boundary_state.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tests/test_candidate.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tests/test_coupling_state.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tests/test_evidence_contracts.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tests/test_integrated_claim_scope.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tests/test_integrated_documents.py",
+      "license": "MIT",
+      "role": "Version-neutral integrated reading draft source/tooling; not a release asset"
+    },
+    {
+      "path": "tests/test_integration.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tests/test_linux_replay_inputs.py",
+      "license": "MIT",
+      "role": "Bounded replay-selection and copied-input regression tests"
+    },
+    {
+      "path": "tests/test_numerical_regressions.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tests/test_wki_successor.py",
+      "license": "MIT",
+      "role": "Integrated core addition"
+    },
+    {
+      "path": "tools/build_integrated_documents.py",
+      "license": "MIT",
+      "role": "Version-neutral integrated reading draft source/tooling; not a release asset"
+    },
+    {
+      "path": "tools/verify_linux.py",
+      "license": "MIT",
+      "role": "Proposed copied-input replay protection; not runtime admission"
+    }
+  ]
+}

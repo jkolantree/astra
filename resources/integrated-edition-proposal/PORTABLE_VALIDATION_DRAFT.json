@@ -1,0 +1,91 @@
+{
+  "bootstrap_current_sha256": "627bc3269f821cf9688506ed3773dfe9b68b8d9521e6fdd8c88886c0d74a3539",
+  "bootstrap_execution_note": "Initial construction used the recorded initial source. Later exact PowerShell finalization and explicit rebind executed separately; no claim of a second complete construction.",
+  "construction": {
+    "bootstrap_sha256": "6bd96245c06d48b3cf4e25e9fbc015acda43220af83b8407b53b602093a242df",
+    "exit_code": 0,
+    "record_sha256": "0e84386db3c58707d3b95c921996db1671717bee93b79dbd15039c9299d3601d",
+    "runtime_admitted": false,
+    "seconds": 11.626
+  },
+  "corrections": [
+    "Initial relocation confirmed absolute old interpreter link unavailable after move.",
+    "Exact PowerShell launcher needed executable mode 0755; bytes unchanged.",
+    "PowerShell probe required workspace-scoped XDG cache/config/data directories.",
+    "Initial wrapper syntax correction and failed probes preserved privately."
+  ],
+  "default_browser_probe": {
+    "default_playwright_browser": true,
+    "runtime_admitted": false,
+    "status": "PASS",
+    "title": "Local runtime probe",
+    "version": "151.0.7922.34"
+  },
+  "evidence_hashes": {
+    "DEFAULT_BROWSER_PROBE.json": "9c60f034169300352dd350436d86b47cd673739fb45f16ad41014e872d68a96e",
+    "PORTABLE_ARCHIVE_PREFLIGHT.json": "e8ad03f534321e31b3235e1d2924593c416a919dd8e4d4b46c9c61fc91ebb767",
+    "PORTABLE_BOOTSTRAP_EXECUTION.json": "71bdb8e3ca5ea8ecde4ba9bd617707830d094829191b228b768d67a40ae4f542",
+    "PORTABLE_RELOCATION.json": "c9756b132d6a6b13e66be267cd4e49e6ee7ea28387c3c557bffee7bf9eadafae",
+    "REVISED_REBIND_EXECUTION.json": "0bfc2195c7dc31dc814c4b77f4e7d7188b723ee4ee747cdaf1073eae1a84f5d3",
+    "RUNTIME_PATH_PREPARATION.json": "029da8f1cab6e1a2e2507fb5fd59cd22790b82bef0e12fb1798f32cc1cdb2df1"
+  },
+  "prepare_paths_sha256": "a259dc26c46efdc25f97dfa1f96df94b1626409a9846ce50e7322305df2fc372",
+  "provenance_limits": [
+    "Science Python base is a local snapshot of an already approved installed tree; original provider archive absent.",
+    "Chromium supplied archive has a local digest; upstream archive digest unavailable.",
+    "Host Linux x86_64/glibc2.41/AVX2+FMA is a reference boundary, not a portable cross-platform guarantee."
+  ],
+  "relocate_current_sha256": "90d9addc4768ce58db30ec06cfa1b557d4e55331a84f30a022d3a448ccb6bda5",
+  "relocation": {
+    "explicit_rebind_required": true,
+    "old_root_exists": false,
+    "profiles": {
+      "science": {
+        "entrypoint": "pytest 9.1.1",
+        "matplotlib": "3.11.1",
+        "native_product": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "numpy": "2.3.5",
+        "python": "3.12.10",
+        "scipy": "1.18.0",
+        "sympy": "1.14.0"
+      },
+      "wki": {
+        "entrypoint": "pytest 9.1.1",
+        "matplotlib": "3.11.1",
+        "native_product": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "numpy": "2.3.5",
+        "python": "3.12.14",
+        "scipy": "1.18.0",
+        "sympy": "1.14.0"
+      }
+    },
+    "status": "PASS_EXPLICIT_REBIND_REQUIRED",
+    "tools": {
+      "browser": "Google Chrome for Testing 151.0.7922.34",
+      "git": "git version 2.47.3",
+      "powershell": "7.5.4"
+    }
+  },
+  "revised_rebind_execution_sha256": "0bfc2195c7dc31dc814c4b77f4e7d7188b723ee4ee747cdaf1073eae1a84f5d3",
+  "runtime_admitted": false,
+  "schema": "astra-portable-validation-draft-1",
+  "status": "PROPOSED_NOT_ADMITTED"
+}
