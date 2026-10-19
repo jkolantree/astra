@@ -57,8 +57,31 @@ def test_companion_assembly_preserves_existing_routes_and_exact_payload(artifact
     shutil.copytree(site / "licenses", isolated / "licenses")
     shutil.copyfile(site / "LICENSE", isolated / "LICENSE")
     (isolated / "index.html").write_text("<!doctype html><title>Explorer destination fixture</title>")
+    # This isolated unit fixture supplies the actual admitted shell target IDs,
+    # without recursively assembling the immutable release routes linked by the
+    # shell itself. The production workflow audits the complete assembled site.
+    from html import escape
+
+    from tools.link_audit_common import parse_html
+
+    for relative in (
+        "understand/index.html", "library/index.html",
+        "understand/worlds/index.html", "understand/geometry/index.html",
+    ):
+        source = site / relative
+        target = isolated / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        ids = sorted(parse_html(source).ids)
+        target.write_text(
+            "<!doctype html><title>Admitted shell target fixture</title>"
+            + "".join(f'<span id="{escape(value, quote=True)}"></span>' for value in ids),
+            encoding="utf-8",
+        )
+    (isolated / "assets").mkdir()
+    for name in ("astra-midnight-occultation.png", "midnight-occultation-provenance.json"):
+        shutil.copyfile(site / "assets" / name, isolated / "assets" / name)
     audited = check_pages_links(isolated)
-    assert audited["html_files"] == 3
+    assert audited["html_files"] == 7
     assert audited["redirects"] == 1
     assert audited["internal_references"] >= 40
     markdown = check_repository_links(isolated)
