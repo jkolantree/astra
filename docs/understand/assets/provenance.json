@@ -1,0 +1,98 @@
+{
+  "title": "Elementary Understanding visual companion",
+  "scope": "Current website explanatory visuals; no change to research results or versioned releases.",
+  "artwork": [
+    {
+      "asset": "ice-plume.png",
+      "title": "Ice sending traces into space",
+      "kind": "AI-generated conceptual illustration",
+      "sha256": "a59bba0ac6b1d6fc8d2a7539858a341bc2a86c533b4c9bdd0f77db5a0bf9d28e",
+      "bytes": 2787322,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "generation": {
+        "tool": "OpenAI built-in image generation",
+        "date": "2026-10-19",
+        "inputs": "Original text prompt; no reference imagery.",
+        "prompt": "Use case: scientific-educational. Create a beautiful original conceptual illustration for ASTRA's Elementary Understanding astronomy website. Square 1024x1024 editorial art, no text. View just above an invented icy moon's cracked curved horizon, delicate luminous water-ice plumes backlit in warm pale gold, deep midnight blue space, subtle mint light within blue ice, faint small Saturn-like crescent in distant background. Refined scientific-book cover aesthetic, physical textures, restrained cinematic light, spacious composition, many fine details without clutter. A quiet sense of a hidden world sending traces into space. This is explicitly artistic, not an actual spacecraft photograph, measured terrain map, subsurface cross-section, or evidence of biology. Do not show organisms, fictional instruments, labels, diagrams, letters, logos or watermarks. Avoid neon, fantasy cityscapes, implausibly colorful nebulae. Finished production illustration, balanced square composition that can sit beside text on dark #080e16."
+      },
+      "preservation": "Original generated PNG bytes copied without cropping or recompression; embedded metadata retained, authenticity credentials not independently validated.",
+      "scientific_boundary": "Invented icy terrain and plume geometry; no measured site, subsurface structure or biological detection."
+    },
+    {
+      "asset": "geometry-thread.png",
+      "title": "A thread of geometry",
+      "kind": "AI-generated conceptual illustration",
+      "sha256": "2309e4a2021e3ebd15907dc5f2c06cc92be98d1d8d4ccfe447a0bd1bf0793b11",
+      "bytes": 1745128,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "generation": {
+        "tool": "OpenAI built-in image generation",
+        "date": "2026-10-19",
+        "inputs": "Original text prompt; no reference imagery.",
+        "prompt": "Use case: stylized-concept. Original conceptual editorial illustration for ASTRA's Geometry and Memory reading pages. Square 1024x1024, no text. A single elegant luminous pale-gold filament curving and gently twisting through dark midnight blue space, with a few delicate translucent mint cross-sectional sheets along it and a faint diffuse trailing echo. Abstract mathematical sculpture, exquisite restrained depth and precision, dark velvet background #080e16, ivory highlights, subdued teal, warm amber. Make the filament continuous, tactile and graceful, like a long exposure of a flowing ribbon, generous calm negative space. Beautiful advanced-science book art. This is a visual metaphor, not a computed solution, measured field, particle depiction or claimed physical theory; avoid numeric plots, axes, equations, labels, letters, words, logos or watermarks. Do not imply actual electron structure or holographic spacetime. Rich but restrained, not generic neon tech art."
+      },
+      "preservation": "Original generated PNG bytes copied without cropping or recompression; embedded metadata retained, authenticity credentials not independently validated.",
+      "scientific_boundary": "Abstract visual metaphor; not a computed curve, normal frame, particle, measured field or physical spacetime."
+    },
+    {
+      "asset": "lunar-memory.png",
+      "title": "A landscape of light and retention",
+      "kind": "AI-generated conceptual illustration",
+      "sha256": "b919564ae9e1cac3a08eb669e053bfc49beded5b5892de7636c03c1f44387746",
+      "bytes": 2939233,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "generation": {
+        "tool": "OpenAI built-in image generation",
+        "date": "2026-10-19",
+        "inputs": "Original text prompt; no reference imagery.",
+        "prompt": "Use case: scientific-educational. Original square 1024x1024 conceptual lunar illustration for ASTRA's What Persists and Worlds and Life chapters, no text. A silent invented polar crater landscape viewed from a low aerial angle, fine silver regolith and rough dark crater rim, warm low grazing sunlight touching only the rim while the interior stays in deep midnight blue shadow. Tiny distant crescent Earth against almost empty black sky. No visible pools or crystals proving water, no glowing signals. The visual theme is a landscape whose sheltered places may retain traces of history. Elegant cinematic editorial science art with natural mineral texture, restrained ivory and pale gold highlights and cool blue shadows, compatible with #080e16 website background. Not a real photograph, mapped site, measured thermal image or evidence of a deposit. No spacecraft, people, animals, diagram overlays, labels, letters, words, logos or watermarks."
+      },
+      "preservation": "Original generated PNG bytes copied without cropping or recompression; embedded metadata retained, authenticity credentials not independently validated.",
+      "scientific_boundary": "Invented lunar terrain, lighting and viewing geometry; no mapped site, thermal measurement or detected ice deposit."
+    }
+  ],
+  "diagrams": [
+    {
+      "asset": "signal-journey.svg",
+      "kind": "Editable explanatory SVG schematic",
+      "basis": "The adjacent existing Understanding page text; no measured data, simulation output or new scientific result.",
+      "authoring": "Codex-authored vector illustration",
+      "sha256": "a080e8dab29c57403e890b63654bdadc6941d140726b632796036bbee3d77fdd",
+      "bytes": 2724
+    },
+    {
+      "asset": "hidden-response.svg",
+      "kind": "Editable explanatory SVG schematic",
+      "basis": "The adjacent existing Understanding page text; no measured data, simulation output or new scientific result.",
+      "authoring": "Codex-authored vector illustration",
+      "sha256": "b125801be572ff953a81ed471f819f0d31bbdbdf81591774de391a220fd1a8b4",
+      "bytes": 2822
+    },
+    {
+      "asset": "test-sequence.svg",
+      "kind": "Editable explanatory SVG schematic",
+      "basis": "The adjacent existing Understanding page text; no measured data, simulation output or new scientific result.",
+      "authoring": "Codex-authored vector illustration",
+      "sha256": "768830df3813b2cc7a8b1cad6afe3f9ad554edc358b2d7104f7c286b302d349b",
+      "bytes": 2436
+    },
+    {
+      "asset": "recovery-shares.svg",
+      "kind": "Editable explanatory SVG schematic",
+      "basis": "The adjacent existing Understanding page text; no measured data, simulation output or new scientific result.",
+      "authoring": "Codex-authored vector illustration",
+      "sha256": "b227f0e03dfc329d331752bbfce86014799e384f338744c8f20b713e9b2f6a2b",
+      "bytes": 2757
+    }
+  ],
+  "rights": "New conceptual artwork carries no additional reuse license in this change; no copyrightability or third-party-rights claim is made. Existing repository licensing and third-party notices remain unchanged."
+}

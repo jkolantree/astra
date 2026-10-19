@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" role="img" aria-labelledby="title desc">
+  <title id="title">A prediction earns support on observations not used to tune it</title>
+  <desc id="desc">Four steps: calibrate the model and credible alternatives on development data; fix predictions, uncertainty and rejection criteria; compare them against the same unused observations; report support, contradiction or an inconclusive result. Retuning starts a new candidate and does not turn development data into an untouched test.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#182a35"/><stop offset="1" stop-color="#080e16"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 9 5 1 9" fill="none" stroke="#b6e6cb" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="600" height="720" rx="24" fill="url(#bg)"/>
+  <g font-family="system-ui, sans-serif" fill="#f6ecd5">
+    <text x="30" y="46" fill="#eec78b" font-size="20" letter-spacing="2">FROM IDEA TO TEST</text>
+    <text x="30" y="94" font-family="Georgia, serif" font-size="32">Predict before looking</text>
+    <g fill="#142832" stroke="#5c7d83"><rect x="24" y="132" width="552" height="112" rx="16"/><rect x="24" y="275" width="552" height="112" rx="16"/><rect x="24" y="418" width="552" height="112" rx="16"/><rect x="24" y="561" width="552" height="112" rx="16"/></g>
+    <g fill="#eec78b" font-size="26"><text x="46" y="169">01</text><text x="46" y="312">02</text><text x="46" y="455">03</text><text x="46" y="598">04</text></g>
+    <g font-size="28"><text x="104" y="169">Calibrate</text><text x="104" y="312">Fix the predictions</text><text x="104" y="455">Test unused data</text><text x="104" y="598">Report the outcome</text></g>
+    <g font-size="24" fill="#c0c6ca">
+      <text x="104" y="204">Model and credible</text><text x="104" y="235">alternatives</text>
+      <text x="104" y="347">Uncertainty and</text><text x="104" y="378">rejection criteria</text>
+      <text x="104" y="490">Same quantities,</text><text x="104" y="521">same test data</text>
+      <text x="104" y="633">Support, contradiction</text><text x="104" y="664">or inconclusive</text>
+    </g>
+    <g stroke="#b6e6cb" stroke-width="3" marker-end="url(#arrow)"><path d="M300 248V263"/><path d="M300 391V406"/><path d="M300 534V549"/></g>
+  </g>
+</svg>

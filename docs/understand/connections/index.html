@@ -15,10 +15,17 @@
     <p class="eyebrow">Elementary Understanding / A serious hypothesis</p>
     <h1>Connecting the threads</h1>
     <p class="dek">What survives, who can recover it, and what geometry predicts.</p>
-    <div class="prose">
+    <div class="visual-lead">
+      <div class="prose visual-copy">
       <p>A system can retain information that one observation cannot reveal. A later response may expose a changed interface or a neural history. A distributed encoding may preserve an unknown state even after some accessible parts are lost. These examples invite a common question: can one account predict retention, access and recovery together?</p>
       <p>The ambitious holographic hypothesis goes further: a lower-dimensional quantum description could encode spacetime and its contents through a precise correspondence. Established examples make this a serious theoretical possibility. Extending it to our cosmology requires a dictionary that reproduces its states, matter and evolution, then delivers several predictions that can face alternatives.</p>
       <p>ASTRA’s near-term opportunity is to construct a smaller, explicit bridge: identify retained variables, observation maps and interventions, then ask whether the same structure predicts responses and recoverability. That can succeed or fail before any claim about the universe as a whole is settled.</p>
+      </div>
+      <figure class="visual">
+      <span class="visual-label">The shape of a question</span>
+      <img src="../assets/geometry-thread.png" width="1254" height="1254" alt="Abstract illuminated filament curving through a dark geometric space." decoding="async">
+      <figcaption>A visual interpretation of bending and connection, without identifying a physical quantum object. Conceptual AI illustration. <a href="../assets/provenance.json">Image provenance</a>.</figcaption>
+      </figure>
     </div>
     <p class="status">Research companion · unpromoted draft, not peer reviewed. Stable core: <a href="../../v1.0.7/preprint/">SPPT/ASTRA v1.0.7</a>.</p>
   </div>
@@ -35,7 +42,7 @@
     <li><a href="#cmb">A restrained observational lead: the CMB</a></li>
     <li><a href="#next-step">The next useful result</a></li>
   </ol></div></nav>
-  <div class="reading">
+  <div class="reading with-visuals">
     <section id="levels" aria-labelledby="levels-heading">
       <h2 id="levels-heading">Three levels of connection</h2>
       <dl>
@@ -119,11 +126,20 @@
       <p>All rates are positive for <strong>0 &lt; κ &lt; 1/√3</strong>; κ = 1/2 is allowed. Initial x,m must lie in the triangle of nonnegative populations. These are ensemble coordinates, not a deterministic single-sample trajectory. Arbitrary additive input u can violate positivity; this realization covers u = 0, not every driven version of the stable linear toy.</p>
       <p>Quantum jump operators √rᵢⱼ |i⟩⟨j| for every directed pair give an ordinary linear open-system realization. Populations close under that evolution; coherences require additional coordinates. No nonstandard quantum dynamics is assumed.</p>
       <h3 id="toy-code">4. An independently chosen code supplies quantum recovery</h3>
-      <p>Encode the logical qutrit into three shares using arithmetic modulo 3:</p>
+      <div class="visual-section">
+        <div class="section-copy">
+          <p>Encode the logical qutrit into three shares using arithmetic modulo 3:</p>
       <p class="formula">V|j⟩ = (1/√3) Σᵣ₌₀² |r, r + j, r + 2j⟩<br>
       First-two-share decoder:<br>
       |a,b⟩ → |b − a, 2b − a⟩</p>
       <p>Decoding produces the logical state together with a maximally entangled junk/third-share pair. Any two shares recover the full current logical state, including its entanglement with an untouched reference. Any single share is I/3, independent of the logical state, at a given time. That statement does not specify arbitrary invasive multi-time protocols. This is the established <a href="https://arxiv.org/abs/quant-ph/9901025">Cleve–Gottesman–Lo two-out-of-three code</a>.</p>
+        </div>
+        <figure class="visual">
+        <span class="visual-label">Recovery after a missing share</span>
+        <img class="diagram" src="../assets/recovery-shares.svg" width="600" height="720" alt="In the specified quantum code, any two of three shares recover the current logical state; one share carries no logical-state information at a given time." loading="lazy" decoding="async">
+        <figcaption>Access rule for the independently chosen qutrit code below. Temporal readout and quantum recovery are separate claims. <a href="../assets/recovery-shares.svg">Open diagram</a>.</figcaption>
+        </figure>
+      </div>
       <p>Using natural logarithms and logical entropy S<sub>L</sub>, the exact entropies are:</p>
       <p class="formula">S(one share) = ln 3<br>
       S(two shares) = ln 3 + S<sub>L</sub><br>
@@ -174,8 +190,17 @@
     </section>
     <section id="next-step" aria-labelledby="next-heading">
       <h2 id="next-heading">The next useful result is a fixed dictionary that risks failure</h2>
-      <p>A serious bridge names its retained states, their dynamics, the observation map and the allowed interventions. It calibrates some quantities, predicts others, and competes with strong ordinary models. Shared poles, recovery regions and independently predicted geometric relations could then establish more than a verbal analogy.</p>
+      <div class="visual-section">
+        <div class="section-copy">
+          <p>A serious bridge names its retained states, their dynamics, the observation map and the allowed interventions. It calibrates some quantities, predicts others, and competes with strong ordinary models. Shared poles, recovery regions and independently predicted geometric relations could then establish more than a verbal analogy.</p>
       <p>Confidence should increase when one specified theory predicts several difficult observations before they are evaluated, with controlled systematics. It should decrease when mandatory predictions fail. A model that only accommodates existing data remains viable rather than confirmed. A new residual first establishes something to explain; its holographic origin requires a further quantitative comparison.</p>
+        </div>
+        <figure class="visual">
+        <span class="visual-label">A test that can change the answer</span>
+        <img class="diagram" src="../assets/test-sequence.svg" width="600" height="720" alt="Calibrate, fix predictions, compare unused observations, and report support, contradiction or an inconclusive result." loading="lazy" decoding="async">
+        <figcaption>A proposed test sequence, not a report of completed experiments. Tuning and evaluation use separate observations. <a href="../assets/test-sequence.svg">Open diagram</a>.</figcaption>
+        </figure>
+      </div>
       <p class="source">This reading synthesizes the source review dated 6 October 2026. It includes primary theoretical papers, experiments, critiques and model-specific limits. No raw cosmological data, new significance calculation or detector calibration was produced here. The complete final wormhole reply was not independently inspected in that review. The cited 2026 HaPPY result is a preprint. No reviewed observation uniquely establishes world holography.</p>
     </section>
     <nav class="chapter-links next" aria-label="Continue reading"><a href="../#connections">← The short connection</a><a href="../predictions/">Predictions worth testing</a><a href="../persistence/">What persists?</a></nav>

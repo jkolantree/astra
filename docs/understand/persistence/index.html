@@ -14,9 +14,16 @@
   <div class="lead">
     <p class="eyebrow">Elementary Understanding / An optional connection</p>
     <h1>What persists, and what changes next?</h1>
-    <div class="prose">
+    <div class="visual-lead">
+      <div class="prose visual-copy">
       <p>A place can preserve a physical trace of its past. On the Moon, some cold sites retain molecules long enough to accumulate ice. In a neural circuit, a previous input can leave a bias that changes the next response. These are different mechanisms with a useful question in common: what is retained, where, for how long, and how does it affect what happens next?</p>
       <p>The most promising connection to experience concerns temporary stability with the ability to change. An interpretation must last long enough to relate inputs across time, yet remain open to new evidence. A biologically specified model of that balance could help explain perceptual continuity and switching. ASTRA has not yet supplied such a uniquely successful model or explained why neural processing feels like anything.</p>
+      </div>
+      <figure class="visual">
+      <span class="visual-label">A landscape that retains</span>
+      <img src="../assets/lunar-memory.png" width="1254" height="1254" alt="Conceptual lunar terrain with a sunlit rim and deeply shadowed ground." decoding="async">
+      <figcaption>Shadow, delivery and loss together shape what can remain; darkness alone does not establish ice. Conceptual AI illustration. <a href="../assets/provenance.json">Image provenance</a>.</figcaption>
+      </figure>
     </div>
     <p class="status">Research companion · unpromoted draft, not peer reviewed. Stable core: <a href="../../v1.0.7/preprint/">SPPT/ASTRA v1.0.7</a>.</p>
   </div>
@@ -29,11 +36,20 @@
     <li><a href="#optional-model">Optional detail: persistence and lag</a></li>
     <li><a href="#next-tests">What would count as progress</a></li>
   </ol></div></nav>
-  <div class="reading">
+  <div class="reading with-visuals">
     <section id="lunar-retention" aria-labelledby="lunar-heading">
       <h2 id="lunar-heading">A shadow can preserve a history</h2>
-      <p>Shadow limits direct sunlight; sufficiently slow loss allows a particular substance to remain. Those are different conditions. A permanently shadowed region can still receive scattered sunlight and infrared heating, and it need not retain every volatile. The lunar far side is not permanently dark.</p>
+      <div class="visual-section">
+        <div class="section-copy">
+          <p>Shadow limits direct sunlight; sufficiently slow loss allows a particular substance to remain. Those are different conditions. A permanently shadowed region can still receive scattered sunlight and infrared heating, and it need not retain every volatile. The lunar far side is not permanently dark.</p>
       <p>Local water detection in the <a href="https://science.nasa.gov/mission/lcross/">LCROSS ejecta</a> and <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6130389/">near-infrared evidence of exposed polar ice</a> establish physical material to investigate. Neither measures the complete global inventory of buried water.</p>
+        </div>
+        <figure class="visual">
+        <span class="visual-label">Source → journey → signal</span>
+        <img class="diagram" src="../assets/signal-journey.svg" width="600" height="720" alt="Source material passes through transport, where sorting, alteration and loss occur, before a detector records a selected signal." loading="lazy" decoding="async">
+        <figcaption>Schematic: reconstructing the source requires an account of the route and the detector; no quantities are plotted. <a href="../assets/signal-journey.svg">Open diagram</a>.</figcaption>
+        </figure>
+      </div>
       <p>A 2026 study reports a correlation between exposed-ice fraction inferred from ultraviolet observations and modeled permanent-shadow age. Its delivery, burial and loss model favors quasi-continuous accumulation over at least about 1.5 billion years, rather than one deposit-forming event. This is a published, model-conditioned historical inference; it does not identify every source or exclude individual impact contributions. <a href="https://www.nature.com/articles/s41550-026-02822-9">Aharonson, Hayne and Schörghofer, 2026</a>.</p>
       <p>Small shadows add possible storage sites, but their thermal suitability is not proof that each contains ice. Trap lifetime, shadow volume, burial and escape toward warmer boundaries can change what survives. A colder site need not contain more ice if its delivery, age or other losses differ. <a href="https://www.nature.com/articles/s41550-020-1198-9">Micro cold-trap study</a> · <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2023GL105369">trap creation and destruction model</a> · <a href="https://www.sciencedirect.com/science/article/pii/S0019103526000886">2026 lateral-loss model</a>.</p>
       <p>ASTRA’s proposed test is to account for those processes and predict a held-out crater, depth profile or later release. The age correlation is available evidence to build from; a model designed after reading it cannot call that same correlation an untouched test.</p>
@@ -90,9 +106,18 @@
     </section>
     <section id="next-tests" aria-labelledby="tests-heading">
       <h2 id="tests-heading">What would count as progress?</h2>
-      <p><strong>For the Moon:</strong> fit declared delivery, thermal, transport and retention models on selected craters, then predict entirely held-out craters or geographic blocks and independent depth profiles. Compare strong existing heat-and-mass-transport models, not only a deliberately weak memoryless baseline. Demote an additional interface state if measured inventories suffice, its parameters cannot be identified, or its predictive gain disappears outside the training data. The 2026 lateral-loss model is a competitor, not a new ASTRA claim.</p>
+      <div class="visual-section">
+        <div class="section-copy">
+          <p><strong>For the Moon:</strong> fit declared delivery, thermal, transport and retention models on selected craters, then predict entirely held-out craters or geographic blocks and independent depth profiles. Compare strong existing heat-and-mass-transport models, not only a deliberately weak memoryless baseline. Demote an additional interface state if measured inventories suffice, its parameters cannot be identified, or its predictive gain disappears outside the training data. The 2026 lateral-loss model is a competitor, not a new ASTRA claim.</p>
       <p><strong>For perceptual history:</strong> use simulations and appropriately shared existing datasets to compare fixed coupling, conventional adaptation/noisy competition and specified history-dependent coupling. Match complexity or regularization, check parameter recovery, and hold out participants or sessions. Predict new interruption lengths, history orderings and switching statistics with the same fitted parameters. A retrospective fit with extra hidden variables is insufficient.</p>
       <p><strong>For oscillatory claims:</strong> distinguish endogenous locking from repeated evoked responses, common input, sensor mixing and filtering. Test predicted detuning behavior, phase slips and recovery in simulations or existing data. Matching a spectrum or dwell-time histogram alone does not distinguish the mechanisms.</p>
+        </div>
+        <figure class="visual">
+        <span class="visual-label">A test that can change the answer</span>
+        <img class="diagram" src="../assets/test-sequence.svg" width="600" height="720" alt="Calibrate, fix predictions, compare unused observations, and report support, contradiction or an inconclusive result." loading="lazy" decoding="async">
+        <figcaption>A proposed test sequence, not a report of completed experiments. Tuning and evaluation use separate observations. <a href="../assets/test-sequence.svg">Open diagram</a>.</figcaption>
+        </figure>
+      </div>
       <p><strong>For experience:</strong> separate neural information, attention, decisions, motor reports and responsiveness from conscious content. Existing no-report comparisons show why the reporting task itself needs modeling; their proxies also need validation. A model that predicts only button presses may explain decisions rather than experience. <a href="https://pubmed.ncbi.nlm.nih.gov/24478356/">No-report rivalry study</a>.</p>
       <p>The meaningful advance would be one biologically specified model predicting several independent responses better than established alternatives, including where its effects should disappear. New human experimentation and clinical application are not proposed here.</p>
     </section>

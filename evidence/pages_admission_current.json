@@ -152,39 +152,79 @@
         "sha256": "c6d06f8d367fb63a28e6032e6df28b1341565995d0b0ef302d55e2bc1a728330"
       },
       {
-        "bytes": 33115,
+        "bytes": 1745128,
+        "path": "understand/assets/geometry-thread.png",
+        "sha256": "2309e4a2021e3ebd15907dc5f2c06cc92be98d1d8d4ccfe447a0bd1bf0793b11"
+      },
+      {
+        "bytes": 2822,
+        "path": "understand/assets/hidden-response.svg",
+        "sha256": "b125801be572ff953a81ed471f819f0d31bbdbdf81591774de391a220fd1a8b4"
+      },
+      {
+        "bytes": 2787322,
+        "path": "understand/assets/ice-plume.png",
+        "sha256": "a59bba0ac6b1d6fc8d2a7539858a341bc2a86c533b4c9bdd0f77db5a0bf9d28e"
+      },
+      {
+        "bytes": 2939233,
+        "path": "understand/assets/lunar-memory.png",
+        "sha256": "b919564ae9e1cac3a08eb669e053bfc49beded5b5892de7636c03c1f44387746"
+      },
+      {
+        "bytes": 7431,
+        "path": "understand/assets/provenance.json",
+        "sha256": "e8167ea1e4faf7da42ce4cf51a9ed46d79c57b9db5b3c561eafa511327b9dde1"
+      },
+      {
+        "bytes": 2757,
+        "path": "understand/assets/recovery-shares.svg",
+        "sha256": "b227f0e03dfc329d331752bbfce86014799e384f338744c8f20b713e9b2f6a2b"
+      },
+      {
+        "bytes": 2724,
+        "path": "understand/assets/signal-journey.svg",
+        "sha256": "a080e8dab29c57403e890b63654bdadc6941d140726b632796036bbee3d77fdd"
+      },
+      {
+        "bytes": 2436,
+        "path": "understand/assets/test-sequence.svg",
+        "sha256": "768830df3813b2cc7a8b1cad6afe3f9ad554edc358b2d7104f7c286b302d349b"
+      },
+      {
+        "bytes": 35072,
         "path": "understand/connections/index.html",
-        "sha256": "dfe0e35f4ca95e16a35b97d439128982fc966f95def90529352d71f24e26bf4a"
+        "sha256": "45bf09274485bc2e03cf0871da0b4f931cd441ac22957f186c8c026f3fc79def"
       },
       {
-        "bytes": 16737,
+        "bytes": 18669,
         "path": "understand/geometry/index.html",
-        "sha256": "b3233a33bfd49245c5a6685ab4a35951d2ae871f282c3dd6d00a4753be6ee4ab"
+        "sha256": "98f1d1f95fed506e1b27454f4dc2c10330d23df6e2a8da5f6856abb5dcc1f885"
       },
       {
-        "bytes": 22021,
+        "bytes": 23754,
         "path": "understand/index.html",
-        "sha256": "f0a2ad366010b53f58ae9a498d665b09d5a3da5c30038bef37d9cc34a821b071"
+        "sha256": "685731cfbeacdf52376ae761355d77a1fca5fa75990d7bdafadc3d11901e9d02"
       },
       {
-        "bytes": 18364,
+        "bytes": 20287,
         "path": "understand/persistence/index.html",
-        "sha256": "c64db469b3cc32c5777ec049b4c763085470dd15ce41f5d7822b78cd3c312eba"
+        "sha256": "61c8770283738342f8e618aa88317c1ebe776efb5cf4588379a52a1927119117"
       },
       {
-        "bytes": 30428,
+        "bytes": 32353,
         "path": "understand/predictions/index.html",
-        "sha256": "d90671fc05f6775eb6f0ba8b2c3b7e96c38b3c68190201903e2e754ecc7ea119"
+        "sha256": "d1b77c6da28d15a9338cd263e20c5fefb8165f53145458189c33a86a0838300c"
       },
       {
-        "bytes": 4324,
+        "bytes": 5798,
         "path": "understand/understand.css",
-        "sha256": "97c0afe28db32b9df05786c51d0ac639e9005586d5355e3c0c6c92783aac5e92"
+        "sha256": "347a2a4272b488bf85316f9dcc8622bb489f8c540cce08a8cf3e4bbde63676c2"
       },
       {
-        "bytes": 19806,
+        "bytes": 21662,
         "path": "understand/worlds/index.html",
-        "sha256": "e00f557651f88a8f0d26e239c04d89ae6fd15dbbad788b1bc4f4d2247e8c3d2b"
+        "sha256": "60c7b24b50f90a5012df6cf3789f49190c52024d4c295d195179b77432549626"
       }
     ],
     "root": "docs"

@@ -14,9 +14,16 @@
   <div class="lead">
     <p class="eyebrow">Elementary Understanding / Test designs</p>
     <h1>What would make these ideas stand or fall?</h1>
-    <div class="prose">
+    <div class="visual-lead">
+      <div class="prose visual-copy">
       <p>Measure one response, then predict another without giving the model fresh freedom to fit it. These proposals turn that aim into explicit comparisons. The <a href="../#predictions">plain-language overview</a> introduces their implications; this page adds assumptions, alternatives and optional mathematics.</p>
       <p>Before collecting the decisive data, fix the model, calibration, uncertainty and rejection criteria. An unmeasured loss channel or an insensitive detector makes a result inconclusive. Several proposals still need a suitable apparatus or numerical forecast before they can become complete experiments.</p>
+      </div>
+      <figure class="visual">
+      <span class="visual-label">The shape of a question</span>
+      <img src="../assets/geometry-thread.png" width="1254" height="1254" alt="Abstract illuminated filament curving through a dark geometric space." decoding="async">
+      <figcaption>A visual interpretation of bending and connection, without identifying a physical quantum object. Conceptual AI illustration. <a href="../assets/provenance.json">Image provenance</a>.</figcaption>
+      </figure>
     </div>
     <p class="status">Research companion · unpromoted draft, not peer reviewed. Stable core: <a href="../../v1.0.7/preprint/">SPPT/ASTRA v1.0.7</a>.</p>
   </div>
@@ -33,12 +40,21 @@
     <li><a href="#moon">Validating a lunar archive</a></li>
     <li><a href="#methane">The hydrogen budget for methane</a></li>
   </ol></div></nav>
-  <div class="reading">
+  <div class="reading with-visuals">
     <section id="comparison-standard" aria-labelledby="comparison-heading">
       <h2 id="comparison-heading">What would count as an improvement?</h2>
-      <p>These tests propose possible advances. An analytical difference between equations, agreement with one observation or failure of a simple baseline does not establish superior prediction. The proposed ASTRA advantages here remain <strong>NOT_ASSESSED</strong> without comparative evidence.</p>
+      <div class="visual-section">
+        <div class="section-copy">
+          <p>These tests propose possible advances. An analytical difference between equations, agreement with one observation or failure of a simple baseline does not establish superior prediction. The proposed ASTRA advantages here remain <strong>NOT_ASSESSED</strong> without comparative evidence.</p>
       <p>Choose credible competitors, including competently tuned best-practice baselines. Fit, calibrate and tune each model only on development data, using model-appropriate procedures and comparable tuning effort. Disclose matched resource budgets and measurement access, plus any remaining differences. Declare parameter ranges, noise and nuisance assumptions, model complexity and regularization.</p>
       <p>Freeze those choices before testing the same measured quantities on the same held-out data, with uncertainty and a stated performance measure. Hold out whole sources or trajectories where related samples could leak information across the split. A published benchmark reused while designing the model is development evidence. An untuned default is only a reference, not evidence of an advantage over that model family.</p>
+        </div>
+        <figure class="visual">
+        <span class="visual-label">A test that can change the answer</span>
+        <img class="diagram" src="../assets/test-sequence.svg" width="600" height="720" alt="Calibrate, fix predictions, compare unused observations, and report support, contradiction or an inconclusive result." loading="lazy" decoding="async">
+        <figcaption>A proposed test sequence, not a report of completed experiments. Tuning and evaluation use separate observations. <a href="../assets/test-sequence.svg">Open diagram</a>.</figcaption>
+        </figure>
+      </div>
       <p>For boundary memory, include credible conventional multi-state models; a shared clock alone does not exclude them. For SCM, compare tuned cubic NLS/Kerr-medium wave models and physically relevant saturable or derivative alternatives. A demonstrated gain would apply to the tested observables, measurement access and resources. A nominal CMB anomaly likewise needs a specified physical alternative and quantitative comparison before it supports a particular causal theory; <a href="../connections/#cmb">the CMB discussion separates those claims</a>.</p>
     </section>
     <section id="wave" aria-labelledby="wave-heading">
@@ -122,9 +138,18 @@
     </section>
     <section id="grains" aria-labelledby="grains-heading">
       <h2 id="grains-heading">Different grain populations should reconstruct one source mixture</h2>
-      <p>Use known mixtures to calibrate freezing, salt separation, fragmentation, escape and collection. Freeze that source-and-transport model, fit selected grain populations and ask it to predict the others. Different reconstructed source compositions would reject that particular shared-source explanation.</p>
+      <div class="visual-section">
+        <div class="section-copy">
+          <p>Use known mixtures to calibrate freezing, salt separation, fragmentation, escape and collection. Freeze that source-and-transport model, fit selected grain populations and ask it to predict the others. Different reconstructed source compositions would reject that particular shared-source explanation.</p>
       <p>Alternative cooling histories, including rapid decompression, and instrument selection must be compared. Unknown detector response or transport losses can prevent a decisive reconstruction. Preliminary conference salt maps made after freeze-drying cannot alone settle the pre-drying distribution.</p>
       <p>A rich fragment could help guide sampling without representing the ocean average. Matching a common source would validate part of the reconstruction, not identify biology: chemistry without life remains a competing origin for any candidate signal.</p>
+        </div>
+        <figure class="visual">
+        <span class="visual-label">Source → journey → signal</span>
+        <img class="diagram" src="../assets/signal-journey.svg" width="600" height="720" alt="Source material passes through transport, where sorting, alteration and loss occur, before a detector records a selected signal." loading="lazy" decoding="async">
+        <figcaption>Schematic: reconstructing the source requires an account of the route and the detector; no quantities are plotted. <a href="../assets/signal-journey.svg">Open diagram</a>.</figcaption>
+        </figure>
+      </div>
       <p class="source"><a href="https://pubmed.ncbi.nlm.nih.gov/42789710/">Grain-segregation study</a> · <a href="https://meetingorganizer.copernicus.org/EPSC2026/EPSC2026-1326.html">Rapid-decompression conference comparison</a> · <a href="../worlds/#grain-journey">The sample’s journey</a>.</p>
     </section>
     <section id="titan" aria-labelledby="titan-heading">
