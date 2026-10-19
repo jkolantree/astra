@@ -2,11 +2,11 @@
   "candidate_sha256": "2fe477e46712c998f7650f8266225a2ded403aedd8c46ead59e991a59899fb60",
   "coverage": {
     "assistive_technology": "not-tested",
-    "console_and_network": "not-tested",
-    "desktop_and_mobile_layout": "not-tested",
-    "keyboard_and_focus": "not-tested",
-    "media_playback": "not-tested",
-    "reduced_motion": "not-tested"
+    "console_and_network": "passed",
+    "desktop_and_mobile_layout": "passed",
+    "keyboard_and_focus": "passed",
+    "media_playback": "passed",
+    "reduced_motion": "passed"
   },
   "kind": "owner_authorized_current_pages_agent_review_v1",
   "publication_authorization": {
@@ -17,12 +17,12 @@
     "status": "authorized"
   },
   "visual_review": {
-    "basis": "Awaiting inspection of the exact workflow preview artifact; no browser acceptance is recorded yet.",
+    "basis": "Codex inspected desktop and mobile screenshots and exercised navigation, keyboard focus, explorer controls, reduced motion, and both MP4s. Final preview: https://github.com/jkolantree/astra/actions/runs/39331741177; artifact SHA256 a03f78c1d1e13d9c4606963216e15c525946478fc06f5571f3d891c850bd0041. Its 211 files differ from the first reviewed preview only in the two explorer HTML files, whose narrow-layout correction was rechecked. Current development CI passed: https://github.com/jkolantree/astra/actions/runs/39331746764.",
     "content_sha256": "9ad5f1057be127c648cfd10d9dd25076a72366b321914b1d178cccdb6c57ac24",
     "owner_visual_review_claimed": false,
     "reviewer": "Codex agent",
-    "scope": "Current admitted source pages and companion presentation; no scientific or release validation is inferred.",
-    "status": "pending",
-    "surface": "Pending browser inspection of the assembled ASTRA website."
+    "scope": "Current admitted shell and research-companion presentation. No scientific or release validation is inferred. The unchanged v1.0.1 and v1.0.5 preprints retain narrow-screen overflow from long equations; those historical pages are outside this current-layout acceptance. Assistive-technology review was not performed.",
+    "status": "accepted",
+    "surface": "Chromium desktop at 1440 pixels and mobile at 320 pixels; 41-route initial smoke review and a final two-explorer-route review. Linux Chromium narrow-width regression also passed in CI."
   }
 }
