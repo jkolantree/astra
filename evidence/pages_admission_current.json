@@ -192,9 +192,9 @@
         "sha256": "768830df3813b2cc7a8b1cad6afe3f9ad554edc358b2d7104f7c286b302d349b"
       },
       {
-        "bytes": 35072,
+        "bytes": 35067,
         "path": "understand/connections/index.html",
-        "sha256": "45bf09274485bc2e03cf0871da0b4f931cd441ac22957f186c8c026f3fc79def"
+        "sha256": "431b26715cbfbee5defd4e1719532a328b42513f35d89e210c0917d6830d8292"
       },
       {
         "bytes": 18669,
@@ -217,9 +217,9 @@
         "sha256": "d1b77c6da28d15a9338cd263e20c5fefb8165f53145458189c33a86a0838300c"
       },
       {
-        "bytes": 5798,
+        "bytes": 5856,
         "path": "understand/understand.css",
-        "sha256": "347a2a4272b488bf85316f9dcc8622bb489f8c540cce08a8cf3e4bbde63676c2"
+        "sha256": "aafd4b9c1e1a416668673a381aacc088fbf8588152489aa976a154ebf790bca7"
       },
       {
         "bytes": 21662,

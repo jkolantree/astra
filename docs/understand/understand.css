@@ -47,7 +47,7 @@ section { padding: 38px 0; border-bottom: 1px solid var(--line); scroll-margin-t
 .contents { padding: 20px 24px; background: var(--panel); border: 1px solid var(--line); }
 .contents h2 { font: 18px/1.5 system-ui, sans-serif; margin-bottom: 8px; }
 .contents ol { padding-left: 24px; margin: 0; }
-.contents a { display: inline-block; padding: 5px 0; }
+.contents a { display: inline-block; vertical-align: top; padding: 5px 0; }
 .reading { max-width: 73ch; }
 .reading li { margin: 12px 0; }
 .prediction { padding: 12px 0 20px; }
@@ -60,7 +60,7 @@ section { padding: 38px 0; border-bottom: 1px solid var(--line); scroll-margin-t
 dt { color: var(--gold); font-weight: 600; margin-top: 20px; }
 dd { margin: 6px 0 20px; }
 .next { padding: 30px 0; }
-footer { padding: 28px 0 44px; color: var(--muted); font-size: 14px; }
+footer.wrap { padding-top: 28px; padding-bottom: 44px; color: var(--muted); font-size: 14px; }
 /* Shared reading illustrations: precise schematics and clearly labeled art. */
 .visual-lead, .visual-section { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 28px 44px; align-items: start; }
 .visual-lead { margin: 28px 0; }
@@ -93,7 +93,7 @@ figure.visual { margin: 0; min-width: 0; }
 @media print {
   :root { color-scheme: light; --bg: white; --ink: #111; --muted: #333; --accent: #123b36; --gold: #51401a; --line: #bbb; --panel: white; }
   .skip, header, .contents { display: none; }
-  .wrap { max-width: none; padding: 0; }
+  .wrap, footer.wrap { max-width: none; padding: 0; }
   .cards { display: block; }
   .visual-lead, .visual-section { display: block; }
   .visual { break-inside: avoid; margin: 20px 0 !important; max-width: 100mm; }
