@@ -1,28 +1,28 @@
 {
-  "candidate_sha256": "2fe477e46712c998f7650f8266225a2ded403aedd8c46ead59e991a59899fb60",
+  "candidate_sha256": "f215db9a467074434e501e1367a74dd089c852088192cc6888ec35adfcad4292",
   "coverage": {
     "assistive_technology": "not-tested",
-    "console_and_network": "passed",
-    "desktop_and_mobile_layout": "passed",
-    "keyboard_and_focus": "passed",
-    "media_playback": "passed",
-    "reduced_motion": "passed"
+    "console_and_network": "not-tested",
+    "desktop_and_mobile_layout": "not-tested",
+    "keyboard_and_focus": "not-tested",
+    "media_playback": "not-tested",
+    "reduced_motion": "not-tested"
   },
   "kind": "owner_authorized_current_pages_agent_review_v1",
   "publication_authorization": {
     "actor": "repository owner",
-    "basis": "The repository owner explicitly requested publication of the current GitHub code and the existing ASTRA website on 2026-10-19.",
+    "basis": "On 2026-10-19 the repository owner accepted the current Understanding changes and explicitly requested merging codex/understanding-visuals into main and publishing the existing website through its workflow, with browser access blocked and deployed files compared with the verified preview.",
     "scientific_release_authorized": false,
     "scope": "current GitHub code and existing ASTRA website",
     "status": "authorized"
   },
   "visual_review": {
-    "basis": "Codex inspected desktop and mobile screenshots and exercised navigation, keyboard focus, explorer controls, reduced motion, and both MP4s. Final preview: https://github.com/jkolantree/astra/actions/runs/39331741177; artifact SHA256 a03f78c1d1e13d9c4606963216e15c525946478fc06f5571f3d891c850bd0041. Its 211 files differ from the first reviewed preview only in the two explorer HTML files, whose narrow-layout correction was rechecked. Current development CI passed: https://github.com/jkolantree/astra/actions/runs/39331746764.",
-    "content_sha256": "9ad5f1057be127c648cfd10d9dd25076a72366b321914b1d178cccdb6c57ac24",
+    "basis": "Codex reviewed supplied screenshots of all six Understanding pages at 390 pixels and the overview at 1440 pixels for revision 817ba099591c2c5d560ccbb3729743b7f66d5dbe. Footer spacing, wrapped contents-number alignment and a directional caption were corrected and source-reviewed in revision 7ea54840a8636cf80c5a8bad96ffe087533d2183. The corrected rendering was not recaptured. Its complete preview is https://github.com/jkolantree/astra/actions/runs/39344080946, artifact SHA256 46a5ec88bf830af6ad514970f2beb89365fcd3e93176e9770e6dc9e174be6c14, containing 219 files; all 44 admitted source files matched the committed bytes. Development CI https://github.com/jkolantree/astra/actions/runs/39344078645 passed 812 tests and 110 subtests. This is limited presentation acceptance with the scope and untested coverage stated here.",
+    "content_sha256": "92b523a929b061918d632cd264694740a69629fab4159aec4f635b4a86528e15",
     "owner_visual_review_claimed": false,
     "reviewer": "Codex agent",
-    "scope": "Current admitted shell and research-companion presentation. No scientific or release validation is inferred. The unchanged v1.0.1 and v1.0.5 preprints retain narrow-screen overflow from long equations; those historical pages are outside this current-layout acceptance. Assistive-technology review was not performed.",
+    "scope": "Current Understanding presentation changes and their small source-reviewed corrections. Two lower Worlds images were absent from the supplied capture; their paths and source bytes were checked, but their rendering was not verified there. Desktop chapter layouts, the corrected rendering, keyboard/focus, reduced motion, media playback, browser console/network behavior and assistive technology were not tested in this review. The broad coverage fields therefore remain not-tested. No scientific or versioned-release validation is inferred.",
     "status": "accepted",
-    "surface": "Chromium desktop at 1440 pixels and mobile at 320 pixels; 41-route initial smoke review and a final two-explorer-route review. Linux Chromium narrow-width regression also passed in CI."
+    "surface": "Supplied PNG screenshots at 390 pixels for the six Understanding pages and 1440 pixels for the overview, followed by source review of the three corrections. Browser access remained blocked."
   }
 }
