@@ -1,0 +1,47 @@
+{
+  "browser_evidence": "Separate exact-source local receipt; no inferred owner acceptance",
+  "existing_32_payload_distribution_approval": "PRESERVED_NOT_EXTENDED",
+  "gateway": {
+    "commit_object_available": false,
+    "known_overlap": [
+      "LICENSE_MAP.md",
+      "MANIFEST.sha256",
+      "README.md"
+    ],
+    "manual_visual_acceptance": "PENDING",
+    "publication_approval": "PENDING",
+    "reconciliation": "LOCAL_CONTENT_RECONCILED_NOT_ADMITTED",
+    "root_explorer_source_unchanged": true,
+    "selected_commit": "dde54345b396b0ad7edee1708390b0f5b6261001",
+    "source_available": true,
+    "verified_source_tree": "2b310a992b1899e1e7c253c79acb73b42cf28ea9"
+  },
+  "manual_visual_acceptance": "PENDING",
+  "pages_admitted": false,
+  "publication_approval": "PENDING",
+  "publication_authorized": false,
+  "reading_prose_coverage": "NOT_COVERED_BY_THE_93_INTEGRATED_CLAIM_RECORDS",
+  "retained020_outputs": "COPIED_FOR_PREVIEW_NOT_FRESHLY_PRODUCED",
+  "runtime_admitted": false,
+  "schema": "astra-integrated-gateway-review-draft-1",
+  "source_admitted": false,
+  "status": "PROPOSED_NOT_ADMITTED",
+  "ui_source_sha256": {
+    "LICENSE_MAP.md": "ca7b856083815876c7a61f160e0f9ebb6cef5bd2d23b0d3be39633ca2dcf5078",
+    "PUBLICATIONS.md": "cc9ed5e742c797a583259267b4d6f54449c9e58a897881e932918493dfe1f75e",
+    "README.md": "c8363b293d08e000755f2c04a8ddb4db9c13e91c0ea6465181591b20ef890edb",
+    "docs/assets/astra-midnight-occultation.png": "a589e2502ae973b1e46593bbf02a953c043fc3d5005a732186878ead11286f45",
+    "docs/assets/midnight-occultation-provenance.json": "e9e88c0834a57ab643b649196d49593a354d0cca2253da9f1829bfbe975260f4",
+    "docs/index.html": "cadea713e6a7cf17ebfef4bed0b76d6e331c12fa8d1550dee68a64721fa557da",
+    "docs/library/index.html": "03c9a52a16685dba046196d623c857eba5ef17c55d8464f505ecdeb48065ddfc",
+    "docs/understand/connections/index.html": "dfe0e35f4ca95e16a35b97d439128982fc966f95def90529352d71f24e26bf4a",
+    "docs/understand/geometry/index.html": "b3233a33bfd49245c5a6685ab4a35951d2ae871f282c3dd6d00a4753be6ee4ab",
+    "docs/understand/index.html": "f0a2ad366010b53f58ae9a498d665b09d5a3da5c30038bef37d9cc34a821b071",
+    "docs/understand/persistence/index.html": "c64db469b3cc32c5777ec049b4c763085470dd15ce41f5d7822b78cd3c312eba",
+    "docs/understand/predictions/index.html": "d90671fc05f6775eb6f0ba8b2c3b7e96c38b3c68190201903e2e754ecc7ea119",
+    "docs/understand/understand.css": "97c0afe28db32b9df05786c51d0ac639e9005586d5355e3c0c6c92783aac5e92",
+    "docs/understand/worlds/index.html": "e00f557651f88a8f0d26e239c04d89ae6fd15dbbad788b1bc4f4d2247e8c3d2b",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/explorer/index.html": "523f7bb2fbf9bb8b6f7680301c07671967ef0edbb2bec7e91a27097f1c312a8b"
+  },
+  "visual_content_sha256": "67de4de883139445e3865c326d5c18147844303304b1ffb8476cad5c7567cfcc"
+}

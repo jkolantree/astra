@@ -1,0 +1,31 @@
+{
+  "title": "Midnight Occultation \u2014 ASTRA gateway artwork",
+  "asset": "astra-midnight-occultation.png",
+  "sha256": "a589e2502ae973b1e46593bbf02a953c043fc3d5005a732186878ead11286f45",
+  "bytes": 1500399,
+  "dimensions": [
+    1774,
+    887
+  ],
+  "caption": "AI-generated conceptual illustration of Saturn. Not a spacecraft image, measurement, or scientific evidence.",
+  "alt": "ASTRA in large ivory capitals beside a dark, gold-lit conceptual Saturn with sweeping rings.",
+  "generation": {
+    "tool": "OpenAI built-in image generation",
+    "inputs": "Original text prompt; no reference photographs, screenshots or third-party imagery.",
+    "source_date_utc": "2026-10-06"
+  },
+  "preservation": {
+    "original_png_bytes": true,
+    "recompression": false,
+    "cropping": false,
+    "embedded_c2pa_retained": true,
+    "cryptographic_certificate_trust_independently_validated": false
+  },
+  "source_archive": {
+    "file": "ASTRA-hero-art-package.zip",
+    "sha256": "ab675dad2f44341c41634f8fd1eaf7a753f50b1d987e9f850a5324cb818e0df0",
+    "bytes": 5007609
+  },
+  "rights": "Supplied AI-generated conceptual illustration selected for the ASTRA gateway. The image is excluded from the repository MIT code and CC BY 4.0 text/documentation grants. Selection does not grant downstream reuse rights; any optional artwork reuse license requires separate owner approval. Exact-byte visual acceptance and final publication approval remain pending. No copyrightability or third-party rights claim is made.",
+  "scientific_boundary": "Artistic lighting, proportions and ring detail are illustrative, not quantitatively accurate or evidence for a physical mechanism."
+}

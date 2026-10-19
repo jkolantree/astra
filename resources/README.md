@@ -6,6 +6,21 @@ its own review status, integrity record, source or provenance record, and rights
 boundary; published editions additionally state their citation and reading
 route.
 
+## Interactive research companion
+
+The [live explorer](https://jkolantree.github.io/astra/explore/) is a published
+**Draft** companion, not a new scientific release. Its [source and
+provenance](sppt-scm-research-companion/draft-v0.1.0/explorer/) connect the
+models, visual atlas, animations and research synthesis. Solar-Planetary
+Phase-Partition Theory (SPPT) and the Spaghetti Cloud Model (SCM) remain
+separate research lines. Prescribed kinematics, retained synthetic samples,
+conditional geometry and conceptual art do not establish empirical validation
+or promote the companion to the SPPT/ASTRA v1.0.7 core.
+
+The gateway redesign prepares the explorer at the root and the reading room
+at `/library/`; those navigation changes are a local review candidate.
+The supplied research package and historical publication routes remain intact.
+
 ## Dark-Medium Response Atlas publication line
 
 - **Working paper — [Dark-Medium Response Atlas
@@ -71,8 +86,8 @@ record.
 ## Unpromoted v1.0.8 successor candidate
 
 The [SPPT / ASTRA v1.0.8 Endogenous Visibility
-candidate](sppt-astra-v1.0.8-candidate/) is a repository-visible, repaired
-successor package. It develops source-coupled transducers, cross-channel
+candidate](sppt-astra-v1.0.8-candidate/) is a repaired successor package
+already integrated into `main`, with scientific release promotion still deferred. It develops source-coupled transducers, cross-channel
 rescue, self-detuning media, and catastrophic archives as distinct
 calibration problems under one bounded inverse-problem audit. Its generic
 joint-inference structure is not claimed as a newly discovered field, and its

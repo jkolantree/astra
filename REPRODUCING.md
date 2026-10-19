@@ -2,9 +2,110 @@
 
 Choose the publication identity before choosing a command. The core and each supplemental line have different source archives, runtimes, builders, and claims. A successful check for one line does not verify another.
 
-## Linux development (default)
+## Current source and website development
 
-New development uses [RUNTIME-linux.json](RUNTIME-linux.json). The supported host
+Ordinary pull requests and `main` CI validate the current committed source and
+website without recreating historical scientific results:
+
+```sh
+python3 -I -B tools/bootstrap_linux.py --current-development
+.venv/bin/python -I -B tools/verify_linux_companion.py --current-development
+```
+
+The bootstrap flag adds the separately hash-pinned SymPy 1.14.0 and mpmath 1.3.0
+wheels in `requirements-development.txt`. It permits no source-build fallback and
+does not change the historical dependency lock or runtime records. Current
+verification checks these two installed versions as well as the historical lock.
+
+This uses the declared Debian 13 runtime below and the real Git index and commit,
+not an external audit inventory. Every indexed regular file must match its Git
+blob; the complete source inventory must remain unchanged during checks. A clean
+committed worktree is required for a pass. Historical receipts and the old root
+manifest remain historical evidence; this mode does not reissue them for changed
+source bytes or claim a release archive has been verified.
+
+The suite includes historical identity checks, temporary Git fixtures and website
+assembly controls. Only the two retained benchmark reproduction tests and
+`ScopedClaimControls::test_CORE08_repeatable_explicit_run` are excluded because
+they execute scientific replay. The existing historical S1 collection policy
+remains. An empty test result, any skip, failure or error blocks the gate. The
+Playwright-bundled Node runtime supplies JavaScript tests.
+
+Maintained source also receives repository-content, Python lint/type, citation,
+link, current Pages admission and existing-PDF checks. Exact archived draft files
+remain in the full Git inventory but outside maintained-code lint. Results retain
+each failed gate in a fresh `tmp/current-development-*/results.json`. Current
+Pages admission binds the reviewed current website separately from immutable
+release routes. Passing development checks does not publish anything, authorize a
+new scientific claim, or establish full historical reproduction.
+
+Tag workflows keep their existing historical release checks. Use the explicit
+historical commands below when reproducing their named contracts; there is no
+automatic fallback from a failed historical check to current development.
+
+## Retained local successor diagnostics
+
+The local integration successor uses an external, digest-pinned schema-2 inventory.
+It anchors the preserved 627-file snapshot and declares every changed or added file;
+it does not update historical admission records or `MANIFEST.sha256`.
+
+On the Windows reference runtime, use the existing companion entry point:
+
+```text
+python -I -B -X utf8 tools/verify_linux_companion.py --profile local-successor --successor-contract <external-contract.json> --successor-contract-sha256 <reviewed-sha256> --development --work-directory <new-external-directory>
+```
+
+The eight reported gates cover runtime, the reviewed root test suite,
+maintained Python lint, source types, citation metadata, maintained Markdown links,
+the retained external-link observation record, and inspection of existing PDFs.
+All 42 root test files are accounted for: the existing historical S1 collection
+exclusion is preserved, and the other 41 files run with explicit exclusions for
+17 functions that create commits, run scientific replay, or assemble a real site.
+Parameterized functions may account for more than 17 deselected cases. The exact
+selection and reasons are reported with each result. Safe historical-identity
+tests remain included and can fail when the snapshot lacks their committed
+history or publication admission; those failures do not become passes here.
+Some tests exercise mocked build/replay controllers; no real artifact build or
+scientific replay is invoked. External links are not contacted. Scratch output
+must be outside the source tree, in a fresh directory.
+
+When Windows cannot create the real symbolic-link fixtures, the same entry point
+can run the entire selected test suite on a provisioned WSL Linux host. Add
+`--wsl-test-distribution Ubuntu --wsl-test-python <absolute-native-python>` and
+`--wsl-test-work-directory <fresh-native-directory>`. The interpreter must be
+CPython 3.12.10 with every locked dependency version available. The host must also
+supply Git, PowerShell for the workflow controls, and Pandoc for in-memory source
+parsing. Provisioning these tools is separate from running the entry point.
+
+The adapter verifies the helper identity before import and the complete source
+inventory before and after testing. It uses native Linux scratch files and the
+same explicit test targets and deferrals; it does not substitute mocks for the
+real symbolic links. The two existing browser-layout tests run on Windows, using
+its installed Chromium, and are excluded only from the Linux portion. Pure
+JavaScript tests use the existing Playwright Node executable. Both portions must
+report positive counts and zero failures, errors, or skips for the combined test
+gate to pass. A new unreviewed test file also blocks the declared scope.
+Windows reference-runtime and other development checks still run on Windows.
+The host report distinguishes this functional test environment
+from the canonical Debian environment and from scientific replay admission.
+
+Pages builder tests use complete exact-roster fixtures. The production default
+still rejects unadmitted documentation and changed bytes. Passing these tests
+does not admit the local reading-room additions for publication.
+
+The 88 retained local-only draft files remain byte-identical to the preserved
+snapshot. They are historical inputs, not maintained or executed code in this
+profile. Their whole-tree lint findings remain separate diagnostics; the Ruff
+configuration and historical suite are unchanged. This scope grants no source,
+runtime, Pages, scientific, or publication admission. A local development pass is
+not a full repository or release pass. Linux identity, the complete applicable
+suite, committed successor identity, clean/archive checks, builds, and replay
+remain separate requirements. Repository-specific Git helpers reject a plain
+nested snapshot instead of discovering its enclosing repository.
+
+## Linux runtime and historical reproduction
+
+The Linux runtime is defined by [RUNTIME-linux.json](RUNTIME-linux.json). The supported host
 is Debian 13 x86-64 with glibc 2.41 and AVX2/FMA3. The local bootstrap downloads
 hash-pinned Astral CPython 3.12.10 and Debian Git 2.47.3 archives into ignored `tmp/`,
 downloads hash-pinned Microsoft PowerShell 7.5.4 for the workflow guard tests,
@@ -42,8 +143,8 @@ The companion branch uses a separate [operational-source admission](evidence/lin
 for exactly three reviewed Pages/repository helpers and the additional verification
 files. It preserves the original baseline record and controller, restores the
 original `pyproject.toml`, and inherits all runtime, scientific and 57 output pins.
-CI invokes `verify_linux_companion.py` explicitly; it never falls back after a v1
-failure. The historical v1 command remains strict and rejects this extended tree.
+The explicit historical command invokes `verify_linux_companion.py` without
+`--current-development`; it never falls back after a v1 failure. The historical v1 command remains strict and rejects this extended tree.
 
 The test suite and repository, lint, type, citation, link, PDF and manifest gates run
 before replay. `--all` builds scientific outputs and Atlas documents twice in a

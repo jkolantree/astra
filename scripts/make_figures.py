@@ -1,4 +1,4 @@
-"""Canonical deterministic replay for every released scientific output."""
+"""Run the three declared scientific generators; the replay gate checks coverage."""
 from __future__ import annotations
 
 import argparse
@@ -104,7 +104,8 @@ def main() -> None:
         str(args.workers),
         environment=environment,
     )
-    print("Reproduced every released scientific data and figure artifact.")
+    print("Completed the three declared scientific generators. "
+          "Complete output coverage and freshness require the separate replay gate.")
 
 
 if __name__ == "__main__":

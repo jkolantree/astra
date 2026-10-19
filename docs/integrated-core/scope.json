@@ -1,0 +1,42 @@
+{
+  "integrated": [
+    "SPPT/reservoir base",
+    "Layers typed edges",
+    "Gamma boundary/reset response",
+    "Xi discrete memory/output channel",
+    "October synthetic operators and structural admission"
+  ],
+  "bounded_research": [
+    "SCM nine replay families and d2 proof",
+    "WKI six symbolic groups and prior-art correction"
+  ],
+  "deferred": [
+    {
+      "module": "CAPC",
+      "reason": "Rights approved and repaired code preserved; optional archive/ephemeris interface has not been joined to the common core. Deferral is an engineering proposal, not a refutation or final owner-approved omission."
+    },
+    {
+      "module": "SRBD / QG / Earth and Saturn revision sources / BHSTAR and Unified / Archive Calibration Starter",
+      "reason": "Requested original sources or revision chains absent from the reviewed source pool; no silent substitution of adjacent modules."
+    },
+    {
+      "module": "SCM v0.3 / full Convergence and nonlinear integrations",
+      "reason": "Additional source families and replay inputs absent; nine SCM and six WKI groups do not cover them."
+    },
+    {
+      "module": "Enceladus empirical/three-probe adapters",
+      "reason": "Metadata proposal only; no calibrated daughter/count law, response data or empirical pipeline."
+    },
+    {
+      "module": "Superfluid–ASTRA brief",
+      "reason": "Separate analytical note with limited source coverage; not included in this integration proposal. Its scientific scope and distribution rights require a separate review before inclusion."
+    },
+    {
+      "module": "New joint-wave analytical work",
+      "reason": "Still independently being developed; neither completed evidence nor included content."
+    }
+  ],
+  "no_deferral_is_refutation": true,
+  "empirical_validation": false,
+  "fundamental_quantum_completion": false
+}

@@ -1,0 +1,16 @@
+# REVIEW ONLY. Outside .github/workflows; .disabled is not a workflow extension.
+# No publication code, credentials, permissions or runner approval are provided.
+name: Integrated core publication design — DISABLED
+on:
+  push:
+    tags: ['astra-integrated-core-v*'] # Authorized draft identity only; publication is not authorized.
+permissions: {}
+jobs:
+  publication:
+    if: ${{ false }}
+    runs-on: [self-hosted, ASTRA-RUNTIME-NOT-APPROVED]
+    permissions: {}
+    steps:
+      - name: Fail closed until a separately reviewed implementation exists
+        shell: bash
+        run: exit 1

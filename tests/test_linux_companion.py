@@ -1,8 +1,8 @@
 """The companion admission cannot replace scientific pins or relax v1 outputs."""
 from __future__ import annotations
 
+import hashlib
 import json
-import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -14,43 +14,118 @@ from tools import verify_linux_companion as companion
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def source_tree(tmp_path: Path) -> Path:
-    baseline = json.loads((ROOT / companion.PREDECESSOR).read_text())
-    names = set(baseline["source_sha256"]) | companion.ADDITIONAL_INPUTS | {
-        companion.RECORD, companion.PREDECESSOR,
+@pytest.fixture
+def admitted_source_tree(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> tuple[Path, dict]:
+    """Synthetic byte/roster controls only; these files confer no source admission.
+
+    Only the fixture's predecessor trust anchor is substituted, and pytest restores
+    it afterward. Production hashing, inventory, and link checks remain real.
+    No synthetic source is imported or executed; retained repository records are
+    read without modification, including all 57 scientific-output pins.
+    """
+    baseline = json.loads((ROOT / companion.PREDECESSOR).read_text(encoding="utf-8"))
+    names = set(baseline["source_sha256"]) | companion.ADDITIONAL_INPUTS
+    payload = {name: f"synthetic predecessor source: {name}\n".encode() for name in names}
+    baseline["source_sha256"] = {
+        name: hashlib.sha256(payload[name]).hexdigest()
+        for name in baseline["source_sha256"]
     }
-    for name in names:
+    replacements = {}
+    for name in sorted(companion.REPLACEMENTS):
+        payload[name] = f"synthetic operational replacement: {name}\n".encode()
+        replacements[name] = {
+            "predecessor_sha256": baseline["source_sha256"][name],
+            "sha256": hashlib.sha256(payload[name]).hexdigest(),
+            "reason": "Synthetic test fixture; no runtime or scientific authority.",
+        }
+    baseline_bytes = (json.dumps(baseline, sort_keys=True) + "\n").encode()
+    predecessor_digest = hashlib.sha256(baseline_bytes).hexdigest()
+    record = {
+        "admission_id": companion.ADMISSION_ID,
+        "predecessor": {"path": companion.PREDECESSOR, "sha256": predecessor_digest},
+        "source_replacements": replacements,
+        "additional_source_sha256": {
+            name: hashlib.sha256(payload[name]).hexdigest()
+            for name in sorted(companion.ADDITIONAL_INPUTS)
+        },
+    }
+    payload[companion.PREDECESSOR] = baseline_bytes
+    payload[companion.RECORD] = (json.dumps(record, sort_keys=True) + "\n").encode()
+    for name, data in payload.items():
         target = tmp_path / name
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT / name, target)
-    return tmp_path
+        target.write_bytes(data)
+    monkeypatch.setattr(companion, "PREDECESSOR_SHA256", predecessor_digest)
+    return tmp_path, baseline
 
 
-def test_admission_preserves_original_runtime_science_and_output_authority() -> None:
-    baseline = companion.check_sources()
-    assert baseline == json.loads((ROOT / companion.PREDECESSOR).read_text())
+def test_synthetic_source_admission_accepts_exact_fixture(admitted_source_tree) -> None:
+    root, expected = admitted_source_tree
+    baseline = companion.check_sources(root)
+    assert baseline == expected
+    retained = json.loads((ROOT / companion.PREDECESSOR).read_text(encoding="utf-8"))
+    assert baseline["output_sha256"] == retained["output_sha256"]
+    assert len(baseline["source_sha256"]) == 46
+    assert len(baseline["output_sha256"]) == 57
+
+
+def test_historical_admission_remains_frozen_and_rejects_current_successor() -> None:
+    predecessor = (ROOT / companion.PREDECESSOR).read_bytes()
+    record = (ROOT / companion.RECORD).read_bytes()
+    assert hashlib.sha256(predecessor).hexdigest() == companion.PREDECESSOR_SHA256
+    baseline = json.loads(predecessor)
     assert len(baseline["source_sha256"]) == 46
     assert len(baseline["output_sha256"]) == 57
     for name in ("pyproject.toml", "RUNTIME.json", "RUNTIME-linux.json",
                  "requirements-lock.txt", "tools/verify_linux_baseline.py"):
         companion.require_digest(ROOT / name, baseline["source_sha256"][name])
+    changed = ROOT / "scripts/make_figures.py"
+    assert hashlib.sha256(changed.read_bytes()).hexdigest() != baseline["source_sha256"][
+        "scripts/make_figures.py"
+    ]
+    with pytest.raises(
+        RuntimeError, match=r"^Operational-source byte identity mismatch: make_figures\.py$",
+    ):
+        companion.check_sources()
+    assert (ROOT / companion.PREDECESSOR).read_bytes() == predecessor
+    assert (ROOT / companion.RECORD).read_bytes() == record
 
 
-@pytest.mark.parametrize("fault", [
-    "predecessor_bytes", "predecessor_identity", "admission_identity",
-    "missing_replacement", "scientific_replacement", "runtime_replacement",
-    "replacement_predecessor", "replacement_digest", "replacement_reason",
-    "missing_additional", "extra_additional", "output_override", "missing_source",
-    "changed_science", "changed_runtime", "changed_operational", "changed_lint",
-    "changed_controller", "source_link", "record_link",
+@pytest.mark.parametrize("fault,message", [
+    ("predecessor_bytes", r"byte identity mismatch: linux-research-v1\.json$"),
+    ("predecessor_identity", "predecessor or admission identity changed"),
+    ("admission_identity", "predecessor or admission identity changed"),
+    ("missing_replacement", "replacement inventory is malformed"),
+    ("scientific_replacement", "replacement inventory is malformed"),
+    ("runtime_replacement", "replacement inventory is malformed"),
+    ("replacement_predecessor", "replacement predecessor changed"),
+    ("replacement_digest", r"byte identity mismatch: check_pages_admission\.py$"),
+    ("replacement_reason", "replacement reason must be stated"),
+    ("missing_additional", "additional source inventory is malformed"),
+    ("extra_additional", "additional source inventory is malformed"),
+    ("output_override", "record inventory is malformed"),
+    ("missing_source", r"byte identity mismatch: check_pages_admission\.py$"),
+    ("changed_science", r"byte identity mismatch: sppt_core\.py$"),
+    ("changed_runtime", r"byte identity mismatch: pyproject\.toml$"),
+    ("changed_operational", r"byte identity mismatch: check_pages_admission\.py$"),
+    ("changed_lint", r"byte identity mismatch: ruff\.toml$"),
+    ("changed_controller", r"byte identity mismatch: verify_linux_companion\.py$"),
+    ("source_link", "Operational-source inputs must not use links"),
+    ("record_link", "Operational-source inputs must not use links"),
 ])
-def test_source_admission_rejects_unauthorized_changes(tmp_path: Path, fault: str) -> None:
-    root = source_tree(tmp_path)
+def test_source_admission_rejects_unauthorized_changes(
+    admitted_source_tree, fault: str, message: str,
+) -> None:
+    root, expected = admitted_source_tree
+    # Each negative trial must first demonstrate a fully valid starting state.
+    assert companion.check_sources(root) == expected
     record_path = root / companion.RECORD
-    record = json.loads(record_path.read_text())
+    record = json.loads(record_path.read_text(encoding="utf-8"))
     operational = "tools/check_pages_admission.py"
     if fault == "predecessor_bytes":
-        (root / companion.PREDECESSOR).write_text("{}")
+        (root / companion.PREDECESSOR).write_text("{}", encoding="utf-8")
     elif fault == "predecessor_identity":
         record["predecessor"]["sha256"] = "0" * 64
     elif fault == "admission_identity":
@@ -85,12 +160,12 @@ def test_source_admission_rejects_unauthorized_changes(tmp_path: Path, fault: st
         copy = root / "same-bytes.py"
         target.rename(copy)
         target.symlink_to(copy)
-    record_path.write_text(json.dumps(record))
+    record_path.write_text(json.dumps(record), encoding="utf-8")
     if fault == "record_link":
         copy = root / "same-record.json"
         record_path.rename(copy)
         record_path.symlink_to(copy)
-    with pytest.raises(RuntimeError):
+    with pytest.raises(RuntimeError, match=message):
         companion.check_sources(root)
 
 

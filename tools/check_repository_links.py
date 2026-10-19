@@ -26,11 +26,12 @@ def markdown_files(root: Path = ROOT) -> list[Path]:
     )
 
 
-def check_repository_links(root: Path = ROOT) -> dict[str, int]:
+def check_repository_links(root: Path = ROOT, *, sources: list[Path] | None = None) -> dict[str, int]:
+    selected = markdown_files(root) if sources is None else sources
     failures: list[str] = []
     checked = 0
     fragments = 0
-    for source in markdown_files(root):
+    for source in selected:
         relative_source = source.relative_to(root).as_posix()
         for destination in markdown_links(source.read_text(encoding="utf-8")):
             kind, path_text, fragment = classify_url(destination)
@@ -83,7 +84,7 @@ def check_repository_links(root: Path = ROOT) -> dict[str, int]:
                     )
     if failures:
         raise RuntimeError("Repository link audit failed:\n" + "\n".join(failures))
-    return {"markdown_files": len(markdown_files(root)), "local_links": checked, "fragments": fragments}
+    return {"markdown_files": len(selected), "local_links": checked, "fragments": fragments}
 
 
 def main() -> None:

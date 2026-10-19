@@ -1,0 +1,440 @@
+{
+  "base_commit": "539a6ab7bd28e4251f37e16689b90688a4adee40",
+  "claim_bindings": {
+    "data/integrated-core/bridge_contracts.json": "851b4b8f44da612ab047fb67ce0cd5463e6d3226226d31dd243712259d2457e2",
+    "docs/integrated-core/claim-test-map.json": "e90e57847ea5537ac37de627f14af776d551bd1619ac1a275a7c8fa0e51016e5",
+    "docs/integrated-core/claims.json": "822a91daa85969a264f5a8e55ca917ff99ccca6b108c8f0b6ee0e3a755d54a30",
+    "docs/integrated-core/source-references.json": "261fef26008b038fdce2f2c1e24460cd82410aacdb62abfdb55f63e4c52f3c16"
+  },
+  "gateway": {
+    "commit_object_available": false,
+    "known_overlap": [
+      "LICENSE_MAP.md",
+      "MANIFEST.sha256",
+      "README.md"
+    ],
+    "manual_visual_acceptance": "PENDING",
+    "publication_approval": "PENDING",
+    "reconciliation": "LOCAL_CONTENT_RECONCILED_NOT_ADMITTED",
+    "root_explorer_source_unchanged": true,
+    "selected_commit": "dde54345b396b0ad7edee1708390b0f5b6261001",
+    "source_available": true,
+    "verified_source_tree": "2b310a992b1899e1e7c253c79acb73b42cf28ea9"
+  },
+  "historical_authorities": {
+    ".github/workflows/atlas-release-preflight.yml": "348798c7382dc2da7db3fa91e450e080de0fe9fff29d24ae6c13a7bd32725c51",
+    ".github/workflows/pages.yml": "30ab3c821f8594256f91260db44496f50a50118ec8cf3f788c78fc345feee15e",
+    ".github/workflows/release-dark-medium-response-atlas.yml": "b34f7df51feff6a021a45b730b430e1d09e4d96fc6ce98bff8ff67c2a38241d7",
+    ".github/workflows/verify.yml": "df6cdd5ed6c6c442f9297160dbbc150a88b6ad07058cd090873f4d9efca1eb19",
+    "CITATION.cff": "35f02a6e941eaaf0652a291d49881d086d38c38ee894b15389ebe7ddfcd99615",
+    "RELEASE_SPEC.json": "c45b2e713eb21b556f61bb92070af7b8181cc1feefb7967369dadb241f727097",
+    "RUNTIME-linux.json": "5a42b87caff575718791d2bc591b17c91b915a4bbd77db5bcd6b5fa0effa8a81",
+    "RUNTIME.json": "f3fa00ed692fc6738b47f6c8a44e9c5ac062d269ac452cfbcf90c4ef8ff39485",
+    "evidence/linux-companion-sources-v1.json": "c8ca04bf2446da3178df934377f32e36f3de4d90f978d0efd2fac5bbf057f934",
+    "evidence/pages_admission_v2.json": "8638eb76fef2b04478e553ec866a928c422462a3847adc55645e836f35615da7",
+    "evidence/research_companion_pages_review_v1.json": "56b095bcf8c327d14c7ee4138e4bb5cae226b8d01bf6930a63719512963c8bb9",
+    "tools/build_pages_admission.py": "38db5624df65016a721c9edd0af89c5cc967b39761578f42b978eb7c1bfa3af2"
+  },
+  "operational_pin_changes": {
+    "LICENSE_MAP.md": {
+      "new_sha256": "ca7b856083815876c7a61f160e0f9ebb6cef5bd2d23b0d3be39633ca2dcf5078",
+      "old_sha256": "66e57b9c65deb70034104dc5e729003b1d5e2bb67ffb39a47306de3c1eb71f52"
+    },
+    "scripts/make_figures.py": {
+      "new_sha256": "c1e7ad7ec326d547ed2035f398812a64925cd9ac4420165ed39549da46a187db",
+      "old_sha256": "5195fdb00953d15dac45f144c4d17d37ed73cce5c730b79866ee520b24d59d5a"
+    },
+    "tests/test_explorer.py": {
+      "new_sha256": "5e8d2284049cb6b6fd7beb10019ea464b5c6b898a0fd961c034fb7f8f4623005",
+      "old_sha256": "f45522c7795465c222968c537674c42e79132421d08bdf94de0cb9b52a395b5f"
+    },
+    "tests/test_linux_runtime.py": {
+      "new_sha256": "31f1a884ddc8dbc1dcb20f36b9cf41f63d73cd763fd8b5652bfd83c27ed3adaf",
+      "old_sha256": "3a51250f4eecfcc7c0b0766025bd316399530102b5c542325a520562aab8b758"
+    },
+    "tests/test_pages_contract.py": {
+      "new_sha256": "9f1c034af71ce616b08ee91b9811aca907aa36955a2ec2154ac9c70cf598a299",
+      "old_sha256": "4926ac2aac705e095b4c97cc93c9a2292ebefd908743e6e409877ea3ef70a17b"
+    },
+    "tools/assemble_pages.py": {
+      "new_sha256": "d580ec47e181046b9781a52f5728c7d492d3664cf2165acd58a213d0759821dd",
+      "old_sha256": "b96b55129d029dbafa6097ca91e51cd9611ff74a4235f0d2ac27c56c09d28021"
+    },
+    "tools/assemble_research_companion_pages.py": {
+      "new_sha256": "828df64bb6aaa909826289065136933ee8ea9d52a73bc689f932d58b5970b7bd",
+      "old_sha256": "1310e5aba9bcaa8486c706651e5bfa0873cc9407d086bca705bb3fabe8adcc93"
+    },
+    "tools/check_pages_admission.py": {
+      "new_sha256": "eddb79e89063ba08fde391efb0b470f98278e92b6dce1b79f2c3bfbc4383ecf1",
+      "old_sha256": "b7080918b0755909ca3ecc96c658cdf343a106f3cf0c914ff99a9d1d470bb86f"
+    },
+    "tools/check_repository.py": {
+      "new_sha256": "3620a0e0c0f56eea500ad1d5a0d3dccb4038aa2dd302d2f4b5e94c9404c3df06",
+      "old_sha256": "4594e1a6217a33ebd5230910211fa5aea15d476a238ad0342e5429a2004578a3"
+    },
+    "tools/verify_linux.py": {
+      "new_sha256": "ee7e0e495bce918e07c31c0a7e8c03f44e1db7f41403a02148867f24703b561e",
+      "old_sha256": "55064bb1e086cee42289d69a6f50b0dce55b28a0c2af72a2f7a8afdd8b5f6592"
+    }
+  },
+  "pages_route_definitions": [
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/01_typed_pipeline.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/01_typed_pipeline.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/01_typed_pipeline.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/01_typed_pipeline.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/02_reservoir_capture.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/02_reservoir_capture.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/02_reservoir_capture.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/02_reservoir_capture.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/03_quantity_contract.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/03_quantity_contract.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/03_quantity_contract.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/03_quantity_contract.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/04_boundary_response.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/04_boundary_response.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/04_boundary_response.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/04_boundary_response.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/05_discrete_memory.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/05_discrete_memory.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/05_discrete_memory.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/05_discrete_memory.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/06_first_moment_observation.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/06_first_moment_observation.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/06_first_moment_observation.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/06_first_moment_observation.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/07_expected_archive.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/07_expected_archive.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/07_expected_archive.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/07_expected_archive.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/08_synthetic_evidence.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/08_synthetic_evidence.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/08_synthetic_evidence.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/08_synthetic_evidence.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/09_scm_controls.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/09_scm_controls.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/09_scm_controls.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/09_scm_controls.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/10_balanced_d2.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/10_balanced_d2.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/10_balanced_d2.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/10_balanced_d2.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/11_potential_wki.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/11_potential_wki.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/11_potential_wki.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/11_potential_wki.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/12_wki_growth.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/12_wki_growth.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/12_wki_growth.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/12_wki_growth.svg"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/13_edition_gates.png",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/13_edition_gates.png"
+    },
+    {
+      "content_role": "diagram",
+      "destination": "research/integrated-edition-proposal/13_edition_gates.svg",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/13_edition_gates.svg"
+    },
+    {
+      "content_role": "gallery",
+      "destination": "research/integrated-edition-proposal/index.html",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/index.html"
+    },
+    {
+      "content_role": "report",
+      "destination": "research/integrated-edition-proposal/integrated-case.json",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/integrated-case.json"
+    },
+    {
+      "content_role": "reading_html",
+      "destination": "research/integrated-edition-proposal/reading/ASTRA_integrated_manuscript_draft.html",
+      "family": "reading",
+      "source_path": "ASTRA_integrated_manuscript_draft.html"
+    },
+    {
+      "content_role": "reading_pdf",
+      "destination": "research/integrated-edition-proposal/reading/ASTRA_integrated_manuscript_draft.pdf",
+      "family": "reading",
+      "source_path": "ASTRA_integrated_manuscript_draft.pdf"
+    },
+    {
+      "content_role": "reading_html",
+      "destination": "research/integrated-edition-proposal/reading/ASTRA_integrated_supplement_draft.html",
+      "family": "reading",
+      "source_path": "ASTRA_integrated_supplement_draft.html"
+    },
+    {
+      "content_role": "reading_pdf",
+      "destination": "research/integrated-edition-proposal/reading/ASTRA_integrated_supplement_draft.pdf",
+      "family": "reading",
+      "source_path": "ASTRA_integrated_supplement_draft.pdf"
+    },
+    {
+      "content_role": "font_notice",
+      "destination": "research/integrated-edition-proposal/reading/DEJAVU-FONTS.txt",
+      "family": "reading",
+      "source_path": "DEJAVU-FONTS.txt"
+    },
+    {
+      "content_role": "font_notice",
+      "destination": "research/integrated-edition-proposal/reading/STIX-FONTS.txt",
+      "family": "reading",
+      "source_path": "STIX-FONTS.txt"
+    },
+    {
+      "content_role": "report",
+      "destination": "research/integrated-edition-proposal/scm-checks.json",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/scm-checks.json"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/README.md",
+      "family": "source",
+      "source_path": "docs/integrated-core/README.md"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/balanced-d2-proof.md",
+      "family": "source",
+      "source_path": "docs/integrated-core/balanced-d2-proof.md"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/claim-test-map.json",
+      "family": "source",
+      "source_path": "docs/integrated-core/claim-test-map.json"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/claims.json",
+      "family": "source",
+      "source_path": "docs/integrated-core/claims.json"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/flow.svg",
+      "family": "source",
+      "source_path": "docs/integrated-core/flow.svg"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/licenses.md",
+      "family": "source",
+      "source_path": "docs/integrated-core/licenses.md"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/limitations.json",
+      "family": "source",
+      "source_path": "docs/integrated-core/limitations.json"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/migration-proposal.md",
+      "family": "source",
+      "source_path": "docs/integrated-core/migration-proposal.md"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/model-contract.md",
+      "family": "source",
+      "source_path": "docs/integrated-core/model-contract.md"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/public-files.json",
+      "family": "source",
+      "source_path": "docs/integrated-core/public-files.json"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/runtime.json",
+      "family": "source",
+      "source_path": "docs/integrated-core/runtime.json"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/scientific-boundaries.md",
+      "family": "source",
+      "source_path": "docs/integrated-core/scientific-boundaries.md"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/scope.json",
+      "family": "source",
+      "source_path": "docs/integrated-core/scope.json"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/source-references.json",
+      "family": "source",
+      "source_path": "docs/integrated-core/source-references.json"
+    },
+    {
+      "content_role": "source_download",
+      "destination": "research/integrated-edition-proposal/source/docs/integrated-core/wki-correction.md",
+      "family": "source",
+      "source_path": "docs/integrated-core/wki-correction.md"
+    },
+    {
+      "content_role": "report",
+      "destination": "research/integrated-edition-proposal/wki-checks.json",
+      "family": "generated",
+      "source_path": "resources/integrated-edition-proposal/generated/wki-checks.json"
+    }
+  ],
+  "predecessor_source_map_sha256": "ce84f32e05836cf3237e30d455e4877fbcddaf5358f1032d9b076c1da63aeb16",
+  "protected_payload": {
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/MANIFEST.sha256": "43a01884d12ebd542158c235c285b09c60053ac7499cf94208542a50634bfeed",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/README.md": "c6ed56d5abf94cba509a164740571c7600a7b57a4c0f4c20639bec593b3a5f7e",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.docx": "bed2437db587b5ee00d0aaf7e61cce727a6482649c24e3c672dc611e1d9cebd5",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/research/Physics_Synthesis_ASTRA_SPPT_SCM_Public_Draft_2026-10-05.pdf": "5d5bd1ee5bccdd7626de1cc9394c2249ec113dd040593cbe9a2fe65e07653545",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/ASTRA_SPPT_SCM_Visual_Atlas_2026-10-05.pdf": "92ea4761bd060db3d464fd6bfc2ca8e69c769a0a9e50f100d7de29e096351325",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/catalog.json": "1510c6ffd28f90fe8e4a3b3fae499d166148f763c16213361dcdcdb9851223e5",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/illustrations/images/01-saturn-ring-dust-illustration.png": "fa471a57d0480936dafcbc51f63d99c84c5e7afe3273ed1b4431226d41194034",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/illustrations/images/02-enceladus-plume-illustration.png": "6b8469d11f87bbc3cbacef752cf17e7dc9ce5da727d182b9309120a8b6cd98e2",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/illustrations/images/03-bent-filament-concept.png": "44f3dc34f063208a12662f2771d07b8392e284569ed93fecc610b22456927610",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/illustrations/provenance.json": "d61ed52ef572e18ebcd4178b2d617d1d1e54900cf6d48d7ab634cc7c6f185820",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/CAPTIONS_AND_SOURCES.md": "0d86530e1afe5f5a519500b6992acbd8704bd61675572a54047e78545a289494",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/README.md": "75398185d459769b99b48a73e30a29b75e4deb84bebfac8fe855b5487ed03dc4",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/animations/A1_pattern_vs_material_motion.gif": "073abff5d5d1f0a97fe41ecce2ed8d2ca6e2d34f953b7f85ed99e88d5cbc19f9",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/animations/A1_pattern_vs_material_motion.mp4": "baae6efdf08db87a2b9097604846b4af1caaa68c425094f87ce872f8d22d4a90",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/animations/A1_pattern_vs_material_motion_poster.png": "f45f329cae4f58f5e3bded2155a3467fc39b9b78e6fa5ea0746b315b8956ee21",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/animations/A2_bending_graph_normal_frame.gif": "907dfc16378fd7f29615b83e7691e9e39f961fa37b5a313461051c41e18c879d",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/animations/A2_bending_graph_normal_frame.mp4": "a622390a0eeeaff6013008757e2fe461bd0351adf2018a2ccfca3ef46028395c",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/animations/A2_bending_graph_normal_frame_poster.png": "dcf4a1adf25945b8bb1ce88164ac437ae3d63380ada6c2593ebecb9bee8fa629",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/01_complete_observation_contract.png": "424aaabeecc2e5d54b9185212ed40f16051c33271f2055e465aef7ecd4ae7896",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/01_complete_observation_contract.svg": "0609778a878d423130662ffeddc1d60afff96b853521d9ef958341beae59d6fc",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/02_complex_graph_normal_plane.png": "3acb2f51f62d7089257c4b99a0cacc90cb46b55916173ab9523845fdcb7ad236",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/02_complex_graph_normal_plane.svg": "e9c8400f326650fcc09dfbfa102a57b66c51e53b2072f8c40a0734351689bd74",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/03_wki_discrete_growth_bands.png": "2c71010af2bda71cbeb7e62dcfe2d2791ac19952f8151a956cd13f96c309e3b8",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/03_wki_discrete_growth_bands.svg": "c17411413c6d57f33fa858b678e66de1850b02301969b08af1426151ed53b711",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/04_phase_coherence_entanglement.png": "2ea12cb8ca52dd8184b370aeae657d83cdcdb4e5e10b13e2f39f17a1116375c0",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/04_phase_coherence_entanglement.svg": "fdf86e08955259d1de1959583196cb33d1180f2771f5aca4aa95fa2b52dc968f",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/05_ring_inventory_optical_clock.png": "9afc90c490f280bc6a5491dcf136be7b7e8ae2fa86dc37bab4b62e4197cdb4ff",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/05_ring_inventory_optical_clock.svg": "1ec859c0ba1967f7f0bc1c0397b2c84722faa73c0ad2907b6e2d6617bdf4f0e6",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/06_planetary_transfer_comparison.png": "f205a6176616fe2bfe2795f4a4b2ccb676541a7e5e7ae4385cde9fbc1e6622ab",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/figures/06_planetary_transfer_comparison.svg": "d27ed57cf6681d24733ca2610637b496255a31e2c5d4298f8724c1485c3b8cd0",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/generate_scientific_atlas.py": "fb3b277278938eede5bf3401d2af4a5b7cad3111b3e5385b33f764c5bce9ac96",
+    "resources/sppt-scm-research-companion/draft-v0.1.0/package/visuals/scientific/manifest.json": "7ff4f44d08dae11adf93ddd520744a535cc1d5f7858eb6b613503487d29f9b22"
+  },
+  "runtime_evidence_hashes": {
+    "DEFAULT_BROWSER_PROBE.json": "9c60f034169300352dd350436d86b47cd673739fb45f16ad41014e872d68a96e",
+    "PORTABLE_ARCHIVE_PREFLIGHT.json": "e8ad03f534321e31b3235e1d2924593c416a919dd8e4d4b46c9c61fc91ebb767",
+    "PORTABLE_BOOTSTRAP_EXECUTION.json": "71bdb8e3ca5ea8ecde4ba9bd617707830d094829191b228b768d67a40ae4f542",
+    "PORTABLE_RELOCATION.json": "c9756b132d6a6b13e66be267cd4e49e6ee7ea28387c3c557bffee7bf9eadafae",
+    "REVISED_REBIND_EXECUTION.json": "0bfc2195c7dc31dc814c4b77f4e7d7188b723ee4ee747cdaf1073eae1a84f5d3",
+    "RUNTIME_PATH_PREPARATION.json": "029da8f1cab6e1a2e2507fb5fd59cd22790b82bef0e12fb1798f32cc1cdb2df1"
+  },
+  "runtime_source_paths": [
+    "resources/integrated-edition-proposal/PORTABLE_INPUTS_DRAFT.json",
+    "resources/integrated-edition-proposal/PORTABLE_VALIDATION_DRAFT.json",
+    "resources/integrated-edition-proposal/RUNTIME_PROPOSAL.json",
+    "resources/integrated-edition-proposal/bootstrap_draft.py",
+    "resources/integrated-edition-proposal/relocate_draft.py",
+    "resources/integrated-edition-proposal/prepare_runtime_paths.py"
+  ],
+  "schema": "astra-boundary-expectations-1"
+}

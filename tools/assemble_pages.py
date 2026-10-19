@@ -43,6 +43,7 @@ sys.path.insert(0, str(ROOT))
 from tools.check_pages_admission import (  # noqa: E402
     check_pages_admission,
     copy_admitted_shell,
+    reject_linked_destination,
 )
 
 
@@ -326,22 +327,27 @@ def write_redirect(path: Path, target: str, label: str) -> None:
     )
 
 
-def _verify_admitted_shell_in_site(site: Path) -> None:
-    record = check_pages_admission()
+def _verify_admitted_shell_in_site(site: Path, *, current: bool = False) -> None:
+    record = check_pages_admission(current=current)
     for item in record["head_shell"]["files"]:
         target = site / str(item["path"])
         if not target.is_file() or target.stat().st_size != item["bytes"] or sha256(target) != item["sha256"]:
             raise RuntimeError(f"Pages site no longer contains the admitted shell byte: {item['path']}")
 
 
-def assemble_atlas_routes(site: Path, assets: Path, source_root: Path) -> None:
+def assemble_atlas_routes(
+    site: Path, assets: Path, source_root: Path, *, current: bool = False,
+) -> None:
+    reject_linked_destination(site)
     site = site.resolve()
     if site.is_symlink() or not site.is_dir():
         raise RuntimeError("Pages assembly destination must be a regular directory")
-    _verify_admitted_shell_in_site(site)
+    _verify_admitted_shell_in_site(site, current=current)
     spec, asset_names, pages_records = verify_atlas_release_assets(assets, source_root)
     versioned = site / spec["pages"]["versioned_route"].strip("/")
     latest = site / spec["pages"]["latest_route"].strip("/")
+    reject_linked_destination(versioned)
+    reject_linked_destination(latest)
     if versioned.exists() or latest.exists():
         raise RuntimeError("Atlas Pages routes already exist in the assembly destination")
     versioned.mkdir(parents=True, exist_ok=False)
@@ -361,17 +367,21 @@ def assemble_atlas_routes(site: Path, assets: Path, source_root: Path) -> None:
     )
 
 
-def assemble(site: Path, assets: Path, source_root: Path) -> None:
+def assemble(
+    site: Path, assets: Path, source_root: Path, *, current: bool = False,
+) -> None:
+    reject_linked_destination(site)
     site = site.resolve()
     if site.exists() and any(site.iterdir()):
         raise RuntimeError("Pages assembly destination must be empty")
-    copy_admitted_shell(site)
-    assemble_atlas_routes(site, assets, source_root)
+    copy_admitted_shell(site, current=current)
+    assemble_atlas_routes(site, assets, source_root, current=current)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--site", type=Path, required=True)
+    parser.add_argument("--current", action="store_true")
     parser.add_argument("--atlas-assets", type=Path, required=True)
     parser.add_argument("--atlas-source", type=Path, required=True)
     parser.add_argument(
@@ -381,9 +391,9 @@ def main() -> None:
     )
     args = parser.parse_args()
     if args.preserve_existing:
-        assemble_atlas_routes(args.site, args.atlas_assets, args.atlas_source)
+        assemble_atlas_routes(args.site, args.atlas_assets, args.atlas_source, current=args.current)
     else:
-        assemble(args.site, args.atlas_assets, args.atlas_source)
+        assemble(args.site, args.atlas_assets, args.atlas_source, current=args.current)
     print(f"Assembled Atlas Pages routes in {args.site}.")
 
 

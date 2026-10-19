@@ -21,8 +21,10 @@ from tools.build_pages_admission import (  # noqa: E402
     BASE_COMMIT,
     BASE_TREE,
     RELEASE_ROUTES,
+    build_record,
     companion_record,
     docs_entries,
+    reject_source_links,
 )
 
 
@@ -163,7 +165,20 @@ def load_manifest(path: Path = MANIFEST) -> dict[str, Any]:
     return value
 
 
-def check_pages_admission(path: Path = MANIFEST) -> dict[str, Any]:
+def check_pages_admission(
+    path: Path | None = None, *, current: bool = False, root: Path | None = None,
+) -> dict[str, Any]:
+    if current:
+        source_root = ROOT if root is None else root
+        path = source_root / "evidence/pages_admission_current.json" if path is None else path
+        reject_source_links(path)
+        record = json.loads(path.read_text(encoding="utf-8"))
+        # Equality with the explicit builder also rejects unknown keys, changed
+        # routes, unsafe paths, additional docs and stale companion/support bytes.
+        if record != build_record(source_root, current=True):
+            raise RuntimeError("Current Pages admission differs from the exact reviewed source bytes")
+        return record
+    path = MANIFEST if path is None else path
     record = load_manifest(path)
     if record["base"] != {
         "commit": BASE_COMMIT,
@@ -190,21 +205,52 @@ def check_pages_admission(path: Path = MANIFEST) -> dict[str, Any]:
     return record
 
 
-def copy_admitted_shell(destination: Path, manifest: Path = MANIFEST) -> None:
-    record = check_pages_admission(manifest)
+def reject_linked_destination(destination: Path) -> None:
+    """Inspect the lexical path before resolve can erase an alias."""
+    for path in (destination, *destination.parents):
+        junction_check = getattr(path, "is_junction", None)
+        if path.is_symlink() or bool(junction_check and junction_check()):
+            raise RuntimeError("Pages destination must not be a link or junction")
+
+
+def copy_admitted_shell(
+    destination: Path, manifest: Path | None = None, *, current: bool = False,
+) -> None:
+    reject_linked_destination(destination)
+    record = check_pages_admission(manifest, current=current)
     destination = destination.resolve()
     if destination in {ROOT.resolve(), DOCS.resolve()}:
         raise RuntimeError("Pages destination must not overwrite a source directory")
-    junction_check = getattr(destination, "is_junction", None)
-    if destination.is_symlink() or bool(junction_check and junction_check()):
-        raise RuntimeError("Pages destination must not be a link or junction")
+    expected = {str(item["path"]): item for item in record["head_shell"]["files"]}
+    for path in destination.rglob("*"):
+        reject_linked_destination(path)
+        if path.is_dir():
+            continue
+        relative = path.relative_to(destination).as_posix()
+        if relative not in expected:
+            raise RuntimeError("Pages shell destination contains an unexpected file")
+        if not path.is_file() or path.stat().st_nlink != 1:
+            raise RuntimeError("Pages shell target must be a regular unshared file")
+        item = expected[relative]
+        if path.stat().st_size != item["bytes"] or sha256(path) != item["sha256"]:
+            raise RuntimeError("Pages shell destination contains a differing file")
+    # Check every target before copying the first byte. A late linked target
+    # must not leave a partially modified site or overwrite its external victim.
+    for item in record["head_shell"]["files"]:
+        target = destination / str(item["path"])
+        reject_linked_destination(target)
+        if target.exists() and (not target.is_file() or target.stat().st_nlink != 1):
+            raise RuntimeError("Pages shell target must be a regular unshared file")
+        if any(path.exists() and not path.is_dir() for path in target.parents):
+            raise RuntimeError("Pages shell target parent must be a directory")
     destination.mkdir(parents=True, exist_ok=True)
     for item in record["head_shell"]["files"]:
         relative = Path(str(item["path"]))
         source = DOCS / relative
         target = destination / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source, target)
+        if not target.exists():
+            shutil.copyfile(source, target)
         if target.stat().st_size != item["bytes"] or sha256(target) != item["sha256"]:
             raise RuntimeError(f"Pages shell copy mismatch: {relative.as_posix()}")
     observed = {
@@ -220,10 +266,18 @@ def copy_admitted_shell(destination: Path, manifest: Path = MANIFEST) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--copy-to", type=Path)
+    parser.add_argument("--current", action="store_true")
+    parser.add_argument("--require-reviewed", action="store_true")
     args = parser.parse_args()
-    check_pages_admission()
+    check_pages_admission(current=args.current)
+    if args.require_reviewed:
+        from tools.assemble_research_companion_pages import (
+            require_current_review,
+            require_visual_review,
+        )
+        (require_current_review if args.current else require_visual_review)()
     if args.copy_to is not None:
-        copy_admitted_shell(args.copy_to)
+        copy_admitted_shell(args.copy_to, current=args.current)
     print("Pages admission manifest passed.")
 
 

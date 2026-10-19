@@ -1,0 +1,23 @@
+{
+  "kind": "INTEGRATED_DOCUMENT_DRAFT_PLAN",
+  "status": "DRAFT_NOT_ADMITTED",
+  "release_version": null,
+  "release_tag": null,
+  "author": "Jacko T.",
+  "language": "en-US",
+  "draft_reproducibility_epoch": "2026-10-06T00:00:00Z",
+  "epoch_is_release_date": false,
+  "output_directory": "tmp/integrated-document-draft",
+  "documents": [
+    {
+      "source": "manuscript.md",
+      "stem": "ASTRA_integrated_manuscript_draft",
+      "title": "ASTRA Integrated Core: Typed Composition and Bounded Research Checks"
+    },
+    {
+      "source": "supplement.md",
+      "stem": "ASTRA_integrated_supplement_draft",
+      "title": "ASTRA Integrated Core: Technical Supplement and Evidence Boundaries"
+    }
+  ]
+}

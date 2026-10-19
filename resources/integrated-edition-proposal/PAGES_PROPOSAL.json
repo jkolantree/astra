@@ -1,0 +1,147 @@
+{
+  "schema": "astra-integrated-pages-proposal-1",
+  "status": "PROPOSED_NOT_ADMITTED",
+  "namespace": "research/integrated-edition-proposal/",
+  "latest_stable_unchanged": true,
+  "root_readme_edit": false,
+  "routes": [
+    {
+      "source": "resources/integrated-edition-proposal/generated/01_typed_pipeline.png",
+      "destination": "research/integrated-edition-proposal/01_typed_pipeline.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/01_typed_pipeline.svg",
+      "destination": "research/integrated-edition-proposal/01_typed_pipeline.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/02_reservoir_capture.png",
+      "destination": "research/integrated-edition-proposal/02_reservoir_capture.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/02_reservoir_capture.svg",
+      "destination": "research/integrated-edition-proposal/02_reservoir_capture.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/03_quantity_contract.png",
+      "destination": "research/integrated-edition-proposal/03_quantity_contract.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/03_quantity_contract.svg",
+      "destination": "research/integrated-edition-proposal/03_quantity_contract.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/04_boundary_response.png",
+      "destination": "research/integrated-edition-proposal/04_boundary_response.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/04_boundary_response.svg",
+      "destination": "research/integrated-edition-proposal/04_boundary_response.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/05_discrete_memory.png",
+      "destination": "research/integrated-edition-proposal/05_discrete_memory.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/05_discrete_memory.svg",
+      "destination": "research/integrated-edition-proposal/05_discrete_memory.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/06_first_moment_observation.png",
+      "destination": "research/integrated-edition-proposal/06_first_moment_observation.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/06_first_moment_observation.svg",
+      "destination": "research/integrated-edition-proposal/06_first_moment_observation.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/07_expected_archive.png",
+      "destination": "research/integrated-edition-proposal/07_expected_archive.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/07_expected_archive.svg",
+      "destination": "research/integrated-edition-proposal/07_expected_archive.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/08_synthetic_evidence.png",
+      "destination": "research/integrated-edition-proposal/08_synthetic_evidence.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/08_synthetic_evidence.svg",
+      "destination": "research/integrated-edition-proposal/08_synthetic_evidence.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/09_scm_controls.png",
+      "destination": "research/integrated-edition-proposal/09_scm_controls.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/09_scm_controls.svg",
+      "destination": "research/integrated-edition-proposal/09_scm_controls.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/10_balanced_d2.png",
+      "destination": "research/integrated-edition-proposal/10_balanced_d2.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/10_balanced_d2.svg",
+      "destination": "research/integrated-edition-proposal/10_balanced_d2.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/11_potential_wki.png",
+      "destination": "research/integrated-edition-proposal/11_potential_wki.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/11_potential_wki.svg",
+      "destination": "research/integrated-edition-proposal/11_potential_wki.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/12_wki_growth.png",
+      "destination": "research/integrated-edition-proposal/12_wki_growth.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/12_wki_growth.svg",
+      "destination": "research/integrated-edition-proposal/12_wki_growth.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/13_edition_gates.png",
+      "destination": "research/integrated-edition-proposal/13_edition_gates.png"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/13_edition_gates.svg",
+      "destination": "research/integrated-edition-proposal/13_edition_gates.svg"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/index.html",
+      "destination": "research/integrated-edition-proposal/index.html"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/integrated-case.json",
+      "destination": "research/integrated-edition-proposal/integrated-case.json"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/scm-checks.json",
+      "destination": "research/integrated-edition-proposal/scm-checks.json"
+    },
+    {
+      "source": "resources/integrated-edition-proposal/generated/wki-checks.json",
+      "destination": "research/integrated-edition-proposal/wki-checks.json"
+    }
+  ],
+  "existing_integrated_docs": [
+    "docs/integrated-core/README.md",
+    "docs/integrated-core/balanced-d2-proof.md",
+    "docs/integrated-core/claim-test-map.json",
+    "docs/integrated-core/claims.json",
+    "docs/integrated-core/flow.svg",
+    "docs/integrated-core/licenses.md",
+    "docs/integrated-core/limitations.json",
+    "docs/integrated-core/migration-proposal.md",
+    "docs/integrated-core/model-contract.md",
+    "docs/integrated-core/public-files.json",
+    "docs/integrated-core/runtime.json",
+    "docs/integrated-core/scientific-boundaries.md",
+    "docs/integrated-core/scope.json",
+    "docs/integrated-core/source-references.json",
+    "docs/integrated-core/wki-correction.md"
+  ],
+  "admission_required": "Review exact generated gallery and 15 integrated documentation paths; bind source/output hashes and refuse extra routes. Existing Pages allowlist/workflows are unchanged."
+}

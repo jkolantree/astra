@@ -1,0 +1,1096 @@
+{
+  "schema": "integrated-core-scoped-claims-1",
+  "scope": "93 scoped project claims; no archival source quote is an admitted conclusion. Tests apply only to stated finite subchecks.",
+  "claims": [
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-01",
+      "family": "Layers",
+      "statement": "Typed physical/control/observation/archive/certificate edges prevent declared quantity casts in this finite case.",
+      "tests": [
+        "test_integration.CommonContractTests.test_wrong_units_quantity_basis_and_space_rejected"
+      ]
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-02",
+      "family": "Layers",
+      "statement": "Identical observation laws under all legal interventions preserve prior model odds.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-03",
+      "family": "Layers",
+      "statement": "A legal intervention with positive KL divergence accumulates expected log evidence linearly under independent repetition.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-04",
+      "family": "Layers",
+      "statement": "Passive scalar linear feedback identifies only the composite coefficient a-bk.",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-05",
+      "family": "Layers",
+      "statement": "A finite expected-record ledger with retention is computed; unrestricted history uniqueness is not inferred.",
+      "tests": [
+        "test_integration.IntegratedCaseTests.test_record_reset_matches_independent_weighted_sum"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-06",
+      "family": "Layers",
+      "statement": "The receipt covers explicitly injected mass and record-accounting failures only.",
+      "tests": [
+        "test_integration.IntegratedCaseTests.test_corrupt_conservation_path_fails"
+      ]
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-07",
+      "family": "Layers",
+      "statement": "Under monotone likelihood-ratio ordering, stronger threshold selection decreases yield and increases accepted quality.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-08",
+      "family": "Layers",
+      "statement": "Hypothesis: typed active design may improve a declared discrimination task. No gain over tuned conventional experimental design, matched interventions and sensor budgets is established here.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-09",
+      "family": "Layers",
+      "statement": "The source proposes treating the moonlight/pelage/plumage case as observation-layer calibration; no best-representation or comparative inference result is admitted.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-10",
+      "family": "Layers",
+      "statement": "Structured quantum sampling illustrates failure-typed certificate design.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-11",
+      "family": "Layers",
+      "statement": "The diamond inclusion illustrates sealing and path-dependent archive inference.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-12",
+      "family": "Layers",
+      "statement": "Xenophagocytosis illustrates an active control layer separate from physical elimination flux.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-13",
+      "family": "Layers",
+      "statement": "Unconfirmed hypothesis: typed layers may improve a prespecified inference task. No real-data advantage over tuned conventional models is established.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Layers:C-14",
+      "family": "Layers",
+      "statement": "Proposed planetary retrieval application. No held-out predictive, calibration or mission-design benefit over matched conventional transport/retrieval models is established.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:C1",
+      "family": "Gamma",
+      "statement": "Proposed state-selection criterion. Retaining a named boundary state requires task-specific evidence against strong conventional hidden-state, adaptation and transport alternatives; a fit does not locate the state physically.",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:C2",
+      "family": "Gamma",
+      "statement": "The included capture reset reallocates existing tracer mass and preserves its ledger.",
+      "tests": [
+        "test_integration.IntegratedCaseTests.test_capture_reallocates_existing_mass"
+      ]
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:C3",
+      "family": "Gamma",
+      "statement": "Surface free energy and surface stress are not generally interchangeable in strained solids.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:C4",
+      "family": "Gamma",
+      "statement": "Boundary influence has leading area-to-volume leverage, but no universal value of the boundary-dominance coordinate marks all transitions.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:C5",
+      "family": "Gamma",
+      "statement": "Relaxation of a stable coupled boundary weakens the static bulk stiffness by the Schur complement, within the stated quadratic model.",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:C6",
+      "family": "Gamma",
+      "statement": "Specified stable two-state boundary response agrees between exact and numerical implementations; no unique physical boundary identification.",
+      "tests": [
+        "test_integration.IntegratedCaseTests.test_boundary_exact_matches_independent_numerical_path"
+      ]
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:C7",
+      "family": "Gamma",
+      "statement": "A visible geometric closure creates a distinct model reservoir only when exchange is slow on the declared observation timescale and resolution.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:C8",
+      "family": "Gamma",
+      "statement": "Coexistence, loss of local stability, and realized transition time are distinct events; a deterministic threshold does not supply a first-passage distribution.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:C9",
+      "family": "Gamma",
+      "statement": "Broken symmetry, shape change, geometric topology change, and transport-graph change must be typed separately.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:C10",
+      "family": "Gamma",
+      "statement": "Proposed decision rule: retain boundary states only after a frozen, fairly resourced comparison, including strong conventional dynamic alternatives and calibration, supports their declared task value.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:R1",
+      "family": "Gamma",
+      "statement": "The ultrathin strained RuO2 case is consistent with boundary-conditioned broken time-reversal symmetry and altered spin transport.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:R2",
+      "family": "Gamma",
+      "statement": "A reversible strain experiment at fixed thickness and chemistry can test whether strain controls the RuO2 order parameter.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:D1",
+      "family": "Gamma",
+      "statement": "P123-bearing oil droplets demonstrate passive interface remodeling, activated shape transitions, and geometry-created capture under the reported conditions.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:D2",
+      "family": "Gamma",
+      "statement": "Unconfirmed cross-size hypothesis: compare area-normalized coverage and mechanical coordinates against tuned concentration, geometry, transport and covariate models. No comparative empirical result is supplied.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:S1",
+      "family": "Gamma",
+      "statement": "Source-reported favorable synthetic example: a two-mode generator defeats a first-order comparator. The same source reports an exactly matching two-mode black box. This does not establish superiority over strong conventional dynamic models.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:S2",
+      "family": "Gamma",
+      "statement": "Source-reported algebraically equivalent two-mode models match the bulk readout. This is an equivalence control, not an ASTRA predictive advantage or physical boundary identification.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:S3",
+      "family": "Gamma",
+      "statement": "Source-reported generated example adds 26 boundary observations and recovers a chosen factorization. Extra data and sensor cost prevent attributing its lower error to method superiority without a matched-information comparison.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Gamma:S4",
+      "family": "Gamma",
+      "statement": "Source-reported synthetic hazard generator favors an activated law over a rate-independent threshold. No advantage over tuned conventional survival, adaptation or rate-dependent transport models is established.",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C1",
+      "family": "Xi",
+      "statement": "Task-output sufficiency and reduced-state Markov behavior are different questions; a constant reduced Markov state can omit a hidden variable controlling a declared output.",
+      "tests": [
+        "test_integration.CommonContractTests.test_constant_markov_reduction_can_lose_declared_output"
+      ]
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C2",
+      "family": "Xi",
+      "statement": "Finite-dimensional linear realizations are identifiable only up to similarity without physical coordinate anchors.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C3",
+      "family": "Xi",
+      "statement": "Quasistatic elimination of a stable contextual subsystem changes the focal quadratic response through a Schur complement.",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C4",
+      "family": "Xi",
+      "statement": "The supplied discrete stateful channel changes expected observations while the physical mass ledger is fixed.",
+      "tests": [
+        "test_integration.IntegratedCaseTests.test_context_memory_changes_observation_and_keeps_mass_fixed"
+      ]
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C5",
+      "family": "Xi",
+      "statement": "Repeated-event precision depends on effective sample size and a systematic floor, not nominal count alone.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C6",
+      "family": "Xi",
+      "statement": "Distinct accretion duration-flux pairs can produce the same element snapshot in the toy disclosure model.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C7",
+      "family": "Xi",
+      "statement": "U-STORM, the stateful nanopore, Fe-S clusters, floral chirality, polluted white dwarfs, and TW Hya each expose a different coupling-state or observation-channel problem.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C8",
+      "family": "Xi",
+      "statement": "Proposed methodological benefit of type separation; reduced error rates relative to existing practice have not been measured in a controlled comparative study.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C9",
+      "family": "Xi",
+      "statement": "Unconfirmed protocol-transfer hypothesis. No superiority over tuned state-space, finite-lag, adaptive, hysteretic, kernel or transport models is established; equal parameter count alone is not equal tuning or information budget.",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C10",
+      "family": "Xi",
+      "statement": "Numerical Jacobian rank measures first-order sensitivity only; no nonlinear/local or global identifiability certificate follows.",
+      "tests": [
+        "test_integration.CommonContractTests.test_first_order_rank_does_not_decide_nonlinear_identifiability"
+      ]
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C11",
+      "family": "Xi",
+      "statement": "Rejected source claim: the six calibration cases do not establish one universal microscopic coupling law.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "Xi:C12",
+      "family": "Xi",
+      "statement": "Rejected source claim: synthetic implementation benchmarks do not empirically validate ASTRA-Xi.",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G01",
+      "family": "scm_corrected",
+      "statement": "Finite d1 graph-gauge replay only; general codimension-two derivation not supplied here.",
+      "tests": [
+        "scripts/scm_replay_checks.py::graph_flow_check"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G02",
+      "family": "scm_corrected",
+      "statement": "Finite directional variation under the supplied periodic discretization; no arbitrary-boundary theorem.",
+      "tests": [
+        "scripts/scm_replay_checks.py::variational_check"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G03",
+      "family": "scm_corrected",
+      "statement": "Instantaneous finite norm-rate residual in the supplied variational replay only; autonomous energy conservation is untested. No common-unitary or empirical probability conclusion.",
+      "tests": [
+        "scripts/scm_replay_checks.py::variational_check"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G04",
+      "family": "scm_corrected",
+      "statement": "Supplied rank-two determinant/energy identity cases.",
+      "tests": [
+        "scripts/scm_replay_checks.py::rank_two_energy_check"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G05",
+      "family": "scm_corrected",
+      "statement": "Fixed-gradient finite small-scale expansion cases; no uniform expansion in arbitrary gradients.",
+      "tests": [
+        "scripts/scm_replay_checks.py::matrix_expansion_check"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G06",
+      "family": "scm_corrected",
+      "statement": "Instantaneous balanced-gradient algebra; persistence is not established.",
+      "tests": [
+        "scripts/scm_replay_checks.py::rank_two_energy_check"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G07",
+      "family": "scm_corrected",
+      "statement": "Finite plane-wave flux/frequency and small-scale dispersion subchecks only; the energy derivative with respect to norm is not tested here.",
+      "tests": [
+        "scripts/scm_replay_checks.py::plane_wave_check"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G08",
+      "family": "scm_corrected",
+      "statement": "Specified two-mode witness against common transition-probability-preserving unitary dynamics.",
+      "tests": [
+        "scripts/scm_replay_checks.py::ensemble_check"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G09",
+      "family": "scm_corrected",
+      "statement": "Branchwise mixture law gives ensemble-dependent evolution in the specified witness.",
+      "tests": [
+        "scripts/scm_replay_checks.py::ensemble_check"
+      ]
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G10",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Norm normalized global phase equivariant flow defines ray evolution",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G11",
+      "family": "scm_corrected",
+      "statement": "The naive joint extension violates spectator independence in the supplied product-state control.",
+      "tests": [
+        "scripts/scm_replay_checks.py::spectator_check"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G12",
+      "family": "scm_corrected",
+      "statement": "The original finite-scale PDE fails the ordinary Galilean boost control.",
+      "tests": [
+        "scripts/scm_replay_checks.py::galilean_check"
+      ]
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G13",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Kernel density area commutator reproduces pure ray dynamics",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G14",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Marginal Hamiltonian closes independent reduced equations",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G15",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Full density candidate is an operational no signalling theory",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G16",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: External covariant derivative imports a gauge field",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G17",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Regular nodal defect and full graph are distinct codimension two objects",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G18",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Nodal topology correspondence has a generic strong solution regime",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G19",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Free curve kinetic functional requires a specified Poisson transfer",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G20",
+      "family": "scm_corrected",
+      "statement": "Isotropic scalar intensity is mirror blind in the supplied symmetry control; no polarized/parity-sensitive inference.",
+      "tests": [
+        "scripts/scm_replay_checks.py::scalar_mirror_check"
+      ]
+    },
+    {
+      "candidate_support": "INSPECTED_SCOPED_DERIVATION",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:G21",
+      "family": "scm_corrected",
+      "statement": "C2 globally balanced fields are harmonic in d2; constants on a connected flat periodic torus, and zero on the whole plane with L2. No d>=3, arbitrary-boundary or time-invariance conclusion.",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:IG01",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Encoding claims need dynamics and observation intertwining",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:IG02",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Conditioning can be nonlinear without nonlinear source dynamics",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:IG03",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Success and failure information obey the stated KL partition identity",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:IG04",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Complete quantum benchmark observations require instruments when update matters",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:IG05",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Source and unknown selection admit observational equivalence families",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:IG06",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Hidden linear state elimination can produce reduced memory",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:IG07",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Classical and quantum memory use separate adapters",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:IG08",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Energy material probability and provenance edges retain separate types",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:IG09",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Null exclusions require nonzero candidate response and a likelihood",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:IG10",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Record separation is evaluated after independently bounded nuisance variation",
+      "tests": []
+    },
+    {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "scm_corrected:R01",
+      "family": "scm_corrected",
+      "statement": "No new candidate admission: Canonical stable framework promotion is established by this package",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "october_framework:RI001",
+      "family": "october_framework",
+      "statement": "The selected typed adapter computes tracer mass and first moments only; no count/no-record/correlated-daughter likelihood or empirical Enceladus forward law.",
+      "tests": [
+        "test_integration.CommonContractTests.test_first_moments_do_not_supply_a_likelihood_or_exclusion"
+      ]
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "october_framework:RI002",
+      "family": "october_framework",
+      "statement": "In the delivered v0.1.0 diagonal selection model, different source fractions and selection efficiencies yield identical per-tracer selected masses and total yield; source composition is unidentifiable without calibration or a separating measurement on that support.",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "october_framework:RI003",
+      "family": "october_framework",
+      "statement": "A calibration declaration permits structural inspection only and cannot confer readiness, contradiction or null exclusion.",
+      "tests": [
+        "test_integration.CommonContractTests.test_digest_declaration_never_confers_readiness"
+      ]
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "october_framework:RI004",
+      "family": "october_framework",
+      "statement": "Optical adapters must retain full-distribution outcomes and distinguish physical material, encoded emulator state, probe measurements, reconstruction, inferred invariant and predicted excitation. These are proposal obligations, not new empirical optical results.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "october_framework:RI005",
+      "family": "october_framework",
+      "statement": "A reduced-model certificate must record its reduction map and finite-timescale regime and test basin geometry against the full model; local stability alone does not certify global resilience. No external funnel or canard paper is numerically reproduced here.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "october_framework:RI006",
+      "family": "october_framework",
+      "statement": "A planetary rotation adapter must distinguish angular momentum, inertia and external torque, retain common-input covariance and compatible epochs, and test joint budget closure before causal attribution. No new geodetic fit is performed here.",
+      "tests": []
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "october_framework:RI007",
+      "family": "october_framework",
+      "statement": "Morphology, experimentally perturbed sensory function and cross-species clinical translation are separate claim levels. Active-sensor energetics require a declared boundary; the supplied squid anatomy is not evidence of a human therapy.",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "october_framework:RI008",
+      "family": "october_framework",
+      "statement": "Source-local IDs and statement/artifact hashes preserve identity, not entailment or empirical admission.",
+      "tests": [
+        "test_integrated_claim_scope.PublicClaimScopeTests.test_exact_claim_coverage_and_no_empirical_promotion",
+        "test_integration.CommonContractTests.test_digest_declaration_never_confers_readiness"
+      ]
+    },
+    {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "october_framework:RI009",
+      "family": "october_framework",
+      "statement": "The scoped frozen-transfer interface fits on source/calibration declarations and uses held-out labels only for scoring; authenticated empirical split independence is absent.",
+      "tests": [
+        "test_integration.CommonContractTests.test_frozen_transfer_ignores_holdout_labels"
+      ]
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "october_framework:RI010",
+      "family": "october_framework",
+      "statement": "The stable v1.0.7 annotated tag dereferences to 7454b8134cf28c233fe54a11ae4b65e256844821; its 254 manifest entries pass and 119 focused scientific tests pass in the recorded noncanonical environment. Canonical Windows runtime replay and full release verification are not claimed.",
+      "tests": []
+    },
+    {
+      "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "wki_correction:CVG-01–02",
+      "family": "wki_correction",
+      "statement": "Conditional Gaussian Schur-complement identity only; calibration, independence and causal/sensor performance claims untested.",
+      "tests": [
+        "scripts/wki_check_algebra.py::shared_nuisance_fisher_complement"
+      ],
+      "prior_art_demotion_retained": true
+    },
+    {
+      "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "wki_correction:CVG-03",
+      "family": "wki_correction",
+      "statement": "Displayed graph-gauge and real-growth/max-formula equalities only; no independent PDE dispersion derivation/evolution or admissible discrete-spectrum proof.",
+      "tests": [
+        "scripts/wki_check_algebra.py::graph_gauge_equals_displayed_PDE",
+        "scripts/wki_check_algebra.py::graph_growth_equals_Hasimoto_NLS_growth",
+        "scripts/wki_check_algebra.py::maximum_growth_equals_beta_curvature_squared_over_two"
+      ],
+      "prior_art_demotion_retained": true
+    },
+    {
+      "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "wki_correction:CVG-04",
+      "family": "wki_correction",
+      "statement": "Reported continuous-mode maximum formula and normalized substitution 1/8; boundary/discrete-mode attainability and marginal sectors untested.",
+      "tests": [
+        "scripts/wki_check_algebra.py::maximum_growth_equals_beta_curvature_squared_over_two",
+        "scripts/wki_check_algebra.py::normalized_maximum_growth"
+      ],
+      "prior_art_demotion_retained": true
+    },
+    {
+      "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "wki_correction:CVG-05",
+      "family": "wki_correction",
+      "statement": "Stated finite scalar chain rule with signed coefficient work only; positive storage, passivity, device and Maxwell PDE claims untested.",
+      "tests": [
+        "scripts/wki_check_algebra.py::time_varying_storage_chain_rule"
+      ],
+      "prior_art_demotion_retained": true
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_CORRECTION_ONLY",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "wki_correction:CVG-06",
+      "family": "wki_correction",
+      "statement": "Not covered by the six WKI groups; source-reported mixed-Poisson/Jensen correction retained without new executable support.",
+      "tests": [],
+      "prior_art_demotion_retained": true
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_CORRECTION_ONLY",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "wki_correction:CVG-07",
+      "family": "wki_correction",
+      "statement": "Not covered by the six WKI groups; source-reported lower-tail correction retained without new executable support.",
+      "tests": [],
+      "prior_art_demotion_retained": true
+    },
+    {
+      "candidate_support": "SOURCE_REPORTED_CORRECTION_ONLY",
+      "empirical_admission": false,
+      "novelty_priority_established": false,
+      "whole_source_claim_validated": false,
+      "comparative_publication_status": "NO_EMPIRICAL_SUPERIORITY_ADMITTED",
+      "claim_id": "wki_correction:CVG-08–12",
+      "family": "wki_correction",
+      "statement": "Not independently reaudited; no new verdict on original contribution.",
+      "tests": [],
+      "prior_art_demotion_retained": true
+    }
+  ]
+}

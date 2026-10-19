@@ -1,0 +1,63 @@
+{
+  "assets": [
+    {
+      "final_sha256": null,
+      "name": "astra-integrated-core-v1.1.0-alpha.1-source.tar.gz",
+      "reason": "Final source/production/admission work remains; no final-release byte identity invented"
+    },
+    {
+      "final_sha256": null,
+      "name": "astra-integrated-core-v1.1.0-alpha.1-research-assets.zip",
+      "reason": "Final source/production/admission work remains; no final-release byte identity invented"
+    },
+    {
+      "final_sha256": null,
+      "name": "astra-integrated-core-v1.1.0-alpha.1-manuscript.html",
+      "reason": "Final source/production/admission work remains; no final-release byte identity invented"
+    },
+    {
+      "final_sha256": null,
+      "name": "astra-integrated-core-v1.1.0-alpha.1-manuscript.pdf",
+      "reason": "Final source/production/admission work remains; no final-release byte identity invented"
+    },
+    {
+      "final_sha256": null,
+      "name": "astra-integrated-core-v1.1.0-alpha.1-supplement.html",
+      "reason": "Final source/production/admission work remains; no final-release byte identity invented"
+    },
+    {
+      "final_sha256": null,
+      "name": "astra-integrated-core-v1.1.0-alpha.1-supplement.pdf",
+      "reason": "Final source/production/admission work remains; no final-release byte identity invented"
+    },
+    {
+      "final_sha256": null,
+      "name": "SHA256SUMS",
+      "reason": "Final source/production/admission work remains; no final-release byte identity invented"
+    },
+    {
+      "final_sha256": null,
+      "name": "astra-integrated-core-v1.1.0-alpha.1-release-identity.json",
+      "reason": "Final source/production/admission work remains; no final-release byte identity invented"
+    }
+  ],
+  "final_commit": null,
+  "final_tree": null,
+  "pages_admitted": false,
+  "prerelease": true,
+  "publication_authorized": false,
+  "replaces_v107": false,
+  "repurposes_companion_tag": false,
+  "runtime_admitted": false,
+  "runtime_archives_bundled": false,
+  "scope": "Integrated-core successor alpha: integrated core, synthetic case, SCM/WKI, diagrams, draft reading documents and gateway",
+  "source_admitted": false,
+  "stable_release": "v1.0.7",
+  "status": "AUTHORIZED_DRAFT_IDENTITY_NOT_RELEASE_APPROVAL",
+  "tag": "astra-integrated-core-v1.1.0-alpha.1",
+  "third_party_articles_or_raw_datasets_bundled": false,
+  "title": "SPPT/ASTRA Integrated Core 1.1.0-alpha.1",
+  "version": "1.1.0-alpha.1",
+  "workflow_active": false,
+  "workflow_namespace": "astra-integrated-core-v*"
+}

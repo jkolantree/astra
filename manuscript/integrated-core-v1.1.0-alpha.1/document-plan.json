@@ -1,0 +1,23 @@
+{
+  "author": "Jacko T.",
+  "documents": [
+    {
+      "source": "manuscript.md",
+      "stem": "astra-integrated-core-v1.1.0-alpha.1-manuscript",
+      "title": "SPPT/ASTRA Integrated Core 1.1.0-alpha.1: Typed Composition and Bounded Research Checks"
+    },
+    {
+      "source": "supplement.md",
+      "stem": "astra-integrated-core-v1.1.0-alpha.1-supplement",
+      "title": "SPPT/ASTRA Integrated Core 1.1.0-alpha.1: Technical Supplement and Evidence Boundaries"
+    }
+  ],
+  "draft_reproducibility_epoch": "2026-10-06T00:00:00Z",
+  "epoch_is_release_date": false,
+  "kind": "INTEGRATED_CORE_ALPHA_DOCUMENT_PLAN",
+  "language": "en-US",
+  "output_directory": "resources/integrated-core/v1.1.0-alpha.1/reading",
+  "release_tag": "astra-integrated-core-v1.1.0-alpha.1",
+  "release_version": "1.1.0-alpha.1",
+  "status": "CANDIDATE_NOT_ADMITTED"
+}

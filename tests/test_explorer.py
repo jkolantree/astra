@@ -196,10 +196,15 @@ console.log('Callbacks passed; actual browser behavior remains untested.');
 
 
 def test_production_docs_are_unchanged_and_candidate_is_bounded() -> None:
+    # Keep the legacy node name referenced by retained routing evidence.
     from tools.build_pages_admission import docs_entries
+
+    assert docs_entries(current=True)
+
+
+def test_candidate_explorer_has_exact_bounded_roster() -> None:
     from tools.check_repository import RESEARCH_EXPLORER_FILES, RESEARCH_EXPLORER_ROOT
 
-    assert docs_entries()
     assert RESEARCH_EXPLORER_ROOT == EXPLORER.relative_to(ROOT).as_posix()
     assert {path.name for path in EXPLORER.iterdir()} == set(RESEARCH_EXPLORER_FILES)
 
@@ -278,6 +283,28 @@ def test_media_links_and_motion_defaults() -> None:
             if url.scheme:
                 assert url.scheme == "https"
                 assert tag == "a", "External resources must be links, not runtime requests"
+            elif url.path in {
+                "../../../../assets/astra-midnight-occultation.png",
+                "../../../../assets/midnight-occultation-provenance.json",
+            }:
+                target = ROOT / "docs/assets" / Path(url.path).name
+                assert target.is_file()
+                assert tag == ("img" if target.suffix == ".png" else "a")
+            elif url.path == "../../../../library/":
+                assert tag == "a" and key == "href"
+                assert (ROOT / "docs/library/index.html").is_file()
+            elif url.path in {
+                "../../../../understand/",
+                "../../../../understand/worlds/",
+                "../../../../understand/geometry/",
+            }:
+                from tools.link_audit_common import parse_html
+
+                assert tag == "a" and key == "href"
+                target = ROOT / "docs" / url.path.removeprefix("../../../../") / "index.html"
+                assert target.is_file()
+                if url.fragment:
+                    assert unquote(url.fragment) in parse_html(target).ids
             elif url.path:
                 resolved = (EXPLORER / unquote(url.path)).resolve()
                 assert resolved.is_relative_to(EXPLORER.parent)

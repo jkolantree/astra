@@ -1,0 +1,22 @@
+{
+  "schema": "astra-reading-outputs-draft-1",
+  "status": "PROPOSED_NOT_ADMITTED",
+  "scientific_contract": "OUTPUTS.json",
+  "scientific_primary_outputs": 61,
+  "reading_primary_outputs": [
+    "ASTRA_integrated_manuscript_draft.html",
+    "ASTRA_integrated_manuscript_draft.pdf",
+    "ASTRA_integrated_supplement_draft.html",
+    "ASTRA_integrated_supplement_draft.pdf"
+  ],
+  "auxiliary_outputs": [
+    "draft_document_identity.json",
+    "draft_pdf_inspection.json",
+    "DEJAVU-FONTS.txt",
+    "STIX-FONTS.txt"
+  ],
+  "combined_primary_outputs": 65,
+  "all_declared_outputs_including_auxiliary": 69,
+  "freshness_rule": "Two separate science runs plus two independently constructed reading trees; bind the common source and each diagram/report input; no copied reading outputs.",
+  "release_admitted": false
+}

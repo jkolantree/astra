@@ -9,6 +9,7 @@ import pytest
 
 from tools import assemble_research_companion_pages as companion
 from tools import build_pages_admission as builder
+from tools import check_pages_admission as admission_checker
 from tools.check_pages_admission import check_pages_admission, copy_admitted_shell
 from tools.check_pages_links import check_pages_links
 from tools.check_repository_links import check_repository_links
@@ -26,7 +27,7 @@ def artifact_root() -> Iterator[Path]:
 
 def artifact(tmp_path: Path) -> Path:
     site = tmp_path / "site"
-    copy_admitted_shell(site)
+    copy_admitted_shell(site, current=True)
     return site
 
 
@@ -36,11 +37,11 @@ def test_companion_assembly_preserves_existing_routes_and_exact_payload(artifact
     historical.parent.mkdir(parents=True)
     historical.write_text("<!doctype html><title>Frozen edition fixture</title>")
     existing = companion.snapshot(site)
-    result = companion.assemble(site)
+    result = companion.assemble(site, current=True)
     after = companion.snapshot(site)
     assert result == {"new_files": 44, "preserved_files": len(existing), "status": "draft-unpromoted"}
     assert all(after[name] == value for name, value in existing.items())
-    record = check_pages_admission()["research_companion"]
+    record = check_pages_admission(current=True)["research_companion"]
     for item in record["files"]:
         path = site / record["root"] / item["path"]
         assert path.stat().st_size == item["bytes"]
@@ -55,8 +56,32 @@ def test_companion_assembly_preserves_existing_routes_and_exact_payload(artifact
     shutil.copytree(site / "explore", isolated / "explore")
     shutil.copytree(site / "licenses", isolated / "licenses")
     shutil.copyfile(site / "LICENSE", isolated / "LICENSE")
+    (isolated / "index.html").write_text("<!doctype html><title>Explorer destination fixture</title>")
+    # This isolated unit fixture supplies the actual admitted shell target IDs,
+    # without recursively assembling the immutable release routes linked by the
+    # shell itself. The production workflow audits the complete assembled site.
+    from html import escape
+
+    from tools.link_audit_common import parse_html
+
+    for relative in (
+        "understand/index.html", "library/index.html",
+        "understand/worlds/index.html", "understand/geometry/index.html",
+    ):
+        source = site / relative
+        target = isolated / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        ids = sorted(parse_html(source).ids)
+        target.write_text(
+            "<!doctype html><title>Admitted shell target fixture</title>"
+            + "".join(f'<span id="{escape(value, quote=True)}"></span>' for value in ids),
+            encoding="utf-8",
+        )
+    (isolated / "assets").mkdir()
+    for name in ("astra-midnight-occultation.png", "midnight-occultation-provenance.json"):
+        shutil.copyfile(site / "assets" / name, isolated / "assets" / name)
     audited = check_pages_links(isolated)
-    assert audited["html_files"] == 2
+    assert audited["html_files"] == 7
     assert audited["redirects"] == 1
     assert audited["internal_references"] >= 40
     markdown = check_repository_links(isolated)
@@ -72,7 +97,7 @@ def test_companion_rejects_collisions_before_writing(artifact_root: Path, collis
     target.write_text("existing artifact bytes")
     before = companion.snapshot(site)
     with pytest.raises(RuntimeError, match="collision|parent is not a directory"):
-        companion.assemble(site)
+        companion.assemble(site, current=True)
     assert companion.snapshot(site) == before
 
 
@@ -81,7 +106,7 @@ def test_companion_reuses_identical_notice_without_overwriting(artifact_root: Pa
     target = site / "LICENSE"
     target.write_bytes((ROOT / "LICENSE").read_bytes())
     before = target.stat().st_mtime_ns
-    assert companion.assemble(site)["new_files"] == 43
+    assert companion.assemble(site, current=True)["new_files"] == 43
     assert target.stat().st_mtime_ns == before
 
 
@@ -89,15 +114,15 @@ def test_companion_rejects_missing_shell_and_destination_link(artifact_root: Pat
     empty = artifact_root / "empty"
     empty.mkdir()
     with pytest.raises(RuntimeError, match="exact admitted Pages shell"):
-        companion.assemble(empty)
+        companion.assemble(empty, current=True)
     site = artifact(artifact_root)
     link = artifact_root / "alias"
     link.symlink_to(site, target_is_directory=True)
     with pytest.raises(RuntimeError, match="links or junctions"):
-        companion.assemble(link)
+        companion.assemble(link, current=True)
     (site / "licenses").symlink_to(empty, target_is_directory=True)
     with pytest.raises(RuntimeError, match="links or junctions"):
-        companion.assemble(site)
+        companion.assemble(site, current=True)
     assert not (site / "explore").exists()
 
 
@@ -116,12 +141,12 @@ def test_artifact_fixture_ignores_source_nested_temp_environment(
         inside = artifact(nested)
         before = companion.snapshot(inside)
         with pytest.raises(RuntimeError, match="outside the source tree"):
-            companion.assemble(inside)
+            companion.assemble(inside, current=True)
         assert companion.snapshot(inside) == before
         external = request.getfixturevalue("artifact_root")
         assert ROOT not in external.resolve().parents and external.resolve() != ROOT
-        result = companion.assemble(artifact(external))
-        assert result == {"new_files": 44, "preserved_files": 11, "status": "draft-unpromoted"}
+        result = companion.assemble(artifact(external), current=True)
+        assert result == {"new_files": 44, "preserved_files": 36, "status": "draft-unpromoted"}
 
 
 def test_companion_source_roster_and_bytes_are_bound(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -136,20 +161,37 @@ def test_companion_source_roster_and_bytes_are_bound(tmp_path: Path, monkeypatch
     (source / "only.txt").write_text("changed")
     assert builder.companion_record() != original
     (source / "extra.txt").write_text("not admitted")
-    with pytest.raises(RuntimeError, match="not explicitly admitted"):
+    with pytest.raises(RuntimeError, match="not explicitly admitted|links or junctions"):
         builder.companion_record()
     (source / "extra.txt").unlink()
     (source / "only.txt").unlink()
     (source / "only.txt").symlink_to(ROOT / "LICENSE")
-    with pytest.raises(RuntimeError, match="not explicitly admitted"):
+    with pytest.raises(RuntimeError, match="not explicitly admitted|links or junctions"):
         builder.companion_record()
 
 
-def test_changed_manifest_companion_hash_is_rejected(tmp_path: Path) -> None:
-    record = builder.build_record()
-    record["research_companion"]["files"][0]["sha256"] = "0" * 64
+def test_changed_manifest_companion_hash_is_rejected(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    source = tmp_path / "source"
+    relatives = (
+        *(f"docs/{name}" for name in builder.SHELL_PATHS),
+        *(f"{builder.COMPANION_ROOT}/{name}" for name in builder.COMPANION_PATHS),
+        *builder.SUPPORT_PATHS,
+    )
+    for relative in relatives:
+        fixture = source / relative
+        fixture.parent.mkdir(parents=True, exist_ok=True)
+        fixture.write_text(f"Synthetic fixture: {relative}\n", encoding="utf-8")
+    record = builder.build_record(source)
     path = tmp_path / "changed.json"
-    path.write_text(json.dumps(record))
+    path.write_text(json.dumps(record), encoding="utf-8")
+    monkeypatch.setattr(admission_checker, "DOCS", source / "docs")
+    monkeypatch.setattr(admission_checker, "companion_record", lambda: builder.companion_record(source))
+    assert check_pages_admission(path) == record
+
+    record["research_companion"]["files"][0]["sha256"] = "0" * 64
+    path.write_text(json.dumps(record), encoding="utf-8")
     with pytest.raises(RuntimeError, match="differs from exact source bytes"):
         check_pages_admission(path)
 
@@ -262,47 +304,31 @@ def test_review_rejects_false_passes_incomplete_records_and_declared_failures(
         companion.require_visual_review(path, root=tmp_path)
 
 
-def test_current_review_preserves_coverage_and_obeys_publication_decision(artifact_root: Path) -> None:
-    record = json.loads(companion.REVIEW.read_text())
-    assert record["candidate_sha256"] == companion.candidate_digest()
-    assert record["visual_review"]["status"] == "accepted"
-    assert record["visual_review"]["content_sha256"] == companion.visual_content_digest()
-    assert set(record["coverage"].values()) == {"not-tested"}
-    assert "evidence" not in record
+def test_historical_review_is_retained_but_does_not_admit_current_candidate() -> None:
+    with pytest.raises(RuntimeError, match="stale for the current candidate"):
+        companion.require_visual_review()
+
+
+def test_current_review_obeys_separate_owner_and_agent_roles(artifact_root: Path) -> None:
+    record = json.loads(companion.CURRENT_REVIEW.read_text())
+    assert record["candidate_sha256"] == companion.candidate_digest(current=True)
+    assert record["visual_review"]["owner_visual_review_claimed"] is False
     site = artifact(artifact_root)
     before = companion.snapshot(site)
-    if record["publication_approval"]["status"] == "approved":
-        result = companion.assemble(site, require_reviewed=True)
+    if record["visual_review"]["status"] == "accepted":
+        result = companion.assemble(site, current=True, require_reviewed=True)
         assert result["new_files"] == 44
         assert result["review_coverage"] == record["coverage"]
-        after = companion.snapshot(site)
-        assert all(after[name] == value for name, value in before.items())
+        assert all(companion.snapshot(site)[name] == value for name, value in before.items())
     else:
-        with pytest.raises(RuntimeError, match="final publication approval is pending"):
-            companion.assemble(site, require_reviewed=True)
+        with pytest.raises(RuntimeError, match="visual review is pending"):
+            companion.assemble(site, current=True, require_reviewed=True)
         assert companion.snapshot(site) == before
-
-
-def test_approved_fixture_assembly_reports_untested_coverage_without_private_evidence(
-    tmp_path: Path, artifact_root: Path, monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    original = companion.REVIEW.read_bytes()
-    record = json.loads(original)
-    record["publication_approval"] = {"status": "approved", "basis": "Synthetic integration test only"}
-    record["coverage"] = dict.fromkeys(companion.COVERAGE_CHECKS, "not-tested")
-    fixture = tmp_path / "synthetic-review.json"
-    fixture.write_text(json.dumps(record))
-    actual_validator = companion.require_visual_review
-    monkeypatch.setattr(companion, "require_visual_review", lambda: actual_validator(fixture))
-    result = companion.assemble(artifact(artifact_root), require_reviewed=True)
-    assert result["new_files"] == 44
-    assert result["review_coverage"] == record["coverage"]
-    assert companion.REVIEW.read_bytes() == original
 
 
 def test_frozen_release_routes_still_match_v1_and_workflow_requires_review() -> None:
     historical = json.loads((ROOT / "evidence/pages_admission_v1.json").read_text())
     assert builder.RELEASE_ROUTES == historical["release_routes"]
     workflow = (ROOT / ".github/workflows/pages.yml").read_text()
-    assert 'tools/assemble_research_companion_pages.py --site "$site" --require-reviewed' in workflow
-    assert workflow.index('tools/assemble_research_companion_pages.py --site "$site" --require-reviewed') < workflow.index('tools/check_pages_links.py "$site"')
+    assert 'tools/assemble_research_companion_pages.py --current --site "$site" --require-reviewed' in workflow
+    assert workflow.index('tools/assemble_research_companion_pages.py --current --site "$site" --require-reviewed') < workflow.index('tools/check_pages_links.py "$site"')

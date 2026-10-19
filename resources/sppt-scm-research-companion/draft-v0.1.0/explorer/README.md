@@ -1,12 +1,15 @@
 # ASTRA explorer — unpromoted draft
 
 This static field guide is staged in the research-companion
-namespace. The prepared route is `/explore/`, beside the existing reading
-room, with a versioned draft destination. Admission v2 explicitly enumerates
+namespace. The root route `/` contains the explorer; `/explore/` redirects to it.
+The existing versioned draft destination remains available. The Research
+library is at `/library/`; all historical publication routes are unchanged.
+`tools/build_explorer_gateway.py` derives `docs/index.html` from the explorer
+source and rebases relative assets without changing the model code or fixture. Admission v2 explicitly enumerates
 the companion; it does not change the frozen release routes.
 Open `index.html` with a standards-compliant browser or serve this directory
-through an approved local preview. The owner accepted the delivered preview’s
-general appearance on their own device. No install, build step, external font,
+through an approved local preview. The previous appearance approval applies only to the earlier delivered
+preview. The root gateway and selected hero require a new review. No install, build step, external font,
 analytics, WebGL, or runtime dependency is required. Controls start stationary;
 static SVG diagrams, text and equations remain available without JavaScript.
 
@@ -49,15 +52,14 @@ python -I -B -m pytest tests/test_explorer.py tests/test_astra_reservoir.py
 
 The optional JavaScript calculation diagnostic uses Node when available; no
 Node package installation is required. This is a development check, not a site
-runtime dependency. The owner’s manual acceptance covers general appearance;
-detailed keyboard, mobile, reduced-motion, media, console and screen-reader
-coverage remains separately recorded as not tested. This is not accessibility
+runtime dependency. Visual acceptance and final publication approval are pending for the
+root-gateway redesign. Detailed keyboard, mobile, reduced-motion, media,
+console and screen-reader coverage remains separately recorded as not tested. This is not accessibility
 certification, and private screenshots are not required for publication.
 
 The Pages workflow remains manual and main-only. Its companion assembly step
 requires exact-byte integrity, manual visual acceptance and explicit final
-publication approval. Visual acceptance and owner publication authorization are
-recorded. Successful exact-head CI and the owner's merge remain separate
+publication approval. The prior acceptance does not authorize the changed page bytes. Successful exact-head CI and the owner's merge remain separate
 requirements. Source-only assembly neither deploys nor certifies the result.
 The admission and original release asset checks run independently.
 

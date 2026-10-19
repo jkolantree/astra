@@ -1,0 +1,59 @@
+{
+  "abi_reference": "Linux x86_64/glibc2.41/AVX2+FMA3",
+  "construction_status": "CONSTRUCTED_NOT_ADMITTED",
+  "historical_windows_equivalence": false,
+  "host_scope": "Actual import/native multiplication, packaged entrypoint and tool version probes; reading renders and three bounded reports run separately. Not universal ABI or every-bundled-native-library qualification.",
+  "input_count": 63,
+  "new_acquisition": false,
+  "pages_admitted": false,
+  "profiles": {
+    "science": "3.12.10",
+    "wki": "3.12.14"
+  },
+  "provenance_limits": [
+    "Science Python base is a local snapshot of an already approved installed tree; original provider archive absent.",
+    "Chromium supplied archive has a local digest; upstream archive digest unavailable.",
+    "Host Linux x86_64/glibc2.41/AVX2+FMA is a reference boundary, not a portable cross-platform guarantee."
+  ],
+  "publication_authorized": false,
+  "relocation_status": "PASS_EXPLICIT_REBIND_REQUIRED",
+  "routes": {
+    "integrated_case": "science",
+    "new_diagrams": "science",
+    "reading_documents": "science",
+    "retained_science_atlas": "science",
+    "scm": "science",
+    "wki": "wki"
+  },
+  "runtime_admitted": false,
+  "schema": "astra-runtime-admission-draft-1",
+  "source_admitted": false,
+  "source_bindings": {
+    "resources/integrated-edition-proposal/PORTABLE_INPUTS_DRAFT.json": {
+      "bytes": 35899,
+      "sha256": "0e84386db3c58707d3b95c921996db1671717bee93b79dbd15039c9299d3601d"
+    },
+    "resources/integrated-edition-proposal/PORTABLE_VALIDATION_DRAFT.json": {
+      "bytes": 3577,
+      "sha256": "c282bea3fd925531f3124bac0ed8164db178099e2ffc7ae3b922bfd3edf84d42"
+    },
+    "resources/integrated-edition-proposal/RUNTIME_PROPOSAL.json": {
+      "bytes": 5632,
+      "sha256": "23fe9d3eddf767faffafc940666010498be140564d33dcc52f464bab30cf5883"
+    },
+    "resources/integrated-edition-proposal/bootstrap_draft.py": {
+      "bytes": 17730,
+      "sha256": "627bc3269f821cf9688506ed3773dfe9b68b8d9521e6fdd8c88886c0d74a3539"
+    },
+    "resources/integrated-edition-proposal/prepare_runtime_paths.py": {
+      "bytes": 1433,
+      "sha256": "a259dc26c46efdc25f97dfa1f96df94b1626409a9846ce50e7322305df2fc372"
+    },
+    "resources/integrated-edition-proposal/relocate_draft.py": {
+      "bytes": 2994,
+      "sha256": "90d9addc4768ce58db30ec06cfa1b557d4e55331a84f30a022d3a448ccb6bda5"
+    }
+  },
+  "status": "PROPOSED_NOT_ADMITTED",
+  "wheels": 55
+}

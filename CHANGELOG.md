@@ -2,6 +2,37 @@
 
 ## Unreleased
 
+- Prepares a root explorer gateway, a secondary Research library and a short
+  README. The selected Midnight Occultation hero is integrated with its
+  provenance and remains excluded from blanket code/documentation license
+  grants. Exact-byte visual acceptance and publication approval are pending;
+  these navigation changes are not yet published. A separate artwork reuse
+  license is optional and has not been granted.
+- Adds six Elementary Understanding reading pages with linked conditional
+  predictions, primary citations and source-access limits. Comparative
+  advantages remain NOT_ASSESSED without appropriately held-out evidence
+  against competently tuned baselines with matched resources and information.
+
+- Adds the namespaced, unpromoted SPPT/ASTRA v1.0.8 Endogenous Visibility
+  successor candidate, integrated into `main` but unreleased, without changing the v1.0.7
+  release identity, claim matrix, reading assets, runtime, or citation target.
+- Records the supplied archive identity and repairs public claim-ID reuse,
+  incomplete inherited claim coverage, drifting source locators, outlined SVG
+  labels, producer portability, visible content loss on five PDF pages, unsafe
+  Figure 9 label clearance, and an unexplained Figure 10 color mark before
+  admission.
+- Keeps tag, Release, Pages, DOI, Zenodo, and stable-claim promotion explicitly
+  deferred.
+
+## Research companion — draft Pages publication
+
+- Publishes the namespaced, unpromoted research companion and `/explore/`
+  entry route with visual media, prescribed models and source-access limits.
+  Pages availability is separate from a scientific release; stable v1.0.7,
+  the existing Atlas release and their citation identities remain unchanged.
+
+## Dark-Medium Response Atlas v0.1.0 — 2026-09-02
+
 - Adds *Dark-Medium Response Atlas v0.1.0 — Path, Compensation, Memory, and
   Observation* as a separately versioned supplemental working-paper line with
   semantic HTML, fixed-layout PDF, deterministic source archive, checksums,
@@ -16,16 +47,9 @@
   `AGENTS.md` from the future repository tip without rewriting its public
   history.
 
-- Adds the namespaced, unpromoted SPPT/ASTRA v1.0.8 Endogenous Visibility
-  successor candidate for repository review without changing the v1.0.7
-  release identity, claim matrix, reading assets, runtime, or citation target.
-- Records the supplied archive identity and repairs public claim-ID reuse,
-  incomplete inherited claim coverage, drifting source locators, outlined SVG
-  labels, producer portability, visible content loss on five PDF pages, unsafe
-  Figure 9 label clearance, and an unexplained Figure 10 color mark before
-  admission.
-- Keeps tag, Release, Pages, DOI, Zenodo, and stable-claim promotion explicitly
-  deferred.
+The immutable artifact and edition date is 2026-09-01. The annotated tag and
+immutable namespaced GitHub prerelease were published on 2026-09-02. This is an
+existing supplemental Working paper release, not unreleased scientific work.
 
 ## 1.0.7 — 2026-08-10
 

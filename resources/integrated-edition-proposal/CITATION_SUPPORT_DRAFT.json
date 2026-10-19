@@ -1,0 +1,277 @@
+{
+  "schema": "astra-citation-support-boundaries-draft-1",
+  "status": "PROPOSED_NOT_ADMITTED",
+  "scope": "Source/version identity and previously inspected content remain distinct from model support. No full-text, data or novelty promotion is created by this record.",
+  "sources": [
+    {
+      "id": "paper:10.1126/sciadv.aee7256",
+      "url": "https://doi.org/10.1126/sciadv.aee7256",
+      "bridge_ids": [
+        "BC001"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Published journal article; PubMed abstract inspected; publisher retrieval failed and PMC browser check; full text, supplement and license unverified.",
+      "bounded_support": "Grain heterogeneity and proposed freezing/fragmentation motivate source reconstruction. The complete transport, selection and detector inverse chain is not established by the abstract.",
+      "unresolved_evidence": "Full instrument response, uncertainty and identifiability of the complete chain remain unresolved.",
+      "relation_to_core": "direct-domain-question",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1073/pnas.2615377123",
+      "url": "https://doi.org/10.1073/pnas.2615377123",
+      "bridge_ids": [
+        "BC002"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Published article; CC BY 4.0; indexed PMC methods/results inspected, direct browser check; supplement not inspected.",
+      "bounded_support": "No measurable enhancement or structural change under the tested planar neat-water conditions. This bounded negative result must accompany the 2024 positive claim; it does not cover every material or geometry.",
+      "unresolved_evidence": "Supplement detection limits and matched-protocol reconciliation remain unresolved.",
+      "relation_to_core": "method-transfer",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1073/pnas.2320844121",
+      "url": "https://doi.org/10.1073/pnas.2320844121",
+      "bridge_ids": [
+        "BC002"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Published article; CC BY-NC-ND 4.0; indexed PMC sections inspected, direct browser check; supplement not inspected.",
+      "bounded_support": "Authors report enhanced evaporation under particular illumination and removal conditions. Nonthermal cluster ejection is a disputed interpretation; the thermal-limit comparison depends on absorbed fraction.",
+      "unresolved_evidence": "Independent reanalysis and matched absorption, illumination, temperature, humidity, geometry and transport controls are needed.",
+      "relation_to_core": "method-transfer",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1038/s41467-026-77933-y",
+      "url": "https://doi.org/10.1038/s41467-026-77933-y",
+      "bridge_ids": [
+        "BC003"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Version of Record; CC BY 4.0; publisher Results/Discussion/Methods inspected; supplements not inspected; raw matrices on request.",
+      "bounded_support": "Finite-channel distribution theory applies when long-range correlations are negligible; excess fluctuations appear in strongly scattering cases. Finite channel count is not a general detector-aperture correction theorem.",
+      "unresolved_evidence": "Correlated extreme-eigenvalue prediction, detector-specific mapping and raw-data reproduction remain open.",
+      "relation_to_core": "direct-domain-question",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1103/jtkh-9lz5",
+      "url": "https://doi.org/10.1103/jtkh-9lz5",
+      "bridge_ids": [
+        "BC004"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Published article; CC BY 4.0; seven-page publisher PDF inspected; supplement not inspected.",
+      "bounded_support": "Singular funnels can change full-system basin geometry relative to a reduced model. This challenges a basin-preservation assumption; it does not show that ASTRA has or avoids such funnels.",
+      "unresolved_evidence": "Specify target equations, small parameter, perturbations and time horizon. Asymptotic basins are not finite observation-time guarantees.",
+      "relation_to_core": "method-transfer",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1103/PhysRevLett.133.237401",
+      "url": "https://doi.org/10.1103/PhysRevLett.133.237401",
+      "bridge_ids": [
+        "BC004"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "APS abstract inspected; journal PDF failed; Cork identifies an accepted manuscript not fetched; arXiv:2407.20758v1 is a separate preprint.",
+      "bounded_support": "Adaptive laser networks exhibit sequential slow-fast switching through canard dynamics. The example is not a basin-preservation theorem.",
+      "unresolved_evidence": "Journal full text and supplements are needed before assigning finite-timescale thresholds to the target model.",
+      "relation_to_core": "method-transfer",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1038/s41612-026-01382-z",
+      "url": "https://doi.org/10.1038/s41612-026-01382-z",
+      "bridge_ids": [
+        "BC005"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Publisher full text inspected; Crossmark current in the audit; CC BY-NC-ND 4.0; earlier unedited PDF is a different version; code on request.",
+      "bounded_support": "Explicit atmospheric mass/motion bookkeeping and a simplified atmosphere/shell exchange motivate reservoir accounting. The scenarios do not certify an arbitrary combined rotation budget.",
+      "unresolved_evidence": "Combining with surface-mass transport requires compatible baselines, loading and pressure conventions and overlap checks.",
+      "relation_to_core": "direct-domain-question",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1073/pnas.2406930121",
+      "url": "https://doi.org/10.1073/pnas.2406930121",
+      "bridge_ids": [
+        "BC005"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Published article; CC BY-NC-ND 4.0; ETH-hosted publisher PDF inspected (cover plus seven article pages); supplement not inspected.",
+      "bounded_support": "Surface-mass contributions are compared with satellite-laser-ranging J2 and residual GIA treatment. Our accounting inference is that geodetic observables constrain a budget rather than form extra reservoirs.",
+      "unresolved_evidence": "Joint accounting still requires shared conventions, covariance and explicit overlap tests.",
+      "relation_to_core": "direct-domain-question",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1016/j.cub.2026.07.056",
+      "url": "https://doi.org/10.1016/j.cub.2026.07.056",
+      "bridge_ids": [
+        "BC006"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Published article; PubMed bibliography/abstract inspected; publisher full text failed; license, supplement and perturbation protocol unverified.",
+      "bounded_support": "An anatomical map and projections in Doryteuthis pealeii paralarvae motivate functional tests. The likely sensory function is not a measured frequency-tuning law or demonstrated intervention effect.",
+      "unresolved_evidence": "Within-species response and perturbation evidence is needed; no human-hearing or cross-species mechanism transfer is established.",
+      "relation_to_core": "method-transfer",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1016/j.cub.2024.09.016",
+      "url": "https://doi.org/10.1016/j.cub.2024.09.016",
+      "bridge_ids": [
+        "BC006"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "PMC text is an author manuscript, available 4 November 2025, not publisher Version of Record. Dataset v1 landing page inspected, raw downloads/code not inspected.",
+      "bounded_support": "Tract tracing and single-unit recordings connect anatomy with low-frequency vibration responses. Selectively altering the anatomy requires a separate causal experiment.",
+      "unresolved_evidence": "Mendeley r6fnxpnmmc/1 lists raw recordings under CC BY 4.0; actual bytes and analysis code need verification.",
+      "relation_to_core": "method-transfer",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1103/6wcm-z333",
+      "url": "https://doi.org/10.1103/6wcm-z333",
+      "bridge_ids": [
+        "BC006"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Publisher 13-page PDF inspected; CC BY 4.0. Supplement link redirected to article; individual data files not verified.",
+      "bounded_support": "Bullfrog recordings inform a stochastic model with distinct energy-flow regimes under forcing. Separate measured outputs from latent model states and predictions.",
+      "unresolved_evidence": "This is not a squid/gecko perturbation study; no paper efficiency is ASTRA performance. Target-system transfer remains untested.",
+      "relation_to_core": "method-transfer",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1038/s41598-026-65147-7",
+      "url": "https://doi.org/10.1038/s41598-026-65147-7",
+      "bridge_ids": [
+        "BC007"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Publisher explicitly labels early peer-reviewed accepted version, to be replaced by final Version of Record; abstract inspected; linked PDF failed; underlying data access unverified.",
+      "bounded_support": "Two experiments concern dissent focus, persuasiveness and uptake. Argument quality differs and omnibus interactions are generally non-significant. These outcomes are not independently verified correction quality.",
+      "unresolved_evidence": "A protected-challenge test needs matched resources, randomized conditions, independent answers, blinded scoring and false-correction costs.",
+      "relation_to_core": "method-transfer",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1098/rspb.2026.1077",
+      "url": "https://doi.org/10.1098/rspb.2026.1077",
+      "bridge_ids": [
+        "BC008"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "PubMed abstract inspected; publisher/university full-text retrieval failed; final CC BY PDF listing does not verify its bytes.",
+      "bounded_support": "Calling/respiratory associations and interpretation strength make a source-tracing case. Zenodo v1 lists 370.9 MB; v2 rendered a 7.2 kB README listing, which does not prove deletion or completeness.",
+      "unresolved_evidence": "Pin an exact statement, analysis and dataset version; retrieve/hash bytes. Listing and availability statements are not a completed provenance test.",
+      "relation_to_core": "source-version-tracing-test-case",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1103/drzq-lfn5",
+      "url": "https://doi.org/10.1103/drzq-lfn5",
+      "bridge_ids": [
+        "BC008"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Published APS abstract inspected; full text and supplements require subscription. arXiv:2601.07460v1 (12 January 2026) is a distinct preprint, not the journal version.",
+      "bounded_support": "Published language treats topological superconductivity/Majorana modes as possibilities; the preprint claims more strongly. Bind claim strength to version; broken time-reversal symmetry is not reversal of time or observed Majorana modes.",
+      "unresolved_evidence": "Exact source location and artifact bytes remain to be verified for a target provenance evaluation.",
+      "relation_to_core": "source-version-tracing-test-case",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    },
+    {
+      "id": "paper:10.1103/4dyc-z8zf",
+      "url": "https://doi.org/10.1103/4dyc-z8zf",
+      "bridge_ids": [
+        "BC008"
+      ],
+      "identity_status": "IDENTITY_VERIFIED_SUPPORT_BOUNDED",
+      "prior_checked_date": "2026-10-06",
+      "access_scope": "Publisher 11-page PDF inspected; CC BY 4.0; correction concerns a production typo in an inline equation after Table I. Supplement/raw-data reanalysis not performed.",
+      "bounded_support": "No excess over expected backgrounds and exclusion constraints, not a discovery. Use the corrected article as a version-grounding test; the correction does not imply changed detection conclusions.",
+      "unresolved_evidence": "A DOI is not an immutable byte identity. Pin selected corrected equation and supporting files; no local article/data hashes were computed in the citation audit.",
+      "relation_to_core": "source-version-tracing-test-case",
+      "empirical_support_for_core": false,
+      "article_bytes_bundled": false,
+      "artifact_bytes_hashed": false,
+      "live_reachability_this_successor": "NOT_RECHECKED; prior source inspection retained",
+      "model_bridge_validated": false
+    }
+  ]
+}

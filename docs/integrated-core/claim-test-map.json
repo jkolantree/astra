@@ -1,0 +1,623 @@
+{
+  "mapping": {
+    "Layers:C-01": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.CommonContractTests.test_wrong_units_quantity_basis_and_space_rejected"
+      ],
+      "scope": "Typed physical/control/observation/archive/certificate edges prevent declared quantity casts in this finite case.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-02": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Identical observation laws under all legal interventions preserve prior model odds.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-03": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "A legal intervention with positive KL divergence accumulates expected log evidence linearly under independent repetition.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-04": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Passive scalar linear feedback identifies only the composite coefficient a-bk.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-05": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.IntegratedCaseTests.test_record_reset_matches_independent_weighted_sum"
+      ],
+      "scope": "A finite expected-record ledger with retention is computed; unrestricted history uniqueness is not inferred.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-06": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.IntegratedCaseTests.test_corrupt_conservation_path_fails"
+      ],
+      "scope": "The receipt covers explicitly injected mass and record-accounting failures only.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-07": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Under monotone likelihood-ratio ordering, stronger threshold selection decreases yield and increases accepted quality.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-08": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Hypothesis: typed active design may improve a declared discrimination task. No gain over tuned conventional experimental design, matched interventions and sensor budgets is established here.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-09": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "The source proposes treating the moonlight/pelage/plumage case as observation-layer calibration; no best-representation or comparative inference result is admitted.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-10": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Structured quantum sampling illustrates failure-typed certificate design.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-11": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "The diamond inclusion illustrates sealing and path-dependent archive inference.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-12": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Xenophagocytosis illustrates an active control layer separate from physical elimination flux.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-13": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Unconfirmed hypothesis: typed layers may improve a prespecified inference task. No real-data advantage over tuned conventional models is established.",
+      "whole_source_claim_validated": false
+    },
+    "Layers:C-14": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Proposed planetary retrieval application. No held-out predictive, calibration or mission-design benefit over matched conventional transport/retrieval models is established.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:C1": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Proposed state-selection criterion. Retaining a named boundary state requires task-specific evidence against strong conventional hidden-state, adaptation and transport alternatives; a fit does not locate the state physically.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:C2": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.IntegratedCaseTests.test_capture_reallocates_existing_mass"
+      ],
+      "scope": "The included capture reset reallocates existing tracer mass and preserves its ledger.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:C3": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Surface free energy and surface stress are not generally interchangeable in strained solids.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:C4": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Boundary influence has leading area-to-volume leverage, but no universal value of the boundary-dominance coordinate marks all transitions.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:C5": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Relaxation of a stable coupled boundary weakens the static bulk stiffness by the Schur complement, within the stated quadratic model.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:C6": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.IntegratedCaseTests.test_boundary_exact_matches_independent_numerical_path"
+      ],
+      "scope": "Specified stable two-state boundary response agrees between exact and numerical implementations; no unique physical boundary identification.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:C7": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "A visible geometric closure creates a distinct model reservoir only when exchange is slow on the declared observation timescale and resolution.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:C8": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Coexistence, loss of local stability, and realized transition time are distinct events; a deterministic threshold does not supply a first-passage distribution.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:C9": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Broken symmetry, shape change, geometric topology change, and transport-graph change must be typed separately.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:C10": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Proposed decision rule: retain boundary states only after a frozen, fairly resourced comparison, including strong conventional dynamic alternatives and calibration, supports their declared task value.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:R1": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "The ultrathin strained RuO2 case is consistent with boundary-conditioned broken time-reversal symmetry and altered spin transport.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:R2": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "A reversible strain experiment at fixed thickness and chemistry can test whether strain controls the RuO2 order parameter.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:D1": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "P123-bearing oil droplets demonstrate passive interface remodeling, activated shape transitions, and geometry-created capture under the reported conditions.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:D2": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Unconfirmed cross-size hypothesis: compare area-normalized coverage and mechanical coordinates against tuned concentration, geometry, transport and covariate models. No comparative empirical result is supplied.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:S1": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Source-reported favorable synthetic example: a two-mode generator defeats a first-order comparator. The same source reports an exactly matching two-mode black box. This does not establish superiority over strong conventional dynamic models.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:S2": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Source-reported algebraically equivalent two-mode models match the bulk readout. This is an equivalence control, not an ASTRA predictive advantage or physical boundary identification.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:S3": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Source-reported generated example adds 26 boundary observations and recovers a chosen factorization. Extra data and sensor cost prevent attributing its lower error to method superiority without a matched-information comparison.",
+      "whole_source_claim_validated": false
+    },
+    "Gamma:S4": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Source-reported synthetic hazard generator favors an activated law over a rate-independent threshold. No advantage over tuned conventional survival, adaptation or rate-dependent transport models is established.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C1": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.CommonContractTests.test_constant_markov_reduction_can_lose_declared_output"
+      ],
+      "scope": "Task-output sufficiency and reduced-state Markov behavior are different questions; a constant reduced Markov state can omit a hidden variable controlling a declared output.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C2": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Finite-dimensional linear realizations are identifiable only up to similarity without physical coordinate anchors.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C3": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Quasistatic elimination of a stable contextual subsystem changes the focal quadratic response through a Schur complement.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C4": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.IntegratedCaseTests.test_context_memory_changes_observation_and_keeps_mass_fixed"
+      ],
+      "scope": "The supplied discrete stateful channel changes expected observations while the physical mass ledger is fixed.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C5": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Repeated-event precision depends on effective sample size and a systematic floor, not nominal count alone.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C6": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Distinct accretion duration-flux pairs can produce the same element snapshot in the toy disclosure model.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C7": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "U-STORM, the stateful nanopore, Fe-S clusters, floral chirality, polluted white dwarfs, and TW Hya each expose a different coupling-state or observation-channel problem.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C8": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Proposed methodological benefit of type separation; reduced error rates relative to existing practice have not been measured in a controlled comparative study.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C9": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Unconfirmed protocol-transfer hypothesis. No superiority over tuned state-space, finite-lag, adaptive, hysteretic, kernel or transport models is established; equal parameter count alone is not equal tuning or information budget.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C10": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.CommonContractTests.test_first_order_rank_does_not_decide_nonlinear_identifiability"
+      ],
+      "scope": "Numerical Jacobian rank measures first-order sensitivity only; no nonlinear/local or global identifiability certificate follows.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C11": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Rejected source claim: the six calibration cases do not establish one universal microscopic coupling law.",
+      "whole_source_claim_validated": false
+    },
+    "Xi:C12": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Rejected source claim: synthetic implementation benchmarks do not empirically validate ASTRA-Xi.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G01": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::graph_flow_check"
+      ],
+      "scope": "Finite d1 graph-gauge replay only; general codimension-two derivation not supplied here.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G02": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::variational_check"
+      ],
+      "scope": "Finite directional variation under the supplied periodic discretization; no arbitrary-boundary theorem.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G03": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::variational_check"
+      ],
+      "scope": "Instantaneous finite norm-rate residual in the supplied variational replay only; autonomous energy conservation is untested. No common-unitary or empirical probability conclusion.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G04": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::rank_two_energy_check"
+      ],
+      "scope": "Supplied rank-two determinant/energy identity cases.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G05": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::matrix_expansion_check"
+      ],
+      "scope": "Fixed-gradient finite small-scale expansion cases; no uniform expansion in arbitrary gradients.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G06": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::rank_two_energy_check"
+      ],
+      "scope": "Instantaneous balanced-gradient algebra; persistence is not established.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G07": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::plane_wave_check"
+      ],
+      "scope": "Finite plane-wave flux/frequency and small-scale dispersion subchecks only; the energy derivative with respect to norm is not tested here.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G08": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::ensemble_check"
+      ],
+      "scope": "Specified two-mode witness against common transition-probability-preserving unitary dynamics.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G09": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::ensemble_check"
+      ],
+      "scope": "Branchwise mixture law gives ensemble-dependent evolution in the specified witness.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G10": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Norm normalized global phase equivariant flow defines ray evolution",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G11": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::spectator_check"
+      ],
+      "scope": "The naive joint extension violates spectator independence in the supplied product-state control.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G12": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::galilean_check"
+      ],
+      "scope": "The original finite-scale PDE fails the ordinary Galilean boost control.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G13": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Kernel density area commutator reproduces pure ray dynamics",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G14": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Marginal Hamiltonian closes independent reduced equations",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G15": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Full density candidate is an operational no signalling theory",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G16": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: External covariant derivative imports a gauge field",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G17": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Regular nodal defect and full graph are distinct codimension two objects",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G18": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Nodal topology correspondence has a generic strong solution regime",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G19": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Free curve kinetic functional requires a specified Poisson transfer",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G20": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "scripts/scm_replay_checks.py::scalar_mirror_check"
+      ],
+      "scope": "Isotropic scalar intensity is mirror blind in the supplied symmetry control; no polarized/parity-sensitive inference.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:G21": {
+      "candidate_support": "INSPECTED_SCOPED_DERIVATION",
+      "tests": [],
+      "scope": "C2 globally balanced fields are harmonic in d2; constants on a connected flat periodic torus, and zero on the whole plane with L2. No d>=3, arbitrary-boundary or time-invariance conclusion.",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:IG01": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Encoding claims need dynamics and observation intertwining",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:IG02": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Conditioning can be nonlinear without nonlinear source dynamics",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:IG03": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Success and failure information obey the stated KL partition identity",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:IG04": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Complete quantum benchmark observations require instruments when update matters",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:IG05": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Source and unknown selection admit observational equivalence families",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:IG06": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Hidden linear state elimination can produce reduced memory",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:IG07": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Classical and quantum memory use separate adapters",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:IG08": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Energy material probability and provenance edges retain separate types",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:IG09": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Null exclusions require nonzero candidate response and a likelihood",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:IG10": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Record separation is evaluated after independently bounded nuisance variation",
+      "whole_source_claim_validated": false
+    },
+    "scm_corrected:R01": {
+      "candidate_support": "DEFERRED_OR_SOURCE_REPORTED",
+      "tests": [],
+      "scope": "No new candidate admission: Canonical stable framework promotion is established by this package",
+      "whole_source_claim_validated": false
+    },
+    "october_framework:RI001": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.CommonContractTests.test_first_moments_do_not_supply_a_likelihood_or_exclusion"
+      ],
+      "scope": "The selected typed adapter computes tracer mass and first moments only; no count/no-record/correlated-daughter likelihood or empirical Enceladus forward law.",
+      "whole_source_claim_validated": false
+    },
+    "october_framework:RI002": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "In the delivered v0.1.0 diagonal selection model, different source fractions and selection efficiencies yield identical per-tracer selected masses and total yield; source composition is unidentifiable without calibration or a separating measurement on that support.",
+      "whole_source_claim_validated": false
+    },
+    "october_framework:RI003": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.CommonContractTests.test_digest_declaration_never_confers_readiness"
+      ],
+      "scope": "A calibration declaration permits structural inspection only and cannot confer readiness, contradiction or null exclusion.",
+      "whole_source_claim_validated": false
+    },
+    "october_framework:RI004": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Optical adapters must retain full-distribution outcomes and distinguish physical material, encoded emulator state, probe measurements, reconstruction, inferred invariant and predicted excitation. These are proposal obligations, not new empirical optical results.",
+      "whole_source_claim_validated": false
+    },
+    "october_framework:RI005": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "A reduced-model certificate must record its reduction map and finite-timescale regime and test basin geometry against the full model; local stability alone does not certify global resilience. No external funnel or canard paper is numerically reproduced here.",
+      "whole_source_claim_validated": false
+    },
+    "october_framework:RI006": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "A planetary rotation adapter must distinguish angular momentum, inertia and external torque, retain common-input covariance and compatible epochs, and test joint budget closure before causal attribution. No new geodetic fit is performed here.",
+      "whole_source_claim_validated": false
+    },
+    "october_framework:RI007": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "Morphology, experimentally perturbed sensory function and cross-species clinical translation are separate claim levels. Active-sensor energetics require a declared boundary; the supplied squid anatomy is not evidence of a human therapy.",
+      "whole_source_claim_validated": false
+    },
+    "october_framework:RI008": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integrated_claim_scope.PublicClaimScopeTests.test_exact_claim_coverage_and_no_empirical_promotion",
+        "test_integration.CommonContractTests.test_digest_declaration_never_confers_readiness"
+      ],
+      "scope": "Source-local IDs and statement/artifact hashes preserve identity, not entailment or empirical admission.",
+      "whole_source_claim_validated": false
+    },
+    "october_framework:RI009": {
+      "candidate_support": "BOUNDED_SYNTHETIC_SUBCHECK",
+      "tests": [
+        "test_integration.CommonContractTests.test_frozen_transfer_ignores_holdout_labels"
+      ],
+      "scope": "The scoped frozen-transfer interface fits on source/calibration declarations and uses held-out labels only for scoring; authenticated empirical split independence is absent.",
+      "whole_source_claim_validated": false
+    },
+    "october_framework:RI010": {
+      "candidate_support": "SOURCE_REPORTED_NOT_ADMITTED",
+      "tests": [],
+      "scope": "The stable v1.0.7 annotated tag dereferences to 7454b8134cf28c233fe54a11ae4b65e256844821; its 254 manifest entries pass and 119 focused scientific tests pass in the recorded noncanonical environment. Canonical Windows runtime replay and full release verification are not claimed.",
+      "whole_source_claim_validated": false
+    },
+    "wki_correction:CVG-01–02": {
+      "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+      "tests": [
+        "scripts/wki_check_algebra.py::shared_nuisance_fisher_complement"
+      ],
+      "scope": "Conditional Gaussian Schur-complement identity only; calibration, independence and causal/sensor performance claims untested.",
+      "whole_source_claim_validated": false
+    },
+    "wki_correction:CVG-03": {
+      "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+      "tests": [
+        "scripts/wki_check_algebra.py::graph_gauge_equals_displayed_PDE",
+        "scripts/wki_check_algebra.py::graph_growth_equals_Hasimoto_NLS_growth",
+        "scripts/wki_check_algebra.py::maximum_growth_equals_beta_curvature_squared_over_two"
+      ],
+      "scope": "Displayed graph-gauge and real-growth/max-formula equalities only; no independent PDE dispersion derivation/evolution or admissible discrete-spectrum proof.",
+      "whole_source_claim_validated": false
+    },
+    "wki_correction:CVG-04": {
+      "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+      "tests": [
+        "scripts/wki_check_algebra.py::maximum_growth_equals_beta_curvature_squared_over_two",
+        "scripts/wki_check_algebra.py::normalized_maximum_growth"
+      ],
+      "scope": "Reported continuous-mode maximum formula and normalized substitution 1/8; boundary/discrete-mode attainability and marginal sectors untested.",
+      "whole_source_claim_validated": false
+    },
+    "wki_correction:CVG-05": {
+      "candidate_support": "BOUNDED_SYMBOLIC_SUBCHECK",
+      "tests": [
+        "scripts/wki_check_algebra.py::time_varying_storage_chain_rule"
+      ],
+      "scope": "Stated finite scalar chain rule with signed coefficient work only; positive storage, passivity, device and Maxwell PDE claims untested.",
+      "whole_source_claim_validated": false
+    },
+    "wki_correction:CVG-06": {
+      "candidate_support": "SOURCE_REPORTED_CORRECTION_ONLY",
+      "tests": [],
+      "scope": "Not covered by the six WKI groups; source-reported mixed-Poisson/Jensen correction retained without new executable support.",
+      "whole_source_claim_validated": false
+    },
+    "wki_correction:CVG-07": {
+      "candidate_support": "SOURCE_REPORTED_CORRECTION_ONLY",
+      "tests": [],
+      "scope": "Not covered by the six WKI groups; source-reported lower-tail correction retained without new executable support.",
+      "whole_source_claim_validated": false
+    },
+    "wki_correction:CVG-08–12": {
+      "candidate_support": "SOURCE_REPORTED_CORRECTION_ONLY",
+      "tests": [],
+      "scope": "Not independently reaudited; no new verdict on original contribution.",
+      "whole_source_claim_validated": false
+    }
+  },
+  "prior_counts_not_current_results": true
+}

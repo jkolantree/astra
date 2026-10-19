@@ -1,0 +1,148 @@
+{
+  "annotated_tag_object": "f63bfa632903520056bd3549a09999e8ea3ad32b",
+  "assets": [
+    {
+      "bytes": 5076317,
+      "name": "dark-medium-response-atlas-v0.1.0.html",
+      "sha256": "cec20143a17ebc0e4c59e98a57356bfec9bfc8c286baa3187918f18e7ff78b39"
+    },
+    {
+      "bytes": 290486,
+      "name": "dark-medium-response-atlas-v0.1.0.pdf",
+      "sha256": "9e8688b2831762d71037452ecef733c750d951cf5d65c18a84e5a2a0cd956d91"
+    },
+    {
+      "bytes": 2955431,
+      "name": "dark-medium-response-atlas-v0.1.0-source.tar.gz",
+      "sha256": "7bcb1bf7f6bcaaaf6d83705d6cbf0ce57170f245c7674eb3b5dd47ab87450556"
+    },
+    {
+      "bytes": 323,
+      "name": "SHA256SUMS",
+      "sha256": "08f007313e67c408c3e758c2c8c64b06012ca24b3cb79d9eb90f103cd75546b8"
+    }
+  ],
+  "build_epoch": "2026-09-01T00:00:00Z",
+  "checksum_covered_assets": [
+    {
+      "bytes": 5076317,
+      "name": "dark-medium-response-atlas-v0.1.0.html",
+      "sha256": "cec20143a17ebc0e4c59e98a57356bfec9bfc8c286baa3187918f18e7ff78b39"
+    },
+    {
+      "bytes": 290486,
+      "name": "dark-medium-response-atlas-v0.1.0.pdf",
+      "sha256": "9e8688b2831762d71037452ecef733c750d951cf5d65c18a84e5a2a0cd956d91"
+    },
+    {
+      "bytes": 2955431,
+      "name": "dark-medium-response-atlas-v0.1.0-source.tar.gz",
+      "sha256": "7bcb1bf7f6bcaaaf6d83705d6cbf0ce57170f245c7674eb3b5dd47ab87450556"
+    }
+  ],
+  "commit": "0b37392513574b35debdd0d850caa83d7fa5cf09",
+  "contract_version": "2.0.0",
+  "github_release": {
+    "draft": false,
+    "immutable_required": true,
+    "make_latest": false,
+    "prerelease": true
+  },
+  "identity_excludes_self": true,
+  "pages": {
+    "citation_route": "/resources/dark-medium-response-atlas/v0.1.0/",
+    "latest_route": "/resources/dark-medium-response-atlas/latest/",
+    "versioned_route": "/resources/dark-medium-response-atlas/v0.1.0/"
+  },
+  "pages_source_files": [
+    {
+      "bytes": 864,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/CHANGELOG.md",
+      "sha256": "5e918db50b780ce4c2b1e5571586c0fbb2881dbd13b18435f6d726d7d5add8a4"
+    },
+    {
+      "bytes": 905,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/CITATION.cff",
+      "sha256": "7c4400ece2b531b54a940fd1ee56ecda5e7d613f61a17589350779d8e6416206"
+    },
+    {
+      "bytes": 1737,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/LICENSE_MAP.md",
+      "sha256": "ac414b4deae73b55e387030e6797554ae36159cd8a331214bcb250c3bb5efd8e"
+    },
+    {
+      "bytes": 2605,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/RELEASE_NOTES.md",
+      "sha256": "a0b5090a93b9719987da53e7d987cfc4d9fab200f053892a40851daa2e69089a"
+    },
+    {
+      "bytes": 2277,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/RELEASE_SPEC.json",
+      "sha256": "21a10e5a61e856163a4532eb06a09990afbaac4ed0b0c2c02e645687b9481634"
+    },
+    {
+      "bytes": 9222,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/claim-ledger.csv",
+      "sha256": "cfb6776f2077abe87ecf113af0c5b45f6238ffd4d58ce17ad4d431d767b96457"
+    },
+    {
+      "bytes": 6534,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/external-link-observations.json",
+      "sha256": "ca8f5cbc84fe32a65961f00b39e8feb17aca3aaa46cbd21421d17510d8e7bd28"
+    },
+    {
+      "bytes": 1028,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/html-accessibility.json",
+      "sha256": "0109df8afa66adfd6bfa6c08d32feb0632bb81a7af3b54db4d7d6044a568b9d6"
+    },
+    {
+      "bytes": 2597,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/novelty-ledger.csv",
+      "sha256": "0e23c5a790317d8bbe6496d3e64148ecbec6fd7ddc18e51359fba26434b2e383"
+    },
+    {
+      "bytes": 4654,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/pdf-inspection.json",
+      "sha256": "3c85baffdcf738695891326a6183b55de9c44e410b73b4f7872956c7e27ea423"
+    },
+    {
+      "bytes": 4877,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/publication-identity.json",
+      "sha256": "34e0816ab34724ed9e4604dcb7500341503478e9910901103fb124416125a90d"
+    },
+    {
+      "bytes": 6063,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/source-ledger.csv",
+      "sha256": "9978a523975e8a6792232dccb8ec4a19e053637e2531e927d7bacb2eeecb7187"
+    },
+    {
+      "bytes": 7190,
+      "path": "resources/dark-medium-response-atlas/v0.1.0/visual-review.json",
+      "sha256": "3d4c93ee88e5743fe0776d99906bbe6154b9e1d97e8cc94b0fef0717c4cddfb0"
+    }
+  ],
+  "publication_line_id": "dark-medium-response-atlas",
+  "release_date": "2026-09-01",
+  "release_spec": {
+    "bytes": 2277,
+    "path": "resources/dark-medium-response-atlas/v0.1.0/RELEASE_SPEC.json",
+    "sha256": "21a10e5a61e856163a4532eb06a09990afbaac4ed0b0c2c02e645687b9481634"
+  },
+  "repository": "https://github.com/jkolantree/astra",
+  "repository_id": 1319077150,
+  "schema": "https://jkolantree.github.io/astra/schemas/supplemental-release-identity-v2.schema.json",
+  "sha256sums_sha256": "08f007313e67c408c3e758c2c8c64b06012ca24b3cb79d9eb90f103cd75546b8",
+  "successor_overlay": {
+    "bytes": 113405,
+    "path": "evidence/dark_medium_response_atlas_publication_successor_overlay_s2.json",
+    "sha256": "774f44bb33966c3975a4449ea989d57722c4636f749897f16f8f9ca5a36b6964"
+  },
+  "tag": "dark-medium-response-atlas-v0.1.0",
+  "tracked_manifest": {
+    "bytes": 49216,
+    "path": "MANIFEST.sha256",
+    "sha256": "7667c8da5205b8dd21f5ce98570afbbcf5f50a51c5cdee4bb6828681646d8dbd"
+  },
+  "tree": "f08748be45dd753b7e31bffebbd31e2eef1b0a06",
+  "version": "0.1.0"
+}

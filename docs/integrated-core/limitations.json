@@ -1,0 +1,47 @@
+{
+  "scope": "Six constrained interfaces or scoped results; no unconditional scientific closure.",
+  "findings": [
+    {
+      "id": "CORE-01",
+      "candidate_disposition": "CONSTRAINED_INTERFACE",
+      "implemented_boundary": "CalibrationDeclaration validates syntax and declared root separation; readiness and empirical admission always false.",
+      "remaining_evidence": "Actual artifacts, units/covariance and authenticated calibration/holdout provenance needed only for verified-calibration capability.",
+      "blocks_stronger_claim": true
+    },
+    {
+      "id": "CORE-03",
+      "candidate_disposition": "CONSTRAINED_INTERFACE",
+      "implemented_boundary": "Expected counts support zero and unknown response distinctly; likelihood and exclusion APIs reject unsupported requests.",
+      "remaining_evidence": "Count/no-record/exposure/correlated-daughter laws and response data remain missing.",
+      "blocks_stronger_claim": true
+    },
+    {
+      "id": "CORE-09",
+      "candidate_disposition": "SCOPED_LEDGER",
+      "implemented_boundary": "Each SCM claim is mapped to a bounded subcheck or deferred/source-reported status; G21 has its exact supplied d2 derivation only.",
+      "remaining_evidence": "Missing density/instrument/marginal derivations, v0.3 sources and empirical support remain open.",
+      "blocks_stronger_claim": true
+    },
+    {
+      "id": "CORE-11",
+      "candidate_disposition": "SCOPED_CORRECTION",
+      "implemented_boundary": "Potential-WKI/filament demotion, local chart/mean/boundary restrictions and continuous 1/8 benchmark retained. Six finite groups only.",
+      "remaining_evidence": "Publication citation verification, discrete modes, marginal sectors and unresolved R6 comparison remain open.",
+      "blocks_stronger_claim": true
+    },
+    {
+      "id": "ILG-04",
+      "candidate_disposition": "SCOPED_INTERFACE_AND_PROSE",
+      "implemented_boundary": "Finite strong lumpability and instantaneous output constancy are separate diagnostics; no generic necessity theorem.",
+      "remaining_evidence": "A stronger output/reduction theorem requires exact assumptions and separate proof review.",
+      "blocks_stronger_claim": true
+    },
+    {
+      "id": "ILG-C01",
+      "candidate_disposition": "SCOPED_INTERFACE_AND_PROSE",
+      "implemented_boundary": "First-order rank returns nonlinear/global identifiability as not-assessed; singular injective and noninjective controls retained.",
+      "remaining_evidence": "Higher-order and global identifiability need separate analysis.",
+      "blocks_stronger_claim": true
+    }
+  ]
+}

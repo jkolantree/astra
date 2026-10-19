@@ -1,12 +1,15 @@
 name: Publish accessible reading room
 
-# Manual by design: stable paths are assembled from annotated, immutable releases.
-# HEAD-sourced communications are admitted only above an exact post-M1 baseline
-# and through the bounded cover-publication allowlist below. The repository's
-# Pages source is GitHub Actions; this workflow remains manual so deployment
-# follows release lock.
+# Manual previews preserve release assets; deployment additionally requires main
+# and the separate current owner-authorization / agent-review record.
 on:
   workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy the reviewed current site from main (false builds a preview)"
+        type: boolean
+        required: true
+        default: false
 
 permissions: {}
 
@@ -16,13 +19,13 @@ concurrency:
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref_type == 'branch' && (!inputs.deploy || github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
       contents: read
     steps:
-      - name: Checkout exact main revision
+      - name: Checkout exact selected revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -37,6 +40,7 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          PAGES_DEPLOY: ${{ inputs.deploy }}
         run: |
           set -euo pipefail
 
@@ -44,7 +48,7 @@ jobs:
           downloads="$RUNNER_TEMP/astra-pages-downloads"
           rm -rf -- "$site" "$downloads"
           mkdir -p -- "$site" "$downloads"
-          python -I -B tools/check_pages_admission.py --copy-to "$site"
+          python -I -B tools/check_pages_admission.py --current --copy-to "$site"
 
           current_version="$(jq -er '.version | select(test("^[0-9]+[.][0-9]+[.][0-9]+$"))' RELEASE_SPEC.json)"
           current_tag="v${current_version}"
@@ -469,7 +473,7 @@ jobs:
             --assets "$atlas_release_dir" \
             --extract-to "$atlas_extract_dir" \
             --allow-tag-ancestor
-          python -I -B tools/assemble_pages.py \
+          python -I -B tools/assemble_pages.py --current \
             --site "$site" \
             --atlas-assets "$atlas_release_dir" \
             --atlas-source "$atlas_extract_dir/dark-medium-response-atlas-v0.1.0-source" \
@@ -566,7 +570,11 @@ jobs:
           write_redirect "$site/latest/supplement" "../../${current_tag}/supplement/" "Current SPPT/ASTRA technical supplement"
           write_redirect "$site/resources/earth-is-the-instrument" "./${framework_version}/" "Current Earth Is the Instrument framework"
           write_redirect "$site/resources/earth-is-the-instrument/latest" "../${framework_version}/" "Current Earth Is the Instrument framework"
-          python -I -B tools/assemble_research_companion_pages.py --site "$site" --require-reviewed
+          if test "$PAGES_DEPLOY" = true; then
+            python -I -B tools/assemble_research_companion_pages.py --current --site "$site" --require-reviewed
+          else
+            python -I -B tools/assemble_research_companion_pages.py --current --site "$site"
+          fi
           python -I -B tools/check_pages_links.py "$site"
 
       - name: Upload Pages artifact
@@ -576,6 +584,7 @@ jobs:
           retention-days: 1
 
   deploy:
+    if: github.ref == 'refs/heads/main' && inputs.deploy
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10

@@ -1,6 +1,7 @@
 """Install hash-pinned Linux tools locally; never modify the host configuration."""
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import os
@@ -26,9 +27,18 @@ def download(record: dict, destination: Path) -> Path:
     return path
 
 
+def development_dependency_command(python: Path) -> list[str]:
+    return [str(python), "-I", "-B", "-m", "pip", "install", "--require-hashes",
+            "--only-binary=:all:", "-r", str(ROOT / "requirements-development.txt")]
+
+
 def main() -> None:
     if not sys.flags.isolated or not sys.dont_write_bytecode:
         raise RuntimeError("Use python3 -I -B tools/bootstrap_linux.py")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--current-development", action="store_true",
+                        help="Also install separately pinned symbolic-test dependencies")
+    args = parser.parse_args()
     runtime = json.loads((ROOT / "RUNTIME-linux.json").read_text())
     destination = ROOT / "tmp/linux-bootstrap"
     # Reuse the controller's path checks before writing or extracting anything.
@@ -62,11 +72,17 @@ def main() -> None:
         str(python), "-I", "-B", "-m", "pip", "install", "--require-hashes",
         "-r", str(ROOT / "requirements-lock.txt"),
     ], check=True)
+    if args.current_development:
+        subprocess.run(development_dependency_command(python), check=True)
     environment = os.environ.copy()
     environment["PLAYWRIGHT_BROWSERS_PATH"] = str(ROOT / "tmp/linux-browsers")
     subprocess.run([str(python), "-I", "-B", "-m", "playwright", "install", "chromium"],
                    env=environment, check=True)
-    print("Linux tools installed locally. Run .venv/bin/python -I -B tools/verify.py.")
+    if args.current_development:
+        print("Linux tools installed locally. Run .venv/bin/python -I -B "
+              "tools/verify_linux_companion.py --current-development.")
+    else:
+        print("Linux tools installed locally. Run .venv/bin/python -I -B tools/verify.py.")
 
 
 if __name__ == "__main__":

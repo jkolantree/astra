@@ -68,6 +68,7 @@ ROOT_ALLOWLIST = {
     "ruff.toml",
     "requirements.in",
     "requirements-lock.txt",
+    "requirements-development.txt",
 }
 DIRECTORY_RULES = {
     ".github/ISSUE_TEMPLATE": {".md", ".yaml", ".yml"},
@@ -1648,23 +1649,35 @@ def check_dark_medium_response_atlas_resource() -> None:
 def check_publication_map() -> None:
     readme = " ".join((ROOT / "README.md").read_text(encoding="utf-8").replace("**", "").split())
     required_readme_values = (
-        "SPPT/ASTRA v1.0.7 is the Current core reference",
-        "Dark-Medium Response Atlas v0.1.0",
-        "Working paper",
+        "Astronomical State-Topology and Reservoir Analysis",
+        "https://jkolantree.github.io/astra/",
         "not peer reviewed",
-        "methods proposals, not empirical validation",
-        "publication history",
-        "repository-level `CITATION.cff` belongs only to the Current SPPT/ASTRA core",
+        "Draft",
+        "does not establish empirical validation",
+        "[publication history](PUBLICATIONS.md)",
+        "PUBLICATIONS.md#research-overview",
         "REPRODUCING.md",
         "PROVENANCE.md",
         "CONTRIBUTING.md",
-        "release assets and checksums are the fixed distribution record",
+        "LICENSE_MAP.md",
     )
     for value in required_readme_values:
         if value not in readme:
-            raise RuntimeError(f"Root publication map omits: {value}")
+            raise RuntimeError(f"Root gateway omits: {value}")
     if "| Publication track |" in readme:
-        raise RuntimeError("Root publication map regressed to a wide narrow-screen table")
+        raise RuntimeError("Root gateway regressed to a wide narrow-screen table")
+    overview = (ROOT / "PUBLICATIONS.md").read_text(encoding="utf-8")
+    for value in (
+        "Solar-Planetary Phase-Partition Theory (SPPT)",
+        "SPPT/ASTRA v1.0.7",
+        "Dark-Medium Response Atlas v0.1.0",
+        "Working paper",
+        "repository-level `CITATION.cff` belongs only to the Current SPPT/ASTRA core",
+        "release assets and checksums are the fixed distribution record",
+        "Interactive research companion",
+    ):
+        if value not in overview:
+            raise RuntimeError(f"Publication guide omits: {value}")
 
     publications = " ".join(
         (ROOT / "PUBLICATIONS.md")
@@ -1686,15 +1699,17 @@ def check_publication_map() -> None:
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     for heading in (
         "## Unreleased",
+        "## Dark-Medium Response Atlas v0.1.0 — 2026-09-02",
         "## Earth Is the Instrument framework 0.3.0 — 2026-08-06",
         "## Earth Is the Instrument working paper 0.1 — 2026-08-05",
         "## 1.0.6 — 2026-08-02",
     ):
         if heading not in changelog:
             raise RuntimeError(f"Changelog omits released publication section: {heading}")
-    unreleased = changelog.split("## Earth Is the Instrument framework 0.3.0", 1)[0]
+    unreleased = changelog.split("## Unreleased", 1)[1].split("\n## ", 1)[0]
     if (
-        "Adds *ASTRA Framework v0.3.0" in unreleased
+        "Adds *Dark-Medium Response Atlas v0.1.0" in unreleased
+        or "Adds *ASTRA Framework v0.3.0" in unreleased
         or "Publishes *Earth Is the Instrument* Working Paper 0.1" in unreleased
     ):
         raise RuntimeError("Published supplemental releases remain under Unreleased")
@@ -1938,7 +1953,7 @@ def check_metadata_agreement() -> None:
     notes_path = ROOT / f"RELEASE_NOTES_v{version}.md"
     if not notes_path.is_file():
         raise RuntimeError(f"Current release notes are missing: {notes_path.name}")
-    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    publication_guide = (ROOT / "PUBLICATIONS.md").read_text(encoding="utf-8")
     expected_documents = (
         f"manuscript/SPPT_ASTRA_preprint_v{version}.html",
         f"manuscript/SPPT_ASTRA_preprint_v{version}.pdf",
@@ -1966,8 +1981,8 @@ def check_metadata_agreement() -> None:
         f"{pages_root}/{tag}/preprint/",
         f"{pages_root}/{tag}/supplement/",
     )
-    if any(value not in readme for value in required_readme_values):
-        raise RuntimeError("README current-release links differ from RELEASE_SPEC.json")
+    if any(value not in publication_guide for value in required_readme_values):
+        raise RuntimeError("Publication guide current-release links differ from RELEASE_SPEC.json")
 
     identity = json.loads(
         (ROOT / "manuscript" / "document_semantic_identity.json").read_text(encoding="utf-8")
@@ -2126,6 +2141,7 @@ def check_public_json_schemas() -> None:
         ROOT / "evidence" / "dark_medium_response_atlas_publication_successor_overlay_s2.json",
         ROOT / "evidence" / "pages_admission_v1.json",
         ROOT / "evidence" / "pages_admission_v2.json",
+        ROOT / "evidence" / "pages_admission_current.json",
         ROOT / "evidence" / "research_companion_pages_review_v1.json",
         ROOT / "RUNTIME.json",
         ROOT / "RUNTIME-linux.json",
@@ -2262,15 +2278,13 @@ def check_runtime_identity() -> None:
         raise RuntimeError("Public pseudonym mailmap drift")
 
 
-def main() -> None:
-    check_cache_boundaries()
-    check_private_operator_policy_boundary()
-    paths = public_files()
+def check_repository_contents(paths: list[Path], *, payload_paths: list[Path] | None = None) -> None:
+    """Run the existing content checks on an explicitly selected check projection."""
     spec = json.loads((ROOT / "RELEASE_SPEC.json").read_text(encoding="utf-8"))
     version = str(spec["version"])
     check_text_privacy(paths)
     check_license_map(paths)
-    check_png_metadata(paths)
+    check_png_metadata(paths if payload_paths is None else payload_paths)
     check_working_paper_resource()
     check_framework_v030_resource()
     check_sppt_astra_v108_candidate_resource()
@@ -2291,6 +2305,13 @@ def main() -> None:
         ROOT / "manuscript" / f"SPPT_ASTRA_technical_supplement_v{version}.html",
         "Technical Supplement: Synthetic Pointwise Topology Selection and Identifiability Limits",
     )
+
+
+def main() -> None:
+    check_cache_boundaries()
+    check_private_operator_policy_boundary()
+    paths = public_files()
+    check_repository_contents(paths)
     print(f"Repository contract passed for {len(paths)} public files.")
 
 
