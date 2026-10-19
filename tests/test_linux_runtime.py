@@ -1,9 +1,13 @@
 """Negative controls for Linux migration and its scientific/byte boundaries."""
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
+import os
 import platform
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -177,5 +181,151 @@ def test_linux_ci_has_read_only_permissions_and_separate_release_gate() -> None:
     assert job["container"] == "debian:13.6-slim"
     assert "refs/tags/" in workflow["jobs"]["verify"]["if"]
     steps = "\n".join(step.get("run", "") for step in job["steps"])
-    assert "bootstrap_linux.py" in steps
-    assert "verify_linux_companion.py --all --workers 4" in steps
+    assert "bootstrap_linux.py --current-development" in steps
+    assert "verify_linux_companion.py --current-development" in steps
+    assert "--all" not in steps
+
+
+
+def test_current_development_includes_the_suite_and_only_three_replay_exclusions(tmp_path: Path) -> None:
+    class Verify:
+        @staticmethod
+        def controlled_python(*args):
+            return ["python", "-P", "-s", "-B", *args]
+
+    command = verify_linux.current_test_command(Verify, tmp_path)
+    assert command[-1] == "tests"
+    assert {item.removeprefix("--deselect=") for item in command if item.startswith("--deselect=")} == {
+        "tests/test_dark_medium_response_benchmark.py::test_retained_evaluation_reproduces_with_frozen_sources",
+        "tests/test_linux_runtime.py::test_retained_benchmark_linux_bytes_and_historical_scientific_equivalence",
+        "tests/test_numerical_regressions.py::ScopedClaimControls::test_CORE08_repeatable_explicit_run",
+    }
+    assert "--junitxml" in command
+    assert "--basetemp" in command
+
+
+@pytest.mark.parametrize("counts", [
+    'tests="0" failures="0" errors="0" skipped="0"',
+    'tests="3" failures="1" errors="0" skipped="0"',
+    'tests="3" failures="0" errors="1" skipped="0"',
+    'tests="3" failures="0" errors="0" skipped="1"',
+    'tests="3" failures="-1" errors="0" skipped="0"',
+    'tests="three" failures="0" errors="0" skipped="0"',
+    'tests="3" failures="0" errors="0"',
+])
+def test_current_test_result_rejects_empty_failed_skipped_and_malformed_counts(
+    tmp_path: Path, counts: str,
+) -> None:
+    report = tmp_path / "results.xml"
+    report.write_text(f"<testsuites><testsuite {counts}/></testsuites>", encoding="utf-8")
+    with pytest.raises(RuntimeError):
+        verify_linux.require_current_test_result(report)
+
+
+def test_current_test_result_accepts_real_nonempty_success(tmp_path: Path) -> None:
+    report = tmp_path / "results.xml"
+    report.write_text('<testsuites><testsuite tests="3" failures="0" errors="0" skipped="0"/></testsuites>',
+                      encoding="utf-8")
+    assert verify_linux.require_current_test_result(report) == {
+        "tests": 3, "failures": 0, "errors": 0, "skipped": 0,
+    }
+
+
+@pytest.fixture
+def current_index_fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    from tools import release_integrity
+
+    root = tmp_path / "source"
+    root.mkdir()
+    (root / "README.md").write_bytes(b"current source\n")
+    value = (root / "README.md").read_bytes()
+    oid = hashlib.sha1(f"blob {len(value)}\0".encode() + value).hexdigest()
+    record = {"entry": f"100644 {oid} 0\tREADME.md\0".encode()}
+    monkeypatch.setattr(verify_linux, "ROOT", root)
+    monkeypatch.setattr(release_integrity, "ROOT", root)
+
+    def git(arguments, **_kwargs):
+        if arguments == ["ls-files", "--stage", "-z"]:
+            return record["entry"]
+        if arguments == ["rev-parse", "HEAD"]:
+            return "1" * 40 + "\n"
+        if arguments == ["rev-parse", "HEAD^{tree}"]:
+            return "2" * 40 + "\n"
+        raise AssertionError(arguments)
+
+    monkeypatch.setattr(release_integrity, "git", git)
+    return root, record
+
+
+def test_current_inventory_accepts_matching_index_and_preserves_manifest_semantics(current_index_fixture) -> None:
+    root, _ = current_index_fixture
+    paths, identity = verify_linux.current_source_inventory()
+    assert paths == [root / "README.md"]
+    assert identity["head"] == "1" * 40
+    assert identity["head_tree"] == "2" * 40
+    assert identity["files"]["README.md"]["sha256"] == hashlib.sha256(b"current source\n").hexdigest()
+    assert not (root / "MANIFEST.sha256").exists()
+
+
+@pytest.mark.parametrize("fault", ["changed", "extra", "missing", "unmerged", "symlink_mode", "traversal"])
+def test_current_inventory_rejects_unindexed_or_unsafe_payload(current_index_fixture, fault: str) -> None:
+    root, record = current_index_fixture
+    verify_linux.current_source_inventory()  # Demonstrate a valid baseline first.
+    if fault == "changed":
+        (root / "README.md").write_bytes(b"changed")
+    elif fault == "extra":
+        (root / "unexpected.txt").write_bytes(b"extra")
+    elif fault == "missing":
+        (root / "README.md").unlink()
+    elif fault == "unmerged":
+        record["entry"] = record["entry"].replace(b" 0\t", b" 2\t")
+    elif fault == "symlink_mode":
+        record["entry"] = record["entry"].replace(b"100644", b"120000")
+    else:
+        record["entry"] = record["entry"].replace(b"README.md", b"../README.md")
+    with pytest.raises((OSError, RuntimeError)):
+        verify_linux.current_source_inventory()
+
+
+
+@pytest.mark.parametrize(("extra", "tag_context", "message"), [
+    (["--all"], False, "cannot combine"),
+    (["--runtime-only"], False, "cannot combine"),
+    ([], True, "does not authorize a tag-event"),
+])
+def test_current_development_cli_rejects_replay_combinations_and_tag_context(
+    extra: list[str], tag_context: bool, message: str,
+) -> None:
+    environment = dict(os.environ)
+    environment.pop("GITHUB_REF", None)
+    environment.pop("GITHUB_REF_TYPE", None)
+    if tag_context:
+        environment.update(GITHUB_REF="refs/tags/v1.0.7", GITHUB_REF_TYPE="tag")
+    completed = subprocess.run(
+        [sys.executable, "-I", "-B", str(ROOT / "tools/verify_linux.py"),
+         "--current-development", *extra],
+        cwd=ROOT, env=environment, capture_output=True, text=True, check=False,
+    )
+    assert completed.returncode == 2
+    assert message in completed.stderr
+
+
+
+def test_current_development_bootstrap_uses_separate_binary_only_hash_lock() -> None:
+    from tools.bootstrap_linux import development_dependency_command
+
+    command = development_dependency_command(Path("/private/python"))
+    assert command[:6] == [str(Path("/private/python")), "-I", "-B", "-m", "pip", "install"]
+    assert "--require-hashes" in command
+    assert "--only-binary=:all:" in command
+    assert command[-1] == str(ROOT / "requirements-development.txt")
+    assert "requirements-lock.txt" not in " ".join(command)
+
+
+def test_current_development_dependency_drift_is_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
+    versions = {"sympy": "1.14.0", "mpmath": "1.3.0"}
+    monkeypatch.setattr(verify_linux.importlib.metadata, "version", versions.__getitem__)
+    verify_linux.verify_current_development_dependencies()
+    versions["sympy"] = "1.13.0"
+    with pytest.raises(RuntimeError, match="dependency version differs: sympy"):
+        verify_linux.verify_current_development_dependencies()

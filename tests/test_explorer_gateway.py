@@ -18,8 +18,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_root_gateway_is_generated_from_one_explorer_source() -> None:
-    source = gateway.SOURCE.read_text()
-    home = gateway.OUTPUT.read_text()
+    source = gateway.SOURCE.read_text(encoding="utf-8")
+    home = gateway.OUTPUT.read_text(encoding="utf-8")
     assert home == gateway.render(source)
     for name in ("fixture", "model-code", "render-code"):
         pattern = rf'<script id="{name}"[^>]*>(.*?)</script>'
@@ -71,7 +71,7 @@ def test_research_library_preserves_publication_destinations_and_returns_home() 
 
 
 def test_readme_is_a_short_gateway_with_defined_name_and_reviewed_scientific_limits() -> None:
-    text = (ROOT / "README.md").read_text()
+    text = (ROOT / "README.md").read_text(encoding="utf-8")
     visible = re.sub(r"<!--.*?-->", "", text, flags=re.S)
     assert len(visible.split()) < 330
     assert "Astronomical State-Topology and Reservoir Analysis" in text
@@ -96,16 +96,16 @@ def test_selected_hero_keeps_original_bytes_credentials_and_uncropped_dimensions
         chunks.append(payload[offset + 4:offset + 8])
         offset += length + 12
     assert offset == len(payload) and b"caBX" in chunks
-    record = json.loads((ROOT / "docs/assets/midnight-occultation-provenance.json").read_text())
+    record = json.loads((ROOT / "docs/assets/midnight-occultation-provenance.json").read_text(encoding="utf-8"))
     assert record["sha256"] == expected
     assert record["dimensions"] == [1774, 887]
     assert record["preservation"]["embedded_c2pa_retained"] is True
     for page in (gateway.SOURCE, gateway.OUTPUT):
-        text = page.read_text()
+        text = page.read_text(encoding="utf-8")
         assert 'width="1774" height="887"' in text
         assert "aspect-ratio:2/1;object-fit:contain" in text
         assert "pending-transfer" not in text and "hero-placeholder" not in text
-    readme = (ROOT / "README.md").read_text()
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
     assert "](docs/assets/astra-midnight-occultation.png)](https://jkolantree.github.io/astra/)" in readme
     assert "not a spacecraft image or scientific evidence" in readme
 
@@ -124,7 +124,7 @@ class ReadingStructure(HTMLParser):
 def test_reading_routes_are_available_without_script_or_disclosure_controls() -> None:
     reading = ROOT / "docs/understand"
     for path in sorted(reading.rglob("*.html")):
-        text = path.read_text()
+        text = path.read_text(encoding="utf-8")
         parser = ReadingStructure()
         parser.feed(text)
         tags = Counter(tag for tag, _ in parser.elements)
@@ -143,7 +143,7 @@ def test_reading_routes_are_available_without_script_or_disclosure_controls() ->
                 assert attrs.get("aria-label") or attrs.get("aria-labelledby")
         assert not re.search(r"\[Insert|Integration guidance|TODO|TBD|placeholder", text, re.I)
     landing = ReadingStructure()
-    landing.feed((reading / "index.html").read_text())
+    landing.feed((reading / "index.html").read_text(encoding="utf-8"))
     assert sum(tag == "article" and attrs.get("class") == "card"
                for tag, attrs in landing.elements) == 8
 

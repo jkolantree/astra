@@ -21,8 +21,10 @@ from tools.build_pages_admission import (  # noqa: E402
     BASE_COMMIT,
     BASE_TREE,
     RELEASE_ROUTES,
+    build_record,
     companion_record,
     docs_entries,
+    reject_source_links,
 )
 
 
@@ -163,7 +165,20 @@ def load_manifest(path: Path = MANIFEST) -> dict[str, Any]:
     return value
 
 
-def check_pages_admission(path: Path = MANIFEST) -> dict[str, Any]:
+def check_pages_admission(
+    path: Path | None = None, *, current: bool = False, root: Path | None = None,
+) -> dict[str, Any]:
+    if current:
+        source_root = ROOT if root is None else root
+        path = source_root / "evidence/pages_admission_current.json" if path is None else path
+        reject_source_links(path)
+        record = json.loads(path.read_text(encoding="utf-8"))
+        # Equality with the explicit builder also rejects unknown keys, changed
+        # routes, unsafe paths, additional docs and stale companion/support bytes.
+        if record != build_record(source_root, current=True):
+            raise RuntimeError("Current Pages admission differs from the exact reviewed source bytes")
+        return record
+    path = MANIFEST if path is None else path
     record = load_manifest(path)
     if record["base"] != {
         "commit": BASE_COMMIT,
@@ -198,9 +213,11 @@ def reject_linked_destination(destination: Path) -> None:
             raise RuntimeError("Pages destination must not be a link or junction")
 
 
-def copy_admitted_shell(destination: Path, manifest: Path = MANIFEST) -> None:
+def copy_admitted_shell(
+    destination: Path, manifest: Path | None = None, *, current: bool = False,
+) -> None:
     reject_linked_destination(destination)
-    record = check_pages_admission(manifest)
+    record = check_pages_admission(manifest, current=current)
     destination = destination.resolve()
     if destination in {ROOT.resolve(), DOCS.resolve()}:
         raise RuntimeError("Pages destination must not overwrite a source directory")
@@ -249,10 +266,18 @@ def copy_admitted_shell(destination: Path, manifest: Path = MANIFEST) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--copy-to", type=Path)
+    parser.add_argument("--current", action="store_true")
+    parser.add_argument("--require-reviewed", action="store_true")
     args = parser.parse_args()
-    check_pages_admission()
+    check_pages_admission(current=args.current)
+    if args.require_reviewed:
+        from tools.assemble_research_companion_pages import (
+            require_current_review,
+            require_visual_review,
+        )
+        (require_current_review if args.current else require_visual_review)()
     if args.copy_to is not None:
-        copy_admitted_shell(args.copy_to)
+        copy_admitted_shell(args.copy_to, current=args.current)
     print("Pages admission manifest passed.")
 
 

@@ -68,6 +68,7 @@ ROOT_ALLOWLIST = {
     "ruff.toml",
     "requirements.in",
     "requirements-lock.txt",
+    "requirements-development.txt",
 }
 DIRECTORY_RULES = {
     ".github/ISSUE_TEMPLATE": {".md", ".yaml", ".yml"},
@@ -2140,6 +2141,7 @@ def check_public_json_schemas() -> None:
         ROOT / "evidence" / "dark_medium_response_atlas_publication_successor_overlay_s2.json",
         ROOT / "evidence" / "pages_admission_v1.json",
         ROOT / "evidence" / "pages_admission_v2.json",
+        ROOT / "evidence" / "pages_admission_current.json",
         ROOT / "evidence" / "research_companion_pages_review_v1.json",
         ROOT / "RUNTIME.json",
         ROOT / "RUNTIME-linux.json",
@@ -2276,15 +2278,13 @@ def check_runtime_identity() -> None:
         raise RuntimeError("Public pseudonym mailmap drift")
 
 
-def main() -> None:
-    check_cache_boundaries()
-    check_private_operator_policy_boundary()
-    paths = public_files()
+def check_repository_contents(paths: list[Path], *, payload_paths: list[Path] | None = None) -> None:
+    """Run the existing content checks on an explicitly selected check projection."""
     spec = json.loads((ROOT / "RELEASE_SPEC.json").read_text(encoding="utf-8"))
     version = str(spec["version"])
     check_text_privacy(paths)
     check_license_map(paths)
-    check_png_metadata(paths)
+    check_png_metadata(paths if payload_paths is None else payload_paths)
     check_working_paper_resource()
     check_framework_v030_resource()
     check_sppt_astra_v108_candidate_resource()
@@ -2305,6 +2305,13 @@ def main() -> None:
         ROOT / "manuscript" / f"SPPT_ASTRA_technical_supplement_v{version}.html",
         "Technical Supplement: Synthetic Pointwise Topology Selection and Identifiability Limits",
     )
+
+
+def main() -> None:
+    check_cache_boundaries()
+    check_private_operator_policy_boundary()
+    paths = public_files()
+    check_repository_contents(paths)
     print(f"Repository contract passed for {len(paths)} public files.")
 
 

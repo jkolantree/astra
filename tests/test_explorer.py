@@ -196,10 +196,15 @@ console.log('Callbacks passed; actual browser behavior remains untested.');
 
 
 def test_production_docs_are_unchanged_and_candidate_is_bounded() -> None:
+    # Keep the legacy node name referenced by retained routing evidence.
     from tools.build_pages_admission import docs_entries
-    from tools.check_repository import RESEARCH_EXPLORER_FILES, RESEARCH_EXPLORER_ROOT
 
     assert docs_entries()
+
+
+def test_candidate_explorer_has_exact_bounded_roster() -> None:
+    from tools.check_repository import RESEARCH_EXPLORER_FILES, RESEARCH_EXPLORER_ROOT
+
     assert RESEARCH_EXPLORER_ROOT == EXPLORER.relative_to(ROOT).as_posix()
     assert {path.name for path in EXPLORER.iterdir()} == set(RESEARCH_EXPLORER_FILES)
 

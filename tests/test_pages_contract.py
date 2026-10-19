@@ -120,9 +120,10 @@ class LandingPageParser(HTMLParser):
 
 def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
     workflow = load_yaml(PAGES_WORKFLOW)
-    assert workflow["on"] == {"workflow_dispatch": None}
+    dispatch = workflow["on"]["workflow_dispatch"]["inputs"]["deploy"]
+    assert dispatch["type"] == "boolean" and dispatch["default"] is False
     build = workflow["jobs"]["build"]
-    assert build["if"] == "github.ref == 'refs/heads/main'"
+    assert build["if"] == "github.ref_type == 'branch' && (!inputs.deploy || github.ref == 'refs/heads/main')"
     assert build["permissions"] == {"contents": "read"}
 
     script = pages_build_script()
@@ -141,7 +142,7 @@ def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
     assert all(gate in script for gate in required_release_gates)
     assert 'latest_release="$(gh api "repos/${GITHUB_REPOSITORY}/releases/latest")"' in script
     assert "$(jq -er '.id' <<<\"$latest_release\")" in script
-    assert 'python -I -B tools/check_pages_admission.py --copy-to "$site"' in script
+    assert 'python -I -B tools/check_pages_admission.py --current --copy-to "$site"' in script
     assert f'atlas_tag="{ATLAS_RELEASE_TAG}"' in script
     assert 'atlas_ref="refs/tags/${atlas_tag}"' in script
     assert 'git fetch --no-tags origin "${atlas_ref}:${atlas_ref}"' in script
@@ -156,6 +157,7 @@ def test_pages_workflow_is_manual_main_only_and_release_bound() -> None:
 
     deploy = workflow["jobs"]["deploy"]
     assert deploy["needs"] == "build"
+    assert deploy["if"] == "github.ref == 'refs/heads/main' && inputs.deploy"
     assert deploy["environment"]["name"] == "github-pages"
     assert deploy["permissions"] == {"pages": "write", "id-token": "write"}
 

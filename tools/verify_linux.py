@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+import importlib.metadata
 import json
 import math
 import os
@@ -13,6 +14,7 @@ import stat
 import subprocess
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 from collections.abc import Collection
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -406,14 +408,194 @@ def _replay(
 
 
 
+
+# These three tests actually regenerate retained scientific results. Ordinary
+# development still runs historical identity guards, temporary Git fixtures and
+# website assembly tests; scientific replay remains an explicit separate mode.
+CURRENT_REPLAY_TESTS = (
+    "tests/test_dark_medium_response_benchmark.py::test_retained_evaluation_reproduces_with_frozen_sources",
+    "tests/test_linux_runtime.py::test_retained_benchmark_linux_bytes_and_historical_scientific_equivalence",
+    "tests/test_numerical_regressions.py::ScopedClaimControls::test_CORE08_repeatable_explicit_run",
+)
+
+
+def verify_current_development_dependencies() -> None:
+    for name, expected in (("sympy", "1.14.0"), ("mpmath", "1.3.0")):
+        if importlib.metadata.version(name) != expected:
+            raise RuntimeError("Current-development dependency version differs: " + name)
+
+
+def current_source_inventory() -> tuple[list[Path], dict[str, Any]]:
+    """Bind regular current files to the real Git index, without rewriting receipts."""
+    from tools import local_successor_profile as safety
+    from tools import release_integrity
+
+    if release_integrity.ROOT.resolve() != ROOT.resolve():
+        raise RuntimeError("Current source inventory belongs to another repository")
+    records = release_integrity.git(["ls-files", "--stage", "-z"], binary=True)
+    if not isinstance(records, bytes):
+        raise TypeError("Git index inventory must be bytes")
+    files: dict[str, dict[str, Any]] = {}
+    folded: set[str] = set()
+    for entry in records.split(b"\0"):
+        if not entry:
+            continue
+        metadata, raw_path = entry.split(b"\t", 1)
+        mode, oid, stage = metadata.decode("ascii").split()
+        name = raw_path.decode("utf-8")
+        relative = PurePosixPath(name)
+        if (mode not in {"100644", "100755"} or stage != "0"
+                or len(oid) not in {40, 64} or any(c not in "0123456789abcdef" for c in oid)
+                or relative.is_absolute() or relative.as_posix() != name
+                or any(part in {".", "..", ""} for part in name.split("/"))
+                or "\\" in name or ":" in name or name.casefold() in folded):
+            raise RuntimeError("Unsafe or unmerged current index entry: " + name)
+        folded.add(name.casefold())
+        path = ROOT / relative
+        safety.safe_parents(path)
+        info = safety.safe_stat(path)
+        if not stat.S_ISREG(info.st_mode):
+            raise RuntimeError("Current indexed file is not regular: " + name)
+        value = path.read_bytes()
+        blob = hashlib.new("sha1" if len(oid) == 40 else "sha256")
+        blob.update(f"blob {len(value)}\0".encode("ascii"))
+        blob.update(value)
+        if blob.hexdigest() != oid:
+            raise RuntimeError("Current file differs from its Git index blob: " + name)
+        files[name] = {"bytes": len(value), "sha256": hashlib.sha256(value).hexdigest()}
+    if not files:
+        raise RuntimeError("Current source inventory is empty")
+    paths = safety.observe_payload(ROOT, files)
+    source = {
+        "head": str(release_integrity.git(["rev-parse", "HEAD"])).strip(),
+        "head_tree": str(release_integrity.git(["rev-parse", "HEAD^{tree}"])).strip(),
+        "files": files,
+        "file_map_sha256": hashlib.sha256(safety.canonical(files)).hexdigest(),
+    }
+    return paths, source
+
+
+def current_test_command(verify: Any, work: Path) -> list[str]:
+    return verify.controlled_python(
+        "-m", "pytest", "-q", "-ra", "-o", "addopts=", "--strict-config", "--strict-markers",
+        "-p", "no:cacheprovider", "--basetemp", str(work / "pytest"),
+        "--junitxml", str(work / "test-results.xml"),
+        *["--deselect=" + node for node in CURRENT_REPLAY_TESTS], "tests",
+    )
+
+
+def require_current_test_result(path: Path) -> dict[str, int]:
+    """A successful process with skipped, empty or malformed results is not a pass."""
+    from tools.local_successor_profile import safe_stat
+
+    if not stat.S_ISREG(safe_stat(path).st_mode):
+        raise RuntimeError("Current test report must be a regular file")
+    root = ET.parse(path).getroot()
+    suites = [root] if root.tag == "testsuite" else root.findall("testsuite")
+    counts = dict.fromkeys(("tests", "failures", "errors", "skipped"), 0)
+    try:
+        for suite in suites:
+            for key in counts:
+                value = int(suite.attrib[key])
+                if value < 0:
+                    raise ValueError("Negative test count")
+                counts[key] += value
+    except (KeyError, ValueError) as error:
+        raise RuntimeError("Malformed current test counts") from error
+    if counts["tests"] <= 0 or any(counts[key] for key in ("failures", "errors", "skipped")):
+        raise RuntimeError("Current tests are empty, failed, errored or skipped: " + json.dumps(counts))
+    return counts
+
+
+def run_current_development(verify: Any, environment: dict[str, str]) -> dict[str, Any]:
+    """Check current source and Pages; do not invoke scientific/release reproduction."""
+    import playwright
+
+    from tools import check_repository, local_successor_profile, release_integrity
+
+    paths, before = current_source_inventory()
+    selected = local_successor_profile.public_check_projection(ROOT, paths, check_repository)
+    work = Path(tempfile.mkdtemp(prefix="current-development-", dir=ROOT / "tmp"))
+    node_directory = Path(playwright.__file__).parent / "driver"
+    if not (node_directory / "node").is_file():
+        raise RuntimeError("Playwright's native Node runtime is unavailable")
+    environment = dict(environment, PATH=os.pathsep.join((str(node_directory), environment["PATH"])))
+    source_names = [path.relative_to(ROOT).as_posix() for path in selected]
+    link_code = (
+        "from pathlib import Path;from tools.check_repository_links import check_repository_links;"
+        "print(check_repository_links(sources=[Path(p).absolute() for p in "
+        f"{[name for name in source_names if name.endswith('.md')]!r}]))"
+    )
+    commands = {
+        "ordinary_tests": current_test_command(verify, work),
+        "maintained_python_lint": verify.controlled_python(
+            "-m", "ruff", "check", "--no-cache", *[name for name in source_names if name.endswith(".py")]),
+        "source_type_checks": verify.controlled_python("-m", "mypy", "--cache-dir", str(work / "mypy"), "src"),
+        "citation": verify.controlled_python("-c", "from cffconvert.cli.cli import cli;cli()", "--validate"),
+        "maintained_repository_links": verify.controlled_python("-c", link_code),
+        "retained_external_link_record": verify.controlled_python("tools/check_external_links.py"),
+        "current_pages_admission": verify.controlled_python("tools/check_pages_admission.py", "--current"),
+        "retained_pdf_inspection": verify.controlled_python("tools/inspect_pdf.py"),
+        "diff_whitespace": ["git", "diff", "--check", "HEAD"],
+    }
+    results: dict[str, Any] = {}
+    try:
+        check_repository.check_cache_boundaries()
+        check_repository.check_private_operator_policy_boundary()
+        check_repository.check_repository_contents(selected, payload_paths=paths)
+        results["repository_contents"] = {"status": "PASS"}
+    except (OSError, RuntimeError, ValueError) as error:
+        results["repository_contents"] = {"status": "FAIL", "error": str(error)}
+    try:
+        for name, command in commands.items():
+            completed = subprocess.run(command, cwd=ROOT, env=environment, check=False,
+                                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+            result = {"status": "PASS" if completed.returncode == 0 else "FAIL",
+                      "returncode": completed.returncode, "command": command,
+                      "stdout": completed.stdout, "stderr": completed.stderr}
+            if name == "ordinary_tests":
+                try:
+                    result["junit_counts"] = require_current_test_result(work / "test-results.xml")
+                except (OSError, RuntimeError, ET.ParseError) as error:
+                    result.update(status="FAIL", result_error=str(error))
+            results[name] = result
+    finally:
+        _, after = current_source_inventory()
+        if before != after:
+            raise RuntimeError("Current source/index identity changed during development checks")
+    try:
+        release_integrity.assert_clean_worktree()
+        results["committed_source_identity"] = {"status": "PASS"}
+    except RuntimeError as error:
+        results["committed_source_identity"] = {"status": "FAIL", "error": str(error)}
+    return {
+        "status": "PASS_CURRENT_DEVELOPMENT" if all(x["status"] == "PASS" for x in results.values())
+                  else "FAIL_CURRENT_DEVELOPMENT",
+        "source": {key: value for key, value in before.items() if key != "files"},
+        "tracked_files": len(paths), "maintained_files": len(selected), "gates": results,
+        "scientific_replay_tests_not_run": list(CURRENT_REPLAY_TESTS),
+        "retained_collection_policy": "tests/conftest.py retains the historical S1 exclusion",
+        "historical_receipts": "PRESERVED_NOT_REISSUED", "scientific_replay": "NOT_RUN",
+        "release_validation": "NOT_RUN", "publication": "NOT_PERFORMED",
+        "result_directory": str(work.relative_to(ROOT)),
+    }
+
+
 def main() -> None:
     if not sys.flags.isolated or not sys.dont_write_bytecode:
         raise RuntimeError("Use -I -B before tools/verify_linux.py")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--runtime-only", action="store_true")
+    parser.add_argument("--current-development", action="store_true",
+                        help="Validate the current Git source and Pages without scientific replay")
     parser.add_argument("--workers", type=int, default=4)
     args = parser.parse_args()
+    if args.current_development and (args.all or args.runtime_only):
+        parser.error("--current-development cannot combine with --all or --runtime-only")
+    if args.current_development and (os.environ.get("GITHUB_REF", "").startswith("refs/tags/")
+                                     or os.environ.get("GITHUB_REF_TYPE") == "tag"):
+        parser.error("Current development does not authorize a tag-event verification")
     if args.workers < 1:
         raise ValueError("workers must be positive")
     sys.path.insert(0, str(ROOT))
@@ -422,6 +604,15 @@ def main() -> None:
     verify.verify_runtime(environment)
     if args.runtime_only:
         print("Linux runtime identity passed (no scientific or release claim).")
+        return
+    if args.current_development:
+        verify_current_development_dependencies()
+        result = run_current_development(verify, environment)
+        report = ROOT / result["result_directory"] / "results.json"
+        report.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        print(json.dumps(result, indent=2, sort_keys=True))
+        if result["status"] != "PASS_CURRENT_DEVELOPMENT":
+            raise SystemExit(1)
         return
     commands = (
         ["tools/check_repository.py"],

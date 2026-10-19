@@ -223,6 +223,7 @@ def sanitized_git_environment(environment: dict[str, str]) -> dict[str, str]:
             "GIT_CONFIG_KEY_0": "safe.directory",
             "GIT_CONFIG_NOSYSTEM": "1",
             "GIT_CONFIG_VALUE_0": str(ROOT.resolve()),
+            "GIT_CEILING_DIRECTORIES": str(ROOT.resolve().parent),
             "GIT_NO_REPLACE_OBJECTS": "1",
         }
     )
@@ -232,11 +233,21 @@ def sanitized_git_environment(environment: dict[str, str]) -> dict[str, str]:
 def capture_git(
     arguments: list[str], *, environment: dict[str, str], binary: bool = False
 ) -> str | bytes:
+    repository_root = ROOT.resolve()
+    git_environment = sanitized_git_environment(environment)
+    probe = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"], cwd=repository_root,
+        env=git_environment, check=False, capture_output=True, text=True,
+    )
+    observed = Path(probe.stdout.strip())
+    if (probe.returncode != 0 or not probe.stdout.strip() or not observed.is_absolute()
+            or observed.resolve() != repository_root):
+        raise RuntimeError(f"Expected an independent Git worktree root at {repository_root}")
     try:
         completed = subprocess.run(
             ["git", *arguments],
-            cwd=ROOT,
-            env=sanitized_git_environment(environment),
+            cwd=repository_root,
+            env=git_environment,
             check=True,
             capture_output=True,
             text=not binary,
@@ -916,6 +927,11 @@ def candidate_document_commit(environment: dict[str, str]) -> str | None:
     if record is None:
         return None
     overlay = record["maintenance_overlay"]
+    if (environment.get("GITHUB_REF", "").startswith("refs/tags/")
+            or environment.get("GITHUB_REF_TYPE") == "tag"):
+        # Reject forbidden tag contexts before attempting unavailable history.
+        # The Atlas exception still requires the complete S2 proof below.
+        verify_candidate_not_at_tag(environment, allow_atlas_tag=True)
     atlas_s2 = atlas_publication_overlay_present(environment)
     if not atlas_s2:
         verify_candidate_baseline_delta(overlay, environment)

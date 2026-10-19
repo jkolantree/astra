@@ -28,7 +28,9 @@ class ReplayInputSelectionTests(unittest.TestCase):
         )["output_sha256"]
 
     def test_current_tree_retains_exact_frozen_57_output_keys(self) -> None:
-        names = {p.relative_to(ROOT).as_posix() for p in check_repository.public_files()}
+        # Output-role selection uses the full physical roster. Production source
+        # and publication admission remain separate strict validation contracts.
+        names = {p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*") if p.is_file()}
         self.assertTrue(REPLAY_COPIED_INPUTS <= names)
         selected = replay_output_names(names)
         self.assertEqual(len(selected), 57)

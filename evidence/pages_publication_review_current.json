@@ -1,0 +1,28 @@
+{
+  "candidate_sha256": "5a22c9b53dcb11bbcda4f01af77081040bb24070dfed988dfbf1dba98aaa6a76",
+  "coverage": {
+    "assistive_technology": "not-tested",
+    "console_and_network": "not-tested",
+    "desktop_and_mobile_layout": "not-tested",
+    "keyboard_and_focus": "not-tested",
+    "media_playback": "not-tested",
+    "reduced_motion": "not-tested"
+  },
+  "kind": "owner_authorized_current_pages_agent_review_v1",
+  "publication_authorization": {
+    "actor": "repository owner",
+    "basis": "The repository owner explicitly requested publication of the current GitHub code and the existing ASTRA website on 2026-10-19.",
+    "scientific_release_authorized": false,
+    "scope": "current GitHub code and existing ASTRA website",
+    "status": "authorized"
+  },
+  "visual_review": {
+    "basis": "Awaiting inspection of the exact workflow preview artifact; no browser acceptance is recorded yet.",
+    "content_sha256": "cda35f3b4029496ac6a87852a424a4935ae7871340eef8794f0aebcf9c048272",
+    "owner_visual_review_claimed": false,
+    "reviewer": "Codex agent",
+    "scope": "Current admitted source pages and companion presentation; no scientific or release validation is inferred.",
+    "status": "pending",
+    "surface": "Pending browser inspection of the assembled ASTRA website."
+  }
+}

@@ -90,10 +90,56 @@ def main() -> None:
         raise RuntimeError("Run with -I -B")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--all", action="store_true", help="Refit and render twice in isolation")
+    parser.add_argument("--current-development", action="store_true",
+                        help="Validate current Git source and Pages; preserve historical admission")
     parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--profile", choices=("historical-companion", "local-successor"),
+                        default="historical-companion")
+    parser.add_argument("--successor-contract")
+    parser.add_argument("--successor-contract-sha256")
+    parser.add_argument("--development", action="store_true",
+                        help="Run the reviewed local non-replay development checks")
+    parser.add_argument("--work-directory", help="Fresh scratch directory outside the source tree")
+    parser.add_argument("--wsl-test-distribution", help="Explicit provisioned WSL test host")
+    parser.add_argument("--wsl-test-python", help="Absolute native Linux test interpreter path")
+    parser.add_argument("--wsl-test-work-directory", help="Fresh native Linux fixture directory")
     args = parser.parse_args()
+    if args.current_development:
+        if (args.all or args.profile != "historical-companion" or args.successor_contract is not None
+                or args.successor_contract_sha256 is not None or args.development
+                or args.work_directory is not None or args.wsl_test_distribution is not None
+                or args.wsl_test_python is not None or args.wsl_test_work_directory is not None):
+            parser.error("--current-development cannot combine with historical replay or local audit arguments")
+        subprocess.run([sys.executable, "-I", "-B", str(ROOT / "tools/verify_linux.py"),
+                        "--current-development"], check=True)
+        return
+    host_values = (args.wsl_test_distribution, args.wsl_test_python, args.wsl_test_work_directory)
+    if any(host_values) and (not all(host_values) or not args.development):
+        parser.error("WSL tests require all three host arguments and --development")
+    test_host = dict(zip(("distribution", "python", "work_directory"), host_values, strict=True)) \
+        if all(host_values) else None
     if args.workers != 4:
         raise ValueError("Linux research v1 fixes the worker count at four")
+    if args.profile == "local-successor":
+        if args.all:
+            parser.error("--all is unavailable for targeted local successor checks")
+        if not args.successor_contract or not args.successor_contract_sha256:
+            parser.error("local-successor requires an external contract and its reviewed digest")
+        sys.path.insert(0, str(ROOT))
+        from tools import local_successor_profile
+
+        result = local_successor_profile.run(
+            ROOT, args.successor_contract, args.successor_contract_sha256,
+            development=args.development, work_directory=args.work_directory,
+            test_host=test_host,
+        )
+        print(json.dumps(result, indent=2, sort_keys=True))
+        if result["status"].startswith("FAIL_"):
+            raise SystemExit(1)
+        return
+    if (args.successor_contract is not None or args.successor_contract_sha256 is not None
+            or args.development or args.work_directory is not None):
+        parser.error("Successor contract arguments require --profile local-successor")
     baseline = check_sources()
     sys.path.insert(0, str(ROOT))
     from tools import verify_linux

@@ -98,7 +98,8 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def git_environment() -> dict[str, str]:
+def git_environment(*, cwd: Path | None = None) -> dict[str, str]:
+    repository_root = (ROOT if cwd is None else cwd).resolve()
     environment = os.environ.copy()
     for name in tuple(environment):
         if name in GIT_CONTROL_VARIABLES or name.startswith("GIT_"):
@@ -114,18 +115,41 @@ def git_environment() -> dict[str, str]:
         {
             "GIT_CONFIG_COUNT": "1",
             "GIT_CONFIG_KEY_0": "safe.directory",
-            "GIT_CONFIG_VALUE_0": str(ROOT.resolve()),
+            "GIT_CONFIG_VALUE_0": str(repository_root),
+            "GIT_CEILING_DIRECTORIES": str(repository_root.parent),
             "GIT_NO_REPLACE_OBJECTS": "1",
         }
     )
     return environment
 
 
+def git_context(cwd: Path | None = None) -> tuple[Path, dict[str, str]]:
+    """Require the requested directory itself to be a Git worktree root."""
+    repository_root = (ROOT if cwd is None else cwd).resolve()
+    environment = git_environment(cwd=repository_root)
+    probe = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        cwd=repository_root,
+        env=environment,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    observed = probe.stdout.strip()
+    if probe.returncode != 0 or not observed:
+        raise RuntimeError(f"Expected an independent Git worktree root at {repository_root}")
+    observed_root = Path(observed)
+    if not observed_root.is_absolute() or observed_root.resolve() != repository_root:
+        raise RuntimeError(f"Git worktree root differs from requested directory: {repository_root}")
+    return repository_root, environment
+
+
 def git(arguments: list[str], *, cwd: Path | None = None, binary: bool = False) -> str | bytes:
+    repository_root, environment = git_context(cwd)
     completed = subprocess.run(
         ["git", *arguments],
-        cwd=cwd or ROOT,
-        env=git_environment(),
+        cwd=repository_root,
+        env=environment,
         check=True,
         capture_output=True,
         text=not binary,
@@ -306,10 +330,11 @@ def assert_clean_worktree() -> None:
 
 
 def assert_tag_absent(tag: str) -> None:
+    repository_root, environment = git_context()
     completed = subprocess.run(
         ["git", "show-ref", "--verify", "--quiet", f"refs/tags/{tag}"],
-        cwd=ROOT,
-        env=git_environment(),
+        cwd=repository_root,
+        env=environment,
         check=False,
     )
     if completed.returncode == 0:

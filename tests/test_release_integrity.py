@@ -535,6 +535,108 @@ def test_hostile_git_repository_selectors_are_removed(monkeypatch: pytest.Monkey
     assert Path(environment["GIT_CONFIG_VALUE_0"]).resolve() == release.ROOT.resolve()
 
 
+@pytest.fixture
+def empty_git_worktree(tmp_path: Path) -> Path:
+    """Create only empty Git metadata; this fixture never creates a commit."""
+    root = tmp_path / "worktree"
+    root.mkdir()
+    subprocess.run(
+        ["git", "init", "--quiet"],
+        cwd=root,
+        env=release.git_environment(cwd=root),
+        check=True,
+        capture_output=True,
+    )
+    return root
+
+
+@pytest.mark.parametrize("operation", ["git", "tag_absence"])
+def test_git_context_rejects_plain_nested_snapshot(
+    empty_git_worktree: Path, monkeypatch: pytest.MonkeyPatch, operation: str
+) -> None:
+    snapshot = empty_git_worktree / "audit" / "snapshot"
+    snapshot.mkdir(parents=True)
+    monkeypatch.setattr(release, "ROOT", snapshot)
+    monkeypatch.setenv("GIT_CEILING_DIRECTORIES", str(snapshot.anchor))
+    real_run = subprocess.run
+    calls = []
+
+    def observed_run(arguments, **kwargs):
+        calls.append(arguments)
+        return real_run(arguments, **kwargs)
+
+    monkeypatch.setattr(release.subprocess, "run", observed_run)
+    with pytest.raises(RuntimeError, match="independent Git worktree root"):
+        if operation == "git":
+            release.git(["status", "--porcelain=v1"])
+        else:
+            release.assert_tag_absent("v-synthetic")
+    assert calls == [["git", "rev-parse", "--show-toplevel"]]
+
+
+def test_git_context_accepts_explicit_worktree_root(
+    empty_git_worktree: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    unrelated = tmp_path / "plain-snapshot"
+    unrelated.mkdir()
+    monkeypatch.setattr(release, "ROOT", unrelated)
+    monkeypatch.setenv("GIT_DIR", str(unrelated))
+    monkeypatch.setenv("GIT_WORK_TREE", str(unrelated))
+    environment = release.git_environment(cwd=empty_git_worktree)
+    assert Path(environment["GIT_CONFIG_VALUE_0"]) == empty_git_worktree.resolve()
+    assert Path(environment["GIT_CEILING_DIRECTORIES"]) == empty_git_worktree.parent.resolve()
+    assert release.git(["status", "--porcelain=v1"], cwd=empty_git_worktree) == ""
+
+
+def test_git_context_rejects_a_reported_ancestor(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    snapshot = tmp_path / "snapshot"
+    snapshot.mkdir()
+    monkeypatch.setattr(release, "ROOT", snapshot)
+    calls = []
+
+    def run(arguments, **kwargs):
+        calls.append(arguments)
+        return subprocess.CompletedProcess(arguments, 0, str(tmp_path) + "\n", "")
+
+    monkeypatch.setattr(release.subprocess, "run", run)
+    with pytest.raises(RuntimeError, match="root differs from requested directory"):
+        release.git(["status", "--porcelain=v1"])
+    assert calls == [["git", "rev-parse", "--show-toplevel"]]
+
+
+def test_git_context_accepts_gitfile_and_preserves_binary_output(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Linked worktrees have a .git file. Git supplies their resolved root; this
+    # adapter must not assume that .git is a directory or change archive bytes.
+    (tmp_path / ".git").write_text("gitdir: synthetic-administration\n", encoding="utf-8")
+    calls = []
+
+    def run(arguments, **kwargs):
+        calls.append((arguments, kwargs))
+        if arguments == ["git", "rev-parse", "--show-toplevel"]:
+            assert kwargs["text"] is True
+            return subprocess.CompletedProcess(arguments, 0, str(tmp_path.resolve()) + "\n", "")
+        assert arguments == ["git", "archive", "--format=tar", "HEAD"]
+        assert kwargs["text"] is False
+        return subprocess.CompletedProcess(arguments, 0, b"synthetic\x00archive\xff", b"")
+
+    monkeypatch.setattr(release.subprocess, "run", run)
+    observed = release.git(["archive", "--format=tar", "HEAD"], cwd=tmp_path, binary=True)
+    assert observed == b"synthetic\x00archive\xff"
+    assert len(calls) == 2
+    assert all(kwargs["cwd"] == tmp_path.resolve() for _, kwargs in calls)
+
+
+def test_git_context_tag_absence_accepts_empty_worktree(
+    empty_git_worktree: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(release, "ROOT", empty_git_worktree)
+    release.assert_tag_absent("v-synthetic")
+
+
 def test_release_allowlist_rejects_path_traversal() -> None:
     names = ["a.pdf", "a.html", "s.pdf", "s.html", "../README.md", "SHA256SUMS", "id.json"]
     with pytest.raises(RuntimeError, match="portable basename"):
@@ -1252,11 +1354,27 @@ def test_duplicate_overlay_key_is_rejected(
         verifier.strict_json_object(path)
 
 
-def test_candidate_overlay_cannot_authorize_tag_context() -> None:
+def test_candidate_overlay_cannot_authorize_tag_context(monkeypatch: pytest.MonkeyPatch) -> None:
     environment = os.environ.copy()
     environment.update({"GITHUB_REF": "refs/tags/v1.0.7", "GITHUB_REF_TYPE": "tag"})
 
+    def forbidden(_environment):
+        raise AssertionError("A forbidden tag context must stop before historical proof")
+
+    monkeypatch.setattr(verifier, "atlas_publication_overlay_present", forbidden)
     with pytest.raises(RuntimeError, match="cannot authorize a tag-event"):
+        verifier.candidate_document_commit(environment)
+
+
+def test_candidate_atlas_tag_still_requires_committed_proof(monkeypatch: pytest.MonkeyPatch) -> None:
+    environment = dict(os.environ, GITHUB_REF=f"refs/tags/{verifier.ATLAS_RELEASE_TAG}",
+                       GITHUB_REF_TYPE="tag")
+
+    def missing_proof(_environment):
+        raise RuntimeError("Synthetic missing historical proof")
+
+    monkeypatch.setattr(verifier, "atlas_publication_overlay_present", missing_proof)
+    with pytest.raises(RuntimeError, match="Synthetic missing historical proof"):
         verifier.candidate_document_commit(environment)
 
 
@@ -1352,6 +1470,29 @@ def test_verifier_git_environment_removes_hostile_repository_selectors() -> None
         assert name not in sanitized
     assert sanitized["GIT_NO_REPLACE_OBJECTS"] == "1"
     assert sanitized["GIT_CONFIG_VALUE_0"] == str(verifier.ROOT.resolve())
+    assert sanitized["GIT_CEILING_DIRECTORIES"] == str(verifier.ROOT.resolve().parent)
+
+
+def test_verifier_cannot_discover_an_enclosing_repository(
+    empty_git_worktree: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    snapshot = empty_git_worktree / "audit" / "snapshot"
+    snapshot.mkdir(parents=True)
+    monkeypatch.setattr(verifier, "ROOT", snapshot)
+    environment = dict(os.environ, GIT_DIR=str(empty_git_worktree / ".git"),
+                       GIT_CEILING_DIRECTORIES=str(snapshot.anchor))
+    with pytest.raises(RuntimeError, match="independent Git worktree root"):
+        verifier.capture_git(["status", "--porcelain=v1"], environment=environment)
+
+
+@pytest.mark.parametrize("binary", [False, True])
+def test_verifier_accepts_its_own_empty_repository_without_commits(
+    empty_git_worktree: Path, monkeypatch: pytest.MonkeyPatch, binary: bool,
+) -> None:
+    monkeypatch.setattr(verifier, "ROOT", empty_git_worktree)
+    value = verifier.capture_git(["rev-parse", "--show-prefix"],
+                                 environment=dict(os.environ), binary=binary)
+    assert value == (b"\n" if binary else "\n")
 
 
 def test_candidate_document_boundary_runs_no_document_builder(
@@ -1410,9 +1551,12 @@ def test_frozen_document_byte_drift_is_rejected(monkeypatch: pytest.MonkeyPatch)
 
 
 def test_focused_verification_requires_tracked_manifest_inventory(
-    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    (tmp_path / ".git").mkdir()
+    (tmp_path / "MANIFEST.sha256").write_text("fixture manifest\n", encoding="utf-8")
     commands: list[list[str]] = []
+    monkeypatch.setattr(verifier, "ROOT", tmp_path)
     monkeypatch.setattr(verifier, "verify_runtime", lambda _environment: None)
     monkeypatch.setattr(verifier, "cffconvert_command", lambda: ["cffconvert", "--validate"])
     monkeypatch.setattr(

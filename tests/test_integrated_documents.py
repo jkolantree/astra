@@ -176,30 +176,56 @@ class IntegratedDocumentTests(unittest.TestCase):
 
     def test_declared_figure_positive_then_hash_link_active_and_unused_mutations(self):
         with tempfile.TemporaryDirectory() as d:
-            root=Path(d); manuscript=root/'manuscript/integrated-draft';manuscript.mkdir(parents=True)
+            root=Path(d)
+            manuscript=root/'manuscript/integrated-draft'
+            manuscript.mkdir(parents=True)
             declaration={'status':'DECLARED_FIGURE_INPUTS_NOT_ADMISSION','figures':{}}
             for i in range(13):
-                relative=f'resources/integrated-edition-proposal/generated/{i+1:02}_test.svg';target=root/relative;target.parent.mkdir(parents=True,exist_ok=True)
+                relative=f'resources/integrated-edition-proposal/generated/{i+1:02}_test.svg'
+                target=root/relative
+                target.parent.mkdir(parents=True,exist_ok=True)
                 target.write_text('<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>')
                 declaration['figures']['../../'+relative]={'source_path':relative,'sha256':builder.sha256(target),'title':'Test','scope':'Fixture'}
-            url=next(iter(declaration['figures']));target=root/declaration['figures'][url]['source_path'];original=target.read_text()
-            record=manuscript/'figure-inputs.json';record.write_text(json.dumps(declaration))
+            url=next(iter(declaration['figures']))
+            target=root/declaration['figures'][url]['source_path']
+            original=target.read_text()
+            record=manuscript/'figure-inputs.json'
+            record.write_text(json.dumps(declaration))
             with patch.multiple(builder,ROOT=root,MANUSCRIPT=manuscript):
                 builder.declared_figure(manuscript/'source.md',url)
-                unused=list(declaration['figures'])[-1];bad=copy.deepcopy(declaration);bad['figures'][unused]={};record.write_text(json.dumps(bad))
-                with self.assertRaisesRegex(RuntimeError,'Malformed figure'):builder.declared_figure(manuscript/'source.md',url)
-                bad=copy.deepcopy(declaration);bad['figures'].pop(unused);record.write_text(json.dumps(bad))
-                with self.assertRaisesRegex(RuntimeError,'Exact thirteen'):builder.declared_figure(manuscript/'source.md',url)
+                unused=list(declaration['figures'])[-1]
+                bad=copy.deepcopy(declaration)
+                bad['figures'][unused]={}
+                record.write_text(json.dumps(bad))
+                with self.assertRaisesRegex(RuntimeError,'Malformed figure'):
+                    builder.declared_figure(manuscript/'source.md',url)
+                bad=copy.deepcopy(declaration)
+                bad['figures'].pop(unused)
+                record.write_text(json.dumps(bad))
+                with self.assertRaisesRegex(RuntimeError,'Exact thirteen'):
+                    builder.declared_figure(manuscript/'source.md',url)
                 record.write_text('{"figures":{},"figures":{}}')
-                with self.assertRaisesRegex(RuntimeError,'Duplicate figure'):builder.declared_figure(manuscript/'source.md',url)
-                record.write_text(json.dumps(declaration));target.write_text('<svg/>')
-                with self.assertRaisesRegex(RuntimeError,'bytes mismatch'):builder.declared_figure(manuscript/'source.md',url)
-                target.write_text('<svg><script>bad()</script></svg>');declaration['figures'][url]['sha256']=builder.sha256(target);record.write_text(json.dumps(declaration))
-                with self.assertRaisesRegex(RuntimeError,'Active declared SVG'):builder.declared_figure(manuscript/'source.md',url)
-                target.unlink();target.symlink_to(root/'missing')
-                with self.assertRaisesRegex(RuntimeError,'Linked or missing'):builder.declared_figure(manuscript/'source.md',url)
-                target.unlink();target.write_text(original);declaration['figures'][url]['sha256']=builder.sha256(target);record.write_text(json.dumps(declaration))
-                with self.assertRaisesRegex(RuntimeError,'Only local declared'):builder.declared_figure(manuscript/'source.md','https://invalid/image.svg')
+                with self.assertRaisesRegex(RuntimeError,'Duplicate figure'):
+                    builder.declared_figure(manuscript/'source.md',url)
+                record.write_text(json.dumps(declaration))
+                target.write_text('<svg/>')
+                with self.assertRaisesRegex(RuntimeError,'bytes mismatch'):
+                    builder.declared_figure(manuscript/'source.md',url)
+                target.write_text('<svg><script>bad()</script></svg>')
+                declaration['figures'][url]['sha256']=builder.sha256(target)
+                record.write_text(json.dumps(declaration))
+                with self.assertRaisesRegex(RuntimeError,'Active declared SVG'):
+                    builder.declared_figure(manuscript/'source.md',url)
+                target.unlink()
+                target.symlink_to(root/'missing')
+                with self.assertRaisesRegex(RuntimeError,'Linked or missing'):
+                    builder.declared_figure(manuscript/'source.md',url)
+                target.unlink()
+                target.write_text(original)
+                declaration['figures'][url]['sha256']=builder.sha256(target)
+                record.write_text(json.dumps(declaration))
+                with self.assertRaisesRegex(RuntimeError,'Only local declared'):
+                    builder.declared_figure(manuscript/'source.md','https://invalid/image.svg')
 
     def test_citation_bounds_and_bc008_classification(self):
         references = json.loads((ROOT / "docs/integrated-core/source-references.json").read_text())["references"]

@@ -52,6 +52,11 @@ validation contracts with
 reserved canonical URLs. This scoped integration does not publish the two new
 schema endpoints; their URLs are not claimed live after this deployment.
 
+The current website uses `pages-admission-current-v1.schema.json` and a separate
+`evidence/pages_admission_current.json` record. It covers the reviewed current
+shell while retaining the immutable release routes and prior admission records.
+Its canonical URL is reserved; validation uses the shipped schema. The current
+publication review distinguishes owner authorization from agent visual review.
 Schema names carry an independent revision (`v1`). A scientific release may
 therefore update from, for example, v1.0.6 to v1.0.7 without changing a schema
 whose contract is unchanged. Published schema revisions are immutable; a
