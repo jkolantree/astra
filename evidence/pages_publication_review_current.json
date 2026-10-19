@@ -1,5 +1,5 @@
 {
-  "candidate_sha256": "5a22c9b53dcb11bbcda4f01af77081040bb24070dfed988dfbf1dba98aaa6a76",
+  "candidate_sha256": "2fe477e46712c998f7650f8266225a2ded403aedd8c46ead59e991a59899fb60",
   "coverage": {
     "assistive_technology": "not-tested",
     "console_and_network": "not-tested",
@@ -18,7 +18,7 @@
   },
   "visual_review": {
     "basis": "Awaiting inspection of the exact workflow preview artifact; no browser acceptance is recorded yet.",
-    "content_sha256": "cda35f3b4029496ac6a87852a424a4935ae7871340eef8794f0aebcf9c048272",
+    "content_sha256": "9ad5f1057be127c648cfd10d9dd25076a72366b321914b1d178cccdb6c57ac24",
     "owner_visual_review_claimed": false,
     "reviewer": "Codex agent",
     "scope": "Current admitted source pages and companion presentation; no scientific or release validation is inferred.",
