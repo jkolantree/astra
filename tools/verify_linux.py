@@ -522,7 +522,8 @@ def run_current_development(verify: Any, environment: dict[str, str]) -> dict[st
     environment = dict(environment, PATH=os.pathsep.join((str(node_directory), environment["PATH"])))
     source_names = [path.relative_to(ROOT).as_posix() for path in selected]
     link_code = (
-        "from pathlib import Path;from tools.check_repository_links import check_repository_links;"
+        "import sys;from pathlib import Path;sys.path.insert(0,str(Path.cwd()));"
+        "from tools.check_repository_links import check_repository_links;"
         "print(check_repository_links(sources=[Path(p).absolute() for p in "
         f"{[name for name in source_names if name.endswith('.md')]!r}]))"
     )

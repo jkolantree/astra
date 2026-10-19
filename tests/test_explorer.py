@@ -199,7 +199,7 @@ def test_production_docs_are_unchanged_and_candidate_is_bounded() -> None:
     # Keep the legacy node name referenced by retained routing evidence.
     from tools.build_pages_admission import docs_entries
 
-    assert docs_entries()
+    assert docs_entries(current=True)
 
 
 def test_candidate_explorer_has_exact_bounded_roster() -> None:

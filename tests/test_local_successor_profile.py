@@ -4,6 +4,7 @@ from __future__ import annotations
 import copy
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -87,6 +88,15 @@ def test_wrong_digest_stops_before_payload_or_candidate_checks(
         raise AssertionError("Payload checks must not start with an untrusted contract")
 
     monkeypatch.setattr(profile, "observe_payload", forbidden)
+    # Exercise each contract in its own explicit context, regardless of whether
+    # pytest itself is running in GitHub Actions or from a tag.
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+    monkeypatch.delenv("GITHUB_REF", raising=False)
+    for variable, value in (("GITHUB_ACTIONS", "true"), ("GITHUB_REF", "refs/tags/fixture")):
+        with monkeypatch.context() as hosted:
+            hosted.setenv(variable, value)
+            with pytest.raises(RuntimeError, match="unavailable in hosted or tag contexts"):
+                profile.run(root, str(path), "0" * 64)
     with pytest.raises(RuntimeError, match="External contract digest differs"):
         profile.run(root, str(path), "0" * 64)
 
@@ -200,14 +210,34 @@ def test_cross_host_result_cannot_omit_or_substitute_test_identity(
     assert result["status"] == ("PASS" if fault is None else "FAIL")
 
 
-def test_host_scratch_traversal_is_rejected_before_writes(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    monkeypatch.setattr(profile.platform, "system", lambda: "Linux")
-    monkeypatch.setattr(profile.platform, "python_version", lambda: "3.12.10")
-    monkeypatch.setattr(profile, "observe_payload", lambda *_: [])
-    with pytest.raises(RuntimeError, match="Unsafe host scratch path"):
-        profile.run_host_tests(tmp_path, {}, str(tmp_path / ".." / "escaped"))
+def test_host_scratch_traversal_is_rejected_before_writes(tmp_path: Path) -> None:
+    # The host entrypoint requires a genuinely isolated interpreter. The outer
+    # current-development suite intentionally uses -P -s -B rather than -I.
+    # Model only the platform precondition; leave flags and path guards real.
+    code = """
+import sys
+from pathlib import Path
+from unittest.mock import patch
+sys.path.insert(0, sys.argv[1])
+from tools import local_successor_profile as profile
+with patch.object(profile.platform, "system", return_value="Linux"), \\
+     patch.object(profile.platform, "python_version", return_value="3.12.10"):
+    try:
+        profile.run_host_tests(Path(sys.argv[2]), {}, sys.argv[3])
+    except RuntimeError as error:
+        assert str(error) == "Unsafe host scratch path", str(error)
+        print(str(error))
+    else:
+        raise AssertionError("Traversal was not rejected")
+"""
+    completed = subprocess.run(
+        [sys.executable, "-I", "-B", "-c", code,
+         str(Path(profile.__file__).resolve().parents[1]),
+         str(tmp_path), str(tmp_path / ".." / "escaped")],
+        text=True, capture_output=True, check=False,
+    )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    assert completed.stdout.strip() == "Unsafe host scratch path"
     assert not (tmp_path.parent / "escaped").exists()
 
 

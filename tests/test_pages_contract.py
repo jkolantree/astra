@@ -1147,7 +1147,12 @@ def test_pages_home_and_working_paper_reflow_at_narrow_widths() -> None:
                     "rootClient": width,
                     "rootScroll": width,
                     "bodyScroll": width,
-                }
+                }, (path.relative_to(ROOT).as_posix(), dimensions, page.evaluate(
+                    """() => [...document.querySelectorAll('body *')]
+                    .filter(e => e.getBoundingClientRect().right > innerWidth + 1)
+                    .slice(0, 10).map(e => ({tag: e.tagName, id: e.id,
+                    classes: String(e.className), right: e.getBoundingClientRect().right}))"""
+                ))
         browser.close()
 
 
