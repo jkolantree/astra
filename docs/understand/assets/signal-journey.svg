@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" role="img" aria-labelledby="title desc">
+  <title id="title">From a hidden source to a recorded signal</title>
+  <desc id="desc">A qualitative sequence connects source, transport and detector. Transport can sort, alter or lose material; the detector records only what it can measure. Working backward requires accounting for every stage. Arrow widths and dots carry no numerical data.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#182a35"/><stop offset="1" stop-color="#080e16"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 9 5 1 9" fill="none" stroke="#b6e6cb" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="600" height="720" rx="24" fill="url(#bg)"/>
+  <g font-family="system-ui, sans-serif" fill="#f6ecd5">
+    <text x="30" y="46" fill="#eec78b" font-size="20" letter-spacing="2">READING A SIGNAL</text>
+    <text x="30" y="94" font-family="Georgia, serif" font-size="32">The journey changes</text>
+    <text x="30" y="132" font-family="Georgia, serif" font-size="32">the sample</text>
+    <rect x="24" y="175" width="552" height="105" rx="18" fill="#203640" stroke="#5c7d83"/>
+    <circle cx="72" cy="214" r="9" fill="#eec78b"/><circle cx="95" cy="239" r="6" fill="#b6e6cb"/><circle cx="56" cy="249" r="5" fill="#92b1c8"/>
+    <text x="130" y="216" font-size="30">Source</text><text x="130" y="253" font-size="24" fill="#c0c6ca">What begins</text>
+    <path d="M300 284V317" stroke="#b6e6cb" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="24" y="329" width="552" height="125" rx="18" fill="#182a35" stroke="#5c7d83"/>
+    <path d="M52 370Q72 347 95 371T120 374M54 402Q82 382 118 403" fill="none" stroke="#b6e6cb" stroke-width="3"/>
+    <text x="142" y="370" font-size="30">Transport</text><text x="142" y="407" font-size="24" fill="#c0c6ca">What survives</text>
+    <text x="142" y="438" font-size="24" fill="#c0c6ca">Sorting · change · loss</text>
+    <path d="M300 458V491" stroke="#b6e6cb" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="24" y="503" width="552" height="105" rx="18" fill="#14202a" stroke="#5c7d83"/>
+    <path d="M58 534H104V581H58Z M68 571V558M81 571V545M94 571V554" fill="none" stroke="#b6e6cb" stroke-width="3"/>
+    <text x="142" y="543" font-size="30">Detector</text><text x="142" y="580" font-size="24" fill="#c0c6ca">What can be recorded</text>
+    <text x="300" y="657" text-anchor="middle" font-size="26" fill="#eec78b">The record is not</text>
+    <text x="300" y="691" text-anchor="middle" font-size="26" fill="#eec78b">the whole source.</text>
+  </g>
+</svg>

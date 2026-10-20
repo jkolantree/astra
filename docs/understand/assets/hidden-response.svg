@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" role="img" aria-labelledby="title desc">
+  <title id="title">The same surface reading can conceal different connections</title>
+  <desc id="desc">Two idealized containers begin with matching surface readings and receive the same brief input. Each has a surface reservoir linked to a deeper reservoir, with easier exchange in one and restricted exchange in the other. Measuring later responses can help distinguish their hidden connections. This is a qualitative reservoir schematic, not a fitted model or a measurement of a planet or brain.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#182a35"/><stop offset="1" stop-color="#080e16"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 9 5 1 9" fill="none" stroke="#b6e6cb" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="600" height="720" rx="24" fill="url(#bg)"/>
+  <g font-family="system-ui, sans-serif" fill="#f6ecd5">
+    <g text-anchor="middle">
+      <text x="300" y="46" fill="#eec78b" font-size="20" letter-spacing="2">HIDDEN CONNECTIONS</text>
+      <text x="300" y="94" font-family="Georgia, serif" font-size="32">Same surface.</text>
+      <text x="300" y="132" font-family="Georgia, serif" font-size="32">Different connections.</text>
+      <text x="300" y="190" font-size="26">Apply the same brief input</text>
+      <path d="M300 206V230H156V261M300 230H444V261" fill="none" stroke="#b6e6cb" stroke-width="3" marker-end="url(#arrow)"/>
+      <path d="M156 230V261" fill="none" stroke="#b6e6cb" stroke-width="3" marker-end="url(#arrow)"/>
+      <rect x="24" y="275" width="264" height="280" rx="22" fill="#12252d" stroke="#5c7d83"/><rect x="312" y="275" width="264" height="280" rx="22" fill="#12252d" stroke="#5c7d83"/>
+      <rect x="42" y="295" width="228" height="60" rx="12" fill="#29434b"/><rect x="330" y="295" width="228" height="60" rx="12" fill="#29434b"/>
+      <text x="156" y="333" font-size="26">Same reading</text><text x="444" y="333" font-size="26">Same reading</text>
+      <path d="M156 359V445" stroke="#b6e6cb" stroke-width="14"/><path d="M444 359V445" stroke="#b6e6cb" stroke-width="3"/>
+      <rect x="42" y="449" width="228" height="80" rx="12" fill="#203640"/><rect x="330" y="449" width="228" height="80" rx="12" fill="#203640"/>
+      <text x="156" y="499" font-size="26">Deeper reservoir</text><text x="444" y="499" font-size="26">Deeper reservoir</text>
+      <text x="156" y="596" font-size="24" fill="#b6e6cb">Easier exchange</text><text x="444" y="596" font-size="24" fill="#b6e6cb">Restricted exchange</text>
+      <text x="300" y="666" font-size="26" fill="#eec78b">Watch the later response.</text>
+    </g>
+  </g>
+</svg>

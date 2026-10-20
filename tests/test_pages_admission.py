@@ -264,7 +264,7 @@ def test_current_manifest_is_separate_and_matches_schema(current_source: Path) -
     record = checker.check_pages_admission(current=True, root=current_source)
     schema = json.loads((ROOT / "schemas/pages-admission-current-v1.schema.json").read_bytes())
     Draft7Validator(schema).validate(record)
-    assert len(record["head_shell"]["files"]) == 36
+    assert len(record["head_shell"]["files"]) == 44
     assert len(record["research_companion"]["files"]) == 40
     assert record["release_routes"] == builder.RELEASE_ROUTES
     with pytest.raises(RuntimeError, match="not explicitly admitted"):

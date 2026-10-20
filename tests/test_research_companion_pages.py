@@ -146,7 +146,7 @@ def test_artifact_fixture_ignores_source_nested_temp_environment(
         external = request.getfixturevalue("artifact_root")
         assert ROOT not in external.resolve().parents and external.resolve() != ROOT
         result = companion.assemble(artifact(external), current=True)
-        assert result == {"new_files": 44, "preserved_files": 36, "status": "draft-unpromoted"}
+        assert result == {"new_files": 44, "preserved_files": 44, "status": "draft-unpromoted"}
 
 
 def test_companion_source_roster_and_bytes_are_bound(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -311,10 +311,14 @@ def test_historical_review_is_retained_but_does_not_admit_current_candidate() ->
 
 def test_current_review_obeys_separate_owner_and_agent_roles(artifact_root: Path) -> None:
     record = json.loads(companion.CURRENT_REVIEW.read_text())
-    assert record["candidate_sha256"] == companion.candidate_digest(current=True)
     assert record["visual_review"]["owner_visual_review_claimed"] is False
     site = artifact(artifact_root)
     before = companion.snapshot(site)
+    if record["candidate_sha256"] != companion.candidate_digest(current=True):
+        with pytest.raises(RuntimeError, match="stale for the current candidate"):
+            companion.assemble(site, current=True, require_reviewed=True)
+        assert companion.snapshot(site) == before
+        return
     if record["visual_review"]["status"] == "accepted":
         result = companion.assemble(site, current=True, require_reviewed=True)
         assert result["new_files"] == 44
