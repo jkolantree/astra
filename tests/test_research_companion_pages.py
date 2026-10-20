@@ -146,7 +146,7 @@ def test_artifact_fixture_ignores_source_nested_temp_environment(
         external = request.getfixturevalue("artifact_root")
         assert ROOT not in external.resolve().parents and external.resolve() != ROOT
         result = companion.assemble(artifact(external), current=True)
-        assert result == {"new_files": 44, "preserved_files": 44, "status": "draft-unpromoted"}
+        assert result == {"new_files": 44, "preserved_files": 47, "status": "draft-unpromoted"}
 
 
 def test_companion_source_roster_and_bytes_are_bound(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

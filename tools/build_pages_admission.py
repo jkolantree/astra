@@ -180,6 +180,9 @@ CURRENT_SHELL_PATHS = (
     'understand/index.html',
     'understand/persistence/index.html',
     'understand/predictions/index.html',
+    'understand/signals/index.html',
+    'understand/signals/signals.css',
+    'understand/signals/signals.js',
     'understand/understand.css',
     'understand/worlds/index.html',
 )

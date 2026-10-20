@@ -123,7 +123,13 @@ class ReadingStructure(HTMLParser):
 
 def test_reading_routes_are_available_without_script_or_disclosure_controls() -> None:
     reading = ROOT / "docs/understand"
-    for path in sorted(reading.rglob("*.html")):
+    # Preserve the existing static-reading contract. The separate signals route
+    # has progressive enhancement and is checked explicitly below.
+    for route in (
+        "index.html", "worlds/index.html", "geometry/index.html",
+        "predictions/index.html", "persistence/index.html", "connections/index.html",
+    ):
+        path = reading / route
         text = path.read_text(encoding="utf-8")
         parser = ReadingStructure()
         parser.feed(text)
@@ -146,6 +152,51 @@ def test_reading_routes_are_available_without_script_or_disclosure_controls() ->
     landing.feed((reading / "index.html").read_text(encoding="utf-8"))
     assert sum(tag == "article" and attrs.get("class") == "card"
                for tag, attrs in landing.elements) == 8
+
+
+def test_signal_explainer_has_local_progressive_enhancement_and_accessible_structure() -> None:
+    """Source contracts only; this is not rendered accessibility verification."""
+    page = ROOT / "docs/understand/signals/index.html"
+    text = page.read_text(encoding="utf-8")
+    parser = ReadingStructure()
+    parser.feed(text)
+    tags = Counter(tag for tag, _ in parser.elements)
+    ids = [attrs["id"] for _, attrs in parser.elements if "id" in attrs]
+    assert tags["h1"] == tags["main"] == 1
+    assert tags["noscript"] >= 1
+    assert len(ids) == len(set(ids))
+    assert ("a", {"class": "skip", "href": "#main"}) in parser.elements
+    assert ("html", {"lang": "en-US"}) in parser.elements
+    assert not {"iframe", "dialog", "canvas"} & tags.keys()
+    scripts = [attrs for tag, attrs in parser.elements if tag == "script"]
+    assert len(scripts) == 1
+    assert scripts[0].get("src") == "signals.js" and "defer" in scripts[0]
+    assert (page.parent / "signals.js").is_file()
+    assert ("href", "signals.css") in parse_html(page).references
+    labels = {attrs.get("for") for tag, attrs in parser.elements if tag == "label"}
+    controls = [(tag, attrs) for tag, attrs in parser.elements if tag in {"input", "select"}]
+    assert len(controls) >= 4
+    for tag, attrs in controls:
+        assert attrs.get("id") in labels
+        assert "disabled" not in attrs and attrs.get("tabindex") != "-1"
+        if tag == "input":
+            assert attrs.get("type") == "range"
+            assert float(str(attrs["min"])) <= float(str(attrs["value"])) <= float(str(attrs["max"]))
+            assert float(str(attrs["step"])) > 0
+    for tag, attrs in parser.elements:
+        for attribute in ("aria-labelledby", "aria-describedby"):
+            if attrs.get(attribute):
+                assert set(str(attrs[attribute]).split()) <= set(ids)
+        assert "autoplay" not in attrs
+        if tag == "nav":
+            assert attrs.get("aria-label") or attrs.get("aria-labelledby")
+        if tag == "fieldset":
+            assert attrs.get("aria-describedby") and "disabled" in attrs
+        if tag == "svg":
+            assert attrs.get("role") == "img" and attrs.get("aria-labelledby")
+    javascript = (page.parent / "signals.js").read_text(encoding="utf-8")
+    assert not re.search(r"requestAnimationFrame|setInterval|new\s+(?:Audio|WebSocket)\b", javascript)
+    assert not re.search(r"\[Insert|Integration guidance|TODO|TBD|placeholder", text, re.I)
 
 
 def test_reading_is_reachable_from_both_explorer_routes_and_returns_to_models() -> None:
@@ -192,3 +243,9 @@ def test_reading_is_reachable_from_both_explorer_routes_and_returns_to_models() 
     assert ("href", "../connections/") in framework.references
     assert ("href", "../connections/") in persistence.references
     assert ("href", "../#connections") in connections.references
+    signals = parse_html(ROOT / "docs/understand/signals/index.html")
+    assert {"pathway", "sidebands", "receiver"} <= signals.ids
+    assert ("href", "signals/") in landing.references
+    assert ("href", "../signals/") in framework.references
+    assert {("href", "../"), ("href", "../geometry/#journey"),
+            ("href", "../persistence/#neural-hypothesis")} <= set(signals.references)

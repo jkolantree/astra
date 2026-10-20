@@ -1,0 +1,66 @@
+/* The chapter inherits the published Understanding palette and typography. */
+.pathway { margin: 24px 0; }
+.evidence-chain { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 24px; margin: 20px 0; padding: 0; }
+.evidence-chain li { position: relative; padding: 16px 12px; border: 1px solid var(--line); background: var(--panel); font-size: 14px; }
+.evidence-chain strong { display: block; color: var(--gold); font-size: 16px; }
+.evidence-chain span, .evidence-chain a { display: block; margin-top: 10px; }
+.evidence-chain li:not(:last-child)::after { content: "→"; position: absolute; right: -22px; top: 18px; font-size: 20px; color: var(--muted); }
+.alternative-routes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.alternative-routes p { padding: 18px; border: 1px dashed var(--muted); font-size: 16px; }
+.pathway figcaption { font-size: 15px; color: var(--muted); }
+.controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 28px 0 16px; padding: 20px; border: 1px solid var(--line); background: var(--panel); }
+.controls legend { padding: 0 8px; color: var(--gold); }
+.controls label { display: flex; flex-direction: column; font-size: 16px; }
+.controls output { color: var(--accent); font-variant-numeric: tabular-nums; }
+.controls input { width: 100%; min-width: 0; min-height: 44px; margin: 8px 0 0; accent-color: var(--accent); cursor: pointer; }
+.controls input:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+.controls:disabled { opacity: .7; }
+.plot-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 28px 0; }
+.plot, .noise-readout, .component-table { margin: 0; min-width: 0; padding: 20px; border: 1px solid var(--line); background: var(--panel); border-radius: 4px; }
+.plot h3, .noise-readout h3 { font-size: 19px; margin: 0 0 16px; }
+.plot .axis-units { font-size: 14px; color: var(--muted); margin: 0 0 12px; }
+.plot svg { display: block; width: 100%; height: auto; overflow: visible; }
+.plot svg text { fill: var(--muted); font: 15px system-ui, sans-serif; }
+.axis { fill: none; stroke: #748895; stroke-width: 1; }
+.curve, .reference { fill: none; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.curve { stroke: var(--accent); }
+.reference { stroke: var(--gold); stroke-dasharray: 6 5; }
+.stick { stroke: var(--accent); stroke-width: 5; }
+.carrier { stroke: var(--gold); }
+.plot figcaption, .plot-key { color: var(--muted); font-size: 15px; line-height: 1.6; margin-top: 18px; }
+.component-table { align-self: start; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; font-variant-numeric: tabular-nums; }
+caption { text-align: left; color: var(--gold); padding-bottom: 16px; }
+th, td { text-align: left; padding: 12px 6px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.metrics > div { padding: 16px; border-top: 2px solid var(--line); }
+.metrics dt { margin: 0; font-size: 14px; }
+.metrics dd { font-size: 23px; margin: 6px 0 0; font-variant-numeric: tabular-nums; }
+.result, .notice { padding: 20px; border-left: 3px solid var(--gold); background: var(--panel); }
+.readout { color: var(--accent); font-size: 21px; font-variant-numeric: tabular-nums; }
+.noise-readout p { font-size: 16px; }
+.noise-readout .readout { font-size: 24px; }
+@media (max-width: 960px) {
+  .evidence-chain { grid-template-columns: 1fr; gap: 24px; }
+  .evidence-chain li { padding: 14px 20px; }
+  .evidence-chain li:not(:last-child)::after { content: "↓"; top: auto; bottom: -28px; right: 50%; }
+  .evidence-chain span, .evidence-chain a { margin-top: 4px; }
+  .plot-grid { grid-template-columns: 1fr; }
+  .plot { padding: 16px 10px; }
+  .plot h3, .plot figcaption { padding: 0 8px; }
+}
+@media (max-width: 700px) {
+  .plot svg text { font-size: 30px; }
+  .plot svg .axis-title, .plot svg .axis-caption { display: none; }
+  .controls, .alternative-routes { grid-template-columns: 1fr; gap: 12px; }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .component-table { padding: 12px; }
+  th, td { padding: 10px 3px; font-size: 13px; }
+}
+@media print {
+  .controls { display: none; }
+  .plot-grid, .alternative-routes { display: block; }
+  .plot, .noise-readout, .component-table { break-inside: avoid; margin: 16px 0; }
+  .curve, .stick { stroke: #123b36; }
+  .reference, .carrier { stroke: #51401a; }
+}
