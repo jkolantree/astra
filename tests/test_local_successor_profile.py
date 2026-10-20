@@ -251,6 +251,27 @@ def test_test_file_roster_cannot_silently_omit_new_tests(tmp_path: Path) -> None
         profile.validate_test_roster(tmp_path)
 
 
+def test_documentation_javascript_is_checked_text_not_a_public_admission(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from tools import check_repository as checker
+
+    script = tmp_path / "docs/understand/signals/signals.js"
+    script.parent.mkdir(parents=True)
+    script.write_text("const value = 1;\n", encoding="utf-8")
+    monkeypatch.setattr(checker, "ROOT", tmp_path)
+    assert profile.public_check_projection(tmp_path, [script], checker) == [script]
+    checker.check_text_privacy([script])
+    script.write_text("// C:" + chr(92) + "private\n", encoding="utf-8")
+    with pytest.raises(RuntimeError, match="local Windows path"):
+        checker.check_text_privacy([script])
+    # Register this source type only for documentation. Other suffixes and
+    # directories still fail; Pages admission separately binds the exact roster.
+    for name in ("docs/unexpected.exe", "scripts/unregistered.js"):
+        with pytest.raises(RuntimeError, match="Unregistered suffix"):
+            profile.public_check_projection(tmp_path, [tmp_path / name], checker)
+
+
 @pytest.mark.parametrize("skipped", [0, 1])
 def test_test_process_rejects_skips_even_with_success_exit(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, skipped: int,
