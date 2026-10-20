@@ -13,6 +13,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 EXPLORER = ROOT / "resources/sppt-scm-research-companion/draft-v0.1.0/explorer"
 PAGE = EXPLORER / "index.html"
+SIGNALS = ROOT / "docs/understand/signals"
 
 
 def script(name: str) -> str:
@@ -64,6 +65,320 @@ for(const time of [0,1,4,30]){
 }
 '''
     subprocess.run([node, "-e", script("model-code") + assertions], check=True)
+
+
+def run_signal_model_assertions(assertions: str) -> None:
+    """Execute the actual page model in Node, without a browser or DOM."""
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("Node is required for the optional signal-model calculation diagnostic")
+    preamble = "const Model=require(" + json.dumps(str(SIGNALS / "signals.js")) + ");\n"
+    preamble += r'''
+const assert=require('node:assert/strict');
+const near=(actual,expected,rtol=1e-11,atol=0)=>{
+ assert.ok(Number.isFinite(actual), `Nonfinite result: ${actual}`);
+ assert.ok(Math.abs(actual-expected)<=atol+rtol*Math.abs(expected),
+  `${actual} != ${expected}`);
+};
+'''
+    subprocess.run([node], input=preamble + assertions, text=True, check=True)
+
+
+def test_signal_modulation_reconstructs_real_sidebands_with_correct_phases() -> None:
+    run_signal_model_assertions(r'''
+assert.equal(Model.yearDays,365.25);
+for(const depth of [0,.2,.7,1])for(const phase of [-2.4,0,.8,Math.PI]){
+ const components=Model.components(depth,phase).sort((a,b)=>a.frequency-b.frequency);
+ assert.equal(components.length,3);
+ const [lower,carrier,upper]=components;
+ near(carrier.frequency,1);
+ near(upper.frequency-carrier.frequency,1/365.25);
+ near(carrier.frequency-lower.frequency,1/365.25);
+ near(carrier.amplitude,1);
+ near(lower.amplitude,depth/2);
+ near(upper.amplitude,depth/2);
+ near(carrier.phase,0,0,1e-14);
+ // The lower sideband has -psi, the upper has +psi for phi = 0.
+ near(Math.sin(lower.phase),-Math.sin(phase),1e-11,1e-14);
+ near(Math.cos(lower.phase),Math.cos(phase),1e-11,1e-14);
+ near(Math.sin(upper.phase),Math.sin(phase),1e-11,1e-14);
+ near(Math.cos(upper.phase),Math.cos(phase),1e-11,1e-14);
+ for(const days of [0,.125,1,22.7,365.25/4,365.25,700.31]){
+  const reconstructed=components.reduce((sum,c)=>
+   sum+c.amplitude*Math.cos(2*Math.PI*c.frequency*days+c.phase),0);
+  near(Model.am(days,depth,phase),reconstructed,1e-10,2e-12);
+ }
+}
+// Under the stated 365.25-day approximation this is about 23 h 56 min,
+// not an independently measured astronomical period.
+const siderealHours=24/Model.components(1,0).find(c=>c.frequency>1).frequency;
+assert.ok(siderealHours>23.93 && siderealHours<23.94);
+''')
+
+
+def test_passive_sensor_units_scaling_and_transfer_function() -> None:
+    run_signal_model_assertions(r'''
+const boltzmann=1.380649e-23;
+const baseline=Model.sensor(1);
+for(const ratio of [.1,.25,1,2]){
+ const s=Model.sensor(ratio);
+ near(s.kappa,ratio*1e-18);
+ near(s.gamma,1e-18);
+ near(s.mu,1e-16);
+ near(s.kBT,boltzmann*300);
+ // Unit-bearing identities: tau in s, cutoff in Hz, variance in rad^2,
+ // static gain in rad/T, and input PSD in T^2/Hz.
+ near(s.tau*s.kappa,s.gamma);
+ near(s.cutoff*s.tau,1/(2*Math.PI));
+ near(s.variance*s.kappa,s.kBT);
+ near(s.staticGain*s.kappa,s.mu);
+ near(s.inputPSD*s.mu*s.mu,4*s.kBT*s.gamma);
+ near(s.tau*ratio,baseline.tau);
+ near(s.cutoff/ratio,baseline.cutoff);
+ near(s.variance*ratio,baseline.variance);
+ near(s.staticGain*ratio,baseline.staticGain);
+ near(s.inputPSD,baseline.inputPSD);
+ for(const frequency of [0,s.cutoff,10*s.cutoff,1e4*s.cutoff]){
+  const r=Model.response(frequency,ratio);
+  const scaled=frequency/s.cutoff;
+  near(r.gain/s.staticGain,1/Math.sqrt(1+scaled*scaled));
+  near(r.phase,-Math.atan(scaled),1e-11,1e-14);
+  near(Model.outputPSD(frequency,ratio)/(r.gain*r.gain),s.inputPSD);
+ }
+ near(Model.response(s.cutoff,ratio).gain,s.staticGain/Math.sqrt(2));
+ near(Model.response(s.cutoff,ratio).phase,-Math.PI/4);
+ near(Model.response(1e5*s.cutoff,ratio).gain*2*Math.PI*1e5*s.cutoff,
+  s.mu/s.gamma,1e-9);
+}
+''')
+
+
+def test_one_sided_per_hz_sensor_noise_integrates_to_equilibrium_variance() -> None:
+    run_signal_model_assertions(r'''
+for(const ratio of [.1,1,2]){
+ const s=Model.sensor(ratio);
+ near(Model.bandVariance(0,ratio),0,0,0);
+ near(Model.bandVariance(s.cutoff,ratio),s.variance/2);
+ near(Model.bandVariance(1e9*s.cutoff,ratio),s.variance,1e-8);
+ // Independent composite Simpson quadrature of the per-Hz spectrum.
+ // An accidental two-sided or per-radian convention fails this integral.
+ for(const multiple of [.2,1,5]){
+  const end=multiple*s.cutoff, intervals=4096, step=end/intervals;
+  let total=Model.outputPSD(0,ratio)+Model.outputPSD(end,ratio);
+  for(let i=1;i<intervals;i++)total+=(i%2?4:2)*Model.outputPSD(i*step,ratio);
+  const integral=step*total/3;
+  near(Model.bandVariance(end,ratio),integral,1e-10);
+  near(integral/s.variance,2*Math.atan(multiple)/Math.PI,1e-10);
+ }
+ // A spectral amplitude density is not the RMS noise in a finite band.
+ const band=Model.bandVariance(s.cutoff,ratio);
+ assert.ok(Math.abs(band-Model.outputPSD(0,ratio)*s.cutoff)>band*.2);
+ assert.ok(Model.bandVariance(2*s.cutoff,ratio)>band);
+ assert.ok(Model.bandVariance(2*s.cutoff,ratio)<s.variance);
+}
+''')
+
+
+def test_passive_sensor_step_response_has_the_stated_speed_and_static_limit() -> None:
+    run_signal_model_assertions(r'''
+for(const ratio of [.1,.5,1,2]){
+ const s=Model.sensor(ratio);
+ for(const field of [0,1e-4,1e-3]){
+  near(Model.step(0,ratio,field),0,0,0);
+  near(Model.step(s.tau,ratio,field),s.staticGain*field*(1-Math.exp(-1)));
+  near(Model.step(40*s.tau,ratio,field),s.staticGain*field);
+  near(Model.step(.01*s.tau,ratio,field),
+   -Math.expm1(-.01)*s.staticGain*field);
+ }
+ near(Model.step(s.tau,ratio),Model.step(s.tau,ratio,1e-4));
+}
+// Softening changes the final response and its settling time together;
+// equal elapsed time is not equal equilibration across stiffness settings.
+assert.ok(Model.step(1,1)/Model.sensor(1).staticGain>
+ Model.step(1,.1)/Model.sensor(.1).staticGain);
+''')
+
+
+def test_signal_models_reject_invalid_parameters_and_remain_finite_at_bounds() -> None:
+    run_signal_model_assertions(r'''
+const invalid=[NaN,Infinity,-Infinity,undefined,null,'1'];
+for(const value of invalid){
+ for(const call of [()=>Model.am(value,.5,0),()=>Model.am(1,value,0),
+  ()=>Model.am(1,.5,value),()=>Model.components(value,0),
+  ()=>Model.components(.5,value),()=>Model.sensor(value),
+  ()=>Model.response(value,1),()=>Model.response(0,value),
+  ()=>Model.outputPSD(value,1),()=>Model.outputPSD(0,value),
+  ()=>Model.bandVariance(value,1),()=>Model.bandVariance(0,value),
+  ()=>Model.step(value,1),()=>Model.step(0,value)])assert.throws(call);
+ // Omitted field has an explicit default; other invalid field values do not.
+ if(value!==undefined)assert.throws(()=>Model.step(1,1,value));
+}
+for(const value of [-.01,1.01]){
+ assert.throws(()=>Model.am(0,value,0));
+ assert.throws(()=>Model.components(value,0));
+}
+for(const value of [-Math.PI-.001,Math.PI+.001]){
+ assert.throws(()=>Model.am(0,.5,value));
+ assert.throws(()=>Model.components(.5,value));
+}
+for(const value of [-.01,2*365.25+.01])assert.throws(()=>Model.am(value,.5,0));
+for(const value of [0,.099,2.001]){
+ for(const call of [()=>Model.sensor(value),()=>Model.response(0,value),
+  ()=>Model.outputPSD(0,value),()=>Model.bandVariance(0,value),
+  ()=>Model.step(0,value)])assert.throws(call);
+}
+for(const call of [()=>Model.response(-1,1),()=>Model.outputPSD(-1,1),
+ ()=>Model.bandVariance(-1,1),()=>Model.step(-1,1),
+ ()=>Model.step(1,1,-1e-6),()=>Model.step(1,1,.00101)])assert.throws(call);
+for(const ratio of [.1,2]){
+ const s=Model.sensor(ratio);
+ for(const value of Object.values(s))assert.ok(Number.isFinite(value));
+ for(const value of [0,Number.MAX_VALUE]){
+  assert.ok(Number.isFinite(Model.response(value,ratio).gain));
+  assert.ok(Number.isFinite(Model.response(value,ratio).phase));
+  assert.ok(Number.isFinite(Model.outputPSD(value,ratio)));
+  assert.ok(Number.isFinite(Model.bandVariance(value,ratio)));
+  assert.ok(Number.isFinite(Model.step(value,ratio)));
+ }
+}
+for(const days of [0,2*365.25])for(const depth of [0,1])for(const phase of [-Math.PI,Math.PI])
+ assert.ok(Number.isFinite(Model.am(days,depth,phase)));
+''')
+
+
+@pytest.mark.parametrize("ready_state", ["loading", "complete"])
+def test_signal_control_callbacks_without_browser(ready_state: str) -> None:
+    """Actual callbacks and markup with a DOM stub, not a keyboard/layout test."""
+    from html.parser import HTMLParser
+
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("Node is required for the optional signal-control callback diagnostic")
+
+    class Elements(HTMLParser):
+        def __init__(self) -> None:
+            super().__init__()
+            self.records: dict[str, dict[str, str | None]] = {}
+
+        def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+            attributes = dict(attrs)
+            if attributes.get("id"):
+                self.records[str(attributes["id"])] = attributes
+
+    parser = Elements()
+    parser.feed((SIGNALS / "index.html").read_text(encoding="utf-8"))
+    preamble = "const records=" + json.dumps(parser.records) + ";\n"
+    preamble += "const readyState=" + json.dumps(ready_state) + ";\n"
+    preamble += r'''
+const assert=require('node:assert/strict');
+const nodes={},documentHandlers={};
+for(const [id,attrs] of Object.entries(records)){
+ nodes[id]={attrs:{...attrs},_value:attrs.value||'',handlers:{},textContent:'',
+ disabled:Object.hasOwn(attrs,'disabled'),
+ get value(){return this._value;},set value(value){this._value=String(value);},
+ setAttribute(key,value){this.attrs[key]=String(value);},
+ addEventListener(event,callback){this.handlers[event]=callback;}};
+}
+globalThis.document={readyState:readyState,
+ getElementById(id){return nodes[id]||null;},
+ addEventListener(event,callback){documentHandlers[event]=callback;}};
+assert.equal(nodes['am-controls'].disabled,true);
+assert.equal(nodes['sensor-controls'].disabled,true);
+'''
+    preamble += "require(" + json.dumps(str(SIGNALS / "signals.js")) + ");\n"
+    assertions = r'''
+if(readyState==='loading'){
+ assert.equal(nodes['am-controls'].disabled,true);
+ assert.equal(typeof documentHandlers.DOMContentLoaded,'function');
+ documentHandlers.DOMContentLoaded();
+}
+assert.equal(nodes['am-controls'].disabled,false);
+assert.equal(nodes['sensor-controls'].disabled,false);
+const update=(id,value)=>{
+ nodes[id].value=value;
+ assert.equal(typeof nodes[id].handlers.input,'function',id);
+ nodes[id].handlers.input();
+};
+const path=id=>nodes[id].attrs.d;
+const value=id=>parseFloat(nodes[id].textContent);
+const curves=['annual-envelope','time-signal','time-envelope','time-envelope-negative',
+ 'step-curve','gain-curve','noise-curve','step-curve-reference',
+ 'gain-curve-reference','noise-curve-reference'];
+// The written default figures must depict the same analytical example before
+// and after script initialization; this checks paths, not rendered appearance.
+for(const id of curves)assert.equal(path(id),records[id].d,id+' static default');
+const finiteCurves=()=>{
+ for(const id of curves){
+  assert.ok(/^M/.test(path(id)),id);
+  assert.ok(!/NaN|Infinity|undefined/.test(path(id)),id);
+ }
+};
+finiteCurves();
+assert.deepEqual([0,1,2].map(i=>value('component-amplitude-'+i)),[.3,1,.3]);
+assert.deepEqual([0,1,2].map(i=>value('component-phase-'+i)),[0,0,0]);
+assert.equal(path('step-curve'),path('step-curve-reference'));
+assert.equal(path('gain-curve'),path('gain-curve-reference'));
+assert.equal(path('noise-curve'),path('noise-curve-reference'));
+for(const depth of [0,1])for(const phase of [-180,180])for(const season of [0,360]){
+ update('modulation',depth);update('annual-phase',phase);update('season',season);
+ assert.equal(value('component-amplitude-0'),depth/2);
+ assert.equal(value('component-amplitude-1'),1);
+ assert.equal(value('component-amplitude-2'),depth/2);
+ finiteCurves();
+}
+update('modulation',.6);update('annual-phase',0);update('season',90);
+const originalSignal=path('time-signal');
+const amplitudes=[0,1,2].map(i=>nodes['component-amplitude-'+i].textContent);
+const bars=[0,1,2].map(i=>nodes['component-'+i].attrs.y2);
+update('annual-phase',90);
+assert.notEqual(path('time-signal'),originalSignal);
+assert.deepEqual([0,1,2].map(i=>nodes['component-amplitude-'+i].textContent),amplitudes);
+assert.deepEqual([0,1,2].map(i=>nodes['component-'+i].attrs.y2),bars);
+assert.ok(value('component-phase-0')<0 && value('component-phase-2')>0);
+update('annual-phase',0);
+assert.equal(path('time-signal'),originalSignal);
+
+update('stiffness',1);update('duration',5);update('bandwidth',.2);
+const inputFloor=nodes['noise-floor'].textContent;
+const referenceGain=path('gain-curve-reference'),referenceNoise=path('noise-curve-reference');
+const originalGain=value('gain-value'),originalRMS=value('rms-value');
+update('stiffness',.1);
+assert.ok(value('gain-value')>originalGain && value('rms-value')>originalRMS);
+assert.equal(nodes['noise-floor'].textContent,inputFloor);
+assert.equal(path('gain-curve-reference'),referenceGain);
+assert.equal(path('noise-curve-reference'),referenceNoise);
+const responseGain=path('gain-curve'),responseNoise=path('noise-curve');
+const shortStep=path('step-curve'),shortEnd=value('step-end');
+update('duration',30);
+assert.notEqual(path('step-curve'),shortStep);
+assert.ok(value('step-end')>shortEnd);
+assert.equal(value('step-end'),30); // The x-axis is elapsed seconds, not angle.
+assert.equal(path('gain-curve'),responseGain);
+assert.equal(path('noise-curve'),responseNoise);
+const lowBand=value('band-rms');
+update('bandwidth',2);
+assert.ok(value('band-rms')>lowBand);
+assert.equal(path('gain-curve'),responseGain);
+assert.equal(path('noise-curve'),responseNoise);
+assert.equal(nodes['noise-floor'].textContent,inputFloor);
+for(const ratio of [.1,2])for(const duration of [.2,30])for(const bandwidth of [.01,2]){
+ update('stiffness',ratio);update('duration',duration);update('bandwidth',bandwidth);
+ const near=(actual,expected)=>assert.ok(Math.abs(actual/expected-1)<.005);
+ near(value('gain-value'),100/ratio);
+ near(value('rms-value'),Math.sqrt(1.380649e-23*300/(ratio*1e-18)));
+ near(value('tau-value'),1/ratio);
+ near(value('cutoff-value'),ratio/(2*Math.PI));
+ near(value('band-rms'),Math.sqrt(2*1.380649e-23*300/(Math.PI*ratio*1e-18)*
+  Math.atan(bandwidth*2*Math.PI/ratio)));
+ assert.ok(value('band-rms')<=value('rms-value'));
+ assert.equal(nodes['noise-floor'].textContent,inputFloor);
+ finiteCurves();
+ assert.ok(nodes['am-summary'].textContent.includes('Synthetic analytical signal'));
+ assert.ok(nodes['sensor-summary'].textContent.includes('Conditional equilibrium model'));
+}
+console.log('Signal callbacks passed; actual browser behavior remains untested.');
+'''
+    subprocess.run([node], input=preamble + assertions, text=True, check=True)
 
 
 def test_local_fragments_and_no_external_runtime() -> None:

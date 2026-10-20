@@ -55,11 +55,11 @@
         },
         "files": {
           "type": "array",
-          "minItems": 44,
+          "minItems": 47,
           "items": {
             "$ref": "#/definitions/file"
           },
-          "maxItems": 44
+          "maxItems": 47
         }
       }
     },

@@ -197,14 +197,14 @@
         "sha256": "431b26715cbfbee5defd4e1719532a328b42513f35d89e210c0917d6830d8292"
       },
       {
-        "bytes": 18669,
+        "bytes": 18776,
         "path": "understand/geometry/index.html",
-        "sha256": "98f1d1f95fed506e1b27454f4dc2c10330d23df6e2a8da5f6856abb5dcc1f885"
+        "sha256": "ff05858808b8168da0b801527e6419be9b4dfeecbcaa22fa930d7884dee2abc2"
       },
       {
-        "bytes": 23754,
+        "bytes": 24053,
         "path": "understand/index.html",
-        "sha256": "685731cfbeacdf52376ae761355d77a1fca5fa75990d7bdafadc3d11901e9d02"
+        "sha256": "e49b7035f5e07015180f2c88f5290ce66dcf0925dfd4288048d486df133a0dac"
       },
       {
         "bytes": 20287,
@@ -215,6 +215,21 @@
         "bytes": 32353,
         "path": "understand/predictions/index.html",
         "sha256": "d1b77c6da28d15a9338cd263e20c5fefb8165f53145458189c33a86a0838300c"
+      },
+      {
+        "bytes": 60668,
+        "path": "understand/signals/index.html",
+        "sha256": "e5441e749cf266221387f3c1dc25eaec4ae7584fca4faca6c4982f38505d6d3b"
+      },
+      {
+        "bytes": 4505,
+        "path": "understand/signals/signals.css",
+        "sha256": "b579e13fd5f670188013ddacf4c6eb419f52e9bfb27cc4b8cbe03d99f452a9d6"
+      },
+      {
+        "bytes": 10543,
+        "path": "understand/signals/signals.js",
+        "sha256": "cddd4f654a9962a9e63a6e896d3537bbe08ea464c1baa5e50234b09e89921c8a"
       },
       {
         "bytes": 5856,
